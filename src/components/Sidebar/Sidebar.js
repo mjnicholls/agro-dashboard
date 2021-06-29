@@ -80,9 +80,11 @@ const Sidebar = (props) => {
   };
   // this function creates the links and collapses that appear in the sidebar (left menu)
   const createLinks = (routes) => {
+
     const { rtlActive } = props;
     return routes.map((prop, key) => {
-      if (prop.redirect) {
+
+      if (prop.redirect || prop.hidden) {
         return null;
       }
       if (prop.collapse) {

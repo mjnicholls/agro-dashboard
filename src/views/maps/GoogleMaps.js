@@ -33,9 +33,7 @@ const SatelliteMap = () => {
       scrollwheel: false,
       mapTypeId: window.google.maps.MapTypeId.SATELLITE,
     };
-
     map = new google.maps.Map(map, mapOptions);
-
     const marker = new google.maps.Marker({
       position: myLatlng,
       map: map,

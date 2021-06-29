@@ -20228,7 +20228,7 @@ svg {
 
 .jvectormap-tip {
   position: absolute;
-  display: none;
+  /*display: none;*/
   color: #344675;
   line-height: 1.5em;
   background: #ffffff;

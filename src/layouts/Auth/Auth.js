@@ -23,9 +23,9 @@ import Footer from "components/Footer/Footer.js";
 import routes from "routes.js";
 
 const Pages = (props) => {
-  React.useEffect(() => {
-    document.documentElement.classList.remove("nav-open");
-  });
+  // React.useEffect(() => {
+  //   document.documentElement.classList.remove("nav-open");
+  // });
   const getRoutes = (routes) => {
     return routes.map((prop, key) => {
       if (prop.collapse) {
@@ -44,6 +44,7 @@ const Pages = (props) => {
       }
     });
   };
+
   const getActiveRoute = (routes) => {
     let activeRoute = "Default Brand Text";
     for (let i = 0; i < routes.length; i++) {

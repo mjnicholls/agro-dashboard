@@ -95,7 +95,7 @@ black-dashboad-pro-react
 ├── public
 │   └── index.html
 └── src
-    ├── index.js
+    ├── user.js
     ├── routes.js
     ├── logo.svg
     ├── assets

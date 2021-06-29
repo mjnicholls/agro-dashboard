@@ -16,7 +16,6 @@
 */
 import React from "react";
 import classnames from "classnames";
-// reactstrap components
 import {
   Button,
   Card,
@@ -25,6 +24,7 @@ import {
   CardFooter,
   CardTitle,
   Form,
+  FormText,
   Input,
   InputGroupAddon,
   InputGroupText,
@@ -32,17 +32,50 @@ import {
   Container,
   Col,
 } from "reactstrap";
+import { useDispatch, useSelector } from 'react-redux';
+import { validateEmail } from "../../utils/validation";
+import { loginUser, clearLoginError } from '../../features/auth/actions'
+import { Redirect } from "react-router-dom";
 
-const Login = () => {
+const isAuthenticatedSelector = state => state.auth.isAuthenticated;
+const errorMessageSelector = state => state.auth.errorMessage;
+
+const Login = (props) => {
   const [state, setState] = React.useState({});
+  const [errors, setErrors] = React.useState({});
+  let { from } = props.location.state || { from: { pathname: "/dashboard" } };
+  const isAuthenticated = useSelector(isAuthenticatedSelector);
+  const errorMessage = useSelector(errorMessageSelector);
+
+  const dispatch = useDispatch();
+
   React.useEffect(() => {
     document.body.classList.toggle("login-page");
     return function cleanup() {
       document.body.classList.toggle("login-page");
     };
   });
-  return (
-    <>
+
+  const clearErrors = () => {
+    setErrors({});
+    dispatch(clearLoginError())
+  }
+
+  const onSubmitLogin = () => {
+    clearErrors();
+    if (!state.email || !validateEmail(state.email)) {
+      setErrors({email: true})
+      return
+    }
+    if (!state.password) {
+      setErrors({password: true})
+      return
+    }
+    dispatch(loginUser(state.email, state.password))
+  };
+
+  return isAuthenticated ?
+    <Redirect to={from} /> : <>
       <div className="content">
         <Container>
           <Col className="ml-auto mr-auto" lg="4" md="6">
@@ -59,6 +92,7 @@ const Login = () => {
                   <InputGroup
                     className={classnames({
                       "input-group-focus": state.emailFocus,
+                      "has-danger": errors.email
                     })}
                   >
                     <InputGroupAddon addonType="prepend">
@@ -66,16 +100,19 @@ const Login = () => {
                         <i className="tim-icons icon-email-85" />
                       </InputGroupText>
                     </InputGroupAddon>
-                    <Input
-                      placeholder="Email"
-                      type="text"
-                      onFocus={(e) => setState({ ...state, emailFocus: true })}
-                      onBlur={(e) => setState({ ...state, emailFocus: false })}
-                    />
+                      <Input
+                        placeholder="Email"
+                        type="text"
+                        onChange={(e) => setState({...state, email: e.target.value})}
+                        onFocus={() => setState({ ...state, emailFocus: true })}
+                        onBlur={() => setState({ ...state, emailFocus: false })}
+                      />
                   </InputGroup>
+
                   <InputGroup
                     className={classnames({
                       "input-group-focus": state.passFocus,
+                      "has-danger": errors.password
                     })}
                   >
                     <InputGroupAddon addonType="prepend">
@@ -85,11 +122,14 @@ const Login = () => {
                     </InputGroupAddon>
                     <Input
                       placeholder="Password"
-                      type="text"
-                      onFocus={(e) => setState({ ...state, passFocus: true })}
-                      onBlur={(e) => setState({ ...state, passFocus: false })}
+                      type="password"
+                      onChange={(e) => setState({...state, password: e.target.value})}
+                      onFocus={() => setState({ ...state, passFocus: true })}
+                      onBlur={() => setState({ ...state, passFocus: false })}
                     />
                   </InputGroup>
+                  {errors.message && <FormText color="muted">{errors.message}</FormText>}
+                  {errorMessage && <FormText color="muted">{errorMessage}</FormText>}
                 </CardBody>
                 <CardFooter>
                   <Button
@@ -97,10 +137,10 @@ const Login = () => {
                     className="mb-3"
                     color="primary"
                     href="#pablo"
-                    onClick={(e) => e.preventDefault()}
+                    onClick={onSubmitLogin}
                     size="lg"
                   >
-                    Get Started
+                    Sign in
                   </Button>
                   <div className="pull-left">
                     <h6>
@@ -131,7 +171,6 @@ const Login = () => {
         </Container>
       </div>
     </>
-  );
 };
 
 export default Login;

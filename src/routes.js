@@ -28,6 +28,8 @@ import Calendar from "views/Calendar.js";
 import Widgets from "views/Widgets.js";
 import Charts from "views/Charts.js";
 import Dashboard from "views/Dashboard.js";
+import DashboardMain from "views/DashboardMain.js";
+import PolygonSatellite from "features/polygons/PolygonSatellite.js";
 import Buttons from "views/components/Buttons.js";
 import SweetAlert from "views/components/SweetAlert.js";
 import Notifications from "views/components/Notifications.js";
@@ -42,6 +44,7 @@ import User from "views/pages/User.js";
 import Login from "views/pages/Login.js";
 import Rtl from "views/pages/Rtl.js";
 import Lock from "views/pages/Lock.js";
+import LeafletMap from 'views/maps/LeafletMap.js'
 
 const routes = [
   {
@@ -49,8 +52,17 @@ const routes = [
     name: "Dashboard",
     rtlName: "لوحة القيادة",
     icon: "tim-icons icon-chart-pie-36",
-    component: Dashboard,
+    component: DashboardMain,
     layout: "/admin",
+  },
+  {
+    path: "/polygon/:id",
+    name: "Polygon Satellite",
+    rtlName: "لوحة القيادة",
+    icon: "tim-icons icon-image-02",
+    component: PolygonSatellite,
+    layout: "/admin",
+    hidden: true
   },
   {
     collapse: true,

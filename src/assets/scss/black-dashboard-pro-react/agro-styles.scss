@@ -1,0 +1,20 @@
+.leaflet-map-container {
+    width: 100%;
+    height: 500px;
+  .leaflet-map {
+    height: 100%
+  }
+}
+
+.satellite-images-container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    overflow-x: scroll
+}
+
+.horizontal-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center
+}

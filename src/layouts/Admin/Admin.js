@@ -31,7 +31,24 @@ import routes from "routes.js";
 
 import logo from "assets/img/react-logo.png";
 
+import { useSelector } from 'react-redux'
+const isAuthenticatedSelector = state => state.auth.isAuthenticated;
+
+
+const AuthRoute = props => {
+  const isAuthenticated = useSelector(isAuthenticatedSelector);
+  if (!isAuthenticated) {
+    return <Redirect to={{
+      pathname: "/auth/login",
+      state: { from: props.location }
+    }} />
+  }
+  return <Route {...props} />;
+};
+
 var ps;
+
+
 
 const Admin = (props) => {
   const [activeColor, setActiveColor] = React.useState("blue");
@@ -98,7 +115,7 @@ const Admin = (props) => {
       }
       if (prop.layout === "/admin") {
         return (
-          <Route
+          <AuthRoute
             path={prop.layout + prop.path}
             component={prop.component}
             key={key}

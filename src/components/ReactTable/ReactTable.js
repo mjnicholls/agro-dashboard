@@ -115,6 +115,61 @@ function Table({ columns, data }) {
     <>
       <div className="ReactTable -striped -highlight">
         <div className="pagination-top">
+        </div>
+        <table {...getTableProps()} className="rt-table">
+          <thead className="rt-thead -header">
+            {headerGroups.map((headerGroup) => (
+              <tr {...headerGroup.getHeaderGroupProps()} className="rt-tr">
+                {headerGroup.headers.map((column, key) => (
+                  <th
+                    {...column.getHeaderProps(column.getSortByToggleProps())}
+                    className={classnames("rt-th rt-resizable-header", {
+                      "-cursor-pointer": headerGroup.headers.length - 1 !== key,
+                      "-sort-asc": column.isSorted && !column.isSortedDesc,
+                      "-sort-desc": column.isSorted && column.isSortedDesc,
+                    })}
+                  >
+                    <div className="rt-resizable-header-content">
+                      {column.render("Header")}
+                    </div>
+                    {/* Render the columns filter UI */}
+                    <div>
+                      {headerGroup.headers.length - 1 === key
+                        ? null
+                        : column.canFilter
+                        ? column.render("Filter")
+                        : null}
+                    </div>
+                  </th>
+                ))}
+              </tr>
+            ))}
+          </thead>
+          <tbody {...getTableBodyProps()} className="rt-tbody">
+            {page.map((row, i) => {
+              prepareRow(row);
+              return (
+                <tr
+                  {...row.getRowProps()}
+                  className={classnames(
+                    "rt-tr",
+                    { " -odd": i % 2 === 0 },
+                    { " -even": i % 2 === 1 }
+                  )}
+                >
+                  {row.cells.map((cell) => {
+                    return (
+                      <td {...cell.getCellProps()} className="rt-td">
+                        {cell.render("Cell")}
+                      </td>
+                    );
+                  })}
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+        <div className="pagination-bottom">
           <div className="-pagination">
             <div className="-previous">
               <button
@@ -175,60 +230,6 @@ function Table({ columns, data }) {
             </div>
           </div>
         </div>
-        <table {...getTableProps()} className="rt-table">
-          <thead className="rt-thead -header">
-            {headerGroups.map((headerGroup) => (
-              <tr {...headerGroup.getHeaderGroupProps()} className="rt-tr">
-                {headerGroup.headers.map((column, key) => (
-                  <th
-                    {...column.getHeaderProps(column.getSortByToggleProps())}
-                    className={classnames("rt-th rt-resizable-header", {
-                      "-cursor-pointer": headerGroup.headers.length - 1 !== key,
-                      "-sort-asc": column.isSorted && !column.isSortedDesc,
-                      "-sort-desc": column.isSorted && column.isSortedDesc,
-                    })}
-                  >
-                    <div className="rt-resizable-header-content">
-                      {column.render("Header")}
-                    </div>
-                    {/* Render the columns filter UI */}
-                    <div>
-                      {headerGroup.headers.length - 1 === key
-                        ? null
-                        : column.canFilter
-                        ? column.render("Filter")
-                        : null}
-                    </div>
-                  </th>
-                ))}
-              </tr>
-            ))}
-          </thead>
-          <tbody {...getTableBodyProps()} className="rt-tbody">
-            {page.map((row, i) => {
-              prepareRow(row);
-              return (
-                <tr
-                  {...row.getRowProps()}
-                  className={classnames(
-                    "rt-tr",
-                    { " -odd": i % 2 === 0 },
-                    { " -even": i % 2 === 1 }
-                  )}
-                >
-                  {row.cells.map((cell) => {
-                    return (
-                      <td {...cell.getCellProps()} className="rt-td">
-                        {cell.render("Cell")}
-                      </td>
-                    );
-                  })}
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
-        <div className="pagination-bottom"></div>
       </div>
     </>
   );
