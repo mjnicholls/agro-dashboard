@@ -3,7 +3,6 @@ import React from "react";
 const GoogleMap = ({ polygon }) => {
 
   const mapRef = React.useRef(null);
-  console.log("GoogleMap **", polygon)
   React.useEffect(() => {
     let google = window.google;
     if (polygon) {

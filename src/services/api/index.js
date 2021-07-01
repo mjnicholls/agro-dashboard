@@ -13,4 +13,6 @@ export const polygonHistoryNDVI = `${agriBase}history/ndvi`
 export const polygonHistorySoil = `${agriBase}history/soil`
 export const polygonSatelliteImagesList = `${agriBase}image/search`
 
+export const signUpUrl = "https://wp.agromonitoring.com/dashboard/login"
+
 export {loginURL, logoutURL};

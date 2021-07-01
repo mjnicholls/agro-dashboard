@@ -9,13 +9,13 @@ const SoilChart = ({ id, defaultStartDate, defaultEndDate }) => {
 
   let [startDate, setStartDate] = React.useState(defaultStartDate);
   let [endDate, setEndDate] = React.useState(defaultEndDate);
-  let [chartData, setChartData] = React.useState([])
+  let [data, setData] = React.useState([])
 
   React.useEffect(() => {
     getSoilData(id, startDate, endDate)
       .then(response => {
         if (response) {
-          setChartData(response)
+          setData(response)
         }
       })
       .catch(err => {console.log(err)})
@@ -57,7 +57,7 @@ const SoilChart = ({ id, defaultStartDate, defaultEndDate }) => {
       }
   ]
 
-  let data = (canvas) => {
+  let chartData = (canvas) => {
 
     let ctx = canvas.getContext("2d");
     let gradientStrokeBlue = ctx.createLinearGradient(0, 230, 0, 50);
@@ -71,7 +71,7 @@ const SoilChart = ({ id, defaultStartDate, defaultEndDate }) => {
     gradientStrokeGreen.addColorStop(0, "rgba(66,134,121,0)"); //green colors
 
     return {
-      labels: chartData.map(el => toDateShort(el.dt)),
+      labels: data.map(el => toDateShort(el.dt)),
       datasets: [
         {
             label: "T10",
@@ -89,7 +89,7 @@ const SoilChart = ({ id, defaultStartDate, defaultEndDate }) => {
             pointHoverRadius: 4,
             pointHoverBorderWidth: 15,
             pointRadius: 4,
-            data: chartData.map(el => el.t10.toFixed(3)),
+            data: data.map(el => el.t10.toFixed(3)),
         },
         {
             label: "Moisture",
@@ -107,7 +107,7 @@ const SoilChart = ({ id, defaultStartDate, defaultEndDate }) => {
             pointHoverRadius: 4,
             pointHoverBorderWidth: 15,
             pointRadius: 4,
-            data: chartData.map(el => el.moisture.toFixed(3)),
+            data: data.map(el => el.moisture.toFixed(3)),
           },
           {
             label: "T0",
@@ -125,7 +125,7 @@ const SoilChart = ({ id, defaultStartDate, defaultEndDate }) => {
             pointHoverRadius: 4,
             pointHoverBorderWidth: 15,
             pointRadius: 4,
-            data: chartData.map(el => el.t0.toFixed(3)),
+            data: data.map(el => el.t0.toFixed(3)),
         },
       ]
     }
@@ -134,7 +134,7 @@ const SoilChart = ({ id, defaultStartDate, defaultEndDate }) => {
   return (
     <div className="chart-area">
       <Line
-        data={data}
+        data={chartData}
         options={options}
       />
     </div>

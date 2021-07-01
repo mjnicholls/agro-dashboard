@@ -12,7 +12,6 @@ export const getNDVIData = (polygonId, start, end) => {
       } else {
         console.log('no response polygons ', response)
       }
-
     })
     .catch(err => {
       throw new Error(err.message)
@@ -23,7 +22,13 @@ export const getSoilData = (polygonId, start, end) => {
   /** Get soil chart data by polygon  */
   let url = `${polygonHistorySoil}?polyid=${polygonId}&start=${start}&end=${end}`
   return axiosInstance.get(url)
-    .then(response => response.data)
+    .then(response => {
+      if (response) {
+        return response.data
+      } else {
+        console.log('no response soil ', response)
+      }
+    })
     .catch(err => {
       throw new Error(err)})
 }

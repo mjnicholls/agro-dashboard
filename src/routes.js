@@ -44,7 +44,7 @@ import User from "views/pages/User.js";
 import Login from "views/pages/Login.js";
 import Rtl from "views/pages/Rtl.js";
 import Lock from "views/pages/Lock.js";
-import LeafletMap from 'views/maps/LeafletMap.js'
+import LeafletMapTest from 'views/maps/LeafletMapTest2.js'
 
 const routes = [
   {
@@ -61,6 +61,15 @@ const routes = [
     rtlName: "لوحة القيادة",
     icon: "tim-icons icon-image-02",
     component: PolygonSatellite,
+    layout: "/admin",
+    hidden: true
+  },
+  {
+    path: "/map",
+    name: "Map test",
+    rtlName: "لوحة القيادة",
+    icon: "tim-icons icon-image-02",
+    component: LeafletMapTest,
     layout: "/admin",
     hidden: true
   },

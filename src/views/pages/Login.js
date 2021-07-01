@@ -35,6 +35,7 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { validateEmail } from "../../utils/validation";
 import { loginUser, clearLoginError } from '../../features/auth/actions'
+import {signUpUrl} from "../../services/api";
 import { Redirect } from "react-router-dom";
 
 const isAuthenticatedSelector = state => state.auth.isAuthenticated;
@@ -146,8 +147,8 @@ const Login = (props) => {
                     <h6>
                       <a
                         className="link footer-link"
-                        href="#pablo"
-                        onClick={(e) => e.preventDefault()}
+                        href={signUpUrl}
+                        // onClick={(e) => e.preventDefault()}
                       >
                         Create Account
                       </a>

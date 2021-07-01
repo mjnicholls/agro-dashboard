@@ -26,7 +26,6 @@ import {
   Col,
 } from "reactstrap";
 
-import GoogleMapAllPolygons from "./maps/GoogleMapAllPolygons";
 import LeafletMapMultiplePolygons from "./maps/LeafletMapMultiplePolygons";
 import PolygonsTable from "./agro-components/PolygonsTable"
 // import PolygonsReactTable from "./agro-components/PolygonsReactTable"

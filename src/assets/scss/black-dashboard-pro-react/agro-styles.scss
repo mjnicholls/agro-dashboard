@@ -1,20 +1,44 @@
 .leaflet-map-container {
-    width: 100%;
-    height: 500px;
+  width: 100%;
+  height: 100%;
+  min-height: 250px;
+  position: relative;
   .leaflet-map {
     height: 100%
   }
 }
 
 .satellite-images-container {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    overflow-x: scroll
+  display: flex;
+  flex-direction: row;
+  //width: 100%;
+  overflow-x: scroll;
+  align-items: center;
 }
 
 .horizontal-container {
   display: flex;
   flex-direction: row;
-  align-items: center
+  align-items: center;
+}
+
+#map-satellite {
+  position: relative;
+  overflow: hidden;
+  height: 60vh;
+  min-height: 250px;
+}
+
+.map-satellite-placeholder {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.clickable-table-row {
+  cursor: pointer;
+}
+.clickable-table-row:hover {
+  background-color: rgba(0,0,0,.05);
 }

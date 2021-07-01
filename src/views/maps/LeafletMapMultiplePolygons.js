@@ -1,7 +1,9 @@
 import React from 'react';
 import { GeoJSON, MapContainer, Popup, TileLayer} from 'react-leaflet'
+import { Card } from "reactstrap";
 
 const LeafletMapMultiplePolygons = ({ polygons }) => {
+  console.log("LeafletMapMultiplePolygons", polygons)
   return (
     polygons.length ?
     <div className="leaflet-map-container">
@@ -16,7 +18,7 @@ const LeafletMapMultiplePolygons = ({ polygons }) => {
           </GeoJSON>)}
 
       </MapContainer>
-    </div> : <div>Fetching</div>
+    </div> : <Card className="map-satellite-placeholder">Fetching ...</Card>
   )
 }
 

@@ -1,31 +1,9 @@
-/*!
-
-=========================================================
-* Black Dashboard PRO React - v1.2.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/black-dashboard-pro-react
-* Copyright 2020 Creative Tim (https://www.creative-tim.com)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
 import React from "react";
-// nodejs library that concatenates classes
 import classNames from "classnames";
 import { useDispatch, useSelector } from 'react-redux'
-// react plugin used to create charts
-import { Line, Bar } from "react-chartjs-2";
-// react plugin for creating vector maps
-import GoogleMap from "../../views/maps/GoogleMap"
-import LeafletMapSatellite from "../../views/maps/LeafletMapSatellite"
 import {NdviChart, SoilChart} from '../../views/charts/index'
 import SatelliteImagesList from '../../views/agro-components/SatelliteImagesList'
-// reactstrap components
+import LeafletMapComponent from '../../views/maps/LeafletMapSatellite'
 
 import {
   Button,
@@ -33,25 +11,18 @@ import {
   Card,
   CardHeader,
   CardBody,
-  CardFooter,
   CardTitle,
   Table,
   Row,
   Col,
 } from "reactstrap";
 
-// core components
-import {
-  chartExample1,
-  chartExample2,
-  chartExample3,
-  chartExample4,
-} from "variables/charts.js";
 import {
   useParams
 } from "react-router-dom";
 import {fetchPolygons} from "./actions";
-
+import {getSatelliteImagesList} from "../../services/api/polygonApi";
+import SatelliteLayersDropdown from "../../views/agro-components/SatelliteLayersDropdown";
 
 const selectPolygons = state => state.polygons;
 const selectPolygon = polygonId => state => {
@@ -72,17 +43,71 @@ const PolygonSatellite = () => {
   const polygons = useSelector(selectPolygons);
 
   const [selectedPolygon, setSelectedPolygon] = React.useState(polygon);
+  const [selectedImage, setSelectedImage] = React.useState();
+  const [selectedLayer, setSelectedLayer] = React.useState({value: "truecolor", label: "True Color"});
+  const [images, setImages] = React.useState([]);
+  const [layers, setLayers] = React.useState([]);
 
   React.useEffect(() => {
     setSelectedPolygon(polygon)
   }, [polygon])
 
-  let now = new Date();
-  let monthAgo = new Date(now.getTime());
-  monthAgo.setMonth(monthAgo.getMonth() - 1);
-  monthAgo.setHours(0, 0, 0, 0);
-  let startDate = Math.round(monthAgo.getTime() / 1000)
-  let endDate = Math.round(now.getTime() / 1000)
+  let currentHour = new Date().getUTCHours();
+
+  const defaultDates = React.useMemo(() => {
+    let now = new Date();
+    let monthAgo = new Date(now.getTime());
+    monthAgo.setMonth(monthAgo.getMonth() - 1);
+    monthAgo.setHours(0, 0, 0, 0);
+    let startDate = Math.round(monthAgo.getTime() / 1000)
+    let endDate = Math.round(now.getTime() / 1000)
+    return [startDate, endDate]
+  }, [currentHour])
+
+  React.useEffect(() => {
+    if (selectedPolygon) {
+      const [startDate, endDate] = defaultDates;
+      getSatelliteImagesList(selectedPolygon.id, startDate, endDate)
+        .then(response => {
+          if (response && response.length) {
+            response.reverse();
+            setImages(response);
+            // set first image
+            setSelectedImage(response[0]);
+          }
+        })
+        .catch(err => {console.log(err)})
+    }
+  }, [selectedPolygon])
+
+  React.useEffect(() => {
+    if (selectedImage) {
+      let selectedLayerInstance;
+      let newLayers = Object.keys(selectedImage.tile).map(layer => {
+        let label;
+        if (layer === 'truecolor') {
+          label = 'True Color';
+          selectedLayerInstance = {
+            value: layer,
+            label: label
+          }
+        } else if (layer === 'falsecolor') {
+          label = 'False Color'
+        } else {
+          label = layer.toUpperCase()
+        }
+        return {
+          value: layer,
+          label: label
+        }
+      })
+      if (!selectedLayer) {
+        selectedLayerInstance = newLayers[0]
+      }
+      setSelectedLayer(selectedLayerInstance);
+      setLayers(newLayers);
+    }
+  }, [selectedImage])
 
   const [bigChartData, setbigChartData] = React.useState("data1");
 
@@ -90,55 +115,79 @@ const PolygonSatellite = () => {
     setbigChartData(name);
   };
 
+  const selectImage = (image) => {
+    setSelectedImage(image)
+  }
+
+  const [startDate, endDate] = defaultDates;
 
   return ( selectedPolygon ?
     <>
       <div className="content">
         <Row>
           <Col lg="12">
-            <Card>
-              <CardHeader>
-                <CardTitle tag="h4">{selectedPolygon.name}</CardTitle>
-                <p className="card-category">Satellite data</p>
-              </CardHeader>
-              <CardBody>
+            {/*<Card>*/}
+              {/*<CardHeader>*/}
+                {/*<CardTitle tag="h4">{selectedPolygon.name}</CardTitle>*/}
+                {/*<p className="card-category">Satellite data</p>*/}
+              {/*</CardHeader>*/}
+              {/*<CardBody>*/}
                 <Row>
-                  <Col md="8">
-                    {/*<GoogleMap polygon={selectedPolygon} />*/}
-                    <LeafletMapSatellite polygon={selectedPolygon} />
+                  <Col md="8" style={{maxHeight: "250px !important"}}>
+                    <SatelliteLayersDropdown selectedLayer={selectedLayer} layers={layers} setLayer={setSelectedLayer} />
+                    <LeafletMapComponent
+                      polygon={selectedPolygon}
+                      selectedImage={selectedImage}
+                      selectedLayer={selectedLayer}
+                    />
                   </Col>
                   <Col className="ml-auto mr-auto" md="4">
-                    <Table responsive>
-                      <tbody>
-                        {polygons.map(polygon => (
-                          <tr onClick={() => {setSelectedPolygon(polygon)}} key={`polygon_${polygon.id}`}>
-                            <td>
-                              <div className="flag">
-                                <img
-                                  alt="..."
-                                  src={require("assets/img/US.png").default}
-                                />
-                              </div>
-                            </td>
-                            <td>{polygon.name}</td>
-                            <td className="text-right">{polygon.area}</td>
-                          </tr>
-                        ))}
-                      </tbody>
+                    <Card>
+                      <CardHeader>All polygons</CardHeader>
+                      <CardBody>
+                        <Table responsive>
+                        <tbody>
+                          {polygons.map(polygon => (
+                            <tr
+                              className="clickable-table-row"
+                              onClick={() => {setSelectedPolygon(polygon)}}
+                              key={`polygon_${polygon.id}`} >
+                              <td>
+                                <div>
+                                  Shape
+                                </div>
+                              </td>
+                              <td>{polygon.name}</td>
+                              <td className="text-right">{polygon.area.toFixed(1)}ha</td>
+                            </tr>
+                          ))}
+                        </tbody>
                     </Table>
+                      </CardBody>
+                    </Card>
                   </Col>
+                  <Row>
+                    <Col md="8">
+                      <SatelliteImagesList
+                        images={images}
+                        selectImage={selectImage}
+                      />
+                    </Col>
+                  </Row>
                 </Row>
-              </CardBody>
-            </Card>
+              {/*</CardBody>*/}
+            {/*</Card>*/}
           </Col>
         </Row>
 
-        <Row>
-          <SatelliteImagesList
-            id={selectedPolygon.id}
-            defaultStartDate={startDate}
-            defaultEndDate={endDate} />
-        </Row>
+        {/*<Row>*/}
+          {/*{(startDate && endDate) && <SatelliteImagesList*/}
+            {/*id={selectedPolygon.id}*/}
+            {/*defaultStartDate={startDate}*/}
+            {/*defaultEndDate={endDate}*/}
+            {/*selectImage={selectImage}*/}
+          {/*/>}*/}
+        {/*</Row>*/}
 
         <Row>
           <Col xs="12">
@@ -211,11 +260,11 @@ const PolygonSatellite = () => {
               </CardHeader>
               <CardBody>
                 <div className="chart-area">
-                  <NdviChart
+                  {(startDate && endDate) && <NdviChart
                     id={selectedPolygon.id}
                     defaultStartDate={startDate}
                     defaultEndDate={endDate}
-                  />
+                  />}
                 </div>
               </CardBody>
             </Card>
@@ -293,11 +342,11 @@ const PolygonSatellite = () => {
               </CardHeader>
               <CardBody>
                 <div className="chart-area">
-                  <SoilChart
+                  {(startDate && endDate) && <SoilChart
                     id={selectedPolygon.id}
                     defaultStartDate={startDate}
                     defaultEndDate={endDate}
-                  />
+                  />}
                 </div>
               </CardBody>
             </Card>
