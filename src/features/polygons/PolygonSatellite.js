@@ -2,7 +2,7 @@ import React from "react";
 import classNames from "classnames";
 import { useDispatch, useSelector } from 'react-redux'
 import {NdviChart, SoilChart} from '../../views/charts/index'
-import SatelliteImagesList from '../../views/agro-components/SatelliteImagesList'
+import SatelliteImagesList2 from '../../views/agro-components/SatelliteImagesList'
 import LeafletMapComponent from '../../views/maps/LeafletMapSatellite'
 
 import {
@@ -36,6 +36,9 @@ const PolygonSatellite = () => {
   const dispatch = useDispatch();
   const polygon = useSelector(selectPolygon(id));
   const [apiCallCount, setApiCallCount] = React.useState(0);
+  const startDateImages = 946684800;
+  // const startDateImages = 1278086414; //  2010
+
   if (!polygon && !apiCallCount) {
     dispatch(fetchPolygons());
     setApiCallCount(1)
@@ -67,7 +70,7 @@ const PolygonSatellite = () => {
   React.useEffect(() => {
     if (selectedPolygon) {
       const [startDate, endDate] = defaultDates;
-      getSatelliteImagesList(selectedPolygon.id, startDate, endDate)
+      getSatelliteImagesList(selectedPolygon.id, startDateImages, endDate)
         .then(response => {
           if (response && response.length) {
             response.reverse();
@@ -140,6 +143,11 @@ const PolygonSatellite = () => {
                       selectedImage={selectedImage}
                       selectedLayer={selectedLayer}
                     />
+                    <SatelliteImagesList2
+                        images={images}
+                        selectedImage={selectedImage}
+                        selectImage={selectImage}
+                      />
                   </Col>
                   <Col className="ml-auto mr-auto" md="4">
                     <Card>
@@ -166,14 +174,6 @@ const PolygonSatellite = () => {
                       </CardBody>
                     </Card>
                   </Col>
-                  <Row>
-                    <Col md="8">
-                      <SatelliteImagesList
-                        images={images}
-                        selectImage={selectImage}
-                      />
-                    </Col>
-                  </Row>
                 </Row>
               {/*</CardBody>*/}
             {/*</Card>*/}

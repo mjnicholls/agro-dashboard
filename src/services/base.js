@@ -4,7 +4,7 @@ import store from '../store'
 
 const axiosInstance = axios.create({
 // .. where we make our configurations
-  timeout: 1000
+  timeout: 5000
 });
 
 axiosInstance.interceptors.request.use(function (config) {

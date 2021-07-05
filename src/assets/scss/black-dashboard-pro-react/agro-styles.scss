@@ -8,12 +8,36 @@
   }
 }
 
-.satellite-images-container {
-  display: flex;
-  flex-direction: row;
-  //width: 100%;
-  overflow-x: scroll;
-  align-items: center;
+.satellite-pagination {
+  align-items: center !important;
+  margin-top: 10px;
+  position: relative;
+  overflow-x: auto;
+
+  .satellite-pagination-arrow {
+    position: absolute;
+    z-index: 3;
+    display: none;
+
+    &.left {
+      left: 0;
+    }
+    &.right {
+      right: 0;
+    }
+  }
+  &:hover {
+    .satellite-pagination-arrow {
+      display: block;
+    }
+  }
+  .satellite-images-container {
+    display: flex;
+    flex-direction: row;
+    //width: 100%;
+    overflow-x: scroll;
+    align-items: center;
+  }
 }
 
 .horizontal-container {
@@ -41,4 +65,51 @@
 }
 .clickable-table-row:hover {
   background-color: rgba(0,0,0,.05);
+}
+.satellite-icon {
+  margin-right: 2px;
+  width: 15px;
+  height: 10px;
+  font-size: 0.65rem;
+}
+
+.satellite-text {
+  font-size: 0.65rem;
+  margin-right: 5px;
+  text-transform: none !important;
+}
+
+.satellite-images-pagination-link {
+  height: auto !important;
+  background-color: #27293d;
+  border-radius: 0.2857rem !important;
+}
+
+.pagination {
+  .page-item {
+    .satellite-images-pagination-link {
+      border-radius: 0.2857rem !important;
+      text-align: left;
+      text-transform: none;
+
+      button {
+        padding: 0;
+      }
+    }
+  }
+}
+
+.satellite-calendar {
+  input {
+    display: none;
+  }
+  .rdtPicker {
+    top: 10px;
+    .rdtDays {
+      td[class=rdtDay] {
+        background-color: #eeeeee;
+      }
+    }
+  }
+
 }
