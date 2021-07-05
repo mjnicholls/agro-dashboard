@@ -3,9 +3,21 @@ import {getNDVIData} from "../../services/api/polygonApi";
 import {toDate} from '../../utils/DateTime'
 import {Line} from "react-chartjs-2";
 import {chartOptions} from './base'
+import DatePicker from "react-datetime";
+import moment from 'moment';
+
+import {
+  ButtonGroup,
+  Card,
+  CardHeader,
+  CardBody,
+  CardTitle,
+  Row,
+  Col,
+} from "reactstrap";
 
 
-const NdviChart = ({ id, defaultStartDate, defaultEndDate }) => {
+const NdviChart = ({ id, defaultStartDate, defaultEndDate, name }) => {
 
   let [startDate, setStartDate] = React.useState(defaultStartDate);
   let [endDate, setEndDate] = React.useState(defaultEndDate);
@@ -20,9 +32,25 @@ const NdviChart = ({ id, defaultStartDate, defaultEndDate }) => {
       })
   }, [startDate, endDate])
 
+  const onStartDateChange = (moment) => {
+    setStartDate(moment.unix())
+  }
+
+  const onEndDateChange = (moment) => {
+    setEndDate(moment.unix())
+  }
+
+   var validateStartDate = function( current ){
+    return current.isBefore( endDate * 1000 ) && current.isBefore(moment());
+  };
+
+  var validateEndDate = function( current ){
+    return current.isAfter( startDate * 1000 ) && current.isBefore(moment());
+  };
+
+
 
   let data = (canvas) => {
-
     let ctx = canvas.getContext("2d");
     let gradientStrokeBlue = ctx.createLinearGradient(0, 230, 0, 50);
     gradientStrokeBlue.addColorStop(1, "rgba(29,140,248,0.2)");
@@ -93,12 +121,45 @@ const NdviChart = ({ id, defaultStartDate, defaultEndDate }) => {
   }
 
   return (
-    <div className="chart-area">
-      <Line
-        data={data}
-        options={chartOptions}
-      />
-    </div>
+    <Card className="card-chart">
+      <CardHeader>
+        <Row>
+          <Col className="text-left" sm="6">
+            <h5 className="card-category">{name}</h5>
+            <CardTitle tag="h2">Historical NDVI</CardTitle>
+          </Col>
+          <Col sm="6">
+            <ButtonGroup
+              className="btn-group-toggle float-right"
+              data-toggle="buttons"
+            >
+              <DatePicker
+                value={startDate * 1000}
+                dateFormat={"DD MMM YY"}
+                timeFormat={false}
+                onChange={onStartDateChange}
+                isValidDate={validateStartDate}
+               />
+              <DatePicker
+                value={endDate * 1000}
+                dateFormat={"DD MMM YY"}
+                timeFormat={false}
+                onChange={onEndDateChange}
+                isValidDate={validateEndDate}
+              />
+            </ButtonGroup>
+          </Col>
+        </Row>
+      </CardHeader>
+      <CardBody>
+        <div className="chart-area">
+          <Line
+            data={data}
+            options={chartOptions}
+          />
+        </div>
+      </CardBody>
+    </Card>
   )
 }
 
