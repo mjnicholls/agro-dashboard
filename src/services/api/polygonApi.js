@@ -1,6 +1,6 @@
 import {axiosInstance} from "../base";
 import {polygonHistoryNDVI, polygonHistorySoil, polygonSatelliteImagesList} from './index';
-
+import {startSatelliteImagesSearchDate} from '../../config'
 
 export const getNDVIData = (polygonId, start, end) => {
   /** Get history NDVI chart data by polygon  */
@@ -33,8 +33,8 @@ export const getSoilData = (polygonId, start, end) => {
       throw new Error(err)})
 }
 
-export const getSatelliteImagesList = (polygonId, start, end) => {
-  let url = `${polygonSatelliteImagesList}?polyid=${polygonId}&start=${start}&end=${end}`
+export const getSatelliteImagesList = (polygonId) => {
+  let url = `${polygonSatelliteImagesList}?polyid=${polygonId}&start=${startSatelliteImagesSearchDate}&end=${Math.round(new Date().getTime() / 1000)}`
   return axiosInstance.get(url)
     .then(response => response.data)
     .catch(err => {

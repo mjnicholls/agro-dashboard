@@ -34,9 +34,8 @@
   .satellite-images-container {
     display: flex;
     flex-direction: row;
-    //width: 100%;
-    overflow-x: scroll;
     align-items: center;
+    overflow-x: auto;
   }
 }
 
@@ -79,18 +78,15 @@
   text-transform: none !important;
 }
 
-.satellite-images-pagination-link {
-  height: auto !important;
-  background-color: #27293d;
-  border-radius: 0.2857rem !important;
-}
-
 .pagination {
   .page-item {
     .satellite-images-pagination-link {
       border-radius: 0.2857rem !important;
       text-align: left;
       text-transform: none;
+      height: auto ;
+      min-width: 110px;
+      background-color: #27293d;
 
       button {
         padding: 0;
@@ -107,9 +103,29 @@
     top: 10px;
     .rdtDays {
       td[class=rdtDay] {
+        //color: #525f7f;
         background-color: #eeeeee;
       }
     }
   }
 
 }
+.card-header-calender {
+  color: #525f7f;
+  .chart-calender-right {
+    .rdtPicker {
+      right: 0;
+      &:before {
+        display: none;
+      }
+      &:after {
+        left: auto;
+        right: 10px;
+      }
+
+    }
+  }
+}
+
+
+

@@ -7,7 +7,6 @@ import DatePicker from "react-datetime";
 import moment from 'moment';
 
 import {
-  ButtonGroup,
   Card,
   CardHeader,
   CardBody,
@@ -17,7 +16,7 @@ import {
 } from "reactstrap";
 
 
-const NdviChart = ({ id, defaultStartDate, defaultEndDate, name }) => {
+const NdviChart = ({ id, defaultStartDate, defaultEndDate }) => {
 
   let [startDate, setStartDate] = React.useState(defaultStartDate);
   let [endDate, setEndDate] = React.useState(defaultEndDate);
@@ -40,15 +39,13 @@ const NdviChart = ({ id, defaultStartDate, defaultEndDate, name }) => {
     setEndDate(moment.unix())
   }
 
-   var validateStartDate = function( current ){
+  var validateStartDate = function( current ){
     return current.isBefore( endDate * 1000 ) && current.isBefore(moment());
   };
 
   var validateEndDate = function( current ){
     return current.isAfter( startDate * 1000 ) && current.isBefore(moment());
   };
-
-
 
   let data = (canvas) => {
     let ctx = canvas.getContext("2d");
@@ -125,29 +122,32 @@ const NdviChart = ({ id, defaultStartDate, defaultEndDate, name }) => {
       <CardHeader>
         <Row>
           <Col className="text-left" sm="6">
-            <h5 className="card-category">{name}</h5>
-            <CardTitle tag="h2">Historical NDVI</CardTitle>
+            <h5 className="card-category">History</h5>
+            <CardTitle tag="h2">NDVI</CardTitle>
           </Col>
           <Col sm="6">
-            <ButtonGroup
-              className="btn-group-toggle float-right"
-              data-toggle="buttons"
-            >
-              <DatePicker
-                value={startDate * 1000}
-                dateFormat={"DD MMM YY"}
-                timeFormat={false}
-                onChange={onStartDateChange}
-                isValidDate={validateStartDate}
+            <Row style={{justifyContent: 'flex-end'}}>
+              <Col lg="5" md="6" sm="3">
+                <DatePicker
+                  className="card-header-calender"
+                  value={startDate * 1000}
+                  dateFormat={"DD MMM YY"}
+                  timeFormat={false}
+                  onChange={onStartDateChange}
+                  isValidDate={validateStartDate}
                />
-              <DatePicker
-                value={endDate * 1000}
-                dateFormat={"DD MMM YY"}
-                timeFormat={false}
-                onChange={onEndDateChange}
-                isValidDate={validateEndDate}
-              />
-            </ButtonGroup>
+              </Col>
+              <Col lg="5" md="6" sm="3">
+                <DatePicker
+                  className="card-header-calender chart-calender-right"
+                  value={endDate * 1000}
+                  dateFormat={"DD MMM YY"}
+                  timeFormat={false}
+                  onChange={onEndDateChange}
+                  isValidDate={validateEndDate}
+                />
+              </Col>
+            </Row>
           </Col>
         </Row>
       </CardHeader>

@@ -127,27 +127,27 @@ const SatelliteImagesList = ({ images, selectedImage, selectImage }) => {
         </PaginationLink>
       </PaginationItem>
     </Pagination>
-        <div className="card-stats">
-            <div >
-              {availableDates.length &&
-              <label>
-                <div className="info-icon text-center icon-primary"
-                    style={{position: "relative", cursor: "pointer"}}
-                  >
-                    <i className="tim-icons icon-calendar-60" />
-                  </div>
-                <DatePicker
-                  timeFormat={false}
-                  isValidDate={ isDateAvailable }
-                  closeOnSelect={true}
-                  closeOnClickOutside={true}
-                  onChange={onSelectDate}
-                  className="satellite-calendar"
-                  initialValue={preSelectedDate()}
-                /></label>
-                }
+      {availableDates.length &&
+      <div className="card-stats">
+        <div >
+          <label>
+            <div
+              className="info-icon text-center icon-primary"
+              style={{position: "relative", cursor: "pointer"}}
+            >
+              <i className="tim-icons icon-calendar-60" />
             </div>
+            <DatePicker
+              timeFormat={false}
+              isValidDate={ isDateAvailable }
+              onChange={onSelectDate}
+              className="satellite-calendar"
+              initialValue={preSelectedDate()}
+              closeOnSelect
+              closeOnClickOutside
+            /></label>
         </div>
+      </div>}
     </div>)
 }
 
