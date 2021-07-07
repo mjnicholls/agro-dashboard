@@ -1,6 +1,25 @@
 import {axiosInstance} from "../base";
-import {polygonHistoryNDVI, polygonHistorySoil, polygonSatelliteImagesList} from './index';
+import {
+  loginURL,
+  polygonCreate,
+  polygonHistoryNDVI,
+  polygonHistorySoil,
+  polygonSatelliteImagesList
+} from './index';
 import {startSatelliteImagesSearchDate} from '../../config'
+
+
+export const createPolygon = (polygonData) => {
+  axiosInstance.post(polygonCreate, polygonData)
+    .then(response => {
+      console.log("polygon creation response", response)
+      // TODO if response is positive, pull again the polygons <- this should be done in redux actually
+    })
+    .catch(err => {
+      console.log("polygon creation err ", err)
+    })
+}
+
 
 export const getNDVIData = (polygonId, start, end) => {
   /** Get history NDVI chart data by polygon  */

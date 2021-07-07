@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from 'react-redux'
-import {NdviChart, SoilChart} from '../../views/charts/index'
+import { NdviChart, SoilChart } from '../../views/charts/index'
 import SatelliteImagesList from '../../views/agro-components/SatelliteImages'
 import LeafletMapComponent from '../../views/maps/LeafletMapSatellite'
 import {
@@ -16,10 +16,10 @@ import {
   Link,
   useParams
 } from "react-router-dom";
-import {fetchPolygons} from "./actions";
-import {getSatelliteImagesList} from "../../services/api/polygonApi";
+import { fetchPolygons } from "./actions";
+import { getSatelliteImagesList } from "../../services/api/polygonApi";
 import SatelliteLayersDropdown from "../../views/agro-components/SatelliteLayers";
-import {userLevels} from '../../config'
+import { userLevels } from '../../config'
 
 const selectPolygons = state => state.polygons;
 const selectPolygon = polygonId => state => {
@@ -119,7 +119,7 @@ const PolygonSatellite = () => {
     <>
       <div className="content">
         <Row>
-          <Col lg="12">
+          <Col>
             <Row>
               <Col md="8" style={{maxHeight: "250px !important"}}>
                 <SatelliteLayersDropdown
@@ -138,15 +138,13 @@ const PolygonSatellite = () => {
                     selectImage={selectImage}
                   />
               </Col>
-              <Col className="ml-auto mr-auto" md="4">
+              <Col md="4" className="ml-auto mr-auto">
                 <Card>
                   <CardHeader style={{display: 'flex', flexDirection: "row", alignItems: 'center', justifyContent: 'space-between'}}>
-                    {/*<Row >*/}
                       <div>All polygons</div>
-                    <Link to="/admin/dashboard">
-                      <i className="tim-icons icon-bullet-list-67 text-info" />
-                    </Link>
-                    {/*</Row>*/}
+                      <Link to="/admin/dashboard">
+                        <i className="tim-icons icon-bullet-list-67 text-info" />
+                      </Link>
                   </CardHeader>
                   <CardBody>
                     <Table responsive>
@@ -175,7 +173,7 @@ const PolygonSatellite = () => {
         </Row>
 
         <Row>
-          <Col xs="12">
+          <Col>
             {(selectedPolygon && startDate && endDate) &&
             <NdviChart
               id={selectedPolygon.id}
@@ -186,7 +184,7 @@ const PolygonSatellite = () => {
           </Col>
         </Row>
         { (userLevel && startDate && endDate) && <Row>
-          <Col xs="12">
+          <Col>
             <SoilChart
               id={selectedPolygon.id}
               defaultStartDate={startDate}
@@ -200,7 +198,7 @@ const PolygonSatellite = () => {
     <>
       <div className="content">
         <Row>
-          <Col lg="12">Fetching...</Col>
+          <Col>Fetching...</Col>
         </Row>
       </div>
     </>

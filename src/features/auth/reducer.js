@@ -8,6 +8,7 @@ token = getCookie(TOKEN_COOK);
 if (token) {
   try {
     let tokenInfo = parseJwt(token)
+    console.log("tokenInfo", tokenInfo)
     if (tokenInfo && tokenInfo.passport && tokenInfo.passport.data) {
       let userInfo = tokenInfo.passport.data;
       user = {

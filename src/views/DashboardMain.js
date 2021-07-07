@@ -57,13 +57,13 @@ const DashboardMain = () => {
     <>
       <div className="content">
         <Row style={{marginBottom: "30px"}}>
-          <Col xs="12" md="9">
+          <Col md="8">
             <div className="chart-area">
               <LeafletMapMultiplePolygons polygons={polygons} />
               {/*<GoogleMapAllPolygons data={polygons}/>*/}
             </div>
           </Col>
-          <Col lg="3" md="6">
+          <Col md="4">
             <Card className="card-stats">
               <CardBody>
                 <Row>
@@ -113,7 +113,7 @@ const DashboardMain = () => {
           </Col>
         </Row>
         <Row>
-          <Col lg="12">
+          <Col>
             <PolygonsTable data={polygons}/>
             {/*<PolygonsReactTable data={polygons}/>*/}
           </Col>
