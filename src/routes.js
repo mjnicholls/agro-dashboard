@@ -44,8 +44,7 @@ import User from "views/pages/User.js";
 import Login from "views/pages/Login.js";
 import Rtl from "views/pages/Rtl.js";
 import Lock from "views/pages/Lock.js";
-import LeafletMapTest from 'views/maps/LeafletMapTest2.js'
-
+import PolygonNew from 'views/agro-components/PolygonNew'
 const routes = [
   {
     path: "/dashboard",
@@ -65,11 +64,19 @@ const routes = [
     hidden: true
   },
   {
-    path: "/map",
-    name: "Map test",
+    path: "/create",
+    name: "Create Polygon",
     rtlName: "لوحة القيادة",
     icon: "tim-icons icon-image-02",
-    component: LeafletMapTest,
+    component: PolygonNew,
+    layout: "/admin",
+  },
+  {
+    path: "/dashboard-old",
+    name: "Dashboard",
+    rtlName: "لوحة القيادة",
+    icon: "tim-icons icon-chart-pie-36",
+    component: Dashboard,
     layout: "/admin",
     hidden: true
   },

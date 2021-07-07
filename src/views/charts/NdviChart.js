@@ -26,6 +26,7 @@ const NdviChart = ({ id, defaultStartDate, defaultEndDate }) => {
     getNDVIData(id, startDate, endDate)
       .then(response => {
         if (response) {
+          response.reverse()
           setChartData(response)
         }
       })

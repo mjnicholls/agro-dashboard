@@ -17,7 +17,6 @@ const SatelliteImagesList = ({ images, selectedImage, selectImage }) => {
   const scrollRef = React.useRef(null);
   const imagesRefs = React.useRef({});
   const [availableDates, setAvailableDates] = React.useState([]);
-  const [selectedWithImageDate, setSelectedWithImageDate] = React.useState();
   const scrollOptions = {behavior: 'smooth', block: 'nearest'};
 
   React.useEffect(() => {
@@ -42,91 +41,79 @@ const SatelliteImagesList = ({ images, selectedImage, selectImage }) => {
     let index = availableDates.indexOf(moment.format('L'));
     selectImage(images[index]);
     imagesRefs.current[index].scrollIntoView(scrollOptions);
-    setSelectedWithImageDate(null);
   }
 
-  const onSelectImage = (image, index) => {
-    setSelectedWithImageDate(availableDates[index]);
-    selectImage(image);
-  }
-
-  const preSelectedDate = () => {
-    // TODO doesn't work as only taken at start, need to be managed via value
-    let res = selectedWithImageDate || availableDates[0];
-    return res
-  }
-
-  return (
+  return ( images.length ?
     <div>
-    <Pagination className='satellite-pagination' style={{alignItems: "center"}}>
-      <PaginationItem
-        className="active satellite-pagination-arrow left"
-        onClick={(e) => {
-          e.preventDefault()
-          onClickArrow("left")}
-        }
-      >
-          <PaginationLink>
+      <Pagination className='satellite-pagination' style={{alignItems: "center"}}>
+        <PaginationItem
+          className="active satellite-pagination-arrow left"
+          onClick={(e) => {
+            e.preventDefault()
+            onClickArrow("left")}
+          }
+        >
+            <PaginationLink>
+              <span aria-hidden={true}>
+                <i aria-hidden={true}
+                  className="tim-icons icon-double-left" />
+              </span>
+            </PaginationLink>
+          </PaginationItem>
+        <div className="satellite-images-container" ref={scrollRef}>
+          {images.map((image, index) => (
+          <div
+            className={"page-item " + (selectedImage ?
+              (image.dt === selectedImage.dt && image.type === selectedImage.type) ?
+                "active" : "" : "")}
+            ref={el => imagesRefs.current[index] = el}
+            key={'satellite_image_' + index}
+          >
+            <PaginationLink
+              className="satellite-images-pagination-link"
+              onClick={(e) => {
+                e.preventDefault();
+                selectImage(image)
+              }}
+            >
+              <Row>
+                <Col>
+                  <div>
+                  <p className="card-category" style={{textAlign: "left", margin: 0}}>{toDate(image.dt)}</p>
+                  </div>
+                  <div className="horizontal-container" style={{margin: 0}}>
+                    <i className="fas fa-cloud satellite-icon" />
+                    <div className="satellite-text">{Math.round(image.cl)}%</div>
+                    <i className="far fa-image satellite-icon" />
+                    <div className="satellite-text">{Math.round(image.dc)}%</div>
+                  </div>
+                  <hr style={{marginTop: "0.3rem", marginBottom: "0.3rem"}} />
+                  <div className="card-category">
+                    <i className="tim-icons icon-sound-wave satellite-icon" />
+                    {image.type}
+                  </div>
+                </Col>
+              </Row>
+            </PaginationLink>
+          </div>
+          ))}
+        </div>
+        <PaginationItem className="active active satellite-pagination-arrow right">
+          <PaginationLink
+            onClick={(e) => {
+              e.preventDefault()
+              onClickArrow("right")}
+            }
+          >
             <span aria-hidden={true}>
-              <i aria-hidden={true}
-                className="tim-icons icon-double-left" />
+              <i
+                aria-hidden={true}
+                className="tim-icons icon-double-right"
+              />
             </span>
           </PaginationLink>
         </PaginationItem>
-      <div className="satellite-images-container" ref={scrollRef}>
-        {images.map((image, index) => (
-        <div
-          className={"page-item " + (selectedImage ?
-            (image.dt === selectedImage.dt && image.type === selectedImage.type) ?
-              "active" : "" : "")}
-          ref={el => imagesRefs.current[index] = el}
-          key={'satellite_image_' + index}
-        >
-          <PaginationLink
-            className="satellite-images-pagination-link"
-            onClick={(e) => {
-              e.preventDefault()
-              onSelectImage(image, index)}
-            }
-          >
-            <Row>
-              <Col>
-                <div>
-                <p className="card-category" style={{textAlign: "left", margin: 0}}>{toDate(image.dt)}</p>
-                </div>
-                <div className="horizontal-container" style={{margin: 0}}>
-                  <i className="fas fa-cloud satellite-icon" />
-                  <div className="satellite-text">{Math.round(image.cl)}%</div>
-                  <i className="far fa-image satellite-icon" />
-                  <div className="satellite-text">{Math.round(image.dc)}%</div>
-                </div>
-                <hr style={{marginTop: "0.3rem", marginBottom: "0.3rem"}} />
-                <div className="card-category">
-                  <i className="tim-icons icon-sound-wave satellite-icon" />
-                  {image.type}
-                </div>
-              </Col>
-            </Row>
-          </PaginationLink>
-        </div>
-        ))}
-      </div>
-      <PaginationItem className="active active satellite-pagination-arrow right">
-        <PaginationLink
-          onClick={(e) => {
-            e.preventDefault()
-            onClickArrow("right")}
-          }
-        >
-          <span aria-hidden={true}>
-            <i
-              aria-hidden={true}
-              className="tim-icons icon-double-right"
-            />
-          </span>
-        </PaginationLink>
-      </PaginationItem>
-    </Pagination>
+      </Pagination>
       {availableDates.length &&
       <div className="card-stats">
         <div >
@@ -139,16 +126,16 @@ const SatelliteImagesList = ({ images, selectedImage, selectImage }) => {
             </div>
             <DatePicker
               timeFormat={false}
+              value={moment(selectedImage.dt * 1000)}
               isValidDate={ isDateAvailable }
               onChange={onSelectDate}
               className="satellite-calendar"
-              initialValue={preSelectedDate()}
               closeOnSelect
               closeOnClickOutside
             /></label>
         </div>
       </div>}
-    </div>)
+    </div> : null)
 }
 
 export default SatelliteImagesList;

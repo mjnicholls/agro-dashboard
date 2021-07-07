@@ -1,23 +1,19 @@
 import React from "react";
-import classNames from "classnames";
 import { useDispatch, useSelector } from 'react-redux'
 import {NdviChart, SoilChart} from '../../views/charts/index'
 import SatelliteImagesList from '../../views/agro-components/SatelliteImages'
 import LeafletMapComponent from '../../views/maps/LeafletMapSatellite'
-
 import {
-  Button,
-  ButtonGroup,
   Card,
   CardHeader,
   CardBody,
-  CardTitle,
   Table,
   Row,
   Col,
 } from "reactstrap";
 
 import {
+  Link,
   useParams
 } from "react-router-dom";
 import {fetchPolygons} from "./actions";
@@ -113,12 +109,6 @@ const PolygonSatellite = () => {
     }
   }, [selectedImage])
 
-  const [bigChartData, setbigChartData] = React.useState("data1");
-
-  const setBgChartData = (name) => {
-    setbigChartData(name);
-  };
-
   const selectImage = (image) => {
     setSelectedImage(image)
   }
@@ -150,7 +140,14 @@ const PolygonSatellite = () => {
               </Col>
               <Col className="ml-auto mr-auto" md="4">
                 <Card>
-                  <CardHeader>All polygons</CardHeader>
+                  <CardHeader style={{display: 'flex', flexDirection: "row", alignItems: 'center', justifyContent: 'space-between'}}>
+                    {/*<Row >*/}
+                      <div>All polygons</div>
+                    <Link to="/admin/dashboard">
+                      <i className="tim-icons icon-bullet-list-67 text-info" />
+                    </Link>
+                    {/*</Row>*/}
+                  </CardHeader>
                   <CardBody>
                     <Table responsive>
                     <tbody>

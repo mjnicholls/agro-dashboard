@@ -27,6 +27,7 @@
     "react-dom": "17.0.1",
     "react-jvectormap": "0.0.16",
     "react-leaflet": "^3.2.0",
+    "react-leaflet-draw": "^0.19.8",
     "react-notification-alert": "0.0.13",
     "react-redux": "^7.2.4",
     "react-router-dom": "5.2.0",

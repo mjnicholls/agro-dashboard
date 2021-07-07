@@ -22,6 +22,11 @@ import { Link } from "react-router-dom";
 // reactstrap components
 import {
   Button,
+  Card,
+  CardHeader,
+  CardBody,
+  CardFooter,
+  CardTitle,
   Input,
   Pagination,
   PaginationItem,
@@ -29,7 +34,6 @@ import {
   Table,
   UncontrolledTooltip
 } from "reactstrap";
-
 
 
 const PolygonsTable = (props) => {
@@ -88,23 +92,31 @@ const PolygonsTable = (props) => {
     }
   }
 
+
   return (
     <>
-      <div className="pagination-top">
-        <div style={{display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center"}}>
+      <Card>
+        {/*<CardHeader>*/}
+          {/*<CardTitle tag="h2">All Polygons</CardTitle>*/}
+        {/*</CardHeader>*/}
+        <CardBody>
+          <div className="pagination-top">
+            <div style={{display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center"}}>
 
-            <Input
-              type="email"
-              // value={filterValue || ""}
-              onChange={(e) => {
-                filterTable(e.target.value || undefined); // Set undefined to remove the filter entirely
-              }}
-              placeholder={`Search ${count} polygons...`}
-              style={{maxWidth: "300px"}}
-            />
-            <Button color="primary" style={{minWidth: "200px"}}>Create polygon</Button>
-        </div>
-      </div>
+                <Input
+                  type="email"
+                  // value={filterValue || ""}
+                  onChange={(e) => {
+                    filterTable(e.target.value || undefined); // Set undefined to remove the filter entirely
+                  }}
+                  placeholder={`Search ${count} polygons...`}
+                  style={{maxWidth: "300px"}}
+                />
+              <Link to="/admin/create" >
+                <Button  color="primary" style={{minWidth: "200px"}}>Create polygon</Button>
+              </Link>
+            </div>
+          </div>
 
       <Table className="tablesorter" responsive>
         <thead className="text-primary">
@@ -155,7 +167,7 @@ const PolygonsTable = (props) => {
                       {polygon.name}
                       </Link>
                     </td>
-                  <td>{polygon.area}ha</td>
+                  <td>{polygon.area.toFixed(2)}ha</td>
                   <td>{toDate(polygon.created_at)}</td>
 
                 <td className="text-right">
@@ -201,60 +213,62 @@ const PolygonsTable = (props) => {
       </Table>
       {bodyData.length > 10 && <div className="pagination-bottom">
         <Pagination>
-                    <PaginationItem>
-                      <PaginationLink
-                        aria-label="Previous"
-                        href="#pablo"
-                        onClick={(e) => e.preventDefault()}
-                      >
-                        <span aria-hidden={true}>
-                          <i
-                            aria-hidden={true}
-                            className="tim-icons icon-double-left"
-                          />
-                        </span>
-                      </PaginationLink>
-                    </PaginationItem>
-                    <PaginationItem>
-                      <PaginationLink
-                        href="#pablo"
-                        onClick={(e) => e.preventDefault()}
-                      >
-                        1
-                      </PaginationLink>
-                    </PaginationItem>
-                    <PaginationItem className="active">
-                      <PaginationLink
-                        href="#pablo"
-                        onClick={(e) => e.preventDefault()}
-                      >
-                        2
-                      </PaginationLink>
-                    </PaginationItem>
-                    <PaginationItem>
-                      <PaginationLink
-                        href="#pablo"
-                        onClick={(e) => e.preventDefault()}
-                      >
-                        3
-                      </PaginationLink>
-                    </PaginationItem>
-                    <PaginationItem>
-                      <PaginationLink
-                        aria-label="Next"
-                        href="#pablo"
-                        onClick={(e) => e.preventDefault()}
-                      >
-                        <span aria-hidden={true}>
-                          <i
-                            aria-hidden={true}
-                            className="tim-icons icon-double-right"
-                          />
-                        </span>
-                      </PaginationLink>
-                    </PaginationItem>
-                  </Pagination>
+          <PaginationItem>
+            <PaginationLink
+              aria-label="Previous"
+              href="#pablo"
+              onClick={(e) => e.preventDefault()}
+            >
+              <span aria-hidden={true}>
+                <i
+                  aria-hidden={true}
+                  className="tim-icons icon-double-left"
+                />
+              </span>
+            </PaginationLink>
+          </PaginationItem>
+          <PaginationItem>
+            <PaginationLink
+              href="#pablo"
+              onClick={(e) => e.preventDefault()}
+            >
+              1
+            </PaginationLink>
+          </PaginationItem>
+          <PaginationItem className="active">
+            <PaginationLink
+              href="#pablo"
+              onClick={(e) => e.preventDefault()}
+            >
+              2
+            </PaginationLink>
+          </PaginationItem>
+          <PaginationItem>
+            <PaginationLink
+              href="#pablo"
+              onClick={(e) => e.preventDefault()}
+            >
+              3
+            </PaginationLink>
+          </PaginationItem>
+          <PaginationItem>
+            <PaginationLink
+              aria-label="Next"
+              href="#pablo"
+              onClick={(e) => e.preventDefault()}
+            >
+              <span aria-hidden={true}>
+                <i
+                  aria-hidden={true}
+                  className="tim-icons icon-double-right"
+                />
+              </span>
+            </PaginationLink>
+          </PaginationItem>
+        </Pagination>
       </div>}
+        </CardBody>
+      </Card>
     </>
   );
 };

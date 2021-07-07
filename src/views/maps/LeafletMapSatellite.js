@@ -71,7 +71,12 @@ const MapWrapper = ({ polygon, imageURL}) => {
 
   React.useEffect(() => {
     let mapInstance = mapRef.current;
-    if (!map) {
+    if (map) {
+      console.log("already have the map")
+      map.setView(L.latLng(polygon.center[1], polygon.center[0]));
+      addNewPolygon(map, polygon);
+    }
+    else {
       mapInstance =  L.map('map-satellite', {
         center: [polygon.center[1], polygon.center[0]],
         zoom: 5,
@@ -85,7 +90,8 @@ const MapWrapper = ({ polygon, imageURL}) => {
       tileSize: 512,
       zoomOffset: -1,
   }).addTo(mapInstance);
-    addNewPolygon(mapInstance, polygon)
+    addNewPolygon(mapInstance, polygon);
+
   }, []);
 
 
@@ -133,7 +139,7 @@ const MapWrapper = ({ polygon, imageURL}) => {
 
 const LeafletMapSatellite = ({polygon, selectedImage, selectedLayer}) => {
   return (
-    <div id="map-satellite">
+    <div id="map-satellite" style={{minHeight: "350px"}}>
       {(polygon && selectedImage && selectedLayer) ?
         <MapWrapper polygon={polygon} imageURL={selectedImage.tile[selectedLayer.value]}/> :
         <Card className="map-satellite-placeholder">Fetching ...</Card>
