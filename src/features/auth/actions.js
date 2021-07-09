@@ -85,33 +85,28 @@ export function loginUser (email, password) {
     dispatch(requestLogin(email, password))
 
     axiosInstance.post(loginURL, {
-      "username": email,
+      "email": email,
       "password": password
     })
       .then(response => {
         let token = response.data.token;
-        let user;
+        let tokenInfo;
         try {
-          let tokenInfo = parseJwt(response.data.token)
-          if (tokenInfo && tokenInfo.passport && tokenInfo.passport.data) {
-            user = tokenInfo.passport.data;
-          }
+          tokenInfo = parseJwt(response.data.token).passport;
         }
         catch {
           dispatch(loginError("Error parsing token")) // TODO
         }
-        if (!user) {
+        if (!tokenInfo) {
           dispatch(loginError("Error parsing token")) // TODO
         }
         setCookie(TOKEN_COOK, token)
 
         let data = {
           token: token,
-          user: {
-            email: user.username,
-            appid: user.appid,
-            tariff: user.tariff
-          }}
+          user: tokenInfo.data,
+          limits: tokenInfo.limits
+        }
         dispatch(receiveLogin(data))
         dispatch(fetchPolygons())
       })
@@ -124,8 +119,6 @@ export function loginUser (email, password) {
       })
   }
 }
-
-
 
 
 export function logoutUser() {

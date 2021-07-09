@@ -1,8 +1,8 @@
 import React from "react";
 import { useDispatch, useSelector } from 'react-redux'
-import { NdviChart, SoilChart } from '../../views/charts/index'
-import SatelliteImagesList from '../../views/agro-components/SatelliteImages'
-import LeafletMapComponent from '../../views/maps/LeafletMapSatellite'
+import { NdviChart, SoilChart } from './charts/index'
+import SatelliteImagesList from './agro-components/SatelliteImages'
+import MapBox from './maps/MapBoxTiles'
 import {
   Card,
   CardHeader,
@@ -16,17 +16,16 @@ import {
   Link,
   useParams
 } from "react-router-dom";
-import { fetchPolygons } from "./actions";
-import { getSatelliteImagesList } from "../../services/api/polygonApi";
-import SatelliteLayersDropdown from "../../views/agro-components/SatelliteLayers";
-import { userLevels } from '../../config'
+import { fetchPolygons } from "../features/polygons/actions";
+import { getSatelliteImagesList } from "../services/api/polygonApi";
+import SatelliteLayersDropdown from "./agro-components/SatelliteLayers";
+import { userLevels } from '../config'
 
 const selectPolygons = state => state.polygons;
 const selectPolygon = polygonId => state => {
   return state.polygons.find(polygon => polygon.id === polygonId)
 }
 const tariffSelector = state => state.auth.user.tariff;
-
 
 
 const PolygonSatellite = () => {
@@ -42,6 +41,7 @@ const PolygonSatellite = () => {
   }
   const polygons = useSelector(selectPolygons);
   const tariff = useSelector(tariffSelector);
+
   const userLevel = userLevels[tariff];
 
   const [selectedPolygon, setSelectedPolygon] = React.useState(polygon);
@@ -127,7 +127,7 @@ const PolygonSatellite = () => {
                   layers={layers}
                   setLayer={setSelectedLayer}
                 />
-                <LeafletMapComponent
+                <MapBox
                   polygon={selectedPolygon}
                   selectedImage={selectedImage}
                   selectedLayer={selectedLayer}

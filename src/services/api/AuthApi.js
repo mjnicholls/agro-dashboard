@@ -1,6 +1,11 @@
 import {axiosInstance} from "../base";
 
-const baseURL = "http://k8s-eu4.owm.io/12346";
+const portDev = 11112;
+const portProd = 12346;
+
+let port = portDev;
+
+const baseURL = `http://k8s-eu4.owm.io/${portProd}`;
 const {post, destroy} = axiosInstance;
 
 // export const login = `${baseURL}/auth/login`;
@@ -15,7 +20,7 @@ let config = {
 const AuthApi = {
   login: (email, password) =>
     post(`${baseURL}/auth/login`, {
-      "username": email,
+      "email": email,
       "password": password
     }, config),
   logout: () =>

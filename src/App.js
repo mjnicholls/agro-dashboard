@@ -27,6 +27,8 @@ import "assets/css/nucleo-icons.css";
 import "react-notification-alert/dist/animate.css";
 import "assets/scss/black-dashboard-pro-react.scss?v=1.2.0";
 import "assets/demo/demo.css";
+import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css'
+
 
 
 const App = () => {

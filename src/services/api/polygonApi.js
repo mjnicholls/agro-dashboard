@@ -1,7 +1,7 @@
 import {axiosInstance} from "../base";
 import {
-  loginURL,
   polygonCreate,
+  polygonDelete,
   polygonHistoryNDVI,
   polygonHistorySoil,
   polygonSatelliteImagesList
@@ -9,17 +9,28 @@ import {
 import {startSatelliteImagesSearchDate} from '../../config'
 
 
-export const createPolygon = (polygonData) => {
-  axiosInstance.post(polygonCreate, polygonData)
-    .then(response => {
-      console.log("polygon creation response", response)
-      // TODO if response is positive, pull again the polygons <- this should be done in redux actually
-    })
+export const createPolygonApi = async (polygonData) => {
+  return axiosInstance.post(polygonCreate, polygonData)
+    .then(response => response)
     .catch(err => {
       console.log("polygon creation err ", err)
+      throw new Error(err)
     })
 }
 
+
+export const deletePolygonApi = (polygonId) => {
+  let url = polygonDelete + polygonId;
+  axiosInstance.delete(url)
+    .then(response => {
+      console.log(response)
+      // TODO if response is positive, pull again the polygons <- this should be done in redux actually
+    })
+    .catch(err => {
+      console.log("polygon deletion error ", err);
+      throw new Error(err)
+    })
+}
 
 export const getNDVIData = (polygonId, start, end) => {
   /** Get history NDVI chart data by polygon  */

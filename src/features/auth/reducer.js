@@ -3,20 +3,11 @@ import {
   CLEAR_LOGIN_ERROR, LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_SUCCESS, LOGOUT_FRONTEND, TOKEN_COOK
 } from './actions'
 
-let token, user;
+let token, tokenData;
 token = getCookie(TOKEN_COOK);
 if (token) {
   try {
-    let tokenInfo = parseJwt(token)
-    console.log("tokenInfo", tokenInfo)
-    if (tokenInfo && tokenInfo.passport && tokenInfo.passport.data) {
-      let userInfo = tokenInfo.passport.data;
-      user = {
-        email: userInfo.username,
-        appid: userInfo.appid,
-        tariff: userInfo.tariff
-      }
-    }
+    tokenData = parseJwt(token).passport;
   }
   catch (err) {
     console.log(err)
@@ -25,13 +16,14 @@ if (token) {
 
 const initialState =   {
   isFetching: false,
-  isAuthenticated: !!user,
-  token: user ? token : null,
-  user: user ? user : {
-    email: null,
+  isAuthenticated: !!tokenData,
+  token: tokenData ? token : null,
+  user: tokenData ? tokenData.data : {
+    username: null,
     appid: null,
     tariff: null
   },
+  limits: tokenData ? tokenData.limits : null
 }
 
 export default function authReducer(state = initialState, action) {
@@ -48,7 +40,8 @@ export default function authReducer(state = initialState, action) {
         isAuthenticated: true,
         errorMessage: null,
         token: action.data.token,
-        user: action.data.user
+        user: action.data.user,
+        limits: action.data.limits
       }
     case LOGIN_FAILURE:
       return Object.assign({}, state, {
@@ -67,20 +60,22 @@ export default function authReducer(state = initialState, action) {
         isAuthenticated: false,
         token: null,
         user: {
-          email: null,
+          username: null,
           appid: null,
           tariff: null
-        }
+        },
+        limits: null
       })
     case LOGOUT_FRONTEND: {
       return Object.assign({}, state, {
         isAuthenticated: false,
         token: null,
         user: {
-          email: null,
+          username: null,
           appid: null,
           tariff: null
-        }
+        },
+        limits: null
       })
     }
     default:

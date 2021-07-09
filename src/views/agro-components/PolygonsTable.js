@@ -1,24 +1,11 @@
-/*!
-
-=========================================================
-* Black Dashboard PRO React - v1.2.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/black-dashboard-pro-react
-* Copyright 2020 Creative Tim (https://www.creative-tim.com)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
 import React from "react";
 import PropTypes from "prop-types";
+import {useDispatch} from 'react-redux';
 import {toDate} from '../../utils/DateTime'
 import classnames from "classnames";
 import { Link } from "react-router-dom";
+import {deletePolygon} from '../../features/polygons/actions'
+
 // reactstrap components
 import {
   Button,
@@ -39,6 +26,8 @@ import {
 const PolygonsTable = (props) => {
 
   const [bodyData, setBodyData] = React.useState(props.data);
+  const dispatch = useDispatch();
+
   React.useEffect(() => {
     setBodyData(props.data)
   }, [props.data])
@@ -194,6 +183,7 @@ const PolygonsTable = (props) => {
                     size="sm"
                     title="Delete"
                     type="button"
+                    onClick={() => dispatch(deletePolygon(polygon.id))}
                   >
                     <i className="tim-icons icon-simple-remove" />
                   </Button>

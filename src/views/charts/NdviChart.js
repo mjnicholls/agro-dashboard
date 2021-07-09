@@ -1,10 +1,14 @@
 import React from 'react';
-import {getNDVIData} from "../../services/api/polygonApi";
-import {toDate} from '../../utils/DateTime'
-import {Line} from "react-chartjs-2";
-import {chartOptions} from './base'
-import DatePicker from "react-datetime";
+
+import {useSelector} from 'react-redux';
 import moment from 'moment';
+import DatePicker from "react-datetime";
+import {Line} from "react-chartjs-2";
+
+
+import {getNDVIData} from "../../services/api/polygonApi";
+import {toDate, getStartDateByTariff} from '../../utils/DateTime'
+import {chartOptions} from './base'
 
 import {
   Card,
@@ -15,21 +19,30 @@ import {
   Col,
 } from "reactstrap";
 
+const selectLimit = state => state.auth.limits.history.ndvi_history;
 
 const NdviChart = ({ id, defaultStartDate, defaultEndDate }) => {
 
-  let [startDate, setStartDate] = React.useState(defaultStartDate);
-  let [endDate, setEndDate] = React.useState(defaultEndDate);
+  const limit = useSelector(selectLimit);
+  let [limitStartDate, setLimitStartDate] = React.useState(null);
+  let [startDate, setStartDate] = React.useState(defaultStartDate  * 1000);
+  let [endDate, setEndDate] = React.useState(defaultEndDate * 1000);
   let [chartData, setChartData] = React.useState([]);
 
   React.useEffect(() => {
-    getNDVIData(id, startDate, endDate)
-      .then(response => {
-        if (response && response.length) {
-          response.reverse()
-          setChartData(response)
-        }
-      })
+    setLimitStartDate(getStartDateByTariff(limit))
+  }, [])
+
+  React.useEffect(() => {
+    if (startDate && endDate) {
+      getNDVIData(id, Math.round(startDate / 1000), Math.round(endDate/1000))
+        .then(response => {
+          if (response && response.length) {
+            response.reverse()
+            setChartData(response)
+          }
+        })
+      }
   }, [startDate, endDate])
 
   const onStartDateChange = (moment) => {
@@ -41,11 +54,11 @@ const NdviChart = ({ id, defaultStartDate, defaultEndDate }) => {
   }
 
   var validateStartDate = function( current ){
-    return current.isBefore( endDate * 1000 ) && current.isBefore(moment());
+    return current.isAfter(limitStartDate) && current.isBefore( endDate ) && current.isBefore(moment());
   };
 
   var validateEndDate = function( current ){
-    return current.isAfter( startDate * 1000 ) && current.isBefore(moment());
+    return current.isAfter(limitStartDate) && current.isAfter( startDate ) && current.isBefore(moment());
   };
 
   let data = (canvas) => {
@@ -131,7 +144,7 @@ const NdviChart = ({ id, defaultStartDate, defaultEndDate }) => {
               <Col lg="5" md="6" sm="3">
                 <DatePicker
                   className="card-header-calender"
-                  value={startDate * 1000}
+                  value={startDate }
                   dateFormat={"DD MMM YY"}
                   timeFormat={false}
                   onChange={onStartDateChange}
@@ -141,7 +154,7 @@ const NdviChart = ({ id, defaultStartDate, defaultEndDate }) => {
               <Col lg="5" md="6" sm="3">
                 <DatePicker
                   className="card-header-calender chart-calender-right"
-                  value={endDate * 1000}
+                  value={endDate }
                   dateFormat={"DD MMM YY"}
                   timeFormat={false}
                   onChange={onEndDateChange}

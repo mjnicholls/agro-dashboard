@@ -9,3 +9,6 @@ export const userLevels = {
   "small": 2,
   "corp": 3
 }
+
+// center map to London
+export const defaultCenterMap = [0.1278, 51.5074];

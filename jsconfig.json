@@ -1,7 +1,10 @@
 {
   "compilerOptions": {
     "baseUrl": "src",
+    "publicPath": "static",
     "paths": {
+      "public": "static",
+      "assets": "static",
       "*": ["src/*"]
     }
   }

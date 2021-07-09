@@ -24,12 +24,12 @@ import Wizard from "views/forms/Wizard.js";
 import ValidationForms from "views/forms/ValidationForms.js";
 import ExtendedForms from "views/forms/ExtendedForms.js";
 import RegularForms from "views/forms/RegularForms.js";
-import Calendar from "views/Calendar.js";
-import Widgets from "views/Widgets.js";
-import Charts from "views/Charts.js";
-import Dashboard from "views/Dashboard.js";
-import DashboardMain from "views/DashboardMain.js";
-import PolygonSatellite from "features/polygons/PolygonSatellite.js";
+import Calendar from "views/old-views/Calendar.js";
+import Widgets from "views/old-views/Widgets.js";
+import Charts from "views/old-views/Charts.js";
+import Dashboard from "views/old-views/DashboardOld.js";
+import DashboardMain from "views/Dashboard.js";
+import PolygonSatellite from "views/PolygonSatellite.js";
 import Buttons from "views/components/Buttons.js";
 import SweetAlert from "views/components/SweetAlert.js";
 import Notifications from "views/components/Notifications.js";
@@ -44,7 +44,7 @@ import User from "views/pages/User.js";
 import Login from "views/pages/Login.js";
 import Rtl from "views/pages/Rtl.js";
 import Lock from "views/pages/Lock.js";
-import PolygonNew from 'views/agro-components/PolygonNew'
+import PolygonNew from 'views/PolygonNew'
 const routes = [
   {
     path: "/dashboard",
