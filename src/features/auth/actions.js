@@ -3,7 +3,6 @@ import {loginURL, logoutURL} from "../../services/api";
 import {clearCookies, parseJwt, setCookie} from "./utils";
 import {fetchPolygons} from '../polygons/actions'
 
-
 export const LOGIN_REQUEST = 'LOGIN_REQUEST'
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
 export const LOGIN_FAILURE = 'LOGIN_FAILURE'

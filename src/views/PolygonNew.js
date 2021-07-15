@@ -63,8 +63,32 @@ const PolygonNew = () => {
     setIntersection(false);
   }
 
+  const reset = () => {
+    const data = drawRef.current.getAll();
+    data.features.forEach((f) => {
+      if (f.geometry.type === 'Polygon') {
+        drawRef.current.delete(f.id);
+      }
+    })
+    setName("");
+    setArea(null);
+    setGeoJson(null);
+
+  }
+
   const blockCreation = () => {
     return name.length === 0 || area < minPolygonArea || area > maxPolygonArea;
+  }
+
+  const blockResetting = () => {
+    return !(drawRef.current && drawRef.current.getAll().features.length)
+  }
+
+  const areaErrorStyle = () => {
+    let errorStyle = "danger-color";
+    if (error.area) return errorStyle
+    if (area > maxPolygonArea || area < minPolygonArea) return errorStyle
+    return ""
   }
 
   return (
@@ -75,6 +99,7 @@ const PolygonNew = () => {
             <MapBoxDraw
               setArea={setArea}
               setGeoJson={setGeoJson}
+              setIntersection={setIntersection}
               drawRef={drawRef}
             />
           </Col>
@@ -86,9 +111,9 @@ const PolygonNew = () => {
                 </CardHeader>
 
                 <CardBody>
-                  <FormGroup>
-                    <label>Polygon name *</label>
-                    <Row>
+                <FormGroup>
+                  <label>Polygon name *</label>
+                  <Row>
                     <Col>
                       <Input
                         className={error.name ? "danger-border" : ""}
@@ -104,7 +129,7 @@ const PolygonNew = () => {
                 <div
                   className="category form-category"
                   style={{textTransform: "none", visibility: area ? "visible" : "hidden"}}>
-                  Area <h4 className={error.area ? "danger-color" : ""}>{area} ha</h4>
+                  Area <h4 className={areaErrorStyle()}>{area} ha</h4>
                 </div>
 
                 <div className="category form-category">
@@ -115,6 +140,15 @@ const PolygonNew = () => {
               </CardBody>
 
                 <CardFooter className="text-right">
+
+                  <Button
+                    disabled={blockResetting()}
+                    color="default"
+                    onClick={reset}
+                  >
+                    Reset
+                  </Button>
+
                   <Button
                     disabled={blockCreation()}
                     color="primary"

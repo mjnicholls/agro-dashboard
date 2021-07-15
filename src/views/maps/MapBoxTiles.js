@@ -2,8 +2,6 @@ import React, {useEffect, useRef, useState} from 'react';
 import {useSelector} from 'react-redux';
 import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
 
-import {defaultCenterMap} from '../../config'
-
 mapboxgl.accessToken = 'pk.eyJ1IjoiYXZvbG92aWsiLCJhIjoiY2txdzNpdWs1MGkwZjJ3cGNrYnZua3I4aCJ9.Le6NapjFYy5FfdDXfBmvrg';
 const authTokenSelector = state => state.auth.token;
 
@@ -12,7 +10,7 @@ const MapBox = ({ polygon, selectedImage, selectedLayer  }) => {
 
   const mapContainer = useRef(null);
   const map = useRef(null);
-  const [zoom, setZoom] = useState(9);
+  const zoom = 9;
   const [initialised, setInitialised] = useState(false);
   const token = useSelector(authTokenSelector);
   const [tile, setTile] = useState(null);
@@ -106,7 +104,7 @@ const MapBox = ({ polygon, selectedImage, selectedLayer  }) => {
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
       transformRequest: (url, resourceType) => {
-        if (url.indexOf('http://k8s-eu4.owm.io' > -1)) {
+        if (url.indexOf('http://k8s-eu4.owm.io' > -1)) { // TODO through base url
           return {
             url: url,
             headers: { 'Authorization': 'Bearer ' + token },
@@ -117,7 +115,7 @@ const MapBox = ({ polygon, selectedImage, selectedLayer  }) => {
       center: polygon.center,
       zoom: zoom
     });
-    map.current.addControl(new mapboxgl.NavigationControl(), 'top-left');
+    map.current.addControl(new mapboxgl.NavigationControl({showCompass: false}), 'top-left');
     map.current.on('load', function () {
       addPolygon(map.current);
     })

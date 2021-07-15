@@ -9,6 +9,8 @@ mapboxgl.accessToken = 'pk.eyJ1IjoiYXZvbG92aWsiLCJhIjoiY2txdzNpdWs1MGkwZjJ3cGNrY
 
 const selectPolygons = state => state.polygons;
 
+
+
 const MapBoxGlMap = () => {
 
   const mapContainer = useRef(null);
@@ -105,7 +107,7 @@ const MapBoxGlMap = () => {
       center: polygons.length ? polygons[0].center : defaultCenterMap,
       zoom: zoom
     });
-    map.current.addControl(new mapboxgl.NavigationControl(), 'top-left');
+    map.current.addControl(new mapboxgl.NavigationControl({showCompass: false}), 'top-left');
     map.current.on('load', function () {
       setInitialised(true);
     })

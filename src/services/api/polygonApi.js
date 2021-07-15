@@ -12,23 +12,26 @@ import {startSatelliteImagesSearchDate} from '../../config'
 export const createPolygonApi = async (polygonData) => {
   return axiosInstance.post(polygonCreate, polygonData)
     .then(response => response)
-    .catch(err => {
-      console.log("polygon creation err ", err)
-      throw new Error(err)
+    .catch(error => {
+      throw new Error(error)
     })
 }
 
+export const editPolygonApi = async (polygonData) => {
+  let url = polygonDelete + polygonData.id;
+  return axiosInstance.put(url, polygonData)
+    .then(response => response)
+    .catch(error => {
+      throw new Error(error)
+    })
+}
 
 export const deletePolygonApi = (polygonId) => {
   let url = polygonDelete + polygonId;
-  axiosInstance.delete(url)
-    .then(response => {
-      console.log(response)
-      // TODO if response is positive, pull again the polygons <- this should be done in redux actually
-    })
-    .catch(err => {
-      console.log("polygon deletion error ", err);
-      throw new Error(err)
+  return axiosInstance.delete(url)
+    .then(response => response)
+    .catch(error => {
+      throw new Error(error)
     })
 }
 

@@ -1,6 +1,7 @@
 import {axiosInstance} from "../../services/base";
-import {createPolygonApi, deletePolygonApi} from "../../services/api/polygonApi"
+import {createPolygonApi, deletePolygonApi, editPolygonApi} from "../../services/api/polygonApi"
 import {polygonsEndpoint} from "./endpoints"
+import {notifySuccess, notifyError} from "../notifications/actions";
 
 export const POLYGONS_LOADED = 'POLYGONS_LOADED';
 
@@ -8,7 +9,9 @@ export const POLYGONS_REQUEST = 'POLYGONS_REQUEST';
 export const POLYGONS_SUCCESS = 'POLYGONS_SUCCESS';
 export const POLYGONS_FAILURE = 'POLYGONS_FAILURE';
 export const POLYGON_ADDED = 'POLYGON_ADDED';
+export const POLYGON_UPDATED = 'POLYGON_UPDATED';
 export const POLYGON_DELETED = 'POLYGON_DELETED';
+
 
 const requestPolygons = () => {
   return {
@@ -40,13 +43,19 @@ export const polygonAdded = payload => {
   }
 }
 
+export const polygonUpdated = payload => {
+  return {
+    type: POLYGON_UPDATED,
+    payload: payload
+  }
+}
+
 export const polygonDeleted = polygonId => {
   return {
     type: POLYGON_DELETED,
     payload: polygonId
   }
 }
-
 
 export function fetchPolygons() {
   return dispatch => {
@@ -56,7 +65,6 @@ export function fetchPolygons() {
         dispatch(receivePolygons(response.data))
       })
       .catch(err => {
-        console.log("err ", err)
         let message = "Something went wrong"
           if (err.response && err.response.data && err.response.data.message) {
             message = err.response.data.message;
@@ -66,35 +74,45 @@ export function fetchPolygons() {
   }
 }
 
-
 export function addPolygon(data) {
   return async function addPolygonThunk(dispatch, getState) {
-    try {
-      // возвращаются данные
-      let newPolygon = await createPolygonApi(data)
-      console.log("newPolygon", newPolygon)
-      dispatch(polygonAdded(newPolygon.data))
-      // TODO notification successfully deleted polygon
-    }
-    catch (err) {
-      console.log(err)
-      // TODO notification error deleting polygon
-    }
+    createPolygonApi(data)
+      .then(response => {
+        let newPolygon = response.data;
+        dispatch(polygonAdded(newPolygon))
+        dispatch(notifySuccess(
+          `New polygon was successfully created. Name: ${newPolygon.name}. Area: ${newPolygon.area.toFixed(2)} ha`
+        ))
+      })
+      .catch(error => {
+        dispatch(notifyError(error.message))
+      })
+  }
+}
+
+export function editPolygon(data) {
+  return async function deletePolygonThunk(dispatch, getState) {
+    editPolygonApi(data)
+      .then(response => {
+        dispatch(polygonUpdated(response.data));
+        dispatch(notifySuccess('Polygon has been renamed successfully'));
+      })
+      .catch(error => {
+        dispatch(notifyError("Error updating polygon: " + error.message))
+      })
   }
 }
 
 
-
 export function deletePolygon(polygonId) {
   return async function deletePolygonThunk(dispatch, getState) {
-    try {
-      deletePolygonApi(polygonId)
-      dispatch(polygonDeleted(polygonId))
-      // TODO notification successfully deleted polygon
-    }
-    catch (err) {
-      console.log(err)
-      // TODO notification error deleting polygon
-    }
+    deletePolygonApi(polygonId)
+      .then(() => {
+        dispatch(polygonDeleted(polygonId));
+        dispatch(notifySuccess('Polygon has been deleted successfully'));
+      })
+      .catch(error => {
+        dispatch(notifyError("Error deleting polygon: " + error.message))
+      })
   }
 }

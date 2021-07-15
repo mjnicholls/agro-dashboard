@@ -16,12 +16,18 @@ axiosInstance.interceptors.request.use(function (config) {
   return config;
 });
 
-axiosInstance.interceptors.response.use((response) => response,
-  (error) => {
-  if (error.response && error.response.status === 401) {
-    store.dispatch(logoutFrontEnd());
-    // window.location = '/auth/login';
-  }
+axiosInstance.interceptors.response.use(response => response,
+  error => {
+    if (error.response && error.response.status === 401) {
+      store.dispatch(logoutFrontEnd());
+    } else {
+      let message = "Something went wrong";
+      if (error.response && error.response.data && error.response.data.description &&
+        error.response.data.description.message) {
+        message = error.response.data.description.message;
+      }
+      return Promise.reject(message);
+    }
 });
 
 
