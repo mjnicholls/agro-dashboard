@@ -1,32 +1,42 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import PropTypes from "prop-types";
-import {useDispatch} from 'react-redux';
 import {toDate} from '../../utils/DateTime'
 import classnames from "classnames";
 import { Link } from "react-router-dom";
 import PolygonDeleteModal from "./PolygonDeleteModal";
 import PolygonEditModal from "./PolygonEditModal";
-import {deletePolygon} from '../../features/polygons/actions'
+import PolygonsPagination from "./PolygonsPagination"
 
 import {
   Button,
   Card,
   CardBody,
   Input,
-  Pagination,
-  PaginationItem,
-  PaginationLink,
   Table,
   UncontrolledTooltip
 } from "reactstrap";
 
 
-const PolygonsTable = (props) => {
+const PolygonsTable = ({data, polygon, setPolygon}) => {
 
   const [selectedPolygon, selectPolygon] = useState(null);
   const [modalDelete, setModalDelete] = useState(false);
   const [modalEdit, setModalEdit] = useState(false);
-  const [bodyData, setBodyData] = React.useState(props.data);
+  const [bodyData, setBodyData] = useState(data);
+  const [pageNumber, setPageNumber] = useState(1);
+  const [column, setColumn] = React.useState({
+    name: -1,
+    order: "",
+  });
+
+  const itemsPerPage = 10;
+  const [page, setPage] = useState(1);
+
+  useEffect(() => {
+    setBodyData(data)
+  }, [data])
+
+
 
   const prepareEdit = (polygon) => {
     selectPolygon(polygon);
@@ -34,7 +44,6 @@ const PolygonsTable = (props) => {
   }
 
   const cancelEdit = () => {
-    console.log("cancel Edit")
     setModalEdit(false);
     selectPolygon(null);
   };
@@ -49,16 +58,17 @@ const PolygonsTable = (props) => {
     selectPolygon(null);
   };
 
-  React.useEffect(() => {
-    setBodyData(props.data)
-  }, [props.data])
+  const totalPolygons = () => {
+    return bodyData.length || 0
+  }
 
-  const [column, setColumn] = React.useState({
-    name: -1,
-    order: "",
-  });
-
-  const count = props.data.length;
+  const totalArea = () => {
+    if (bodyData.length) {
+      let x = bodyData.reduce((a,b) => ({area: a.area + b.area}))
+      return x.area.toFixed(2)
+    }
+    return 0
+  }
 
   const sortTable = (key) => {
     let order = "";
@@ -94,10 +104,10 @@ const PolygonsTable = (props) => {
   const filterTable = (key) => {
     if (key) {
       let lowerKey = key.toLowerCase();
-      let newBodyData = props.data.filter(polygon => (polygon.name.toLowerCase().includes(lowerKey) || polygon.area.toString().includes(lowerKey)))
+      let newBodyData = data.filter(polygon => (polygon.name.toLowerCase().includes(lowerKey) || polygon.area.toString().includes(lowerKey)))
       setBodyData(newBodyData)
     } else {
-      setBodyData(props.data)
+      setBodyData(data)
     }
   }
 
@@ -119,11 +129,10 @@ const PolygonsTable = (props) => {
             <div style={{display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center"}}>
               <Input
                 type="email"
-                // value={filterValue || ""}
                 onChange={(e) => {
                   filterTable(e.target.value || undefined); // Set undefined to remove the filter entirely
                 }}
-                placeholder={`Search ${count} polygons...`}
+                placeholder={`Search ${totalPolygons()} polygons...`}
                 style={{maxWidth: "300px"}}
               />
               <Link to="/admin/create" >
@@ -131,7 +140,7 @@ const PolygonsTable = (props) => {
               </Link>
             </div>
           </div>
-          <Table className="tablesorter" responsive>
+          <Table className="tablesorter polygons-table" responsive>
             <thead className="text-primary">
               <tr>
                 <th></th>
@@ -149,17 +158,6 @@ const PolygonsTable = (props) => {
                   className={
                     classnames(
                       "header",
-                      { headerSortDown: column.name === "area" && column.order === "asc" },
-                      { headerSortUp: column.name === "area" && column.order === "desc" },
-                    )
-                  }
-                  key="area"
-                  onClick={() => sortTable("area")}
-                >Area</th>
-                <th
-                  className={
-                    classnames(
-                      "header",
                       { headerSortDown: column.name === "created_at" && column.order === "asc" },
                       { headerSortUp: column.name === "created_at" && column.order === "desc" },
                     )
@@ -167,22 +165,36 @@ const PolygonsTable = (props) => {
                   key="createdAt"
                   onClick={() => sortTable("created_at")}
                 >Created</th>
+                <th
+                  className={
+                    classnames(
+                      "header",
+                      { headerSortDown: column.name === "area" && column.order === "asc" },
+                      { headerSortUp: column.name === "area" && column.order === "desc" },
+                    )
+                  }
+                  key="area"
+                  onClick={() => sortTable("area")}
+                >Area</th>
+
                 <th></th>
               </tr>
             </thead>
             <tbody>
-              {bodyData.map((polygon, index) => {
+              {bodyData.slice((page-1)*itemsPerPage, page*itemsPerPage).map((polygon, index) => {
                 return (
-                  <tr key={`row_` + index} onClick={() => console.log(polygon.id)} >
-                      <td>Shape</td>
-                      <td>
-                        <Link to={"/admin/polygon/" + polygon.id}>
-                          {polygon.name}
-                          </Link>
-                        </td>
-                      <td>{polygon.area.toFixed(2)}ha</td>
-                      <td>{toDate(polygon.created_at)}</td>
-
+                  <tr
+                    key={`row_` + index}
+                    onClick={() => setPolygon(polygon.id)}
+                  >
+                    <td>Shape</td>
+                    <td>
+                      <Link to={"/admin/polygon/" + polygon.id}>
+                        {polygon.name}
+                        </Link>
+                      </td>
+                    <td>{toDate(polygon.created_at)}</td>
+                    <td>{polygon.area.toFixed(2)}ha</td>
                     <td className="text-right">
                       <Button
                         className="btn-link btn-icon btn-neutral"
@@ -191,7 +203,10 @@ const PolygonsTable = (props) => {
                         size="sm"
                         title="Refresh"
                         type="button"
-                        onClick={() => prepareEdit(polygon)}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          prepareEdit(polygon);
+                        }}
                       >
                         <i className="tim-icons icon-pencil" />
                       </Button>
@@ -220,68 +235,21 @@ const PolygonsTable = (props) => {
                       </UncontrolledTooltip>
                     </td>
                   </tr>
-
                 );
               })}
-
+              <tr>
+                <td colSpan={2} className="td-total">Total</td>
+                <td className="td-total text-left">{totalPolygons()} polygons</td>
+                <td className="td-total text-left" colSpan={2}>{totalArea()} ha</td>
+              </tr>
             </tbody>
           </Table>
-          {bodyData.length > 10 && <div className="pagination-bottom">
-        <Pagination>
-          <PaginationItem>
-            <PaginationLink
-              aria-label="Previous"
-              href="#pablo"
-              onClick={(e) => e.preventDefault()}
-            >
-              <span aria-hidden={true}>
-                <i
-                  aria-hidden={true}
-                  className="tim-icons icon-double-left"
-                />
-              </span>
-            </PaginationLink>
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationLink
-              href="#pablo"
-              onClick={(e) => e.preventDefault()}
-            >
-              1
-            </PaginationLink>
-          </PaginationItem>
-          <PaginationItem className="active">
-            <PaginationLink
-              href="#pablo"
-              onClick={(e) => e.preventDefault()}
-            >
-              2
-            </PaginationLink>
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationLink
-              href="#pablo"
-              onClick={(e) => e.preventDefault()}
-            >
-              3
-            </PaginationLink>
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationLink
-              aria-label="Next"
-              href="#pablo"
-              onClick={(e) => e.preventDefault()}
-            >
-              <span aria-hidden={true}>
-                <i
-                  aria-hidden={true}
-                  className="tim-icons icon-double-right"
-                />
-              </span>
-            </PaginationLink>
-          </PaginationItem>
-        </Pagination>
-      </div>}
+          <PolygonsPagination
+            count={bodyData.length}
+            itemsPerPage={itemsPerPage}
+            page={page}
+            setPage={setPage}
+          />
         </CardBody>
       </Card>
     </>

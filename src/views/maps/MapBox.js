@@ -9,28 +9,40 @@ mapboxgl.accessToken = 'pk.eyJ1IjoiYXZvbG92aWsiLCJhIjoiY2txdzNpdWs1MGkwZjJ3cGNrY
 
 const selectPolygons = state => state.polygons;
 
-
-
-const MapBoxGlMap = () => {
+const MapBoxGlMap = ({ selectedPolygon, selectPolygon }) => {
 
   const mapContainer = useRef(null);
   const map = useRef(null);
   const [apiCallCount, setApiCallCount] = React.useState(0);
-  const [zoom, setZoom] = useState(9);
   const [initialised, setInitialised] = useState(false);
   const polygons = useSelector(selectPolygons);
   const dispatch = useDispatch();
+  const zoom = 9;
 
   if (!polygons.length && !apiCallCount) {
     dispatch(fetchPolygons());
     setApiCallCount(1)
   }
 
+  const basicColor = '#0080ff';
+  const activeColor = '#e14eca';
+
+  useEffect(() => {
+    if (selectedPolygon) {
+      let layers = map.current.getStyle().layers;
+      for (let i=0; i< layers.length; i++) {
+        if (layers[i].id.startsWith("layer_")) {
+          map.current.setPaintProperty(layers[i].id, 'fill-color',
+          layers[i].id === "layer_" + selectedPolygon ? activeColor : basicColor);
+        }
+      }
+    }
+  }, [selectedPolygon])
+
   const addPolygons = (map) => {
     let mapBounds;
     for (let i=0; i<polygons.length; i++) {
       let polygon = polygons[i];
-      // Add a data source containing GeoJSON data.
       let coordinates = polygon.geo_json.geometry.coordinates[0];
 
       if (!mapBounds) {
@@ -58,7 +70,7 @@ const MapBoxGlMap = () => {
         'source': polygon.id, // reference the data source
         'layout': {},
         'paint': {
-        'fill-color': '#0080ff', // blue color fill
+        'fill-color': basicColor, // blue color fill
         'fill-opacity': 0.5
         }
       });
@@ -70,7 +82,7 @@ const MapBoxGlMap = () => {
         'source': polygon.id,
         'layout': {},
         'paint': {
-        'line-color': '#0080ff',
+        'line-color': basicColor,
         'line-width': 3
         }
       });

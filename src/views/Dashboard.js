@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import { useSelector, useDispatch } from 'react-redux'
 import {fetchPolygons} from '../features/polygons/actions'
 
@@ -14,19 +14,24 @@ import {
 import MapBox from "./maps/MapBox";
 import PolygonsTable from "./agro-components/PolygonsTable"
 
-
-
 const selectPolygons = state => state.polygons;
 
 const DashboardMain = () => {
 
-  const [apiCallCount, setApiCallCount] = React.useState(0);
+  const [apiCallCount, setApiCallCount] = useState(0);
+  const [polygon, setPolygon] = useState(null);
+
   const polygons = useSelector(selectPolygons);
   const dispatch = useDispatch();
   if (!polygons.length && !apiCallCount) {
     dispatch(fetchPolygons());
     setApiCallCount(1)
   }
+
+  useEffect(() => {
+    console.log("selected polygon ", polygon)
+  }, [polygon])
+
 
   const polygonsArea = () => {
     if (polygons.length) {
@@ -42,7 +47,10 @@ const DashboardMain = () => {
         <Row style={{marginBottom: "30px"}}>
           <Col md="8">
             <div className="chart-area">
-              <MapBox />
+              <MapBox
+                selectedPolygon={polygon}
+                selectPolygon={setPolygon}
+              />
             </div>
           </Col>
           <Col md="4">
@@ -96,7 +104,11 @@ const DashboardMain = () => {
         </Row>
         <Row>
           <Col>
-            <PolygonsTable data={polygons}/>
+            <PolygonsTable
+              data={polygons}
+              polygon={polygon}
+              setPolygon={setPolygon}
+            />
             {/*<PolygonsReactTable data={polygons}/>*/}
           </Col>
         </Row>

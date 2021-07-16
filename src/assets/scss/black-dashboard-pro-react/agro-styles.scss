@@ -145,4 +145,10 @@ $danger-color: #ec250d;
   border-color: $danger-color;
 }
 
-
+.polygons-table {
+  tbody {
+    tr:hover {
+      background-color: rgba(0,0,0,.05);
+    }
+  }
+}
