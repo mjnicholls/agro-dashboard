@@ -1,10 +1,10 @@
 import React from 'react';
-import {getSoilData} from "../../services/api/polygonApi";
-import {toDateShort} from '../../utils/DateTime'
+import {useSelector} from 'react-redux';
+import {getSoilData} from "../../services/api/chartApi";
+import {getStartDateByTariff, toDateShort} from '../../utils/DateTime'
 import {Line} from "react-chartjs-2";
-import {chartOptions} from './base'
-import DatePicker from "react-datetime";
-import moment from 'moment';
+import {chartOptions} from './base';
+import DatePickerChart from '../agro-components/DatePickerChart';
 
 import {
   Card,
@@ -16,7 +16,13 @@ import {
 } from "reactstrap";
 
 
-const SoilChart = ({ id, defaultStartDate, defaultEndDate, userLevel }) => {
+const selectLimit = state => state.auth.limits.history.ndvi_history;
+
+
+const SoilChart = ({ id, defaultStartDate, defaultEndDate }) => {
+
+  const limit = useSelector(selectLimit);
+  const limitStartDate = getStartDateByTariff(limit);
 
   let [startDate, setStartDate] = React.useState(defaultStartDate);
   let [endDate, setEndDate] = React.useState(defaultEndDate);
@@ -33,27 +39,6 @@ const SoilChart = ({ id, defaultStartDate, defaultEndDate, userLevel }) => {
   }, [startDate, endDate])
 
   const options = JSON.parse(JSON.stringify(chartOptions))
-
-  const onStartDateChange = (moment) => {
-    setStartDate(moment.unix())
-  }
-
-  const onEndDateChange = (moment) => {
-    setEndDate(moment.unix())
-  }
-
-  var validateStartDate = function( current ){
-    let isValid = current.isBefore( endDate * 1000 ) && current.isBefore(moment());
-    if (userLevel < 3) {
-      // глубина доступных данных 1 год
-      isValid = isValid && current.isAfter(moment().subtract(1, 'years'));
-    }
-    return isValid;
-  };
-
-  var validateEndDate = function( current ){
-    return current.isAfter( startDate * 1000 ) && current.isBefore(moment());
-  };
 
   options.scales.yAxes = [
     {
@@ -168,33 +153,18 @@ const SoilChart = ({ id, defaultStartDate, defaultEndDate, userLevel }) => {
     <Card className="card-chart">
       <CardHeader>
         <Row>
-          <Col className="text-left" sm="6">
+          <Col className="text-left" xs="6" sm="8">
             <h5 className="card-category">History</h5>
             <CardTitle tag="h2">Soil data</CardTitle>
           </Col>
-          <Col sm="6">
-            <Row style={{justifyContent: 'flex-end'}}>
-              <Col lg="5" md="6" sm="3">
-                <DatePicker
-                  className="card-header-calender"
-                  value={startDate * 1000}
-                  dateFormat={"DD MMM YY"}
-                  timeFormat={false}
-                  onChange={onStartDateChange}
-                  isValidDate={validateStartDate}
-               />
-              </Col>
-              <Col lg="5" md="6" sm="3">
-                <DatePicker
-                  className="card-header-calender chart-calender-right"
-                  value={endDate * 1000}
-                  dateFormat={"DD MMM YY"}
-                  timeFormat={false}
-                  onChange={onEndDateChange}
-                  isValidDate={validateEndDate}
-                />
-              </Col>
-            </Row>
+          <Col xs="6" sm="4">
+            <DatePickerChart
+              startDate={startDate}
+              setStartDate={setStartDate}
+              endDate={endDate}
+              setEndDate={setEndDate}
+              limitStartDate={limitStartDate}
+            />
           </Col>
         </Row>
       </CardHeader>

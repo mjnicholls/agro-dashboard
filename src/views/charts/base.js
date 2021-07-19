@@ -42,6 +42,8 @@ export const chartOptions = {
         ticks: {
           padding: 20,
           fontColor: "#9a9a9a",
+          autoSkip: true,
+          maxTicksLimit: 5
         },
       },
     ],

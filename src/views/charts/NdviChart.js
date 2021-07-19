@@ -2,11 +2,10 @@ import React from 'react';
 
 import {useSelector} from 'react-redux';
 import moment from 'moment';
-import DatePicker from "react-datetime";
 import {Line} from "react-chartjs-2";
+import DatePickerChart from '../agro-components/DatePickerChart';
 
-
-import {getNDVIData} from "../../services/api/polygonApi";
+import {getNDVIData} from "../../services/api/chartApi";
 import {toDate, getStartDateByTariff} from '../../utils/DateTime'
 import {chartOptions} from './base'
 
@@ -24,42 +23,23 @@ const selectLimit = state => state.auth.limits.history.ndvi_history;
 const NdviChart = ({ id, defaultStartDate, defaultEndDate }) => {
 
   const limit = useSelector(selectLimit);
-  let [limitStartDate, setLimitStartDate] = React.useState(null);
-  let [startDate, setStartDate] = React.useState(defaultStartDate  * 1000);
-  let [endDate, setEndDate] = React.useState(defaultEndDate * 1000);
+  const limitStartDate = getStartDateByTariff(limit);
+
+  let [startDate, setStartDate] = React.useState(defaultStartDate);
+  let [endDate, setEndDate] = React.useState(defaultEndDate);
   let [chartData, setChartData] = React.useState([]);
 
   React.useEffect(() => {
-    setLimitStartDate(getStartDateByTariff(limit))
-  }, [])
-
-  React.useEffect(() => {
     if (startDate && endDate) {
-      getNDVIData(id, Math.round(startDate / 1000), Math.round(endDate/1000))
+      getNDVIData(id, startDate, endDate)
         .then(response => {
           if (response && response.length) {
-            response.reverse()
-            setChartData(response)
+            response.reverse();
+            setChartData(response);
           }
         })
       }
   }, [startDate, endDate])
-
-  const onStartDateChange = (moment) => {
-    setStartDate(moment.unix())
-  }
-
-  const onEndDateChange = (moment) => {
-    setEndDate(moment.unix())
-  }
-
-  var validateStartDate = function( current ){
-    return current.isAfter(limitStartDate) && current.isBefore( endDate ) && current.isBefore(moment());
-  };
-
-  var validateEndDate = function( current ){
-    return current.isAfter(limitStartDate) && current.isAfter( startDate ) && current.isBefore(moment());
-  };
 
   let data = (canvas) => {
     let ctx = canvas.getContext("2d");
@@ -135,33 +115,18 @@ const NdviChart = ({ id, defaultStartDate, defaultEndDate }) => {
     <Card className="card-chart">
       <CardHeader>
         <Row>
-          <Col className="text-left" sm="6">
+          <Col className="text-left" xs="6" sm="8">
             <h5 className="card-category">History</h5>
             <CardTitle tag="h2">NDVI</CardTitle>
           </Col>
-          <Col sm="6">
-            <Row style={{justifyContent: 'flex-end'}}>
-              <Col lg="5" md="6" sm="3">
-                <DatePicker
-                  className="card-header-calender"
-                  value={startDate }
-                  dateFormat={"DD MMM YY"}
-                  timeFormat={false}
-                  onChange={onStartDateChange}
-                  isValidDate={validateStartDate}
-               />
-              </Col>
-              <Col lg="5" md="6" sm="3">
-                <DatePicker
-                  className="card-header-calender chart-calender-right"
-                  value={endDate }
-                  dateFormat={"DD MMM YY"}
-                  timeFormat={false}
-                  onChange={onEndDateChange}
-                  isValidDate={validateEndDate}
-                />
-              </Col>
-            </Row>
+          <Col xs="6" sm="4">
+            <DatePickerChart
+              startDate={startDate}
+              setStartDate={setStartDate}
+              endDate={endDate}
+              setEndDate={setEndDate}
+              limitStartDate={limitStartDate}
+            />
           </Col>
         </Row>
       </CardHeader>

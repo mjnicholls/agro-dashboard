@@ -118,11 +118,18 @@ $danger-color: #ec250d;
       }
     }
   }
-
 }
-.card-header-calender {
+
+.datepicker-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.card-header-calendar {
   color: #525f7f;
-  .chart-calender-right {
+  margin-left: 10px;
+  .chart-calendar-right {
     .rdtPicker {
       right: 0;
       &:before {

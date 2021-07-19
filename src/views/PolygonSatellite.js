@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from 'react-redux'
-import { NdviChart, SoilChart } from './charts/index'
+import { AccumulatedChart, NdviChart, SoilChart } from './charts/index'
 import SatelliteImagesList from './agro-components/SatelliteImages'
 import MapBox from './maps/MapBoxTiles'
 import {
@@ -61,8 +61,8 @@ const PolygonSatellite = () => {
     let monthAgo = new Date(now.getTime());
     monthAgo.setMonth(monthAgo.getMonth() - 1);
     monthAgo.setHours(0, 0, 0, 0);
-    let startDate = Math.round(monthAgo.getTime() / 1000)
-    let endDate = Math.round(now.getTime() / 1000)
+    let startDate = monthAgo.getTime();
+    let endDate = now.getTime();
     return [startDate, endDate]
   }, [currentHour])
 
@@ -190,6 +190,13 @@ const PolygonSatellite = () => {
               defaultStartDate={startDate}
               defaultEndDate={endDate}
               userLevel={userLevel}
+            />
+          </Col>
+        </Row> }
+        { userLevel && <Row>
+          <Col>
+            <AccumulatedChart
+              id={selectedPolygon.id}
             />
           </Col>
         </Row> }

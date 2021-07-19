@@ -53,6 +53,14 @@ const DashboardMain = () => {
               />
             </div>
           </Col>
+          {/*<Col md="6">*/}
+            {/*<PolygonsTable*/}
+              {/*data={polygons}*/}
+              {/*polygon={polygon}*/}
+              {/*setPolygon={setPolygon}*/}
+            {/*/>*/}
+          {/*</Col>*/}
+
           <Col md="4">
             <Card className="card-stats">
               <CardBody>
@@ -109,7 +117,6 @@ const DashboardMain = () => {
               polygon={polygon}
               setPolygon={setPolygon}
             />
-            {/*<PolygonsReactTable data={polygons}/>*/}
           </Col>
         </Row>
       </div>

@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import PolygonDeleteModal from "./PolygonDeleteModal";
 import PolygonEditModal from "./PolygonEditModal";
 import PolygonsPagination from "./PolygonsPagination"
+import Shape from "./Shape";
 
 import {
   Button,
@@ -35,7 +36,6 @@ const PolygonsTable = ({data, polygon, setPolygon}) => {
   useEffect(() => {
     setBodyData(data)
   }, [data])
-
 
 
   const prepareEdit = (polygon) => {
@@ -187,7 +187,7 @@ const PolygonsTable = ({data, polygon, setPolygon}) => {
                     key={`row_` + index}
                     onClick={() => setPolygon(polygon.id)}
                   >
-                    <td>Shape</td>
+                    <td style={{width: "55px"}}><Shape polygon={polygon} /></td>
                     <td>
                       <Link to={"/admin/polygon/" + polygon.id}>
                         {polygon.name}

@@ -185,7 +185,7 @@ const MapBox = ({setArea, setGeoJson, setIntersection, drawRef}) => {
   const updateArea = () => {
     let data = drawRef.current.getAll();
     if (data.features.length > 0) {
-      let area = (turf.area(data) / 1000).toFixed(2);
+      let area = (turf.area(data) / 10000).toFixed(2);
       let poly = turf.polygon(data.features[0].geometry.coordinates, { name: 'poly1'});
       let intersections = turf.kinks(poly);
       setArea(area);

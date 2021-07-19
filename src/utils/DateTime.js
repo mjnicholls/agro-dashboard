@@ -20,12 +20,22 @@ export const getStartDateByTariff = (limit) => {
    * */
   let newStartDate;
   if (limit.depth > 0) {
-    // depth is defined in years
     newStartDate = new Date();
-    newStartDate.setFullYear(newStartDate.getFullYear() - 0.8);
+    newStartDate.setFullYear(newStartDate.getFullYear() - limit.depth);
   } else {
-    // if the depth is unlimited take the earliest possible date
     newStartDate = limit.start;
   }
   return newStartDate;
+}
+
+export const getDateInPast = (nOfMonths) => {
+  /**
+   * Get data N month before now
+   */
+  // let now = new Date();
+  let dateInPast = new Date();
+  dateInPast.setMonth(dateInPast.getMonth() - nOfMonths);
+  dateInPast.setHours(0, 0, 0, 0);
+  return dateInPast
+
 }
