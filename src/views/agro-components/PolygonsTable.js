@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import PropTypes from "prop-types";
 import {toDate} from '../../utils/DateTime'
 import classnames from "classnames";
-import { Link } from "react-router-dom";
+import { Route, Link } from "react-router-dom";
 import PolygonDeleteModal from "./PolygonDeleteModal";
 import PolygonEditModal from "./PolygonEditModal";
 import PolygonsPagination from "./PolygonsPagination"
@@ -111,6 +111,64 @@ const PolygonsTable = ({data, polygon, setPolygon}) => {
     }
   }
 
+  const TableRow = ({polygon}) => (
+    <tr
+      onMouseEnter={() => {setPolygon(polygon.id)}}
+      onMouseLeave={() => {setPolygon(null)}}
+      // onClick={() => {history.push("/admin/polygon/" + polygon.id)}}
+    >
+      <td style={{width: "55px"}}>
+        <Shape polygon={polygon} />
+      </td>
+      <td>
+        <Link to={"/admin/polygon/" + polygon.id}>
+          {polygon.name}
+        </Link>
+      </td>
+      <td>{toDate(polygon.created_at)}</td>
+      <td>{polygon.area.toFixed(2)}ha</td>
+      <td className="text-right">
+        <Button
+          className="btn-link btn-icon btn-neutral"
+          color="success"
+          id="tooltip618296632"
+          size="sm"
+          title="Refresh"
+          type="button"
+          onClick={(e) => {
+            e.preventDefault();
+            prepareEdit(polygon);
+          }}
+        >
+          <i className="tim-icons icon-pencil" />
+        </Button>
+        <UncontrolledTooltip
+          delay={0}
+          target="tooltip618296632"
+        >
+          Edit polygon
+        </UncontrolledTooltip>
+        <Button
+          className="btn-link btn-icon btn-neutral"
+          color="danger"
+          id="tooltip707467505"
+          size="sm"
+          title="Delete"
+          type="button"
+          onClick={() => prepareDelete(polygon)}
+        >
+          <i className="tim-icons icon-simple-remove" />
+        </Button>
+        <UncontrolledTooltip
+          delay={0}
+          target="tooltip707467505"
+        >
+          Delete polygon
+        </UncontrolledTooltip>
+      </td>
+    </tr>
+  )
+
   return (
     <>
       <PolygonDeleteModal
@@ -181,62 +239,8 @@ const PolygonsTable = ({data, polygon, setPolygon}) => {
               </tr>
             </thead>
             <tbody>
-              {bodyData.slice((page-1)*itemsPerPage, page*itemsPerPage).map((polygon, index) => {
-                return (
-                  <tr
-                    key={`row_` + index}
-                    onClick={() => setPolygon(polygon.id)}
-                  >
-                    <td style={{width: "55px"}}><Shape polygon={polygon} /></td>
-                    <td>
-                      <Link to={"/admin/polygon/" + polygon.id}>
-                        {polygon.name}
-                        </Link>
-                      </td>
-                    <td>{toDate(polygon.created_at)}</td>
-                    <td>{polygon.area.toFixed(2)}ha</td>
-                    <td className="text-right">
-                      <Button
-                        className="btn-link btn-icon btn-neutral"
-                        color="success"
-                        id="tooltip618296632"
-                        size="sm"
-                        title="Refresh"
-                        type="button"
-                        onClick={(e) => {
-                          e.preventDefault();
-                          prepareEdit(polygon);
-                        }}
-                      >
-                        <i className="tim-icons icon-pencil" />
-                      </Button>
-                      <UncontrolledTooltip
-                        delay={0}
-                        target="tooltip618296632"
-                      >
-                        Edit polygon
-                      </UncontrolledTooltip>
-                      <Button
-                        className="btn-link btn-icon btn-neutral"
-                        color="danger"
-                        id="tooltip707467505"
-                        size="sm"
-                        title="Delete"
-                        type="button"
-                        onClick={() => prepareDelete(polygon)}
-                      >
-                        <i className="tim-icons icon-simple-remove" />
-                      </Button>
-                      <UncontrolledTooltip
-                        delay={0}
-                        target="tooltip707467505"
-                      >
-                        Delete polygon
-                      </UncontrolledTooltip>
-                    </td>
-                  </tr>
-                );
-              })}
+              {bodyData.slice((page-1)*itemsPerPage, page*itemsPerPage).map((polygon) =>
+                <TableRow key={"row_" + polygon.id} polygon={polygon} />)}
               <tr>
                 <td colSpan={2} className="td-total">Total</td>
                 <td className="td-total text-left">{totalPolygons()} polygons</td>

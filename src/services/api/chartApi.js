@@ -5,7 +5,6 @@ import {
   historySoil
 } from "./index";
 import {axiosInstance} from "../base";
-import {kelvinToCelsius} from "../../utils/Utils";
 
 export const getNDVIData = (polygonId, start, end) => {
   /** Get history NDVI chart data by polygon  */

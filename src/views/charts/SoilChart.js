@@ -32,7 +32,7 @@ const SoilChart = ({ id, defaultStartDate, defaultEndDate }) => {
 
   React.useEffect(() => {
     setIsLoading(true);
-    if (startDate && endDate) {
+    if (startDate && endDate && id) {
       getSoilData(id, startDate, endDate)
         .then(response => {
           if (response) {
@@ -53,7 +53,7 @@ const SoilChart = ({ id, defaultStartDate, defaultEndDate }) => {
         })
         .finally(() => {setIsLoading(false)})
     }
-  }, [startDate, endDate])
+  }, [startDate, endDate, id])
 
   const options = JSON.parse(JSON.stringify(chartOptions))
 

@@ -19,7 +19,8 @@ const selectPolygons = state => state.polygons;
 const Dashboard = () => {
 
   const [apiCallCount, setApiCallCount] = useState(0);
-  const [polygon, setPolygon] = useState(null);
+  // const [selectedPolygon, setSelectedPolygon] = useState(null);
+  const [activePolygon, setActivePolygon] = useState(null);
 
   const polygons = useSelector(selectPolygons);
   const dispatch = useDispatch();
@@ -43,12 +44,12 @@ const Dashboard = () => {
           <Col md="8">
             <div className="chart-area">
               <MapBox
-                selectedPolygon={polygon}
-                selectPolygon={setPolygon}
+                selectedPolygon={activePolygon}
+                selectPolygon={setActivePolygon}
               />
             </div>
           </Col>
-          {/*<Col md="6">*/}
+          {/*<Col md="4">*/}
             {/*<PolygonsTable*/}
               {/*data={polygons}*/}
               {/*polygon={polygon}*/}
@@ -67,6 +68,14 @@ const Dashboard = () => {
                   </Col>
                   <Col xs="7">
                     <div className="numbers">
+                      <p className="card-category">Total polygons</p>
+                      <CardTitle tag="h3">{polygons.length}</CardTitle>
+                    </div>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col className="float-right">
+                    <div className="numbers">
                       <p className="card-category">Total area</p>
                       <CardTitle tag="h3">{polygonsArea()}ha</CardTitle>
                     </div>
@@ -80,37 +89,17 @@ const Dashboard = () => {
                 </div>
               </CardFooter>
             </Card>
-            <Card className="card-stats">
-              <CardBody>
-                <Row>
-                  <Col xs="5">
-                    <div className="info-icon text-center icon-warning">
-                      <i className="tim-icons icon-chat-33" />
-                    </div>
-                  </Col>
-                  <Col xs="7">
-                    <div className="numbers">
-                      <p className="card-category">Total polygons</p>
-                      <CardTitle tag="h3">{polygons.length}</CardTitle>
-                    </div>
-                  </Col>
-                </Row>
-              </CardBody>
-              <CardFooter>
-                <hr />
-                <div className="stats">
-                  <i className="tim-icons icon-refresh-01" /> Update Now
-                </div>
-              </CardFooter>
-            </Card>
           </Col>
         </Row>
+
+
+
         <Row>
           <Col>
             <PolygonsTable
               data={polygons}
-              polygon={polygon}
-              setPolygon={setPolygon}
+              polygon={activePolygon}
+              setPolygon={setActivePolygon}
             />
           </Col>
         </Row>

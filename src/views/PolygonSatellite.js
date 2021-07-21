@@ -1,13 +1,17 @@
-import React from "react";
+import React, {useState} from "react";
 import { useDispatch, useSelector } from 'react-redux';
-import {toDate} from '../utils/DateTime'
-import { AccumulatedChart, NdviChart, SoilChart } from './charts/index'
+import {toDate} from '../utils/DateTime';
+import SatellitePage from './SatellitePage';
+import WeatherPage from './WeatherPage';
 import SatelliteImagesList from './agro-components/SatelliteImages'
 import MapBox from './maps/MapBoxTiles'
 import {
+  Button,
+  ButtonGroup,
   Card,
-  CardHeader,
   CardBody,
+  CardHeader,
+  CardTitle,
   Table,
   Row,
   Col,
@@ -21,6 +25,7 @@ import { fetchPolygons } from "../features/polygons/actions";
 import { getSatelliteImagesList } from "../services/api/polygonApi";
 import SatelliteLayersDropdown from "./agro-components/SatelliteLayers";
 import { userLevels } from '../config'
+import classNames from "classnames";
 
 const selectPolygons = state => state.polygons;
 const selectPolygon = polygonId => state => {
@@ -45,11 +50,13 @@ const PolygonSatellite = () => {
 
   const userLevel = userLevels[tariff];
 
-  const [selectedPolygon, setSelectedPolygon] = React.useState(polygon);
-  const [selectedImage, setSelectedImage] = React.useState();
-  const [selectedLayer, setSelectedLayer] = React.useState({value: "truecolor", label: "True Color"});
-  const [images, setImages] = React.useState([]);
-  const [layers, setLayers] = React.useState([]);
+  const [selectedPolygon, setSelectedPolygon] = useState(polygon);
+  const [selectedImage, setSelectedImage] = useState();
+  const [selectedLayer, setSelectedLayer] = useState({value: "truecolor", label: "True Color"});
+  const [images, setImages] = useState([]);
+  const [layers, setLayers] = useState([]);
+
+  const [isSatellitePage, setIsSatellitePage] = useState(true);
 
   React.useEffect(() => {
     setSelectedPolygon(polygon)
@@ -147,12 +154,14 @@ const PolygonSatellite = () => {
                         <i className="tim-icons icon-bullet-list-67 text-info" />
                       </Link>
                   </CardHeader>
-                  <CardBody style={{maxHeight: "450px", overflow: "scroll"}}>
+                  <CardBody style={{maxHeight: "450px", overflow: "scroll", marginBottom: "10px"}}>
                     <Table responsive>
                     <tbody>
                       {polygons.map(polygon => (
                         <tr
-                          className="clickable-table-row"
+                          className={classNames("clickable-table-row", {
+                            "table-danger": polygon.id === selectedPolygon.id,
+                          })}
                           onClick={() => {setSelectedPolygon(polygon)}}
                           key={`polygon_${polygon.id}`} >
                           <td>{polygon.name}</td>
@@ -161,7 +170,7 @@ const PolygonSatellite = () => {
                         </tr>
                       ))}
                     </tbody>
-                </Table>
+                  </Table>
                   </CardBody>
                 </Card>
               </Col>
@@ -170,33 +179,60 @@ const PolygonSatellite = () => {
         </Row>
 
         <Row>
-          <Col>
-            {(selectedPolygon && startDate && endDate) &&
-            <NdviChart
-              id={selectedPolygon.id}
-              name={selectedPolygon.name}
-              defaultStartDate={startDate}
-              defaultEndDate={endDate}
-             />}
+          <Col sm="6">
+            <CardTitle tag="h2">{selectedPolygon.name}, {selectedPolygon.area.toFixed(2)}ha</CardTitle>
           </Col>
+          <Col sm="6">
+              <ButtonGroup
+                className="btn-group-toggle float-right"
+                data-toggle="buttons"
+              >
+                <Button
+                  color="info"
+                  id="0"
+                  size="sm"
+                  tag="label"
+                  className={classNames("btn-simple", {
+                    active: isSatellitePage,
+                  })}
+                  onClick={() => setIsSatellitePage(true)}
+                >
+                  <span className="d-none d-sm-block d-md-block d-lg-block d-xl-block">
+                    Satellite
+                  </span>
+                  <span className="d-block d-sm-none">
+                    <i className="tim-icons icon-single-02" />
+                  </span>
+                </Button>
+                <Button
+                  color="info"
+                  id="1"
+                  size="sm"
+                  tag="label"
+                  className={classNames("btn-simple", {
+                    active: !isSatellitePage,
+                  })}
+                  onClick={() => setIsSatellitePage(false)}
+                >
+                  <span className="d-none d-sm-block d-md-block d-lg-block d-xl-block">
+                    Weather
+                  </span>
+                  <span className="d-block d-sm-none">
+                    <i className="tim-icons icon-gift-2" />
+                  </span>
+                </Button>
+              </ButtonGroup>
+            </Col>
         </Row>
-        { (userLevel && startDate && endDate) && <Row>
-          <Col>
-            <SoilChart
-              id={selectedPolygon.id}
-              defaultStartDate={startDate}
-              defaultEndDate={endDate}
-              userLevel={userLevel}
-            />
-          </Col>
-        </Row> }
-        { userLevel && <Row>
-          <Col>
-            <AccumulatedChart
-              id={selectedPolygon.id}
-            />
-          </Col>
-        </Row> }
+
+        {isSatellitePage ?
+          <SatellitePage
+            selectedPolygon={selectedPolygon}
+            startDate={startDate}
+            endDate={endDate}
+            userLevel={userLevel}
+          /> : <WeatherPage polygon={selectedPolygon} />
+        }
       </div>
     </> :
     <>

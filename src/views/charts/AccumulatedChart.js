@@ -29,7 +29,6 @@ const AccumulatedChart = ({id}) => {
   const [endDate, setEndDate] = useState(null);
   const [data, setData] = useState([]);
 
-  const [combinedData, setCombinedData] = useState([]);
   const limit = useSelector(selectLimit);
   const limitStartDate = getStartDateByTariff(limit);
   const [error, setError] = useState(null);
@@ -58,7 +57,7 @@ const AccumulatedChart = ({id}) => {
           setIsLoading(false);
         })
     }
-  }, [startDate, endDate])
+  }, [startDate, endDate, id])
 
   const options = JSON.parse(JSON.stringify(chartOptions))
 

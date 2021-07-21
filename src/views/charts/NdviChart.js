@@ -32,7 +32,7 @@ const NdviChart = ({ id, defaultStartDate, defaultEndDate }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    if (startDate && endDate) {
+    if (startDate && endDate && id) {
       setIsLoading(true);
       setError(null);
       getNDVIData(id, startDate, endDate)
@@ -56,7 +56,7 @@ const NdviChart = ({ id, defaultStartDate, defaultEndDate }) => {
         })
         .finally(() => {setIsLoading(false)})
       }
-  }, [startDate, endDate])
+  }, [startDate, endDate, id])
 
   let chartData = (canvas) => {
     let ctx = canvas.getContext("2d");
