@@ -3,11 +3,8 @@ import axios from 'axios';
 import {logoutFrontEnd} from '../features/auth/actions'
 import store from '../store'
 
-
-
 const axiosInstance = axios.create({
-// .. where we make our configurations
-  timeout: 5000
+  timeout: 15000
 });
 
 axiosInstance.interceptors.request.use(function (config) {

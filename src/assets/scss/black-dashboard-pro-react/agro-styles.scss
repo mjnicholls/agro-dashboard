@@ -1,5 +1,29 @@
 $danger-color: #ec250d;
 
+.horizontal-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+@mixin horizontal-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.center-container {
+  @include horizontal-container;
+  justify-content: center;
+}
+
+.chart-placeholder {
+  @include horizontal-container;
+  justify-content: center;
+  height: 200px;
+}
+
+
 .leaflet-map-container {
   width: 100%;
   height: 100%;
@@ -48,11 +72,6 @@ $danger-color: #ec250d;
   }
 }
 
-.horizontal-container {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
 
 #map-satellite {
   position: relative;

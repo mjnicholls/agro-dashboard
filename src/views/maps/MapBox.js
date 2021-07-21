@@ -9,7 +9,7 @@ mapboxgl.accessToken = 'pk.eyJ1IjoiYXZvbG92aWsiLCJhIjoiY2txdzNpdWs1MGkwZjJ3cGNrY
 
 const selectPolygons = state => state.polygons;
 
-const MapBoxGlMap = ({ selectedPolygon, selectPolygon }) => {
+const MapBox = ({ selectedPolygon, selectPolygon }) => {
 
   const mapContainer = useRef(null);
   const map = useRef(null);
@@ -123,6 +123,12 @@ const MapBoxGlMap = ({ selectedPolygon, selectPolygon }) => {
     map.current.on('load', function () {
       setInitialised(true);
     })
+    return () => {
+      if (map.current) {
+        map.current.remove();
+      }
+    }
+
   }, []);
 
   useEffect(() => {
@@ -138,4 +144,4 @@ const MapBoxGlMap = ({ selectedPolygon, selectPolygon }) => {
 );
 }
 
-export default MapBoxGlMap;
+export default MapBox;

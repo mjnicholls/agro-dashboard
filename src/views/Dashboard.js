@@ -16,7 +16,7 @@ import PolygonsTable from "./agro-components/PolygonsTable"
 
 const selectPolygons = state => state.polygons;
 
-const DashboardMain = () => {
+const Dashboard = () => {
 
   const [apiCallCount, setApiCallCount] = useState(0);
   const [polygon, setPolygon] = useState(null);
@@ -27,11 +27,6 @@ const DashboardMain = () => {
     dispatch(fetchPolygons());
     setApiCallCount(1)
   }
-
-  useEffect(() => {
-    console.log("selected polygon ", polygon)
-  }, [polygon])
-
 
   const polygonsArea = () => {
     if (polygons.length) {
@@ -124,4 +119,4 @@ const DashboardMain = () => {
   );
 };
 
-export default DashboardMain;
+export default Dashboard;

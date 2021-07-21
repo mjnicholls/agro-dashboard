@@ -50,7 +50,13 @@ const MapBox = ({setArea, setGeoJson, setIntersection, drawRef}) => {
 
   useEffect(() => {
     initialiseMap();
-  });
+
+    return () => {
+      if (map.current) {
+        map.current.remove();
+      }
+    }
+  }, []);
 
   const nominatimGeocoder = (query) => {
     /** Load custom data to supplement the search results */

@@ -1,10 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import {useSelector} from 'react-redux';
-import {getAccumulatedPrecipitation, getAccumulatedTemperature} from '../../services/api/chartApi';
+import {getAccumulatedData, getAccumulatedPrecipitation, getAccumulatedTemperature} from '../../services/api/chartApi';
 import {getDateInPast, getStartDateByTariff, toDateShort} from '../../utils/DateTime';
 import {Line} from "react-chartjs-2";
 import {chartOptions} from "./base";
 import DatePickerChart from '../agro-components/DatePickerChart';
+import {kelvinToCelsius} from '../../utils/Utils';
+
+
 
 import {
   Card,
@@ -24,11 +27,13 @@ const AccumulatedChart = ({id}) => {
 
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
-  const [rainFallData, setRainFallData] = useState([]);
-  const [tempData, setTempData] = useState([]);
+  const [data, setData] = useState([]);
+
   const [combinedData, setCombinedData] = useState([]);
   const limit = useSelector(selectLimit);
   const limitStartDate = getStartDateByTariff(limit);
+  const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     let now = new Date();
@@ -41,37 +46,19 @@ const AccumulatedChart = ({id}) => {
 
   useEffect(() => {
     if (startDate && endDate && id) {
-      getAccumulatedPrecipitation(id, startDate, endDate)
-        .then(data => {setRainFallData(data)})
-        .catch(err => {
-          // TODO
-          console.log(err)
+      setIsLoading(true);
+      getAccumulatedData(id, startDate, endDate)
+        .then(res => {
+          setData(res);
         })
-      getAccumulatedTemperature(id, startDate, endDate)
-        .then(data => {setTempData(data)})
         .catch(err => {
-          // TODO
-          console.log(err)
+          setError(err)
+        })
+        .finally(() => {
+          setIsLoading(false);
         })
     }
   }, [startDate, endDate])
-
-  useEffect(() => {
-    if (tempData.length && rainFallData.length) {
-      let arr = []
-      for (let i=0; i<rainFallData.length; i++) {
-        if (tempData.length < i-1) {
-          break
-        }
-        arr.push({
-          dt: rainFallData[i].dt,
-          rain: rainFallData[i].rain,
-          temp: tempData[i].temp
-        })
-      }
-      setCombinedData(arr)
-    }
-  }, [tempData, rainFallData])
 
   const options = JSON.parse(JSON.stringify(chartOptions))
 
@@ -90,7 +77,7 @@ const AccumulatedChart = ({id}) => {
           // suggestedMax: 125,
           // padding: 20,
           fontColor: "#9a9a9a",
-          callback: function (value, index, values) {
+          callback: function (value) {
             return value + '°';
           }
         },
@@ -109,7 +96,7 @@ const AccumulatedChart = ({id}) => {
           // suggestedMax: 125,
           // padding: 20,
           fontColor: "#9a9a9a",
-          callback: function (value, index, values) {
+          callback: function (value) {
             return value + ' mm';
           }
         }
@@ -124,7 +111,7 @@ const AccumulatedChart = ({id}) => {
     gradientStrokeBlue.addColorStop(0, "rgba(29,140,248,0)");
 
     return {
-      labels: combinedData.map(el => toDateShort(el.dt)),
+      labels: data.map(el => toDateShort(el.dt)),
       datasets: [
         {
           label: "Rainfall",
@@ -142,25 +129,24 @@ const AccumulatedChart = ({id}) => {
           pointHoverRadius: 4,
           pointHoverBorderWidth: 15,
           pointRadius: 1,
-          data: combinedData.map(el => el.rain)
+          data: data.map(el => el.rain)
         },
         {
           label: "Temperature",
           yAxisID: "temperature",
           fill: false,
-          backgroundColor: gradientStrokeBlue,
-          borderColor: "#00d6b4",
+          borderColor: "#be55ed",
           borderWidth: 2,
           borderDash: [],
           borderDashOffset: 0.0,
-          pointBackgroundColor: "#00d6b4",
+          pointBackgroundColor: "#be55ed",
           pointBorderColor: "rgba(255,255,255,0)",
-          pointHoverBackgroundColor: "#00d6b4",
+          pointHoverBackgroundColor: "#be55ed",
           pointBorderWidth: 20,
           pointHoverRadius: 4,
           pointHoverBorderWidth: 15,
           pointRadius: 1,
-          data: combinedData.map(el => el.temp)
+          data: data.map(el => el.temp)
         }
       ],
     }
@@ -170,7 +156,7 @@ const AccumulatedChart = ({id}) => {
       <CardHeader>
         <Row>
           <Col className="text-left" xs="6" sm="8">
-            <h5 className="card-category">History</h5>
+            <h5 className="card-category">Historical</h5>
             <CardTitle tag="h2">Accumulated Parameters</CardTitle>
           </Col>
           <Col xs="6" sm="4">
@@ -185,12 +171,18 @@ const AccumulatedChart = ({id}) => {
         </Row>
       </CardHeader>
       <CardBody>
-        <div className="chart-area">
-          <Line
-            data={chartData}
-            options={options}
-          />
-        </div>
+       {isLoading ?
+         <div className="chart-placeholder">Fetching data...</div> :
+            error ?
+              <div className="chart-placeholder">{error}</div>  :
+              data.length ?
+              <div className="chart-area">
+                <Line
+                  data={chartData}
+                  options={options}
+                />
+              </div> : null
+          }
       </CardBody>
     </Card>)
 

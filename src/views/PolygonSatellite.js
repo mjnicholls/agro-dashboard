@@ -1,5 +1,6 @@
 import React from "react";
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux';
+import {toDate} from '../utils/DateTime'
 import { AccumulatedChart, NdviChart, SoilChart } from './charts/index'
 import SatelliteImagesList from './agro-components/SatelliteImages'
 import MapBox from './maps/MapBoxTiles'
@@ -59,7 +60,7 @@ const PolygonSatellite = () => {
   const defaultDates = React.useMemo(() => {
     let now = new Date();
     let monthAgo = new Date(now.getTime());
-    monthAgo.setMonth(monthAgo.getMonth() - 1);
+    monthAgo.setMonth(monthAgo.getMonth() - 6);
     monthAgo.setHours(0, 0, 0, 0);
     let startDate = monthAgo.getTime();
     let endDate = now.getTime();
@@ -146,7 +147,7 @@ const PolygonSatellite = () => {
                         <i className="tim-icons icon-bullet-list-67 text-info" />
                       </Link>
                   </CardHeader>
-                  <CardBody>
+                  <CardBody style={{maxHeight: "450px", overflow: "scroll"}}>
                     <Table responsive>
                     <tbody>
                       {polygons.map(polygon => (
@@ -154,13 +155,9 @@ const PolygonSatellite = () => {
                           className="clickable-table-row"
                           onClick={() => {setSelectedPolygon(polygon)}}
                           key={`polygon_${polygon.id}`} >
-                          <td>
-                            <div>
-                              Shape
-                            </div>
-                          </td>
                           <td>{polygon.name}</td>
                           <td className="text-right">{polygon.area.toFixed(1)}ha</td>
+                          <td>{toDate(polygon.created_at)}</td>
                         </tr>
                       ))}
                     </tbody>

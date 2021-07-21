@@ -16,8 +16,16 @@ const MapBox = ({ polygon, selectedImage, selectedLayer  }) => {
   const [tile, setTile] = useState(null);
 
   useEffect(() => {
+    return () => {
+      if (map.current) {
+        map.current.remove();
+      }
+    }
+  }, [])
+
+  useEffect(() => {
     if (selectedImage && selectedLayer) {
-      setTile(selectedImage.tile[selectedLayer.value])
+      setTile(selectedImage.tile[selectedLayer.value]);
     }
   }, [selectedImage, selectedLayer])
 

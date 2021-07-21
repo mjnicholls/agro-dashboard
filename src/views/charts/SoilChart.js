@@ -1,10 +1,11 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {useSelector} from 'react-redux';
 import {getSoilData} from "../../services/api/chartApi";
 import {getStartDateByTariff, toDateShort} from '../../utils/DateTime'
 import {Line} from "react-chartjs-2";
 import {chartOptions} from './base';
 import DatePickerChart from '../agro-components/DatePickerChart';
+import {kelvinToCelsius} from '../../utils/Utils';
 
 import {
   Card,
@@ -16,26 +17,42 @@ import {
 } from "reactstrap";
 
 
-const selectLimit = state => state.auth.limits.history.ndvi_history;
-
+const selectLimit = state => state.auth.limits.history.soil_history;
 
 const SoilChart = ({ id, defaultStartDate, defaultEndDate }) => {
 
   const limit = useSelector(selectLimit);
   const limitStartDate = getStartDateByTariff(limit);
+  const [startDate, setStartDate] = useState(defaultStartDate);
+  const [endDate, setEndDate] = useState(defaultEndDate);
+  const [data, setData] = useState([]);
+  const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
-  let [startDate, setStartDate] = React.useState(defaultStartDate);
-  let [endDate, setEndDate] = React.useState(defaultEndDate);
-  let [data, setData] = React.useState([])
 
   React.useEffect(() => {
-    getSoilData(id, startDate, endDate)
-      .then(response => {
-        if (response) {
-          setData(response)
-        }
-      })
-      .catch(err => {console.log(err)})
+    setIsLoading(true);
+    if (startDate && endDate) {
+      getSoilData(id, startDate, endDate)
+        .then(response => {
+          if (response) {
+            if (response.length) {
+              setData(response)
+            } else {
+              setError("No data for selected period");
+            }
+          } else {
+            setError("Failed to fetch data");
+          }
+        })
+        .catch(err => {
+          if (typeof err === "object") {
+            err = err.message || "Something went wrong";
+          }
+          setError(err);
+        })
+        .finally(() => {setIsLoading(false)})
+    }
   }, [startDate, endDate])
 
   const options = JSON.parse(JSON.stringify(chartOptions))
@@ -55,6 +72,9 @@ const SoilChart = ({ id, defaultStartDate, defaultEndDate }) => {
           // suggestedMax: 125,
           // padding: 20,
           fontColor: "#9a9a9a",
+          callback: function (value) {
+            return value + '°';
+          }
         },
       },
       {
@@ -88,11 +108,17 @@ const SoilChart = ({ id, defaultStartDate, defaultEndDate }) => {
     gradientStrokeGreen.addColorStop(0.4, "rgba(66,134,121,0.0)"); //green colors
     gradientStrokeGreen.addColorStop(0, "rgba(66,134,121,0)"); //green colors
 
+    let gradientStrokePurple = ctx.createLinearGradient(0, 230, 0, 50);
+
+    gradientStrokePurple.addColorStop(1, "rgba(72,72,176,0.4)");
+    gradientStrokePurple.addColorStop(0.8, "rgba(72,72,176,0.2)");
+    gradientStrokePurple.addColorStop(0, "rgba(119,52,169,0)"); //purple colors
+
     return {
       labels: data.map(el => toDateShort(el.dt)),
       datasets: [
         {
-            label: "T10",
+            label: "Soil temperature at a depth of 10cm",
             yAxisID: "temperature",
             fill: true,
             backgroundColor: gradientStrokeBlue,
@@ -106,14 +132,14 @@ const SoilChart = ({ id, defaultStartDate, defaultEndDate }) => {
             pointBorderWidth: 20,
             pointHoverRadius: 4,
             pointHoverBorderWidth: 15,
-            pointRadius: 4,
-            data: data.map(el => el.t10.toFixed(3)),
+            pointRadius: 1,
+            data: data.map(el => kelvinToCelsius(el.t10)),
         },
         {
             label: "Moisture",
             yAxisID: "moisture",
-            fill: true,
-            backgroundColor: gradientStrokeGreen,
+            fill: false,
+            // backgroundColor: gradientStrokeGreen,
             borderColor: "#00d6b4",
             borderWidth: 2,
             borderDash: [],
@@ -124,26 +150,26 @@ const SoilChart = ({ id, defaultStartDate, defaultEndDate }) => {
             pointBorderWidth: 20,
             pointHoverRadius: 4,
             pointHoverBorderWidth: 15,
-            pointRadius: 4,
+            pointRadius: 1,
             data: data.map(el => el.moisture.toFixed(3)),
           },
           {
-            label: "T0",
+            label: "Soil temperature at the surface",
             yAxisID: "temperature",
-            fill: true,
-            backgroundColor: gradientStrokeBlue,
-            borderColor: "#1f8ef1",
+            fill: false,
+            // backgroundColor: gradientStrokeBlue,
+            borderColor: "#ba54f5",
             borderWidth: 2,
             borderDash: [],
             borderDashOffset: 0.0,
-            pointBackgroundColor: "#1f8ef1",
+            pointBackgroundColor: "#ba54f5",
             pointBorderColor: "rgba(255,255,255,0)",
-            pointHoverBackgroundColor: "#1f8ef1",
+            pointHoverBackgroundColor: "#ba54f5",
             pointBorderWidth: 20,
             pointHoverRadius: 4,
             pointHoverBorderWidth: 15,
-            pointRadius: 4,
-            data: data.map(el => el.t0.toFixed(3)),
+            pointRadius: 1,
+            data: data.map(el => kelvinToCelsius(el.t0)),
         },
       ]
     }
@@ -154,7 +180,7 @@ const SoilChart = ({ id, defaultStartDate, defaultEndDate }) => {
       <CardHeader>
         <Row>
           <Col className="text-left" xs="6" sm="8">
-            <h5 className="card-category">History</h5>
+            <h5 className="card-category">Historical</h5>
             <CardTitle tag="h2">Soil data</CardTitle>
           </Col>
           <Col xs="6" sm="4">
@@ -169,13 +195,19 @@ const SoilChart = ({ id, defaultStartDate, defaultEndDate }) => {
         </Row>
       </CardHeader>
       <CardBody>
-        <div className="chart-area">
-            <Line
-              data={chartData}
-              options={options}
-            />
-          </div>
-        </CardBody>
+        {isLoading ?
+            <div className="chart-placeholder">Fetching data...</div> :
+            error ?
+              <div className="chart-placeholder">{error}</div>  :
+              data.length ?
+              <div className="chart-area">
+                <Line
+                  data={chartData}
+                  options={options}
+                />
+              </div> : null
+          }
+      </CardBody>
     </Card>
   )
 }

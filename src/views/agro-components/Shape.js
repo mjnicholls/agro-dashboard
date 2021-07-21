@@ -35,7 +35,6 @@ const Shape = ({polygon}) => {
         }
       );
     });
-    console.log("recalculating")
 		return coordinatesCanvasPixels
   }
 
