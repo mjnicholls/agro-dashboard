@@ -9,7 +9,7 @@ export const basicOpacity = 0.4;
 export const activeColor = '#00FC00';
 // export const activeColor = '#8512B0';
 // export const activeColor = '#e14eca';
-const satelliteSourceId = 'satellite';
+const satelliteSourceId = 'satellite-agro';
 
 
 export const displayPolygons = (map, mapBounds, polygons, onClick) => {
@@ -105,23 +105,6 @@ export const removeSatelliteTile = (map) => {
 export const renderTile = (map, tileUrl) => {
 
   removeSatelliteTile(map);
-
-  // map.addSource(satelliteSourceId, {
-  //   'type': 'raster',
-  //   'tiles': [ tileUrl ],
-  //   'tileSize': 256
-  // });
-  //
-  // map.addLayer(
-  //   {
-  //     'id': satelliteSourceId,
-  //     'type': 'raster',
-  //     'source': satelliteSourceId,
-  //     'paint': {}
-  //   }
-  // );
-
-
   map.addLayer({
     id: satelliteSourceId,
     type: 'raster',

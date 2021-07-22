@@ -10,7 +10,7 @@ import {
   Col,
 } from "reactstrap";
 
-import {toDateShort, getDateInPast, getStartDateByTariff, toDate} from "../../utils/dateTime";
+import {toDateShort, getDateInPast, getStartDateByTariff} from "../../utils/dateTime";
 import {kelvinToCelsius} from '../../utils/utils'
 import DatePickerChart from "../agro-components/DatePickerChart";
 
@@ -44,7 +44,6 @@ const HistoryWeather = ({polygonId}) => {
     if (startDate && endDate) {
       getHistoryWeatherData(polygonId, startDate, endDate)
         .then(response => {
-          console.log(response)
           if (response) {
             if (response.length) {
               setData(response);
@@ -65,7 +64,7 @@ const HistoryWeather = ({polygonId}) => {
         setIsLoading(false);
       })
     }
-  }, [startDate, endDate])
+  }, [polygonId, startDate, endDate])
 
 
   const options = JSON.parse(JSON.stringify(chartOptions))

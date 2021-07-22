@@ -30,7 +30,7 @@ const AccumulatedChart = ({id}) => {
   const limitStartDate = getStartDateByTariff(limit);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [treshold, setTreshold] = useState(50);
+  // const [treshold, setTreshold] = useState(50);
 
 
   useEffect(() => {
