@@ -16,6 +16,7 @@ import {
 } from "reactstrap";
 
 import MapBox from "./maps/MapBoxInteractive";
+import PolygonInfo from './PolygonInfo';
 import PolygonsTable from "./agro-components/PolygonsTable";
 import SatelliteImagesList from './agro-components/SatelliteImages';
 
@@ -29,12 +30,9 @@ const Dashboard = () => {
 
   const [activePolygon, setActivePolygon] = useState(null);
   const [selectedPolygon, setSelectedPolygon] = useState(null);
-  const [isSatellitePage, setIsSatellitePage] = useState(true);
   const [apiCallCount, setApiCallCount] = useState(0);
   const [selectedImage, setSelectedImage] = useState(null);
   const [selectedLayer, setSelectedLayer] = useState({value: "truecolor", label: "True Color"});
-
-
 
   const polygons = useSelector(selectPolygons);
   const dispatch = useDispatch();
@@ -52,7 +50,7 @@ const Dashboard = () => {
               <MapBox
                 polygons={polygons}
                 activePolygon={activePolygon}
-                setActivePolygon={setActivePolygon}
+                setSelectedPolygon={setSelectedPolygon}
                 selectedPolygon={selectedPolygon}
                 selectedImage={selectedImage}
                 selectedLayer={selectedLayer}
@@ -128,56 +126,10 @@ const Dashboard = () => {
             </Col>}
         </Row>
         {selectedPolygon ?
-          <>
-            <Row>
-          <Col sm="6">
-            <CardTitle tag="h2">{selectedPolygon.name}, {selectedPolygon.area.toFixed(2)}ha</CardTitle>
-          </Col>
-          <Col sm="6">
-              <ButtonGroup
-                className="btn-group-toggle float-right"
-                data-toggle="buttons"
-              >
-                <Button
-                  color="info"
-                  id="0"
-                  size="sm"
-                  tag="label"
-                  className={classNames("btn-simple", {
-                    active: isSatellitePage,
-                  })}
-                  onClick={() => setIsSatellitePage(true)}
-                >
-                  <span className="d-none d-sm-block d-md-block d-lg-block d-xl-block">
-                    Satellite
-                  </span>
-                  <span className="d-block d-sm-none">
-                    <i className="tim-icons icon-single-02" />
-                  </span>
-                </Button>
-                <Button
-                  color="info"
-                  id="1"
-                  size="sm"
-                  tag="label"
-                  className={classNames("btn-simple", {
-                    active: !isSatellitePage,
-                  })}
-                  onClick={() => setIsSatellitePage(false)}
-                >
-                  <span className="d-none d-sm-block d-md-block d-lg-block d-xl-block">
-                    Weather
-                  </span>
-                  <span className="d-block d-sm-none">
-                    <i className="tim-icons icon-gift-2" />
-                  </span>
-                </Button>
-              </ButtonGroup>
-            </Col>
-        </Row>
-          </>
-
-          : <Row>
+          <PolygonInfo
+            selectedPolygon={selectedPolygon}
+          /> :
+          <Row>
             <Col>
               <PolygonsTable
                 data={polygons}

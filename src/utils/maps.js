@@ -8,7 +8,7 @@ export const activeColor = '#e14eca';
 const satelliteSourceId = 'satellite';
 
 
-export const displayPolygons = (map, mapBounds, polygons) => {
+export const displayPolygons = (map, mapBounds, polygons, onClick) => {
   /** Add all polygons to the map
    * Set bounds to contain all polygons
    */
@@ -46,7 +46,6 @@ export const displayPolygons = (map, mapBounds, polygons) => {
     });
     map.on('mouseenter', "layer_" + polygon.id, function () {
       map.getCanvas().style.cursor = 'pointer';
-      // setActivePolygon(polygon.id)
     });
 
     let polygonBbox = new mapboxgl.LngLatBounds(polygon.bbox);
@@ -55,12 +54,14 @@ export const displayPolygons = (map, mapBounds, polygons) => {
       map.fitBounds(polygonBbox, {
           padding: 20
         });
+      onClick(polygon);
       });
 
     map.on('click', "outline_" + polygon.id, function (e) {
       map.fitBounds(polygonBbox, {
           padding: 20
         });
+      onClick(polygon);
       });
     }
     if (mapBounds) {

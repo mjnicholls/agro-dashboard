@@ -8,7 +8,7 @@ import {serverBaseURL} from '../../services/api/index';
 
 const authTokenSelector = state => state.auth.token;
 
-const MapBox = ({ polygons, activePolygon, setActivePolygon, selectedPolygon, selectedImage, selectedLayer }) => {
+const MapBox = ({ polygons, activePolygon, setSelectedPolygon, selectedPolygon, selectedImage, selectedLayer }) => {
 
   const mapContainer = useRef(null);
   const map = useRef(null);
@@ -134,7 +134,7 @@ const MapBox = ({ polygons, activePolygon, setActivePolygon, selectedPolygon, se
 
   useEffect(() => {
     if (polygons && map.current && initialised) {
-      displayPolygons(map.current, mapBounds, polygons)
+      displayPolygons(map.current, mapBounds, polygons, setSelectedPolygon)
     }
   }, [polygons, initialised])
 
