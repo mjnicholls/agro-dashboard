@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {toDate} from '../../utils/DateTime';
+import {toDate} from '../../utils/dateTime';
 import moment from 'moment';
 
 import {

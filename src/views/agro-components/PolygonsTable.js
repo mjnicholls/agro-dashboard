@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import PropTypes from "prop-types";
-import {toDate} from '../../utils/DateTime'
+import {toDate} from '../../utils/dateTime'
 import classnames from "classnames";
 import { Link } from "react-router-dom";
 import PolygonDeleteModal from "./PolygonDeleteModal";
@@ -110,7 +110,9 @@ const PolygonsTable = ({data, activePolygon, setActivePolygon, setSelectedPolygo
     }
   }
 
-  const TableRow = ({polygon}) => (
+  const TableRow = ({polygon}) => {
+    console.log("render table row")
+    return (
     <tr
       onMouseEnter={() => {setActivePolygon(polygon.id)}}
       onMouseLeave={() => {setActivePolygon(null)}}
@@ -166,7 +168,7 @@ const PolygonsTable = ({data, activePolygon, setActivePolygon, setSelectedPolygo
         </UncontrolledTooltip>
       </td>
     </tr>
-  )
+  )}
 
   return (
     <>

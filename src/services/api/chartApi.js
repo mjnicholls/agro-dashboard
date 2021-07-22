@@ -2,9 +2,29 @@ import {
   historyAccumulatedPrecipitation,
   historyAccumulatedTemperature,
   historyNDVI,
-  historySoil
+  historySoil,
+  historyWeather
 } from "./index";
 import {axiosInstance} from "../base";
+
+const parseResponse = (response) => {
+  if (response) {
+    if (response.length) {
+      return response;
+    } else {
+      throw new Error("No data for selected period");
+    }
+  } else {
+    throw new Error("Failed to fetch data"); // TODO shoud not happen, check cancelled
+  }
+}
+
+const parseError = (error) => {
+  if (typeof error === "object") {
+    error = error.message || "Something went wrong";
+  }
+  throw new Error(error);
+}
 
 export const getNDVIData = (polygonId, start, end) => {
   /** Get history NDVI chart data by polygon  */
@@ -24,27 +44,26 @@ export const getSoilData = (polygonId, start, end) => {
       return response.data
     })
     .catch(err => {
-      console.log("catch", err)
       throw new Error(err)})
 }
 
-export const getAccumulatedTemperature = (polygonId, start, end) => {
-  /** Get accumulated temperature data by polygon */
-  let url = `${historyAccumulatedTemperature}?polyid=${polygonId}&start=${Math.round(start/1000)}&end=${Math.round(end/1000)}`
-  return axiosInstance.get(url)
-    .then(response => response.data)
-    .catch(err => {
-      throw new Error(err)})
-}
-
-export const getAccumulatedPrecipitation = (polygonId, start, end) => {
-  /** Get accumulated temperature data by polygon */
-  let url = `${historyAccumulatedPrecipitation}?polyid=${polygonId}&start=${Math.round(start/1000)}&end=${Math.round(end/1000)}`
-  return axiosInstance.get(url)
-    .then(response => response.data)
-    .catch(err => {
-      throw new Error(err)})
-}
+// const getAccumulatedTemperature = (polygonId, start, end) => {
+//   /** Get accumulated temperature data by polygon */
+//   let url = `${historyAccumulatedTemperature}?polyid=${polygonId}&start=${Math.round(start/1000)}&end=${Math.round(end/1000)}`
+//   return axiosInstance.get(url)
+//     .then(response => response.data)
+//     .catch(err => {
+//       throw new Error(err)})
+// }
+//
+// const getAccumulatedPrecipitation = (polygonId, start, end) => {
+//   /** Get accumulated temperature data by polygon */
+//   let url = `${historyAccumulatedPrecipitation}?polyid=${polygonId}&start=${Math.round(start/1000)}&end=${Math.round(end/1000)}`
+//   return axiosInstance.get(url)
+//     .then(response => response.data)
+//     .catch(err => {
+//       throw new Error(err)})
+// }
 
 export const getAccumulatedData = async (polygonId, start, end) => {
   /** Get accumulated data */
@@ -82,6 +101,18 @@ export const getAccumulatedData = async (polygonId, start, end) => {
     }
   }
   return res
-
 }
 
+export const getHistoryWeatherData = (polygonId, start, end) => {
+  /** Get soil chart data by polygon  */
+  let url = `${historyWeather}?polyid=${polygonId}&start=${Math.round(start/1000)}&end=${Math.round(end/1000)}`
+  return axiosInstance.get(url)
+    .then(response => {
+      return response.data
+      // parseResponse(response.data)
+    })
+    .catch(err => {
+      throw new Error(err)
+      // parseError(err)
+    })
+}

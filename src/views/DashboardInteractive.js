@@ -20,9 +20,9 @@ import PolygonInfo from './PolygonInfo';
 import PolygonsTable from "./agro-components/PolygonsTable";
 import SatelliteImagesList from './agro-components/SatelliteImages';
 
-import {toDate} from "../utils/DateTime";
+import {toDate} from "../utils/dateTime";
 import classNames from "classnames";
-import {totalArea} from '../utils/Utils'
+import {totalArea} from '../utils/utils'
 
 const selectPolygons = state => state.polygons;
 
@@ -77,7 +77,7 @@ const Dashboard = () => {
                       {polygons.map(polygon => (
                         <tr
                           className={classNames("clickable-table-row", {
-                            "table-danger": polygon.id === selectedPolygon.id,
+                            "highlight-background": polygon.id === selectedPolygon.id,
                           })}
                           onClick={() => {setSelectedPolygon(polygon)}}
                           key={`polygon_${polygon.id}`} >

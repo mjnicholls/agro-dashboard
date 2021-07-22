@@ -1,10 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import {useSelector} from 'react-redux';
-import {getAccumulatedData} from '../../services/api/chartApi';
-import {getDateInPast, getStartDateByTariff, toDateShort} from '../../utils/dateTime';
-import {Line} from "react-chartjs-2";
-import {chartOptions} from "./base";
-import DatePickerChart from '../agro-components/DatePickerChart';
 
 import {
   Card,
@@ -15,12 +10,19 @@ import {
   Col,
 } from "reactstrap";
 
+import {toDateShort, getDateInPast, getStartDateByTariff, toDate} from "../../utils/dateTime";
+import {kelvinToCelsius} from '../../utils/utils'
+import DatePickerChart from "../agro-components/DatePickerChart";
 
-// TODO 2 разных лимита: температура и осадки
-const selectLimit = state => state.auth.limits.history.weather_history_accumulated_precipitation;
-// const selectLimit = state => state.auth.limits.history.weather_history_accumulated_temperature;
+import {Line} from "react-chartjs-2";
+import {chartOptions} from "./base";
+import {getHistoryWeatherData} from "../../services/api/chartApi";
 
-const AccumulatedChart = ({id}) => {
+
+const selectLimit = state => state.auth.limits.history.weather_history;
+
+
+const HistoryWeather = ({polygonId}) => {
 
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
@@ -30,33 +32,41 @@ const AccumulatedChart = ({id}) => {
   const limitStartDate = getStartDateByTariff(limit);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [treshold, setTreshold] = useState(50);
-
 
   useEffect(() => {
     let now = new Date();
-    let dateInPast = getDateInPast(6);
-
+    let dateInPast = getDateInPast(1);
     setStartDate(dateInPast.getTime());
     setEndDate(now.getTime());
-
   }, [])
 
   useEffect(() => {
-    if (startDate && endDate && id) {
-      setIsLoading(true);
-      getAccumulatedData(id, startDate, endDate)
-        .then(res => {
-          setData(res);
+    if (startDate && endDate) {
+      getHistoryWeatherData(polygonId, startDate, endDate)
+        .then(response => {
+          console.log(response)
+          if (response) {
+            if (response.length) {
+              setData(response);
+            } else {
+              setError("No data for selected period");
+            }
+          } else {
+            setError("Failed to fetch data");
+          }
         })
         .catch(err => {
-          setError(err)
+          if (typeof err === "object") {
+            err = err.message || "Something went wrong";
+          }
+          setError(err);
         })
         .finally(() => {
-          setIsLoading(false);
-        })
+        setIsLoading(false);
+      })
     }
-  }, [startDate, endDate, id])
+  }, [startDate, endDate])
+
 
   const options = JSON.parse(JSON.stringify(chartOptions))
 
@@ -81,7 +91,7 @@ const AccumulatedChart = ({id}) => {
         },
       },
       {
-        id: "rainfall",
+        id: "precipitation",
         position: 'right',
         barPercentage: 1.6,
         gridLines: {
@@ -95,67 +105,111 @@ const AccumulatedChart = ({id}) => {
           // padding: 20,
           fontColor: "#9a9a9a",
           callback: function (value) {
-            return value + ' mm';
+            return value + 'mm';
           }
-        }
+        },
       }
   ]
 
-  const chartData = (canvas) => {
+  let chartData = (canvas) => {
     let ctx = canvas.getContext("2d");
     let gradientStrokeBlue = ctx.createLinearGradient(0, 230, 0, 50);
     gradientStrokeBlue.addColorStop(1, "rgba(29,140,248,0.2)");
     gradientStrokeBlue.addColorStop(0.4, "rgba(29,140,248,0.0)");
-    gradientStrokeBlue.addColorStop(0, "rgba(29,140,248,0)");
+    gradientStrokeBlue.addColorStop(0, "rgba(29,140,248,0)"); //blue colors
 
-    return {
-      labels: data.map(el => toDateShort(el.dt)),
+    let gradientStrokePurple = ctx.createLinearGradient(0, 230, 0, 50);
+
+    gradientStrokePurple.addColorStop(1, "rgba(72,72,176,0.4)");
+    gradientStrokePurple.addColorStop(0.8, "rgba(72,72,176,0.2)");
+    gradientStrokePurple.addColorStop(0, "rgba(119,52,169,0)"); //purple colors
+    const purple = "#ba54f5";
+    const blue = "#1f8ef1";
+
+    let minTemp = [];
+    let maxTemp = [];
+    let labels = [];
+    let rainData = [];
+    for (let i=0; i<data.length; i++) {
+      let el = data[i];
+      minTemp.push(kelvinToCelsius(el.main.temp_min));
+      maxTemp.push(kelvinToCelsius(el.main.temp_max));
+      labels.push(toDateShort(el.dt)); // TODO local date
+      let prec = 0 + (el.rain ? el.rain["1h"] || 0 : 0) + (el.snow ? el.snow["1h"] || 0 : 0);
+      rainData.push(prec.toFixed(2));
+    }
+
+    return ({
+      labels: labels,
       datasets: [
         {
-          label: "Rainfall",
-          yAxisID: "rainfall",
-          fill: true,
-          backgroundColor: gradientStrokeBlue,
-          borderColor: "#1f8ef1",
+          label: "Maximum temperature",
+          yAxisID: "temperature",
+          fill: '+1',
+          backgroundColor: gradientStrokePurple,
+          borderColor: purple,
           borderWidth: 2,
           borderDash: [],
           borderDashOffset: 0.0,
-          pointBackgroundColor: "#1f8ef1",
+          pointBackgroundColor: purple,
           pointBorderColor: "rgba(255,255,255,0)",
-          pointHoverBackgroundColor: "#1f8ef1",
+          pointHoverBackgroundColor: purple,
           pointBorderWidth: 20,
           pointHoverRadius: 4,
           pointHoverBorderWidth: 15,
           pointRadius: 1,
-          data: data.map(el => el.rain)
+          data: maxTemp,
+          tension: 0.1
         },
         {
-          label: "Temperature",
+          label: "Minimum temperature",
           yAxisID: "temperature",
           fill: false,
-          borderColor: "#be55ed",
+          // backgroundColor: gradientStrokeGreen,
+          borderColor: purple,
           borderWidth: 2,
           borderDash: [],
           borderDashOffset: 0.0,
-          pointBackgroundColor: "#be55ed",
+          pointBackgroundColor: purple,
           pointBorderColor: "rgba(255,255,255,0)",
-          pointHoverBackgroundColor: "#be55ed",
+          pointHoverBackgroundColor: purple,
           pointBorderWidth: 20,
           pointHoverRadius: 4,
           pointHoverBorderWidth: 15,
           pointRadius: 1,
-          data: data.map(el => el.temp)
+          data: minTemp,
+          tension: 0.1
+        },
+        {
+          label: "Precipitation",
+          yAxisID: "precipitation",
+          fill: true,
+          backgroundColor: gradientStrokeBlue,
+          borderColor: blue,
+          borderWidth: 2,
+          borderDash: [],
+          borderDashOffset: 0.0,
+          pointBackgroundColor: blue,
+          pointBorderColor: "rgba(255,255,255,0)",
+          pointHoverBackgroundColor: blue,
+          pointBorderWidth: 20,
+          pointHoverRadius: 4,
+          pointHoverBorderWidth: 15,
+          pointRadius: 1,
+          data: rainData,
+          tension: 0.1
         }
-      ],
-    }
+      ]
+    })
   }
+
 
   return ( <Card className="card-chart">
       <CardHeader>
         <Row>
           <Col className="text-left" xs="6" sm="8">
             <h5 className="card-category">Historical</h5>
-            <CardTitle tag="h2">Accumulated Parameters</CardTitle>
+            <CardTitle tag="h2">Weather data</CardTitle>
           </Col>
           <Col xs="6" sm="4">
             <DatePickerChart
@@ -187,4 +241,4 @@ const AccumulatedChart = ({id}) => {
 
 }
 
-export default AccumulatedChart;
+export default HistoryWeather;

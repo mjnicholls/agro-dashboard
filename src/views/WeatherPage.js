@@ -1,12 +1,27 @@
 import React from 'react';
-import HourlyForecast from './weather/HourlyForecast'
+import HourlyForecast from './charts/HourlyForecast';
+import HistoryWeather from './charts/HistoryWeather';
+
+import {
+  Row,
+  Col,
+} from "reactstrap";
 
 
 const WeatherPage = ({polygon}) => {
 
   return (
    <>
-     <HourlyForecast polygon={polygon}/>
+    <Row>
+      <Col>
+        <HourlyForecast polygon={polygon}/>
+      </Col>
+    </Row>
+     <Row>
+      <Col>
+        <HistoryWeather polygonId={polygon.id}/>
+      </Col>
+    </Row>
    </>
   )
 }

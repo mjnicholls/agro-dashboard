@@ -33,9 +33,15 @@ export const getDateInPast = (nOfMonths) => {
    * Get data N month before now
    */
   // let now = new Date();
+
   let dateInPast = new Date();
   dateInPast.setMonth(dateInPast.getMonth() - nOfMonths);
   dateInPast.setHours(0, 0, 0, 0);
   return dateInPast
 
+}
+
+export const timeInHours = (dt, offset = 0) => {
+  const date = (new Date((dt + offset) * 1000))
+  return date.getUTCHours() + ":00"
 }

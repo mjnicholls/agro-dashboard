@@ -24,9 +24,6 @@ const Shape = ({polygon}) => {
 		ctx.strokeStyle = 'rgba(255, 255, 255, 0.7)';
 		ctx.lineWidth = 2;
 		ctx.stroke(region, 'evenodd');
-		// ctx.fillStyle = 'rgba(3, 155, 229, 0.1)';
-		// ctx.fill(region, 'evenodd');
-
 
   }, [polygon])
 

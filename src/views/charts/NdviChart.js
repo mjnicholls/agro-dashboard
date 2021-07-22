@@ -6,7 +6,7 @@ import {Line} from "react-chartjs-2";
 import DatePickerChart from '../agro-components/DatePickerChart';
 import {getNDVIData} from "../../services/api/chartApi";
 
-import {toDate, getStartDateByTariff} from '../../utils/DateTime'
+import {toDate, getStartDateByTariff, getDateInPast} from '../../utils/dateTime'
 import {chartOptions} from './base'
 
 import {
@@ -20,16 +20,25 @@ import {
 
 const selectLimit = state => state.auth.limits.history.ndvi_history;
 
-const NdviChart = ({ id, defaultStartDate, defaultEndDate }) => {
+const NdviChart = ({ id }) => {
 
   const limit = useSelector(selectLimit);
   const limitStartDate = getStartDateByTariff(limit);
 
-  const [startDate, setStartDate] = useState(defaultStartDate);
-  const [endDate, setEndDate] = useState(defaultEndDate);
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
   const [data, setData] = useState([]);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    let now = new Date();
+    let dateInPast = getDateInPast(6);
+
+    setStartDate(dateInPast.getTime());
+    setEndDate(now.getTime());
+
+  }, [])
 
   useEffect(() => {
     if (startDate && endDate && id) {
@@ -74,6 +83,23 @@ const NdviChart = ({ id, defaultStartDate, defaultEndDate }) => {
       labels: data.map(el => toDate(el.dt)),
       datasets: [
         {
+            label: "max",
+            fill: "+1",
+            backgroundColor: gradientStrokeBlue,
+            borderColor: "#1f8ef1",
+            borderWidth: 2,
+            borderDash: [],
+            borderDashOffset: 0.0,
+            pointBackgroundColor: "#1f8ef1",
+            pointBorderColor: "rgba(255,255,255,0)",
+            pointHoverBackgroundColor: "#1f8ef1",
+            pointBorderWidth: 20,
+            pointHoverRadius: 4,
+            pointHoverBorderWidth: 15,
+            pointRadius: 4,
+            data: data.map(el => el.data.max.toFixed(3)),
+        },
+        {
             label: "min",
             fill: false,
             // backgroundColor: gradientStrokeBlue,
@@ -107,23 +133,7 @@ const NdviChart = ({ id, defaultStartDate, defaultEndDate }) => {
             pointRadius: 4,
             data: data.map(el => el.data.mean.toFixed(3)),
           },
-          {
-            label: "max",
-            fill: true,
-            backgroundColor: gradientStrokeBlue,
-            borderColor: "#1f8ef1",
-            borderWidth: 2,
-            borderDash: [],
-            borderDashOffset: 0.0,
-            pointBackgroundColor: "#1f8ef1",
-            pointBorderColor: "rgba(255,255,255,0)",
-            pointHoverBackgroundColor: "#1f8ef1",
-            pointBorderWidth: 20,
-            pointHoverRadius: 4,
-            pointHoverBorderWidth: 15,
-            pointRadius: 4,
-            data: data.map(el => el.data.max.toFixed(3)),
-        },
+
       ]
     }
   }

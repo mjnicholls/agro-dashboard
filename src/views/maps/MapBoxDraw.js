@@ -87,7 +87,7 @@ const MapBox = ({setArea, setGeoJson, setIntersection, drawRef}) => {
     if (map.current) return; // initialize map only once
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
-      style: 'mapbox://styles/mapbox/streets-v11',
+      style: 'mapbox://styles/mapbox/satellite-streets-v11',
       center: polygons.length ? polygons[0].center : defaultCenterMap,
       zoom: zoom
     });

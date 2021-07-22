@@ -6,36 +6,25 @@ import {
   Col,
 } from "reactstrap";
 
-const SatellitePage = ({selectedPolygon, startDate, endDate, userLevel}) => {
+const SatellitePage = ({selectedPolygon, userLevel}) => {
 
   return (
     <>
       <Row>
         <Col>
-          {(selectedPolygon && startDate && endDate) &&
           <NdviChart
             id={selectedPolygon.id}
-            name={selectedPolygon.name}
-            defaultStartDate={startDate}
-            defaultEndDate={endDate}
-           />}
+           />
         </Col>
       </Row>
-        { (userLevel && startDate && endDate) && <Row>
+        { userLevel && <Row>
           <Col>
-            <SoilChart
-              id={selectedPolygon.id}
-              defaultStartDate={startDate}
-              defaultEndDate={endDate}
-              userLevel={userLevel}
-            />
+            <SoilChart id={selectedPolygon.id} />
           </Col>
         </Row> }
         { userLevel && <Row>
           <Col>
-            <AccumulatedChart
-              id={selectedPolygon.id}
-            />
+            <AccumulatedChart id={selectedPolygon.id} />
           </Col>
         </Row> }
     </>

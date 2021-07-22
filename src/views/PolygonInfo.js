@@ -12,27 +12,16 @@ import {
 import SatellitePage from "./SatellitePage";
 import WeatherPage from "./WeatherPage";
 import {userLevels} from "../config";
+import {getDateInPast} from "../utils/dateTime";
 
 const tariffSelector = state => state.auth.user.tariff;
 
 const PolygonInfo = ({selectedPolygon}) => {
 
-  let currentHour = new Date().getUTCHours();
+  const [isSatellitePage, setIsSatellitePage] = useState(false);
+
   const tariff = useSelector(tariffSelector);
   const userLevel = userLevels[tariff];
-
-  const defaultDates = React.useMemo(() => {
-    let now = new Date();
-    let monthAgo = new Date(now.getTime());
-    monthAgo.setMonth(monthAgo.getMonth() - 6);
-    monthAgo.setHours(0, 0, 0, 0);
-    let startDate = monthAgo.getTime();
-    let endDate = now.getTime();
-    return [startDate, endDate]
-  }, [currentHour])
-
-  const [isSatellitePage, setIsSatellitePage] = useState(true);
-  const [startDate, endDate] = defaultDates;
 
   return (
     <>
@@ -85,10 +74,10 @@ const PolygonInfo = ({selectedPolygon}) => {
       {isSatellitePage ?
         <SatellitePage
           selectedPolygon={selectedPolygon}
-          startDate={startDate}
-          endDate={endDate}
           userLevel={userLevel}
-        /> : <WeatherPage polygon={selectedPolygon} /> }
+        /> : <WeatherPage
+          polygon={selectedPolygon}
+        /> }
       </>)
 
 }

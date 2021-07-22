@@ -20,7 +20,7 @@ const MapBox = ({ polygons, activePolygon, setSelectedPolygon, selectedPolygon, 
   const initialiseMap = () => {
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
-      style: 'mapbox://styles/mapbox/streets-v11',
+      style: 'mapbox://styles/mapbox/satellite-streets-v11',
       center: polygons.length ? polygons[0].center : defaultCenterMap, // TODO
       zoom: 9,
       accessToken: mapBoxAccessToken,
@@ -29,7 +29,7 @@ const MapBox = ({ polygons, activePolygon, setSelectedPolygon, selectedPolygon, 
       },
       bounds: mapBounds,
       transformRequest: (url, resourceType) => {
-        if (resourceType === 'Tile' && url.indexOf(serverBaseURL) > -1) {
+        if (url.indexOf(serverBaseURL) > -1) {
           return {
             url: url,
             headers: { 'Authorization': 'Bearer ' + token },
@@ -37,6 +37,7 @@ const MapBox = ({ polygons, activePolygon, setSelectedPolygon, selectedPolygon, 
         }
       },
     });
+
     // if (mapBounds) {
     //   map.current.setBounds(mapBounds);
     // }

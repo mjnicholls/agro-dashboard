@@ -19,7 +19,7 @@ export const historyNDVI = `${agriBase}history/ndvi`
 export const historySoil = `${agriBase}history/soil`
 export const historyAccumulatedTemperature = `${agriBase}history/weather_at`
 export const historyAccumulatedPrecipitation = `${agriBase}history/weather_ap`
-
+export const historyWeather = `${agriBase}history/weather`
 
 export const weatherOneCall = `${agriBase}one_call`
 

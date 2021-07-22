@@ -1,4 +1,6 @@
 $danger-color: #ec250d;
+$light-green: #00FC00;
+
 
 .horizontal-container {
   display: flex;
@@ -177,4 +179,8 @@ $danger-color: #ec250d;
       background-color: rgba(0,0,0,.05);
     }
   }
+}
+
+.highlight-background {
+  background-color: rgba(0, 252, 0, 0.3);
 }

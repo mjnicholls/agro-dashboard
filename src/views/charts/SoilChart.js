@@ -1,11 +1,11 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useSelector} from 'react-redux';
 import {getSoilData} from "../../services/api/chartApi";
-import {getStartDateByTariff, toDateShort} from '../../utils/DateTime'
+import {getDateInPast, getStartDateByTariff, toDateShort} from '../../utils/dateTime'
 import {Line} from "react-chartjs-2";
 import {chartOptions} from './base';
 import DatePickerChart from '../agro-components/DatePickerChart';
-import {kelvinToCelsius} from '../../utils/Utils';
+import {kelvinToCelsius} from '../../utils/utils';
 
 import {
   Card,
@@ -19,15 +19,24 @@ import {
 
 const selectLimit = state => state.auth.limits.history.soil_history;
 
-const SoilChart = ({ id, defaultStartDate, defaultEndDate }) => {
+const SoilChart = ({ id }) => {
 
   const limit = useSelector(selectLimit);
   const limitStartDate = getStartDateByTariff(limit);
-  const [startDate, setStartDate] = useState(defaultStartDate);
-  const [endDate, setEndDate] = useState(defaultEndDate);
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
   const [data, setData] = useState([]);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    let now = new Date();
+    let dateInPast = getDateInPast(6);
+
+    setStartDate(dateInPast.getTime());
+    setEndDate(now.getTime());
+
+  }, [])
 
 
   React.useEffect(() => {

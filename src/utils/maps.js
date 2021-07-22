@@ -3,8 +3,12 @@ import {mapBoxAccessToken} from '../config'
 
 mapboxgl.accessToken = mapBoxAccessToken;
 
-export const basicColor = '#0080ff';
-export const activeColor = '#e14eca';
+export const basicColor = "#006400";
+export const basicOpacity = 0.4;
+// export const basicColor = '#0080ff';
+export const activeColor = '#00FC00';
+// export const activeColor = '#8512B0';
+// export const activeColor = '#e14eca';
 const satelliteSourceId = 'satellite';
 
 
@@ -30,7 +34,7 @@ export const displayPolygons = (map, mapBounds, polygons, onClick) => {
       'layout': {},
       'paint': {
         'fill-color': basicColor,
-        'fill-opacity': 0.5
+        'fill-opacity': basicOpacity
         }
     });
 
@@ -41,11 +45,27 @@ export const displayPolygons = (map, mapBounds, polygons, onClick) => {
       'layout': {},
       'paint': {
       'line-color': basicColor,
-      'line-width': 3
+      'line-width': 2
       }
     });
-    map.on('mouseenter', "layer_" + polygon.id, function () {
+
+    let popup = new mapboxgl.Popup({
+        closeButton: false,
+        closeOnMove: true,
+        closeOnClick: true
+      })
+
+    map.on('mouseenter', "layer_" + polygon.id, function (e) {
       map.getCanvas().style.cursor = 'pointer';
+      popup
+        .setLngLat(e.lngLat)
+        .setHTML(polygon.name + ', ' + polygon.area.toFixed(2) + 'ha    ')
+        .addTo(map);
+    });
+
+    map.on('mouseleave', 'layer_'  + polygon.id, function () {
+      map.getCanvas().style.cursor = '';
+      popup.remove();
     });
 
     let polygonBbox = new mapboxgl.LngLatBounds(polygon.bbox);
@@ -86,21 +106,32 @@ export const renderTile = (map, tileUrl) => {
 
   removeSatelliteTile(map);
 
-  map.addSource(satelliteSourceId, {
-    'type': 'raster',
-    'tiles': [ tileUrl ],
-    'tileSize': 256
-  });
+  // map.addSource(satelliteSourceId, {
+  //   'type': 'raster',
+  //   'tiles': [ tileUrl ],
+  //   'tileSize': 256
+  // });
+  //
+  // map.addLayer(
+  //   {
+  //     'id': satelliteSourceId,
+  //     'type': 'raster',
+  //     'source': satelliteSourceId,
+  //     'paint': {}
+  //   }
+  // );
 
-  map.addLayer(
-    {
-      'id': satelliteSourceId,
-      'type': 'raster',
-      'source': satelliteSourceId,
-      'paint': {}
+
+  map.addLayer({
+    id: satelliteSourceId,
+    type: 'raster',
+    source: {
+      type: 'raster',
+      tiles: [tileUrl],
     },
-      'aeroway-line'
-    );
+    minzoom: 0,
+    maxzoom: 22
+  });
 }
 
 
