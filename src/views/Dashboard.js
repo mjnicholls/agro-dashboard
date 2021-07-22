@@ -19,7 +19,7 @@ const selectPolygons = state => state.polygons;
 const Dashboard = () => {
 
   const [apiCallCount, setApiCallCount] = useState(0);
-  // const [selectedPolygon, setSelectedPolygon] = useState(null);
+  const [selectedPolygon, setSelectedPolygon] = useState(null);
   const [activePolygon, setActivePolygon] = useState(null);
 
   const polygons = useSelector(selectPolygons);
@@ -44,8 +44,9 @@ const Dashboard = () => {
           <Col md="8">
             <div className="chart-area">
               <MapBox
-                selectedPolygon={activePolygon}
-                selectPolygon={setActivePolygon}
+                activePolygon={activePolygon}
+                setActivePolygon={setActivePolygon}
+                selectedPolygon={selectedPolygon}
               />
             </div>
           </Col>
@@ -92,14 +93,13 @@ const Dashboard = () => {
           </Col>
         </Row>
 
-
-
         <Row>
           <Col>
             <PolygonsTable
               data={polygons}
-              polygon={activePolygon}
-              setPolygon={setActivePolygon}
+              activePolygon={activePolygon}
+              setActivePolygon={setActivePolygon}
+              setSelectedPolygon={setSelectedPolygon}
             />
           </Col>
         </Row>

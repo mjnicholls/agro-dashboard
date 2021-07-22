@@ -22,7 +22,6 @@ import {
   useParams
 } from "react-router-dom";
 import { fetchPolygons } from "../features/polygons/actions";
-import { getSatelliteImagesList } from "../services/api/polygonApi";
 import SatelliteLayersDropdown from "./agro-components/SatelliteLayers";
 import { userLevels } from '../config'
 import classNames from "classnames";
@@ -53,7 +52,6 @@ const PolygonSatellite = () => {
   const [selectedPolygon, setSelectedPolygon] = useState(polygon);
   const [selectedImage, setSelectedImage] = useState();
   const [selectedLayer, setSelectedLayer] = useState({value: "truecolor", label: "True Color"});
-  const [images, setImages] = useState([]);
   const [layers, setLayers] = useState([]);
 
   const [isSatellitePage, setIsSatellitePage] = useState(true);
@@ -73,20 +71,6 @@ const PolygonSatellite = () => {
     let endDate = now.getTime();
     return [startDate, endDate]
   }, [currentHour])
-
-  React.useEffect(() => {
-    if (selectedPolygon) {
-      getSatelliteImagesList(selectedPolygon.id)
-        .then(response => {
-          if (response && response.length) {
-            response.reverse();
-            setImages(response);
-            setSelectedImage(response[0]);
-          }
-        })
-        .catch(err => {console.log(err)})
-    }
-  }, [selectedPolygon])
 
   React.useEffect(() => {
     if (selectedImage) {
@@ -117,10 +101,6 @@ const PolygonSatellite = () => {
     }
   }, [selectedImage])
 
-  const selectImage = (image) => {
-    setSelectedImage(image)
-  }
-
   const [startDate, endDate] = defaultDates;
 
   return ( selectedPolygon ?
@@ -141,9 +121,9 @@ const PolygonSatellite = () => {
                   selectedLayer={selectedLayer}
                 />
                 <SatelliteImagesList
-                    images={images}
+                    polygonId={selectedPolygon.id}
                     selectedImage={selectedImage}
-                    selectImage={selectImage}
+                    selectImage={setSelectedImage}
                   />
               </Col>
               <Col md="4" className="ml-auto mr-auto">

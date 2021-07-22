@@ -120,8 +120,8 @@ const SoilChart = ({ id, defaultStartDate, defaultEndDate }) => {
         {
             label: "Soil temperature at a depth of 10cm",
             yAxisID: "temperature",
-            fill: true,
-            backgroundColor: gradientStrokeBlue,
+            fill: false,
+            // backgroundColor: gradientStrokeBlue,
             borderColor: "#1f8ef1",
             borderWidth: 2,
             borderDash: [],
@@ -138,8 +138,8 @@ const SoilChart = ({ id, defaultStartDate, defaultEndDate }) => {
         {
             label: "Moisture",
             yAxisID: "moisture",
-            fill: false,
-            // backgroundColor: gradientStrokeGreen,
+            fill: true,
+            backgroundColor: gradientStrokeGreen,
             borderColor: "#00d6b4",
             borderWidth: 2,
             borderDash: [],

@@ -8,8 +8,8 @@ let port = portDev;
 const baseURL = `http://k8s-eu4.owm.io/${portProd}`;
 const {post, destroy} = axiosInstance;
 
-// export const login = `${baseURL}/auth/login`;
-// export const logout = `${baseURL}/auth/logout`;
+// export const login = `${serverBaseURL}/auth/login`;
+// export const logout = `${serverBaseURL}/auth/logout`;
 
 let config = {
   headers: {

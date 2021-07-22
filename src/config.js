@@ -12,3 +12,5 @@ export const userLevels = {
 
 // center map to London
 export const defaultCenterMap = [0.1278, 51.5074];
+export const mapBoxAccessToken = 'pk.eyJ1IjoiYXZvbG92aWsiLCJhIjoiY2txdzNpdWs1MGkwZjJ3cGNrYnZua3I4aCJ9.Le6NapjFYy5FfdDXfBmvrg';
+export const polygonShapeSize = 48;

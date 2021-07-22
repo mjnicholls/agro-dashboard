@@ -1,19 +1,3 @@
-/*!
-
-=========================================================
-* Black Dashboard PRO React - v1.2.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/black-dashboard-pro-react
-* Copyright 2020 Creative Tim (https://www.creative-tim.com)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
 import VectorMap from "views/maps/VectorMap.js";
 import GoogleMaps from "views/maps/GoogleMaps.js";
 import FullScreenMap from "views/maps/FullScreenMap.js";
@@ -28,7 +12,8 @@ import Calendar from "views/old-views/Calendar.js";
 import Widgets from "views/old-views/Widgets.js";
 import Charts from "views/old-views/Charts.js";
 import Dashboard from "views/old-views/DashboardOld.js";
-import DashboardMain from "views/Dashboard.js";
+// import DashboardMain from "views/Dashboard.js";
+import DashboardMain from "views/DashboardInteractive.js";
 import PolygonSatellite from "views/PolygonSatellite.js";
 import Buttons from "views/components/Buttons.js";
 import SweetAlert from "views/components/SweetAlert.js";

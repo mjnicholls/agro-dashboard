@@ -9,7 +9,7 @@ mapboxgl.accessToken = 'pk.eyJ1IjoiYXZvbG92aWsiLCJhIjoiY2txdzNpdWs1MGkwZjJ3cGNrY
 
 const selectPolygons = state => state.polygons;
 
-const MapBox = ({ selectedPolygon, selectPolygon }) => {
+const MapBox = ({ activePolygon, setActivePolygon, selectedPolygon }) => {
 
   const mapContainer = useRef(null);
   const map = useRef(null);
@@ -28,14 +28,27 @@ const MapBox = ({ selectedPolygon, selectPolygon }) => {
   const activeColor = '#e14eca';
 
   useEffect(() => {
-    if (selectedPolygon) {
+    if (activePolygon) {
       let layers = map.current.getStyle().layers;
       for (let i=0; i< layers.length; i++) {
         if (layers[i].id.startsWith("layer_")) {
           map.current.setPaintProperty(layers[i].id, 'fill-color',
-          layers[i].id === "layer_" + selectedPolygon ? activeColor : basicColor);
+          layers[i].id === "layer_" + activePolygon ? activeColor : basicColor);
         }
       }
+    }
+  }, [activePolygon])
+
+  useEffect(() => {
+    if (selectedPolygon && map.current) {
+      let coordinates = selectedPolygon.geo_json.geometry.coordinates[0];
+      let mapBounds = new mapboxgl.LngLatBounds(coordinates[0], coordinates[0]);
+      coordinates.reduce(function (bounds, coord) {
+        mapBounds.extend(coord);
+      }, mapBounds);
+      map.current.fitBounds(mapBounds, {
+        padding: 20
+      });
     }
   }, [selectedPolygon])
 
@@ -88,6 +101,7 @@ const MapBox = ({ selectedPolygon, selectPolygon }) => {
       });
       map.on('mouseenter', "layer_" + polygon.id, function () {
         map.getCanvas().style.cursor = 'pointer';
+        setActivePolygon(polygon.id)
       });
 
       map.on('click', "layer_" + polygon.id, function (e) {

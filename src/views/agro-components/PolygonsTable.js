@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import PropTypes from "prop-types";
 import {toDate} from '../../utils/DateTime'
 import classnames from "classnames";
-import { Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import PolygonDeleteModal from "./PolygonDeleteModal";
 import PolygonEditModal from "./PolygonEditModal";
 import PolygonsPagination from "./PolygonsPagination"
@@ -18,13 +18,12 @@ import {
 } from "reactstrap";
 
 
-const PolygonsTable = ({data, polygon, setPolygon}) => {
+const PolygonsTable = ({data, activePolygon, setActivePolygon, setSelectedPolygon}) => {
 
   const [selectedPolygon, selectPolygon] = useState(null);
   const [modalDelete, setModalDelete] = useState(false);
   const [modalEdit, setModalEdit] = useState(false);
   const [bodyData, setBodyData] = useState(data);
-  const [pageNumber, setPageNumber] = useState(1);
   const [column, setColumn] = React.useState({
     name: -1,
     order: "",
@@ -113,17 +112,17 @@ const PolygonsTable = ({data, polygon, setPolygon}) => {
 
   const TableRow = ({polygon}) => (
     <tr
-      onMouseEnter={() => {setPolygon(polygon.id)}}
-      onMouseLeave={() => {setPolygon(null)}}
-      // onClick={() => {history.push("/admin/polygon/" + polygon.id)}}
+      onMouseEnter={() => {setActivePolygon(polygon.id)}}
+      onMouseLeave={() => {setActivePolygon(null)}}
+      onClick={() => {setSelectedPolygon(polygon)}}
     >
       <td style={{width: "55px"}}>
         <Shape polygon={polygon} />
       </td>
       <td>
-        <Link to={"/admin/polygon/" + polygon.id}>
+        {/*<Link to={"/admin/polygon/" + polygon.id}>*/}
           {polygon.name}
-        </Link>
+        {/*</Link>*/}
       </td>
       <td>{toDate(polygon.created_at)}</td>
       <td>{polygon.area.toFixed(2)}ha</td>
@@ -266,9 +265,7 @@ PolygonsTable.propTypes = {
       name: PropTypes.string,
       area: PropTypes.number,
       createdAt: PropTypes.number,
-      pixels: PropTypes.arrayOf(
-        PropTypes.arrayOf(PropTypes.number,  PropTypes.number)
-      )
+      pixels: PropTypes.array
     })
   ).isRequired,
 };

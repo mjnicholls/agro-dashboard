@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {toDate} from '../../utils/DateTime';
 import moment from 'moment';
 
@@ -10,19 +10,32 @@ import {
   Row,
 } from "reactstrap";
 import DatePicker from "react-datetime";
+import {getSatelliteImagesList} from "../../services/api/polygonApi";
 
-const SatelliteImagesList = ({ images, selectedImage, selectImage }) => {
+const SatelliteImagesList = ({ polygonId, selectedImage, selectImage }) => {
   /** Displays a list of satellite images for selected polygon */
 
-  const scrollRef = React.useRef(null);
-  const imagesRefs = React.useRef({});
-  const [availableDates, setAvailableDates] = React.useState([]);
+  const scrollRef = useRef(null);
+  const imagesRefs = useRef({});
+  const [images, setImages] = useState([]);
+  const [availableDates, setAvailableDates] = useState([]);
   const scrollOptions = {behavior: 'smooth', block: 'nearest'};
 
-  React.useEffect(() => {
-    let newAvailableDates = images.map(image => moment(image.dt * 1000).format('L'));
-    setAvailableDates(newAvailableDates);
-  }, [images])
+  useEffect(() => {
+    if (polygonId) {
+      getSatelliteImagesList(polygonId)
+        .then(response => {
+          if (response && response.length) {
+            response.reverse();
+            setImages(response);
+            selectImage(response[0]);
+            let availableDates = response.map(image => moment(image.dt * 1000).format('L'));
+            setAvailableDates(availableDates);
+          }
+        })
+        .catch(err => {console.log(err)})
+    }
+  }, [polygonId])
 
   const onClickArrow = (direction) => {
     if (scrollRef && scrollRef.current) {

@@ -2,8 +2,6 @@ import {axiosInstance} from "../base";
 import {
   polygonCreate,
   polygonDelete,
-  historyNDVI,
-  historySoil,
   polygonSatelliteImagesList
 } from './index';
 import {startSatelliteImagesSearchDate} from '../../config'

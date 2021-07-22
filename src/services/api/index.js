@@ -1,10 +1,10 @@
 
-const baseURL = "http://k8s-eu4.owm.io";
+export const serverBaseURL = "http://k8s-eu4.owm.io";
 const personalAccountPort = "12346"
 const agriPort = "12345"
 
-const personalAccountBase = `${baseURL}:${personalAccountPort}/`;
-export const agriBase = `${baseURL}:${agriPort}/`;
+const personalAccountBase = `${serverBaseURL}:${personalAccountPort}/`;
+export const agriBase = `${serverBaseURL}:${agriPort}/`;
 
 export const loginURL = `${personalAccountBase}auth/login`
 export const logoutURL = `${personalAccountBase}auth/logout`
