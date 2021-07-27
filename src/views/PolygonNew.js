@@ -1,4 +1,6 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
 import {
   Button,
   Card,
@@ -12,9 +14,11 @@ import {
   Row,
   Col,
 } from "reactstrap";
-import MapBoxDraw from './maps/MapBoxDraw'
-import {addPolygon} from '../features/polygons/actions'
-import { useDispatch, useSelector } from 'react-redux';
+
+import MapBoxDraw from './maps/MapBoxDraw';
+import {addPolygon} from '../features/polygons/actions';
+import {notifyError} from '../features/notifications/actions';
+
 
 const selectAreaLimits = state => state.auth.limits.polygon_area;
 
@@ -38,18 +42,23 @@ const PolygonNew = () => {
   const createPolygonLocal = () => {
     setError({});
     let newError = {};
-
+    let errorMessage = '';
     if (!name.length) {
-      newError.name = true
+      newError.name = true;
+      errorMessage = "Please enter polygon's name\n"
     }
     if (intersection) {
-      newError.intersection = true
+      newError.intersection = true;
+      errorMessage = errorMessage + "Polygons cannot contain self-intersections\n";
     }
     if (area < minPolygonArea || area > maxPolygonArea) {
-      newError.area = true
+      newError.area = true;
+      let err = area < minPolygonArea ? "Polygon's area should be more than " + minPolygonArea + " ha" : "Polygon's area should not exceed " + maxPolygonArea + " ha"
+      errorMessage = errorMessage + err;
     }
     if (Object.keys(newError).length) {
       setError(newError);
+      dispatch(notifyError(errorMessage));
       return
     };
     let data = {
@@ -81,13 +90,13 @@ const PolygonNew = () => {
   }
 
   const blockResetting = () => {
-    return !(drawRef.current && drawRef.current.getAll().features.length)
+    return !(name.length || drawRef.current && drawRef.current.getAll().features.length)
   }
 
   const areaErrorStyle = () => {
     let errorStyle = "danger-color";
-    if (error.area) return errorStyle
-    if (area > maxPolygonArea || area < minPolygonArea) return errorStyle
+    if (error.area) return errorStyle;
+    if (area > maxPolygonArea || area < minPolygonArea) return errorStyle;
     return ""
   }
 
@@ -150,7 +159,7 @@ const PolygonNew = () => {
                   </Button>
 
                   <Button
-                    disabled={blockCreation()}
+                    // disabled={blockCreation()}
                     color="primary"
                     onClick={createPolygonLocal}
                   >

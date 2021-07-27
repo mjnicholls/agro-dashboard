@@ -12,7 +12,7 @@ import {
 } from "reactstrap";
 
 import MapBox from "./maps/MapBox";
-import PolygonsTable from "./agro-components/PolygonsTable"
+import PolygonTable from "./agro-components/PolygonTable"
 
 const selectPolygons = state => state.polygons;
 
@@ -95,7 +95,7 @@ const Dashboard = () => {
 
         <Row>
           <Col>
-            <PolygonsTable
+            <PolygonTable
               data={polygons}
               activePolygon={activePolygon}
               setActivePolygon={setActivePolygon}

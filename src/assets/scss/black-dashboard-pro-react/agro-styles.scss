@@ -3,12 +3,6 @@ $light-green: #00FC00;
 $fontColorBlack: #595959;
 $fontColorBlue: #525f7f;
 
-.horizontal-container {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-
 .justify {
   justify-content: space-between;
 }
@@ -17,6 +11,9 @@ $fontColorBlue: #525f7f;
   display: flex;
   flex-direction: row;
   align-items: center;
+}
+.horizontal-container {
+  @include horizontal-container;
 }
 
 .center-container {
@@ -203,18 +200,41 @@ $fontColorBlue: #525f7f;
   padding-right: 5px !important;
 }
 
-$hour-chart-width: 3000px;
+$hourly-chart-width: 3000px;
+$daily-chart-width: 1000px;
+
+
+@mixin agro-chart {
+  height: 450px !important;
+  overflow-x: auto;
+}
+
+.agro-chart {
+  @include agro-chart;
+}
 
 .hourly-chart {
-  height: 450px !important;
-  width: $hour-chart-width !important;
-  overflow-x: auto;
+  @include agro-chart;
+  width: $hourly-chart-width !important;
 
   .chartjs-size-monitor {
-    width: $hour-chart-width !important;
+    width: $hourly-chart-width !important;
 
     .hourly-chart-canvas {
-      width: $hour-chart-width;
+      width: $hourly-chart-width;
+    }
+  }
+}
+
+.daily-chart {
+  @include agro-chart;
+  width: $daily-chart-width !important;
+
+  .chartjs-size-monitor {
+    width: $daily-chart-width !important;
+
+    .hourly-chart-canvas {
+      width: $daily-chart-width;
     }
   }
 }

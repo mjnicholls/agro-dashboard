@@ -20,8 +20,7 @@ export const activeColor = '#00FC00';
 const satelliteSourceId = 'satellite-agro';
 
 export const initialiseMap = (mapContainer, map, mapBounds, onLoad, onClick) => {
-  console.log("initialiseMap", map.current)
-  if (map.current) return;
+  // if (map.current) return;
   const token = store.getState().auth.token;
   map.current = new mapboxgl.Map({
     container: mapContainer,
@@ -29,9 +28,7 @@ export const initialiseMap = (mapContainer, map, mapBounds, onLoad, onClick) => 
     bounds: mapBounds ? mapBounds : defaultBBox,
     zoom: 9,
     accessToken: mapBoxAccessToken,
-    // fitBoundsOptions: {
-    //   duration: 0
-    // },
+    fitBoundsOptions: { duration: 0 },
     transformRequest: (url) => {
       if (url.indexOf(serverBaseURL) > -1) {
         return {
@@ -72,7 +69,7 @@ const addPolygon = (map, polygon, onClick=null) => {
     'paint': {
       'fill-color': activeColor,
       'fill-opacity': basicOpacity
-      }
+    }
   });
 
   map.addLayer({

@@ -122,7 +122,7 @@ const PolygonTable = ({data, setActivePolygon, setSelectedPolygon}) => {
                 placeholder={`Search ${data.length} polygons...`}
                 style={{maxWidth: "300px"}}
               />
-              <Link to="/admin/create" >
+              <Link to="/dashboard/create" >
                 <Button  color="primary" style={{minWidth: "200px"}}>Create polygon</Button>
               </Link>
           </div>

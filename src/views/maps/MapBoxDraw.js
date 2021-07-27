@@ -1,37 +1,20 @@
 import React, {useEffect, useRef, useState} from 'react';
 import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
-import {axiosInstance} from '../../services/base'
 import { useDispatch, useSelector } from 'react-redux';
-import {defaultCenterMap, mapBoxAccessToken} from '../../config'
+import * as turf from '@turf/turf'
+
+import {axiosInstance} from '../../services/base'
 import {fetchPolygons} from "../../features/polygons/actions";
 import MapboxDraw from "@mapbox/mapbox-gl-draw";
-import * as turf from '@turf/turf'
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 import {calculateTotalBbox, displayPolygons, initialiseMap} from '../../utils/maps';
 
-
 const selectPolygons = state => state.polygons;
-
-const convertToTurfFeature = (feature) => {
-  var featureGeometry = feature.getGeometry();
-  var geometryType = featureGeometry.getType();
-  var featureCoords = geometryType.startsWith("Multi") ?
-featureGeometry.getCoordinates()[0][0] : featureGeometry.getCoordinates()[0];
-  var turfFeature = turf.polygon([featureCoords]);
-  return turfFeature;
-}
-
-const selfIntersectOnDraw = (editedFeature) => {
-    var turfPolygon = convertToTurfFeature(editedFeature);
-    var kinks = turf.kinks(turfPolygon);
-    return kinks;
-}
 
 const MapBox = ({setArea, setGeoJson, setIntersection, drawRef}) => {
 
   const mapContainer = useRef(null);
   const map = useRef(null);
-  const [mapBounds, setMapBounds] = useState(null);
   const [apiCallCount, setApiCallCount] = React.useState(0);
   const [initialised, setInitialised] = useState(false);
 
@@ -55,11 +38,10 @@ const MapBox = ({setArea, setGeoJson, setIntersection, drawRef}) => {
     let bbox;
     if (polygons && polygons.length) {
       bbox = calculateTotalBbox(polygons);
-      setMapBounds(bbox);
     }
-    if (map.current) {
+    if (initialised) {
       if (bbox) {
-        map.current.fitBounds(bbox);
+        displayPolygons(map.current, bbox, polygons, () => {})
       } else { return }  // initialize map only once
     } else {
       initialiseMap(mapContainer.current, map, bbox, () => setInitialised(true), () => {})
@@ -81,13 +63,6 @@ const MapBox = ({setArea, setGeoJson, setIntersection, drawRef}) => {
     addDrawFunctionality(map.current);
     }
   }, [initialised])
-
-  // useEffect(() => {
-  //   if (polygons && map.current && initialised) {
-  //     displayPolygons(map.current, mapBounds, polygons, () => {})
-  //   }
-  // }, [polygons, initialised])
-
 
   const nominatimGeocoder = (query) => {
     /** Load custom data to supplement the search results */
@@ -113,22 +88,6 @@ const MapBox = ({setArea, setGeoJson, setIntersection, drawRef}) => {
     /** Dummy function to be able to set localGeocoderOnly to true to avoid using mapbox geocoder **/
     return [];
   }
-
-  // const initialiseMap = () => {
-  //   if (map.current) return; // initialize map only once
-  //   map.current = new mapboxgl.Map({
-  //     container: mapContainer.current,
-  //     style: 'mapbox://styles/mapbox/satellite-streets-v11',
-  //     center: polygons.length ? polygons[0].center : defaultCenterMap,
-  //     zoom: zoom,
-  //     accessToken: mapBoxAccessToken,
-  //   });
-  //   map.current.on('load', function () {
-  //     setInitialised(true);
-  //     displayPolygons(map.current, mapBounds, polygons, () => {})
-  //   })
-  //
-  // }
 
   const deleteArea = () => {
       setArea(null);

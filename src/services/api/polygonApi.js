@@ -34,7 +34,6 @@ export const deletePolygonApi = (polygonId) => {
 }
 
 
-
 export const getSatelliteImagesList = (polygonId) => {
   let url = `${polygonSatelliteImagesList}?polyid=${polygonId}&start=${startSatelliteImagesSearchDate}&end=${Math.round(new Date().getTime() / 1000)}`
   return axiosInstance.get(url)

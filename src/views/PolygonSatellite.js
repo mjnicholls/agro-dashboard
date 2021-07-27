@@ -130,7 +130,7 @@ const PolygonSatellite = () => {
                 <Card>
                   <CardHeader style={{display: 'flex', flexDirection: "row", alignItems: 'center', justifyContent: 'space-between'}}>
                       <div>All polygons</div>
-                      <Link to="/admin/dashboard">
+                      <Link to="/dashboard/polygons">
                         <i className="tim-icons icon-bullet-list-67 text-info" />
                       </Link>
                   </CardHeader>

@@ -594,7 +594,7 @@ const chartExample7 = {
     var gradientStroke = ctx.createLinearGradient(0, 230, 0, 50);
 
     gradientStroke.addColorStop(1, "rgba(253,93,147,0.8)");
-    gradientStroke.addColorStop(0, "rgba(253,93,147,0)"); //blue colors
+    gradientStroke.addColorStop(0, "rgba(253,93,147,0)"); //purple colors
     return {
       labels: ["JUL", "AUG", "SEP", "OCT", "NOV", "DEC"],
       datasets: [

@@ -16,7 +16,6 @@ import {
 import MapBox from "./maps/MapBoxInteractive";
 import PolygonInfo from './PolygonInfo';
 import PolygonTable from './agro-components/PolygonTable';
-import PolygonsTable from './agro-components/PolygonsTable';
 import SatelliteImagesList from './agro-components/SatelliteImages';
 
 import {toDate} from "../utils/dateTime";

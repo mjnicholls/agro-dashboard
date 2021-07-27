@@ -82,7 +82,7 @@ const Admin = (props) => {
       if (prop.collapse) {
         return getRoutes(prop.views);
       }
-      if (prop.layout === "/admin") {
+      if (prop.layout === "/dashboard") {
         return (
           <AuthRoute
             path={prop.layout + prop.path}
@@ -181,7 +181,7 @@ const Admin = (props) => {
         />
         <Switch>
           {getRoutes(routes)}
-          <Redirect from="*" to="/admin/dashboard" />
+          <Redirect from="*" to="/dashboard/polygons" />
         </Switch>
         {
           // we don't want the Footer to be rendered on full screen maps page

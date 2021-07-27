@@ -1,4 +1,13 @@
+const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
 
+function leadingZero (val) {
+  let s = String(val)
+  if (s.length < 2) {
+    s = '0' + s
+  }
+  return s
+}
 
 export const toDate = (ts) => {
   const formatOptions = { day: 'numeric', month: 'short', year: 'numeric' }
@@ -39,6 +48,11 @@ export const getDateInPast = (nOfMonths) => {
   dateInPast.setHours(0, 0, 0, 0);
   return dateInPast
 
+}
+
+export function formatDateShort (dt, offset=0) {
+  var date = new Date((dt + offset) * 1000)
+  return `${months[date.getUTCMonth()]} ${leadingZero(date.getUTCDate())}`
 }
 
 export const timeInHours = (dt, offset = 0) => {

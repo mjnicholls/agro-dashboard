@@ -12,28 +12,13 @@ import {
   Row
 } from "reactstrap";
 
-const HourlyForecast = ({data, isLoading, error}) => {
+const DailyForecast = ({data, isLoading, error}) => {
 
   const options = JSON.parse(JSON.stringify(chartOptions))
   options.scales.yAxes = [
     {
-      id: "temperature",
+      id: "temp",
       display: false,
-      position: 'left',
-      barPercentage: 1.6,
-      gridLines: {
-        drawBorder: false,
-        color: "rgba(29,140,248,0.0)",
-        zeroLineColor: "transparent",
-      },
-      ticks: {
-        fontColor: "#9a9a9a",
-        maxTicksLimit: 6,
-        callback: function (value) {
-          return value + '°';
-        },
-        padding: 25
-      },
     },
     {
       id: "precipitation",
@@ -46,12 +31,12 @@ const HourlyForecast = ({data, isLoading, error}) => {
   const whiteColor = "#ffffff"
   options.scales.xAxes = [
     {
-      id: 'temp',
+      id: 'tempMax',
       offset: true,
       position: "top",
       ticks: {
         autoSkip: false,
-        callback: label => label.temp + '°',
+        callback: label => label.tempMax + '°',
         fontColor: "#ba54f5"
       }
     },
@@ -64,6 +49,15 @@ const HourlyForecast = ({data, isLoading, error}) => {
         fontStyle: "bold",
         fontColor: "#ffffff",
         callback: label => label.dt
+      }
+    },
+    {
+      id: 'tempMin',
+      offset: true,
+      ticks: {
+        autoSkip: false,
+        callback: label => label.tempMin + '°',
+        fontColor: "#ba54f5"
       }
     },
     {
@@ -170,6 +164,12 @@ const HourlyForecast = ({data, isLoading, error}) => {
     gradientStrokeBlue.addColorStop(1, "rgba(29,140,248,0.5)");
     gradientStrokeBlue.addColorStop(0, "rgba(29,140,248,0)"); //blue colors
 
+    let gradientStrokePurple = ctx.createLinearGradient(0, 230, 0, 50);
+
+    gradientStrokePurple.addColorStop(1, "rgba(72,72,176,0.4)");
+    gradientStrokePurple.addColorStop(0.8, "rgba(72,72,176,0.2)");
+    gradientStrokePurple.addColorStop(0, "rgba(119,52,169,0)"); //purple colors
+
     return {
       labels: data,
       datasets: [
@@ -193,8 +193,27 @@ const HourlyForecast = ({data, isLoading, error}) => {
           data: data.map(el => el.rain),
         },
         {
-          label: "Temperature",
-          yAxisID: "temperature",
+          label: "Temperature Max",
+          yAxisID: "temp",
+          fill: "+1",
+          backgroundColor: gradientStrokePurple,
+          borderColor: "#ba54f5",
+          borderWidth: 2,
+          borderDash: [],
+          borderDashOffset: 0.0,
+          pointBackgroundColor: "#ba54f5",
+          pointBorderColor: "rgba(255,255,255,0)",
+          pointHoverBackgroundColor: "#ba54f5",
+          pointBorderWidth: 20,
+          pointHoverRadius: 4,
+          pointHoverBorderWidth: 15,
+          pointRadius: 1,
+          data: data.map(el => el.tempMax),
+          type: "LineWithLine"
+        },
+        {
+          label: "Temperature Min",
+          yAxisID: "temp",
           fill: false,
           borderColor: "#ba54f5",
           borderWidth: 2,
@@ -207,7 +226,7 @@ const HourlyForecast = ({data, isLoading, error}) => {
           pointHoverRadius: 4,
           pointHoverBorderWidth: 15,
           pointRadius: 1,
-          data: data.map(el => el.temp),
+          data: data.map(el => el.tempMin),
           type: "LineWithLine"
         },
       ]
@@ -221,23 +240,21 @@ const HourlyForecast = ({data, isLoading, error}) => {
           <Row>
             <Col className="text-left" xs="6" sm="8">
               <h5 className="card-category">Forecast</h5>
-              <CardTitle tag="h2">Hourly</CardTitle>
+              <CardTitle tag="h2">Daily</CardTitle>
             </Col>
           </Row>
         </CardHeader>
-        <CardBody style={{overflowX: "auto"}}>
+        <CardBody>
             {isLoading ?
               <div className="chart-placeholder">Fetching data...</div> :
               error ?
                 <div className="chart-placeholder">{error}</div>  :
-                <div className="chart-area hourly-chart">
-                  {/*<canvas ref={yAxisRef}/>*/}
+                <div className="chart-area agro-chart">
                   <Line
-                    className="hourly-chart-canvas"
                     data={chartData}
                     options={options}
                     height={400}
-                    width={2000}
+                    // width={1000}
                   />
                 </div>
             }
@@ -247,4 +264,4 @@ const HourlyForecast = ({data, isLoading, error}) => {
   )
 }
 
-export default HourlyForecast;
+export default DailyForecast;

@@ -22,9 +22,9 @@ const App = () => {
       <BrowserRouter>
         <Switch>
           <Route path="/auth" render={(props) => <AuthLayout {...props} />} />
-          <Route path="/admin" render={(props) => <AdminLayout {...props} />} />
-          <Route path="/rtl" render={(props) => <RTLLayout {...props} />} />
-          <Redirect from="/" to="/admin/dashboard" />
+          <Route path="/dashboard" render={(props) => <AdminLayout {...props} />} />
+          {/*<Route path="/rtl" render={(props) => <RTLLayout {...props} />} />*/}
+          <Redirect from="/" to="/dashboard/polygons" />
         </Switch>
       </BrowserRouter>
       <Notifications />
