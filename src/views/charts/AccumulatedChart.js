@@ -1,16 +1,24 @@
 import React, {useEffect, useState} from 'react';
 import {useSelector} from 'react-redux';
+import ReactBSAlert from "react-bootstrap-sweetalert";
+
 import {getAccumulatedData} from '../../services/api/chartApi';
 import {getDateInPast, getStartDateByTariff, toDateShort} from '../../utils/dateTime';
 import {Line} from "react-chartjs-2";
 import {chartOptions} from "./base";
 import DatePickerChart from '../agro-components/DatePickerChart';
-
+import AccumulatedInfo from '../info/AccumulatedInfo'
 import {
+  Button,
   Card,
+  CardFooter,
   CardHeader,
   CardBody,
   CardTitle,
+  Form,
+  FormGroup,
+  Input,
+  Label,
   Row,
   Col,
 } from "reactstrap";
@@ -30,8 +38,10 @@ const AccumulatedChart = ({id}) => {
   const limitStartDate = getStartDateByTariff(limit);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  // const [treshold, setTreshold] = useState(50);
-
+  const [threshold, setThreshold] = useState(50);
+  const [rainData, setRainData] = useState([]);
+  const [tempData, setTempData] = useState([]);
+  const [alert, setAlert] = React.useState(null);
 
   useEffect(() => {
     let now = new Date();
@@ -48,6 +58,9 @@ const AccumulatedChart = ({id}) => {
       getAccumulatedData(id, startDate, endDate)
         .then(res => {
           setData(res);
+          let thresholdInKelvins = threshold + 273.15;
+          setRainData(res.map(el => el.rain.toFixed(2)));
+          setTempData(res.map(el => el.temp >= thresholdInKelvins ? el.temp - thresholdInKelvins : 0))
         })
         .catch(err => {
           setError(err)
@@ -57,6 +70,30 @@ const AccumulatedChart = ({id}) => {
         })
     }
   }, [startDate, endDate, id])
+
+  useEffect(() => {
+    let newData = tempData.map(el => el >= threshold ? el - threshold : 0)
+    setTempData(newData)
+  }, [threshold])
+
+  const htmlAlert = () => {
+    setAlert(
+      <ReactBSAlert
+        classname="agro-alert"
+        style={{ display: "block", marginTop: "-100px", color: "#525f7f" }}
+        title="Accumulated Parameters"
+        onConfirm={() => hideAlert()}
+        onCancel={() => hideAlert()}
+        showConfirm={false}
+      >
+        <AccumulatedInfo close={hideAlert} />
+      </ReactBSAlert>
+    );
+  };
+
+  const hideAlert = () => {
+    setAlert(null);
+  };
 
   const options = JSON.parse(JSON.stringify(chartOptions))
 
@@ -74,6 +111,7 @@ const AccumulatedChart = ({id}) => {
           // suggestedMin: 60,
           // suggestedMax: 125,
           // padding: 20,
+          beginAtZero: true,
           fontColor: "#9a9a9a",
           callback: function (value) {
             return value + '°';
@@ -93,6 +131,7 @@ const AccumulatedChart = ({id}) => {
           // suggestedMin: 60,
           // suggestedMax: 125,
           // padding: 20,
+          beginAtZero: true,
           fontColor: "#9a9a9a",
           callback: function (value) {
             return value + ' mm';
@@ -127,7 +166,7 @@ const AccumulatedChart = ({id}) => {
           pointHoverRadius: 4,
           pointHoverBorderWidth: 15,
           pointRadius: 1,
-          data: data.map(el => el.rain)
+          data: rainData
         },
         {
           label: "Temperature",
@@ -144,20 +183,23 @@ const AccumulatedChart = ({id}) => {
           pointHoverRadius: 4,
           pointHoverBorderWidth: 15,
           pointRadius: 1,
-          data: data.map(el => el.temp)
+          data: tempData
         }
       ],
     }
   }
 
-  return ( <Card className="card-chart">
+  return (
+    <>
+      {alert}
+      <Card className="card-chart">
       <CardHeader>
         <Row>
-          <Col className="text-left" xs="6" sm="8">
+          <Col className="text-left" sm="7">
             <h5 className="card-category">Historical</h5>
             <CardTitle tag="h2">Accumulated Parameters</CardTitle>
           </Col>
-          <Col xs="6" sm="4">
+          <Col sm="4">
             <DatePickerChart
               startDate={startDate}
               setStartDate={setStartDate}
@@ -165,6 +207,11 @@ const AccumulatedChart = ({id}) => {
               setEndDate={setEndDate}
               limitStartDate={limitStartDate}
             />
+          </Col>
+          <Col sm="1">
+            <Button className="btn-round btn-icon" color="info" onClick={htmlAlert}>
+              <i className="tim-icons icon-alert-circle-exc" />
+            </Button>
           </Col>
         </Row>
       </CardHeader>
@@ -182,9 +229,28 @@ const AccumulatedChart = ({id}) => {
               </div> : null
           }
       </CardBody>
-    </Card>)
-
-
+      <CardFooter>
+        <hr />
+        <Form className="form-horizontal">
+            <Row>
+              <Label sm="3">Threshold, °C</Label>
+              <Col sm="3">
+                <FormGroup>
+                  <Input
+                    type="number"
+                    value={threshold}
+                    onChange={e => setThreshold(e.target.value)}
+                    min={0}
+                    max={50}  // TODO check
+                  />
+                </FormGroup>
+              </Col>
+            </Row>
+        </Form>
+      </CardFooter>
+    </Card>
+    </>
+  )
 }
 
 export default AccumulatedChart;

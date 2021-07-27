@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {Line} from "react-chartjs-2";
 
+import HourlyTable from './HourlyTable';
 import {getOneCallData} from '../../services/api/weatherApi';
 import {chartOptions} from "./base";
 import {timeInHours} from '../../utils/dateTime';
@@ -11,8 +12,8 @@ import {
   CardHeader,
   CardBody,
   CardTitle,
-  Row,
   Col,
+  Row
 } from "reactstrap";
 
 const HourlyForecast = ({polygon}) => {
@@ -20,6 +21,9 @@ const HourlyForecast = ({polygon}) => {
   const [data, setData] = useState([]);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [rainData, setRainData] = useState([]);
+  const [tempData, setTempData] = useState([]);
+  const [labelsData, setLabelsData] = useState([]);
 
   useEffect(() => {
     setIsLoading(true);
@@ -27,7 +31,30 @@ const HourlyForecast = ({polygon}) => {
     if (polygon) {
       getOneCallData(polygon.center[0], polygon.center[1])
         .then(res => {
-          setData(res)
+          setData(res);
+          const offset = res.timezone_offset;
+          let rainData = [];
+          let labelsData = [];
+          let tempData = [];
+          for (let i = 0; i < res.hourly.length; i++) {
+            let hour = res.hourly[i];
+            let prec = 0;
+            if (hour.rain && hour.rain['1h']) {
+              prec += hour.rain['1h'];
+            }
+            if (hour.snow && hour.snow['1h']) {
+              prec += hour.snow['1h'];
+            }
+            rainData.push(prec.toFixed(2));
+            tempData.push(kelvinToCelsius(hour.temp))
+            labelsData.push({
+              dt: timeInHours(hour.dt, offset),
+              windSpeed: hour.wind_speed.toFixed(1) + 'm/s'
+            });
+          }
+          setRainData(rainData);
+          setTempData(tempData);
+          setLabelsData(labelsData);
         })
         .catch((err) => {
           if (typeof err === "object") {
@@ -78,11 +105,23 @@ const HourlyForecast = ({polygon}) => {
         },
       }
   ]
-  options.scales.xAxes = [{
-    ticks: {
-      autoSkip: false,
-    }
-  }]
+  options.scales.xAxes = [
+    {
+      id: "dt",
+      position: "bottom",
+      ticks: {
+        autoSkip: false,
+        callback: label => label.dt
+      }
+    },
+    {
+      id: 'windSpeed',
+      ticks: {
+        autoSkip: false,
+        callback: label => label.windSpeed
+      }
+    },
+    ]
 
   let chartData = (canvas) => {
     let ctx = canvas.getContext("2d");
@@ -91,30 +130,13 @@ const HourlyForecast = ({polygon}) => {
     gradientStrokeBlue.addColorStop(0.4, "rgba(29,140,248,0.0)");
     gradientStrokeBlue.addColorStop(0, "rgba(29,140,248,0)"); //blue colors
 
-    const offset = data.timezone_offset;
-    let rainData = [];
-    let hourLabels = [];
-    let tempData = [];
-    for (let i = 0; i < data.hourly.slice(0, 12).length; i++) {
-      let hour = data.hourly[i];
-      let prec = 0;
-      if (hour.rain && hour.rain['1h']) {
-        prec += hour.rain['1h'];
-      }
-      if (hour.snow && hour.snow['1h']) {
-        prec += hour.snow['1h'];
-      }
-      rainData.push(prec.toFixed(2));
-      tempData.push(kelvinToCelsius(hour.temp))
-      hourLabels.push(timeInHours(hour.dt, offset));
-    }
-
     return {
-      labels: hourLabels,
+      labels: labelsData,
       datasets: [
         {
           label: "Precipitation",
           yAxisID: "precipitation",
+          xAxisID: "dt",
           fill: true,
           backgroundColor: gradientStrokeBlue,
           borderColor: "#1f8ef1",
@@ -133,6 +155,7 @@ const HourlyForecast = ({polygon}) => {
         {
           label: "Temperature",
           yAxisID: "temperature",
+          xAxisID: "dt",
           fill: false,
           borderColor: "#ba54f5",
           borderWidth: 2,
@@ -152,28 +175,35 @@ const HourlyForecast = ({polygon}) => {
   }
 
   return (
-    <Card className="card-chart">
-      <CardHeader>
-        <Row>
-          <Col className="text-left" xs="6" sm="8">
-            <h5 className="card-category">Forecast</h5>
-            <CardTitle tag="h2">Hourly</CardTitle>
-          </Col>
-        </Row>
-      </CardHeader>
-      <CardBody>
-          {isLoading ?
-            <div className="chart-placeholder">Fetching data...</div> :
-            error ?
-              <div className="chart-placeholder">{error}</div>  :
-              <div className="chart-area">
-                <Line
-                  data={chartData}
-                  options={options} />
-              </div>
-          }
-      </CardBody>
-    </Card>
+    <>
+      <Card className="card-chart">
+        <CardHeader>
+          <Row>
+            <Col className="text-left" xs="6" sm="8">
+              <h5 className="card-category">Forecast</h5>
+              <CardTitle tag="h2">Hourly</CardTitle>
+            </Col>
+          </Row>
+        </CardHeader>
+        <CardBody>
+            {isLoading ?
+              <div className="chart-placeholder">Fetching data...</div> :
+              error ?
+                <div className="chart-placeholder">{error}</div>  :
+                <div className="chart-area">
+                  <Line
+                    data={chartData}
+                    options={options} />
+                </div>
+            }
+        </CardBody>
+      </Card>
+      {/*{(data && data.hourly) && <HourlyTable*/}
+        {/*data={data.hourly}*/}
+        {/*labelsData={labelsData}*/}
+        {/*rainData={rainData}*/}
+        {/*tempData={tempData} />}*/}
+    </>
   )
 }
 

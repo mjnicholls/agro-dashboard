@@ -18,7 +18,7 @@ const tariffSelector = state => state.auth.user.tariff;
 
 const PolygonInfo = ({selectedPolygon}) => {
 
-  const [isSatellitePage, setIsSatellitePage] = useState(false);
+  const [isSatellitePage, setIsSatellitePage] = useState(true);
 
   const tariff = useSelector(tariffSelector);
   const userLevel = userLevels[tariff];

@@ -5,7 +5,7 @@ import classnames from "classnames";
 import { Link } from "react-router-dom";
 import PolygonDeleteModal from "./PolygonDeleteModal";
 import PolygonEditModal from "./PolygonEditModal";
-import PolygonsPagination from "./PolygonsPagination"
+import PolygonsPagination from "./AgroPagination"
 import Shape from "./Shape";
 
 import {
@@ -18,7 +18,7 @@ import {
 } from "reactstrap";
 
 
-const PolygonsTable = ({data, activePolygon, setActivePolygon, setSelectedPolygon}) => {
+const PolygonsTable = ({data, setActivePolygon, setSelectedPolygon}) => {
 
   const [selectedPolygon, selectPolygon] = useState(null);
   const [modalDelete, setModalDelete] = useState(false);
@@ -41,6 +41,7 @@ const PolygonsTable = ({data, activePolygon, setActivePolygon, setSelectedPolygo
     selectPolygon(polygon);
     setModalEdit(true);
   }
+
 
   const cancelEdit = () => {
     setModalEdit(false);
@@ -111,7 +112,6 @@ const PolygonsTable = ({data, activePolygon, setActivePolygon, setSelectedPolygo
   }
 
   const TableRow = ({polygon}) => {
-    console.log("render table row")
     return (
     <tr
       onMouseEnter={() => {setActivePolygon(polygon.id)}}
@@ -199,7 +199,7 @@ const PolygonsTable = ({data, activePolygon, setActivePolygon, setSelectedPolygo
               </Link>
             </div>
           </div>
-          <Table className="tablesorter polygons-table" responsive>
+          <Table className="tablesorter polygon-table" responsive>
             <thead className="text-primary">
               <tr>
                 <th></th>
@@ -212,7 +212,8 @@ const PolygonsTable = ({data, activePolygon, setActivePolygon, setSelectedPolygo
                     )
                   }
                   key="name"
-                  onClick={() => sortTable("name")}>Name</th>
+                  onClick={() => sortTable("name")}>Name
+                </th>
                 <th
                   className={
                     classnames(

@@ -1,11 +1,16 @@
 $danger-color: #ec250d;
 $light-green: #00FC00;
-
+$fontColorBlack: #595959;
+$fontColorBlue: #525f7f;
 
 .horizontal-container {
   display: flex;
   flex-direction: row;
   align-items: center;
+}
+
+.justify {
+  justify-content: space-between;
 }
 
 @mixin horizontal-container {
@@ -173,7 +178,7 @@ $light-green: #00FC00;
   border-color: $danger-color;
 }
 
-.polygons-table {
+.polygon-table {
   tbody {
     tr:hover {
       background-color: rgba(0,0,0,.05);
@@ -183,4 +188,51 @@ $light-green: #00FC00;
 
 .highlight-background {
   background-color: rgba(0, 252, 0, 0.3);
+}
+
+.table-wrapper {
+  position: relative;
+  overflow: auto;
+  white-space: nowrap;
+}
+
+.headcol {
+  position: sticky;
+  background-color: #27293d; // TODO card color
+  left: 0px;
+  padding-right: 5px !important;
+}
+
+$hour-chart-width: 3000px;
+
+.hourly-chart {
+  height: 450px !important;
+  width: $hour-chart-width !important;
+  overflow-x: auto;
+
+  .chartjs-size-monitor {
+    width: $hour-chart-width !important;
+
+    .hourly-chart-canvas {
+      width: $hour-chart-width;
+    }
+  }
+}
+
+.sweet-alert {
+  h2 {
+    text-align: left !important;
+  }
+  .agro-pop-up {
+    color: $fontColorBlack;
+    text-align: left;
+    p {
+      color: $fontColorBlack;
+    }
+    .agro-pop-up-footer {
+      @include horizontal-container;
+      justify-content: flex-end;
+      flex-wrap: wrap
+    }
+  }
 }

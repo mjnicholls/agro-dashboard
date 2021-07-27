@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 
 import {
   Pagination,
@@ -6,13 +6,14 @@ import {
   PaginationLink,
 } from "reactstrap";
 
-const ReactPagination = ({ count, itemsPerPage, page, setPage }) => {
 
-  const maxPage = Math.ceil(count / itemsPerPage);
+const AgroPagination = ({ count, itemsPerPage, page, setPage }) => {
+
+  const maxPage = Math.floor(count / itemsPerPage);
 
   const pages = () => {
     let arr = [];
-    for (let i=0; i < maxPage; i++ ) {
+    for (let i=0; i <= maxPage; i++ ) {
       arr.push(i + 1)
     }
     return arr
@@ -27,7 +28,7 @@ const ReactPagination = ({ count, itemsPerPage, page, setPage }) => {
             href="#pablo"
             onClick={(e) => {
               e.preventDefault();
-              if (page >= 2) {
+              if (page >= 1) {
                 setPage(page-1);
               }
             }}
@@ -42,14 +43,14 @@ const ReactPagination = ({ count, itemsPerPage, page, setPage }) => {
         </PaginationItem>
         {pages().map(item => (
             <PaginationItem
-              className={item === page ? "active" : ""}
+              className={item === (page + 1) ? "active" : ""}
               key={'page_' + item}
             >
               <PaginationLink
                 href="#pablo"
                 onClick={(e) => {
                   e.preventDefault();
-                  setPage(item);
+                  setPage(item - 1);
                 }}
               >
                 {item}
@@ -81,4 +82,4 @@ const ReactPagination = ({ count, itemsPerPage, page, setPage }) => {
   )
 }
 
-export default ReactPagination
+export default AgroPagination

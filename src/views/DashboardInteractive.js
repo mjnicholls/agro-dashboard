@@ -15,7 +15,8 @@ import {
 
 import MapBox from "./maps/MapBoxInteractive";
 import PolygonInfo from './PolygonInfo';
-import PolygonsTable from "./agro-components/PolygonsTable";
+import PolygonTable from './agro-components/PolygonTable';
+import PolygonsTable from './agro-components/PolygonsTable';
 import SatelliteImagesList from './agro-components/SatelliteImages';
 
 import {toDate} from "../utils/dateTime";
@@ -129,7 +130,7 @@ const Dashboard = () => {
           /> :
           <Row>
             <Col>
-              <PolygonsTable
+              <PolygonTable
                 data={polygons}
                 activePolygon={activePolygon}
                 setActivePolygon={setActivePolygon}

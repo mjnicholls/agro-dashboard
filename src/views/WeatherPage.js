@@ -1,5 +1,5 @@
 import React from 'react';
-import HourlyForecast from './charts/HourlyForecast';
+import HourlyForecast from './charts/HourlyForecastCombined';
 import HistoryWeather from './charts/HistoryWeather';
 
 import {

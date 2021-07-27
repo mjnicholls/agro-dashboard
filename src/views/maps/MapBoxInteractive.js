@@ -1,70 +1,38 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
 import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
 
-import { useSelector } from 'react-redux';
-import {defaultCenterMap, mapBoxAccessToken} from '../../config';
-import {activeColor, basicColor, calculateTotalBbox, displayPolygons, removeSatelliteTile, renderTile} from '../../utils/maps';
-import {serverBaseURL} from '../../services/api/index';
-
-const authTokenSelector = state => state.auth.token;
+import {activeColor, basicColor, calculateTotalBbox, initialiseMap, removeSatelliteTile, renderTile} from '../../utils/maps';
 
 const MapBox = ({ polygons, activePolygon, setSelectedPolygon, selectedPolygon, selectedImage, selectedLayer }) => {
 
   const mapContainer = useRef(null);
   const map = useRef(null);
-  const [initialised, setInitialised] = useState(false);
   const [tile, setTile] = useState(null);
   const [mapBounds, setMapBounds] = useState(null);
-  const token = useSelector(authTokenSelector);
-
-  const initialiseMap = () => {
-    map.current = new mapboxgl.Map({
-      container: mapContainer.current,
-      style: 'mapbox://styles/mapbox/satellite-streets-v11',
-      center: polygons.length ? polygons[0].center : defaultCenterMap, // TODO
-      zoom: 9,
-      accessToken: mapBoxAccessToken,
-      fitBoundsOptions: {
-        duration: 0
-      },
-      bounds: mapBounds,
-      transformRequest: (url, resourceType) => {
-        if (url.indexOf(serverBaseURL) > -1) {
-          return {
-            url: url,
-            headers: { 'Authorization': 'Bearer ' + token },
-          }
-        }
-      },
-    });
-
-    // if (mapBounds) {
-    //   map.current.setBounds(mapBounds);
-    // }
-    map.current.addControl(new mapboxgl.NavigationControl({showCompass: false}), 'top-left');
-    map.current.on('load', function () {
-      setInitialised(true);
-    })
-  }
+  const [initialised, setInitialised] = useState(false);
 
   useEffect(() => {
+    let bbox;
     if (polygons && polygons.length) {
-      let bbox = calculateTotalBbox(polygons);
-      let southWest = new mapboxgl.LngLat(bbox[0][0], bbox[0][1]);
-      let northEast = new mapboxgl.LngLat(bbox[1][0], bbox[1][1]);
-      let boundingBox = new mapboxgl.LngLatBounds(southWest, northEast);
-      if (map.current) return; // initialize map only once
-      initialiseMap();
-      setMapBounds(boundingBox);
+      bbox = calculateTotalBbox(polygons);
+      setMapBounds(bbox);
     }
-  }, [polygons])
-
+    if (map.current) {
+      if (bbox) {
+        map.current.fitBounds(bbox);
+      } else { return }  // initialize map only once
+    } else {
+      initialiseMap(mapContainer.current, map, bbox, () => {setInitialised(true)}, setSelectedPolygon)
+    }
+  }, [polygons]);
 
   useEffect(() => {
-    if (initialised) {
-      map.current.fitBounds(mapBounds)
+    return () => {
+      if (map.current) {
+        map.current.remove();
+      }
     }
-  }, [mapBounds])
+  }, []);
 
   useEffect(() => {
     if (selectedImage && selectedLayer) {
@@ -73,10 +41,10 @@ const MapBox = ({ polygons, activePolygon, setSelectedPolygon, selectedPolygon, 
   }, [selectedImage, selectedLayer])
 
   useEffect(() => {
-    if (map.current && tile && initialised) {
+    if (tile) {
       renderTile(map.current, tile)
     }
-  }, [tile, initialised])
+  }, [tile])
 
   useEffect(() => {
     if (activePolygon) {
@@ -96,7 +64,6 @@ const MapBox = ({ polygons, activePolygon, setSelectedPolygon, selectedPolygon, 
      * apply satellite image
      * apply layer
      */
-    // TODO - what if no map.current
     if (initialised) {
       if (selectedPolygon) {
       let coordinates = selectedPolygon.geo_json.geometry.coordinates[0];
@@ -122,22 +89,6 @@ const MapBox = ({ polygons, activePolygon, setSelectedPolygon, selectedPolygon, 
       }
     }
   }, [selectedPolygon])
-
-  useEffect(() => {
-    // if (map.current) return; // initialize map only once
-    // initialiseMap();
-    return () => {
-      if (map.current) {
-        map.current.remove();
-      }
-    }
-  }, []);
-
-  useEffect(() => {
-    if (polygons && map.current && initialised) {
-      displayPolygons(map.current, mapBounds, polygons, setSelectedPolygon)
-    }
-  }, [polygons, initialised])
 
  return (
   <div>

@@ -3,9 +3,13 @@ export const kelvinToCelsius = (temp) => {
 }
 
 export const totalArea = (polygons) => {
-    if (polygons.length) {
-      let x = polygons.reduce((a,b) => ({area: a.area + b.area}))
-      return x.area.toFixed(2)
-    }
-    return 0
+  if (polygons.length) {
+    let x = polygons.reduce((a,b) => ({area: a.area + b.area}))
+    return x.area.toFixed(2)
   }
+  return 0
+}
+
+export const capitalize = (val) => {
+  return val.charAt(0).toUpperCase() + val.slice(1)
+}
