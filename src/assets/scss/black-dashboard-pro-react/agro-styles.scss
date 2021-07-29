@@ -256,3 +256,22 @@ $daily-chart-width: 1000px;
     }
   }
 }
+
+.agro-switch {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  label {
+    font-weight: 300;
+    width: 140px;
+  }
+}
+
+.show {
+  .agro-switch {
+    label {
+      color: #222a42;
+      text-transform: uppercase;
+    }
+  }
+}

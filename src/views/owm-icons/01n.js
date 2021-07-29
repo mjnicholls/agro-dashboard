@@ -1,15 +1,20 @@
-import React from 'react';
+import * as React from "react"
 
-function Icon01n(props) {
-
+function SvgComponent(props) {
   return (
-    <svg viewBox="0 0 148 148" height={40} width={40} {...props}>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 72.234 72.234"
+      height={60}
+      width={60}
+      {...props}
+    >
       <path
-        d="M110.117 74c0 19.947-16.17 36.117-36.117 36.117-19.947 0-36.117-16.17-36.117-36.117 0-19.948 16.17-36.117 36.117-36.117 19.947 0 36.117 16.169 36.117 36.117"
-        fill='#f2f2f2'
+        d="M72.234 36.117c0 19.947-16.17 36.117-36.117 36.117C16.17 72.234 0 56.064 0 36.117 0 16.17 16.17 0 36.117 0c19.947 0 36.117 16.169 36.117 36.117"
+        fill="#3b3c40"
       />
     </svg>
-  );
+  )
 }
 
-export default Icon01n;
+export default SvgComponent

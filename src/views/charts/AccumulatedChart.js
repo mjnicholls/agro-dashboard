@@ -1,13 +1,8 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {useSelector} from 'react-redux';
-import ReactBSAlert from "react-bootstrap-sweetalert";
 
-import {getAccumulatedData} from '../../services/api/chartApi';
-import {getDateInPast, getStartDateByTariff, toDateShort} from '../../utils/dateTime';
+import ReactBSAlert from "react-bootstrap-sweetalert";
 import {Line} from "react-chartjs-2";
-import {chartOptions} from "./base";
-import DatePickerChart from '../agro-components/DatePickerChart';
-import AccumulatedInfo from '../info/AccumulatedInfo'
 import {
   Button,
   Card,
@@ -23,10 +18,18 @@ import {
   Col,
 } from "reactstrap";
 
+import {getAccumulatedData} from '../../services/api/chartApi';
+import {getDateInPast, getStartDateByTariff, toDateShort} from '../../utils/dateTime';
+import {chartOptions} from "./base";
+import DatePickerChart from '../agro-components/DatePickerChart';
+import AccumulatedInfo from '../info/AccumulatedInfo';
 
-// TODO 2 разных лимита: температура и осадки
-const selectLimit = state => state.auth.limits.history.weather_history_accumulated_precipitation;
-// const selectLimit = state => state.auth.limits.history.weather_history_accumulated_temperature;
+import {convertTemp} from '../../utils/utils';
+import Slider from "nouislider";
+
+const selectLimitPrec = state => state.auth.limits.history.weather_history_accumulated_precipitation;
+const selectLimitTemp = state => state.auth.limits.history.weather_history_accumulated_temperature;
+const selectUnits = state => state.units.isMetric;
 
 const AccumulatedChart = ({id}) => {
 
@@ -34,14 +37,40 @@ const AccumulatedChart = ({id}) => {
   const [endDate, setEndDate] = useState(null);
   const [data, setData] = useState([]);
 
-  const limit = useSelector(selectLimit);
+  const limitPrec = useSelector(selectLimitPrec);
+  const limitTemp = useSelector(selectLimitTemp);
+
+  // выбрать из двух лимитов более позднюю дату
+  const limit = Math.max(limitPrec, limitTemp);
   const limitStartDate = getStartDateByTariff(limit);
+
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [threshold, setThreshold] = useState(50);
+
+  const isMetric = useSelector(selectUnits);
+  const thresholdMinC = 0;
+  const thresholdMinF = 32;
+  const thresholdMaxC = 50;
+  const thresholdMaxF = 122;
+
+  const [threshold, setThreshold] = useState(isMetric ? thresholdMinC : thresholdMinF);
+
   const [rainData, setRainData] = useState([]);
   const [tempData, setTempData] = useState([]);
   const [alert, setAlert] = React.useState(null);
+
+  const sliderRef = useRef(null);
+
+  useEffect(() => {
+    if (sliderRef.current) {
+      Slider.create(sliderRef.current, {
+        start: [isMetric ? thresholdMinC : thresholdMinF],
+        connect: [true, false],
+        step: 1,
+        range: { min: isMetric ? thresholdMinC : thresholdMinF, max: isMetric ? thresholdMaxC : thresholdMaxF },
+      });
+    }
+  }, []);
 
   useEffect(() => {
     let now = new Date();
@@ -49,20 +78,22 @@ const AccumulatedChart = ({id}) => {
 
     setStartDate(dateInPast.getTime());
     setEndDate(now.getTime());
-
   }, [])
 
   useEffect(() => {
     if (startDate && endDate && id) {
       setIsLoading(true);
+      setError(null);
       getAccumulatedData(id, startDate, endDate)
         .then(res => {
           setData(res);
-          let thresholdInKelvins = threshold + 273.15;
           setRainData(res.map(el => el.rain.toFixed(2)));
-          setTempData(res.map(el => el.temp >= thresholdInKelvins ? el.temp - thresholdInKelvins : 0))
+          setTempData(res.map(el => convertTemp(el.temp, isMetric)));
         })
         .catch(err => {
+          if (typeof err === "object") {
+            err = err.message || "Something went wrong";
+          }
           setError(err)
         })
         .finally(() => {
@@ -76,17 +107,22 @@ const AccumulatedChart = ({id}) => {
     setTempData(newData)
   }, [threshold])
 
+  useEffect(() => {
+    setTempData(data.map(el => convertTemp(el.temp, isMetric)))
+    setThreshold(isMetric ? thresholdMinC : thresholdMinF)
+  }, [isMetric])
+
   const htmlAlert = () => {
     setAlert(
       <ReactBSAlert
         classname="agro-alert"
-        style={{ display: "block", marginTop: "-100px", color: "#525f7f" }}
         title="Accumulated Parameters"
         onConfirm={() => hideAlert()}
         onCancel={() => hideAlert()}
         showConfirm={false}
       >
         <AccumulatedInfo close={hideAlert} />
+        <div className="slider" ref={sliderRef} />
       </ReactBSAlert>
     );
   };
@@ -151,6 +187,23 @@ const AccumulatedChart = ({id}) => {
       labels: data.map(el => toDateShort(el.dt)),
       datasets: [
         {
+          label: "Temperature",
+          yAxisID: "temperature",
+          fill: false,
+          borderColor: "#be55ed",
+          borderWidth: 2,
+          borderDash: [],
+          borderDashOffset: 0.0,
+          pointBackgroundColor: "#be55ed",
+          pointBorderColor: "rgba(255,255,255,0)",
+          pointHoverBackgroundColor: "#be55ed",
+          pointBorderWidth: 20,
+          pointHoverRadius: 4,
+          pointHoverBorderWidth: 15,
+          pointRadius: 1,
+          data: tempData.map(el => el > threshold ? el - threshold : 0)
+        },
+        {
           label: "Rainfall",
           yAxisID: "rainfall",
           fill: true,
@@ -166,24 +219,8 @@ const AccumulatedChart = ({id}) => {
           pointHoverRadius: 4,
           pointHoverBorderWidth: 15,
           pointRadius: 1,
-          data: rainData
-        },
-        {
-          label: "Temperature",
-          yAxisID: "temperature",
-          fill: false,
-          borderColor: "#be55ed",
-          borderWidth: 2,
-          borderDash: [],
-          borderDashOffset: 0.0,
-          pointBackgroundColor: "#be55ed",
-          pointBorderColor: "rgba(255,255,255,0)",
-          pointHoverBackgroundColor: "#be55ed",
-          pointBorderWidth: 20,
-          pointHoverRadius: 4,
-          pointHoverBorderWidth: 15,
-          pointRadius: 1,
-          data: tempData
+          data: rainData,
+          type: "bar"
         }
       ],
     }
@@ -232,16 +269,16 @@ const AccumulatedChart = ({id}) => {
       <CardFooter>
         <hr />
         <Form className="form-horizontal">
-            <Row>
-              <Label sm="3">Threshold, °C</Label>
+            <Row style={{justifyContent: "flex-end"}}>
+              <Label sm="3">Threshold, °{isMetric ? 'C' : 'F'}</Label>
               <Col sm="3">
                 <FormGroup>
                   <Input
                     type="number"
                     value={threshold}
                     onChange={e => setThreshold(e.target.value)}
-                    min={0}
-                    max={50}  // TODO check
+                    min={isMetric ? thresholdMinC : thresholdMinF}
+                    max={isMetric ? thresholdMaxC : thresholdMaxF}
                   />
                 </FormGroup>
               </Col>

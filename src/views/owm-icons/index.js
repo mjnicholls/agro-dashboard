@@ -37,7 +37,7 @@ const icons = {
 
 const OWMWeatherIcon = props => {
   const SpecificIcon = icons[props.src];
-  return <SpecificIcon {...props.compStyle} style={props.compStyle} />;
+  return <SpecificIcon {...props} />;
 };
 
 OWMWeatherIcon.propTypes = {

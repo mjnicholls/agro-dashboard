@@ -4,27 +4,25 @@ import {polygonsEndpoint} from "./endpoints"
 import {notifySuccess, notifyError} from "../notifications/actions";
 import {polygonShapeSize} from "../../config";
 
-export const POLYGONS_LOADED = 'POLYGONS_LOADED';
-
-export const POLYGONS_REQUEST = 'POLYGONS_REQUEST';
-export const POLYGONS_SUCCESS = 'POLYGONS_SUCCESS';
-export const POLYGONS_FAILURE = 'POLYGONS_FAILURE';
-export const POLYGON_ADDED = 'POLYGON_ADDED';
-export const POLYGON_UPDATED = 'POLYGON_UPDATED';
-export const POLYGON_DELETED = 'POLYGON_DELETED';
-export const POLYGONS_BOUNDS = 'POLYGONS_BOUNDS';
+export const POLYGONS_FETCH = 'polygons/fetch';
+export const POLYGONS_FETCH_SUCCESS = 'polygons/fetch_success';
+export const POLYGONS_FETCH_FAILURE = 'polygons/fetch_failure';
+export const POLYGON_ADDED = 'polygons/add';
+export const POLYGON_UPDATED = 'polygons/update';
+export const POLYGON_DELETED = 'polygons/delete';
+export const POLYGONS_BOUNDS = 'polygons/save_bounds';
 
 
-const requestPolygons = () => {
+const polygonsFetched = () => {
   return {
-    type: POLYGONS_REQUEST,
+    type: POLYGONS_FETCH,
     isFetching: true,
   }
 }
 
 const receivePolygons = (data) => {
   return {
-    type: POLYGONS_SUCCESS,
+    type: POLYGONS_FETCH_SUCCESS,
     isFetching: false,
     polygons: data
   }
@@ -32,7 +30,7 @@ const receivePolygons = (data) => {
 
 const polygonsError = (message) => {
   return {
-    type: POLYGONS_FAILURE,
+    type: POLYGONS_FETCH_FAILURE,
     isFetching: false,
     message
   }
@@ -59,6 +57,7 @@ export const polygonDeleted = polygonId => {
   }
 }
 
+// TODO calculate bounds on a top level
 const setPolygonBounds = payload => {
   return {
     type: POLYGONS_BOUNDS,
@@ -101,49 +100,34 @@ const calculatePixels = (coordinates, bbox) => {
 }
 
 const enrichPolygon = (polygon) => {
-  /** Calculate bounding box and pixels shape **/
+  /** Calculate polygon's bounding box and shape in pixels **/
   let bbox = calculateBbox(polygon)
   polygon.pixels = calculatePixels(polygon.geo_json.geometry.coordinates[0], bbox)
   polygon.bbox = bbox;
   return polygon
 }
 
-// const getTotalBbox = (bboxes) => {
-//   let minlng = Math.min.apply(null, bboxes.map(x =>x[0][0]));
-//   let minlat = Math.min.apply(null, bboxes.map(x =>x[0][1]));
-//
-//   let maxlng = Math.max.apply(null, bboxes.map(x =>x[1][0]));
-//   let maxlat = Math.max.apply(null, bboxes.map(x =>x[1][1]));
-//   return [[minlng, minlat], [maxlng, maxlat]];
-//
-// }
-
-export function fetchPolygons() {
-  return dispatch => {
-    dispatch(requestPolygons())
-    axiosInstance.get(polygonsEndpoint)
-      .then(response => {
-        let polygons = response.data;
-        // let bboxes = [];
-        for (let i=0; i<polygons.length; i++) {
-          polygons[i] = enrichPolygon(polygons[i]);
-          // bboxes.push(polygons[i].bbox);
+export const fetchPolygons = () => dispatch => {
+  dispatch(polygonsFetched())
+  axiosInstance.get(polygonsEndpoint)
+    .then(response => {
+      let polygons = response.data;
+      for (let i=0; i<polygons.length; i++) {
+        polygons[i] = enrichPolygon(polygons[i]);
+      }
+      dispatch(receivePolygons(polygons));
+    })
+    .catch(err => {
+      let message = "Something went wrong"
+        if (err.response && err.response.data && err.response.data.message) {
+          message = err.response.data.message;
         }
-        dispatch(receivePolygons(polygons));
-        // let totalBbox = getTotalBbox(bboxes);
-        // dispatch(setPolygonBounds(totalBbox));
-      })
-      .catch(err => {
-        let message = "Something went wrong"
-          if (err.response && err.response.data && err.response.data.message) {
-            message = err.response.data.message;
-          }
-          dispatch(polygonsError(message))
-      })
-  }
+        dispatch(polygonsError(message))
+    })
 }
 
-export function addPolygon(data) {
+
+export const addPolygon = (data) => {
   return async function addPolygonThunk(dispatch, getState) {
     createPolygonApi(data)
       .then(response => {
@@ -159,7 +143,7 @@ export function addPolygon(data) {
   }
 }
 
-export function editPolygon(data) {
+export const editPolygon = (data) => {
   return async function deletePolygonThunk(dispatch, getState) {
     editPolygonApi(data)
       .then(response => {
@@ -172,8 +156,7 @@ export function editPolygon(data) {
   }
 }
 
-
-export function deletePolygon(polygonId) {
+export const deletePolygon = (polygonId) => {
   return async function deletePolygonThunk(dispatch, getState) {
     deletePolygonApi(polygonId)
       .then(() => {

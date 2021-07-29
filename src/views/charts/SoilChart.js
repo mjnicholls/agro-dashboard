@@ -5,7 +5,7 @@ import {getDateInPast, getStartDateByTariff, toDateShort} from '../../utils/date
 import {Line} from "react-chartjs-2";
 import {chartOptions} from './base';
 import DatePickerChart from '../agro-components/DatePickerChart';
-import {kelvinToCelsius} from '../../utils/utils';
+import {convertTemp} from '../../utils/utils';
 
 import {
   Card,
@@ -18,10 +18,13 @@ import {
 
 
 const selectLimit = state => state.auth.limits.history.soil_history;
+const selectUnits = state => state.units.isMetric;
 
 const SoilChart = ({ id }) => {
 
   const limit = useSelector(selectLimit);
+  const units = useSelector(selectUnits);
+
   const limitStartDate = getStartDateByTariff(limit);
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
@@ -38,9 +41,9 @@ const SoilChart = ({ id }) => {
 
   }, [])
 
-
   React.useEffect(() => {
     setIsLoading(true);
+    setError(null);
     if (startDate && endDate && id) {
       getSoilData(id, startDate, endDate)
         .then(response => {
@@ -60,7 +63,9 @@ const SoilChart = ({ id }) => {
           }
           setError(err);
         })
-        .finally(() => {setIsLoading(false)})
+        .finally(() => {
+          setIsLoading(false)
+        })
     }
   }, [startDate, endDate, id])
 
@@ -68,41 +73,61 @@ const SoilChart = ({ id }) => {
 
   options.scales.yAxes = [
     {
-        id: "temperature",
-        position: 'left',
-        barPercentage: 1.6,
-        gridLines: {
-          drawBorder: false,
-          color: "rgba(29,140,248,0.0)",
-          zeroLineColor: "transparent",
-        },
-        ticks: {
-          // suggestedMin: 60,
-          // suggestedMax: 125,
-          // padding: 20,
-          fontColor: "#9a9a9a",
-          callback: function (value) {
-            return value + '°';
-          }
-        },
+      id: "temperature",
+      position: 'left',
+      barPercentage: 1.6,
+      gridLines: {
+        drawBorder: false,
+        color: "rgba(29,140,248,0.0)",
+        zeroLineColor: "transparent",
       },
-      {
-        id: "moisture",
-        position: 'right',
-        barPercentage: 1.6,
-        gridLines: {
-          drawBorder: false,
-          color: "rgba(29,140,248,0.0)",
-          zeroLineColor: "transparent",
-        },
-        ticks: {
-          // suggestedMin: 60,
-          // suggestedMax: 125,
-          // padding: 20,
-          fontColor: "#9a9a9a",
-        },
-      }
+      ticks: {
+        // suggestedMin: 60,
+        // suggestedMax: 125,
+        // padding: 20,
+        fontColor: "#9a9a9a",
+        callback: function (value) {
+          return value + '°';
+        }
+      },
+    },
+    {
+      id: "moisture",
+      position: 'right',
+      barPercentage: 1.6,
+      gridLines: {
+        drawBorder: false,
+        color: "rgba(29,140,248,0.0)",
+        zeroLineColor: "transparent",
+      },
+      ticks: {
+        // suggestedMin: 60,
+        // suggestedMax: 125,
+        // padding: 20,
+        fontColor: "#9a9a9a",
+      },
+    }
   ]
+  options.plugins = {
+    tooltip: {
+      callbacks: {
+        label: function (context) {
+          var label = context.dataset.label || '';
+
+          if (label) {
+            label += ': ';
+          }
+          if (context.parsed.y !== null) {
+            label += new Intl.NumberFormat('en-US', {
+              style: 'currency',
+              currency: 'USD'
+            }).format(context.parsed.y);
+          }
+          return label;
+        }
+      }
+    }
+  }
 
   let chartData = (canvas) => {
 
@@ -142,7 +167,7 @@ const SoilChart = ({ id }) => {
             pointHoverRadius: 4,
             pointHoverBorderWidth: 15,
             pointRadius: 1,
-            data: data.map(el => kelvinToCelsius(el.t10)),
+            data: data.map(el => convertTemp(el.t10, units)),
         },
         {
             label: "Moisture",
@@ -178,7 +203,7 @@ const SoilChart = ({ id }) => {
             pointHoverRadius: 4,
             pointHoverBorderWidth: 15,
             pointRadius: 1,
-            data: data.map(el => kelvinToCelsius(el.t0)),
+            data: data.map(el => convertTemp(el.t0, units)),
         },
       ]
     }

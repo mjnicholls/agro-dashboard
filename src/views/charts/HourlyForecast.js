@@ -1,5 +1,8 @@
 import React from 'react';
 import {Line} from "react-chartjs-2";
+import {useSelector} from 'react-redux';
+import {convertSpeed, convertTemp} from "../../utils/utils";
+
 
 import {chartOptions} from "./base";
 
@@ -12,7 +15,11 @@ import {
   Row
 } from "reactstrap";
 
+const selectUnits = state => state.units.isMetric;
+
 const HourlyForecast = ({data, isLoading, error}) => {
+
+  const isMetric = useSelector(selectUnits);
 
   const options = JSON.parse(JSON.stringify(chartOptions))
   options.scales.yAxes = [
@@ -51,7 +58,7 @@ const HourlyForecast = ({data, isLoading, error}) => {
       position: "top",
       ticks: {
         autoSkip: false,
-        callback: label => label.temp + '°',
+        callback: label => convertTemp(label.temp, isMetric) + '°',
         fontColor: "#ba54f5"
       }
     },
@@ -90,7 +97,7 @@ const HourlyForecast = ({data, isLoading, error}) => {
       offset: true,
       ticks: {
         autoSkip: false,
-        callback: label => label.windSpeed,
+        callback: label => convertSpeed(label.windSpeed, isMetric) + (isMetric ? 'm/s' : 'mph'),
         fontColor: whiteColor
       }
     },
@@ -117,7 +124,7 @@ const HourlyForecast = ({data, isLoading, error}) => {
       offset: true,
       ticks: {
         autoSkip: false,
-        callback: label => label.dewPoint,
+        callback: label => convertTemp(label.dewPoint, isMetric) + '°',
         fontColor: whiteColor
       }
     },
@@ -207,7 +214,7 @@ const HourlyForecast = ({data, isLoading, error}) => {
           pointHoverRadius: 4,
           pointHoverBorderWidth: 15,
           pointRadius: 1,
-          data: data.map(el => el.temp),
+          data: data.map(el => convertTemp(el.temp, isMetric)),
           type: "LineWithLine"
         },
       ]

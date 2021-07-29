@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
-import {capitalize, kelvinToCelsius} from "../../utils/utils";
+import {useSelector} from 'react-redux';
+import {convertTemp} from "../../utils/utils";
 
 import {
   Card,
@@ -13,13 +14,16 @@ import {
 } from "reactstrap";
 
 import {getCurrentSoil} from "../../services/api/weatherApi";
-import OWMWeatherIcon from "../owm-icons";
+
+const selectUnits = state => state.units.isMetric;
 
 const CurrentSoil = ({ polyId }) => {
 
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+
+  const isMetric = useSelector(selectUnits);
 
   useEffect(() => {
     getCurrentSoil(polyId)
@@ -51,27 +55,22 @@ const CurrentSoil = ({ polyId }) => {
           <div className="chart-placeholder">Fetching data...</div> :
           error ?
             <div className="chart-placeholder">{error}</div>  :
-              <Table>
-                <tbody>
-                  <tr>
-                    <td>Soil temperature at the surface</td>
-                    <td>{kelvinToCelsius(data.t0)}°</td>
-                  </tr>
-                  <tr>
-                    <td>Soil temperature at the depth of 10cm</td>
-                    <td>{kelvinToCelsius(data.t10)}°</td>
-                  </tr>
-                  <tr>
-                    <td>Soil moisture</td>
-                    <td>{data.moisture}</td>
-                  </tr>
-                </tbody>
-              </Table>
+            <>
+              <div className="horizontal-container justify">
+                <p className="stats">Soil temperature at the surface</p>
+                <CardTitle tag="h3">{convertTemp(data.t0, isMetric)}°</CardTitle>
+              </div>
+              <div className="horizontal-container justify">
+                <p className="stats">Soil temperature at the depth of 10cm</p>
+                <CardTitle tag="h3">{convertTemp(data.t10, isMetric)}°</CardTitle>
+              </div>
+              <div className="horizontal-container justify">
+                <p className="stats">Soil moisture</p>
+                <CardTitle tag="h3">{data.moisture}</CardTitle>
+              </div>
+            </>
            }
       </CardBody>
-      <CardFooter>
-
-      </CardFooter>
     </Card>
   )
 }

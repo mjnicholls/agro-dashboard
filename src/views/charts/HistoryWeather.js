@@ -11,7 +11,7 @@ import {
 } from "reactstrap";
 
 import {toDateShort, getDateInPast, getStartDateByTariff} from "../../utils/dateTime";
-import {kelvinToCelsius} from '../../utils/utils'
+import {convertTemp} from '../../utils/utils'
 import DatePickerChart from "../agro-components/DatePickerChart";
 
 import {Line} from "react-chartjs-2";
@@ -20,6 +20,7 @@ import {getHistoryWeatherData} from "../../services/api/chartApi";
 
 
 const selectLimit = state => state.auth.limits.history.weather_history;
+const selectUnits = state => state.units.isMetric;
 
 
 const HistoryWeather = ({polygonId}) => {
@@ -32,6 +33,8 @@ const HistoryWeather = ({polygonId}) => {
   const limitStartDate = getStartDateByTariff(limit);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+
+  const isMetric = useSelector(selectUnits);
 
   useEffect(() => {
     let now = new Date();
@@ -65,7 +68,6 @@ const HistoryWeather = ({polygonId}) => {
       })
     }
   }, [polygonId, startDate, endDate])
-
 
   const options = JSON.parse(JSON.stringify(chartOptions))
 
@@ -125,14 +127,14 @@ const HistoryWeather = ({polygonId}) => {
     const purple = "#ba54f5";
     const blue = "#1f8ef1";
 
-    let minTemp = [];
-    let maxTemp = [];
+    // let minTemp = [];
+    // let maxTemp = [];
     let labels = [];
     let rainData = [];
     for (let i=0; i<data.length; i++) {
       let el = data[i];
-      minTemp.push(kelvinToCelsius(el.main.temp_min));
-      maxTemp.push(kelvinToCelsius(el.main.temp_max));
+      // minTemp.push(kelvinToCelsius(el.main.temp_min));
+      // maxTemp.push(kelvinToCelsius(el.main.temp_max));
       labels.push(toDateShort(el.dt)); // TODO local date
       let prec = 0 + (el.rain ? el.rain["1h"] || 0 : 0) + (el.snow ? el.snow["1h"] || 0 : 0);
       rainData.push(prec.toFixed(2));
@@ -157,7 +159,7 @@ const HistoryWeather = ({polygonId}) => {
           pointHoverRadius: 4,
           pointHoverBorderWidth: 15,
           pointRadius: 1,
-          data: maxTemp,
+          data: data.map(item => convertTemp(item.main.temp_max, isMetric)),
           tension: 0.1
         },
         {
@@ -176,7 +178,7 @@ const HistoryWeather = ({polygonId}) => {
           pointHoverRadius: 4,
           pointHoverBorderWidth: 15,
           pointRadius: 1,
-          data: minTemp,
+          data: data.map(item => convertTemp(item.main.temp_min, isMetric)),
           tension: 0.1
         },
         {
@@ -196,7 +198,8 @@ const HistoryWeather = ({polygonId}) => {
           pointHoverBorderWidth: 15,
           pointRadius: 1,
           data: rainData,
-          tension: 0.1
+          tension: 0.1,
+          type: "bar"
         }
       ]
     })

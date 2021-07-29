@@ -1,12 +1,12 @@
 import {
-  POLYGONS_SUCCESS, POLYGON_ADDED, POLYGON_UPDATED, POLYGON_DELETED
+  POLYGONS_FETCH_SUCCESS, POLYGON_ADDED, POLYGON_UPDATED, POLYGON_DELETED
 } from './actions'
 
 const initialState = []
 
 export default function polygonsReducer(state = initialState, action) {
   switch(action.type) {
-    case POLYGONS_SUCCESS: {
+    case POLYGONS_FETCH_SUCCESS: {
       return action.polygons
     }
     case POLYGON_ADDED: {

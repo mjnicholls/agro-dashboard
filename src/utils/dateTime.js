@@ -21,6 +21,7 @@ export const toDateShort = (ts) => {
   return date.toLocaleString('en-US', formatOptions)
 }
 
+
 export const getStartDateByTariff = (limit) => {
   /** Get start date based on client's tariff
    * depth = -1: unlimited
@@ -50,9 +51,15 @@ export const getDateInPast = (nOfMonths) => {
 
 }
 
+// date time with offset
 export function formatDateShort (dt, offset=0) {
-  var date = new Date((dt + offset) * 1000)
+  let date = new Date((dt + offset) * 1000)
   return `${months[date.getUTCMonth()]} ${leadingZero(date.getUTCDate())}`
+}
+
+export function formatDateTime (dt, offset=0) {
+  let date = new Date((dt + offset) * 1000);
+  return months[date.getUTCMonth()] + ' ' + date.getUTCDate() + ', ' + leadingZero(date.getUTCHours()) + ':' + leadingZero(date.getUTCMinutes());
 }
 
 export const timeInHours = (dt, offset = 0) => {

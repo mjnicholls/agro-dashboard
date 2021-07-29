@@ -1,29 +1,32 @@
-import React, {useCallback, useEffect, useRef, useState} from 'react';
-import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
+import React, {useEffect, useRef, useState} from 'react';
+import {useSelector} from 'react-redux';
 
 import {activeColor, basicColor, calculateTotalBbox, initialiseMap, removeSatelliteTile, renderTile} from '../../utils/maps';
+import {getMapBounds} from '../../features/polygons/selectors'
 
 const MapBox = ({ polygons, activePolygon, setSelectedPolygon, selectedPolygon, selectedImage, selectedLayer }) => {
 
   const mapContainer = useRef(null);
   const map = useRef(null);
   const [tile, setTile] = useState(null);
-  const [mapBounds, setMapBounds] = useState(null);
+  // const [mapBounds, setMapBounds] = useState(null);
   const [initialised, setInitialised] = useState(false);
-
+  const mapBounds = useSelector(getMapBounds);
+  console.log("mapBounds", mapBounds)
   useEffect(() => {
-    let bbox;
-    if (polygons && polygons.length) {
-      bbox = calculateTotalBbox(polygons);
-      setMapBounds(bbox);
-    }
-    if (map.current) {
-      if (bbox) {
-        map.current.fitBounds(bbox);
-      } else { return }  // initialize map only once
-    } else {
-      initialiseMap(mapContainer.current, map, bbox, () => {setInitialised(true)}, setSelectedPolygon)
-    }
+    // let bbox;
+    // if (polygons && polygons.length) {
+    //   bbox = calculateTotalBbox(polygons);
+    //   setMapBounds(bbox);
+    // }
+    // if (map.current) {
+    //   if (bbox) {
+    //     map.current.fitBounds(bbox);
+    //   } else { return }  // initialize map only once
+    // } else {
+    //   initialiseMap(mapContainer.current, map, bbox, () => {setInitialised(true)}, setSelectedPolygon)
+    // }
+    initialiseMap(mapContainer.current, map, mapBounds, () => {setInitialised(true)}, setSelectedPolygon)
   }, [polygons]);
 
   useEffect(() => {
@@ -66,12 +69,12 @@ const MapBox = ({ polygons, activePolygon, setSelectedPolygon, selectedPolygon, 
      */
     if (initialised) {
       if (selectedPolygon) {
-      let coordinates = selectedPolygon.geo_json.geometry.coordinates[0];
-      let mapBounds = new mapboxgl.LngLatBounds(coordinates[0], coordinates[0]);
-      coordinates.reduce(function (bounds, coord) {
-        mapBounds.extend(coord);
-      }, mapBounds);
-      map.current.fitBounds(mapBounds, {
+      // let coordinates = selectedPolygon.geo_json.geometry.coordinates[0];
+      // let mapBounds = new mapboxgl.LngLatBounds(coordinates[0], coordinates[0]);
+      // coordinates.reduce(function (bounds, coord) {
+      //   mapBounds.extend(coord);
+      // }, mapBounds);
+      map.current.fitBounds(selectedPolygon.bbox, {
         padding: 20
       });
       for (let i=0; i<polygons.length; i++) {
@@ -83,9 +86,10 @@ const MapBox = ({ polygons, activePolygon, setSelectedPolygon, selectedPolygon, 
           map.current.setPaintProperty("layer_" + polygons[i].id, "fill-opacity", 0.5)
         }
         removeSatelliteTile(map.current);
-        if (mapBounds) {
-          map.current.fitBounds(mapBounds)
-        }
+        map.current.fitBounds(mapBounds);
+        // if (mapBounds) {
+        //   map.current.fitBounds(mapBounds)
+        // }
       }
     }
   }, [selectedPolygon])

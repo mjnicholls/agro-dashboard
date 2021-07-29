@@ -8,6 +8,7 @@ import {fetchPolygons} from "../../features/polygons/actions";
 import MapboxDraw from "@mapbox/mapbox-gl-draw";
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 import {calculateTotalBbox, displayPolygons, initialiseMap} from '../../utils/maps';
+import {getMapBounds} from '../../features/polygons/selectors'
 
 const selectPolygons = state => state.polygons;
 
@@ -15,6 +16,7 @@ const MapBox = ({setArea, setGeoJson, setIntersection, drawRef}) => {
 
   const mapContainer = useRef(null);
   const map = useRef(null);
+  const mapBounds = useSelector(getMapBounds);
   const [apiCallCount, setApiCallCount] = React.useState(0);
   const [initialised, setInitialised] = useState(false);
 
@@ -35,17 +37,18 @@ const MapBox = ({setArea, setGeoJson, setIntersection, drawRef}) => {
   }, []);
 
   useEffect(() => {
-    let bbox;
-    if (polygons && polygons.length) {
-      bbox = calculateTotalBbox(polygons);
-    }
-    if (initialised) {
-      if (bbox) {
-        displayPolygons(map.current, bbox, polygons, () => {})
-      } else { return }  // initialize map only once
-    } else {
-      initialiseMap(mapContainer.current, map, bbox, () => setInitialised(true), () => {})
-    }
+    // let bbox;
+    // if (polygons && polygons.length) {
+    //   bbox = calculateTotalBbox(polygons);
+    // }
+    // if (initialised) {
+    //   if (bbox) {
+    //     displayPolygons(map.current, bbox, polygons, () => {})
+    //   } else { return }  // initialize map only once
+    // } else {
+    //   initialiseMap(mapContainer.current, map, bbox, () => setInitialised(true), () => {})
+    // }
+    initialiseMap(mapContainer.current, map, mapBounds, () => setInitialised(true), () => {})
   }, [polygons]);
 
   useEffect(() => {

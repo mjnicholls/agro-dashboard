@@ -1,4 +1,6 @@
-import {getCookie, parseJwt} from "./utils";
+import {parseJwt} from "./utils";
+import {getCookie} from '../../utils/cookies'
+
 import {
   CLEAR_LOGIN_ERROR, LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_SUCCESS, LOGOUT_FRONTEND, TOKEN_COOK
 } from './actions'

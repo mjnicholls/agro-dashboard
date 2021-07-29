@@ -1,6 +1,7 @@
 import {axiosInstance} from "../../services/base";
 import {loginURL, logoutURL} from "../../services/api";
-import {clearCookies, parseJwt, setCookie} from "./utils";
+import {clearCookies, setCookie} from '../../utils/cookies';
+import {parseJwt} from "./utils";
 import {fetchPolygons} from '../polygons/actions'
 
 export const LOGIN_REQUEST = 'LOGIN_REQUEST'

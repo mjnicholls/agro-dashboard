@@ -1,5 +1,6 @@
-import React, {useEffect, useState} from 'react';
-import {capitalize, kelvinToCelsius} from "../../utils/utils";
+import React from 'react';
+import {useSelector} from 'react-redux'
+;import {capitalize, convertTemp} from "../../utils/utils";
 
 import {
   Card,
@@ -13,10 +14,14 @@ import {
 
 import OWMWeatherIcon from "../owm-icons";
 
+const selectUnits = state => state.units.isMetric;
+
 const CurrentWeather = ({ polyId, isLoading, error, current }) => {
 
+  const isMetric = useSelector(selectUnits);
+
   return (
-    <Card>
+    <Card className="card-stats">
       <CardHeader>
         <Row>
           <Col className="text-left" sm="7">
@@ -25,24 +30,46 @@ const CurrentWeather = ({ polyId, isLoading, error, current }) => {
           </Col>
         </Row>
       </CardHeader>
-      <CardBody>
-        {isLoading ?
-          <div className="chart-placeholder">Fetching data...</div> :
-          error ?
-            <div className="chart-placeholder">{error}</div>  :
-            <div>
-              <OWMWeatherIcon src={current.weather[0].icon} />
-              <div>{kelvinToCelsius(current.temp)}°</div>
-              <div>{capitalize(current.weather[0].description)}</div>
-              {current.precipitation && <div>{current.precipitation}</div>}
-              {current.alerts && current.alerts.length && <div>{capitalize(current.alerts[0].event)}</div>}
-            </div> }
-      </CardBody>
-      <CardFooter>
+      {isLoading ?
+        <CardBody>
+          <div className="chart-placeholder">Fetching data...</div>
+        </CardBody> : error ?
+        <CardBody>
+          <div className="chart-placeholder">{error}</div>
+        </CardBody> :
+          <>
+            <CardBody>
+              <Row>
+                <Col xs="5">
 
-      </CardFooter>
+                  <OWMWeatherIcon src={current.weather[0].icon} />
+
+                </Col>
+                <Col xs="7">
+                  <div className="numbers">
+                    <p className="card-category">{capitalize(current.weather[0].description)}</p>
+                    <CardTitle tag="h3">{convertTemp(current.temp, isMetric)}°</CardTitle>
+                  </div>
+                </Col>
+              </Row>
+              {/*<br />*/}
+              {/*<Row>*/}
+                {/*<Col>{current.precipitation}</Col>*/}
+              {/*</Row>*/}
+            </CardBody>
+            <CardFooter>
+              <hr />
+              <div className="stats">
+                {current.precipitation}
+              </div>
+              {/*<div className="stats">*/}
+                {/*<i className="tim-icons icon-alert-circle-exc" /> Weather alert*/}
+              {/*</div>*/}
+            </CardFooter>
+          </>}
     </Card>
   )
 }
+
 
 export default CurrentWeather;

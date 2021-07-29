@@ -1,5 +1,18 @@
-export const kelvinToCelsius = (temp) => {
+const kelvinToCelsius = (temp) => {
   return Math.round(temp - 273.15)
+}
+
+const kelvinToFahrenheit = (temp) => {
+  return Math.round(temp * 9/5 - 459.67)
+}
+
+export const convertTemp = (temp, isMetric) => {
+  /** Convert temperature from Kelvin to Celsius */
+  return isMetric ? kelvinToCelsius(temp) :  kelvinToFahrenheit(temp);
+}
+
+export const convertSpeed = (speed, isMetric) => {
+  return isMetric ? speed.toFixed(1) : (speed / 2.237).toFixed(1)
 }
 
 export const totalArea = (polygons) => {
@@ -14,11 +27,10 @@ export const capitalize = (val) => {
   return val.charAt(0).toUpperCase() + val.slice(1)
 }
 
-
 export const getPreticipationInfo = data => {
   let rainStarts = null;
   let rainEnds = null;
-  let res = 'No precipitation within teh hour';
+  let res = 'No precipitation within the hour';
 
   for (let i = 0; i < data.length; i++) {
     if (rainStarts === null && data[i].precipitation > 0) {
