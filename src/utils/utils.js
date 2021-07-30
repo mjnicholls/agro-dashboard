@@ -54,6 +54,5 @@ export const getPreticipationInfo = data => {
       rainStarts > 1 ? 's' : ''
     }`;
   }
-  console.log("res", res)
   return res;
 };

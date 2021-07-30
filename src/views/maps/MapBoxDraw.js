@@ -2,17 +2,16 @@ import React, {useEffect, useRef, useState} from 'react';
 import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
 import { useDispatch, useSelector } from 'react-redux';
 import * as turf from '@turf/turf'
-
 import {axiosInstance} from '../../services/base'
 import {fetchPolygons} from "../../features/polygons/actions";
 import MapboxDraw from "@mapbox/mapbox-gl-draw";
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
-import {calculateTotalBbox, displayPolygons, initialiseMap} from '../../utils/maps';
+import {cropsSourceId, initialiseMap, removeCropLayer, renderCrop} from '../../utils/maps';
 import {getMapBounds} from '../../features/polygons/selectors'
 
 const selectPolygons = state => state.polygons;
 
-const MapBox = ({setArea, setGeoJson, setIntersection, drawRef}) => {
+const MapBox = ({setArea, setGeoJson, setIntersection, drawRef, mode}) => {
 
   const mapContainer = useRef(null);
   const map = useRef(null);
@@ -35,6 +34,28 @@ const MapBox = ({setArea, setGeoJson, setIntersection, drawRef}) => {
       }
     }
   }, []);
+
+  useEffect(() => {
+    if (initialised) {
+      if (mode === 'select') {
+        console.log("11", drawRef.current.getMode());
+        drawRef.current.changeMode("simple_select");
+        deletePreviousAreas();
+        renderCrop(map.current);
+        map.current.on('click', cropsSourceId, function (e) {
+          let feature = e.features[0].geometry;
+          drawRef.current.add(feature);
+          updateArea();
+        })
+      } else {
+        removeCropLayer(map.current)
+
+        if (mode === "draw") {
+          drawRef.current.changeMode("draw_polygon");
+        }
+      }
+    }
+  }, [mode])
 
   useEffect(() => {
     // let bbox;
@@ -64,6 +85,7 @@ const MapBox = ({setArea, setGeoJson, setIntersection, drawRef}) => {
         externalGeocoder: nominatimGeocoder,
       }), 'top-left')
     addDrawFunctionality(map.current);
+
     }
   }, [initialised])
 
@@ -95,17 +117,20 @@ const MapBox = ({setArea, setGeoJson, setIntersection, drawRef}) => {
   const deleteArea = () => {
       setArea(null);
       setGeoJson(null);
+
+      console.log("__", drawRef.current.getMode())
     }
 
   const updateArea = () => {
     let data = drawRef.current.getAll();
     if (data.features.length > 0) {
+      console.log("data", data);
       let area = (turf.area(data) / 10000).toFixed(2);
-      let poly = turf.polygon(data.features[0].geometry.coordinates, { name: 'poly1'});
-      let intersections = turf.kinks(poly);
+      // let poly = turf.polygon(data.features[0].geometry.coordinates, { name: 'poly1'});
+      // let intersections = turf.kinks(poly);
       setArea(area);
       setGeoJson(data.features[0]);
-      setIntersection(intersections.features.length > 0)
+      // setIntersection(intersections.features.length > 0)
     }
   }
 

@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {useSelector} from 'react-redux';
 
-import {activeColor, basicColor, calculateTotalBbox, initialiseMap, removeSatelliteTile, renderTile} from '../../utils/maps';
+import {activeColor, basicColor, initialiseMap, removeSatelliteLayer, renderSatelliteImage} from '../../utils/maps';
 import {getMapBounds} from '../../features/polygons/selectors'
 
 const MapBox = ({ polygons, activePolygon, setSelectedPolygon, selectedPolygon, selectedImage, selectedLayer }) => {
@@ -43,7 +43,7 @@ const MapBox = ({ polygons, activePolygon, setSelectedPolygon, selectedPolygon, 
 
   useEffect(() => {
     if (tile) {
-      renderTile(map.current, tile)
+      renderSatelliteImage(map.current, tile)
     }
   }, [tile])
 
@@ -83,7 +83,7 @@ const MapBox = ({ polygons, activePolygon, setSelectedPolygon, selectedPolygon, 
         for (let i=0; i<polygons.length; i++) {
           map.current.setPaintProperty("layer_" + polygons[i].id, "fill-opacity", 0.5)
         }
-        removeSatelliteTile(map.current);
+        removeSatelliteLayer(map.current);
         map.current.fitBounds(mapBounds);
         // if (mapBounds) {
         //   map.current.fitBounds(mapBounds)

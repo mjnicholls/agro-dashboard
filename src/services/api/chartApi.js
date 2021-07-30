@@ -44,7 +44,6 @@ export const getSoilData = (polygonId, start, end) => {
       return response.data
     })
     .catch(err => {
-      console.log("err soil", err)
       throw new Error(err)})
 }
 

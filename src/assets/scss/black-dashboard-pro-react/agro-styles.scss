@@ -2,6 +2,7 @@ $danger-color: #ec250d;
 $light-green: #00FC00;
 $fontColorBlack: #595959;
 $fontColorBlue: #525f7f;
+$fontColorGrey: rgba(255, 255, 255, 0.5);
 
 .justify {
   justify-content: space-between;
@@ -288,6 +289,14 @@ $daily-chart-width: 1000px;
     label {
       color: #222a42;
       text-transform: uppercase;
+    }
+  }
+}
+
+.agro-tab {
+  ol, ul {
+    li {
+      color: $fontColorGrey
     }
   }
 }

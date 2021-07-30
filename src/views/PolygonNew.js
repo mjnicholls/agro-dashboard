@@ -8,11 +8,17 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
+  Col,
   Form,
   FormGroup,
   Input,
+  Nav,
+  NavItem,
+  NavLink,
+  TabContent,
+  TabPane,
   Row,
-  Col,
+
 } from "reactstrap";
 
 import MapBoxDraw from './maps/MapBoxDraw';
@@ -30,6 +36,7 @@ const PolygonNew = () => {
   const [area, setArea] = React.useState("");
   const [intersection, setIntersection] = React.useState(false);
   const [error, setError] = React.useState({});
+  const [mode, setMode] = React.useState("draw");
 
   const areaLimits = useSelector(selectAreaLimits) || {};
   const minPolygonArea = areaLimits.min_polygon_area || 0.01;
@@ -100,6 +107,15 @@ const PolygonNew = () => {
     return ""
   }
 
+  const rules = () => (<>
+    Please follow the rules below:
+    <ul>
+      <li>Minimum area is {minPolygonArea} ha</li>
+      <li>Maximum area is {maxPolygonArea} hа</li>
+      <li>No self-intersections</li>
+    </ul>
+  </>)
+
   return (
      <>
       <div className="content">
@@ -110,6 +126,7 @@ const PolygonNew = () => {
               setGeoJson={setGeoJson}
               setIntersection={setIntersection}
               drawRef={drawRef}
+              mode={mode}
             />
           </Col>
           <Col md="4">
@@ -120,6 +137,68 @@ const PolygonNew = () => {
                 </CardHeader>
 
                 <CardBody>
+                  <Nav className="nav-pills-info" pills>
+                  <NavItem>
+                    <NavLink
+                      data-toggle="tab"
+                      href="#pablo"
+                      className={mode === "draw" ? "active" : ""}
+                      onClick={() => setMode("draw") }
+                    >
+                      Draw
+                    </NavLink>
+                  </NavItem>
+                  <NavItem>
+                    <NavLink
+                      data-toggle="tab"
+                      href="#pablo"
+                      className={mode === "select" ? "active" : ""}
+                      onClick={() =>
+                        setMode("select")
+                      }
+                    >
+                      Select
+                    </NavLink>
+                  </NavItem>
+                  <NavItem>
+                    <NavLink
+                      data-toggle="tab"
+                      href="#pablo"
+                      className={mode === "import" ? "active" : ""}
+                      onClick={() =>
+                        setMode("import")
+                      }
+                    >
+                      Import
+                    </NavLink>
+                  </NavItem>
+                </Nav>
+                <TabContent className="tab-space agro-tab" activeTab={mode}>
+                  <TabPane tabId="draw">
+                    Draw polygon
+                    <br />
+                    <ol>
+                      <li>Place the pointer on the map and click the location of the first point to start drawing.</li>
+                      <li>Move the pointer to the next point and click.</li>
+                      <li>Continue clicking at each corner of the shape until you have created the polygon.</li>
+                      <li>Click the first point to stop drawing.</li>
+                      <li>Double-click any point to edit.</li>
+                    </ol>
+                    {rules()}
+                  </TabPane>
+                  <TabPane tabId="select">
+                    Click on a polygon to select.
+                    <br />
+                    Double-click to edit.
+                    <br /><br />
+                    {rules()}
+                  </TabPane>
+                  <TabPane tabId="import">
+                    Import file. Help on importing, available formats description <br /><br />
+                    {rules()}
+                  </TabPane>
+                </TabContent>
+
                 <FormGroup>
                   <label>Polygon name *</label>
                   <Row>
@@ -141,11 +220,7 @@ const PolygonNew = () => {
                   Area <h4 className={areaErrorStyle()}>{area} ha</h4>
                 </div>
 
-                <div className="category form-category">
-                  <span style={{display: "block", textTransform: "none"}}>* Minimum area is {minPolygonArea} ha</span>
-                  <span style={{display: "block", textTransform: "none"}}>* Maximum area is {maxPolygonArea} hа</span>
-                  <span style={{display: "block", textTransform: "none"}}>* No self-intersections</span>
-                </div>
+
               </CardBody>
 
                 <CardFooter className="text-right">

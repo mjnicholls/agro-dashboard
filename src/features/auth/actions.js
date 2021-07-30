@@ -93,7 +93,6 @@ export function loginUser (email, password) {
         let tokenInfo;
         try {
           tokenInfo = parseJwt(response.data.token).passport;
-          console.log("tokenInfo", tokenInfo)
         }
         catch {
           dispatch(loginError("Error parsing token")) // TODO

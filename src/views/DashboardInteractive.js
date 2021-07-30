@@ -3,17 +3,15 @@ import { useSelector } from 'react-redux';
 
 import { Col, Row } from "reactstrap";
 
-
 import MapBox from "./maps/MapBoxInteractive";
 import PolygonInfo from './PolygonInfo';
 import PolygonTable from './agro-components/PolygonTable';
 import SatelliteImagesList from './agro-components/SatelliteImages';
-import SatelliteLayers from './agro-components/SatelliteLayers';
+// import SatelliteLayers from './agro-components/SatelliteLayers';
 import PolygonTableSmall from './agro-components/PolygonTableSmall';
 import PolygonsTotalStats from './agro-components/PolygonsTotalStats';
-import CurrentNDVI from './agro-components/ImageStats';
+import ImageStats from './agro-components/ImageStats';
 import {getSatelliteImagesList} from "../services/api/polygonApi";
-import Sidebar from "../components/Sidebar/Sidebar";
 
 const selectPolygons = state => state.polygons;
 
@@ -24,7 +22,6 @@ const Dashboard = () => {
   const [images, setImages] = useState([]);
   const [selectedImage, setSelectedImage] = useState(null);
   const [selectedLayer, setSelectedLayer] = useState({value: "truecolor", label: "True Color"});
-
 
   const polygons = useSelector(selectPolygons);
 
@@ -48,13 +45,13 @@ const Dashboard = () => {
         <Row style={{marginBottom: "30px"}}>
           <Col md="8">
             <div className="chart-area">
-              {selectedPolygon &&
-              <SatelliteLayers
-                selectedImage={selectedImage}
-                selectedLayer={selectedLayer}
-                setSelectedLayer={setSelectedLayer}
-              />
-              }
+              {/*{selectedPolygon &&*/}
+              {/*<SatelliteLayers*/}
+                {/*selectedImage={selectedImage}*/}
+                {/*selectedLayer={selectedLayer}*/}
+                {/*setSelectedLayer={setSelectedLayer}*/}
+              {/*/>*/}
+              {/*}*/}
               <MapBox
                 polygons={polygons}
                 activePolygon={activePolygon}
@@ -74,11 +71,12 @@ const Dashboard = () => {
           </Col>
           {selectedPolygon ?
              <Col md="4" className="ml-auto mr-auto">
-               <CurrentNDVI
+               <ImageStats
                  images={images}
                  selectedImage={selectedImage}
-                 selectedLayer={selectedLayer}
                  setSelectedImage={setSelectedImage}
+                 selectedLayer={selectedLayer}
+                 setSelectedLayer={setSelectedLayer}
                />
                <PolygonTableSmall
                  polygons={polygons}

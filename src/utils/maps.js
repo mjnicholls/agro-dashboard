@@ -1,5 +1,5 @@
 import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
-import {mapBoxAccessToken} from '../config'
+import {cropColorDict, mapBoxAccessToken} from '../config'
 import {serverBaseURL} from "../services/api";
 import store from "../store";
 
@@ -13,11 +13,12 @@ export const defaultBBox = new mapboxgl.LngLatBounds(
 
 export const basicColor = "#006400";
 export const basicOpacity = 0.4;
-// export const basicColor = '#0080ff';
+export const basicBlueColor = '#0080ff';
 export const activeColor = '#00FC00';
 // export const activeColor = '#8512B0';
 // export const activeColor = '#e14eca';
 const satelliteSourceId = 'satellite-agro';
+export const cropsSourceId = 'crops-agro';
 
 export const initialiseMap = (mapContainer, map, mapBounds, onLoad, onClick) => {
   // if (map.current) return;
@@ -119,7 +120,6 @@ const addPolygon = (map, polygon, onClick=null) => {
     });
   }
 
-
 export const displayPolygons = (map, mapBounds, polygons, onClick) => {
   /** Add all polygons to the map
    * Set bounds to contain all polygons
@@ -132,18 +132,26 @@ export const displayPolygons = (map, mapBounds, polygons, onClick) => {
   }
 }
 
-export const removeSatelliteTile = (map) => {
-  if (map.getLayer(satelliteSourceId)) {
-      map.removeLayer(satelliteSourceId);
+const removeLayer = (map, sourceId) => {
+  if (map.getLayer(sourceId)) {
+      map.removeLayer(sourceId);
   }
 
-  if (map.getSource(satelliteSourceId)) {
-    map.removeSource(satelliteSourceId);
+  if (map.getSource(sourceId)) {
+    map.removeSource(sourceId);
   }
 }
 
-export const renderTile = (map, tileUrl) => {
-  removeSatelliteTile(map);
+export const removeCropLayer = (map) => {
+  removeLayer(map, cropsSourceId);
+}
+
+export const removeSatelliteLayer = (map) => {
+  removeLayer(map, satelliteSourceId)
+}
+
+export const renderSatelliteImage = (map, tileUrl) => {
+  removeSatelliteLayer(map);
   map.addLayer({
     id: satelliteSourceId,
     type: 'raster',
@@ -156,22 +164,88 @@ export const renderTile = (map, tileUrl) => {
   });
 }
 
-export const calculateTotalBbox = (polygons) => {
+export const renderCrop = (map) => {
 
-  let minlngs = polygons.map(polygon => polygon.bbox[0][0]);
-  let minlats = polygons.map(polygon => polygon.bbox[0][1]);
-  let maxlngs = polygons.map(polygon => polygon.bbox[1][0]);
-  let maxlats = polygons.map(polygon => polygon.bbox[1][1]);
+  map.addSource(cropsSourceId, {
+    type: 'vector',
+    tiles: ['https://api.agromonitoring.com/cropmap/zz/{z}/{x}/{y}.pbf'],
+    // tiles: [tileUrl],
+    minzoom: 9,
+    maxzoom: 15,
+    promoteId: {valid: "id"}
+  })
+  map.addLayer({
+    id: cropsSourceId,
+    type: 'fill',
+    source: cropsSourceId,
+    "source-layer": 'valid',
+        // 'maxzoom' : 15,
+    layout: {},
+    paint: {
+      // 'fill-color': getCropColorCase(),
+      'fill-color': [
+        'case',
+        ['boolean', ['feature-state', 'hover'], false],
+        basicBlueColor, getCropColorCase()
+      ],
+      'fill-opacity': [
+        'case',
+        ['boolean', ['feature-state', 'hover'], false],
+        0.7, 0.9
+      ]
+    },
+  });
 
-  let minlng = Math.min.apply(null, minlngs);
-  let minlat = Math.min.apply(null, minlats);
+  let hoveredStateId = null;
 
-  let maxlng = Math.max.apply(null, maxlngs);
-  let maxlat = Math.max.apply(null, maxlats);
+  map.on('mousemove', cropsSourceId, function (e) {
+    if (map.getZoom()<9)
+        return;
 
-  let southWest = new mapboxgl.LngLat(minlng, minlat);
-  let northEast = new mapboxgl.LngLat(maxlng, maxlat);
+    if (e.features.length > 0) {
+      map.getCanvas().style.cursor = 'auto';
+      if (hoveredStateId) {
+        map.setFeatureState(
+          { source: cropsSourceId, sourceLayer: 'valid', id: hoveredStateId },
+          { hover: false }
+        );
+      }
+      hoveredStateId = e.features[0].id;
+      map.setFeatureState(
+        { source: cropsSourceId, sourceLayer: 'valid', id: hoveredStateId },
+        { hover: true }
+      );
+    }
+  });
 
-  return new mapboxgl.LngLatBounds(southWest, northEast);
+  map.on('mouseleave', cropsSourceId, function () {
+    map.getCanvas().style.cursor = '';
+    if (hoveredStateId) {
+      map.setFeatureState(
+        { source: cropsSourceId, sourceLayer: 'valid', id: hoveredStateId },
+        { hover: false }
+      );
+    }
+    hoveredStateId = null;
+  });
 
+  // map.on('click', cropsSourceId, function (e) {
+  //   let feature = e.features[0].geometry;
+  //   console.log("click", feature) //
+  // })
+
+}
+
+const getCropColorCase = () => {
+  let c = ['case'];
+  for (let cid in cropColorDict) {
+      c.push(['==', ['get', 'cdid'], cid]);
+      let cl = cropColorDict[cid]['color'];
+      if ( cropColorDict[cid]['visible'] === 0 ){
+          cl = "rgba(150,150,150,0)";
+      }
+      c.push(cl);
+  }
+  c.push("rgb(102, 102, 102)");
+  return c;
 }

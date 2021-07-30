@@ -13,8 +13,9 @@ import {
 import {getImageStats} from '../../services/api/polygonApi';
 import {toDate} from '../../utils/dateTime';
 import SatelliteCalendar from './DatepickerSatellite';
+import SatelliteLayers2 from './SatelliteLayers2';
 
-const ImageStats = ({images, selectedImage, selectedLayer, setSelectedImage}) => {
+const ImageStats = ({images, selectedImage, setSelectedImage, selectedLayer, setSelectedLayer}) => {
 
   const [stats, setStats] = useState(null);
   const [name, setName] = useState('');
@@ -33,7 +34,6 @@ const ImageStats = ({images, selectedImage, selectedLayer, setSelectedImage}) =>
       }
       getImageStats(url)
         .then(res => {
-          console.log("res", res)
           setStats(res)
         })
         .catch(error => {
@@ -52,11 +52,16 @@ const ImageStats = ({images, selectedImage, selectedLayer, setSelectedImage}) =>
         <>
         <CardHeader>
           <Row>
-            <Col className="text-left" xs="6" sm="8">
-              <h5 className="card-category">Statistics</h5>
-              <CardTitle tag="h2">{toDate(selectedImage.dt)}</CardTitle>
+            <Col className="text-left" xs="8">
+
+                <SatelliteLayers2
+                  name={name}
+                  selectedImage={selectedImage}
+                  selectedLayer={selectedLayer}
+                  setSelectedLayer={setSelectedLayer}
+                />
             </Col>
-            <Col sm="4" className="float-right">
+            <Col xs="4" className="text-right">
               <SatelliteCalendar images={images} selectedImage={selectedImage} setSelectedImage={setSelectedImage}/>
             </Col>
           </Row>

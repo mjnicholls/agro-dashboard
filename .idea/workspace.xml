@@ -2,60 +2,23 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="696d337f-c9c0-4162-b4d5-1fcf48319d62" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/Dockerfile" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/App.js" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/assets/scss/black-dashboard-pro-react/agro-styles.scss" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/context/JWTAuthContext.js" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/features/auth/actions.js" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/features/auth/reducer.js" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/features/auth/utils.js" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/features/polygons/PolygonNew.js" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/features/polygons/PolygonSatellite.js" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/features/polygons/actions.js" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/features/polygons/endpoints.js" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/features/polygons/reducer.js" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/reducer.js" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/services/WMSTileLayerWithHeader.js" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/services/api/AuthApi.js" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/services/api/index.js" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/services/api/polygonApi.js" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/services/base.js" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/store.js" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/utils/DateTime.js" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/utils/user.js" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/utils/validation.js" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/views/DashboardMain.js" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/views/agro-components/PolygonList.js" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/views/agro-components/PolygonNew.js" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/views/agro-components/PolygonsReactTable.js" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/views/agro-components/PolygonsTable.js" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/views/agro-components/SatelliteImagesList.js" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/views/charts/NdviChart.js" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/views/charts/SoilChart.js" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/views/charts/base.js" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/views/charts/index.js" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/views/maps/GoogleMap.js" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/views/maps/GoogleMapAllPolygons.js" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/views/maps/LeafletMap.js" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/views/maps/LeafletMapMultiplePolygons.js" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/views/maps/LeafletMapSatellite.js" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/views/agro-components/SatelliteLayers2.js" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" afterPath="$PROJECT_DIR$/package-lock.json" />
-      <change beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
-      <change beforePath="$PROJECT_DIR$/public/index.html" afterPath="$PROJECT_DIR$/public/index.html" />
-      <change beforePath="$PROJECT_DIR$/src/assets/css/black-dashboard-pro-react.css" afterPath="$PROJECT_DIR$/src/assets/css/black-dashboard-pro-react.css" />
-      <change beforePath="$PROJECT_DIR$/src/assets/scss/black-dashboard-pro-react.scss" afterPath="$PROJECT_DIR$/src/assets/scss/black-dashboard-pro-react.scss" />
-      <change beforePath="$PROJECT_DIR$/src/components/Navbars/AdminNavbar.js" afterPath="$PROJECT_DIR$/src/components/Navbars/AdminNavbar.js" />
-      <change beforePath="$PROJECT_DIR$/src/components/Navbars/AuthNavbar.js" afterPath="$PROJECT_DIR$/src/components/Navbars/AuthNavbar.js" />
+      <change beforePath="$PROJECT_DIR$/src/assets/scss/black-dashboard-pro-react/agro-styles.scss" afterPath="$PROJECT_DIR$/src/assets/scss/black-dashboard-pro-react/agro-styles.scss" />
       <change beforePath="$PROJECT_DIR$/src/components/ReactTable/ReactTable.js" afterPath="$PROJECT_DIR$/src/components/ReactTable/ReactTable.js" />
-      <change beforePath="$PROJECT_DIR$/src/components/Sidebar/Sidebar.js" afterPath="$PROJECT_DIR$/src/components/Sidebar/Sidebar.js" />
-      <change beforePath="$PROJECT_DIR$/src/index.js" afterPath="$PROJECT_DIR$/src/index.js" />
-      <change beforePath="$PROJECT_DIR$/src/layouts/Admin/Admin.js" afterPath="$PROJECT_DIR$/src/layouts/Admin/Admin.js" />
-      <change beforePath="$PROJECT_DIR$/src/layouts/Auth/Auth.js" afterPath="$PROJECT_DIR$/src/layouts/Auth/Auth.js" />
-      <change beforePath="$PROJECT_DIR$/src/routes.js" afterPath="$PROJECT_DIR$/src/routes.js" />
-      <change beforePath="$PROJECT_DIR$/src/views/maps/GoogleMaps.js" afterPath="$PROJECT_DIR$/src/views/maps/GoogleMaps.js" />
-      <change beforePath="$PROJECT_DIR$/src/views/pages/Login.js" afterPath="$PROJECT_DIR$/src/views/pages/Login.js" />
+      <change beforePath="$PROJECT_DIR$/src/config.js" afterPath="$PROJECT_DIR$/src/config.js" />
+      <change beforePath="$PROJECT_DIR$/src/features/auth/actions.js" afterPath="$PROJECT_DIR$/src/features/auth/actions.js" />
+      <change beforePath="$PROJECT_DIR$/src/features/units/actions.js" afterPath="$PROJECT_DIR$/src/features/units/actions.js" />
+      <change beforePath="$PROJECT_DIR$/src/features/units/reducer.js" afterPath="$PROJECT_DIR$/src/features/units/reducer.js" />
+      <change beforePath="$PROJECT_DIR$/src/services/api/chartApi.js" afterPath="$PROJECT_DIR$/src/services/api/chartApi.js" />
+      <change beforePath="$PROJECT_DIR$/src/utils/maps.js" afterPath="$PROJECT_DIR$/src/utils/maps.js" />
+      <change beforePath="$PROJECT_DIR$/src/utils/utils.js" afterPath="$PROJECT_DIR$/src/utils/utils.js" />
+      <change beforePath="$PROJECT_DIR$/src/views/DashboardInteractive.js" afterPath="$PROJECT_DIR$/src/views/DashboardInteractive.js" />
+      <change beforePath="$PROJECT_DIR$/src/views/PolygonNew.js" afterPath="$PROJECT_DIR$/src/views/PolygonNew.js" />
+      <change beforePath="$PROJECT_DIR$/src/views/agro-components/ImageStats.js" afterPath="$PROJECT_DIR$/src/views/agro-components/ImageStats.js" />
+      <change beforePath="$PROJECT_DIR$/src/views/maps/MapBoxDraw.js" afterPath="$PROJECT_DIR$/src/views/maps/MapBoxDraw.js" />
+      <change beforePath="$PROJECT_DIR$/src/views/maps/MapBoxInteractive.js" afterPath="$PROJECT_DIR$/src/views/maps/MapBoxInteractive.js" />
+      <change beforePath="$PROJECT_DIR$/src/views/tables/ReactTables.js" afterPath="$PROJECT_DIR$/src/views/tables/ReactTables.js" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -66,112 +29,112 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="PolygonSatellite.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/features/polygons/PolygonSatellite.js">
+      <file leaf-file-name="DashboardInteractive.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/views/DashboardInteractive.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="100">
-              <caret line="113" column="43" lean-forward="true" selection-start-line="113" selection-start-column="43" selection-end-line="113" selection-end-column="43" />
+            <state relative-caret-position="0">
+              <caret line="11" column="14" lean-forward="false" selection-start-line="11" selection-start-column="14" selection-end-line="11" selection-end-column="14" />
               <folding>
-                <element signature="e#588#624#0" expanded="true" />
-                <element signature="e#804#854#0" expanded="true" />
-                <element signature="e#1096#1234#0" expanded="true" />
-                <element signature="e#1255#1361#0" expanded="true" />
-                <element signature="e#4255#7541#0" expanded="false" />
+                <element signature="e#0#49#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SatelliteImagesList.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/views/agro-components/SatelliteImagesList.js">
+      <file leaf-file-name="Panels.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/views/components/Panels.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="297">
-              <caret line="38" column="39" lean-forward="false" selection-start-line="38" selection-start-column="39" selection-end-line="38" selection-end-column="39" />
+            <state relative-caret-position="47">
+              <caret line="35" column="72" lean-forward="false" selection-start-line="35" selection-start-column="2" selection-end-line="35" selection-end-column="72" />
               <folding>
-                <element signature="e#0#26#0" expanded="true" />
-                <marker date="1624966176745" expanded="true" signature="1386:1472" ph="..." />
-                <marker date="1624966176745" expanded="true" signature="1658:1818" ph="..." />
-                <marker date="1624966176745" expanded="true" signature="1919:2107" ph="..." />
-                <marker date="1624966176745" expanded="true" signature="1982:2079" ph="..." />
+                <element signature="n#!!doc" expanded="true" />
+                <element signature="e#570#726#0" expanded="true" />
+                <element signature="e#2121#3559#0" expanded="false" />
+                <element signature="e#3576#4967#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="LeafletMapSatellite.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/views/maps/LeafletMapSatellite.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
-              <caret line="16" column="22" lean-forward="false" selection-start-line="16" selection-start-column="22" selection-end-line="16" selection-end-column="22" />
-              <folding>
-                <element signature="e#0#26#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="routes.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/routes.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
-              <caret line="64" column="10" lean-forward="false" selection-start-line="64" selection-start-column="4" selection-end-line="64" selection-end-column="10" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Sidebar.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/Sidebar/Sidebar.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="134" column="18" lean-forward="true" selection-start-line="134" selection-start-column="18" selection-end-line="134" selection-end-column="18" />
-              <folding>
-                <element signature="e#2944#4293#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="polygonApi.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/services/api/polygonApi.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
-              <caret line="16" column="19" lean-forward="false" selection-start-line="16" selection-start-column="19" selection-end-line="16" selection-end-column="19" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="WMSTileLayerWithHeader.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/services/WMSTileLayerWithHeader.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1230">
-              <caret line="85" column="23" lean-forward="false" selection-start-line="85" selection-start-column="23" selection-end-line="85" selection-end-column="23" />
-              <folding>
-                <element signature="e#0#26#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/services/api/index.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="195">
-              <caret line="13" column="39" lean-forward="false" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="39" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="base.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/services/base.js">
+      <file leaf-file-name="PolygonNew.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/views/PolygonNew.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="135">
-              <caret line="11" column="64" lean-forward="false" selection-start-line="11" selection-start-column="34" selection-end-line="11" selection-end-column="64" />
+              <caret line="200" column="0" lean-forward="true" selection-start-line="200" selection-start-column="0" selection-end-line="200" selection-end-column="0" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MapBoxInteractive.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/views/maps/MapBoxInteractive.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="75">
+              <caret line="5" column="0" lean-forward="true" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+              <folding>
+                <element signature="e#0#57#0" expanded="true" />
+                <element signature="e#628#1156#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MapBoxDraw.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/views/maps/MapBoxDraw.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="119">
+              <caret line="20" column="0" lean-forward="true" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+              <folding>
+                <element signature="e#0#57#0" expanded="true" />
+                <element signature="e#148#203#0" expanded="true" />
+                <element signature="e#1174#1267#0" expanded="false" />
+                <element signature="e#1899#2400#0" expanded="false" />
+                <element signature="e#2434#2852#0" expanded="false" />
+                <element signature="e#2909#3547#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="maps.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/utils/maps.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="252">
+              <caret line="234" column="7" lean-forward="true" selection-start-line="231" selection-start-column="5" selection-end-line="234" selection-end-column="7" />
+              <folding>
+                <element signature="e#90#148#0" expanded="true" />
+                <element signature="e#1778#3177#0" expanded="false" />
+                <element signature="e#3249#3489#0" expanded="false" />
+                <element signature="e#3530#3672#0" expanded="false" />
+                <element signature="e#3714#3752#0" expanded="false" />
+                <element signature="e#3799#3840#0" expanded="false" />
+                <element signature="e#3896#4097#0" expanded="false" />
+                <element signature="e#4168#4354#0" expanded="false" />
+                <element signature="e#5475#5716#0" expanded="false" />
+                <element signature="e#5899#6207#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="config.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/config.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="50">
+              <caret line="18" column="26" lean-forward="false" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="26" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="agro-styles.scss" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/assets/scss/black-dashboard-pro-react/agro-styles.scss">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="573">
+              <caret line="282" column="17" lean-forward="true" selection-start-line="282" selection-start-column="17" selection-end-line="282" selection-end-column="17" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -180,37 +143,46 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>response.data</find>
-      <find>ctx</find>
-      <find>Completed Tasks</find>
-      <find>Perfomans</find>
-      <find>Line</find>
-      <find>ND</find>
-      <find>chartExample4</find>
-      <find>toDa</find>
-      <find>toDate</find>
-      <find>Soild</find>
-      <find>css</find>
-      <find>Google</find>
-      <find>Need</find>
-      <find>axiosInstance</find>
-      <find>Leaf</find>
-      <find>polygon</find>
-      <find>Soil</find>
-      <find>NDVI</find>
-      <find>flex-direction: row</find>
-      <find>Followers</find>
-      <find>SatelliteI</find>
+      <find>rain</find>
+      <find>label</find>
+      <find>desc</find>
+      <find>temp</find>
+      <find>getPreticipationInfo</find>
+      <find>mapBounds</find>
+      <find>dew</find>
+      <find>Table</find>
+      <find>CardHeader</find>
+      <find>Loading</find>
+      <find>DatePicker</find>
+      <find>calend</find>
+      <find>selected</find>
+      <find>150GB</find>
       <find>icon</find>
-      <find>star</find>
-      <find>clicked row</find>
-      <find>useSelector</find>
-      <find>admin</find>
-      <find>conso</find>
-      <find>Leafle</find>
+      <find>aria</find>
+      <find>SatelliteLaye</find>
       <find>console.log</find>
-      <find>Click</find>
+      <find>backgro</find>
+      <find>Vertical Tabs</find>
+      <find>Horizontal Tabs</find>
+      <find>SatelliteLayers</find>
+      <find>sethorizontalTab</find>
+      <find>hover</find>
+      <find>MapboxDraw</find>
+      <find>stopPropagation</find>
+      <find>getMode</find>
+      <find>create</find>
+      <find>Select</find>
+      <find>Click on the polygon to sele</find>
     </findStrings>
+    <replaceStrings>
+      <replace />
+      <replace>setIntersection</replace>
+      <replace>data</replace>
+    </replaceStrings>
+    <dirStrings>
+      <dir>$PROJECT_DIR$/src</dir>
+      <dir>$PROJECT_DIR$/src/views/maps</dir>
+    </dirStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -218,57 +190,57 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/services/user/index.js" />
-        <option value="$PROJECT_DIR$/src/reducer.js" />
-        <option value="$PROJECT_DIR$/src/utils/user.js" />
-        <option value="$PROJECT_DIR$/src/features/polygons/polygonsSlice.js" />
-        <option value="$PROJECT_DIR$/src/features/user/userSlice.js" />
-        <option value="$PROJECT_DIR$/src/features/auth/utils.js" />
-        <option value="$PROJECT_DIR$/src/layouts/Admin/Admin.js" />
-        <option value="$PROJECT_DIR$/src/components/Navbars/AuthNavbar.js" />
-        <option value="$PROJECT_DIR$/src/components/Navbars/AdminNavbar.js" />
-        <option value="$PROJECT_DIR$/src/features/polygons/endpoints.js" />
-        <option value="$PROJECT_DIR$/src/views/pages/Login.js" />
-        <option value="$PROJECT_DIR$/src/index.js" />
-        <option value="$PROJECT_DIR$/src/features/auth/authSlice.js" />
-        <option value="$PROJECT_DIR$/src/features/polygons/reducer.js" />
-        <option value="$PROJECT_DIR$/src/features/auth/actions.js" />
-        <option value="$PROJECT_DIR$/src/views/tables/ReactTables.js" />
-        <option value="$PROJECT_DIR$/src/components/ReactTable/ReactTable.js" />
-        <option value="$PROJECT_DIR$/src/store.js" />
-        <option value="$PROJECT_DIR$/src/views/maps/GoogleMapAllPolygons.js" />
-        <option value="$PROJECT_DIR$/src/views/agro-components/PolygonsReactTable.js" />
-        <option value="$PROJECT_DIR$/package.json" />
-        <option value="$PROJECT_DIR$/src/views/agro-components/PolygonsTable.js" />
-        <option value="$PROJECT_DIR$/src/views/agro-components/NdviChart.js" />
-        <option value="$PROJECT_DIR$/src/views/agro-components/SoilChart.js" />
-        <option value="$PROJECT_DIR$/src/views/charts/base.js" />
-        <option value="$PROJECT_DIR$/src/views/maps/GoogleMap.js" />
-        <option value="$PROJECT_DIR$/src/views/charts/index.js" />
-        <option value="$PROJECT_DIR$/src/utils/DateTime.js" />
-        <option value="$PROJECT_DIR$/src/views/charts/NdviChart.js" />
-        <option value="$PROJECT_DIR$/src/views/agro-components/PolygonNew.js" />
-        <option value="$PROJECT_DIR$/public/index.html" />
+        <option value="$PROJECT_DIR$/src/components/Footer/Footer.js" />
         <option value="$PROJECT_DIR$/src/views/charts/SoilChart.js" />
-        <option value="$PROJECT_DIR$/src/views/DashboardMain.js" />
-        <option value="$PROJECT_DIR$/src/views/maps/LeafletMapMultiplePolygons.js" />
-        <option value="$PROJECT_DIR$/src/services/api/base.js" />
-        <option value="$PROJECT_DIR$/src/services/api/index.js" />
-        <option value="$PROJECT_DIR$/src/views/maps/LeafletMap.js" />
-        <option value="$PROJECT_DIR$/src/assets/scss/black-dashboard-pro-react.scss" />
-        <option value="$PROJECT_DIR$/src/assets/css/agro-styles.css" />
-        <option value="$PROJECT_DIR$/src/App.js" />
-        <option value="$PROJECT_DIR$/src/assets/scss/black-dashboard-pro-react/agro-styles.scss" />
-        <option value="$PROJECT_DIR$/src/views/agro-components/SatelliteImagesList.js" />
-        <option value="$PROJECT_DIR$/src/features/polygons/actions.js" />
-        <option value="$PROJECT_DIR$/src/features/polygons/PolygonSatellite.js" />
+        <option value="$PROJECT_DIR$/src/views/owm-icons/index.js" />
+        <option value="$PROJECT_DIR$/src/views/owm-icons/01d.js" />
+        <option value="$PROJECT_DIR$/src/views/owm-icons/01n.js" />
+        <option value="$PROJECT_DIR$/src/views/owm-icons/13d.js" />
+        <option value="$PROJECT_DIR$/src/utils/dateTime.js" />
+        <option value="$PROJECT_DIR$/src/views/charts/CurrentSoil.js" />
+        <option value="$PROJECT_DIR$/src/views/charts/WeatherAlerts.js" />
+        <option value="$PROJECT_DIR$/src/views/owm-icons/02d.js" />
+        <option value="$PROJECT_DIR$/src/views/owm-icons/02n.js" />
+        <option value="$PROJECT_DIR$/src/views/owm-icons/04d.js" />
+        <option value="$PROJECT_DIR$/src/views/owm-icons/09d.js" />
+        <option value="$PROJECT_DIR$/src/views/owm-icons/10d.js" />
+        <option value="$PROJECT_DIR$/src/views/owm-icons/10n.js" />
+        <option value="$PROJECT_DIR$/src/views/owm-icons/11d.js" />
+        <option value="$PROJECT_DIR$/src/views/owm-icons/50d.js" />
+        <option value="$PROJECT_DIR$/src/features/units/reducer.js" />
+        <option value="$PROJECT_DIR$/src/views/owm-icons/03d.js" />
+        <option value="$PROJECT_DIR$/src/utils/utils.js" />
+        <option value="$PROJECT_DIR$/src/views/charts/CurrentWeather.js" />
+        <option value="$PROJECT_DIR$/src/views/current/CurrentSoil.js" />
+        <option value="$PROJECT_DIR$/src/views/current/WeatherAlerts.js" />
+        <option value="$PROJECT_DIR$/src/views/charts/DailyForecast.js" />
+        <option value="$PROJECT_DIR$/src/views/WeatherPage.js" />
+        <option value="$PROJECT_DIR$/src/views/charts/HourlyForecast.js" />
+        <option value="$PROJECT_DIR$/src/views/charts/HistoryWeather.js" />
         <option value="$PROJECT_DIR$/src/services/base.js" />
-        <option value="$PROJECT_DIR$/Dockerfile" />
+        <option value="$PROJECT_DIR$/src/services/api/chartApi.js" />
+        <option value="$PROJECT_DIR$/src/views/charts/AccumulatedChart.js" />
+        <option value="$PROJECT_DIR$/src/App.js" />
+        <option value="$PROJECT_DIR$/src/features/polygons/actions.js" />
+        <option value="$PROJECT_DIR$/src/views/agro-components/PolygonTableSmall.js" />
+        <option value="$PROJECT_DIR$/src/views/agro-components/PolygonsTotalStats.js" />
+        <option value="$PROJECT_DIR$/src/views/agro-components/SatelliteCalendar.js" />
+        <option value="$PROJECT_DIR$/src/services/api/index.js" />
         <option value="$PROJECT_DIR$/src/services/api/polygonApi.js" />
-        <option value="$PROJECT_DIR$/src/services/WMSTileLayerWithHeader.js" />
-        <option value="$PROJECT_DIR$/src/views/maps/LeafletMapSatellite.js" />
-        <option value="$PROJECT_DIR$/src/routes.js" />
-        <option value="$PROJECT_DIR$/src/components/Sidebar/Sidebar.js" />
+        <option value="$PROJECT_DIR$/src/views/PolygonSatellite.js" />
+        <option value="$PROJECT_DIR$/src/views/agro-components/SatelliteImages.js" />
+        <option value="$PROJECT_DIR$/src/views/current/CurrentNDVI.js" />
+        <option value="$PROJECT_DIR$/src/views/agro-components/CurrentNDVI.js" />
+        <option value="$PROJECT_DIR$/src/views/agro-components/SatelliteLayers.js" />
+        <option value="$PROJECT_DIR$/src/views/agro-components/ImageStats.js" />
+        <option value="$PROJECT_DIR$/src/views/agro-components/SatelliteLayers2.js" />
+        <option value="$PROJECT_DIR$/src/views/DashboardInteractive.js" />
+        <option value="$PROJECT_DIR$/src/assets/scss/black-dashboard-pro-react/agro-styles.scss" />
+        <option value="$PROJECT_DIR$/src/config.js" />
+        <option value="$PROJECT_DIR$/src/views/maps/MapBoxInteractive.js" />
+        <option value="$PROJECT_DIR$/src/utils/maps.js" />
+        <option value="$PROJECT_DIR$/src/views/maps/MapBoxDraw.js" />
+        <option value="$PROJECT_DIR$/src/views/PolygonNew.js" />
       </list>
     </option>
   </component>
@@ -321,6 +293,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -337,34 +310,32 @@
               <item name="agro-dashboard" type="b2602c69:ProjectViewProjectNode" />
               <item name="agro-dashboard" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
+              <item name="assets" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="agro-dashboard" type="b2602c69:ProjectViewProjectNode" />
               <item name="agro-dashboard" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="Navbars" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="agro-dashboard" type="b2602c69:ProjectViewProjectNode" />
               <item name="agro-dashboard" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="Sidebar" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="agro-components" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="agro-dashboard" type="b2602c69:ProjectViewProjectNode" />
               <item name="agro-dashboard" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="SortingTable" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="maps" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scratches" />
       <pane id="Scope" />
     </panes>
   </component>
@@ -377,16 +348,19 @@
     <property name="node.js.selected.package.eslint" value="/usr/local/lib/node_modules/eslint" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/views/maps" />
-      <recent name="$PROJECT_DIR$/src/views/agro-components" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/services" />
-      <recent name="$PROJECT_DIR$/src/assets/css" />
+      <recent name="$PROJECT_DIR$/src/views/agro-components" />
+      <recent name="$PROJECT_DIR$/src/views/current" />
       <recent name="$PROJECT_DIR$/src/views/charts" />
-      <recent name="$PROJECT_DIR$/src/features/polygons" />
-      <recent name="$PROJECT_DIR$/src/utils" />
+      <recent name="$PROJECT_DIR$/src/views/old-views" />
+      <recent name="$PROJECT_DIR$/src/views" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/views/agro-components" />
+      <recent name="$PROJECT_DIR$/src/views/owm-icons" />
+      <recent name="$PROJECT_DIR$/src/views/charts" />
+      <recent name="$PROJECT_DIR$/src/views/maps" />
+      <recent name="$PROJECT_DIR$/src/views" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -415,6 +389,168 @@
       <option name="presentableId" value="Default" />
       <updated>1624262416987</updated>
     </task>
+    <task id="LOCAL-00001" summary="Dockerfile">
+      <created>1624966420361</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1624966420362</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Dockerfile">
+      <created>1624969814020</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1624969814020</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Building fix">
+      <created>1624971995997</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1624971995997</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Satellite images">
+      <created>1625162151133</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1625162151133</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Satellite image: calendar picker, images picker">
+      <created>1625500202498</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1625500202498</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Basic  DatePicker for NDVI chart">
+      <created>1625503753968</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1625503753968</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Charts: date picker">
+      <created>1625569480035</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1625569480037</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Satellite image: calendar picker, images picker">
+      <created>1625643633399</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1625643633399</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Draw polygon">
+      <created>1625678177659</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1625678177660</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Set map libraries to MapBox">
+      <created>1625850508962</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1625850508962</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Draw polygon, search, success / failure notifications, edit / delete modals">
+      <created>1626368584994</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1626368584994</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Pagination, select polygons">
+      <created>1626451742636</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1626451742636</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Polygon shapes in table, accumulated, fixed polygon area">
+      <created>1626713689400</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1626713689400</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Accumulated, loading &amp; error placeholders graphs">
+      <created>1626854860608</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1626854860608</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Weather section">
+      <created>1626866033141</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1626866033141</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Same page navigation between dashboard and satellite pages">
+      <created>1626940037206</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1626940037206</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Same page navigation between dashboard and satellite pages">
+      <created>1626944377955</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1626944377956</updated>
+    </task>
+    <task id="LOCAL-00018" summary="History weather chart, dark satellite style maps">
+      <created>1626969805848</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1626969805848</updated>
+    </task>
+    <task id="LOCAL-00019" summary="Fixed satellite layer on polygon page">
+      <created>1626975476601</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1626975476601</updated>
+    </task>
+    <task id="LOCAL-00020" summary="Weather page: hourly graph and table, accumulated info, polygon delete and edit fix">
+      <created>1627372102845</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1627372102845</updated>
+    </task>
+    <task id="LOCAL-00021" summary="Weather page: daily graph and table, current weather and soil draft, fixed intersection error on polygon creation">
+      <created>1627398879568</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1627398879568</updated>
+    </task>
+    <task id="LOCAL-00022" summary="Units toggle, weather page: current weather, alerts, daily graph">
+      <created>1627560493797</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1627560493797</updated>
+    </task>
+    <task id="LOCAL-00023" summary="Satellite image stats, satellite layers">
+      <created>1627639786065</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1627639786065</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -422,20 +558,20 @@
     <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.12687813" sideWeight="0.3352181" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32888147" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Mongo Explorer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3305509" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22374798" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.12687813" sideWeight="0.6647819" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24313408" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.42904842" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.16026711" sideWeight="0.42891762" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="SciView" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -452,16 +588,16 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32888147" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Mongo Explorer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.34223706" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3305509" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="TypeScript" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1825525" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21486267" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.23873122" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.42904842" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="SciView" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -475,396 +611,440 @@
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Dockerfile" />
+    <MESSAGE value="Building fix" />
+    <MESSAGE value="Satellite images" />
+    <MESSAGE value="Basic  DatePicker for NDVI chart" />
+    <MESSAGE value="Charts: date picker" />
+    <MESSAGE value="Satellite image: calendar picker, images picker" />
+    <MESSAGE value="Draw polygon" />
+    <MESSAGE value="Set map libraries to MapBox" />
+    <MESSAGE value="Draw polygon, search, success / failure notifications, edit / delete modals" />
+    <MESSAGE value="Pagination, select polygons" />
+    <MESSAGE value="Polygon shapes in table, accumulated, fixed polygon area" />
+    <MESSAGE value="Accumulated, loading &amp; error placeholders graphs" />
+    <MESSAGE value="Weather section" />
+    <MESSAGE value="Same page navigation between dashboard and satellite pages" />
+    <MESSAGE value="History weather chart, dark satellite style maps" />
+    <MESSAGE value="Fixed satellite layer on polygon page" />
+    <MESSAGE value="Weather page: hourly graph and table, accumulated info, polygon delete and edit fix" />
+    <MESSAGE value="Weather page: daily graph and table, current weather and soil draft, fixed intersection error on polygon creation" />
+    <MESSAGE value="Units toggle, weather page: current weather, alerts, daily graph" />
+    <MESSAGE value="Satellite image stats, satellite layers" />
+    <option name="LAST_COMMIT_MESSAGE" value="Satellite image stats, satellite layers" />
+  </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="9" />
+      <option name="time" value="33" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/views/tables/ReactTables.js">
+    <entry file="file://$PROJECT_DIR$/src/views/owm-icons/01n.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="742">
-          <caret line="76" column="2" lean-forward="true" selection-start-line="76" selection-start-column="2" selection-end-line="76" selection-end-column="2" />
+        <state relative-caret-position="195">
+          <caret line="13" column="22" lean-forward="true" selection-start-line="13" selection-start-column="22" selection-end-line="13" selection-end-column="22" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/node_modules/react-table/index.js">
+    <entry file="file://$PROJECT_DIR$/src/utils/dateTime.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="153">
+          <caret line="59" column="30" lean-forward="false" selection-start-line="59" selection-start-column="16" selection-end-line="59" selection-end-column="30" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/ReactTable/ReactTable.js">
+    <entry file="file://$PROJECT_DIR$/src/views/owm-icons/13d.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="143">
-          <caret line="117" column="14" lean-forward="true" selection-start-line="116" selection-start-column="8" selection-end-line="117" selection-end-column="14" />
+        <state relative-caret-position="180">
+          <caret line="12" column="37" lean-forward="false" selection-start-line="12" selection-start-column="37" selection-end-line="12" selection-end-column="37" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/views/components/Buttons.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="157">
-          <caret line="28" column="17" lean-forward="true" selection-start-line="26" selection-start-column="2" selection-end-line="28" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/Navbars/AdminNavbar.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="700">
-          <caret line="200" column="34" lean-forward="false" selection-start-line="200" selection-start-column="30" selection-end-line="200" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/layouts/Admin/Admin.js">
+    <entry file="file://$PROJECT_DIR$/src/views/owm-icons/50d.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
-          <caret line="24" column="55" lean-forward="false" selection-start-line="24" selection-start-column="44" selection-end-line="24" selection-end-column="55" />
-          <folding />
+          <caret line="8" column="33" lean-forward="true" selection-start-line="8" selection-start-column="33" selection-end-line="8" selection-end-column="33" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/features/polygons/PolygonNew.js">
+    <entry file="file://$PROJECT_DIR$/src/views/owm-icons/11d.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="96">
+          <caret line="9" column="16" lean-forward="true" selection-start-line="9" selection-start-column="16" selection-end-line="9" selection-end-column="16" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/store.js">
+    <entry file="file://$PROJECT_DIR$/src/views/owm-icons/10n.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="5" column="0" lean-forward="false" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+        <state relative-caret-position="105">
+          <caret line="7" column="17" lean-forward="false" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/views/agro-components/PolygonsReactTable.js">
+    <entry file="file://$PROJECT_DIR$/src/views/owm-icons/10d.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="17" column="33" lean-forward="false" selection-start-line="17" selection-start-column="33" selection-end-line="17" selection-end-column="33" />
+        <state relative-caret-position="66">
+          <caret line="7" column="17" lean-forward="true" selection-start-line="6" selection-start-column="6" selection-end-line="7" selection-end-column="17" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/package.json">
+    <entry file="file://$PROJECT_DIR$/src/views/owm-icons/09d.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="56" column="4" lean-forward="true" selection-start-line="56" selection-start-column="4" selection-end-line="56" selection-end-column="4" />
-          <folding />
+        <state relative-caret-position="66">
+          <caret line="7" column="16" lean-forward="false" selection-start-line="7" selection-start-column="16" selection-end-line="7" selection-end-column="16" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/views/maps/GoogleMapAllPolygons.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="3" column="6" lean-forward="false" selection-start-line="3" selection-start-column="6" selection-end-line="3" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/services/api/AuthApi.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-158">
-          <caret line="0" column="12" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/views/Charts.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="179">
-          <caret line="83" column="23" lean-forward="true" selection-start-line="83" selection-start-column="23" selection-end-line="83" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/node_modules/react-chartjs-2/index.d.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="109">
-          <caret line="45" column="13" lean-forward="false" selection-start-line="45" selection-start-column="13" selection-end-line="45" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/views/agro-components/PolygonsTable.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="18" column="12" lean-forward="false" selection-start-line="18" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/variables/charts.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3442">
-          <caret line="351" column="33" lean-forward="true" selection-start-line="351" selection-start-column="33" selection-end-line="351" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/views/charts/base.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="32" column="6" lean-forward="false" selection-start-line="17" selection-start-column="4" selection-end-line="32" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/views/charts/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="1" column="15" lean-forward="false" selection-start-line="1" selection-start-column="15" selection-end-line="1" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/views/forms/ExtendedForms.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/views/agro-components/PolygonNew.js">
+    <entry file="file://$PROJECT_DIR$/src/views/owm-icons/04d.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
-          <caret line="8" column="25" lean-forward="false" selection-start-line="8" selection-start-column="25" selection-end-line="8" selection-end-column="25" />
+          <caret line="8" column="27" lean-forward="false" selection-start-line="8" selection-start-column="27" selection-end-line="8" selection-end-column="27" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/views/maps/GoogleMap.js">
+    <entry file="file://$PROJECT_DIR$/src/views/owm-icons/02n.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" column="22" lean-forward="false" selection-start-line="10" selection-start-column="22" selection-end-line="10" selection-end-column="22" />
+        <state relative-caret-position="105">
+          <caret line="7" column="17" lean-forward="false" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/views/owm-icons/02d.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="66">
+          <caret line="7" column="17" lean-forward="true" selection-start-line="6" selection-start-column="6" selection-end-line="7" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/features/units/actions.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="244">
+          <caret line="22" column="21" lean-forward="false" selection-start-line="22" selection-start-column="13" selection-end-line="22" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/features/units/reducer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="13" column="1" lean-forward="true" selection-start-line="13" selection-start-column="1" selection-end-line="13" selection-end-column="1" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/views/maps/GoogleMaps.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="249">
-          <caret line="201" column="36" lean-forward="false" selection-start-line="201" selection-start-column="21" selection-end-line="201" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="25" column="0" lean-forward="true" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="435">
-          <caret line="86" column="0" lean-forward="true" selection-start-line="86" selection-start-column="0" selection-end-line="86" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/assets/css/black-dashboard-pro-react.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="244800">
-          <caret line="16320" column="0" lean-forward="true" selection-start-line="16320" selection-start-column="0" selection-end-line="16320" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/views/pages/Login.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1890">
-          <caret line="162" column="28" lean-forward="false" selection-start-line="162" selection-start-column="24" selection-end-line="162" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/views/maps/LeafletMapMultiplePolygons.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="16" column="0" lean-forward="true" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/views/charts/SoilChart.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="232">
-          <caret line="21" column="26" lean-forward="true" selection-start-line="13" selection-start-column="2" selection-end-line="21" selection-end-column="26" />
-          <folding />
+        <state relative-caret-position="-1715">
+          <caret line="60" column="7" lean-forward="false" selection-start-line="60" selection-start-column="7" selection-end-line="60" selection-end-column="7" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/views/charts/NdviChart.js">
+    <entry file="file://$PROJECT_DIR$/src/views/owm-icons/03d.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="11" column="53" lean-forward="true" selection-start-line="11" selection-start-column="2" selection-end-line="11" selection-end-column="53" />
+        <state relative-caret-position="225">
+          <caret line="15" column="7" lean-forward="false" selection-start-line="15" selection-start-column="7" selection-end-line="15" selection-end-column="7" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/views/maps/LeafletMap.js">
+    <entry file="file://$PROJECT_DIR$/src/views/current/CurrentSoil.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="20" column="3" lean-forward="true" selection-start-line="20" selection-start-column="3" selection-end-line="20" selection-end-column="3" />
+        <state relative-caret-position="45">
+          <caret line="18" column="0" lean-forward="true" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/assets/scss/black-dashboard-pro-react/react/react-differences.scss">
+    <entry file="file://$PROJECT_DIR$/src/views/current/CurrentWeather.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-317">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="773">
+          <caret line="59" column="47" lean-forward="false" selection-start-line="59" selection-start-column="34" selection-end-line="59" selection-end-column="47" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/assets/scss/black-dashboard-pro-react/custom/cards/_card-chart.scss">
+    <entry file="file://$PROJECT_DIR$/src/views/current/WeatherAlerts.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="78">
+          <caret line="19" column="12" lean-forward="true" selection-start-line="19" selection-start-column="12" selection-end-line="19" selection-end-column="12" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/assets/scss/black-dashboard-pro-react.scss">
+    <entry file="file://$PROJECT_DIR$/src/views/WeatherPage.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="163">
-          <caret line="144" column="53" lean-forward="false" selection-start-line="144" selection-start-column="53" selection-end-line="144" selection-end-column="53" />
+        <state relative-caret-position="135">
+          <caret line="9" column="34" lean-forward="false" selection-start-line="9" selection-start-column="34" selection-end-line="9" selection-end-column="34" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/utils/DateTime.js">
+    <entry file="file://$PROJECT_DIR$/src/views/charts/HistoryWeather.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="19" lean-forward="false" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/assets/css/agro-styles.css" />
-    <entry file="file://$PROJECT_DIR$/src/App.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="89">
-          <caret line="29" column="0" lean-forward="false" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/assets/scss/black-dashboard-pro-react/agro-styles.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="193">
-          <caret line="15" column="21" lean-forward="false" selection-start-line="15" selection-start-column="1" selection-end-line="15" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/views/DashboardMain.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="76" column="19" lean-forward="false" selection-start-line="76" selection-start-column="19" selection-end-line="76" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/views/Dashboard.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="65">
-          <caret line="186" column="72" lean-forward="false" selection-start-line="186" selection-start-column="20" selection-end-line="186" selection-end-column="72" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/node_modules/react-leaflet/types/TileLayer.d.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="6" column="21" lean-forward="false" selection-start-line="6" selection-start-column="21" selection-end-line="6" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/services/api/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="13" column="39" lean-forward="false" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="39" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Dockerfile">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="21" column="29" lean-forward="false" selection-start-line="21" selection-start-column="29" selection-end-line="21" selection-end-column="29" />
+        <state relative-caret-position="235">
+          <caret line="33" column="0" lean-forward="false" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/services/base.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="11" column="64" lean-forward="false" selection-start-line="11" selection-start-column="34" selection-end-line="11" selection-end-column="64" />
+        <state relative-caret-position="180">
+          <caret line="15" column="56" lean-forward="true" selection-start-line="15" selection-start-column="56" selection-end-line="15" selection-end-column="56" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/views/charts/DailyForecast.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="120" column="48" lean-forward="false" selection-start-line="120" selection-start-column="39" selection-end-line="120" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/views/charts/AccumulatedChart.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="129">
+          <caret line="41" column="0" lean-forward="true" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/views/Dashboard.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#0#26#0" expanded="true" />
+            <element signature="e#0#38#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/services/api/polygonApi.js">
+    <entry file="file://$PROJECT_DIR$/src/views/charts/HourlyForecast.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="16" column="19" lean-forward="false" selection-start-line="16" selection-start-column="19" selection-end-line="16" selection-end-column="19" />
+        <state relative-caret-position="151">
+          <caret line="237" column="71" lean-forward="false" selection-start-line="237" selection-start-column="14" selection-end-line="237" selection-end-column="71" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/reducer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="7" column="11" lean-forward="false" selection-start-line="7" selection-start-column="11" selection-end-line="7" selection-end-column="11" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/views/maps/LeafletMapSatellite.js">
+    <entry file="file://$PROJECT_DIR$/src/utils/utils.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="16" column="22" lean-forward="false" selection-start-line="16" selection-start-column="22" selection-end-line="16" selection-end-column="22" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/routes.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="64" column="10" lean-forward="false" selection-start-line="64" selection-start-column="4" selection-end-line="64" selection-end-column="10" />
-          <folding />
+        <state relative-caret-position="486">
+          <caret line="54" column="7" lean-forward="false" selection-start-line="54" selection-start-column="7" selection-end-line="54" selection-end-column="7" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/features/polygons/actions.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="355">
-          <caret line="42" column="22" lean-forward="false" selection-start-line="42" selection-start-column="22" selection-end-line="42" selection-end-column="22" />
+        <state relative-caret-position="61">
+          <caret line="66" column="0" lean-forward="true" selection-start-line="66" selection-start-column="0" selection-end-line="66" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/views/agro-components/PolygonsTotalStats.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="735">
+          <caret line="49" column="33" lean-forward="false" selection-start-line="49" selection-start-column="15" selection-end-line="49" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/views/agro-components/PolygonTableSmall.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="10" lean-forward="true" selection-start-line="2" selection-start-column="0" selection-end-line="7" selection-end-column="10" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/services/WMSTileLayerWithHeader.js">
+    <entry file="file://$PROJECT_DIR$/src/views/agro-components/DatePickerFromTo.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1230">
-          <caret line="85" column="23" lean-forward="false" selection-start-line="85" selection-start-column="23" selection-end-line="85" selection-end-column="23" />
+        <state relative-caret-position="244">
+          <caret line="29" column="40" lean-forward="true" selection-start-line="27" selection-start-column="4" selection-end-line="29" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/App.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="254">
+          <caret line="18" column="0" lean-forward="false" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#26#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/services/api/chartApi.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="778">
+          <caret line="124" column="0" lean-forward="false" selection-start-line="124" selection-start-column="0" selection-end-line="124" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/services/api/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="19" column="32" lean-forward="false" selection-start-line="19" selection-start-column="13" selection-end-line="19" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/services/api/polygonApi.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="258">
+          <caret line="45" column="31" lean-forward="true" selection-start-line="45" selection-start-column="31" selection-end-line="45" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/views/agro-components/DatepickerSatellite.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="351">
+          <caret line="24" column="62" lean-forward="true" selection-start-line="24" selection-start-column="7" selection-end-line="24" selection-end-column="62" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/views/agro-components/SatelliteImages.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="115">
+          <caret line="16" column="36" lean-forward="false" selection-start-line="16" selection-start-column="36" selection-end-line="16" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/reactstrap/es/CardTitle.d.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="11" column="0" lean-forward="true" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/views/agro-components/SatelliteLayers.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="122">
+          <caret line="48" column="9" lean-forward="true" selection-start-line="42" selection-start-column="5" selection-end-line="48" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/views/agro-components/ImageStats.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="69" column="18" lean-forward="true" selection-start-line="69" selection-start-column="18" selection-end-line="69" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/views/agro-components/SatelliteLayers2.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="184">
+          <caret line="67" column="14" lean-forward="true" selection-start-line="67" selection-start-column="14" selection-end-line="67" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/views/PolygonSatellite.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-334">
+          <caret line="48" column="0" lean-forward="true" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#38#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/views/DashboardInteractive.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="11" column="14" lean-forward="false" selection-start-line="11" selection-start-column="14" selection-end-line="11" selection-end-column="14" />
+          <folding>
+            <element signature="e#0#49#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/assets/scss/black-dashboard-pro-react/agro-styles.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="573">
+          <caret line="282" column="17" lean-forward="true" selection-start-line="282" selection-start-column="17" selection-end-line="282" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/views/components/Panels.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="47">
+          <caret line="35" column="72" lean-forward="false" selection-start-line="35" selection-start-column="2" selection-end-line="35" selection-end-column="72" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+            <element signature="e#570#726#0" expanded="true" />
+            <element signature="e#2121#3559#0" expanded="false" />
+            <element signature="e#3576#4967#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/config.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="50">
+          <caret line="18" column="26" lean-forward="false" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/mapbox-gl/dist/mapbox-gl.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="53700">
+          <caret line="34" column="0" lean-forward="false" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/utils/maps.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="252">
+          <caret line="234" column="7" lean-forward="true" selection-start-line="231" selection-start-column="5" selection-end-line="234" selection-end-column="7" />
+          <folding>
+            <element signature="e#90#148#0" expanded="true" />
+            <element signature="e#1778#3177#0" expanded="false" />
+            <element signature="e#3249#3489#0" expanded="false" />
+            <element signature="e#3530#3672#0" expanded="false" />
+            <element signature="e#3714#3752#0" expanded="false" />
+            <element signature="e#3799#3840#0" expanded="false" />
+            <element signature="e#3896#4097#0" expanded="false" />
+            <element signature="e#4168#4354#0" expanded="false" />
+            <element signature="e#5475#5716#0" expanded="false" />
+            <element signature="e#5899#6207#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/views/maps/MapBoxInteractive.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" column="0" lean-forward="true" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#57#0" expanded="true" />
+            <element signature="e#628#1156#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/views/maps/MapBoxDraw.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="20" column="0" lean-forward="true" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#57#0" expanded="true" />
+            <element signature="e#148#203#0" expanded="true" />
+            <element signature="e#1174#1267#0" expanded="false" />
+            <element signature="e#1899#2400#0" expanded="false" />
+            <element signature="e#2434#2852#0" expanded="false" />
+            <element signature="e#2909#3547#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/views/PolygonNew.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="200" column="0" lean-forward="true" selection-start-line="200" selection-start-column="0" selection-end-line="200" selection-end-column="0" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/Sidebar/Sidebar.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="134" column="18" lean-forward="true" selection-start-line="134" selection-start-column="18" selection-end-line="134" selection-end-column="18" />
-          <folding>
-            <element signature="e#2944#4293#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/views/agro-components/SatelliteImagesList.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="297">
-          <caret line="38" column="39" lean-forward="false" selection-start-line="38" selection-start-column="39" selection-end-line="38" selection-end-column="39" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-            <marker date="1624966176745" expanded="true" signature="1386:1472" ph="..." />
-            <marker date="1624966176745" expanded="true" signature="1658:1818" ph="..." />
-            <marker date="1624966176745" expanded="true" signature="1919:2107" ph="..." />
-            <marker date="1624966176745" expanded="true" signature="1982:2079" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/features/polygons/PolygonSatellite.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="100">
-          <caret line="113" column="43" lean-forward="true" selection-start-line="113" selection-start-column="43" selection-end-line="113" selection-end-column="43" />
-          <folding>
-            <element signature="e#588#624#0" expanded="true" />
-            <element signature="e#804#854#0" expanded="true" />
-            <element signature="e#1096#1234#0" expanded="true" />
-            <element signature="e#1255#1361#0" expanded="true" />
-            <element signature="e#4255#7541#0" expanded="false" />
           </folding>
         </state>
       </provider>

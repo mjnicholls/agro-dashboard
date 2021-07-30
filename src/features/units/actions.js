@@ -4,7 +4,6 @@ export const TOKEN_COOK = 'agro-units';
 export const SET_UNITS = 'units/set';
 
 export const toggleUnits = payload => {
-  console.log("dispatch toggleUnits", payload)
   return {
     type: SET_UNITS,
     payload: payload
