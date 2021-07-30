@@ -9,10 +9,8 @@ const MapBox = ({ polygons, activePolygon, setSelectedPolygon, selectedPolygon, 
   const mapContainer = useRef(null);
   const map = useRef(null);
   const [tile, setTile] = useState(null);
-  // const [mapBounds, setMapBounds] = useState(null);
   const [initialised, setInitialised] = useState(false);
   const mapBounds = useSelector(getMapBounds);
-  console.log("mapBounds", mapBounds)
   useEffect(() => {
     // let bbox;
     // if (polygons && polygons.length) {

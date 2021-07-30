@@ -4,7 +4,7 @@ import {getSoilData} from "../../services/api/chartApi";
 import {getDateInPast, getStartDateByTariff, toDateShort} from '../../utils/dateTime'
 import {Line} from "react-chartjs-2";
 import {chartOptions} from './base';
-import DatePickerChart from '../agro-components/DatePickerChart';
+import DatePickerChart from '../agro-components/DatePickerFromTo';
 import {convertTemp} from '../../utils/utils';
 
 import {

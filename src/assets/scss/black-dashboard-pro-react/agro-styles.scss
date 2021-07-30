@@ -143,6 +143,22 @@ $fontColorBlue: #525f7f;
   }
 }
 
+.agro-calendar-container {
+  .calendar-right {
+    .rdtPicker {
+      right: 0;
+      &:before {
+        display: none;
+      }
+      &:after {
+        left: auto;
+        right: 10px;
+      }
+    }
+  }
+}
+
+
 .datepicker-container {
   display: flex;
   flex-direction: row;

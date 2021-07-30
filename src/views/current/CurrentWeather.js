@@ -1,6 +1,6 @@
-import React from 'react';
-import {useSelector} from 'react-redux'
-;import {capitalize, convertTemp} from "../../utils/utils";
+import React, {useEffect, useState} from 'react';
+import {useSelector} from 'react-redux';
+import {capitalize, convertTemp, getPreticipationInfo} from "../../utils/utils";
 
 import {
   Card,
@@ -12,13 +12,23 @@ import {
   Col,
 } from "reactstrap";
 
-import OWMWeatherIcon from "../owm-icons";
+import OWMWeatherIcon from "../owm-icons/index";
 
 const selectUnits = state => state.units.isMetric;
 
-const CurrentWeather = ({ polyId, isLoading, error, current }) => {
+const CurrentWeather = ({ isLoading, error, current, minutely }) => {
 
   const isMetric = useSelector(selectUnits);
+  const [precipitation, setPrecipitation] = useState('');
+
+  useEffect(() => {
+    if (minutely) {
+      setPrecipitation(getPreticipationInfo(minutely));
+    } else if (current) {
+      setPrecipitation(current.rain && current.rain['1h'] ?
+          'Precipitation: ' + current.rain['1h'] + 'mm/h' : 'No precipitation');
+    }
+  }, [minutely])
 
   return (
     <Card className="card-stats">
@@ -60,7 +70,7 @@ const CurrentWeather = ({ polyId, isLoading, error, current }) => {
             <CardFooter>
               <hr />
               <div className="stats">
-                {current.precipitation}
+                {precipitation}
               </div>
               {/*<div className="stats">*/}
                 {/*<i className="tim-icons icon-alert-circle-exc" /> Weather alert*/}

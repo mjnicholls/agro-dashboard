@@ -1,8 +1,8 @@
 import React from 'react';
 import {Line} from "react-chartjs-2";
 import {useSelector} from 'react-redux';
-import {convertSpeed, convertTemp} from "../../utils/utils";
-
+import {capitalize, convertSpeed, convertTemp} from "../../utils/utils";
+import {timeInHours} from "../../utils/dateTime";
 
 import {chartOptions} from "./base";
 
@@ -17,7 +17,7 @@ import {
 
 const selectUnits = state => state.units.isMetric;
 
-const HourlyForecast = ({data, isLoading, error}) => {
+const HourlyForecast = ({data, offset, isLoading, error}) => {
 
   const isMetric = useSelector(selectUnits);
 
@@ -51,6 +51,7 @@ const HourlyForecast = ({data, isLoading, error}) => {
     }
   ]
   const whiteColor = "#ffffff"
+
   options.scales.xAxes = [
     {
       id: 'temp',
@@ -58,7 +59,7 @@ const HourlyForecast = ({data, isLoading, error}) => {
       position: "top",
       ticks: {
         autoSkip: false,
-        callback: label => convertTemp(label.temp, isMetric) + '°',
+        callback: el => convertTemp(el.temp, isMetric) + '°',
         fontColor: "#ba54f5"
       }
     },
@@ -70,7 +71,7 @@ const HourlyForecast = ({data, isLoading, error}) => {
         autoSkip: false,
         fontStyle: "bold",
         fontColor: "#ffffff",
-        callback: label => label.dt
+        callback: el => timeInHours(el.dt, offset)
       }
     },
     {
@@ -78,7 +79,7 @@ const HourlyForecast = ({data, isLoading, error}) => {
       offset: true,
       ticks: {
         autoSkip: false,
-        callback: label => label.rain + 'mm',
+        callback: el => (0 + (el.rain && el.rain['1h']) ? el.rain['1h'] : 0 + (el.snow && el.snow['1h']) ? el.snow['1h'] : 0).toFixed(2) + 'mm',
         fontColor: "#1f8ef1"
       }
     },
@@ -87,7 +88,7 @@ const HourlyForecast = ({data, isLoading, error}) => {
       offset: true,
       ticks: {
         autoSkip: false,
-        callback: label => label.description,
+        callback: el => capitalize(el.weather[0].description).split(" "),
         fontColor: whiteColor
       }
     },
@@ -97,7 +98,7 @@ const HourlyForecast = ({data, isLoading, error}) => {
       offset: true,
       ticks: {
         autoSkip: false,
-        callback: label => convertSpeed(label.windSpeed, isMetric) + (isMetric ? 'm/s' : 'mph'),
+        callback: el => convertSpeed(el.wind_speed, isMetric) + (isMetric ? 'm/s' : 'mph'),
         fontColor: whiteColor
       }
     },
@@ -106,7 +107,7 @@ const HourlyForecast = ({data, isLoading, error}) => {
       offset: true,
       ticks: {
         autoSkip: false,
-        callback: label => label.pressure,
+        callback: el => el.pressure + "hPa",
         fontColor: whiteColor
       }
     },
@@ -115,7 +116,7 @@ const HourlyForecast = ({data, isLoading, error}) => {
       offset: true,
       ticks: {
         autoSkip: false,
-        callback: label => label.humidity,
+        callback: el => el.humidity + "%",
         fontColor: whiteColor
       }
     },
@@ -124,7 +125,7 @@ const HourlyForecast = ({data, isLoading, error}) => {
       offset: true,
       ticks: {
         autoSkip: false,
-        callback: label => convertTemp(label.dewPoint, isMetric) + '°',
+        callback: el => convertTemp(el.dew_point, isMetric) + '°',
         fontColor: whiteColor
       }
     },
@@ -133,7 +134,7 @@ const HourlyForecast = ({data, isLoading, error}) => {
       offset: true,
       ticks: {
         autoSkip: false,
-        callback: label => label.uvi,
+        callback: el => Math.round(el.uvi),
         fontColor: whiteColor
       }
     },
@@ -142,7 +143,7 @@ const HourlyForecast = ({data, isLoading, error}) => {
       offset: true,
       ticks: {
         autoSkip: false,
-        callback: label => label.clouds,
+        callback: el => el.clouds + '%',
         fontColor: whiteColor
       }
     }
@@ -197,7 +198,7 @@ const HourlyForecast = ({data, isLoading, error}) => {
           pointHoverBorderWidth: 15,
           pointRadius: 1,
           type: 'bar',
-          data: data.map(el => el.rain),
+          data: data.map(el => 0 + (el.rain && el.rain['1h']) ? el.rain['1h'] : 0 + (el.snow && el.snow['1h']) ? el.snow['1h'] : 0),
         },
         {
           label: "Temperature",

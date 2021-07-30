@@ -17,6 +17,8 @@ export const polygonSatelliteImagesList = `${agriBase}image/search`
 const current = "current/";
 export const currentSoil = `${agriBase}${current}soil`;
 
+export const satelliteImageStats = `${agriBase}/image/stats`;
+
 
 // history
 const history = "history/";

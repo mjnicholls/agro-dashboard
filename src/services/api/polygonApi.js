@@ -2,7 +2,8 @@ import {axiosInstance} from "../base";
 import {
   polygonCreate,
   polygonDelete,
-  polygonSatelliteImagesList
+  polygonSatelliteImagesList,
+  satelliteImageStats
 } from './index';
 import {startSatelliteImagesSearchDate} from '../../config'
 
@@ -33,9 +34,15 @@ export const deletePolygonApi = (polygonId) => {
     })
 }
 
-
 export const getSatelliteImagesList = (polygonId) => {
   let url = `${polygonSatelliteImagesList}?polyid=${polygonId}&start=${startSatelliteImagesSearchDate}&end=${Math.round(new Date().getTime() / 1000)}`
+  return axiosInstance.get(url)
+    .then(response => response.data)
+    .catch(err => {
+      throw new Error(err)})
+}
+
+export const getImageStats = (url) => {
   return axiosInstance.get(url)
     .then(response => response.data)
     .catch(err => {

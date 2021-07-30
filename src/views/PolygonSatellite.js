@@ -113,7 +113,7 @@ const PolygonSatellite = () => {
                 <SatelliteLayersDropdown
                   selectedLayer={selectedLayer}
                   layers={layers}
-                  setLayer={setSelectedLayer}
+                  setSelectedLayer={setSelectedLayer}
                 />
                 <MapBox
                   polygon={selectedPolygon}

@@ -3,7 +3,7 @@ import React, {useEffect, useState} from 'react';
 import {useSelector} from 'react-redux';
 import {Line} from "react-chartjs-2";
 
-import DatePickerChart from '../agro-components/DatePickerChart';
+import DatePickerChart from '../agro-components/DatePickerFromTo';
 import {getNDVIData} from "../../services/api/chartApi";
 
 import {toDate, getStartDateByTariff, getDateInPast} from '../../utils/dateTime'

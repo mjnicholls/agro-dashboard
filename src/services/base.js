@@ -19,9 +19,8 @@ axiosInstance.interceptors.response.use(response => response,
       store.dispatch(logoutFrontEnd());
     } else {
       let message = "Something went wrong";
-      if (error.response && error.response.data && error.response.data.description &&
-        error.response.data.description.message) {
-        message = error.response.data.description.message;
+      if (error.response && error.response.data && error.response.data.message) {
+        message = error.response.data.message;
       }
       return Promise.reject(message);
     }

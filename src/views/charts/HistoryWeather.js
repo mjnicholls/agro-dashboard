@@ -12,7 +12,7 @@ import {
 
 import {toDateShort, getDateInPast, getStartDateByTariff} from "../../utils/dateTime";
 import {convertTemp} from '../../utils/utils'
-import DatePickerChart from "../agro-components/DatePickerChart";
+import DatePickerChart from "../agro-components/DatePickerFromTo";
 
 import {Line} from "react-chartjs-2";
 import {chartOptions} from "./base";

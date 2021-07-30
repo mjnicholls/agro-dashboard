@@ -2,8 +2,9 @@ import React from 'react';
 import {Line} from "react-chartjs-2";
 import {useSelector} from 'react-redux';
 
-import {convertTemp, convertSpeed} from "../../utils/utils";
+import {convertTemp, convertSpeed, capitalize} from "../../utils/utils";
 import {chartOptions} from "./base";
+import {formatDateShort} from "../../utils/dateTime";
 
 import {
   Card,
@@ -16,7 +17,7 @@ import {
 
 const selectUnits = state => state.units.isMetric;
 
-const DailyForecast = ({data, isLoading, error}) => {
+const DailyForecast = ({data, offset, isLoading, error}) => {
 
   const isMetric = useSelector(selectUnits);
 
@@ -42,7 +43,7 @@ const DailyForecast = ({data, isLoading, error}) => {
       position: "top",
       ticks: {
         autoSkip: false,
-        callback: label => convertTemp(label.tempMax, isMetric) + '°',
+        callback: el => convertTemp(el.temp.max, isMetric) + '°',
         fontColor: "#ba54f5"
       }
     },
@@ -54,7 +55,7 @@ const DailyForecast = ({data, isLoading, error}) => {
         autoSkip: false,
         fontStyle: "bold",
         fontColor: "#ffffff",
-        callback: label => label.dt
+        callback: el => formatDateShort(el.dt, offset)
       }
     },
     {
@@ -62,7 +63,7 @@ const DailyForecast = ({data, isLoading, error}) => {
       offset: true,
       ticks: {
         autoSkip: false,
-        callback: label => convertTemp(label.tempMin, isMetric) + '°',
+        callback: el => convertTemp(el.temp.min, isMetric) + '°',
         fontColor: "#ba54f5"
       }
     },
@@ -71,7 +72,7 @@ const DailyForecast = ({data, isLoading, error}) => {
       offset: true,
       ticks: {
         autoSkip: false,
-        callback: label => label.rain + 'mm',
+        callback: el => (0 + el.rain || 0 + el.snow || 0).toFixed(2) + 'mm',
         fontColor: "#1f8ef1"
       }
     },
@@ -80,7 +81,7 @@ const DailyForecast = ({data, isLoading, error}) => {
       offset: true,
       ticks: {
         autoSkip: false,
-        callback: label => label.description,
+        callback: el => capitalize(el.weather[0].description).split(' '),
         fontColor: whiteColor
       }
     },
@@ -90,7 +91,7 @@ const DailyForecast = ({data, isLoading, error}) => {
       offset: true,
       ticks: {
         autoSkip: false,
-        callback: label => convertSpeed(label.windSpeed, isMetric) + (isMetric ? 'm/s' : 'mph'),
+        callback: el => convertSpeed(el.wind_speed, isMetric) + (isMetric ? 'm/s' : 'mph'),
         fontColor: whiteColor
       }
     },
@@ -99,7 +100,7 @@ const DailyForecast = ({data, isLoading, error}) => {
       offset: true,
       ticks: {
         autoSkip: false,
-        callback: label => label.pressure,
+        callback: el => el.pressure + "hPa",
         fontColor: whiteColor
       }
     },
@@ -108,7 +109,7 @@ const DailyForecast = ({data, isLoading, error}) => {
       offset: true,
       ticks: {
         autoSkip: false,
-        callback: label => label.humidity,
+        callback: el => el.humidity + "%",
         fontColor: whiteColor
       }
     },
@@ -117,7 +118,7 @@ const DailyForecast = ({data, isLoading, error}) => {
       offset: true,
       ticks: {
         autoSkip: false,
-        callback: label => convertTemp(label.dewPoint, isMetric) + '°',
+        callback: el => convertTemp(el.dew_point, isMetric) + '°',
         fontColor: whiteColor
       }
     },
@@ -126,7 +127,7 @@ const DailyForecast = ({data, isLoading, error}) => {
       offset: true,
       ticks: {
         autoSkip: false,
-        callback: label => label.uvi,
+        callback: el =>  Math.round(el.uvi),
         fontColor: whiteColor
       }
     },
@@ -135,7 +136,7 @@ const DailyForecast = ({data, isLoading, error}) => {
       offset: true,
       ticks: {
         autoSkip: false,
-        callback: label => label.clouds,
+        callback: el => el.clouds + "%",
         fontColor: whiteColor
       }
     }
@@ -214,7 +215,7 @@ const DailyForecast = ({data, isLoading, error}) => {
           pointHoverRadius: 4,
           pointHoverBorderWidth: 15,
           pointRadius: 1,
-          data: data.map(el => convertTemp(el.tempMax, isMetric)),
+          data: data.map(el => convertTemp(el.temp.max, isMetric)),
           type: "LineWithLine"
         },
         {
@@ -232,7 +233,7 @@ const DailyForecast = ({data, isLoading, error}) => {
           pointHoverRadius: 4,
           pointHoverBorderWidth: 15,
           pointRadius: 1,
-          data: data.map(el => convertTemp(el.tempMin, isMetric)),
+          data: data.map(el => convertTemp(el.temp.min, isMetric)),
           type: "LineWithLine"
         },
       ]

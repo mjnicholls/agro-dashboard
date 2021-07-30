@@ -21,7 +21,7 @@ import {
 import {getAccumulatedData} from '../../services/api/chartApi';
 import {getDateInPast, getStartDateByTariff, toDateShort} from '../../utils/dateTime';
 import {chartOptions} from "./base";
-import DatePickerChart from '../agro-components/DatePickerChart';
+import DatePickerChart from '../agro-components/DatePickerFromTo';
 import AccumulatedInfo from '../info/AccumulatedInfo';
 
 import {convertTemp} from '../../utils/utils';
@@ -41,7 +41,7 @@ const AccumulatedChart = ({id}) => {
   const limitTemp = useSelector(selectLimitTemp);
 
   // выбрать из двух лимитов более позднюю дату
-  const limit = Math.max(limitPrec, limitTemp);
+  const limit = limitPrec.depth <= limitTemp.depth ? limitPrec : limitTemp;
   const limitStartDate = getStartDateByTariff(limit);
 
   const [error, setError] = useState(null);
