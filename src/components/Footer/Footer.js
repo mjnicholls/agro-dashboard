@@ -29,7 +29,7 @@ const Footer = (props) => {
 
         <div className="copyright">
           2012 - {new Date().getFullYear()}{" "}
-          <a href="https://agromonitoring.com/" target="_blank">
+          <a href="https://agromonitoring.com/" target="_blank" rel="noreferrer">
              AgroMonitoring ©
           </a>{" "}
           All rights reserved
