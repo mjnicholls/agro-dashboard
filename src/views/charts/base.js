@@ -26,12 +26,10 @@ const chartOptions = {
           zeroLineColor: "transparent",
         },
         ticks: {
-          // suggestedMin: 60,
-          // suggestedMax: 125,
-          // padding: 20,
-          fontColor: "#9a9a9a",
-        },
-      },
+          maxTicksLimit: 6,
+          fontColor: "#9a9a9a"
+        }
+      }
     ],
     xAxes: [
       {

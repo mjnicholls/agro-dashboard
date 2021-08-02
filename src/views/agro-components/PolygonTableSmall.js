@@ -1,9 +1,8 @@
 import React from 'react';
 
 import {
-  Card,
-  CardBody,
-  CardHeader,
+  Col,
+  Row,
   Table,
 } from "reactstrap";
 import classNames from "classnames";
@@ -13,15 +12,17 @@ import {toDate} from "../../utils/dateTime";
 const PolygonTableSmall = ({ polygons, selectedPolygon, setSelectedPolygon }) => {
 
   return (
-    <Card>
-      <CardHeader style={{display: 'flex', flexDirection: "row", alignItems: 'center', justifyContent: 'space-between'}}>
-        <div>All polygons</div>
-        <a onClick={() => setSelectedPolygon(null)}>
-          <i className="tim-icons icon-bullet-list-67 text-info" />
-        </a>
-      </CardHeader>
-      <CardBody style={{maxHeight: "450px", overflow: "scroll", marginBottom: "10px"}}>
-        <Table responsive>
+    <div style={{maxHeight: "350px", overflow: "scroll"}}>
+      <Row>
+        <Col style={{maxHeight: "350px", display: 'flex', flexDirection: "row", alignItems: 'center', justifyContent: 'space-between'}}>
+          <h5 className="card-category">All polygons</h5>
+          <a onClick={() => setSelectedPolygon(null)}>
+            <i className="tim-icons icon-bullet-list-67 text-info" />
+          </a>
+        </Col>
+      </Row>
+      {/*y style={{maxHeight: "450px", overflow: "scroll", marginBottom: "10px"}}*/}
+      <Table>
         <tbody>
           {polygons.map(polygon => (
             <tr
@@ -37,8 +38,7 @@ const PolygonTableSmall = ({ polygons, selectedPolygon, setSelectedPolygon }) =>
           ))}
         </tbody>
       </Table>
-      </CardBody>
-    </Card>
+    </div>
   )
 }
 

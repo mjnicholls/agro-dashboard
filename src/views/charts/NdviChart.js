@@ -9,6 +9,7 @@ import {getNDVIData} from "../../services/api/chartApi";
 import {toDate, getStartDateByTariff, getDateInPast} from '../../utils/dateTime'
 import {chartOptions} from './base'
 
+import ChartContainer from './ChartContainer';
 import {
   Card,
   CardHeader,
@@ -17,6 +18,7 @@ import {
   Row,
   Col,
 } from "reactstrap";
+
 
 const selectLimit = state => state.auth.limits.history.ndvi_history;
 
@@ -83,57 +85,56 @@ const NdviChart = ({ id }) => {
       labels: data.map(el => toDate(el.dt)),
       datasets: [
         {
-            label: "max",
-            fill: "+1",
-            backgroundColor: gradientStrokeBlue,
-            borderColor: "#1f8ef1",
-            borderWidth: 2,
-            borderDash: [],
-            borderDashOffset: 0.0,
-            pointBackgroundColor: "#1f8ef1",
-            pointBorderColor: "rgba(255,255,255,0)",
-            pointHoverBackgroundColor: "#1f8ef1",
-            pointBorderWidth: 20,
-            pointHoverRadius: 4,
-            pointHoverBorderWidth: 15,
-            pointRadius: 4,
-            data: data.map(el => el.data.max.toFixed(3)),
+          label: "max",
+          fill: "+1",
+          backgroundColor: gradientStrokeBlue,
+          borderColor: "#1f8ef1",
+          borderWidth: 2,
+          borderDash: [],
+          borderDashOffset: 0.0,
+          pointBackgroundColor: "#1f8ef1",
+          pointBorderColor: "rgba(255,255,255,0)",
+          pointHoverBackgroundColor: "#1f8ef1",
+          pointBorderWidth: 20,
+          pointHoverRadius: 4,
+          pointHoverBorderWidth: 15,
+          pointRadius: 4,
+          data: data.map(el => el.data.max.toFixed(3)),
         },
         {
-            label: "min",
-            fill: false,
-            // backgroundColor: gradientStrokeBlue,
-            borderColor: "#1f8ef1",
-            borderWidth: 2,
-            borderDash: [],
-            borderDashOffset: 0.0,
-            pointBackgroundColor: "#1f8ef1",
-            pointBorderColor: "rgba(255,255,255,0)",
-            pointHoverBackgroundColor: "#1f8ef1",
-            pointBorderWidth: 20,
-            pointHoverRadius: 4,
-            pointHoverBorderWidth: 15,
-            pointRadius: 4,
-            data: data.map(el => el.data.min.toFixed(3)),
+          label: "min",
+          fill: false,
+          // backgroundColor: gradientStrokeBlue,
+          borderColor: "#1f8ef1",
+          borderWidth: 2,
+          borderDash: [],
+          borderDashOffset: 0.0,
+          pointBackgroundColor: "#1f8ef1",
+          pointBorderColor: "rgba(255,255,255,0)",
+          pointHoverBackgroundColor: "#1f8ef1",
+          pointBorderWidth: 20,
+          pointHoverRadius: 4,
+          pointHoverBorderWidth: 15,
+          pointRadius: 4,
+          data: data.map(el => el.data.min.toFixed(3)),
         },
         {
-            label: "mean",
-            fill: false,
-            // backgroundColor: gradientStrokeGreen,
-            borderColor: "#00d6b4",
-            borderWidth: 2,
-            borderDash: [],
-            borderDashOffset: 0.0,
-            pointBackgroundColor: "#00d6b4",
-            pointBorderColor: "rgba(255,255,255,0)",
-            pointHoverBackgroundColor: "#00d6b4",
-            pointBorderWidth: 20,
-            pointHoverRadius: 4,
-            pointHoverBorderWidth: 15,
-            pointRadius: 4,
-            data: data.map(el => el.data.mean.toFixed(3)),
-          },
-
+          label: "mean",
+          fill: false,
+          // backgroundColor: gradientStrokeGreen,
+          borderColor: "#00d6b4",
+          borderWidth: 2,
+          borderDash: [],
+          borderDashOffset: 0.0,
+          pointBackgroundColor: "#00d6b4",
+          pointBorderColor: "rgba(255,255,255,0)",
+          pointHoverBackgroundColor: "#00d6b4",
+          pointBorderWidth: 20,
+          pointHoverRadius: 4,
+          pointHoverBorderWidth: 15,
+          pointRadius: 4,
+          data: data.map(el => el.data.mean.toFixed(3)),
+        }
       ]
     }
   }
@@ -158,16 +159,14 @@ const NdviChart = ({ id }) => {
         </Row>
       </CardHeader>
       <CardBody>
-          {isLoading ?
-            <div className="chart-placeholder">Fetching data...</div> :
-            error ?
-              <div className="chart-placeholder">{error}</div>  :
-              <div className="chart-area">
-                <Line
-                  data={chartData}
-                  options={chartOptions} />
-              </div>
-          }
+        <ChartContainer
+          isLoading={isLoading}
+          error={error}
+          >
+          <Line
+            data={chartData}
+            options={chartOptions} />
+        </ChartContainer>
       </CardBody>
     </Card>
   )

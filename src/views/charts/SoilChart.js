@@ -1,12 +1,14 @@
 import React, {useEffect, useState} from 'react';
 import {useSelector} from 'react-redux';
+
+
 import {getSoilData} from "../../services/api/chartApi";
 import {getDateInPast, getStartDateByTariff, toDateShort} from '../../utils/dateTime'
 import {Line} from "react-chartjs-2";
 import {chartOptions} from './base';
 import DatePickerChart from '../agro-components/DatePickerFromTo';
 import {convertTemp} from '../../utils/utils';
-
+import ChartContainer from './ChartContainer';
 import {
   Card,
   CardHeader,
@@ -82,9 +84,7 @@ const SoilChart = ({ id }) => {
         zeroLineColor: "transparent",
       },
       ticks: {
-        // suggestedMin: 60,
-        // suggestedMax: 125,
-        // padding: 20,
+        maxTicksLimit: 6,
         fontColor: "#9a9a9a",
         callback: function (value) {
           return value + '°';
@@ -101,9 +101,7 @@ const SoilChart = ({ id }) => {
         zeroLineColor: "transparent",
       },
       ticks: {
-        // suggestedMin: 60,
-        // suggestedMax: 125,
-        // padding: 20,
+        maxTicksLimit: 6,
         fontColor: "#9a9a9a",
       },
     }
@@ -229,18 +227,14 @@ const SoilChart = ({ id }) => {
         </Row>
       </CardHeader>
       <CardBody>
-        {isLoading ?
-            <div className="chart-placeholder">Fetching data...</div> :
-            error ?
-              <div className="chart-placeholder">{error}</div>  :
-              data.length ?
-              <div className="chart-area">
-                <Line
-                  data={chartData}
-                  options={options}
-                />
-              </div> : null
-          }
+        <ChartContainer
+          isLoading={isLoading}
+          error={error}>
+            <Line
+              data={chartData}
+              options={options}
+            />
+        </ChartContainer>
       </CardBody>
     </Card>
   )

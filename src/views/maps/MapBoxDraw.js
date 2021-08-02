@@ -38,7 +38,6 @@ const MapBox = ({setArea, setGeoJson, setIntersection, drawRef, mode}) => {
   useEffect(() => {
     if (initialised) {
       if (mode === 'select') {
-        console.log("11", drawRef.current.getMode());
         drawRef.current.changeMode("simple_select");
         deletePreviousAreas();
         renderCrop(map.current);

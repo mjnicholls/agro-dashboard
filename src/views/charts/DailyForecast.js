@@ -5,6 +5,7 @@ import {useSelector} from 'react-redux';
 import {convertTemp, convertSpeed, capitalize} from "../../utils/utils";
 import {chartOptions} from "./base";
 import {formatDateShort} from "../../utils/dateTime";
+import ChartContainer from './ChartContainer';
 
 import {
   Card,
@@ -242,7 +243,7 @@ const DailyForecast = ({data, offset, isLoading, error}) => {
 
   return (
     <>
-      <Card className="card-chart">
+      <Card className="card-chart daily-chart">
         <CardHeader>
           <Row>
             <Col className="text-left" xs="6" sm="8">
@@ -252,19 +253,16 @@ const DailyForecast = ({data, offset, isLoading, error}) => {
           </Row>
         </CardHeader>
         <CardBody>
-            {isLoading ?
-              <div className="chart-placeholder">Fetching data...</div> :
-              error ?
-                <div className="chart-placeholder">{error}</div>  :
-                <div className="chart-area agro-chart">
-                  <Line
-                    data={chartData}
-                    options={options}
-                    height={400}
-                    // width={1000}
-                  />
-                </div>
-            }
+          <ChartContainer
+            isLoading={isLoading}
+            error={error}
+          >
+            <Line
+              data={chartData}
+              options={options}
+              height={400}
+            />
+          </ChartContainer>
         </CardBody>
       </Card>
     </>

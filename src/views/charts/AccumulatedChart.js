@@ -23,6 +23,7 @@ import {getDateInPast, getStartDateByTariff, toDateShort} from '../../utils/date
 import {chartOptions} from "./base";
 import DatePickerChart from '../agro-components/DatePickerFromTo';
 import AccumulatedInfo from '../info/AccumulatedInfo';
+import ChartContainer from './ChartContainer';
 
 import {convertTemp} from '../../utils/utils';
 import Slider from "nouislider";
@@ -144,9 +145,7 @@ const AccumulatedChart = ({id}) => {
           zeroLineColor: "transparent",
         },
         ticks: {
-          // suggestedMin: 60,
-          // suggestedMax: 125,
-          // padding: 20,
+          maxTicksLimit: 6,
           beginAtZero: true,
           fontColor: "#9a9a9a",
           callback: function (value) {
@@ -164,9 +163,7 @@ const AccumulatedChart = ({id}) => {
           zeroLineColor: "transparent",
         },
         ticks: {
-          // suggestedMin: 60,
-          // suggestedMax: 125,
-          // padding: 20,
+          maxTicksLimit: 6,
           beginAtZero: true,
           fontColor: "#9a9a9a",
           callback: function (value) {
@@ -253,36 +250,33 @@ const AccumulatedChart = ({id}) => {
         </Row>
       </CardHeader>
       <CardBody>
-       {isLoading ?
-         <div className="chart-placeholder">Fetching data...</div> :
-            error ?
-              <div className="chart-placeholder">{error}</div>  :
-              data.length ?
-              <div className="chart-area">
-                <Line
-                  data={chartData}
-                  options={options}
-                />
-              </div> : null
-          }
+        <ChartContainer
+          isLoading={isLoading}
+          error={error}
+        >
+          <Line
+            data={chartData}
+            options={options}
+          />
+        </ChartContainer>
       </CardBody>
       <CardFooter>
         <hr />
         <Form className="form-horizontal">
-            <Row style={{justifyContent: "flex-end"}}>
-              <Label sm="3">Threshold, °{isMetric ? 'C' : 'F'}</Label>
-              <Col sm="3">
-                <FormGroup>
-                  <Input
-                    type="number"
-                    value={threshold}
-                    onChange={e => setThreshold(e.target.value)}
-                    min={isMetric ? thresholdMinC : thresholdMinF}
-                    max={isMetric ? thresholdMaxC : thresholdMaxF}
-                  />
-                </FormGroup>
-              </Col>
-            </Row>
+          <Row style={{justifyContent: "flex-end"}}>
+            <Label sm="3">Threshold, °{isMetric ? 'C' : 'F'}</Label>
+            <Col sm="3">
+              <FormGroup>
+                <Input
+                  type="number"
+                  value={threshold}
+                  onChange={e => setThreshold(e.target.value)}
+                  min={isMetric ? thresholdMinC : thresholdMinF}
+                  max={isMetric ? thresholdMaxC : thresholdMaxF}
+                />
+              </FormGroup>
+            </Col>
+          </Row>
         </Form>
       </CardFooter>
     </Card>

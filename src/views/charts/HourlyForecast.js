@@ -14,6 +14,8 @@ import {
   Col,
   Row
 } from "reactstrap";
+import ChartContainer from './ChartContainer';
+
 
 const selectUnits = state => state.units.isMetric;
 
@@ -224,7 +226,7 @@ const HourlyForecast = ({data, offset, isLoading, error}) => {
 
   return (
     <>
-      <Card className="card-chart">
+      <Card className="card-chart hourly-chart">
         <CardHeader>
           <Row>
             <Col className="text-left" xs="6" sm="8">
@@ -234,21 +236,33 @@ const HourlyForecast = ({data, offset, isLoading, error}) => {
           </Row>
         </CardHeader>
         <CardBody style={{overflowX: "auto"}}>
-            {isLoading ?
-              <div className="chart-placeholder">Fetching data...</div> :
-              error ?
-                <div className="chart-placeholder">{error}</div>  :
-                <div className="chart-area hourly-chart">
-                  {/*<canvas ref={yAxisRef}/>*/}
-                  <Line
-                    className="hourly-chart-canvas"
-                    data={chartData}
-                    options={options}
-                    height={400}
-                    width={2000}
-                  />
-                </div>
-            }
+          <ChartContainer
+            isLoading={isLoading}
+            error={error} >
+            <Line
+              className="hourly-chart-canvas"
+              data={chartData}
+              options={options}
+              height={500}
+              width={2000}
+            />
+          </ChartContainer>
+
+            {/*{isLoading ?*/}
+              {/*<div className="chart-placeholder">Fetching data...</div> :*/}
+              {/*error ?*/}
+                {/*<div className="chart-placeholder">{error}</div>  :*/}
+                {/*<div className="chart-area hourly-chart">*/}
+                  {/*/!*<canvas ref={yAxisRef}/>*!/*/}
+                  {/*<Line*/}
+                    {/*className="hourly-chart-canvas"*/}
+                    {/*data={chartData}*/}
+                    {/*options={options}*/}
+                    {/*height={400}*/}
+                    {/*width={2000}*/}
+                  {/*/>*/}
+                {/*</div>*/}
+            {/*}*/}
         </CardBody>
       </Card>
     </>

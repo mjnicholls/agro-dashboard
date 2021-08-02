@@ -14,6 +14,7 @@ import {toDateShort, getDateInPast, getStartDateByTariff} from "../../utils/date
 import {convertTemp} from '../../utils/utils'
 import DatePickerChart from "../agro-components/DatePickerFromTo";
 
+import ChartContainer from './ChartContainer';
 import {Line} from "react-chartjs-2";
 import {chartOptions} from "./base";
 import {getHistoryWeatherData} from "../../services/api/chartApi";
@@ -45,6 +46,8 @@ const HistoryWeather = ({polygonId}) => {
 
   useEffect(() => {
     if (startDate && endDate) {
+      setIsLoading(true);
+      setError(null);
       getHistoryWeatherData(polygonId, startDate, endDate)
         .then(response => {
           if (response) {
@@ -225,18 +228,15 @@ const HistoryWeather = ({polygonId}) => {
         </Row>
       </CardHeader>
       <CardBody>
-       {isLoading ?
-         <div className="chart-placeholder">Fetching data...</div> :
-            error ?
-              <div className="chart-placeholder">{error}</div>  :
-              data.length ?
-              <div className="chart-area">
-                <Line
-                  data={chartData}
-                  options={options}
-                />
-              </div> : null
-          }
+        <ChartContainer
+          isLoading={isLoading}
+          error={error}
+        >
+          <Line
+            data={chartData}
+            options={options}
+          />
+        </ChartContainer>
       </CardBody>
     </Card>)
 

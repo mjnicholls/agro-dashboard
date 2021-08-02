@@ -25,9 +25,7 @@ $fontColorGrey: rgba(255, 255, 255, 0.5);
 .chart-placeholder {
   @include horizontal-container;
   justify-content: center;
-  height: 200px;
 }
-
 
 .leaflet-map-container {
   width: 100%;
@@ -75,6 +73,10 @@ $fontColorGrey: rgba(255, 255, 255, 0.5);
     align-items: center;
     overflow-x: auto;
   }
+}
+
+.satellite-pagination-placeholder {
+
 }
 
 
@@ -231,6 +233,10 @@ $daily-chart-width: 1000px;
 }
 
 .hourly-chart {
+  .chart-area {
+    height: 700px;
+  }
+
   @include agro-chart;
   width: $hourly-chart-width !important;
 
@@ -244,15 +250,8 @@ $daily-chart-width: 1000px;
 }
 
 .daily-chart {
-  @include agro-chart;
-  width: $daily-chart-width !important;
-
-  .chartjs-size-monitor {
-    width: $daily-chart-width !important;
-
-    .hourly-chart-canvas {
-      width: $daily-chart-width;
-    }
+  .chart-area {
+    height: 450px;
   }
 }
 

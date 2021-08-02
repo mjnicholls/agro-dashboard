@@ -160,18 +160,18 @@ const PolygonNew = () => {
                       Select
                     </NavLink>
                   </NavItem>
-                  <NavItem>
-                    <NavLink
-                      data-toggle="tab"
-                      href="#pablo"
-                      className={mode === "import" ? "active" : ""}
-                      onClick={() =>
-                        setMode("import")
-                      }
-                    >
-                      Import
-                    </NavLink>
-                  </NavItem>
+                  {/*<NavItem>*/}
+                    {/*<NavLink*/}
+                      {/*data-toggle="tab"*/}
+                      {/*href="#pablo"*/}
+                      {/*className={mode === "import" ? "active" : ""}*/}
+                      {/*onClick={() =>*/}
+                        {/*setMode("import")*/}
+                      {/*}*/}
+                    {/*>*/}
+                      {/*Import*/}
+                    {/*</NavLink>*/}
+                  {/*</NavItem>*/}
                 </Nav>
                 <TabContent className="tab-space agro-tab" activeTab={mode}>
                   <TabPane tabId="draw">
