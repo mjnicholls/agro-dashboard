@@ -40,8 +40,8 @@ const Dashboard = () => {
   return (
     <>
       <div className="content">
-        <Row style={{marginBottom: "30px"}}>
-          <Col md="8">
+        <Row>
+          <Col md="8" className="pb-5">
             <div className="chart-area">
               <MapBox
                 activePolygon={activePolygon}

@@ -3,13 +3,13 @@ import React, {useEffect, useState} from 'react';
 import {useSelector} from 'react-redux';
 import {Line} from "react-chartjs-2";
 
-import DatePickerChart from '../agro-components/DatePickerFromTo';
+import DatePickerChart from './ui/DatePickerFromTo';
 import {getNDVIData} from "../../services/api/chartApi";
 
 import {toDate, getStartDateByTariff, getDateInPast} from '../../utils/dateTime'
 import {chartOptions} from './base'
 
-import ChartContainer from './ChartContainer';
+import ChartContainer from './ui/ChartContainer';
 import {
   Card,
   CardHeader,

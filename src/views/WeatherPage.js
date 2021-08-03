@@ -1,19 +1,15 @@
 import React, {useEffect, useState} from 'react';
 
 import {getOneCallData} from '../services/api/weatherApi';
-
+import {DailyForecast, HourlyForecast, HistoryWeather} from './charts'
 import CurrentWeather from './current/CurrentWeather';
 import CurrentSoil from './current/CurrentSoil';
-import HourlyForecast from './charts/HourlyForecast';
-import DailyForecast from './charts/DailyForecast';
-import HistoryWeather from './charts/HistoryWeather';
 import WeatherAlerts from './current/WeatherAlerts'
 
 import {
   Row,
   Col,
 } from "reactstrap";
-
 
 
 const WeatherPage = ({polygon}) => {
@@ -38,28 +34,28 @@ const WeatherPage = ({polygon}) => {
 
   return (
    <>
-     <Row>
-       <Col sm="4">
-         <CurrentWeather
-           current={data.current}
-           minutely={data.minutely}
-           isLoading={isLoading}
-           error={error} />
-       </Col>
-       <Col sm="4">
-         <CurrentSoil
-           polyId={polygon.id}
-         />
-       </Col>
-       <Col sm="4">
-         <WeatherAlerts
-           alerts={data.alerts}
-           isLoading={isLoading}
-           error={error}
-         />
-       </Col>
+     {/*<Row>*/}
+       {/*<Col sm="4">*/}
+         {/*<CurrentWeather*/}
+           {/*current={data.current}*/}
+           {/*minutely={data.minutely}*/}
+           {/*isLoading={isLoading}*/}
+           {/*error={error} />*/}
+       {/*</Col>*/}
+       {/*<Col sm="4">*/}
+         {/*<CurrentSoil*/}
+           {/*polyId={polygon.id}*/}
+         {/*/>*/}
+       {/*</Col>*/}
+       {/*<Col sm="4">*/}
+         {/*<WeatherAlerts*/}
+           {/*alerts={data.alerts}*/}
+           {/*isLoading={isLoading}*/}
+           {/*error={error}*/}
+         {/*/>*/}
+       {/*</Col>*/}
 
-     </Row>
+     {/*</Row>*/}
     <Row>
       <Col>
         <HourlyForecast

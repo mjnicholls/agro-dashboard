@@ -7,8 +7,7 @@ const ChartContainer = (props) => {
   /** Container that supports
    * - loading
    * - displaying errors */
-
-  const Chart = () => <div className="chart-area">{props.children}</div>;
+  const Content = () => <div className="chart-area">{props.children}</div>;
 
   return props.isLoading ?
     <div className="chart-placeholder chart-area">
@@ -16,7 +15,7 @@ const ChartContainer = (props) => {
       <PropagateLoader color="#f2f2f2" size={15} />
     </div> :
     props.error ? <div className="chart-placeholder chart-area">{props.error}</div> :
-    <Chart />
+    <Content />
 }
 
 export default ChartContainer;

@@ -10,17 +10,19 @@ import {
 } from "reactstrap";
 
 import {getImageStats} from '../../services/api/polygonApi';
-import SatelliteCalendar from './DatepickerSatellite';
-import SatelliteLayers3 from './SatelliteLayers3';
+import ChartContainer from '../charts/ui/ChartContainer';
+import SatelliteCalendar from './ui/DatepickerSatellite';
+import SatelliteLayers3 from './ui/SatelliteLayers3';
+import {toDate} from "../../utils/dateTime";
 
 const ImageStats = ({images, selectedImage, setSelectedImage, selectedLayer, setSelectedLayer}) => {
 
   const [stats, setStats] = useState(null);
   const [name, setName] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-
     if (selectedImage && selectedLayer) {
       let url = selectedImage.stats[selectedLayer.value];
       if (!url) {
@@ -29,6 +31,9 @@ const ImageStats = ({images, selectedImage, setSelectedImage, selectedLayer, set
       } else {
         setName(selectedLayer.value)
       }
+      setIsLoading(true);
+      setError(null);
+      setStats(null);
       getImageStats(url)
         .then(res => {
           setStats(res)
@@ -39,32 +44,40 @@ const ImageStats = ({images, selectedImage, setSelectedImage, selectedLayer, set
           }
           setError(error)
         })
+        .finally(() => {setIsLoading(false)})
     }
   }, [selectedImage, selectedLayer])
-
-  return stats ?
-        <>
-          {/*<Row>*/}
-            {/*<Col xs="6">*/}
-              {/*<SatelliteLayers3*/}
-                {/*name={name}*/}
-                {/*selectedImage={selectedImage}*/}
-                {/*selectedLayer={selectedLayer}*/}
-                {/*setSelectedLayer={setSelectedLayer}*/}
-              {/*/>*/}
-            {/*</Col>*/}
-            {/*<Col xs="6" className="text-right">*/}
-              {/*<SatelliteCalendar*/}
-                {/*images={images}*/}
-                {/*selectedImage={selectedImage}*/}
-                {/*setSelectedImage={setSelectedImage}*/}
-              {/*/>*/}
-            {/*</Col>*/}
-          {/*</Row>*/}
-          <Table>
+  return (
+    <Card style={{height: "100%"}}>
+      <ChartContainer
+        isLoading={isLoading}
+        error={error}
+      >
+        {stats ? <div>
+          <CardHeader>
+            <Row>
+              <Col xs="8">
+                <SatelliteLayers3
+                  name={name}
+                  selectedImage={selectedImage}
+                  selectedLayer={selectedLayer}
+                  setSelectedLayer={setSelectedLayer}
+                />
+              </Col>
+              <Col xs="4" className="text-right">
+                <SatelliteCalendar
+                  images={images}
+                  selectedImage={selectedImage}
+                  setSelectedImage={setSelectedImage}
+                />
+              </Col>
+            </Row>
+          </CardHeader>
+          <CardBody className="current-card">
+            <Table>
             <thead>
               <tr>
-                <th></th>
+                <th>{toDate(selectedImage.dt)}</th>
                 <th>{name.toUpperCase()}</th>
               </tr>
             </thead>
@@ -95,9 +108,10 @@ const ImageStats = ({images, selectedImage, setSelectedImage, selectedLayer, set
                </tr>
              </tbody>
           </Table>
-      </> : error ?
-      <div className="chart-placeholder">{error}</div> :
-      <div className="chart-placeholder">Fetching data...</div>
+          </CardBody>
+        </div> : null}
+    </ChartContainer>
+  </Card>)
 }
 
 export default ImageStats;

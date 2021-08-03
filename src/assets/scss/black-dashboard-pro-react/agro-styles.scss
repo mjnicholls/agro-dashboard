@@ -3,6 +3,9 @@ $light-green: #00FC00;
 $fontColorBlack: #595959;
 $fontColorBlue: #525f7f;
 $fontColorGrey: rgba(255, 255, 255, 0.5);
+$activeWhite: rgba(255, 255, 255, 0.1);
+$mapHeight: 350px;
+
 
 .justify {
   justify-content: space-between;
@@ -25,6 +28,7 @@ $fontColorGrey: rgba(255, 255, 255, 0.5);
 .chart-placeholder {
   @include horizontal-container;
   justify-content: center;
+  height: 100%;
 }
 
 .leaflet-map-container {
@@ -40,21 +44,58 @@ $fontColorGrey: rgba(255, 255, 255, 0.5);
 .map-box-container {
   width: 100%;
   height: 100%;
-  min-height: 350px;
+  min-height: $mapHeight;
   position: relative;
 }
 
-.satellite-pagination {
-  align-items: center !important;
-  margin-top: 10px;
+.current-card {
+  height: $mapHeight;
+  overflow: auto
+}
+
+.satellite-images-container {
   position: relative;
-  overflow-x: auto;
+  @include horizontal-container;
+
+  .satellite-image-list {
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto;
+    .satellite-image {
+      padding: 5px 10px;
+      border-right: 1px solid rgba(255, 255, 255, 0.1);
+      cursor: pointer;
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+        border-right-color: transparent;
+      }
+    }
+    .active {
+      background-color: $activeWhite;
+      border-right-color: transparent;
+    }
+  }
+  .satellite-arrow {
+    cursor: pointer;
+    color: rgba(255, 255, 255, 0.2);
+    &.left {
+      padding-right: 5px;
+    }
+    &.right {
+      padding-left: 5px;
+    }
+    &:hover {
+      color: rgba(255, 255, 255, 0.7);
+    }
+  }
 
   .satellite-pagination-arrow {
     position: absolute;
-    z-index: 3;
+    z-index: 1;
+    top: 0;
+    bottom: 0;
     display: none;
-
+    align-items: center;
     &.left {
       left: 0;
     }
@@ -62,21 +103,21 @@ $fontColorGrey: rgba(255, 255, 255, 0.5);
       right: 0;
     }
   }
+
   &:hover {
     .satellite-pagination-arrow {
-      display: block;
+      display: flex;
     }
-  }
-  .satellite-images-container {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    overflow-x: auto;
   }
 }
 
-.satellite-pagination-placeholder {
-
+.agro-dropdown {
+  cursor: pointer;
+  .show {
+    .dropdown-caret {
+      transform: rotate(180deg);
+    }
+  }
 }
 
 
@@ -203,7 +244,7 @@ $fontColorGrey: rgba(255, 255, 255, 0.5);
 }
 
 .highlight-background {
-  background-color: rgba(0, 252, 0, 0.3);
+  background-color: $activeWhite;
 }
 
 .table-wrapper {

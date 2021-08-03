@@ -12,9 +12,9 @@ import {
 
 import {toDateShort, getDateInPast, getStartDateByTariff} from "../../utils/dateTime";
 import {convertTemp} from '../../utils/utils'
-import DatePickerChart from "../agro-components/DatePickerFromTo";
+import DatePickerChart from "./ui/DatePickerFromTo";
 
-import ChartContainer from './ChartContainer';
+import ChartContainer from './ui/ChartContainer';
 import {Line} from "react-chartjs-2";
 import {chartOptions} from "./base";
 import {getHistoryWeatherData} from "../../services/api/chartApi";

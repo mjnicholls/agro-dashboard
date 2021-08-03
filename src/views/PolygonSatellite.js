@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {toDate} from '../utils/dateTime';
 import SatellitePage from './SatellitePage';
 import WeatherPage from './WeatherPage';
-import SatelliteImagesList from './agro-components/SatelliteImages'
+import SatelliteImagesList from './small-cards/ui/SatelliteImages'
 import MapBox from './maps/MapBoxTiles'
 import {
   Button,
@@ -22,7 +22,7 @@ import {
   useParams
 } from "react-router-dom";
 import { fetchPolygons } from "../features/polygons/actions";
-import SatelliteLayersDropdown from "./agro-components/SatelliteLayers";
+import SatelliteLayersDropdown from "./small-cards/ui/SatelliteLayers";
 import { userLevels } from '../config'
 import classNames from "classnames";
 

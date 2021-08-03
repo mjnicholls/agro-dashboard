@@ -5,7 +5,7 @@ import {useSelector} from 'react-redux';
 import {convertTemp, convertSpeed, capitalize} from "../../utils/utils";
 import {chartOptions} from "./base";
 import {formatDateShort} from "../../utils/dateTime";
-import ChartContainer from './ChartContainer';
+import ChartContainer from './ui/ChartContainer';
 
 import {
   Card,

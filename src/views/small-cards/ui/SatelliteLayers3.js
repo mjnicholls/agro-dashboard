@@ -4,17 +4,14 @@ import {
   Col,
   DropdownItem,
   DropdownMenu,
-  DropdownToggle,
   Row,
-  UncontrolledDropdown
 } from "reactstrap";
-
-import {toDate} from "../../utils/dateTime";
-
+import classnames from "classnames";
 
 const SatelliteLayersDropdown = ({selectedImage, selectedLayer, setSelectedLayer}) => {
 
   const [layers, setLayers] = useState([]);
+  const [isOpen, setIsOpen] = useState(false)
 
   useEffect(() => {
     if (selectedImage) {
@@ -42,28 +39,37 @@ const SatelliteLayersDropdown = ({selectedImage, selectedLayer, setSelectedLayer
   return  (
     selectedImage ?
       <>
-        <h5 className="card-category">{toDate(selectedImage.dt)}</h5>
+        <h2 className="card-category">Layer</h2>
         <Row>
           <Col>
-            <UncontrolledDropdown>
-              <DropdownToggle
+            <div className={classnames("dropdown agro-dropdown", {
+              "show": isOpen,
+            })}>
+              <div className="dropdown horizontal-container justify"
                 aria-expanded={false}
                 aria-haspopup={true}
-                caret
-                className="btn-block"
-                color="primary"
                 data-toggle="dropdown"
                 id="dropdownMenuButton"
-                type="button"
+                onClick={(e) => {
+                  e.preventDefault();
+                  setIsOpen(!isOpen);
+                }}
               >
-                {selectedLayer.label}
-              </DropdownToggle>
+                <h2 className="mb-0">{selectedLayer.label}</h2>
+                <i className="tim-icons icon-minimal-down dropdown-caret"/>
+              </div>
               <DropdownMenu aria-labelledby="dropdownMenuButton">
                 {layers.map((layer, index) => {
                   if (layer.value !== selectedLayer.value) {
                     return (<DropdownItem
                       href="#pablo"
-                      onClick={(e) => selectLayer(e, layer)}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setSelectedLayer(layer);
+                        // selectLayer(e, layer)
+                        setIsOpen(false)
+                      }}
+                      key={"layer_" + index}
                     >
                       {layer.label}
                     </DropdownItem>)
@@ -71,7 +77,7 @@ const SatelliteLayersDropdown = ({selectedImage, selectedLayer, setSelectedLayer
                   return null
                 })}
               </DropdownMenu>
-            </UncontrolledDropdown>
+            </div>
           </Col>
         </Row>
       </> : null

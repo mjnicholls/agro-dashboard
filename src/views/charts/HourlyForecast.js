@@ -14,14 +14,15 @@ import {
   Col,
   Row
 } from "reactstrap";
-import ChartContainer from './ChartContainer';
+import ChartContainer from './ui/ChartContainer';
 
-
+const selectOneCall = state => state.onecall;
 const selectUnits = state => state.units.isMetric;
 
 const HourlyForecast = ({data, offset, isLoading, error}) => {
 
   const isMetric = useSelector(selectUnits);
+  const onecall = useSelector(selectOneCall);
 
   const options = JSON.parse(JSON.stringify(chartOptions))
   options.scales.yAxes = [
@@ -247,22 +248,6 @@ const HourlyForecast = ({data, offset, isLoading, error}) => {
               width={2000}
             />
           </ChartContainer>
-
-            {/*{isLoading ?*/}
-              {/*<div className="chart-placeholder">Fetching data...</div> :*/}
-              {/*error ?*/}
-                {/*<div className="chart-placeholder">{error}</div>  :*/}
-                {/*<div className="chart-area hourly-chart">*/}
-                  {/*/!*<canvas ref={yAxisRef}/>*!/*/}
-                  {/*<Line*/}
-                    {/*className="hourly-chart-canvas"*/}
-                    {/*data={chartData}*/}
-                    {/*options={options}*/}
-                    {/*height={400}*/}
-                    {/*width={2000}*/}
-                  {/*/>*/}
-                {/*</div>*/}
-            {/*}*/}
         </CardBody>
       </Card>
     </>

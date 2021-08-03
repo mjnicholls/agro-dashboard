@@ -7,7 +7,7 @@ import {
   Col,
   Collapse,
 } from "reactstrap";
-import {toDate} from "../../utils/dateTime";
+import {toDate} from "../../../utils/dateTime";
 
 
 const SatelliteLayersDropdown = ({name, selectedImage, selectedLayer, setSelectedLayer}) => {

@@ -1,21 +1,26 @@
 import React, {useEffect, useState} from "react";
 import { useSelector } from 'react-redux';
 
-import { Col, Row } from "reactstrap";
+import { Col, Container, Row } from "reactstrap";
 
 import MapBox from "./maps/MapBoxInteractive";
 import PolygonInfo from './PolygonInfo';
 import PolygonTable from './agro-components/PolygonTable';
-// import SatelliteLayers from './agro-components/SatelliteLayers';
-import MultiPurposeCard from './agro-components/MultiPurposeCard';
-import PolygonTableSmall from './agro-components/PolygonTableSmall';
+import PolygonTableSmall from './small-cards/PolygonList';
 import PolygonsTotalStats from './agro-components/PolygonsTotalStats';
-import SatelliteImagesList from './agro-components/SatelliteImages';
+import SatelliteImagesList from './small-cards/ui/SatelliteImages2';
 
-import ImageStats from './agro-components/ImageStats';
+import ImageStats from './small-cards/LayerStats';
 import {getSatelliteImagesList} from "../services/api/polygonApi";
+import Toggler from "./agro-components/Toggler";
+import SatellitePage from "./SatellitePage";
+import WeatherPage from "./WeatherPage";
+import {userLevels} from "../config";
+import WeatherCurrent from "./small-cards/WeatherCurrent";
+import CurrentSoil from "./current/CurrentSoil";
 
 const selectPolygons = state => state.polygons;
+const tariffSelector = state => state.auth.user.tariff;
 
 const Dashboard = () => {
 
@@ -25,8 +30,9 @@ const Dashboard = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [selectedLayer, setSelectedLayer] = useState({value: "truecolor", label: "True Color"});
   const [imagesLoading, setImagesLoading] = useState(true);
-
-
+  const [isSatellitePage, setIsSatellitePage] = useState(true);
+  const tariff = useSelector(tariffSelector);
+  const userLevel = userLevels[tariff];
   const polygons = useSelector(selectPolygons);
 
   useEffect(() => {
@@ -48,9 +54,9 @@ const Dashboard = () => {
   return (
     <>
       <div className="content">
-        <Row style={{marginBottom: "30px"}}>
-          <Col md="8">
-            <div className="chart-area">
+        <Row>
+          <Col md="6" className="pb-5">
+            {/*<div className="chart-area">*/}
               {/*{selectedPolygon &&*/}
               {/*<SatelliteLayers*/}
                 {/*selectedImage={selectedImage}*/}
@@ -66,7 +72,7 @@ const Dashboard = () => {
                 selectedImage={selectedImage}
                 selectedLayer={selectedLayer}
               />
-            </div>
+            {/*</div>*/}
             {selectedPolygon &&
               <SatelliteImagesList
                 images={images}
@@ -76,18 +82,33 @@ const Dashboard = () => {
                 imagesLoading={imagesLoading}
               />}
           </Col>
+
           {selectedPolygon ?
-             <Col md="4" className="ml-auto mr-auto">
-               <MultiPurposeCard
-                 images={images}
-                 selectedImage={selectedImage}
-                 setSelectedImage={setSelectedImage}
-                 selectedLayer={selectedLayer}
-                 setSelectedLayer={setSelectedLayer}
-                 polygons={polygons}
-                 selectedPolygon={selectedPolygon}
-                 setSelectedPolygon={setSelectedPolygon}
-               />
+             <Col md="6" className="ml-auto mr-auto">
+               <Container>
+                <Row>
+                  <Col xs="6" className="pb-5">
+                    {isSatellitePage ? <ImageStats
+                      images={images}
+                      selectedImage={selectedImage}
+                      setSelectedImage={setSelectedImage}
+                      selectedLayer={selectedLayer}
+                      setSelectedLayer={setSelectedLayer}
+                    /> :
+                      <>
+                        <WeatherCurrent selectedPolygon={selectedPolygon} />
+                        <CurrentSoil polyId={selectedPolygon.id}/>
+                      </>
+                    }
+                  </Col>
+                  <Col xs="6" className="pb-5">
+                    <PolygonTableSmall
+                      polygons={polygons}
+                      selectedPolygon={selectedPolygon}
+                      setSelectedPolygon={setSelectedPolygon} />
+                  </Col>
+                </Row>
+               </Container>
                {/*<ImageStats*/}
                  {/*images={images}*/}
                  {/*selectedImage={selectedImage}*/}
@@ -100,14 +121,36 @@ const Dashboard = () => {
                  {/*selectedPolygon={selectedPolygon}*/}
                  {/*setSelectedPolygon={setSelectedPolygon} />*/}
               </Col>
-            : <Col md="4">
+            : <Col md="6">
               <PolygonsTotalStats polygons={polygons}/>
             </Col>}
         </Row>
+
+           {selectedPolygon  &&
+           <Row>
+             <Col className="pb-4">
+               <Toggler
+                  isActive={isSatellitePage}
+                  setIsActive={setIsSatellitePage}
+                  labelOne="Satellite data"
+                  labelTwo="Weather Data"
+                />
+             </Col>
+           </Row>}
+
         {selectedPolygon ?
-          <PolygonInfo
-            selectedPolygon={selectedPolygon}
-          /> :
+          isSatellitePage ?
+        <SatellitePage
+          selectedPolygon={selectedPolygon}
+          userLevel={userLevel}
+        /> : <WeatherPage
+          polygon={selectedPolygon}
+        />
+
+          // <PolygonInfo
+          //   selectedPolygon={selectedPolygon}
+          // />
+          :
           <Row>
             <Col>
               <PolygonTable

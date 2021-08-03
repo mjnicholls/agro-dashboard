@@ -6,9 +6,9 @@ import {getSoilData} from "../../services/api/chartApi";
 import {getDateInPast, getStartDateByTariff, toDateShort} from '../../utils/dateTime'
 import {Line} from "react-chartjs-2";
 import {chartOptions} from './base';
-import DatePickerChart from '../agro-components/DatePickerFromTo';
+import DatePickerChart from './ui/DatePickerFromTo';
 import {convertTemp} from '../../utils/utils';
-import ChartContainer from './ChartContainer';
+import ChartContainer from './ui/ChartContainer';
 import {
   Card,
   CardHeader,

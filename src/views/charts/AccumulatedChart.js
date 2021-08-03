@@ -21,9 +21,9 @@ import {
 import {getAccumulatedData} from '../../services/api/chartApi';
 import {getDateInPast, getStartDateByTariff, toDateShort} from '../../utils/dateTime';
 import {chartOptions} from "./base";
-import DatePickerChart from '../agro-components/DatePickerFromTo';
+import DatePickerChart from './ui/DatePickerFromTo';
 import AccumulatedInfo from '../info/AccumulatedInfo';
-import ChartContainer from './ChartContainer';
+import ChartContainer from './ui/ChartContainer';
 
 import {convertTemp} from '../../utils/utils';
 import Slider from "nouislider";

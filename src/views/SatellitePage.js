@@ -1,5 +1,5 @@
 import React from 'react';
-import { AccumulatedChart, NdviChart, SoilChart } from './charts/index'
+import { AccumulatedChart, NdviChart, SoilChart } from './charts'
 
 import {
   Row,
