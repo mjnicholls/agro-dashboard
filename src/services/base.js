@@ -1,4 +1,6 @@
 import axios from 'axios';
+import * as rax from 'retry-axios';
+
 
 import {logoutFrontEnd} from '../features/auth/actions'
 import store from '../store'
@@ -6,6 +8,11 @@ import store from '../store'
 const axiosInstance = axios.create({
   timeout: 15000
 });
+
+axiosInstance.defaults.raxConfig = {
+  instance: axiosInstance
+};
+const interceptorId = rax.attach(axiosInstance);
 
 axiosInstance.interceptors.request.use(function (config) {
   const token = store.getState().auth.token;

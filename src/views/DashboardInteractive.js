@@ -123,6 +123,12 @@ const Dashboard = () => {
               </Col>
             : <Col md="6">
               <PolygonsTotalStats polygons={polygons}/>
+              {/*<PolygonTable*/}
+                {/*data={polygons}*/}
+                {/*activePolygon={activePolygon}*/}
+                {/*setActivePolygon={setActivePolygon}*/}
+                {/*setSelectedPolygon={setSelectedPolygon}*/}
+              {/*/>*/}
             </Col>}
         </Row>
 

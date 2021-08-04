@@ -1,10 +1,6 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 
-import {getOneCallData} from '../services/api/weatherApi';
-import {DailyForecast, HourlyForecast, HistoryWeather} from './charts'
-import CurrentWeather from './current/CurrentWeather';
-import CurrentSoil from './current/CurrentSoil';
-import WeatherAlerts from './current/WeatherAlerts'
+import {CombinedHourlyDailyChart, DailyForecast, HourlyForecast, HistoryWeather} from './charts'
 
 import {
   Row,
@@ -13,24 +9,6 @@ import {
 
 
 const WeatherPage = ({polygon}) => {
-
-  const [data, setData] = useState([]);
-  const [error, setError] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    setIsLoading(true);
-    setError(null);
-    getOneCallData(polygon.center[1], polygon.center[0])
-      .then(res => { setData(res); })
-      .catch((err) => {
-        if (typeof err === "object") {
-          err = err.message || "Something went wrong";
-        }
-        setError(err);
-      })
-      .finally(() => {setIsLoading(false)})
-  }, [polygon])
 
   return (
    <>
@@ -58,24 +36,15 @@ const WeatherPage = ({polygon}) => {
      {/*</Row>*/}
     <Row>
       <Col>
-        <HourlyForecast
-          data={data.hourly}
-          offset={data.timezone_offset}
-          isLoading={isLoading}
-          error={error}
-        />
+        {/*<HourlyForecast />*/}
+        <CombinedHourlyDailyChart />
       </Col>
     </Row>
-     <Row>
-       <Col>
-         <DailyForecast
-           data={data.daily}
-           offset={data.timezone_offset}
-           isLoading={isLoading}
-           error={error}
-         />
-       </Col>
-     </Row>
+     {/*<Row>*/}
+       {/*<Col>*/}
+         {/*<DailyForecast />*/}
+       {/*</Col>*/}
+     {/*</Row>*/}
     <Row>
       <Col>
         <HistoryWeather polygonId={polygon.id}/>

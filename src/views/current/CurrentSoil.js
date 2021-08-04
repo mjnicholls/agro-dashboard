@@ -55,7 +55,7 @@ const CurrentSoil = ({ polyId }) => {
           <div className="chart-placeholder">Fetching data...</div> :
           error ?
             <div className="chart-placeholder">{error}</div>  :
-            <div >
+            <div>
               <div className="horizontal-container justify">
                 <p className="card-category" style={{textTransform: "none"}}>Soil temperature at the surface</p>
                 <CardTitle tag="h3">{convertTemp(data.t0, isMetric)}°</CardTitle>
@@ -66,7 +66,7 @@ const CurrentSoil = ({ polyId }) => {
               </div>
               <div className="horizontal-container justify">
                 <p className="card-category" style={{textTransform: "none"}}>Soil moisture</p>
-                <CardTitle tag="h3">{data.moisture}</CardTitle>
+                <CardTitle tag="h3">{Math.round(data.moisture * 100)}%</CardTitle>
               </div>
             </div>
            }

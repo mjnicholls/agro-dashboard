@@ -1,4 +1,5 @@
 export {default as AccumulatedChart} from './AccumulatedChart';
+export {default as CombinedHourlyDailyChart} from './CombinedHourlyDailyChart';
 export {default as DailyForecast} from './DailyForecast';
 export {default as HistoryWeather} from './HistoryWeather';
 export {default as HourlyForecast} from './HourlyForecast';

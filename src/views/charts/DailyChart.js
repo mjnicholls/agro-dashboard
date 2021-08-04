@@ -1,29 +1,13 @@
 import React from 'react';
 import {Line} from "react-chartjs-2";
-import {useSelector} from 'react-redux';
 
 import {convertTemp, convertSpeed, capitalize} from "../../utils/utils";
 import {chartOptions} from "./base";
 import {formatDateShort} from "../../utils/dateTime";
-import ChartContainer from './ui/ChartContainer';
 
-import {
-  Card,
-  CardHeader,
-  CardBody,
-  CardTitle,
-  Col,
-  Row
-} from "reactstrap";
 
-const selectUnits = state => state.units.isMetric;
-const selectOneCall = state => state.onecall;
-
-const DailyForecast = () => {
-
-  const isMetric = useSelector(selectUnits);
-  const onecall = useSelector(selectOneCall);
-
+const DailyChart = ({isMetric, data}) => {
+  
   const options = JSON.parse(JSON.stringify(chartOptions))
   options.scales.yAxes = [
     {
@@ -58,7 +42,7 @@ const DailyForecast = () => {
         autoSkip: false,
         fontStyle: "bold",
         fontColor: "#ffffff",
-        callback: el => formatDateShort(el.dt, onecall.timezone_offset)
+        callback: el => formatDateShort(el.dt, data.timezone_offset)
       }
     },
     {
@@ -172,7 +156,7 @@ const DailyForecast = () => {
     gradientStrokePurple.addColorStop(0, "rgba(119,52,169,0)"); //purple colors
 
     return {
-      labels: onecall.data.daily,
+      labels: data.daily,
       datasets: [
         {
           label: "Precipitation",
@@ -191,7 +175,7 @@ const DailyForecast = () => {
           pointHoverBorderWidth: 15,
           pointRadius: 1,
           type: 'bar',
-          data: onecall.data.daily.map(el => el.rain),
+          data: data.daily.map(el => el.rain),
         },
         {
           label: "Temperature Max",
@@ -209,7 +193,7 @@ const DailyForecast = () => {
           pointHoverRadius: 4,
           pointHoverBorderWidth: 15,
           pointRadius: 1,
-          data: onecall.data.daily.map(el => convertTemp(el.temp.max, isMetric)),
+          data: data.daily.map(el => convertTemp(el.temp.max, isMetric)),
           type: "LineWithLine"
         },
         {
@@ -227,39 +211,18 @@ const DailyForecast = () => {
           pointHoverRadius: 4,
           pointHoverBorderWidth: 15,
           pointRadius: 1,
-          data: onecall.data.daily.map(el => convertTemp(el.temp.min, isMetric)),
+          data: data.daily.map(el => convertTemp(el.temp.min, isMetric)),
           type: "LineWithLine"
         },
       ]
     }
   }
 
-  return (
-    <>
-      <Card className="card-chart daily-chart">
-        <CardHeader>
-          <Row>
-            <Col className="text-left" xs="6" sm="8">
-              <h5 className="card-category">Forecast</h5>
-              <CardTitle tag="h2">Daily</CardTitle>
-            </Col>
-          </Row>
-        </CardHeader>
-        <CardBody>
-          <ChartContainer
-            isLoading={onecall.isLoading}
-            error={onecall.error}
-          >
-            <Line
-              data={chartData}
-              options={options}
-              height={400}
-            />
-          </ChartContainer>
-        </CardBody>
-      </Card>
-    </>
-  )
+  return (<Line
+    data={chartData}
+    options={options}
+    height={400}
+  />)
 }
 
-export default DailyForecast;
+export default DailyChart;

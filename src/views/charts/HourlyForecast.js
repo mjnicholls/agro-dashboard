@@ -19,10 +19,11 @@ import ChartContainer from './ui/ChartContainer';
 const selectOneCall = state => state.onecall;
 const selectUnits = state => state.units.isMetric;
 
-const HourlyForecast = ({data, offset, isLoading, error}) => {
+const HourlyForecast = () => {
 
   const isMetric = useSelector(selectUnits);
   const onecall = useSelector(selectOneCall);
+
 
   const options = JSON.parse(JSON.stringify(chartOptions))
   options.scales.yAxes = [
@@ -74,7 +75,7 @@ const HourlyForecast = ({data, offset, isLoading, error}) => {
         autoSkip: false,
         fontStyle: "bold",
         fontColor: "#ffffff",
-        callback: el => timeInHours(el.dt, offset)
+        callback: el => timeInHours(el.dt, onecall.data.timezone_offset)
       }
     },
     {
@@ -182,7 +183,7 @@ const HourlyForecast = ({data, offset, isLoading, error}) => {
     gradientStrokeBlue.addColorStop(0, "rgba(29,140,248,0)"); //blue colors
 
     return {
-      labels: data,
+      labels: onecall.data.hourly,
       datasets: [
         {
           label: "Precipitation",
@@ -201,7 +202,7 @@ const HourlyForecast = ({data, offset, isLoading, error}) => {
           pointHoverBorderWidth: 15,
           pointRadius: 1,
           type: 'bar',
-          data: data.map(el => 0 + (el.rain && el.rain['1h']) ? el.rain['1h'] : 0 + (el.snow && el.snow['1h']) ? el.snow['1h'] : 0),
+          data: onecall.data.hourly.map(el => 0 + (el.rain && el.rain['1h']) ? el.rain['1h'] : 0 + (el.snow && el.snow['1h']) ? el.snow['1h'] : 0),
         },
         {
           label: "Temperature",
@@ -218,7 +219,7 @@ const HourlyForecast = ({data, offset, isLoading, error}) => {
           pointHoverRadius: 4,
           pointHoverBorderWidth: 15,
           pointRadius: 1,
-          data: data.map(el => convertTemp(el.temp, isMetric)),
+          data: onecall.data.hourly.map(el => convertTemp(el.temp, isMetric)),
           type: "LineWithLine"
         },
       ]
@@ -226,7 +227,6 @@ const HourlyForecast = ({data, offset, isLoading, error}) => {
   }
 
   return (
-    <>
       <Card className="card-chart hourly-chart">
         <CardHeader>
           <Row>
@@ -238,8 +238,8 @@ const HourlyForecast = ({data, offset, isLoading, error}) => {
         </CardHeader>
         <CardBody style={{overflowX: "auto"}}>
           <ChartContainer
-            isLoading={isLoading}
-            error={error} >
+            isLoading={onecall.isLoading}
+            error={onecall.error} >
             <Line
               className="hourly-chart-canvas"
               data={chartData}
@@ -250,7 +250,6 @@ const HourlyForecast = ({data, offset, isLoading, error}) => {
           </ChartContainer>
         </CardBody>
       </Card>
-    </>
   )
 }
 

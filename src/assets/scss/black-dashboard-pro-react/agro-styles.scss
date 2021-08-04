@@ -264,29 +264,12 @@ $hourly-chart-width: 3000px;
 $daily-chart-width: 1000px;
 
 
-@mixin agro-chart {
-  height: 450px !important;
-  overflow-x: auto;
-}
-
-.agro-chart {
-  @include agro-chart;
-}
-
 .hourly-chart {
-  .chart-area {
-    height: 700px;
+  .card-body {
+    overflow-x: auto;
   }
-
-  @include agro-chart;
-  width: $hourly-chart-width !important;
-
-  .chartjs-size-monitor {
+  .chart-area {
     width: $hourly-chart-width !important;
-
-    .hourly-chart-canvas {
-      width: $hourly-chart-width;
-    }
   }
 }
 
