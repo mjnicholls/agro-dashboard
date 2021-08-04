@@ -8,7 +8,7 @@ import NotificationAlert from "react-notification-alert";
 // core components
 import AdminNavbar from "components/Navbars/AdminNavbar.js";
 import Footer from "components/Footer/Footer.js";
-import Sidebar from "components/Sidebar/Sidebar.js";
+import Sidebar from "components/Sidebar/Sidebar2.js";
 // import FixedPlugin from "components/FixedPlugin/FixedPlugin.js";
 
 import routes from "routes.js";

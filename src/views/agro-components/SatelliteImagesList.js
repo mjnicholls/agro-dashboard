@@ -1,5 +1,5 @@
 import React, {useEffect, useRef} from 'react';
-import {toDate} from '../../../utils/dateTime';
+import {toDate} from '../../utils/dateTime';
 
 import {
   Card,
@@ -35,9 +35,9 @@ const SatelliteImagesList = ({ images, polygonId, selectedImage, selectImage, im
   }
 
   return (
-    <Card>
+    <Card className="satellite-images-container mb-0">
       <CardBody>
-        <div className='satellite-images-container'>
+        <div className='satellite-images-list'>
           <a
             className="satellite-arrow left"
             onClick={() => {onClickArrow("left")}}>

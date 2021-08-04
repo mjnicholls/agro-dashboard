@@ -14,19 +14,19 @@ export default function polygonsReducer(state = initialState, action) {
     }
     case POLYGON_UPDATED: {
       return state.map(item => {
-      if (item.id !== action.payload.id) {
-        return item
-      }
-      return {
-        ...item,
-        ...action.payload
-      }
-    })
+        if (item.id !== action.payload.id) {
+          return item
+        }
+        return {
+          ...item,
+          ...action.payload
+        }
+      })
     }
     case POLYGON_DELETED: {
       return state.filter((obj) => obj.id !== action.payload)
     }
     default:
       return state
-  }
+    }
 }

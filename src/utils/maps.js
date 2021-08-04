@@ -2,6 +2,7 @@ import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-load
 import {cropColorDict, mapBoxAccessToken} from '../config'
 import {serverBaseURL} from "../services/api";
 import store from "../store";
+import {setActivePoly} from "../features/activepoly/actions";
 
 mapboxgl.accessToken = mapBoxAccessToken;
 
@@ -20,7 +21,7 @@ export const activeColor = '#00FC00';
 const satelliteSourceId = 'satellite-agro';
 export const cropsSourceId = 'crops-agro';
 
-export const initialiseMap = (mapContainer, map, mapBounds, onLoad, onClick) => {
+export const initialiseMap = (mapContainer, map, mapBounds, onLoad) => {
   // if (map.current) return;
   const token = store.getState().auth.token;
   map.current = new mapboxgl.Map({
@@ -44,14 +45,15 @@ export const initialiseMap = (mapContainer, map, mapBounds, onLoad, onClick) => 
   }), 'top-right');
   map.current.on('load', function () {
     const polygons = store.getState().polygons;
+    map.current.setPadding({left: 20, right: 20, top: 20, bottom: 100})
     for (let i=0; i<polygons.length; i++) {
-      addPolygon(map.current, polygons[i], onClick)
+      addPolygon(map.current, polygons[i])
     }
     onLoad()
   })
 }
 
-const addPolygon = (map, polygon, onClick=null) => {
+const addPolygon = (map, polygon) => {
 
   if (map.getSource(polygon.id)) {
     return
@@ -106,17 +108,12 @@ const addPolygon = (map, polygon, onClick=null) => {
   let polygonBbox = new mapboxgl.LngLatBounds(polygon.bbox);
 
   map.on('click', "layer_" + polygon.id, () => {
-    map.fitBounds(polygonBbox, { padding: 20 });
-    if (onClick) {
-      onClick(polygon);
-    }
+    map.fitBounds(polygonBbox);
+    store.dispatch(setActivePoly(polygon))
   });
 
   map.on('click', "outline_" + polygon.id, () => {
-    map.fitBounds(polygonBbox, { padding: 20 });
-    if (onClick) {
-      onClick(polygon);
-    }
+    map.fitBounds(polygonBbox);
     });
   }
 

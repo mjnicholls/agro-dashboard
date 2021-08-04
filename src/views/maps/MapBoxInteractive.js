@@ -3,9 +3,16 @@ import {useSelector} from 'react-redux';
 
 import {activeColor, basicColor, initialiseMap, removeSatelliteLayer, renderSatelliteImage} from '../../utils/maps';
 import {getMapBounds} from '../../features/polygons/selectors'
+import SatelliteImagesList from "../agro-components/SatelliteImagesList";
 
-const MapBox = ({ polygons, activePolygon, setSelectedPolygon, selectedPolygon, selectedImage, selectedLayer }) => {
+const selectPolygons = state => state.polygons;
+const selectActivePoly = state => state.activepoly;
 
+//activePolygon
+const MapBox = ({ images, selectImage, imagesLoading, selectedImage, selectedLayer }) => {
+
+  const activePolygon = useSelector(selectActivePoly);
+  const polygons = useSelector(selectPolygons);
   const mapContainer = useRef(null);
   const map = useRef(null);
   const [tile, setTile] = useState(null);
@@ -25,12 +32,13 @@ const MapBox = ({ polygons, activePolygon, setSelectedPolygon, selectedPolygon, 
     // } else {
     //   initialiseMap(mapContainer.current, map, bbox, () => {setInitialised(true)}, setSelectedPolygon)
     // }
-    initialiseMap(mapContainer.current, map, mapBounds, () => {setInitialised(true)}, setSelectedPolygon)
+    initialiseMap(mapContainer.current, map, mapBounds, () => {setInitialised(true)})
   }, [polygons]);
 
   useEffect(() => {
     return () => {
       if (map.current) {
+        setInitialised(false);
         map.current.remove();
       }
     }
@@ -67,17 +75,17 @@ const MapBox = ({ polygons, activePolygon, setSelectedPolygon, selectedPolygon, 
      * apply layer
      */
     if (initialised) {
-      if (selectedPolygon) {
+      if (activePolygon) {
       // let coordinates = selectedPolygon.geo_json.geometry.coordinates[0];
       // let mapBounds = new mapboxgl.LngLatBounds(coordinates[0], coordinates[0]);
       // coordinates.reduce(function (bounds, coord) {
       //   mapBounds.extend(coord);
       // }, mapBounds);
-      map.current.fitBounds(selectedPolygon.bbox, {
+      map.current.fitBounds(activePolygon.bbox, {
         padding: 20
       });
       for (let i=0; i<polygons.length; i++) {
-        map.current.setPaintProperty("layer_" + polygons[i].id, "fill-opacity", polygons[i].id === selectedPolygon.id ? 0 : 0.5)
+        map.current.setPaintProperty("layer_" + polygons[i].id, "fill-opacity", polygons[i].id === activePolygon.id ? 0 : 0.5)
       }
     }
       else {
@@ -91,11 +99,20 @@ const MapBox = ({ polygons, activePolygon, setSelectedPolygon, selectedPolygon, 
         // }
       }
     }
-  }, [selectedPolygon])
+  }, [activePolygon])
 
  return (
   <div>
-    <div ref={mapContainer} className="map-container map-box-container" />
+    <div ref={mapContainer} className="map-container map-box-container" >
+    {activePolygon &&
+      <SatelliteImagesList
+        images={images}
+        polygonId={activePolygon.id}
+        selectedImage={selectedImage}
+        selectImage={selectImage}
+        imagesLoading={imagesLoading}
+      />}
+    </div>
   </div>
 );
 }

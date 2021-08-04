@@ -11,7 +11,7 @@ import {
 } from "reactstrap";
 import HourlyChart from "./HourlyChart";
 import DailyChart from "./DailyChart";
-import Toggler from "../agro-components/Toggler";
+import Toggler from "../agro-components/TogglerTwo";
 import classnames from "classnames";
 import ChartContainer from "./ui/ChartContainer";
 const selectOneCall = state => state.onecall;

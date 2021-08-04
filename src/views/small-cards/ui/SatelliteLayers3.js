@@ -37,7 +37,6 @@ const SatelliteLayersDropdown = ({selectedImage, selectedLayer, setSelectedLayer
   }
 
   return  (
-    selectedImage ?
       <>
         <h2 className="card-category">Layer</h2>
         <Row>
@@ -55,10 +54,11 @@ const SatelliteLayersDropdown = ({selectedImage, selectedLayer, setSelectedLayer
                   setIsOpen(!isOpen);
                 }}
               >
-                <h2 className="mb-0">{selectedLayer.label}</h2>
+                <h2 className="mb-0">{selectedLayer ? selectedLayer.label : "True color"}</h2>
                 <i className="tim-icons icon-minimal-down dropdown-caret"/>
               </div>
-              <DropdownMenu aria-labelledby="dropdownMenuButton">
+              {
+                selectedImage ? <DropdownMenu aria-labelledby="dropdownMenuButton">
                 {layers.map((layer, index) => {
                   if (layer.value !== selectedLayer.value) {
                     return (<DropdownItem
@@ -76,11 +76,13 @@ const SatelliteLayersDropdown = ({selectedImage, selectedLayer, setSelectedLayer
                   }
                   return null
                 })}
-              </DropdownMenu>
+              </DropdownMenu> : null
+              }
+
             </div>
           </Col>
         </Row>
-      </> : null
+      </>
     )
 }
 

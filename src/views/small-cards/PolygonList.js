@@ -1,4 +1,5 @@
 import React from 'react';
+import {useSelector, useDispatch} from 'react-redux';
 
 import {
   Card,
@@ -9,13 +10,20 @@ import {
   Table,
 } from "reactstrap";
 import classNames from "classnames";
-import {toDate} from "../../utils/dateTime";
+import {setActivePoly} from "../../features/activepoly/actions";
 
 
-const PolygonTableSmall = ({ polygons, selectedPolygon, setSelectedPolygon }) => {
+const selectActivePoly = state => state.activepoly;
+const selectPolygons = state => state.polygons;
+
+const PolygonTableSmall = () => {
+
+  const activePolygon = useSelector(selectActivePoly);
+  const polygons = useSelector(selectPolygons);
+  const dispatch = useDispatch();
 
   return (
-    <Card style={{height: "100%"}}>
+    <Card className="small-card">
       <CardHeader>
         <Row>
           <Col className="horizontal-container justify card-stats">
@@ -23,7 +31,7 @@ const PolygonTableSmall = ({ polygons, selectedPolygon, setSelectedPolygon }) =>
               <h2 className="card-category">All</h2>
               <h2 className="mb-0">Polygons</h2>
             </div>
-            <a onClick={() => setSelectedPolygon(null)}>
+            <a onClick={() => dispatch(setActivePoly(null))}>
               <div className="info-icon text-center icon-primary">
                 <i className="tim-icons icon-bullet-list-67" />
               </div>
@@ -31,15 +39,15 @@ const PolygonTableSmall = ({ polygons, selectedPolygon, setSelectedPolygon }) =>
           </Col>
         </Row>
       </CardHeader>
-      <CardBody className="current-card">
+      <CardBody>
         <Table>
           <tbody>
             {polygons.map(polygon => (
               <tr
                 className={classNames("clickable-table-row", {
-                  "highlight-background": polygon.id === selectedPolygon.id,
+                  "highlight-background": polygon.id === activePolygon.id,
                 })}
-                onClick={() => {setSelectedPolygon(polygon)}}
+                onClick={() => {dispatch(setActivePoly(polygon))}}
                 key={`polygon_${polygon.id}`} >
                 <td>{polygon.name}</td>
                 <td className="text-right">{polygon.area.toFixed(1)}ha</td>

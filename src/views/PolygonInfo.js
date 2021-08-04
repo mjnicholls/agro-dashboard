@@ -7,7 +7,7 @@ import {
   Row,
 } from "reactstrap";
 
-import Toggler from './agro-components/Toggler';
+import Toggler from './agro-components/TogglerTwo';
 import SatellitePage from './SatellitePage';
 import WeatherPage from './WeatherPage';
 import {userLevels} from '../config';

@@ -4,7 +4,7 @@ $fontColorBlack: #595959;
 $fontColorBlue: #525f7f;
 $fontColorGrey: rgba(255, 255, 255, 0.5);
 $activeWhite: rgba(255, 255, 255, 0.1);
-$mapHeight: 350px;
+$mapHeight: 400px;
 
 
 .justify {
@@ -34,7 +34,7 @@ $mapHeight: 350px;
 .leaflet-map-container {
   width: 100%;
   height: 100%;
-  min-height: 250px;
+  min-height: $mapHeight;
   position: relative;
   .leaflet-map {
     height: 100%
@@ -48,68 +48,97 @@ $mapHeight: 350px;
   position: relative;
 }
 
-.current-card {
+.draw-container {
+  min-height: 500px;
+}
+
+.small-card {
   height: $mapHeight;
-  overflow: auto
+  overflow: auto;
+  position: relative;
+
+  .card-header {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background-color: $card-black-background !important;
+    padding: 15px;
+  }
+}
+
+.map-row {
+  max-height: $mapHeight;
+  overflow: hidden;
+  padding-left: 0;
+  padding-right: 0;
 }
 
 .satellite-images-container {
-  position: relative;
-  @include horizontal-container;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  border-radius: 0;
 
-  .satellite-image-list {
-    display: flex;
-    flex-direction: row;
-    overflow-x: auto;
-    .satellite-image {
-      padding: 5px 10px;
-      border-right: 1px solid rgba(255, 255, 255, 0.1);
-      cursor: pointer;
-      &:hover {
-        background-color: rgba(255, 255, 255, 0.1);
+  .satellite-images-list {
+    position: relative;
+    @include horizontal-container;
+
+    .satellite-image-list {
+      display: flex;
+      flex-direction: row;
+      overflow-x: auto;
+      .satellite-image {
+        padding: 5px 10px;
+        border-right: 1px solid rgba(255, 255, 255, 0.1);
+        cursor: pointer;
+        &:hover {
+          background-color: rgba(255, 255, 255, 0.1);
+          border-right-color: transparent;
+        }
+      }
+      .active {
+        background-color: $activeWhite;
         border-right-color: transparent;
       }
     }
-    .active {
-      background-color: $activeWhite;
-      border-right-color: transparent;
+    .satellite-arrow {
+      cursor: pointer;
+      color: rgba(255, 255, 255, 0.2);
+      &.left {
+        padding-right: 5px;
+      }
+      &.right {
+        padding-left: 5px;
+      }
+      &:hover {
+        color: rgba(255, 255, 255, 0.7);
+      }
     }
-  }
-  .satellite-arrow {
-    cursor: pointer;
-    color: rgba(255, 255, 255, 0.2);
-    &.left {
-      padding-right: 5px;
-    }
-    &.right {
-      padding-left: 5px;
+
+    .satellite-pagination-arrow {
+      position: absolute;
+      z-index: 1;
+      top: 0;
+      bottom: 0;
+      display: none;
+      align-items: center;
+      &.left {
+        left: 0;
+      }
+      &.right {
+        right: 0;
+      }
     }
     &:hover {
-      color: rgba(255, 255, 255, 0.7);
-    }
-  }
-
-  .satellite-pagination-arrow {
-    position: absolute;
-    z-index: 1;
-    top: 0;
-    bottom: 0;
-    display: none;
-    align-items: center;
-    &.left {
-      left: 0;
-    }
-    &.right {
-      right: 0;
-    }
-  }
-
-  &:hover {
-    .satellite-pagination-arrow {
-      display: flex;
+      .satellite-pagination-arrow {
+        display: flex;
+      }
     }
   }
 }
+
 
 .agro-dropdown {
   cursor: pointer;

@@ -48,32 +48,32 @@ const ImageStats = ({images, selectedImage, setSelectedImage, selectedLayer, set
     }
   }, [selectedImage, selectedLayer])
   return (
-    <Card style={{height: "100%"}}>
+    <Card className="small-card">
+      <CardHeader>
+        <Row>
+          <Col xs="8">
+            <SatelliteLayers3
+              name={name}
+              selectedImage={selectedImage}
+              selectedLayer={selectedLayer}
+              setSelectedLayer={setSelectedLayer}
+            />
+          </Col>
+          <Col xs="4" className="text-right">
+            <SatelliteCalendar
+              images={images}
+              selectedImage={selectedImage}
+              setSelectedImage={setSelectedImage}
+            />
+          </Col>
+        </Row>
+      </CardHeader>
+      <CardBody>
       <ChartContainer
         isLoading={isLoading}
         error={error}
       >
         {stats ? <div>
-          <CardHeader>
-            <Row>
-              <Col xs="8">
-                <SatelliteLayers3
-                  name={name}
-                  selectedImage={selectedImage}
-                  selectedLayer={selectedLayer}
-                  setSelectedLayer={setSelectedLayer}
-                />
-              </Col>
-              <Col xs="4" className="text-right">
-                <SatelliteCalendar
-                  images={images}
-                  selectedImage={selectedImage}
-                  setSelectedImage={setSelectedImage}
-                />
-              </Col>
-            </Row>
-          </CardHeader>
-          <CardBody className="current-card">
             <Table>
             <thead>
               <tr>
@@ -108,9 +108,9 @@ const ImageStats = ({images, selectedImage, setSelectedImage, selectedLayer, set
                </tr>
              </tbody>
           </Table>
-          </CardBody>
         </div> : null}
-    </ChartContainer>
+      </ChartContainer>
+    </CardBody>
   </Card>)
 }
 

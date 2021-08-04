@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from "react";
 import { Link } from "react-router-dom";
+import {useDispatch} from 'react-redux';
 
 import classnames from "classnames";
 import {
@@ -19,9 +20,14 @@ import PolygonDelete from './PolygonDelete';
 import ReactBSAlert from "react-bootstrap-sweetalert";
 import Shape from "./Shape";
 import {toDate} from "../../utils/dateTime";
+import {setActivePoly} from "../../features/activepoly/actions";
 
-const PolygonTable = ({data, setActivePolygon, setSelectedPolygon}) => {
+
+const PolygonTable = ({data, setActivePolygon}) => {
   // pagination должно взаимодействовать с tableData
+
+  const dispatch = useDispatch();
+
   const [tableData, setTableData] = useState(data);
   const [page, setPage] = useState(0);
   const [pageData, setPageData] = useState([]);
@@ -170,7 +176,8 @@ const PolygonTable = ({data, setActivePolygon, setSelectedPolygon}) => {
             </thead>
             <tbody>
               {pageData.map((polygon) =>
-                (<tr key={"polygon_" + polygon.id} onClick={() => setSelectedPolygon(polygon)}>
+                (<tr key={"polygon_" + polygon.id}
+                     onClick={() => dispatch(setActivePoly(polygon))}>
                   <td><Shape polygon={polygon} /></td>
                   <td>{polygon.name}</td>
                   <td>{toDate(polygon.created_at)}</td>

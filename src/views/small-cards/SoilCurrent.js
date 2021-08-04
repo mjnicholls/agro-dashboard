@@ -44,7 +44,7 @@ const CurrentSoil = ({ polyId }) => {
     <Card>
       <CardHeader>
         <Row>
-          <Col className="text-left" sm="7">
+          <Col className="text-left">
             <h5 className="card-category">Current</h5>
             <CardTitle tag="h2">Soil data</CardTitle>
           </Col>

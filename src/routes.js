@@ -8,6 +8,15 @@ import Lock from "views/pages/Lock.js";
 import PolygonNew from 'views/PolygonNew';
 
 const routes = [
+  // {
+  //   path: "/polygons/:id",
+  //   name: "Polygon Satellite",
+  //   rtlName: "لوحة القيادة",
+  //   icon: "tim-icons icon-image-02",
+  //   component: DashboardMain,
+  //   layout: "/dashboard",
+  //   hidden: true
+  // },
   {
     path: "/polygons",
     name: "My polygons",
@@ -15,15 +24,7 @@ const routes = [
     icon: "tim-icons icon-bullet-list-67",
     component: DashboardMain,
     layout: "/dashboard",
-  },
-  {
-    path: "/polygon/:id",
-    name: "Polygon Satellite",
-    rtlName: "لوحة القيادة",
-    icon: "tim-icons icon-image-02",
-    component: PolygonSatellite,
-    layout: "/dashboard",
-    hidden: true
+    // onclick: "all"
   },
   {
     path: "/create",
@@ -33,24 +34,24 @@ const routes = [
     component: PolygonNew,
     layout: "/dashboard",
   },
-  {
-    path: "/satellite",
-    name: "Satellite data & statistics",
-    rtlName: "لوحة القيادة",
-    icon: "tim-icons icon-image-02",
-    component: DashboardMain,
-    layout: "/dashboard",
-  },
-  {
-    path: "/weather",
-    name: "Weather Data",
-    rtlName: "لوحة القيادة",
-    icon: "tim-icons icon-chart-pie-36",
-    component: DashboardMain,
-    layout: "/dashboard",
-  },
-
-
+  // {
+  //   path: "/polygons",
+  //   name: "Satellite data & statistics",
+  //   rtlName: "لوحة القيادة",
+  //   icon: "tim-icons icon-image-02",
+  //   component: DashboardMain,
+  //   layout: "/no-url",
+  //   onclick: "satellite"
+  // },
+  // {
+  //   path: "/polygons",
+  //   name: "Weather Data",
+  //   rtlName: "لوحة القيادة",
+  //   icon: "tim-icons icon-chart-pie-36",
+  //   component: DashboardMain,
+  //   layout: "/dashboard",
+  //   onclick: "weather"
+  // },
   {
     collapse: true,
     name: "Pages",

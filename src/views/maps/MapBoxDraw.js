@@ -68,7 +68,7 @@ const MapBox = ({setArea, setGeoJson, setIntersection, drawRef, mode}) => {
     // } else {
     //   initialiseMap(mapContainer.current, map, bbox, () => setInitialised(true), () => {})
     // }
-    initialiseMap(mapContainer.current, map, mapBounds, () => setInitialised(true), () => {})
+    initialiseMap(mapContainer.current, map, mapBounds, () => setInitialised(true))
   }, [polygons]);
 
   useEffect(() => {

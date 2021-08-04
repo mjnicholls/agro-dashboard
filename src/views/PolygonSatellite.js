@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {toDate} from '../utils/dateTime';
 import SatellitePage from './SatellitePage';
 import WeatherPage from './WeatherPage';
-import SatelliteImagesList from './small-cards/ui/SatelliteImages'
+import SatelliteImagesList from './agro-components/SatelliteImagesList'
 import MapBox from './maps/MapBoxTiles'
 import {
   Button,

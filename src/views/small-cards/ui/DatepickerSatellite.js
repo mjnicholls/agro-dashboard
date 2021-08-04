@@ -38,7 +38,7 @@ const SatelliteCalendar = ({images, selectedImage, setSelectedImage}) => {
           <div className="agro-calendar-container">
             <DatePicker
               timeFormat={false}
-              value={moment(selectedImage.dt * 1000)}
+              value={selectedImage ? moment(selectedImage.dt * 1000) : null}
               isValidDate={ isDateAvailable }
               onChange={onSelectDate}
               className="satellite-calendar calendar-right"
