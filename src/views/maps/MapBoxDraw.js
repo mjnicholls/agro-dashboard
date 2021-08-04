@@ -168,7 +168,7 @@ const MapBox = ({setArea, setGeoJson, setIntersection, drawRef, mode}) => {
 
   return (
     <div>
-      <div ref={mapContainer} className="map-container map-box-container" />
+      <div ref={mapContainer} className="map-container map-box-container draw-container" />
     </div>
   );
 }

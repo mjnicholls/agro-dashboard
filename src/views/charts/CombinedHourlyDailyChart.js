@@ -25,8 +25,8 @@ const HourlyDailyChart = () => {
 
   return (
     <Card className={classnames("card-chart daily-chart ", {
-          "hourly-chart": isHourly && onecall.data,
-        })}>
+      "hourly-chart": isHourly && onecall.data,
+    })}>
         <CardHeader>
           <Row>
             <Col className="text-left" xs="6">
