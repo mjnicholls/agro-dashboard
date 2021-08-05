@@ -74,6 +74,7 @@ const Dashboard = () => {
                 images={images}
                 selectImage={setSelectedImage}
                 imagesLoading={imagesLoading}
+                isSatellitePage={isSatellitePage}
               />
             </Col>
 

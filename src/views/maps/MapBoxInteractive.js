@@ -9,7 +9,7 @@ const selectPolygons = state => state.polygons;
 const selectActivePoly = state => state.activepoly;
 
 //activePolygon
-const MapBox = ({ images, selectImage, imagesLoading, selectedImage, selectedLayer }) => {
+const MapBox = ({ images, selectImage, imagesLoading, selectedImage, selectedLayer, isSatellitePage }) => {
 
   const activePolygon = useSelector(selectActivePoly);
   const polygons = useSelector(selectPolygons);
@@ -104,7 +104,7 @@ const MapBox = ({ images, selectImage, imagesLoading, selectedImage, selectedLay
  return (
   <div>
     <div ref={mapContainer} className="map-container map-box-container" >
-    {activePolygon &&
+    {(activePolygon && isSatellitePage) &&
       <SatelliteImagesList
         images={images}
         polygonId={activePolygon.id}

@@ -88,7 +88,6 @@ const CombinedWeatherSoilCurrent = ({selectedPolygon}) => {
           <div className="stats">
             <i className="tim-icons icon-alert-circle-exc" /> Weather alert
           </div>
-          <hr />
         </> : onecall.isLoading ? <div>Fetching</div> : onecall.error ? <div>{onecall.error}</div> : null}
 
         {isLoading ?

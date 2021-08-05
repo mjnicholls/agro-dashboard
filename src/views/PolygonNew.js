@@ -131,12 +131,28 @@ const PolygonNew = () => {
           </Col>
           <Col md="4">
             <Form id="RegisterValidation">
-              <Card>
+              <Card className="draw-container" style={{overflow: "auto"}}>
                 <CardHeader>
-                  <CardTitle tag="h4">New polygon</CardTitle>
+                  <CardTitle tag="h2">New polygon</CardTitle>
                 </CardHeader>
 
                 <CardBody>
+
+                  <FormGroup className="mb-3">
+                    <label>Polygon name *</label>
+                    <Row>
+                      <Col>
+                        <Input
+                          className={error.name ? "danger-border" : ""}
+                          name="name"
+                          type="text"
+                          onChange={e => setName(e.target.value)}
+                          value={name}
+                        />
+                      </Col>
+                    </Row>
+                  </FormGroup>
+
                   <Nav className="nav-pills-info" pills>
                   <NavItem>
                     <NavLink
@@ -173,6 +189,9 @@ const PolygonNew = () => {
                     {/*</NavLink>*/}
                   {/*</NavItem>*/}
                 </Nav>
+
+
+
                 <TabContent className="tab-space agro-tab" activeTab={mode}>
                   <TabPane tabId="draw">
                     Draw polygon
@@ -187,10 +206,11 @@ const PolygonNew = () => {
                     {rules()}
                   </TabPane>
                   <TabPane tabId="select">
-                    Click on a polygon to select.
-                    <br />
-                    Double-click to edit.
-                    <br /><br />
+                    <ol>
+                      <li>Click on a polygon to select.</li>
+                      <li>Double-click to edit.</li>
+                      <li>If you can't see crops...</li>
+                    </ol>
                     {rules()}
                   </TabPane>
                   <TabPane tabId="import">
@@ -199,20 +219,7 @@ const PolygonNew = () => {
                   </TabPane>
                 </TabContent>
 
-                <FormGroup>
-                  <label>Polygon name *</label>
-                  <Row>
-                    <Col>
-                      <Input
-                        className={error.name ? "danger-border" : ""}
-                        name="name"
-                        type="text"
-                        onChange={e => setName(e.target.value)}
-                        value={name}
-                      />
-                    </Col>
-                  </Row>
-                </FormGroup>
+
 
                 <div
                   className="category form-category"
