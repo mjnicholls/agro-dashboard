@@ -1,33 +1,22 @@
 import React from 'react';
-import { AccumulatedChart, NdviChart, SoilChart } from './charts'
+import { NdviChart } from './charts'
 
 import {
   Row,
   Col,
 } from "reactstrap";
 
-const SatellitePage = ({selectedPolygon, userLevel}) => {
+const SatellitePage = ({selectedPolygon}) => {
 
   return (
-    <>
-      <Row>
-        <Col>
-          <NdviChart
-            id={selectedPolygon.id}
-           />
-        </Col>
-      </Row>
-        { userLevel && <Row>
-          <Col>
-            <SoilChart id={selectedPolygon.id} />
-          </Col>
-        </Row> }
-        { userLevel && <Row>
-          <Col>
-            <AccumulatedChart id={selectedPolygon.id} />
-          </Col>
-        </Row> }
-    </>
+    <Row>
+      <Col>
+        <NdviChart
+          id={selectedPolygon.id}
+         />
+      </Col>
+    </Row>
+
   )
 }
 

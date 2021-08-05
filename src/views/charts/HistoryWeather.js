@@ -1,54 +1,29 @@
 import React, {useEffect, useState} from 'react';
 import {useSelector} from 'react-redux';
 
-import {
-  Card,
-  CardHeader,
-  CardBody,
-  CardTitle,
-  Row,
-  Col,
-} from "reactstrap";
-
-import {toDateShort, getDateInPast, getStartDateByTariff} from "../../utils/dateTime";
+import {toDateShort} from "../../utils/dateTime";
 import {convertTemp} from '../../utils/utils'
-import DatePickerChart from "./ui/DatePickerFromTo";
 
 import ChartContainer from './ui/ChartContainer';
 import {Line} from "react-chartjs-2";
 import {chartOptions} from "./base";
 import {getHistoryWeatherData} from "../../services/api/chartApi";
 
-
-const selectLimit = state => state.auth.limits.history.weather_history;
 const selectUnits = state => state.units.isMetric;
 
+const HistoryWeather = ({polyId, startDate, endDate}) => {
 
-const HistoryWeather = ({polygonId}) => {
-
-  const [startDate, setStartDate] = useState(null);
-  const [endDate, setEndDate] = useState(null);
   const [data, setData] = useState([]);
-
-  const limit = useSelector(selectLimit);
-  const limitStartDate = getStartDateByTariff(limit);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
   const isMetric = useSelector(selectUnits);
 
   useEffect(() => {
-    let now = new Date();
-    let dateInPast = getDateInPast(1);
-    setStartDate(dateInPast.getTime());
-    setEndDate(now.getTime());
-  }, [])
-
-  useEffect(() => {
-    if (startDate && endDate) {
+    if (startDate && endDate && polyId) {
       setIsLoading(true);
       setError(null);
-      getHistoryWeatherData(polygonId, startDate, endDate)
+      getHistoryWeatherData(polyId, startDate, endDate)
         .then(response => {
           if (response) {
             if (response.length) {
@@ -70,7 +45,7 @@ const HistoryWeather = ({polygonId}) => {
         setIsLoading(false);
       })
     }
-  }, [polygonId, startDate, endDate])
+  }, [polyId, startDate, endDate])
 
   const options = JSON.parse(JSON.stringify(chartOptions))
 
@@ -208,39 +183,17 @@ const HistoryWeather = ({polygonId}) => {
     })
   }
 
-
-  return ( <Card className="card-chart">
-      <CardHeader>
-        <Row>
-          <Col className="text-left" xs="6" sm="8">
-            <h5 className="card-category">Historical</h5>
-            <CardTitle tag="h2">Weather data</CardTitle>
-          </Col>
-          <Col xs="6" sm="4">
-            <DatePickerChart
-              startDate={startDate}
-              setStartDate={setStartDate}
-              endDate={endDate}
-              setEndDate={setEndDate}
-              limitStartDate={limitStartDate}
-            />
-          </Col>
-        </Row>
-      </CardHeader>
-      <CardBody>
-        <ChartContainer
-          isLoading={isLoading}
-          error={error}
-        >
-          <Line
-            data={chartData}
-            options={options}
-          />
-        </ChartContainer>
-      </CardBody>
-    </Card>)
-
-
+  return (
+    <ChartContainer
+      isLoading={isLoading}
+      error={error}
+    >
+      <Line
+        data={chartData}
+        options={options}
+      />
+    </ChartContainer>
+  )
 }
 
 export default HistoryWeather;

@@ -4,6 +4,12 @@ import {useSelector} from 'react-redux';
 import ReactBSAlert from "react-bootstrap-sweetalert";
 import {Line} from "react-chartjs-2";
 import {
+  Button,
+  Card,
+  CardFooter,
+  CardHeader,
+  CardBody,
+  CardTitle,
   Form,
   FormGroup,
   Input,
@@ -15,17 +21,29 @@ import {
 import {getAccumulatedData} from '../../services/api/chartApi';
 import {getDateInPast, getStartDateByTariff, toDateShort} from '../../utils/dateTime';
 import {chartOptions} from "./base";
+import DatePickerChart from './ui/DatePickerFromTo';
 import AccumulatedInfo from '../info/AccumulatedInfo';
 import ChartContainer from './ui/ChartContainer';
 
 import {convertTemp} from '../../utils/utils';
 import Slider from "nouislider";
 
+const selectLimitPrec = state => state.auth.limits.history.weather_history_accumulated_precipitation;
+const selectLimitTemp = state => state.auth.limits.history.weather_history_accumulated_temperature;
 const selectUnits = state => state.units.isMetric;
 
-const AccumulatedChart = ({polyId, startDate, endDate}) => {
+const AccumulatedChart = ({id}) => {
 
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
   const [data, setData] = useState([]);
+
+  const limitPrec = useSelector(selectLimitPrec);
+  const limitTemp = useSelector(selectLimitTemp);
+
+  // выбрать из двух лимитов более позднюю дату
+  const limit = limitPrec.depth <= limitTemp.depth ? limitPrec : limitTemp;
+  const limitStartDate = getStartDateByTariff(limit);
 
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -55,12 +73,19 @@ const AccumulatedChart = ({polyId, startDate, endDate}) => {
     }
   }, []);
 
+  useEffect(() => {
+    let now = new Date();
+    let dateInPast = getDateInPast(6);
+
+    setStartDate(dateInPast.getTime());
+    setEndDate(now.getTime());
+  }, [])
 
   useEffect(() => {
-    if (startDate && endDate && polyId) {
+    if (startDate && endDate && id) {
       setIsLoading(true);
       setError(null);
-      getAccumulatedData(polyId, startDate, endDate)
+      getAccumulatedData(id, startDate, endDate)
         .then(res => {
           setData(res);
           setRainData(res.map(el => el.rain.toFixed(2)));
@@ -76,7 +101,7 @@ const AccumulatedChart = ({polyId, startDate, endDate}) => {
           setIsLoading(false);
         })
     }
-  }, [startDate, endDate, polyId])
+  }, [startDate, endDate, id])
 
   useEffect(() => {
     let newData = tempData.map(el => el >= threshold ? el - threshold : 0)
@@ -199,6 +224,32 @@ const AccumulatedChart = ({polyId, startDate, endDate}) => {
   }
 
   return (
+    <>
+      {alert}
+      <Card className="card-chart">
+      <CardHeader>
+        <Row>
+          <Col className="text-left" sm="7">
+            <h5 className="card-category">Historical</h5>
+            <CardTitle tag="h2">Accumulated Parameters</CardTitle>
+          </Col>
+          <Col sm="4">
+            <DatePickerChart
+              startDate={startDate}
+              setStartDate={setStartDate}
+              endDate={endDate}
+              setEndDate={setEndDate}
+              limitStartDate={limitStartDate}
+            />
+          </Col>
+          <Col sm="1">
+            <Button className="btn-round btn-icon" color="info" onClick={htmlAlert}>
+              <i className="tim-icons icon-alert-circle-exc" />
+            </Button>
+          </Col>
+        </Row>
+      </CardHeader>
+      <CardBody>
         <ChartContainer
           isLoading={isLoading}
           error={error}
@@ -207,7 +258,10 @@ const AccumulatedChart = ({polyId, startDate, endDate}) => {
             data={chartData}
             options={options}
           />
-          <hr />
+        </ChartContainer>
+      </CardBody>
+      <CardFooter>
+        <hr />
         <Form className="form-horizontal">
           <Row style={{justifyContent: "flex-end"}}>
             <Label sm="3">Threshold, °{isMetric ? 'C' : 'F'}</Label>
@@ -224,7 +278,9 @@ const AccumulatedChart = ({polyId, startDate, endDate}) => {
             </Col>
           </Row>
         </Form>
-        </ChartContainer>
+      </CardFooter>
+    </Card>
+    </>
   )
 }
 

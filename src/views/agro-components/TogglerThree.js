@@ -7,10 +7,10 @@ import {
   Button,
   ButtonGroup,
 } from "reactstrap";
-import {setActivePoly} from "../../features/activepoly/actions";
+import {setActivePoly} from "../../features/state/actions";
 
 const selectPolygons = state => state.polygons;
-const selectActivePoly = state => state.activepoly;
+const selectActivePoly = state => state.state.polygon;
 
 const TogglerThree = ({activePage, setActivePage, setIsSatellitePage, labelOne, labelTwo, labelThree}) => {
 

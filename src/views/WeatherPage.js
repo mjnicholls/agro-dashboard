@@ -8,46 +8,13 @@ import {
 } from "reactstrap";
 
 
-const WeatherPage = ({polygon}) => {
+const WeatherPage = ({polyId}) => {
 
   return (
    <>
-     {/*<Row>*/}
-       {/*<Col sm="4">*/}
-         {/*<CurrentWeather*/}
-           {/*current={data.current}*/}
-           {/*minutely={data.minutely}*/}
-           {/*isLoading={isLoading}*/}
-           {/*error={error} />*/}
-       {/*</Col>*/}
-       {/*<Col sm="4">*/}
-         {/*<CurrentSoil*/}
-           {/*polyId={polygon.id}*/}
-         {/*/>*/}
-       {/*</Col>*/}
-       {/*<Col sm="4">*/}
-         {/*<WeatherAlerts*/}
-           {/*alerts={data.alerts}*/}
-           {/*isLoading={isLoading}*/}
-           {/*error={error}*/}
-         {/*/>*/}
-       {/*</Col>*/}
-
-     {/*</Row>*/}
     <Row>
       <Col>
-        {/*<HourlyForecast />*/}
-        <CombinedHourlyDailyChart />
-      </Col>
-    </Row>
-     {/*<Row>*/}
-       {/*<Col>*/}
-         {/*<DailyForecast />*/}
-       {/*</Col>*/}
-     {/*</Row>*/}
-    <Row>
-      <Col>
-        <HistoryWeather polygonId={polygon.id}/>
+        <CombinedHourlyDailyChart polyId={polyId}/>
       </Col>
     </Row>
    </>

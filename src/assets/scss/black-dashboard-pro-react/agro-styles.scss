@@ -217,6 +217,7 @@ $mapHeight: 400px;
   }
 }
 
+
 .agro-calendar-container {
   .calendar-right {
     .rdtPicker {
@@ -305,9 +306,16 @@ $daily-chart-width: 1000px;
 
 .daily-chart {
   .chart-area {
-    height: 450px;
+    height: 450px !important;
   }
 }
+
+.agro-chart {
+  .chart-area {
+    height: 350px;
+  }
+}
+
 
 .sweet-alert {
   h2 {

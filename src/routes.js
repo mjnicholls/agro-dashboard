@@ -24,7 +24,28 @@ const routes = [
     icon: "tim-icons icon-bullet-list-67",
     component: DashboardMain,
     layout: "/dashboard",
-    // onclick: "all"
+    isFake: true,
+    onclick: "all"
+  },
+  {
+    path: "/polygons",
+    name: "Satellite data & statistics",
+    rtlName: "لوحة القيادة",
+    icon: "tim-icons icon-image-02",
+    component: DashboardMain,
+    layout: "/dashboard",
+    isFake: true,
+    onclick: "satellite"
+  },
+  {
+    path: "/polygons",
+    name: "Weather Data",
+    rtlName: "لوحة القيادة",
+    icon: "tim-icons icon-chart-pie-36",
+    component: DashboardMain,
+    layout: "/dashboard",
+    isFake: true,
+    onclick: "weather"
   },
   {
     path: "/create",
@@ -34,24 +55,7 @@ const routes = [
     component: PolygonNew,
     layout: "/dashboard",
   },
-  // {
-  //   path: "/polygons",
-  //   name: "Satellite data & statistics",
-  //   rtlName: "لوحة القيادة",
-  //   icon: "tim-icons icon-image-02",
-  //   component: DashboardMain,
-  //   layout: "/no-url",
-  //   onclick: "satellite"
-  // },
-  // {
-  //   path: "/polygons",
-  //   name: "Weather Data",
-  //   rtlName: "لوحة القيادة",
-  //   icon: "tim-icons icon-chart-pie-36",
-  //   component: DashboardMain,
-  //   layout: "/dashboard",
-  //   onclick: "weather"
-  // },
+
   {
     collapse: true,
     name: "Pages",

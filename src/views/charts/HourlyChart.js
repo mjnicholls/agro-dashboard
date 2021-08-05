@@ -4,9 +4,10 @@ import {Line} from "react-chartjs-2";
 import {chartOptions} from "./base";
 import {capitalize, convertSpeed, convertTemp} from "../../utils/utils";
 import {timeInHours} from "../../utils/dateTime";
+import ChartContainer from "./ui/ChartContainer";
 
 
-const HourlyChart = ({isMetric, data}) => {
+const HourlyChart = ({isMetric, onecall}) => {
   
   const options = JSON.parse(JSON.stringify(chartOptions))
   options.scales.yAxes = [
@@ -58,7 +59,7 @@ const HourlyChart = ({isMetric, data}) => {
         autoSkip: false,
         fontStyle: "bold",
         fontColor: "#ffffff",
-        callback: el => timeInHours(el.dt, data.timezone_offset)
+        callback: el => timeInHours(el.dt, onecall.data.timezone_offset)
       }
     },
     {
@@ -157,7 +158,7 @@ const HourlyChart = ({isMetric, data}) => {
     gradientStrokeBlue.addColorStop(0, "rgba(29,140,248,0)"); //blue colors
 
     return {
-      labels: data.hourly,
+      labels: onecall.data.hourly,
       datasets: [
         {
           label: "Precipitation",
@@ -176,7 +177,7 @@ const HourlyChart = ({isMetric, data}) => {
           pointHoverBorderWidth: 15,
           pointRadius: 1,
           type: 'bar',
-          data: data.hourly.map(el => 0 + (el.rain && el.rain['1h']) ? el.rain['1h'] : 0 + (el.snow && el.snow['1h']) ? el.snow['1h'] : 0),
+          data: onecall.data.hourly.map(el => 0 + (el.rain && el.rain['1h']) ? el.rain['1h'] : 0 + (el.snow && el.snow['1h']) ? el.snow['1h'] : 0),
         },
         {
           label: "Temperature",
@@ -193,7 +194,7 @@ const HourlyChart = ({isMetric, data}) => {
           pointHoverRadius: 4,
           pointHoverBorderWidth: 15,
           pointRadius: 1,
-          data: data.hourly.map(el => convertTemp(el.temp, isMetric)),
+          data: onecall.data.hourly.map(el => convertTemp(el.temp, isMetric)),
           type: "LineWithLine"
         },
       ]
@@ -201,13 +202,17 @@ const HourlyChart = ({isMetric, data}) => {
   }
 
   return (
-    <Line
-      className="hourly-chart-canvas"
-      data={chartData}
-      options={options}
-      height={500}
-      width={2000}
-    />
+    <ChartContainer
+            isLoading={onecall.isLoading}
+            error={onecall.error} >
+      <Line
+        className="hourly-chart-canvas"
+        data={chartData}
+        options={options}
+        height={500}
+        width={2000}
+      />
+    </ChartContainer>
   )
 }
 

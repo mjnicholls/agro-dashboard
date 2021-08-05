@@ -2,7 +2,7 @@ import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-load
 import {cropColorDict, mapBoxAccessToken} from '../config'
 import {serverBaseURL} from "../services/api";
 import store from "../store";
-import {setActivePoly} from "../features/activepoly/actions";
+import {setActivePoly} from "../features/state/actions";
 
 mapboxgl.accessToken = mapBoxAccessToken;
 

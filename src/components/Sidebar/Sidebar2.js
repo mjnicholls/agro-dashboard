@@ -7,16 +7,20 @@ import PerfectScrollbar from "perfect-scrollbar";
 
 // reactstrap components
 import { Nav, Collapse } from "reactstrap";
-import {setActivePoly} from "../../features/activepoly/actions";
-
+import {setActivePoly, setSatelliteMode} from "../../features/state/actions";
 var ps;
 
 const selectPolygons = state => state.polygons;
+const selectActivePoly = state => state.state.polygon;
+const selectIsSatelliteMode = state => state.state.isSatelliteMode;
 
 const Sidebar = (props) => {
 
+
+  const activePolygon = useSelector(selectActivePoly);
   const dispatch = useDispatch();
   const polygons = useSelector(selectPolygons);
+  const isSatelliteMode = useSelector(selectIsSatelliteMode);
 
   const [state, setState] = React.useState({});
   const sidebarRef = React.useRef(null);
@@ -73,12 +77,51 @@ const Sidebar = (props) => {
   const createLinks = (routes) => {
 
     const { rtlActive } = props;
+
+    const onClickAction = (prop) => {
+      /** Define actions for menu items without a page */
+      if (prop.onclick) {
+        if (prop.onclick === "all") {
+          dispatch(setActivePoly(null))
+          if (location.pathname !== prop.layout + prop.path) {
+            props.history.push(prop.layout + prop.path)
+          }
+          // if (!isSatelliteMode) {
+          //   dispatch(setSatelliteMode(true))
+          // }
+        }
+        else if (prop.onclick === "satellite") {
+          if (location.pathname !== prop.layout + prop.path) {
+            props.history.push(prop.layout + prop.path)
+          }
+          if (!activePolygon && polygons.length) {
+            dispatch(setActivePoly(polygons[0]))
+          }
+          if (!isSatelliteMode && polygons.length) {
+            dispatch(setSatelliteMode(true))
+          }
+        }
+        else if (prop.onclick === "weather") {
+          if (location.pathname !== prop.layout + prop.path) {
+            props.history.push(prop.layout + prop.path)
+          }
+          if (!activePolygon && polygons.length) {
+            dispatch(setActivePoly(polygons[0]))
+          }
+          if (isSatelliteMode) {
+            dispatch(setSatelliteMode(false))
+          }
+        }
+      }
+    }
+
     return routes.map((prop, key) => {
 
       if (prop.redirect || prop.hidden) {
         return null;
       }
       if (prop.collapse) {
+        // pages
         var st = {};
         st[prop["state"]] = !state[prop.state];
         return (
@@ -123,24 +166,26 @@ const Sidebar = (props) => {
       }
 
       return (
-        <li className={activeRoute(prop.layout + prop.path)} key={key}>
-          <NavLink
-            to={prop.layout + prop.path}
-            activeClassName=""
-            onClick={() => {
-              if (prop.onclick) {
-                if (prop.onclick === "all") {
-                  dispatch(setActivePoly(null))
-                } else if (prop.onclick === "satellite") {
-                  dispatch(setActivePoly(polygons[0]))
-                }
-                else if (prop.onclick === "weather") {
-                  dispatch(setActivePoly(polygons[0]))
-                }
-              }
+        <li
+          // className={activeRoute(prop.layout + prop.path)}
+          className={activeRouteCustom(prop)}
+
+          key={key}>
+
+          {prop.isFake ?
+            <a onClick={() => {
+              onClickAction(prop);
               props.closeSidebar();
-            }}
-          >
+            }}>
+              <i className={prop.icon} />
+              <p>{rtlActive ? prop.rtlName : prop.name}</p>
+            </a>
+
+            : <NavLink
+                to={prop.layout + prop.path}
+                activeClassName=""
+                onClick={props.closeSidebar}
+              >
             {prop.icon !== undefined ? (
               <>
                 <i className={prop.icon} />
@@ -157,6 +202,10 @@ const Sidebar = (props) => {
               </>
             )}
           </NavLink>
+
+          }
+
+
         </li>
       );
     });
@@ -165,6 +214,24 @@ const Sidebar = (props) => {
   const activeRoute = (routeName) => {
     return location.pathname === routeName ? "active" : "";
   };
+
+  const activeRouteCustom = (prop) => {
+    let routeName = prop.layout + prop.path;
+    if (location.pathname !== routeName) {
+      return ""
+    } else if (location.pathname === routeName && !prop.onclick) {
+      return "active"
+    }
+    if (prop.onclick === "all") {
+      return activePolygon ? "" : "active";
+    }
+    if (prop.onclick === "satellite") {
+       return (activePolygon && isSatelliteMode) ? "active" : ""
+    }
+    if (prop.onclick === "weather") {
+       return (activePolygon && !isSatelliteMode) ? "active" : ""
+    }
+  }
 
   const { activeColor, logo } = props;
   let logoImg = null;

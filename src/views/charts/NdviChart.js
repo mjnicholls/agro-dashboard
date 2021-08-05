@@ -22,7 +22,7 @@ import {
 
 const selectLimit = state => state.auth.limits.history.ndvi_history;
 
-const NdviChart = ({ id }) => {
+const NdviChart = ({ polyId }) => {
 
   const limit = useSelector(selectLimit);
   const limitStartDate = getStartDateByTariff(limit);
@@ -43,10 +43,10 @@ const NdviChart = ({ id }) => {
   }, [])
 
   useEffect(() => {
-    if (startDate && endDate && id) {
+    if (startDate && endDate && polyId) {
       setIsLoading(true);
       setError(null);
-      getNDVIData(id, startDate, endDate)
+      getNDVIData(polyId, startDate, endDate)
         .then(response => {
           if (response) {
             if (response.length) {
@@ -67,7 +67,7 @@ const NdviChart = ({ id }) => {
         })
         .finally(() => {setIsLoading(false)})
       }
-  }, [startDate, endDate, id])
+  }, [startDate, endDate, polyId])
 
   let chartData = (canvas) => {
     let ctx = canvas.getContext("2d");

@@ -10,10 +10,10 @@ import {
   Table,
 } from "reactstrap";
 import classNames from "classnames";
-import {setActivePoly} from "../../features/activepoly/actions";
+import {setActivePoly} from "../../features/state/actions";
 
 
-const selectActivePoly = state => state.activepoly;
+const selectActivePoly = state => state.state.polygon;
 const selectPolygons = state => state.polygons;
 
 const PolygonTableSmall = () => {

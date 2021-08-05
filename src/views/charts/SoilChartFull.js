@@ -1,30 +1,53 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useSelector} from 'react-redux';
 
+
 import {getSoilData} from "../../services/api/chartApi";
-import {toDateShort} from '../../utils/dateTime'
+import {getDateInPast, getStartDateByTariff, toDateShort} from '../../utils/dateTime'
 import {Line} from "react-chartjs-2";
 import {chartOptions} from './base';
+import DatePickerChart from './ui/DatePickerFromTo';
 import {convertTemp} from '../../utils/utils';
 import ChartContainer from './ui/ChartContainer';
+import {
+  Card,
+  CardHeader,
+  CardBody,
+  CardTitle,
+  Row,
+  Col,
+} from "reactstrap";
 
 
+const selectLimit = state => state.auth.limits.history.soil_history;
 const selectUnits = state => state.units.isMetric;
 
-const SoilChart = ({ polyId, startDate, endDate }) => {
+const SoilChart = ({ id }) => {
 
+  const limit = useSelector(selectLimit);
   const units = useSelector(selectUnits);
 
+  const limitStartDate = getStartDateByTariff(limit);
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
   const [data, setData] = useState([]);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
+  useEffect(() => {
+    let now = new Date();
+    let dateInPast = getDateInPast(6);
+
+    setStartDate(dateInPast.getTime());
+    setEndDate(now.getTime());
+
+  }, [])
 
   React.useEffect(() => {
     setIsLoading(true);
     setError(null);
-    if (startDate && endDate && polyId) {
-      getSoilData(polyId, startDate, endDate)
+    if (startDate && endDate && id) {
+      getSoilData(id, startDate, endDate)
         .then(response => {
           if (response) {
             if (response.length) {
@@ -46,7 +69,7 @@ const SoilChart = ({ polyId, startDate, endDate }) => {
           setIsLoading(false)
         })
     }
-  }, [startDate, endDate, polyId])
+  }, [startDate, endDate, id])
 
   const options = JSON.parse(JSON.stringify(chartOptions))
 
@@ -185,14 +208,35 @@ const SoilChart = ({ polyId, startDate, endDate }) => {
   }
 
   return (
-    <ChartContainer
-      isLoading={isLoading}
-      error={error}>
-        <Line
-          data={chartData}
-          options={options}
-        />
-    </ChartContainer>
+    <Card className="card-chart">
+      <CardHeader>
+        <Row>
+          <Col className="text-left" xs="6" sm="8">
+            <h5 className="card-category">Historical</h5>
+            <CardTitle tag="h2">Soil data</CardTitle>
+          </Col>
+          <Col xs="6" sm="4">
+            <DatePickerChart
+              startDate={startDate}
+              setStartDate={setStartDate}
+              endDate={endDate}
+              setEndDate={setEndDate}
+              limitStartDate={limitStartDate}
+            />
+          </Col>
+        </Row>
+      </CardHeader>
+      <CardBody>
+        <ChartContainer
+          isLoading={isLoading}
+          error={error}>
+            <Line
+              data={chartData}
+              options={options}
+            />
+        </ChartContainer>
+      </CardBody>
+    </Card>
   )
 }
 

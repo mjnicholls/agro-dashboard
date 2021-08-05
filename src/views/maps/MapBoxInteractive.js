@@ -6,7 +6,7 @@ import {getMapBounds} from '../../features/polygons/selectors'
 import SatelliteImagesList from "../agro-components/SatelliteImagesList";
 
 const selectPolygons = state => state.polygons;
-const selectActivePoly = state => state.activepoly;
+const selectActivePoly = state => state.state.polygon;
 
 //activePolygon
 const MapBox = ({ images, selectImage, imagesLoading, selectedImage, selectedLayer, isSatellitePage }) => {
@@ -32,7 +32,10 @@ const MapBox = ({ images, selectImage, imagesLoading, selectedImage, selectedLay
     // } else {
     //   initialiseMap(mapContainer.current, map, bbox, () => {setInitialised(true)}, setSelectedPolygon)
     // }
-    initialiseMap(mapContainer.current, map, mapBounds, () => {setInitialised(true)})
+    if (!initialised) {
+      initialiseMap(mapContainer.current, map, mapBounds, () => {setInitialised(true)})
+    }
+
   }, [polygons]);
 
   useEffect(() => {

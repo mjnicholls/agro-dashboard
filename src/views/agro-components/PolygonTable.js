@@ -20,7 +20,7 @@ import PolygonDelete from './PolygonDelete';
 import ReactBSAlert from "react-bootstrap-sweetalert";
 import Shape from "./Shape";
 import {toDate} from "../../utils/dateTime";
-import {setActivePoly} from "../../features/activepoly/actions";
+import {setActivePoly} from "../../features/state/actions";
 
 
 const PolygonTable = ({data, setActivePolygon}) => {

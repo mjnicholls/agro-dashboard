@@ -21,29 +21,23 @@ import {userLevels} from "../config";
 import CombinedWeatherSoilCurrent from './small-cards/CombinedWeatherSoilCurrent'
 import CurrentSoil from "./small-cards/SoilCurrent";
 import WeatherCurrent from "./small-cards/WeatherCurrent";
+import CombinedChart from "./charts/CombinedChart";
+import NdviChart from "./charts/NdviChart";
 
 const selectPolygons = state => state.polygons;
-const tariffSelector = state => state.auth.user.tariff;
-const selectActivePoly = state => state.activepoly;
+const selectActivePoly = state => state.state.polygon;
+const selectIsSatelliteMode = state => state.state.isSatelliteMode;
 
 const Dashboard = () => {
 
-
-
-  // const [activePolygon, setActivePolygon] = useState(null);
-  const [selectedPolygon, setSelectedPolygon] = useState(null);
   const [images, setImages] = useState([]);
   const [selectedImage, setSelectedImage] = useState(null);
   const [selectedLayer, setSelectedLayer] = useState({value: "truecolor", label: "True Color"});
   const [imagesLoading, setImagesLoading] = useState(true);
-  const [isSatellitePage, setIsSatellitePage] = useState(true);
 
-  const [activePage, setActivePage] = useState("Home");
-
-  const tariff = useSelector(tariffSelector);
-  const userLevel = userLevels[tariff];
   const activePolygon = useSelector(selectActivePoly);
   const polygons = useSelector(selectPolygons);
+  const isSatelliteMode = useSelector(selectIsSatelliteMode);
 
   useEffect(() => {
     if (activePolygon) {
@@ -64,7 +58,6 @@ const Dashboard = () => {
   return (
     <>
       <div className="content">
-        {/*<Container className="map-row mb-3">*/}
           <Row className="map-row mb-4">
             <Col md="6" >
               <MapBox
@@ -74,29 +67,29 @@ const Dashboard = () => {
                 images={images}
                 selectImage={setSelectedImage}
                 imagesLoading={imagesLoading}
-                isSatellitePage={isSatellitePage}
+                isSatellitePage={isSatelliteMode}
               />
             </Col>
 
             <Col md="6">
-              <Row className="mb-4">
-                <Col>
-                  <TogglerThree
-                    activePage={activePage}
-                    setActivePage={setActivePage}
-                    setIsSatellitePage={setIsSatellitePage}
-                    labelOne="Home"
-                    labelTwo="Satellite"
-                    labelThree="Weather"
-                  />
-                </Col>
-              </Row>
+              {/*<Row className="mb-4">*/}
+                {/*<Col>*/}
+                  {/*<TogglerThree*/}
+                    {/*activePage={activePage}*/}
+                    {/*setActivePage={setActivePage}*/}
+                    {/*setIsSatellitePage={setIsSatellitePage}*/}
+                    {/*labelOne="Home"*/}
+                    {/*labelTwo="Satellite"*/}
+                    {/*labelThree="Weather"*/}
+                  {/*/>*/}
+                {/*</Col>*/}
+              {/*</Row>*/}
               <Row>
 
             {activePolygon ?
               <>
                 <Col md="6">
-                  {isSatellitePage ? <ImageStats
+                  {isSatelliteMode ? <ImageStats
                     images={images}
                     selectedImage={selectedImage}
                     setSelectedImage={setSelectedImage}
@@ -132,31 +125,20 @@ const Dashboard = () => {
                 {/*/>*/}
              {/*</Col>*/}
            {/*</Row>}*/}
-
-        {activePolygon ?
-          isSatellitePage ?
-        <SatellitePage
-          selectedPolygon={activePolygon}
-          userLevel={userLevel}
-        /> : <WeatherPage
-          polygon={activePolygon}
-        />
-
-          // <PolygonInfo
-          //   selectedPolygon={selectedPolygon}
-          // />
-          :
-          <Row>
-            <Col>
-              <PolygonTable
-                data={polygons}
-                // activePolygon={activePolygon}
-                // setActivePolygon={setActivePolygon}
-                // setSelectedPolygon={setSelectedPolygon}
-              />
+        <Row>
+          <Col>
+            {activePolygon ?
+              isSatelliteMode ?
+              <NdviChart polyId={activePolygon.id} />
+                : <CombinedChart polyId={activePolygon.id} />
+                : <PolygonTable
+                  data={polygons}
+                  // activePolygon={activePolygon}
+                  // setActivePolygon={setActivePolygon}
+                />
+              }
             </Col>
           </Row>
-        }
       </div>
     </>
   );

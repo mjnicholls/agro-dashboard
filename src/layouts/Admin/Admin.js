@@ -20,6 +20,7 @@ import AuthRoute from '../../services/AuthRoute'
 var ps;
 
 const Admin = (props) => {
+
   const [activeColor, setActiveColor] = React.useState("blue");
   const [sidebarMini, setSidebarMini] = React.useState(true);
   const [opacity, setOpacity] = React.useState(0);
@@ -27,6 +28,7 @@ const Admin = (props) => {
   const mainPanelRef = React.useRef(null);
   const notificationAlertRef = React.useRef(null);
   const location = useLocation();
+
   React.useEffect(() => {
     document.documentElement.scrollTop = 0;
     document.scrollingElement.scrollTop = 0;
@@ -34,6 +36,7 @@ const Admin = (props) => {
       mainPanelRef.current.scrollTop = 0;
     }
   }, [location]);
+
   React.useEffect(() => {
     let innerMainPanelRef = mainPanelRef;
     if (navigator.platform.indexOf("Win") > -1) {

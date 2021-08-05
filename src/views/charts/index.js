@@ -1,5 +1,8 @@
-export {default as AccumulatedChart} from './AccumulatedChart';
-export {default as CombinedHourlyDailyChart} from './CombinedHourlyDailyChart';
+export {default as AccumulatedChart} from "./AccumulatedChart";
+export {default as AccumulatedChartFull} from './AccumulatedChartFull';
+export {default as CombinedHourlyDailyChart} from './CombinedChart';
+export {default as DailyChart} from './DailyChart';
+export {default as HourlyChart} from './HourlyChart';
 export {default as DailyForecast} from './DailyForecast';
 export {default as HistoryWeather} from './HistoryWeather';
 export {default as HourlyForecast} from './HourlyForecast';

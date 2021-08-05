@@ -4,9 +4,10 @@ import {Line} from "react-chartjs-2";
 import {convertTemp, convertSpeed, capitalize} from "../../utils/utils";
 import {chartOptions} from "./base";
 import {formatDateShort} from "../../utils/dateTime";
+import ChartContainer from "./ui/ChartContainer";
 
 
-const DailyChart = ({isMetric, data}) => {
+const DailyChart = ({isMetric, onecall}) => {
   
   const options = JSON.parse(JSON.stringify(chartOptions))
   options.scales.yAxes = [
@@ -42,7 +43,7 @@ const DailyChart = ({isMetric, data}) => {
         autoSkip: false,
         fontStyle: "bold",
         fontColor: "#ffffff",
-        callback: el => formatDateShort(el.dt, data.timezone_offset)
+        callback: el => formatDateShort(el.dt, onecall.data.timezone_offset)
       }
     },
     {
@@ -156,7 +157,7 @@ const DailyChart = ({isMetric, data}) => {
     gradientStrokePurple.addColorStop(0, "rgba(119,52,169,0)"); //purple colors
 
     return {
-      labels: data.daily,
+      labels: onecall.data.daily,
       datasets: [
         {
           label: "Precipitation",
@@ -175,7 +176,7 @@ const DailyChart = ({isMetric, data}) => {
           pointHoverBorderWidth: 15,
           pointRadius: 1,
           type: 'bar',
-          data: data.daily.map(el => el.rain),
+          data: onecall.data.daily.map(el => el.rain),
         },
         {
           label: "Temperature Max",
@@ -193,7 +194,7 @@ const DailyChart = ({isMetric, data}) => {
           pointHoverRadius: 4,
           pointHoverBorderWidth: 15,
           pointRadius: 1,
-          data: data.daily.map(el => convertTemp(el.temp.max, isMetric)),
+          data: onecall.data.daily.map(el => convertTemp(el.temp.max, isMetric)),
           type: "LineWithLine"
         },
         {
@@ -211,18 +212,24 @@ const DailyChart = ({isMetric, data}) => {
           pointHoverRadius: 4,
           pointHoverBorderWidth: 15,
           pointRadius: 1,
-          data: data.daily.map(el => convertTemp(el.temp.min, isMetric)),
+          data: onecall.data.daily.map(el => convertTemp(el.temp.min, isMetric)),
           type: "LineWithLine"
         },
       ]
     }
   }
 
-  return (<Line
-    data={chartData}
-    options={options}
-    height={400}
-  />)
+  return (
+    <ChartContainer
+      isLoading={onecall.isLoading}
+      error={onecall.error} >
+        <Line
+          data={chartData}
+          options={options}
+          height={400}
+        />
+    </ChartContainer>
+      )
 }
 
 export default DailyChart;
