@@ -103,7 +103,6 @@ const MapBox = ({setArea, setGeoJson, setIntersection, drawRef, mode}) => {
         return features
       })
       .catch(err => {
-        console.log(err)
         return []
       })
   }

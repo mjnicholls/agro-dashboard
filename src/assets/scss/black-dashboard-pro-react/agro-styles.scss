@@ -117,6 +117,17 @@ $mapHeight: 400px;
         color: rgba(255, 255, 255, 0.7);
       }
     }
+    .calendar-icon {
+      position: relative;
+      cursor: pointer;
+      padding: 10px;
+      font-size: 25px;
+      border-radius: 5px;
+      &:hover {
+        color: $activeWhite;
+        background-color: rgba(255, 255, 255, 0.2);
+      }
+    }
 
     .satellite-pagination-arrow {
       position: absolute;
@@ -203,10 +214,13 @@ $mapHeight: 400px;
 }
 
 .satellite-calendar {
+
   input {
     display: none;
   }
   .rdtPicker {
+    margin-top: -250px !important;
+    margin-left: 80px;
     top: 10px;
     .rdtDays {
       td[class=rdtDay] {
@@ -217,6 +231,13 @@ $mapHeight: 400px;
   }
 }
 
+.satellite-calendar .rdt .rdtOpen {
+  position: absolute;
+}
+
+//.satellite-calendar .rdt.rdtOpen {
+//    position: absolute;
+//  }
 
 .agro-calendar-container {
   .calendar-right {
@@ -315,6 +336,8 @@ $daily-chart-width: 1000px;
     height: 350px;
   }
 }
+
+
 
 
 .sweet-alert {

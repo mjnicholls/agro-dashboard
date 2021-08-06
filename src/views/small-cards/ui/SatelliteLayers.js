@@ -1,21 +1,24 @@
 import React, {useEffect, useState} from 'react';
+
 import {
-  Card,
-  CardHeader,
-  CardBody,
   Col,
-  Collapse,
+  DropdownItem,
+  DropdownMenu,
+  Row,
 } from "reactstrap";
+import classnames from "classnames";
 
+const SatelliteLayers = ({satelliteImage, satelliteLayer, setSatelliteLayer}) => {
+  /**
+   * Dropdown that contains satellite layer options for selected satellite image
+   * */
 
-const SatelliteLayersDropdown = ({selectedImage, selectedLayer, setSelectedLayer}) => {
-
-  const [isOpen, setIsOpen] = useState(false);
   const [layers, setLayers] = useState([]);
+  const [isOpen, setIsOpen] = useState(false)
 
   useEffect(() => {
-    if (selectedImage) {
-      let newLayers = Object.keys(selectedImage.tile).map(layer => ({
+    if (satelliteImage) {
+      let newLayers = Object.keys(satelliteImage.tile).map(layer => ({
           label: (layer === 'truecolor') ? 'True Color' : (layer === 'falsecolor') ? 'False Color' : layer.toUpperCase(),
           value: layer
         })
@@ -24,70 +27,66 @@ const SatelliteLayersDropdown = ({selectedImage, selectedLayer, setSelectedLayer
       /** In case previously selected layer does not exist for this satellite image
        * select another layer
        * */
-      let index = newLayers.findIndex(layer => layer.value === selectedLayer.value);
+      let index = newLayers.findIndex(layer => layer.value === satelliteLayer.value);
       if (index === -1) {
-        setSelectedLayer(newLayers[0])
+        setSatelliteLayer(newLayers[0])
       }
     }
-  }, [selectedImage])
+  }, [satelliteImage])
 
   const selectLayer = (e, layer) => {
     e.preventDefault();
-    setSelectedLayer(layer);
-    setIsOpen(false);
+    setSatelliteLayer(layer);
   }
 
   return  (
-    (selectedLayer && layers) ?
-    <Col md="4" sm="4" xs="6" style={{position: 'absolute', top: '10px', right: '50px', zIndex: 1000}}>
-     <Card>
-        <div
-          aria-multiselectable={true}
-          className="card-collapse"
-          id="accordion"
-          role="tablist"
-        >
-          <Card className="card-plain">
-            <CardHeader role="tab">
-              <a
-                aria-expanded={isOpen}
-                href="#pablo"
-                data-parent="#accordion"
-                data-toggle="collapse"
+      <>
+        <h2 className="card-category">Layer</h2>
+        <Row>
+          <Col>
+            <div className={classnames("dropdown agro-dropdown", {
+              "show": isOpen,
+            })}>
+              <div className="dropdown horizontal-container justify"
+                aria-expanded={false}
+                aria-haspopup={true}
+                data-toggle="dropdown"
+                id="dropdownMenuButton"
                 onClick={(e) => {
                   e.preventDefault();
                   setIsOpen(!isOpen);
                 }}
               >
-                {selectedLayer.label}
-                <i className="tim-icons icon-minimal-down" />
-              </a>
-            </CardHeader>
-            <Collapse role="tabpanel" isOpen={isOpen}>
-              <CardBody className="card">
+                <h2 className="mb-0">{satelliteLayer ? satelliteLayer.label : "True color"}</h2>
+                <i className="tim-icons icon-minimal-down dropdown-caret"/>
+              </div>
+              {
+                satelliteImage ? <DropdownMenu aria-labelledby="dropdownMenuButton">
                 {layers.map((layer, index) => {
-                  if (layer.value !== selectedLayer.value) {
-                    return (<a
-                      key={'layer_' + index}
-                      aria-expanded={isOpen}
+                  if (layer.value !== satelliteLayer.value) {
+                    return (<DropdownItem
                       href="#pablo"
-                      data-parent="#accordion"
-                      data-toggle="collapse"
                       onClick={(e) => {
-                        selectLayer(e, layer)
+                        e.preventDefault();
+                        setSatelliteLayer(layer);
+                        // selectLayer(e, layer)
+                        setIsOpen(false)
                       }}
-                      style={{paddingLeft: 0}}
-                    >{layer.label}
-                    </a>)
+                      key={"layer_" + index}
+                    >
+                      {layer.label}
+                    </DropdownItem>)
                   }
                   return null
                 })}
-              </CardBody>
-            </Collapse>
-          </Card>
-        </div>
-      </Card>
-    </Col> : null)
+              </DropdownMenu> : null
+              }
+
+            </div>
+          </Col>
+        </Row>
+      </>
+    )
 }
 
-export default SatelliteLayersDropdown;
+export default SatelliteLayers;

@@ -1,32 +1,69 @@
-import React, {useEffect, useRef} from 'react';
-import {toDate} from '../../utils/dateTime';
+import React, {useEffect, useRef, useState} from 'react';
+import {useSelector} from 'react-redux';
+import DatePicker from "react-datetime";
+import moment from "moment/moment";
 
 import {
   Card,
   CardBody,
-  Col,
-  Pagination,
-  PaginationItem,
-  PaginationLink,
-  Row,
 } from "reactstrap";
 
 import SatelliteImagePlaceholder from './SatelliteImagePlaceholder';
+import {toDate} from '../../utils/dateTime';
+import {getSatelliteImagesList} from "../../services/api/polygonApi";
+const selectActivePoly = state => state.state.polygon;
 
 
-const SatelliteImagesList = ({ images, polygonId, selectedImage, selectImage, imagesLoading }) => {
+const SatelliteImagesList = ({satelliteImage, setSatelliteImage}) => {
   /** Displays a list of satellite images for selected polygon */
 
   const scrollRef = useRef(null);
   const imagesRefs = useRef({});
   const scrollOptions = {behavior: 'smooth', block: 'nearest'};
+  const [availableDates, setAvailableDates] = useState([]);
+  const [images, setImages] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const activePolygon = useSelector(selectActivePoly);
 
-  useEffect (() => {
-    if (selectedImage && !imagesLoading) {
-      let index = images.findIndex(image => image.dt === selectedImage.dt && image.type === selectedImage.type);
-      imagesRefs.current[index].scrollIntoView(scrollOptions)
+  useEffect(() => {
+    if (activePolygon) {
+      setIsLoading(true);
+      setError(null)
+      getSatelliteImagesList(activePolygon.id)
+        .then(response => {
+          if (response && response.length) {
+            response.reverse();
+            setImages(response);
+            setSatelliteImage(response[0]);
+          }
+        })
+        .catch(err => {console.log(err)})
+        .finally(() => setIsLoading(false))
     }
-  }, [selectedImage])
+  }, [activePolygon])
+
+  useEffect(() => {
+    if (images && images.length) {
+      setAvailableDates(images.map(image => moment(image.dt * 1000).format('L')));
+    }
+  }, [images])
+
+  const isDateAvailable = function( current ){
+    if (availableDates) {
+      return availableDates.includes(current.format('L'))
+    }
+    return false
+  };
+
+  const onSelectDate = (moment) => {
+    let index = availableDates.indexOf(moment.format('L'));
+    setSatelliteImage(images[index]);
+    let imageSelected = imagesRefs.current[index];
+    let offset = 110;
+    scrollRef.current.scrollTo({left: imageSelected.getBoundingClientRect().left - offset, behavior: 'smooth'})
+    // imagesRefs.current[index].scrollIntoView(scrollOptions);
+  }
 
   const onClickArrow = (direction) => {
     if (scrollRef && scrollRef.current) {
@@ -43,21 +80,40 @@ const SatelliteImagesList = ({ images, polygonId, selectedImage, selectImage, im
             onClick={() => {onClickArrow("left")}}>
             <i className="tim-icons icon-double-left" />
           </a>
+          <label>
+            <div
+              className="info-icon text-center calendar-icon"
+            >
+              <i className="tim-icons icon-calendar-60" />
+            </div>
+            <div>
+              <DatePicker
+                timeFormat={false}
+                value={satelliteImage ? moment(satelliteImage.dt * 1000) : null}
+                isValidDate={ isDateAvailable }
+                onChange={onSelectDate}
+                className="satellite-calendar"
+                closeOnSelect
+                closeOnClickOutside
+              />
+            </div>
+          </label>
+
           <div ref={scrollRef} className="satellite-image-list">
-            {imagesLoading ? <div className="satellite-pagination horizontal-container">
+            {isLoading ? <div className="satellite-pagination horizontal-container">
             {
               [0,0,0,0,0,0,0].map((_,index) => (
                 <div key={index} className="satellite-image">
                   <SatelliteImagePlaceholder />
                 </div>))
-            } </div> : images.map((image, index) => (
+            } </div> : error ? <div>{error}</div> : images.map((image, index) => (
                 <div
-                  className={"satellite-image " + (selectedImage ?
-                    (image.dt === selectedImage.dt && image.type === selectedImage.type) ?
+                  className={"satellite-image " + (satelliteImage ?
+                    (image.dt === satelliteImage.dt && image.type === satelliteImage.type) ?
                       "active" : "" : "")}
                   ref={el => imagesRefs.current[index] = el}
                   key={'satellite_image_' + index}
-                  onClick={() => { selectImage(image) }}
+                  onClick={() => { setSatelliteImage(image) }}
                 >
                   <div>
                     <p className="card-category" style={{textAlign: "left", margin: 0}}>{toDate(image.dt)}</p>

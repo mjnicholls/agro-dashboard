@@ -31,7 +31,6 @@ const SatelliteCalendar = ({images, selectedImage, setSelectedImage}) => {
         <label>
           <div
             className="info-icon text-center icon-primary"
-            style={{position: "relative", cursor: "pointer"}}
           >
             <i className="tim-icons icon-calendar-60" />
           </div>

@@ -11,11 +11,10 @@ import {
 
 import {getImageStats} from '../../services/api/polygonApi';
 import ChartContainer from '../charts/ui/ChartContainer';
-import SatelliteCalendar from './ui/DatepickerSatellite';
-import SatelliteLayers3 from './ui/SatelliteLayers3';
+import SatelliteLayers3 from './ui/SatelliteLayers';
 import {toDate} from "../../utils/dateTime";
 
-const ImageStats = ({images, selectedImage, setSelectedImage, selectedLayer, setSelectedLayer}) => {
+const ImageStats = ({satelliteImage, satelliteLayer, setSatelliteLayer }) => {
 
   const [stats, setStats] = useState(null);
   const [name, setName] = useState('');
@@ -23,13 +22,13 @@ const ImageStats = ({images, selectedImage, setSelectedImage, selectedLayer, set
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    if (selectedImage && selectedLayer) {
-      let url = selectedImage.stats[selectedLayer.value];
+    if (satelliteImage && satelliteLayer) {
+      let url = satelliteImage.stats[satelliteLayer.value];
       if (!url) {
-        url = selectedImage.stats.ndvi;
+        url = satelliteImage.stats.ndvi;
         setName("ndvi")
       } else {
-        setName(selectedLayer.value)
+        setName(satelliteLayer.value)
       }
       setIsLoading(true);
       setError(null);
@@ -46,24 +45,17 @@ const ImageStats = ({images, selectedImage, setSelectedImage, selectedLayer, set
         })
         .finally(() => {setIsLoading(false)})
     }
-  }, [selectedImage, selectedLayer])
+  }, [satelliteImage, satelliteLayer])
   return (
     <Card className="small-card">
       <CardHeader>
         <Row>
-          <Col xs="8">
+          <Col>
             <SatelliteLayers3
               name={name}
-              selectedImage={selectedImage}
-              selectedLayer={selectedLayer}
-              setSelectedLayer={setSelectedLayer}
-            />
-          </Col>
-          <Col xs="4" className="text-right">
-            <SatelliteCalendar
-              images={images}
-              selectedImage={selectedImage}
-              setSelectedImage={setSelectedImage}
+              satelliteImage={satelliteImage}
+              satelliteLayer={satelliteLayer}
+              setSatelliteLayer={setSatelliteLayer}
             />
           </Col>
         </Row>
@@ -77,7 +69,7 @@ const ImageStats = ({images, selectedImage, setSelectedImage, selectedLayer, set
             <Table>
             <thead>
               <tr>
-                <th>{toDate(selectedImage.dt)}</th>
+                <th>{toDate(satelliteImage.dt)}</th>
                 <th>{name.toUpperCase()}</th>
               </tr>
             </thead>

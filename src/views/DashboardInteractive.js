@@ -1,26 +1,16 @@
 import React, {useEffect, useState} from "react";
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
-import { Col, Container, Row } from "reactstrap";
+import { Col, Row } from "reactstrap";
 
 import MapBox from "./maps/MapBoxInteractive";
-import PolygonInfo from './PolygonInfo';
 import PolygonTable from './agro-components/PolygonTable';
 import PolygonTableSmall from './small-cards/PolygonList';
 import PolygonsTotalStats from './agro-components/PolygonsTotalStats';
-import SatelliteImagesList from './agro-components/SatelliteImagesList';
+import PolygonInfo from './agro-components/PolygonInfo';
 
 import ImageStats from './small-cards/LayerStats';
-import {getSatelliteImagesList} from "../services/api/polygonApi";
-import TogglerTwo from "./agro-components/TogglerTwo";
-import TogglerThree from "./agro-components/TogglerThree";
-import SatellitePage from "./SatellitePage";
-import WeatherPage from "./WeatherPage";
-import {userLevels} from "../config";
-
 import CombinedWeatherSoilCurrent from './small-cards/CombinedWeatherSoilCurrent'
-import CurrentSoil from "./small-cards/SoilCurrent";
-import WeatherCurrent from "./small-cards/WeatherCurrent";
 import CombinedChart from "./charts/CombinedChart";
 import NdviChart from "./charts/NdviChart";
 
@@ -30,30 +20,12 @@ const selectIsSatelliteMode = state => state.state.isSatelliteMode;
 
 const Dashboard = () => {
 
-  const [images, setImages] = useState([]);
-  const [selectedImage, setSelectedImage] = useState(null);
-  const [selectedLayer, setSelectedLayer] = useState({value: "truecolor", label: "True Color"});
-  const [imagesLoading, setImagesLoading] = useState(true);
-
+  const [satelliteImage, setSatelliteImage] = useState(null);
+  const [satelliteLayer, setSatelliteLayer] = useState({value: "truecolor", label: "True Color"});
+  const [polygonInFocus, setPolygonInFocus] = useState(null);
   const activePolygon = useSelector(selectActivePoly);
   const polygons = useSelector(selectPolygons);
   const isSatelliteMode = useSelector(selectIsSatelliteMode);
-
-  useEffect(() => {
-    if (activePolygon) {
-      setImagesLoading(true)
-      getSatelliteImagesList(activePolygon.id)
-        .then(response => {
-          if (response && response.length) {
-            response.reverse();
-            setImages(response);
-            setSelectedImage(response[0]);
-          }
-        })
-        .catch(err => {console.log(err)})
-        .finally(() => setImagesLoading(false))
-    }
-  }, [activePolygon])
 
   return (
     <>
@@ -62,39 +34,24 @@ const Dashboard = () => {
             <Col md="6" >
               <MapBox
                 // activePolygon={activePolygon}
-                selectedImage={selectedImage}
-                selectedLayer={selectedLayer}
-                images={images}
-                selectImage={setSelectedImage}
-                imagesLoading={imagesLoading}
+                satelliteImage={satelliteImage}
+                setSatelliteImage={setSatelliteImage}
+                satelliteLayer={satelliteLayer}
                 isSatellitePage={isSatelliteMode}
+                setPolygonInFocus={setPolygonInFocus}
               />
             </Col>
 
             <Col md="6">
-              {/*<Row className="mb-4">*/}
-                {/*<Col>*/}
-                  {/*<TogglerThree*/}
-                    {/*activePage={activePage}*/}
-                    {/*setActivePage={setActivePage}*/}
-                    {/*setIsSatellitePage={setIsSatellitePage}*/}
-                    {/*labelOne="Home"*/}
-                    {/*labelTwo="Satellite"*/}
-                    {/*labelThree="Weather"*/}
-                  {/*/>*/}
-                {/*</Col>*/}
-              {/*</Row>*/}
               <Row>
 
             {activePolygon ?
               <>
                 <Col md="6">
                   {isSatelliteMode ? <ImageStats
-                    images={images}
-                    selectedImage={selectedImage}
-                    setSelectedImage={setSelectedImage}
-                    selectedLayer={selectedLayer}
-                    setSelectedLayer={setSelectedLayer}
+                    satelliteImage={satelliteImage}
+                    satelliteLayer={satelliteLayer}
+                    setSatelliteLayer={setSatelliteLayer}
                   /> :
                     <>
                       <CombinedWeatherSoilCurrent selectedPolygon={activePolygon} />
@@ -108,7 +65,10 @@ const Dashboard = () => {
                 </Col>
               </>
           : <Col>
-            <PolygonsTotalStats polygons={polygons}/>
+                <>
+                  <PolygonsTotalStats polygons={polygons} activePolygon={polygons[0]} />
+                 {polygonInFocus && <PolygonInfo polygonInFocus={polygonInFocus} />}
+                </>
           </Col>}
               </Row>
             </Col>

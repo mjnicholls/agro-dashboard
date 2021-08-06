@@ -9,7 +9,7 @@ const selectPolygons = state => state.polygons;
 const selectActivePoly = state => state.state.polygon;
 
 //activePolygon
-const MapBox = ({ images, selectImage, imagesLoading, selectedImage, selectedLayer, isSatellitePage }) => {
+const MapBox = ({ satelliteImage, setSatelliteImage, satelliteLayer, isSatellitePage, setPolygonInFocus }) => {
 
   const activePolygon = useSelector(selectActivePoly);
   const polygons = useSelector(selectPolygons);
@@ -33,7 +33,7 @@ const MapBox = ({ images, selectImage, imagesLoading, selectedImage, selectedLay
     //   initialiseMap(mapContainer.current, map, bbox, () => {setInitialised(true)}, setSelectedPolygon)
     // }
     if (!initialised) {
-      initialiseMap(mapContainer.current, map, mapBounds, () => {setInitialised(true)})
+      initialiseMap(mapContainer.current, map, mapBounds, () => {setInitialised(true)}, setPolygonInFocus)
     }
 
   }, [polygons]);
@@ -48,10 +48,10 @@ const MapBox = ({ images, selectImage, imagesLoading, selectedImage, selectedLay
   }, []);
 
   useEffect(() => {
-    if (selectedImage && selectedLayer) {
-      setTile(selectedImage.tile[selectedLayer.value]);
+    if (satelliteImage && satelliteLayer) {
+      setTile(satelliteImage.tile[satelliteLayer.value]);
     }
-  }, [selectedImage, selectedLayer])
+  }, [satelliteImage, satelliteLayer])
 
   useEffect(() => {
     if (tile) {
@@ -109,11 +109,8 @@ const MapBox = ({ images, selectImage, imagesLoading, selectedImage, selectedLay
     <div ref={mapContainer} className="map-container map-box-container" >
     {(activePolygon && isSatellitePage) &&
       <SatelliteImagesList
-        images={images}
-        polygonId={activePolygon.id}
-        selectedImage={selectedImage}
-        selectImage={selectImage}
-        imagesLoading={imagesLoading}
+        satelliteImage={satelliteImage}
+        setSatelliteImage={setSatelliteImage}
       />}
     </div>
   </div>

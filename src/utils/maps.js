@@ -21,7 +21,7 @@ export const activeColor = '#00FC00';
 const satelliteSourceId = 'satellite-agro';
 export const cropsSourceId = 'crops-agro';
 
-export const initialiseMap = (mapContainer, map, mapBounds, onLoad) => {
+export const initialiseMap = (mapContainer, map, mapBounds, onLoad, setPolygonInFocus) => {
   // if (map.current) return;
   const token = store.getState().auth.token;
   map.current = new mapboxgl.Map({
@@ -47,13 +47,13 @@ export const initialiseMap = (mapContainer, map, mapBounds, onLoad) => {
     const polygons = store.getState().polygons;
     map.current.setPadding({left: 20, right: 20, top: 20, bottom: 100})
     for (let i=0; i<polygons.length; i++) {
-      addPolygon(map.current, polygons[i])
+      addPolygon(map.current, polygons[i], setPolygonInFocus)
     }
     onLoad()
   })
 }
 
-const addPolygon = (map, polygon) => {
+const addPolygon = (map, polygon, setPolygonInFocus) => {
 
   if (map.getSource(polygon.id)) {
     return
@@ -86,23 +86,29 @@ const addPolygon = (map, polygon) => {
     }
   });
 
-  let popup = new mapboxgl.Popup({
-    closeButton: false,
-    closeOnMove: true,
-    closeOnClick: true
-  })
+  // let popup = new mapboxgl.Popup({
+  //   closeButton: false,
+  //   closeOnMove: true,
+  //   closeOnClick: true
+  // })
 
   map.on('mouseenter', "layer_" + polygon.id, function (e) {
     map.getCanvas().style.cursor = 'pointer';
-    popup
-      .setLngLat(e.lngLat)
-      .setHTML(polygon.name + ', ' + polygon.area.toFixed(2) + 'ha    ')
-      .addTo(map);
+    // popup
+    //   .setLngLat(e.lngLat)
+    //   .setHTML(polygon.name + ', ' + polygon.area.toFixed(2) + 'ha    ')
+    //   .addTo(map);
+    if (setPolygonInFocus) {
+      setPolygonInFocus(polygon)
+    }
   });
 
   map.on('mouseleave', 'layer_'  + polygon.id, function () {
     map.getCanvas().style.cursor = '';
-    popup.remove();
+    // popup.remove();
+    if (setPolygonInFocus) {
+      setPolygonInFocus(null)
+    }
   });
 
   let polygonBbox = new mapboxgl.LngLatBounds(polygon.bbox);
