@@ -35,7 +35,7 @@ const PolygonInfo = ({ polygonInFocus }) => {
       <CardBody>
         <Row>
           <Col sm="4" className="text-right">
-            <div className="numbers">
+            <div className="numbers float-right">
               <Shape polygon={polygonInFocus} />
             </div>
           </Col>
