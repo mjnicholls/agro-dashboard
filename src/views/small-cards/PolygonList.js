@@ -4,9 +4,10 @@ import {useSelector, useDispatch} from 'react-redux';
 import {
   Button,
   Card,
+  CardBody,
   CardFooter,
   CardHeader,
-  CardBody,
+  CardTitle,
   Col,
   Row,
   Table,
@@ -15,7 +16,6 @@ import classNames from "classnames";
 
 import TogglerSatelliteMode from '../agro-components/TogglerSatellite'
 import {setActivePoly} from "../../features/state/actions";
-import {setSatelliteMode} from "../../features/state/actions";
 
 const selectActivePoly = state => state.state.polygon;
 const selectPolygons = state => state.polygons;
@@ -32,30 +32,22 @@ const PolygonTableSmall = () => {
     <Card className="small-card">
       <CardHeader>
         <Row>
-          <Col className="horizontal-container justify card-stats">
-            <div>
-              <h2 className="card-category">All</h2>
-              <h2 className="mb-0">Polygons</h2>
-            </div>
+          <Col xs="9">
+            <h5 className="card-category mb-0">All</h5>
+            <CardTitle tag="h2">Polygons</CardTitle>
+          </Col>
+          <Col xs="3">
             <Button
-              color="info"
-              id="0"
+              color="github"
+              className="btn-simple"
               size="sm"
               tag="label"
-              className={classNames("btn-simple", {
-                active: isSatelliteMode,
-              })}
               onClick={() => dispatch(setActivePoly(null))}
             ><i className="tim-icons icon-bullet-list-67" /></Button>
-            {/*<a onClick={() => dispatch(setActivePoly(null))}>*/}
-              {/*<div className="text-center">*/}
-                {/*<i className="tim-icons icon-bullet-list-67" />*/}
-              {/*</div>*/}
-            {/*</a>*/}
           </Col>
         </Row>
       </CardHeader>
-      <CardBody>
+      <CardBody className="pt-0">
         <Table>
           <tbody>
             {polygons.map(polygon => (
@@ -72,13 +64,13 @@ const PolygonTableSmall = () => {
           </tbody>
         </Table>
       </CardBody>
-      <CardFooter>
-        <Row>
-          <Col>
-            <TogglerSatelliteMode />
-          </Col>
-        </Row>
-      </CardFooter>
+      {/*<CardFooter>*/}
+        {/*<Row>*/}
+          {/*<Col>*/}
+            {/*<TogglerSatelliteMode />*/}
+          {/*</Col>*/}
+        {/*</Row>*/}
+      {/*</CardFooter>*/}
     </Card>
   )
 }

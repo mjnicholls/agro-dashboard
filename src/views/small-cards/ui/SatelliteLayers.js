@@ -57,7 +57,10 @@ const SatelliteLayers = ({satelliteImage, satelliteLayer, setSatelliteLayer}) =>
                   setIsOpen(!isOpen);
                 }}
               >
-                <h2 className="mb-0">{satelliteLayer ? satelliteLayer.label : "True color"}</h2>
+                <h2
+                  className="mb-0"
+                  style={{fontWeight: 100}}
+                >{satelliteLayer ? satelliteLayer.label : "True color"}</h2>
                 <i className="tim-icons icon-minimal-down dropdown-caret"/>
               </div>
               {
