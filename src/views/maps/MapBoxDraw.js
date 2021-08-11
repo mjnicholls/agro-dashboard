@@ -6,7 +6,7 @@ import {axiosInstance} from '../../services/base'
 import {fetchPolygons} from "../../features/polygons/actions";
 import MapboxDraw from "@mapbox/mapbox-gl-draw";
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
-import {cropsSourceId, initialiseMap, removeCropLayer, renderCrop} from '../../utils/maps';
+import {cropsSourceId, initialiseMap, removeCropLayer, renderCrop} from './base';
 import {getMapBounds} from '../../features/polygons/selectors'
 
 const selectPolygons = state => state.polygons;
@@ -122,7 +122,6 @@ const MapBox = ({setArea, setGeoJson, setIntersection, drawRef, mode}) => {
   const updateArea = () => {
     let data = drawRef.current.getAll();
     if (data.features.length > 0) {
-      console.log("data", data);
       let area = (turf.area(data) / 10000).toFixed(2);
       // let poly = turf.polygon(data.features[0].geometry.coordinates, { name: 'poly1'});
       // let intersections = turf.kinks(poly);

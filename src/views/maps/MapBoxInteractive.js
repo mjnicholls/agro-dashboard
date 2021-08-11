@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {useSelector} from 'react-redux';
 
-import {activeColor, basicColor, initialiseMap, removeSatelliteLayer, renderSatelliteImage} from '../../utils/maps';
+import {activeColor, basicColor, initialiseMap, removeSatelliteLayer, renderSatelliteImage} from './base';
 import {getMapBounds} from '../../features/polygons/selectors'
 import SatelliteImagesList from "../agro-components/SatelliteImagesList";
 

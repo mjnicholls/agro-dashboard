@@ -32,11 +32,10 @@ const PolygonEdit = ({ polygon, close  }) => {
   }
 
   return (
-    <div className="agro-pop-up">
+    <div>
       <Row>
-        <Col>
+        <Col className="mb-3">
           <p>You can change the name of the selected polygon.</p>
-          <br/>
         </Col>
       </Row>
       <Row>

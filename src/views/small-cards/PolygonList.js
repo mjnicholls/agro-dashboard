@@ -2,7 +2,9 @@ import React from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 
 import {
+  Button,
   Card,
+  CardFooter,
   CardHeader,
   CardBody,
   Col,
@@ -10,16 +12,20 @@ import {
   Table,
 } from "reactstrap";
 import classNames from "classnames";
-import {setActivePoly} from "../../features/state/actions";
 
+import TogglerSatelliteMode from '../agro-components/TogglerSatellite'
+import {setActivePoly} from "../../features/state/actions";
+import {setSatelliteMode} from "../../features/state/actions";
 
 const selectActivePoly = state => state.state.polygon;
 const selectPolygons = state => state.polygons;
+const selectIsSatelliteMode = state => state.state.isSatelliteMode;
 
 const PolygonTableSmall = () => {
 
   const activePolygon = useSelector(selectActivePoly);
   const polygons = useSelector(selectPolygons);
+  const isSatelliteMode = useSelector(selectIsSatelliteMode);
   const dispatch = useDispatch();
 
   return (
@@ -31,11 +37,21 @@ const PolygonTableSmall = () => {
               <h2 className="card-category">All</h2>
               <h2 className="mb-0">Polygons</h2>
             </div>
-            <a onClick={() => dispatch(setActivePoly(null))}>
-              <div className="info-icon text-center icon-primary">
-                <i className="tim-icons icon-bullet-list-67" />
-              </div>
-            </a>
+            <Button
+              color="info"
+              id="0"
+              size="sm"
+              tag="label"
+              className={classNames("btn-simple", {
+                active: isSatelliteMode,
+              })}
+              onClick={() => dispatch(setActivePoly(null))}
+            ><i className="tim-icons icon-bullet-list-67" /></Button>
+            {/*<a onClick={() => dispatch(setActivePoly(null))}>*/}
+              {/*<div className="text-center">*/}
+                {/*<i className="tim-icons icon-bullet-list-67" />*/}
+              {/*</div>*/}
+            {/*</a>*/}
           </Col>
         </Row>
       </CardHeader>
@@ -56,6 +72,13 @@ const PolygonTableSmall = () => {
           </tbody>
         </Table>
       </CardBody>
+      <CardFooter>
+        <Row>
+          <Col>
+            <TogglerSatelliteMode />
+          </Col>
+        </Row>
+      </CardFooter>
     </Card>
   )
 }

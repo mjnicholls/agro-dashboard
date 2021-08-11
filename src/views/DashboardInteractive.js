@@ -11,6 +11,8 @@ import PolygonInfo from './agro-components/PolygonInfo';
 
 import ImageStats from './small-cards/LayerStats';
 import CombinedWeatherSoilCurrent from './small-cards/CombinedWeatherSoilCurrent'
+import SoilCurrent from './small-cards/SoilCurrent'
+import WeatherCurrent from './small-cards/WeatherCurrent'
 import CombinedChart from "./charts/CombinedChart";
 import NdviChart from "./charts/NdviChart";
 
@@ -54,9 +56,9 @@ const Dashboard = () => {
                     setSatelliteLayer={setSatelliteLayer}
                   /> :
                     <>
-                      <CombinedWeatherSoilCurrent selectedPolygon={activePolygon} />
-                      {/*<WeatherCurrent selectedPolygon={activePolygon} />*/}
-                      {/*<CurrentSoil polyId={activePolygon.id}/>*/}
+                      {/*<CombinedWeatherSoilCurrent selectedPolygon={activePolygon} />*/}
+                      <WeatherCurrent />
+                      <SoilCurrent polyId={activePolygon.id}/>
                     </>
                   }
                 </Col>

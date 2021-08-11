@@ -16,7 +16,6 @@ const selectIsSatelliteMode = state => state.state.isSatelliteMode;
 
 const Sidebar = (props) => {
 
-
   const activePolygon = useSelector(selectActivePoly);
   const dispatch = useDispatch();
   const polygons = useSelector(selectPolygons);
@@ -86,9 +85,6 @@ const Sidebar = (props) => {
           if (location.pathname !== prop.layout + prop.path) {
             props.history.push(prop.layout + prop.path)
           }
-          // if (!isSatelliteMode) {
-          //   dispatch(setSatelliteMode(true))
-          // }
         }
         else if (prop.onclick === "satellite") {
           if (location.pathname !== prop.layout + prop.path) {

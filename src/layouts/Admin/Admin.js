@@ -65,6 +65,7 @@ const Admin = (props) => {
       window.removeEventListener("scroll", showNavbarButton);
     };
   }, []);
+
   const showNavbarButton = () => {
     if (
       document.documentElement.scrollTop > 50 ||
@@ -80,6 +81,7 @@ const Admin = (props) => {
       setOpacity(0);
     }
   };
+
   const getRoutes = (routes) => {
     return routes.map((prop, key) => {
       if (prop.collapse) {
@@ -98,6 +100,7 @@ const Admin = (props) => {
       }
     });
   };
+
   const getActiveRoute = (routes) => {
     let activeRoute = "Default Brand Text";
     for (let i = 0; i < routes.length; i++) {
@@ -118,9 +121,11 @@ const Admin = (props) => {
     }
     return activeRoute;
   };
+
   const handleActiveClick = (color) => {
     setActiveColor(color);
   };
+
   const handleMiniClick = () => {
     let notifyMessage = "Sidebar mini ";
     if (document.body.classList.contains("sidebar-mini")) {
@@ -141,14 +146,17 @@ const Admin = (props) => {
     notificationAlertRef.current.notificationAlert(options);
     document.body.classList.toggle("sidebar-mini");
   };
+
   const toggleSidebar = () => {
     setSidebarOpened(!sidebarOpened);
     document.documentElement.classList.toggle("nav-open");
   };
+
   const closeSidebar = () => {
     setSidebarOpened(false);
     document.documentElement.classList.remove("nav-open");
   };
+
   return (
     <div className="wrapper">
       <div className="rna-container">

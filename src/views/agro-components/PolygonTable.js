@@ -96,8 +96,7 @@ const PolygonTable = ({data, setActivePolygon}) => {
   const htmlAlert = (polygon, isEdit) => {
     setAlert(
       <ReactBSAlert
-        classname="agro-alert"
-        style={{ display: "block", marginTop: "-100px", color: "#525f7f" }}
+        customClass="agro-alert"
         title={isEdit ? "Edit polygon" : "Delete polygon"}
         onConfirm={() => hideAlert()}
         onCancel={() => hideAlert()}

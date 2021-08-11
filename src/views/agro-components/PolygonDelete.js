@@ -25,11 +25,10 @@ const PolygonDelete = ({ polygon, close }) => {
   }
 
   return (
-    <div className="agro-pop-up">
+    <div>
       <Row>
-        <Col>
+        <Col className="mb-3">
           <p>Are you sure you want to delete selected polygon?</p>
-          <br/>
         </Col>
       </Row>
       <Row>
@@ -39,7 +38,6 @@ const PolygonDelete = ({ polygon, close }) => {
             <Row>
               <Col>
                 <Input
-                  style={{color: "#222a42"}}
                   name="name"
                   type="text"
                   onChange={e => setName(e.target.value)}

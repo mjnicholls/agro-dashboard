@@ -91,7 +91,7 @@ const AccumulatedChart = ({polyId, startDate, endDate}) => {
   const htmlAlert = () => {
     setAlert(
       <ReactBSAlert
-        classname="agro-alert"
+        customClass="agro-alert"
         title="Accumulated Parameters"
         onConfirm={() => hideAlert()}
         onCancel={() => hideAlert()}

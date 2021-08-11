@@ -62,6 +62,7 @@ const routes = [
     rtlName: "صفحات",
     icon: "tim-icons icon-image-02",
     state: "pagesCollapse",
+    hidden: true,
     views: [
       // {
       //   path: "/pricing",
@@ -88,15 +89,6 @@ const routes = [
       //   mini: "R",
       //   rtlMini: "صع",
       //   component: Register,
-      //   layout: "/auth",
-      // },
-      // {
-      //   path: "/lock-screen",
-      //   name: "Lock Screen",
-      //   rtlName: "اقفل الشاشة",
-      //   mini: "LS",
-      //   rtlMini: "هذاع",
-      //   component: Lock,
       //   layout: "/auth",
       // },
       // {

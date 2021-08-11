@@ -22,20 +22,21 @@ import {
 } from "reactstrap";
 import UnitsToggle from '../../views/agro-components/UnitsToggle'
 
-const userEmailSelector = state => state.auth.user.username;
+const userEmailSelector = state => state.auth.user.email;
 
 const AdminNavbar = (props) => {
   const [collapseOpen, setCollapseOpen] = React.useState(false);
-  const [modalSearch, setModalSearch] = React.useState(false);
   const [color, setColor] = React.useState("navbar-transparent");
   const userEmail = useSelector(userEmailSelector);
   const dispatch = useDispatch();
+
   React.useEffect(() => {
     window.addEventListener("resize", updateColor);
     return function cleanup() {
       window.removeEventListener("resize", updateColor);
     };
   });
+
   // function that adds color white/transparent to the navbar on resize (this is for the collapse)
   const updateColor = () => {
     if (window.innerWidth < 993 && collapseOpen) {
@@ -44,6 +45,7 @@ const AdminNavbar = (props) => {
       setColor("navbar-transparent");
     }
   };
+
   // this function opens and closes the collapse on small devices
   const toggleCollapse = () => {
     if (collapseOpen) {
@@ -53,12 +55,8 @@ const AdminNavbar = (props) => {
     }
     setCollapseOpen(!collapseOpen);
   };
-  // this function is to open the Search modal
-  const toggleModalSearch = () => {
-    setModalSearch(!modalSearch);
-  };
+
   return (
-    <>
       <Navbar
         className={classNames("navbar-absolute", {
           [color]: props.location.pathname.indexOf("full-screen-map") === -1,
@@ -118,22 +116,10 @@ const AdminNavbar = (props) => {
             <span className="navbar-toggler-bar navbar-kebab" />
           </button>
           <Collapse navbar isOpen={collapseOpen}>
+
             <Nav className="ml-auto" navbar>
-              <InputGroup className="search-bar" tag="li">
-                <Button
-                  color="link"
-                  data-target="#searchModal"
-                  data-toggle="modal"
-                  id="search-button"
-                  onClick={toggleModalSearch}
-                >
-                  <i className="tim-icons icon-zoom-split" />
-                  <span className="d-lg-none d-md-block">Search</span>
-                </Button>
-              </InputGroup>
               <UncontrolledDropdown nav>
                 <UnitsToggle className="search-bar input-group" />
-
               </UncontrolledDropdown>
               <UncontrolledDropdown nav>
                 <DropdownToggle
@@ -143,18 +129,17 @@ const AdminNavbar = (props) => {
                   nav
                   onClick={(e) => e.preventDefault()}
                 >
-                  <div>{userEmail}</div>
                   <b className="caret d-none d-lg-block d-xl-block" style={{left: "auto", right: 0, top: "60%"}} />
-                  <p className="d-lg-none">Log out</p>
+                  <p className="d-lg-none">{userEmail}</p>
                 </DropdownToggle>
                 <DropdownMenu className="dropdown-navbar" right tag="ul">
-                  <NavLink tag="li">
-                    <DropdownItem className="nav-item">Profile</DropdownItem>
-                  </NavLink>
-                  <NavLink tag="li">
-                    <DropdownItem className="nav-item">Settings</DropdownItem>
-                  </NavLink>
-                  <DropdownItem divider tag="li" />
+                  {/*<NavLink tag="li">*/}
+                    {/*<DropdownItem className="nav-item">Profile</DropdownItem>*/}
+                  {/*</NavLink>*/}
+                  {/*<NavLink tag="li">*/}
+                    {/*<DropdownItem className="nav-item">Settings</DropdownItem>*/}
+                  {/*</NavLink>*/}
+                  {/*<DropdownItem divider tag="li" />*/}
                   <NavLink tag="li">
                     <DropdownItem className="nav-item" onClick={() => dispatch(logoutUser())}>Log out</DropdownItem>
                   </NavLink>
@@ -165,25 +150,6 @@ const AdminNavbar = (props) => {
           </Collapse>
         </Container>
       </Navbar>
-      <Modal
-        modalClassName="modal-search"
-        isOpen={modalSearch}
-        toggle={toggleModalSearch}
-      >
-        <div className="modal-header">
-          <Input id="inlineFormInputGroup" placeholder="SEARCH" type="text" />
-          <button
-            aria-label="Close"
-            className="close"
-            data-dismiss="modal"
-            type="button"
-            onClick={toggleModalSearch}
-          >
-            <i className="tim-icons icon-simple-remove" />
-          </button>
-        </div>
-      </Modal>
-    </>
   );
 };
 

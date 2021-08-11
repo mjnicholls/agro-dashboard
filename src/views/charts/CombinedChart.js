@@ -26,30 +26,35 @@ const tabsConfig = {
       label: "Forecast",
       name: "Hourly",
       calendar: false,
+      short: "H"
     },
     Daily: {
       id: "Daily",
       label: "Forecast",
       name: "Daily",
       calendar: false,
+      short: "D"
     },
     "History Weather": {
       id: "History Weather",
       label: "Historical",
       name: "Weather Data",
       calendar: true,
+      short: "HW"
     },
     "History Soil": {
       id: "History Soil",
       label: "Historical",
       name: "Soil Data",
       calendar: true,
+      short: "S"
     },
     Accumulated: {
       id: "Accumulated",
       label: "Accumulated",
       name: "Parameters",
       calendar: true,
+      short: "A"
     }
   }
 
@@ -123,7 +128,8 @@ const CombinedChart = ({polyId}) => {
                     {tab[0]}
                   </span>
                   <span className="d-block d-sm-none">
-                    <i className="tim-icons icon-single-02" />
+                    {tab[1].short}
+                    {/*<i className="tim-icons icon-single-02" />*/}
                   </span>
                 </Button>)}
               </ButtonGroup>
