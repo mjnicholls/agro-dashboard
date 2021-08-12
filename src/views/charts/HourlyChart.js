@@ -2,10 +2,13 @@ import React from 'react';
 import {Line} from "react-chartjs-2";
 
 import {chartOptions} from "./base";
-import {capitalize, convertSpeed, convertTemp} from "../../utils/utils";
+import {convertTemp} from "../../utils/utils";
 import {timeInHours} from "../../utils/dateTime";
 import ChartContainer from "./ui/ChartContainer";
-
+import {
+  formatClouds, formatDesc, formatHumidity, formatPressure, formatUvi,
+  formatWindSpeed, formatTemp
+} from "./utils";
 
 const HourlyChart = ({isMetric, onecall}) => {
   
@@ -47,8 +50,18 @@ const HourlyChart = ({isMetric, onecall}) => {
       position: "top",
       ticks: {
         autoSkip: false,
-        callback: el => convertTemp(el.temp, isMetric) + '°',
+        callback: el => formatTemp(el.temp, isMetric),
         fontColor: "#ba54f5"
+      }
+    },
+    {
+      id: 'description',
+      position: "top",
+      offset: true,
+      ticks: {
+        autoSkip: false,
+        callback: el => formatDesc(el).split(' '),
+        fontColor: whiteColor
       }
     },
     {
@@ -71,22 +84,14 @@ const HourlyChart = ({isMetric, onecall}) => {
         fontColor: "#1f8ef1"
       }
     },
-    {
-      id: 'description',
-      offset: true,
-      ticks: {
-        autoSkip: false,
-        callback: el => capitalize(el.weather[0].description).split(" "),
-        fontColor: whiteColor
-      }
-    },
+
 
     {
       id: 'windSpeed',
       offset: true,
       ticks: {
         autoSkip: false,
-        callback: el => convertSpeed(el.wind_speed, isMetric) + (isMetric ? 'm/s' : 'mph'),
+        callback: el => formatWindSpeed(el, isMetric),
         fontColor: whiteColor
       }
     },
@@ -95,7 +100,7 @@ const HourlyChart = ({isMetric, onecall}) => {
       offset: true,
       ticks: {
         autoSkip: false,
-        callback: el => el.pressure + "hPa",
+        callback: el => formatPressure(el),
         fontColor: whiteColor
       }
     },
@@ -104,7 +109,7 @@ const HourlyChart = ({isMetric, onecall}) => {
       offset: true,
       ticks: {
         autoSkip: false,
-        callback: el => el.humidity + "%",
+        callback: el => formatHumidity(el),
         fontColor: whiteColor
       }
     },
@@ -113,7 +118,7 @@ const HourlyChart = ({isMetric, onecall}) => {
       offset: true,
       ticks: {
         autoSkip: false,
-        callback: el => convertTemp(el.dew_point, isMetric) + '°',
+        callback: el => formatTemp(el.dew_point, isMetric),
         fontColor: whiteColor
       }
     },
@@ -122,7 +127,7 @@ const HourlyChart = ({isMetric, onecall}) => {
       offset: true,
       ticks: {
         autoSkip: false,
-        callback: el => Math.round(el.uvi),
+        callback: el => formatUvi(el),
         fontColor: whiteColor
       }
     },
@@ -131,7 +136,7 @@ const HourlyChart = ({isMetric, onecall}) => {
       offset: true,
       ticks: {
         autoSkip: false,
-        callback: el => el.clouds + '%',
+        callback: el => formatClouds(el),
         fontColor: whiteColor
       }
     }
@@ -143,11 +148,29 @@ const HourlyChart = ({isMetric, onecall}) => {
   }
 
   options.tooltips = {
+    ...options.tooltips,
     intersect: false,
     callbacks: {
       title: function(tooltipItem) {
-        return tooltipItem[0].xLabel.dt;
+        return timeInHours(tooltipItem[0].xLabel.dt, onecall.data.timezone_offset);
+      },
+      afterTitle: function(tooltipItem) {
+        return formatDesc(tooltipItem[0].xLabel)
+      },
+      label: function(tooltipItem, data) {
+        return data.datasets[tooltipItem.datasetIndex].label + ": " + (tooltipItem.yLabel ? tooltipItem.yLabel : 0) + ( tooltipItem.datasetIndex ? 'mm' : '°' );
+      },
+      afterBody: function(tooltipItem) {
+        let source = tooltipItem[0].xLabel;
+
+        let windSpeed = "Wind speed: " + formatWindSpeed(source, isMetric);
+        let pressure = "Pressure: " + formatPressure(source);
+        let humidity = "Humidity: " + formatHumidity(source);
+        let uvi = "UVI index: " + formatUvi(source);
+        let clouds = "Clouds: " +formatClouds(source);
+        return ["", windSpeed, pressure, humidity, uvi, clouds];
       }
+
     }
   }
 
@@ -160,6 +183,24 @@ const HourlyChart = ({isMetric, onecall}) => {
     return {
       labels: onecall.data.hourly,
       datasets: [
+        {
+          label: "Temperature",
+          yAxisID: "temperature",
+          fill: false,
+          borderColor: "#ba54f5",
+          borderWidth: 2,
+          borderDash: [],
+          borderDashOffset: 0.0,
+          pointBackgroundColor: "#ba54f5",
+          pointBorderColor: "rgba(255,255,255,0)",
+          pointHoverBackgroundColor: "#ba54f5",
+          pointBorderWidth: 20,
+          pointHoverRadius: 4,
+          pointHoverBorderWidth: 15,
+          pointRadius: 1,
+          data: onecall.data.hourly.map(el => convertTemp(el.temp, isMetric)),
+          type: "LineWithLine"
+        },
         {
           label: "Precipitation",
           yAxisID: "precipitation",
@@ -179,32 +220,16 @@ const HourlyChart = ({isMetric, onecall}) => {
           type: 'bar',
           data: onecall.data.hourly.map(el => 0 + (el.rain && el.rain['1h']) ? el.rain['1h'] : 0 + (el.snow && el.snow['1h']) ? el.snow['1h'] : 0),
         },
-        {
-          label: "Temperature",
-          yAxisID: "temperature",
-          fill: false,
-          borderColor: "#ba54f5",
-          borderWidth: 2,
-          borderDash: [],
-          borderDashOffset: 0.0,
-          pointBackgroundColor: "#ba54f5",
-          pointBorderColor: "rgba(255,255,255,0)",
-          pointHoverBackgroundColor: "#ba54f5",
-          pointBorderWidth: 20,
-          pointHoverRadius: 4,
-          pointHoverBorderWidth: 15,
-          pointRadius: 1,
-          data: onecall.data.hourly.map(el => convertTemp(el.temp, isMetric)),
-          type: "LineWithLine"
-        },
       ]
     }
   }
 
   return (
     <ChartContainer
-            isLoading={onecall.isLoading}
-            error={onecall.error} >
+      isLoading={onecall.isLoading}
+      error={onecall.error}
+      style={{height: "400px"}}
+    >
       <Line
         className="hourly-chart-canvas"
         data={chartData}

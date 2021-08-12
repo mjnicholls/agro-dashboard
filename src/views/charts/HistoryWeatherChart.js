@@ -51,44 +51,47 @@ const HistoryWeather = ({polyId, startDate, endDate}) => {
 
   options.scales.yAxes = [
     {
-        id: "temperature",
-        position: 'left',
-        barPercentage: 1.6,
-        gridLines: {
-          drawBorder: false,
-          color: "rgba(29,140,248,0.0)",
-          zeroLineColor: "transparent",
-        },
-        ticks: {
-          // suggestedMin: 60,
-          // suggestedMax: 125,
-          // padding: 20,
-          fontColor: "#9a9a9a",
-          callback: function (value) {
-            return value + '°';
-          }
-        },
+      id: "temperature",
+      position: 'left',
+      barPercentage: 1.6,
+      gridLines: {
+        drawBorder: false,
+        color: "rgba(29,140,248,0.0)",
+        zeroLineColor: "transparent",
       },
-      {
-        id: "precipitation",
-        position: 'right',
-        barPercentage: 1.6,
-        gridLines: {
-          drawBorder: false,
-          color: "rgba(29,140,248,0.0)",
-          zeroLineColor: "transparent",
-        },
-        ticks: {
-          // suggestedMin: 60,
-          // suggestedMax: 125,
-          // padding: 20,
-          fontColor: "#9a9a9a",
-          callback: function (value) {
-            return value + 'mm';
-          }
-        },
-      }
+      ticks: {
+        fontColor: "#9a9a9a",
+        callback: function (value) {
+          return value + '°';
+        }
+      },
+    },
+    {
+      id: "precipitation",
+      position: 'right',
+      barPercentage: 1.6,
+      gridLines: {
+        drawBorder: false,
+        color: "rgba(29,140,248,0.0)",
+        zeroLineColor: "transparent",
+      },
+      ticks: {
+        fontColor: "#9a9a9a",
+        callback: function (value) {
+          return value + 'mm';
+        }
+      },
+    }
   ]
+
+  options.tooltips = {
+    ...options.tooltips,
+    callbacks: {
+      label: function(tooltipItem, data) {
+        return data.datasets[tooltipItem.datasetIndex].label + ": " + tooltipItem.value + ( tooltipItem.datasetIndex === 2 ? 'mm' : '°');
+      }
+    }
+  }
 
   let chartData = (canvas) => {
     let ctx = canvas.getContext("2d");
@@ -105,14 +108,10 @@ const HistoryWeather = ({polyId, startDate, endDate}) => {
     const purple = "#ba54f5";
     const blue = "#1f8ef1";
 
-    // let minTemp = [];
-    // let maxTemp = [];
     let labels = [];
     let rainData = [];
     for (let i=0; i<data.length; i++) {
       let el = data[i];
-      // minTemp.push(kelvinToCelsius(el.main.temp_min));
-      // maxTemp.push(kelvinToCelsius(el.main.temp_max));
       labels.push(toDateShort(el.dt)); // TODO local date
       let prec = 0 + (el.rain ? el.rain["1h"] || 0 : 0) + (el.snow ? el.snow["1h"] || 0 : 0);
       rainData.push(prec.toFixed(2));
@@ -144,7 +143,6 @@ const HistoryWeather = ({polyId, startDate, endDate}) => {
           label: "Minimum temperature",
           yAxisID: "temperature",
           fill: false,
-          // backgroundColor: gradientStrokeGreen,
           borderColor: purple,
           borderWidth: 2,
           borderDash: [],

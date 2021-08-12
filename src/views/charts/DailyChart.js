@@ -1,14 +1,18 @@
 import React from 'react';
 import {Line} from "react-chartjs-2";
 
-import {convertTemp, convertSpeed, capitalize} from "../../utils/utils";
+import {convertTemp} from "../../utils/utils";
 import {chartOptions} from "./base";
 import {formatDateShort} from "../../utils/dateTime";
 import ChartContainer from "./ui/ChartContainer";
+import {
+  formatClouds, formatDesc, formatHumidity, formatPressure, formatUvi,
+  formatWindSpeed, formatTemp
+} from "./utils";
 
 
 const DailyChart = ({isMetric, onecall}) => {
-  
+
   const options = JSON.parse(JSON.stringify(chartOptions))
   options.scales.yAxes = [
     {
@@ -31,8 +35,18 @@ const DailyChart = ({isMetric, onecall}) => {
       position: "top",
       ticks: {
         autoSkip: false,
-        callback: el => convertTemp(el.temp.max, isMetric) + '°',
+        callback: el => formatTemp(el.temp.max, isMetric),
         fontColor: "#ba54f5"
+      }
+    },
+    {
+      id: 'description',
+      offset: true,
+      position: "top",
+      ticks: {
+        autoSkip: false,
+        callback: el => formatDesc(el).split(' '),
+        fontColor: whiteColor
       }
     },
     {
@@ -51,7 +65,7 @@ const DailyChart = ({isMetric, onecall}) => {
       offset: true,
       ticks: {
         autoSkip: false,
-        callback: el => convertTemp(el.temp.min, isMetric) + '°',
+        callback: el => formatTemp(el.temp.min, isMetric),
         fontColor: "#ba54f5"
       }
     },
@@ -65,21 +79,11 @@ const DailyChart = ({isMetric, onecall}) => {
       }
     },
     {
-      id: 'description',
-      offset: true,
-      ticks: {
-        autoSkip: false,
-        callback: el => capitalize(el.weather[0].description).split(' '),
-        fontColor: whiteColor
-      }
-    },
-
-    {
       id: 'windSpeed',
       offset: true,
       ticks: {
         autoSkip: false,
-        callback: el => convertSpeed(el.wind_speed, isMetric) + (isMetric ? 'm/s' : 'mph'),
+        callback: el => formatWindSpeed(el, isMetric),
         fontColor: whiteColor
       }
     },
@@ -88,7 +92,7 @@ const DailyChart = ({isMetric, onecall}) => {
       offset: true,
       ticks: {
         autoSkip: false,
-        callback: el => el.pressure + "hPa",
+        callback: el => formatPressure(el),
         fontColor: whiteColor
       }
     },
@@ -97,7 +101,7 @@ const DailyChart = ({isMetric, onecall}) => {
       offset: true,
       ticks: {
         autoSkip: false,
-        callback: el => el.humidity + "%",
+        callback: el => formatHumidity(el),
         fontColor: whiteColor
       }
     },
@@ -106,7 +110,7 @@ const DailyChart = ({isMetric, onecall}) => {
       offset: true,
       ticks: {
         autoSkip: false,
-        callback: el => convertTemp(el.dew_point, isMetric) + '°',
+        callback: el => formatTemp(el.dew_point, isMetric),
         fontColor: whiteColor
       }
     },
@@ -115,7 +119,7 @@ const DailyChart = ({isMetric, onecall}) => {
       offset: true,
       ticks: {
         autoSkip: false,
-        callback: el =>  Math.round(el.uvi),
+        callback: el =>  formatUvi(el),
         fontColor: whiteColor
       }
     },
@@ -124,7 +128,7 @@ const DailyChart = ({isMetric, onecall}) => {
       offset: true,
       ticks: {
         autoSkip: false,
-        callback: el => el.clouds + "%",
+        callback: el => formatClouds(el),
         fontColor: whiteColor
       }
     }
@@ -132,17 +136,33 @@ const DailyChart = ({isMetric, onecall}) => {
   options.interaction = {
     intersect: false,
     mode: "index"
-
   }
-
   options.tooltips = {
+    ...options.tooltips,
     intersect: false,
     callbacks: {
       title: function(tooltipItem) {
-        return tooltipItem[0].xLabel.dt;
+        return formatDateShort(tooltipItem[0].xLabel.dt, onecall.data.timezone_offset);
+      },
+      afterTitle: function(tooltipItem) {
+        return formatDesc(tooltipItem[0].xLabel)
+      },
+      label: function(tooltipItem, data) {
+        return data.datasets[tooltipItem.datasetIndex].label + ": " + (tooltipItem.yLabel ? tooltipItem.yLabel : 0) + ( tooltipItem.datasetIndex === 2 ? 'mm' : '°' );
+      },
+      afterBody: function(tooltipItem) {
+        let source = tooltipItem[0].xLabel;
+
+        let windSpeed = "Wind speed: " + formatWindSpeed(source, isMetric);
+        let pressure = "Pressure: " + formatPressure(source);
+        let humidity = "Humidity: " + formatHumidity(source);
+        let uvi = "UVI index: " + formatUvi(source);
+        let clouds = "Clouds: " +formatClouds(source);
+        return ["", windSpeed, pressure, humidity, uvi, clouds];
       }
     }
   }
+
 
   let chartData = (canvas) => {
     let ctx = canvas.getContext("2d");
@@ -160,26 +180,7 @@ const DailyChart = ({isMetric, onecall}) => {
       labels: onecall.data.daily,
       datasets: [
         {
-          label: "Precipitation",
-          yAxisID: "precipitation",
-          fill: true,
-          backgroundColor: gradientStrokeBlue,
-          borderColor: "#1f8ef1",
-          borderWidth: 2,
-          borderDash: [],
-          borderDashOffset: 0.0,
-          pointBackgroundColor: "#1f8ef1",
-          pointBorderColor: "rgba(255,255,255,0)",
-          pointHoverBackgroundColor: "#1f8ef1",
-          pointBorderWidth: 20,
-          pointHoverRadius: 4,
-          pointHoverBorderWidth: 15,
-          pointRadius: 1,
-          type: 'bar',
-          data: onecall.data.daily.map(el => el.rain),
-        },
-        {
-          label: "Temperature Max",
+          label: "Max temp",
           yAxisID: "temp",
           fill: "+1",
           backgroundColor: gradientStrokePurple,
@@ -198,7 +199,7 @@ const DailyChart = ({isMetric, onecall}) => {
           type: "LineWithLine"
         },
         {
-          label: "Temperature Min",
+          label: "Min temp",
           yAxisID: "temp",
           fill: false,
           borderColor: "#ba54f5",
@@ -214,6 +215,25 @@ const DailyChart = ({isMetric, onecall}) => {
           pointRadius: 1,
           data: onecall.data.daily.map(el => convertTemp(el.temp.min, isMetric)),
           type: "LineWithLine"
+        },
+        {
+          label: "Precipitation",
+          yAxisID: "precipitation",
+          fill: true,
+          backgroundColor: gradientStrokeBlue,
+          borderColor: "#1f8ef1",
+          borderWidth: 2,
+          borderDash: [],
+          borderDashOffset: 0.0,
+          pointBackgroundColor: "#1f8ef1",
+          pointBorderColor: "rgba(255,255,255,0)",
+          pointHoverBackgroundColor: "#1f8ef1",
+          pointBorderWidth: 20,
+          pointHoverRadius: 4,
+          pointHoverBorderWidth: 15,
+          pointRadius: 1,
+          type: 'bar',
+          data: onecall.data.daily.map(el => el.rain),
         },
       ]
     }

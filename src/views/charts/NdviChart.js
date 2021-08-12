@@ -74,18 +74,13 @@ const NdviChart = ({ polyId }) => {
     let gradientStrokeBlue = ctx.createLinearGradient(0, 230, 0, 50);
     gradientStrokeBlue.addColorStop(1, "rgba(29,140,248,0.2)");
     gradientStrokeBlue.addColorStop(0.4, "rgba(29,140,248,0.0)");
-    gradientStrokeBlue.addColorStop(0, "rgba(29,140,248,0)"); //blue colors
-
-    let gradientStrokeGreen = ctx.createLinearGradient(0, 230, 0, 50);
-    gradientStrokeGreen.addColorStop(1, "rgba(66,134,121,0.15)");
-    gradientStrokeGreen.addColorStop(0.4, "rgba(66,134,121,0.0)"); //green colors
-    gradientStrokeGreen.addColorStop(0, "rgba(66,134,121,0)"); //green colors
+    gradientStrokeBlue.addColorStop(0, "rgba(29,140,248,0)");
 
     return {
       labels: data.map(el => toDate(el.dt)),
       datasets: [
         {
-          label: "max",
+          label: "Max",
           fill: "+1",
           backgroundColor: gradientStrokeBlue,
           borderColor: "#1f8ef1",
@@ -99,12 +94,11 @@ const NdviChart = ({ polyId }) => {
           pointHoverRadius: 4,
           pointHoverBorderWidth: 15,
           pointRadius: 4,
-          data: data.map(el => el.data.max.toFixed(3)),
+          data: data.map(el => el.data.max.toFixed(2)),
         },
         {
-          label: "min",
+          label: "Min",
           fill: false,
-          // backgroundColor: gradientStrokeBlue,
           borderColor: "#1f8ef1",
           borderWidth: 2,
           borderDash: [],
@@ -116,12 +110,11 @@ const NdviChart = ({ polyId }) => {
           pointHoverRadius: 4,
           pointHoverBorderWidth: 15,
           pointRadius: 4,
-          data: data.map(el => el.data.min.toFixed(3)),
+          data: data.map(el => el.data.min.toFixed(2)),
         },
         {
-          label: "mean",
+          label: "Mean",
           fill: false,
-          // backgroundColor: gradientStrokeGreen,
           borderColor: "#00d6b4",
           borderWidth: 2,
           borderDash: [],
@@ -133,7 +126,7 @@ const NdviChart = ({ polyId }) => {
           pointHoverRadius: 4,
           pointHoverBorderWidth: 15,
           pointRadius: 4,
-          data: data.map(el => el.data.mean.toFixed(3)),
+          data: data.map(el => el.data.mean.toFixed(2)),
         }
       ]
     }

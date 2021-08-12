@@ -117,7 +117,7 @@ const CombinedChart = ({polyId}) => {
                 data-toggle="buttons"
               >
                 {Object.entries(tabsConfig).map((tab, index) => <Button
-                  color="info" id={index} size="sm" tag="label" key={tab}
+                  color="github" id={index} size="sm" tag="label" key={tab}
                   className={classNames("btn-simple", {
                     active: activeTab.id === tab[0],
                   })}

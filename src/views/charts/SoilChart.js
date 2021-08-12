@@ -83,102 +83,79 @@ const SoilChart = ({ polyId, startDate, endDate }) => {
       },
     }
   ]
-  options.plugins = {
-    tooltip: {
-      callbacks: {
-        label: function (context) {
-          var label = context.dataset.label || '';
 
-          if (label) {
-            label += ': ';
-          }
-          if (context.parsed.y !== null) {
-            label += new Intl.NumberFormat('en-US', {
-              style: 'currency',
-              currency: 'USD'
-            }).format(context.parsed.y);
-          }
-          return label;
+  options.tooltips = {
+    ...options.tooltips,
+    callbacks: {
+      label: function(tooltipItem, data) {
+        return data.datasets[tooltipItem.datasetIndex].label + ": " + tooltipItem.value + ( tooltipItem.datasetIndex === 2 ? '' : '°');
         }
-      }
     }
   }
 
   let chartData = (canvas) => {
 
     let ctx = canvas.getContext("2d");
-    let gradientStrokeBlue = ctx.createLinearGradient(0, 230, 0, 50);
-    gradientStrokeBlue.addColorStop(1, "rgba(29,140,248,0.2)");
-    gradientStrokeBlue.addColorStop(0.4, "rgba(29,140,248,0.0)");
-    gradientStrokeBlue.addColorStop(0, "rgba(29,140,248,0)"); //blue colors
 
     let gradientStrokeGreen = ctx.createLinearGradient(0, 230, 0, 50);
     gradientStrokeGreen.addColorStop(1, "rgba(66,134,121,0.15)");
     gradientStrokeGreen.addColorStop(0.4, "rgba(66,134,121,0.0)"); //green colors
     gradientStrokeGreen.addColorStop(0, "rgba(66,134,121,0)"); //green colors
 
-    let gradientStrokePurple = ctx.createLinearGradient(0, 230, 0, 50);
-
-    gradientStrokePurple.addColorStop(1, "rgba(72,72,176,0.4)");
-    gradientStrokePurple.addColorStop(0.8, "rgba(72,72,176,0.2)");
-    gradientStrokePurple.addColorStop(0, "rgba(119,52,169,0)"); //purple colors
-
     return {
       labels: data.map(el => toDateShort(el.dt)),
       datasets: [
         {
-            label: "Soil temperature at a depth of 10cm",
-            yAxisID: "temperature",
-            fill: false,
-            // backgroundColor: gradientStrokeBlue,
-            borderColor: "#1f8ef1",
-            borderWidth: 2,
-            borderDash: [],
-            borderDashOffset: 0.0,
-            pointBackgroundColor: "#1f8ef1",
-            pointBorderColor: "rgba(255,255,255,0)",
-            pointHoverBackgroundColor: "#1f8ef1",
-            pointBorderWidth: 20,
-            pointHoverRadius: 4,
-            pointHoverBorderWidth: 15,
-            pointRadius: 1,
-            data: data.map(el => convertTemp(el.t10, units)),
+          label: "Temperature at a depth of 10cm",
+          yAxisID: "temperature",
+          fill: false,
+          borderColor: "#1f8ef1",
+          borderWidth: 2,
+          borderDash: [],
+          borderDashOffset: 0.0,
+          pointBackgroundColor: "#1f8ef1",
+          pointBorderColor: "rgba(255,255,255,0)",
+          pointHoverBackgroundColor: "#1f8ef1",
+          pointBorderWidth: 20,
+          pointHoverRadius: 4,
+          pointHoverBorderWidth: 15,
+          pointRadius: 1,
+          data: data.map(el => convertTemp(el.t10, units)),
         },
         {
-            label: "Moisture",
-            yAxisID: "moisture",
-            fill: true,
-            backgroundColor: gradientStrokeGreen,
-            borderColor: "#00d6b4",
-            borderWidth: 2,
-            borderDash: [],
-            borderDashOffset: 0.0,
-            pointBackgroundColor: "#00d6b4",
-            pointBorderColor: "rgba(255,255,255,0)",
-            pointHoverBackgroundColor: "#00d6b4",
-            pointBorderWidth: 20,
-            pointHoverRadius: 4,
-            pointHoverBorderWidth: 15,
-            pointRadius: 1,
-            data: data.map(el => el.moisture.toFixed(3)),
-          },
-          {
-            label: "Soil temperature at the surface",
-            yAxisID: "temperature",
-            fill: false,
-            // backgroundColor: gradientStrokeBlue,
-            borderColor: "#ba54f5",
-            borderWidth: 2,
-            borderDash: [],
-            borderDashOffset: 0.0,
-            pointBackgroundColor: "#ba54f5",
-            pointBorderColor: "rgba(255,255,255,0)",
-            pointHoverBackgroundColor: "#ba54f5",
-            pointBorderWidth: 20,
-            pointHoverRadius: 4,
-            pointHoverBorderWidth: 15,
-            pointRadius: 1,
-            data: data.map(el => convertTemp(el.t0, units)),
+          label: "Temperature at the surface",
+          yAxisID: "temperature",
+          fill: false,
+          borderColor: "#ba54f5",
+          borderWidth: 2,
+          borderDash: [],
+          borderDashOffset: 0.0,
+          pointBackgroundColor: "#ba54f5",
+          pointBorderColor: "rgba(255,255,255,0)",
+          pointHoverBackgroundColor: "#ba54f5",
+          pointBorderWidth: 20,
+          pointHoverRadius: 4,
+          pointHoverBorderWidth: 15,
+          pointRadius: 1,
+          data: data.map(el => convertTemp(el.t0, units)),
+        },
+        {
+          label: "Moisture",
+          yAxisID: "moisture",
+          fill: true,
+          backgroundColor: gradientStrokeGreen,
+          borderColor: "#00d6b4",
+          borderWidth: 2,
+          borderDash: [],
+          borderDashOffset: 0.0,
+          pointBackgroundColor: "#00d6b4",
+          pointBorderColor: "rgba(255,255,255,0)",
+          pointHoverBackgroundColor: "#00d6b4",
+          pointBorderWidth: 20,
+          pointHoverRadius: 4,
+          pointHoverBorderWidth: 15,
+          pointRadius: 1,
+          data: data.map(el => el.moisture.toFixed(2)),
         },
       ]
     }

@@ -111,42 +111,50 @@ const AccumulatedChart = ({polyId, startDate, endDate}) => {
 
   options.scales.yAxes = [
     {
-        id: "temperature",
-        position: 'left',
-        barPercentage: 1.6,
-        gridLines: {
-          drawBorder: false,
-          color: "rgba(29,140,248,0.0)",
-          zeroLineColor: "transparent",
-        },
-        ticks: {
-          maxTicksLimit: 6,
-          beginAtZero: true,
-          fontColor: "#9a9a9a",
-          callback: function (value) {
-            return value + '°';
-          }
-        },
+      id: "temperature",
+      position: 'left',
+      barPercentage: 1.6,
+      gridLines: {
+        drawBorder: false,
+        color: "rgba(29,140,248,0.0)",
+        zeroLineColor: "transparent",
       },
-      {
-        id: "rainfall",
-        position: 'right',
-        barPercentage: 1.6,
-        gridLines: {
-          drawBorder: false,
-          color: "rgba(29,140,248,0.0)",
-          zeroLineColor: "transparent",
-        },
-        ticks: {
-          maxTicksLimit: 6,
-          beginAtZero: true,
-          fontColor: "#9a9a9a",
-          callback: function (value) {
-            return value + ' mm';
-          }
+      ticks: {
+        maxTicksLimit: 6,
+        beginAtZero: true,
+        fontColor: "#9a9a9a",
+        callback: function (value) {
+          return value + '°';
+        }
+      },
+    },
+    {
+      id: "rainfall",
+      position: 'right',
+      barPercentage: 1.6,
+      gridLines: {
+        drawBorder: false,
+        color: "rgba(29,140,248,0.0)",
+        zeroLineColor: "transparent",
+      },
+      ticks: {
+        maxTicksLimit: 6,
+        beginAtZero: true,
+        fontColor: "#9a9a9a",
+        callback: function (value) {
+          return value + ' mm';
         }
       }
+    }
   ]
+  options.tooltips = {
+    ...options.tooltips,
+    callbacks: {
+      label: function(tooltipItem, data) {
+        return data.datasets[tooltipItem.datasetIndex].label + ": " + tooltipItem.value + ( tooltipItem.datasetIndex  ? 'mm' : '°');
+        }
+    }
+  }
 
   const chartData = (canvas) => {
     let ctx = canvas.getContext("2d");

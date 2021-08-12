@@ -1,9 +1,9 @@
 const kelvinToCelsius = (temp) => {
-  return Math.round(temp - 273.15)
+  return (temp - 273.15).toFixed(1)
 }
 
 const kelvinToFahrenheit = (temp) => {
-  return Math.round(temp * 9/5 - 459.67)
+  return (temp * 9/5 - 459.67).toFixed(1)
 }
 
 export const convertTemp = (temp, isMetric) => {

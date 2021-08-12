@@ -409,6 +409,7 @@ $daily-chart-width: 1000px;
 
 .agro-placeholder {
   display: flex;
+  height: 330px;
 
   .agro-placeholder-content {
     height: 100%;
@@ -431,4 +432,10 @@ $daily-chart-width: 1000px;
   height: 1.8rem !important;;
   min-width: 1.8rem !important;;
   min-height: 1.8rem !important;;
+}
+
+.btn.btn-simple.btn-github.active {
+  background-color: $github-states !important;
+  border-color: $github-states !important;
+  color: $background-states-black !important;
 }
