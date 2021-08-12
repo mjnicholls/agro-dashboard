@@ -15,16 +15,10 @@ import {axiosInstance} from "../base";
 //       throw new Error("No data for selected period");
 //     }
 //   } else {
-//     throw new Error("Failed to fetch data"); // TODO shoud not happen, check cancelled
+//     throw new Error("Failed to fetch data");
 //   }
 // }
 
-const parseError = (error) => {
-  if (typeof error === "object") {
-    error = error.message || "Something went wrong";
-  }
-  throw new Error(error);
-}
 
 export const getHistoryNDVIData = (polygonId, start, end) => {
   /** Get history NDVI chart data by polygon  */

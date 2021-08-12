@@ -48,8 +48,8 @@ const routes = [
     onclick: "weather"
   },
   {
-    path: "/create",
-    name: "Create Polygon",
+    path: "/new-polygon",
+    name: "New Polygon",
     rtlName: "لوحة القيادة",
     icon: "tim-icons icon-simple-add",
     component: PolygonNew,

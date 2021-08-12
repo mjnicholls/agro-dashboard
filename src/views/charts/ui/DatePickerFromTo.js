@@ -2,7 +2,7 @@ import React from 'react';
 import DatePicker from "react-datetime";
 import moment from "moment/moment";
 
-const DatePickerChart = ({startDate, setStartDate, endDate, setEndDate, earliestPossibleDate: earliestAvailableDate}) => {
+const DatePickerChart = ({startDate, setStartDate, endDate, setEndDate, earliestAvailableDate}) => {
 
   const onStartDateChange = (moment) => {
     setStartDate(moment.valueOf());

@@ -10,7 +10,6 @@ export const POLYGONS_FETCH_FAILURE = 'polygons/fetch_failure';
 export const POLYGON_ADDED = 'polygons/add';
 export const POLYGON_UPDATED = 'polygons/update';
 export const POLYGON_DELETED = 'polygons/delete';
-export const POLYGONS_BOUNDS = 'polygons/save_bounds';
 
 
 const polygonsFetched = () => {
@@ -57,13 +56,6 @@ export const polygonDeleted = polygonId => {
   }
 }
 
-// TODO calculate bounds on a top level
-const setPolygonBounds = payload => {
-  return {
-    type: POLYGONS_BOUNDS,
-    bounds: payload,
-  }
-}
 
 const calculateBbox = (polygon) => {
   let coordinates = polygon.geo_json.geometry.coordinates;

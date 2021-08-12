@@ -89,23 +89,25 @@ const CombinedChart = ({polyId}) => {
      * - history weather data
      *  */
 
-    let limit, startDate, earliestAvailableDate;
+    let depth, startDate, earliestAvailableDate;
     // limits come from backend as
     // -1: unlimited, 0: not available for this tariff, > 0 - number in years
-    let limits = [limitAccPrec.depth, limitAccTemp.depth, limitSoil.depth, limitSoil.depth];
-    let positiveLimits = limits.filter(limit => limit >= 0);
-    if (positiveLimits.length) {
-      limit = Math.min(...positiveLimits)
+    let depths = [limitAccPrec.depth, limitAccTemp.depth, limitSoil.depth, limitSoil.depth];
+    let positiveDepths = depths.filter(el => el >= 0);
+    if (positiveDepths.length) {
+      depth = Math.min(...positiveDepths)
     }
-    if (limit && limit > 0 ) {
+    if (depth && depth > 0 ) {
       // tariffs small, starter
       earliestAvailableDate = new Date();
-      earliestAvailableDate.setFullYear(earliestAvailableDate.getFullYear() - limit.depth);
+      earliestAvailableDate.setFullYear(earliestAvailableDate.getFullYear() - depth);
       // set default start date from config unless earliestAvailableDate is later
-      startDate = getDateInPast(Math.min(limit.depth * 12, defaultStartHistoryWeatherCharts));
-    } else if (limit < 0) {
-      // tarrif corp
-      earliestAvailableDate = new Date(Math.min(
+
+      startDate = getDateInPast(Math.min(depth * 12, defaultStartHistoryWeatherCharts));
+
+    } else if (depth < 0) {
+      // tarrif corp // TODO выбираю максимальную дату, нет возможности увидеть более ранние даты
+      earliestAvailableDate = new Date(Math.max(
         limitAccPrec.start, limitAccTemp.start, limitSoil.start, limitHistoryWeather.start) * 1000);
       startDate = getDateInPast(defaultStartHistoryWeatherCharts); // один месяц назад
     }
@@ -116,7 +118,7 @@ const CombinedChart = ({polyId}) => {
         setEndDate(new Date().getTime());
       }
     }
-  }, [limitAccPrec, limitAccTemp, limitSoil, limitHistoryWeather])
+  }, [limitAccPrec, limitAccTemp, limitSoil, limitHistoryWeather, polyId])
 
   return (
     <Card className={classNames("card-chart agro-chart ", {

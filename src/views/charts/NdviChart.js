@@ -162,7 +162,7 @@ const NdviChart = ({ polyId }) => {
               setStartDate={setStartDate}
               endDate={endDate}
               setEndDate={setEndDate}
-              earliestPossibleDate={earliestAvailableDate}
+              earliestAvailableDate={earliestAvailableDate}
             />
           </Col>
         </Row>
