@@ -58,13 +58,15 @@ chartInstance.controllers.LineWithLine = Chart.controllers.line.extend({
 
      if (this.chart.tooltip._active && this.chart.tooltip._active.length) {
 
-       var activePoint = this.chart.tooltip._active[0],
+       let activePoint = this.chart.tooltip._active[0],
          ctx = this.chart.ctx,
          x = activePoint.tooltipPosition().x,
          topY = this.chart.legend.bottom,
          // bottomY = this.chart.chartArea.bottom;
          bottomY = 450;
-       let barWidth = this.chart.getDatasetMeta(0).data[0]._view.width + 10;
+       let barChartIndex = this.chart.data.datasets.findIndex(el => el.type === "bar")
+       let barWidth = this.chart.getDatasetMeta(barChartIndex).data[0]._view.width + 10;
+
        // draw line
        ctx.globalCompositeOperation = 'destination-over';
        ctx.save();

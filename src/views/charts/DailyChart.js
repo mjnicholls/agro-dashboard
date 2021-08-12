@@ -163,7 +163,6 @@ const DailyChart = ({isMetric, onecall}) => {
     }
   }
 
-
   let chartData = (canvas) => {
     let ctx = canvas.getContext("2d");
     let gradientStrokeBlue = ctx.createLinearGradient(0, 230, 0, 50);

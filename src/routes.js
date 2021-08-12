@@ -19,7 +19,7 @@ const routes = [
   // },
   {
     path: "/polygons",
-    name: "My polygons",
+    name: "Polygons",
     rtlName: "لوحة القيادة",
     icon: "tim-icons icon-bullet-list-67",
     component: DashboardMain,
