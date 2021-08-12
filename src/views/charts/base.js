@@ -19,7 +19,7 @@ const chartOptions = {
   scales: {
     yAxes: [
       {
-        barPercentage: 1.6,
+        // barPercentage: 1.6,
         gridLines: {
           drawBorder: false,
           color: "rgba(29,140,248,0.0)",
@@ -33,7 +33,7 @@ const chartOptions = {
     ],
     xAxes: [
       {
-        barPercentage: 1.6,
+        // barPercentage: 1.6,
         gridLines: {
           drawBorder: false,
           color: "rgba(29,140,248,0.1)",

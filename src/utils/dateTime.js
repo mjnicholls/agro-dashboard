@@ -28,11 +28,11 @@ export const getStartDateByTariff = (limit) => {
    * depth = 1: 1 year
    * depth = 0.5: 1/2 year
    * */
-  let newStartDate;
+  let newStartDate = null;
   if (limit.depth > 0) {
     newStartDate = new Date();
     newStartDate.setFullYear(newStartDate.getFullYear() - limit.depth);
-  } else {
+  } else if (limit.depth < 0) {
     newStartDate = limit.start;
   }
   return newStartDate;

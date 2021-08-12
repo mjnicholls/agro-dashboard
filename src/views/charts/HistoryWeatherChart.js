@@ -3,7 +3,7 @@ import {useSelector} from 'react-redux';
 
 import {toDateShort} from "../../utils/dateTime";
 import {convertTemp} from '../../utils/utils'
-
+import {tariffError} from '../../config'
 import ChartContainer from './ui/ChartContainer';
 import {Line} from "react-chartjs-2";
 import {chartOptions} from "./base";
@@ -14,8 +14,8 @@ const selectUnits = state => state.units.isMetric;
 const HistoryWeather = ({polyId, startDate, endDate}) => {
 
   const [data, setData] = useState([]);
-  const [error, setError] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(startDate ? null : tariffError);
+  const [isLoading, setIsLoading] = useState(startDate);
 
   const isMetric = useSelector(selectUnits);
 

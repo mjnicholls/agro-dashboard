@@ -15,7 +15,9 @@ export const defaultCenterMap = [0.1278, 51.5074];
 export const mapBoxAccessToken = 'pk.eyJ1IjoiYXZvbG92aWsiLCJhIjoiY2txdzNpdWs1MGkwZjJ3cGNrYnZua3I4aCJ9.Le6NapjFYy5FfdDXfBmvrg';
 export const polygonShapeSize = 48;
 
-
+export const tariffError = "This feature is not available on your current plan"
+export const defaultStartHistoryWeatherCharts = 1; // months
+export const defaultStartHistorySatelliteCharts = 6; // months
 export const cropColorDict = {
     "0": {
         "color": "#000000",

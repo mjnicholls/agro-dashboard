@@ -14,8 +14,9 @@ import {
 import classNames from "classnames";
 
 import DatePickerFromTo from './ui/DatePickerFromTo';
-import {AccumulatedChart, DailyChart, HourlyChart, HistoryWeather, SoilChart} from './'
+import {AccumulatedChart, DailyChart, HourlyChart, HistoryWeather, HistorySoilChart} from './'
 import {getDateInPast} from "../../utils/dateTime";
+import {defaultStartHistoryWeatherCharts} from "../../config";
 
 const selectOneCall = state => state.onecall;
 const selectUnits = state => state.units.isMetric;
@@ -71,7 +72,8 @@ const CombinedChart = ({polyId}) => {
 
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
-  const [earliestPossibleDate, setEarliestPossibleDate] = useState(null);
+  const [earliestAvailableDate, setEarliestAvailableDate] = useState(null);
+
   const limitAccPrec = useSelector(selectLimitPrec);
   const limitAccTemp = useSelector(selectLimitTemp);
   const limitSoil = useSelector(selectLimitSoil);
@@ -79,26 +81,42 @@ const CombinedChart = ({polyId}) => {
 
 
   useEffect(() => {
-    /** Set start and end date for charts taken tariff limitations into account
+    /** Set start and end date for charts based on tariff and api limits
+     * Consider limits for
+     * - accumulated temperature
+     * - accumulated precipitation
+     * - history soil
+     * - history weather data
      *  */
-    let now = new Date();
-    let dateInPast = getDateInPast(1);
-    setStartDate(dateInPast.getTime());
-    setEndDate(now.getTime());
 
+    let limit, startDate, earliestAvailableDate;
+    // limits come from backend as
+    // -1: unlimited, 0: not available for this tariff, > 0 - number in years
     let limits = [limitAccPrec.depth, limitAccTemp.depth, limitSoil.depth, limitSoil.depth];
-    let earliestDate;
-    let positiveLimits = limits.filter(limit => limit > 0);
+    let positiveLimits = limits.filter(limit => limit >= 0);
     if (positiveLimits.length) {
-      let limit = Math.min(...positiveLimits);
-      earliestDate = new Date();
-      earliestDate.setFullYear(earliestDate.getFullYear() - limit.depth);
-    } else {
-      earliestDate = new Date(Math.min(
-        limitAccPrec.start, limitAccTemp.start, limitSoil.start, limitHistoryWeather.start) * 1000);
+      limit = Math.min(...positiveLimits)
     }
-    setEarliestPossibleDate(earliestDate)
-  }, [])
+    if (limit && limit > 0 ) {
+      // tariffs small, starter
+      earliestAvailableDate = new Date();
+      earliestAvailableDate.setFullYear(earliestAvailableDate.getFullYear() - limit.depth);
+      // set default start date from config unless earliestAvailableDate is later
+      startDate = getDateInPast(Math.min(limit.depth * 12, defaultStartHistoryWeatherCharts));
+    } else if (limit < 0) {
+      // tarrif corp
+      earliestAvailableDate = new Date(Math.min(
+        limitAccPrec.start, limitAccTemp.start, limitSoil.start, limitHistoryWeather.start) * 1000);
+      startDate = getDateInPast(defaultStartHistoryWeatherCharts); // один месяц назад
+    }
+    if (earliestAvailableDate) {
+      setEarliestAvailableDate(earliestAvailableDate)
+      if (startDate) {
+        setStartDate(startDate.getTime());
+        setEndDate(new Date().getTime());
+      }
+    }
+  }, [limitAccPrec, limitAccTemp, limitSoil, limitHistoryWeather])
 
   return (
     <Card className={classNames("card-chart agro-chart ", {
@@ -144,7 +162,7 @@ const CombinedChart = ({polyId}) => {
               setStartDate={setStartDate}
               endDate={endDate}
               setEndDate={setEndDate}
-              earliestPossibleDate={earliestPossibleDate}
+              earliestAvailableDate={earliestAvailableDate}
             />
           </Col>
         </Row>}
@@ -159,7 +177,7 @@ const CombinedChart = ({polyId}) => {
                 endDate={endDate}
               />
               : (activeTab.id === "History Soil") ?
-                <SoilChart
+                <HistorySoilChart
                   polyId={polyId}
                   startDate={startDate}
                   endDate={endDate}

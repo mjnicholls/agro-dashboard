@@ -43,7 +43,7 @@ const AccumulatedChart = ({id}) => {
 
   // выбрать из двух лимитов более позднюю дату
   const limit = limitPrec.depth <= limitTemp.depth ? limitPrec : limitTemp;
-  const limitStartDate = getStartDateByTariff(limit);
+  const earliestPossibleDate = getStartDateByTariff(limit);
 
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -239,7 +239,7 @@ const AccumulatedChart = ({id}) => {
               setStartDate={setStartDate}
               endDate={endDate}
               setEndDate={setEndDate}
-              limitStartDate={limitStartDate}
+              earliestPossibleDate={earliestPossibleDate}
             />
           </Col>
           <Col sm="1">

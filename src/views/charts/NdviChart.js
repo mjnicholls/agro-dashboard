@@ -4,9 +4,9 @@ import {useSelector} from 'react-redux';
 import {Line} from "react-chartjs-2";
 
 import DatePickerChart from './ui/DatePickerFromTo';
-import {getNDVIData} from "../../services/api/chartApi";
+import {getHistoryNDVIData} from "../../services/api/chartApi";
 
-import {toDate, getStartDateByTariff, getDateInPast} from '../../utils/dateTime'
+import {toDate, getDateInPast} from '../../utils/dateTime'
 import {chartOptions} from './base'
 
 import ChartContainer from './ui/ChartContainer';
@@ -18,6 +18,7 @@ import {
   Row,
   Col,
 } from "reactstrap";
+import {defaultStartHistoryWeatherCharts, tariffError} from "../../config";
 
 
 const selectLimit = state => state.auth.limits.history.ndvi_history;
@@ -25,28 +26,43 @@ const selectLimit = state => state.auth.limits.history.ndvi_history;
 const NdviChart = ({ polyId }) => {
 
   const limit = useSelector(selectLimit);
-  const limitStartDate = getStartDateByTariff(limit);
 
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
+  const [earliestAvailableDate, setEarliestAvailableDate] = useState(null);
   const [data, setData] = useState([]);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    let now = new Date();
-    let dateInPast = getDateInPast(6);
-
-    setStartDate(dateInPast.getTime());
-    setEndDate(now.getTime());
-
-  }, [])
+    if (limit) {
+      let earliestAvailableDate, startDate;
+      if (limit.depth > 0) {
+        earliestAvailableDate = new Date();
+        earliestAvailableDate.setFullYear(earliestAvailableDate.getFullYear() - limit.depth);
+        startDate = getDateInPast(Math.min(limit.depth * 12, defaultStartHistoryWeatherCharts));
+      }
+      else if (limit.depth < 0) {
+        earliestAvailableDate = limit.start;
+        startDate = getDateInPast(defaultStartHistoryWeatherCharts);
+      }
+      if (earliestAvailableDate) {
+        setEarliestAvailableDate(earliestAvailableDate);
+        setEarliestAvailableDate(earliestAvailableDate);
+        setStartDate(startDate);
+        setEndDate(new Date().getTime());
+      } else {
+        setIsLoading(false);
+        setError(tariffError);
+      }
+    }
+  }, [limit])
 
   useEffect(() => {
     if (startDate && endDate && polyId) {
       setIsLoading(true);
       setError(null);
-      getNDVIData(polyId, startDate, endDate)
+      getHistoryNDVIData(polyId, startDate, endDate)
         .then(response => {
           if (response) {
             if (response.length) {
@@ -146,7 +162,7 @@ const NdviChart = ({ polyId }) => {
               setStartDate={setStartDate}
               endDate={endDate}
               setEndDate={setEndDate}
-              limitStartDate={limitStartDate}
+              earliestPossibleDate={earliestAvailableDate}
             />
           </Col>
         </Row>

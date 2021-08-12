@@ -2,6 +2,7 @@ import React, {useEffect, useRef, useState} from 'react';
 import {useSelector} from 'react-redux';
 
 import ReactBSAlert from "react-bootstrap-sweetalert";
+import Slider from "nouislider";
 import {Line} from "react-chartjs-2";
 import {
   Form,
@@ -12,14 +13,13 @@ import {
   Col,
 } from "reactstrap";
 
-import {getAccumulatedData} from '../../services/api/chartApi';
-import {getDateInPast, getStartDateByTariff, toDateShort} from '../../utils/dateTime';
-import {chartOptions} from "./base";
 import AccumulatedInfo from '../info/AccumulatedInfo';
 import ChartContainer from './ui/ChartContainer';
-
+import {getAccumulatedData} from '../../services/api/chartApi';
+import {toDateShort} from '../../utils/dateTime';
+import {chartOptions} from "./base";
 import {convertTemp} from '../../utils/utils';
-import Slider from "nouislider";
+import {tariffError} from "../../config";
 
 const selectUnits = state => state.units.isMetric;
 
@@ -27,8 +27,8 @@ const AccumulatedChart = ({polyId, startDate, endDate}) => {
 
   const [data, setData] = useState([]);
 
-  const [error, setError] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(startDate ? null : tariffError);
+  const [isLoading, setIsLoading] = useState(startDate);
 
   const isMetric = useSelector(selectUnits);
   const thresholdMinC = 0;

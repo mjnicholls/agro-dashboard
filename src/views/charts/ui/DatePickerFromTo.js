@@ -2,7 +2,7 @@ import React from 'react';
 import DatePicker from "react-datetime";
 import moment from "moment/moment";
 
-const DatePickerChart = ({startDate, setStartDate, endDate, setEndDate, limitStartDate: earliestPossibleDate }) => {
+const DatePickerChart = ({startDate, setStartDate, endDate, setEndDate, earliestPossibleDate: earliestAvailableDate}) => {
 
   const onStartDateChange = (moment) => {
     setStartDate(moment.valueOf());
@@ -14,14 +14,14 @@ const DatePickerChart = ({startDate, setStartDate, endDate, setEndDate, limitSta
 
    let validateStartDate = function( current ){
     let res = current.isBefore(endDate) && current.isBefore(moment());
-    if (earliestPossibleDate) {
-      res = res && current.isAfter(earliestPossibleDate)
+    if (earliestAvailableDate) {
+      res = res && current.isAfter(earliestAvailableDate)
     }
     return  res ;
   };
 
   let validateEndDate = function( current ){
-    return current.isAfter(earliestPossibleDate) && current.isAfter(startDate) && current.isBefore(moment());
+    return current.isAfter(earliestAvailableDate) && current.isAfter(startDate) && current.isBefore(moment());
   };
 
   return (
@@ -33,6 +33,9 @@ const DatePickerChart = ({startDate, setStartDate, endDate, setEndDate, limitSta
         timeFormat={false}
         onChange={onStartDateChange}
         isValidDate={validateStartDate}
+        inputProps={{
+          disabled: !earliestAvailableDate
+        }}
      />
       <DatePicker
         className="card-header-calendar chart-calendar-right pb-3"
@@ -41,6 +44,9 @@ const DatePickerChart = ({startDate, setStartDate, endDate, setEndDate, limitSta
         timeFormat={false}
         onChange={onEndDateChange}
         isValidDate={validateEndDate}
+        inputProps={{
+          disabled: !earliestAvailableDate
+        }}
       />
     </div>
   )

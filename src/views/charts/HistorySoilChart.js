@@ -1,30 +1,30 @@
 import React, {useState} from 'react';
 import {useSelector} from 'react-redux';
 
-import {getSoilData} from "../../services/api/chartApi";
+import {getHistorySoilData} from "../../services/api/chartApi";
 import {toDateShort} from '../../utils/dateTime'
 import {Line} from "react-chartjs-2";
 import {chartOptions} from './base';
 import {convertTemp} from '../../utils/utils';
 import ChartContainer from './ui/ChartContainer';
+import {tariffError} from "../../config";
 
 
 const selectUnits = state => state.units.isMetric;
 
-const SoilChart = ({ polyId, startDate, endDate }) => {
+const HistorySoilChart = ({ polyId, startDate, endDate }) => {
 
   const units = useSelector(selectUnits);
 
   const [data, setData] = useState([]);
-  const [error, setError] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
-
+  const [error, setError] = useState(startDate ? null : tariffError);
+  const [isLoading, setIsLoading] = useState(startDate);
 
   React.useEffect(() => {
-    setIsLoading(true);
-    setError(null);
     if (startDate && endDate && polyId) {
-      getSoilData(polyId, startDate, endDate)
+      setIsLoading(true);
+      setError(null);
+      getHistorySoilData(polyId, startDate, endDate)
         .then(response => {
           if (response) {
             if (response.length) {
@@ -173,4 +173,4 @@ const SoilChart = ({ polyId, startDate, endDate }) => {
   )
 }
 
-export default SoilChart;
+export default HistorySoilChart;

@@ -26,17 +26,17 @@ const parseError = (error) => {
   throw new Error(error);
 }
 
-export const getNDVIData = (polygonId, start, end) => {
+export const getHistoryNDVIData = (polygonId, start, end) => {
   /** Get history NDVI chart data by polygon  */
   let url = `${historyNDVI}?polyid=${polygonId}&start=${Math.round(start/1000)}&end=${Math.round(end/1000)}`
   return axiosInstance.get(url)
     .then(response => response.data)
     .catch(err => {
-      throw new Error(err.message)
+      throw new Error(err)
     })
 }
 
-export const getSoilData = (polygonId, start, end) => {
+export const getHistorySoilData = (polygonId, start, end) => {
   /** Get soil chart data by polygon  */
   let url = `${historySoil}?polyid=${polygonId}&start=${Math.round(start/1000)}&end=${Math.round(end/1000)}`
   return axiosInstance.get(url)
