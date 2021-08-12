@@ -122,10 +122,6 @@ const Admin = (props) => {
     return activeRoute;
   };
 
-  const handleActiveClick = (color) => {
-    setActiveColor(color);
-  };
-
   const handleMiniClick = () => {
     let notifyMessage = "Sidebar mini ";
     if (document.body.classList.contains("sidebar-mini")) {

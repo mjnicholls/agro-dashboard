@@ -3,7 +3,6 @@ import {
   polygonCreate,
   polygonDelete,
   polygonSatelliteImagesList,
-  satelliteImageStats
 } from './index';
 import {startSatelliteImagesSearchDate} from '../../config'
 

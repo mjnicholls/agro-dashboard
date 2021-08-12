@@ -19,13 +19,11 @@ import {setActivePoly} from "../../features/state/actions";
 
 const selectActivePoly = state => state.state.polygon;
 const selectPolygons = state => state.polygons;
-const selectIsSatelliteMode = state => state.state.isSatelliteMode;
 
 const PolygonTableSmall = () => {
 
   const activePolygon = useSelector(selectActivePoly);
   const polygons = useSelector(selectPolygons);
-  const isSatelliteMode = useSelector(selectIsSatelliteMode);
   const dispatch = useDispatch();
 
   return (
@@ -47,7 +45,7 @@ const PolygonTableSmall = () => {
           </Col>
         </Row>
       </CardHeader>
-      <CardBody className="pt-0">
+      <CardBody className="py-0" style={{overflowY: "scroll", marginBottom: "60px"}}>
         <Table>
           <tbody>
             {polygons.map(polygon => (
@@ -64,13 +62,13 @@ const PolygonTableSmall = () => {
           </tbody>
         </Table>
       </CardBody>
-      {/*<CardFooter>*/}
-        {/*<Row>*/}
-          {/*<Col>*/}
-            {/*<TogglerSatelliteMode />*/}
-          {/*</Col>*/}
-        {/*</Row>*/}
-      {/*</CardFooter>*/}
+      <CardFooter style={{position: "absolute", bottom: 0, right: 0}}>
+        <Row>
+          <Col>
+            <TogglerSatelliteMode />
+          </Col>
+        </Row>
+      </CardFooter>
     </Card>
   )
 }

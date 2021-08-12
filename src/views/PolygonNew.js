@@ -97,7 +97,7 @@ const PolygonNew = () => {
   }
 
   const blockResetting = () => {
-    return !(name.length || drawRef.current && drawRef.current.getAll().features.length)
+    return !(name.length || (drawRef.current && drawRef.current.getAll().features.length))
   }
 
   const areaErrorStyle = () => {

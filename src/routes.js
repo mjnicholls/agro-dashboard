@@ -1,22 +1,11 @@
 import DashboardMain from "views/DashboardInteractive.js";
-import PolygonSatellite from "views/PolygonSatellite.js";
-import Pricing from "views/pages/Pricing.js";
-import Register from "views/pages/Register.js";
-import User from "views/pages/User.js";
+// import Pricing from "views/pages/Pricing.js";
+// import Register from "views/pages/Register.js";
+// import User from "views/pages/User.js";
 import Login from "views/pages/Login.js";
-import Lock from "views/pages/Lock.js";
 import PolygonNew from 'views/PolygonNew';
 
 const routes = [
-  // {
-  //   path: "/polygons/:id",
-  //   name: "Polygon Satellite",
-  //   rtlName: "لوحة القيادة",
-  //   icon: "tim-icons icon-image-02",
-  //   component: DashboardMain,
-  //   layout: "/dashboard",
-  //   hidden: true
-  // },
   {
     path: "/polygons",
     name: "Polygons",

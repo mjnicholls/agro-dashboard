@@ -62,7 +62,6 @@ const SatelliteImagesList = ({satelliteImage, setSatelliteImage}) => {
     let imageSelected = imagesRefs.current[index];
     let offset = 110;
     scrollRef.current.scrollTo({left: imageSelected.getBoundingClientRect().left - offset, behavior: 'smooth'})
-    // imagesRefs.current[index].scrollIntoView(scrollOptions);
   }
 
   const onClickArrow = (direction) => {

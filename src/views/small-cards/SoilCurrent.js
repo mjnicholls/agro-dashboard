@@ -4,13 +4,12 @@ import {convertTemp} from "../../utils/utils";
 
 import {
   Card,
-  CardFooter,
   CardHeader,
   CardBody,
   CardTitle,
   Col,
   Row,
-  Table,
+  // Table,
 } from "reactstrap";
 
 import {getCurrentSoil} from "../../services/api/weatherApi";
@@ -42,7 +41,6 @@ const CurrentSoil = ({ polyId }) => {
       })
       .finally(() => {setIsLoading(false)})
   }, [polyId])
-
 
   return (
     <Card>

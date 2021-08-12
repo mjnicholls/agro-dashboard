@@ -207,9 +207,9 @@ const Sidebar = (props) => {
     });
   };
   // verifies if routeName is the one active (in browser input)
-  const activeRoute = (routeName) => {
-    return location.pathname === routeName ? "active" : "";
-  };
+  // const activeRoute = (routeName) => {
+  //   return location.pathname === routeName ? "active" : "";
+  // };
 
   const activeRouteCustom = (prop) => {
     let routeName = prop.layout + prop.path;
@@ -239,6 +239,7 @@ const Sidebar = (props) => {
           href={logo.outterLink}
           className="simple-text logo-mini"
           target="_blank"
+          rel="noreferrer"
           onClick={props.closeSidebar}
         >
           <div className="logo-img">
@@ -251,6 +252,7 @@ const Sidebar = (props) => {
           href={logo.outterLink}
           className="simple-text logo-normal"
           target="_blank"
+          rel="noreferrer"
           onClick={props.closeSidebar}
         >
           {logo.text}

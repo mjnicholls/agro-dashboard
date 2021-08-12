@@ -1,5 +1,5 @@
 import React from 'react';
-import ContentLoader, { Facebook } from 'react-content-loader';
+import ContentLoader from 'react-content-loader';
 
 const SatelliteImagePlaceholder = () => (
   <div style={{backgroundColor: "#27293d", borderRadius: "4px"}}>

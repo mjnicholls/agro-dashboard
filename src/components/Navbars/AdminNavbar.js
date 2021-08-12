@@ -10,14 +10,11 @@ import {
   DropdownMenu,
   DropdownItem,
   UncontrolledDropdown,
-  Input,
-  InputGroup,
   NavbarBrand,
   Navbar,
   NavLink,
   Nav,
   Container,
-  Modal,
   UncontrolledTooltip,
 } from "reactstrap";
 import UnitsToggle from '../../views/agro-components/UnitsToggle'

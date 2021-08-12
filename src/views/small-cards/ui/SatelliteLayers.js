@@ -32,11 +32,12 @@ const SatelliteLayers = ({satelliteImage, satelliteLayer, setSatelliteLayer}) =>
         setSatelliteLayer(newLayers[0])
       }
     }
-  }, [satelliteImage])
+  }, [satelliteImage, satelliteLayer])
 
   const selectLayer = (e, layer) => {
     e.preventDefault();
     setSatelliteLayer(layer);
+    setIsOpen(false);
   }
 
   return  (
@@ -68,14 +69,11 @@ const SatelliteLayers = ({satelliteImage, satelliteLayer, setSatelliteLayer}) =>
                 {layers.map((layer, index) => {
                   if (layer.value !== satelliteLayer.value) {
                     return (<DropdownItem
-                      href="#pablo"
-                      onClick={(e) => {
-                        e.preventDefault();
-                        setSatelliteLayer(layer);
-                        // selectLayer(e, layer)
-                        setIsOpen(false)
-                      }}
+                      // href="#pablo"
                       key={"layer_" + index}
+                      onClick={(e) => {
+                        selectLayer(e, layer)
+                      }}
                     >
                       {layer.label}
                     </DropdownItem>)

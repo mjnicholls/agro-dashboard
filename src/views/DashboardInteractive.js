@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import { useSelector } from 'react-redux';
 
 import { Col, Row } from "reactstrap";
@@ -10,7 +10,6 @@ import PolygonsTotalStats from './agro-components/PolygonsTotalStats';
 import PolygonInfo from './agro-components/PolygonInfo';
 
 import ImageStats from './small-cards/LayerStats';
-import CombinedWeatherSoilCurrent from './small-cards/CombinedWeatherSoilCurrent'
 import SoilCurrent from './small-cards/SoilCurrent'
 import WeatherCurrent from './small-cards/WeatherCurrent'
 import CombinedChart from "./charts/CombinedChart";
@@ -56,7 +55,6 @@ const Dashboard = () => {
                     setSatelliteLayer={setSatelliteLayer}
                   /> :
                     <>
-                      {/*<CombinedWeatherSoilCurrent selectedPolygon={activePolygon} />*/}
                       <WeatherCurrent />
                       <SoilCurrent polyId={activePolygon.id}/>
                     </>
@@ -75,18 +73,6 @@ const Dashboard = () => {
               </Row>
             </Col>
         </Row>
-      {/*</Container>*/}
-           {/*{activePolygon  &&*/}
-           {/*<Row>*/}
-             {/*<Col className="pb-4">*/}
-               {/*<TogglerTwo*/}
-                  {/*isActive={isSatellitePage}*/}
-                  {/*setIsActive={setIsSatellitePage}*/}
-                  {/*labelOne="Satellite data"*/}
-                  {/*labelTwo="Weather Data"*/}
-                {/*/>*/}
-             {/*</Col>*/}
-           {/*</Row>}*/}
         <Row>
           <Col>
             {activePolygon ?
