@@ -19,12 +19,13 @@ import {
 } from "reactstrap";
 import UnitsToggle from '../../views/agro-components/UnitsToggle'
 
-const userEmailSelector = state => state.auth.user.username;
+const userEmailSelector = state => state.auth.user.email;
 
 const AdminNavbar = (props) => {
   const [collapseOpen, setCollapseOpen] = React.useState(false);
   const [color, setColor] = React.useState("navbar-transparent");
   const userEmail = useSelector(userEmailSelector);
+  console.log("userEmail", userEmail)
   const dispatch = useDispatch();
 
   React.useEffect(() => {
@@ -126,6 +127,8 @@ const AdminNavbar = (props) => {
                   nav
                   onClick={(e) => e.preventDefault()}
                 >
+                  <div className="d-none d-lg-block">{userEmail}
+                  </div>
                   <b className="caret d-none d-lg-block d-xl-block" style={{left: "auto", right: 0, top: "60%"}} />
                   <p className="d-lg-none">{userEmail}</p>
                 </DropdownToggle>

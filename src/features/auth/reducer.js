@@ -21,7 +21,7 @@ const initialState =   {
   isAuthenticated: !!tokenData,
   token: tokenData ? token : null,
   user: tokenData ? tokenData.data : {
-    username: null,
+    email: null,
     appid: null,
     tariff: null
   },
@@ -62,7 +62,7 @@ export default function authReducer(state = initialState, action) {
         isAuthenticated: false,
         token: null,
         user: {
-          username: null,
+          email: null,
           appid: null,
           tariff: null
         },
@@ -73,7 +73,7 @@ export default function authReducer(state = initialState, action) {
         isAuthenticated: false,
         token: null,
         user: {
-          username: null,
+          email: null,
           appid: null,
           tariff: null
         },
