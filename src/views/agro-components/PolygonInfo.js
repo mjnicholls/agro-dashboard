@@ -11,62 +11,51 @@ import {
 } from "reactstrap";
 import {toDate} from "../../utils/dateTime";
 import Shape from "./Shape";
+import {totalArea} from "../../utils/utils";
 
 
 const PolygonInfo = ({ polygonInFocus }) => {
 
   return (
-    polygonInFocus ? <Card className="card-stats">
+    <Card className="card-stats">
       <CardHeader>
         <Row>
-           <Col xs="5">
-            {/*<div className="info-icon text-center icon-primary">*/}
-              {/*/!*<i className="tim-icons icon-image-02" />*!/*/}
-            {/*</div>*/}
+           <Col xs="4">
+             {polygonInFocus && <Shape polygon={polygonInFocus} /> }
           </Col>
-          <Col xs="7">
-            <div className="numbers">
-              <p className="card-category">name</p>
+          <Col xs="8">
+           {polygonInFocus ? <div className="numbers">
+              <p className="card-category">polygon</p>
               <CardTitle tag="h3">{polygonInFocus.name}</CardTitle>
-            </div>
+            </div> : <div className="numbers">
+              <p className="card-category">polygon</p>
+              <CardTitle tag="h3">Information</CardTitle>
+           </div>}
           </Col>
         </Row>
       </CardHeader>
       <CardBody>
-        <Row>
-          <Col sm="4" className="text-right">
-            <div className="numbers float-right">
-              <Shape polygon={polygonInFocus} />
-            </div>
-          </Col>
-          <Col sm="4" className="text-right">
-            <div className="numbers">
-              <p className="card-category">Area</p>
-              <CardTitle tag="h3">{polygonInFocus.area.toFixed(2)}ha</CardTitle>
-            </div>
-          </Col>
-          <Col sm="4" className="text-right">
-            <div className="numbers">
-              <p className="card-category">Created</p>
-              <CardTitle tag="h3">{toDate(polygonInFocus.created_at)}</CardTitle>
-            </div>
-          </Col>
-          <Col>
-          {/*<Table>*/}
-            {/*<tbody>*/}
-            {/*<tr>*/}
-              {/*<td>Area</td>*/}
-              {/*<td>{polygonInFocus.area.toFixed(2)}ha</td>*/}
-            {/*</tr>*/}
-            {/*<tr>*/}
-              {/*<td>Created</td>*/}
-              {/*<td>{toDate(polygonInFocus.created_at)}</td>*/}
-            {/*</tr>*/}
-            {/*</tbody>*/}
-          {/*</Table>*/}
-          </Col>
-        </Row>
-
+        <hr />
+        <br />
+        <div className="card-category" style={{height: "120px"}}>
+          {polygonInFocus ?
+            <>
+            <Row>
+              <Col xs="6">Area</Col>
+              <Col xs="6"><CardTitle tag="h3" className="text-right">{polygonInFocus.area.toFixed(2)}ha</CardTitle></Col>
+            </Row>
+            <Row>
+              <Col xs="4">Created</Col>
+              <Col xs="8"><CardTitle tag="h3" className="text-right">{toDate(polygonInFocus.created_at)}</CardTitle></Col>
+            </Row>
+            </> : <Row>
+              <Col>
+              <p className="mb-3">Hover over a polygon for more information</p>
+              <p>Click on a polygon to see its detailed satellite and weather data</p>
+              </Col>
+            </Row>
+          }
+          </div>
       </CardBody>
       {/*<CardFooter>*/}
         {/*<hr />*/}
@@ -74,7 +63,7 @@ const PolygonInfo = ({ polygonInFocus }) => {
           {/*/!*<i className="tim-icons icon-sound-wave" /> Last Research*!/*/}
         {/*</div>*/}
       {/*</CardFooter>*/}
-    </Card> : <div>Nothing</div>
+    </Card>
   )
 }
 

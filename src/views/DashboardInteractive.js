@@ -43,8 +43,22 @@ const Dashboard = () => {
               />
             </Col>
 
-            <Col md="6">
-              <Row>
+            <Col md="3">
+              {activePolygon ?
+                isSatelliteMode ? <ImageStats
+                    satelliteImage={satelliteImage}
+                    satelliteLayer={satelliteLayer}
+                    setSatelliteLayer={setSatelliteLayer}
+                  /> :
+                    <>
+                      <WeatherCurrent />
+                      <SoilCurrent polyId={activePolygon.id}/>
+                    </> : <PolygonInfo polygonInFocus={polygonInFocus} />
+              }
+            </Col>
+
+            <Col md="3">{activePolygon ? <PolygonTableSmall /> : <PolygonsTotalStats polygons={polygons} activePolygon={polygons[0]} />}</Col>
+            {/*  <Row>
 
             {activePolygon ?
               <>
@@ -67,11 +81,11 @@ const Dashboard = () => {
           : <Col>
                 <>
                   <PolygonsTotalStats polygons={polygons} activePolygon={polygons[0]} />
-                 {polygonInFocus && <PolygonInfo polygonInFocus={polygonInFocus} />}
+                  <PolygonInfo polygonInFocus={polygonInFocus} />
                 </>
           </Col>}
               </Row>
-            </Col>
+            </Col>*/}
         </Row>
         <Row>
           <Col>

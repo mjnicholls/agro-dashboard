@@ -19,7 +19,7 @@ import {
 } from "reactstrap";
 import UnitsToggle from '../../views/agro-components/UnitsToggle'
 
-const userEmailSelector = state => state.auth.user.email;
+const userEmailSelector = state => state.auth.user.username;
 
 const AdminNavbar = (props) => {
   const [collapseOpen, setCollapseOpen] = React.useState(false);

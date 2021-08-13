@@ -1,5 +1,5 @@
 import React from 'react';
-import {totalArea} from "../../utils/utils";
+import {convertTemp, totalArea} from "../../utils/utils";
 
 import {
   Card,
@@ -11,18 +11,18 @@ import {
 } from "reactstrap";
 
 
-const PolygonsTotalStats = ({polygons, activePolygon}) => {
+const PolygonsTotalStats = ({polygons}) => {
 
   return (
     <Card className="card-stats">
       <CardHeader>
          <Row>
-          <Col xs="5">
+          <Col xs="4">
             <div className="info-icon text-center icon-primary">
               <i className="tim-icons icon-shape-star" />
             </div>
           </Col>
-          <Col xs="7">
+          <Col xs="8">
             <div className="numbers">
               <p className="card-category">Statistics</p>
               <CardTitle tag="h3">Total</CardTitle>
@@ -31,44 +31,33 @@ const PolygonsTotalStats = ({polygons, activePolygon}) => {
         </Row>
       </CardHeader>
       <CardBody>
-
-        {/*{activePolygon && <Row>*/}
+        <hr />
+        <br />
+        <div className="card-category">
+          <Row>
+            <Col xs="6">Polygons</Col>
+            <Col xs="6"><CardTitle tag="h3" className="text-right">{polygons.length}</CardTitle></Col>
+          </Row>
+          <Row>
+            <Col xs="4">Area</Col>
+            <Col xs="8"><CardTitle tag="h3" className="text-right">{totalArea(polygons)}ha</CardTitle></Col>
+          </Row>
+        </div>
+        {/*<Row>*/}
+          {/*<Col sm="4" className="text-right"></Col>*/}
           {/*<Col sm="4" className="text-right">*/}
             {/*<div className="numbers">*/}
-              {/*<Shape polygon={activePolygon} />*/}
+              {/*<p className="card-category">Polygons</p>*/}
+                {/*<CardTitle tag="h3">{polygons.length}</CardTitle>*/}
             {/*</div>*/}
           {/*</Col>*/}
           {/*<Col sm="4" className="text-right">*/}
             {/*<div className="numbers">*/}
               {/*<p className="card-category">Area</p>*/}
-              {/*<CardTitle tag="h3">{activePolygon.area.toFixed(2)}ha</CardTitle>*/}
+              {/*<CardTitle tag="h3">{totalArea(polygons)}ha</CardTitle>*/}
             {/*</div>*/}
           {/*</Col>*/}
-          {/*<Col sm="4" className="text-right">*/}
-            {/*<div className="numbers">*/}
-              {/*<p className="card-category">Created</p>*/}
-              {/*<CardTitle tag="h3">{toDate(activePolygon.created_at)}</CardTitle>*/}
-            {/*</div>*/}
-          {/*</Col>*/}
-        {/*</Row>}*/}
-
-        <hr />
-        <br />
-        <Row>
-          <Col sm="4" className="text-right"></Col>
-          <Col sm="4" className="text-right">
-            <div className="numbers">
-              <p className="card-category">Polygons</p>
-                <CardTitle tag="h3">{polygons.length}</CardTitle>
-            </div>
-          </Col>
-          <Col sm="4" className="text-right">
-            <div className="numbers">
-              <p className="card-category">Area</p>
-              <CardTitle tag="h3">{totalArea(polygons)}ha</CardTitle>
-            </div>
-          </Col>
-        </Row>
+        {/*</Row>*/}
       </CardBody>
       {/*<CardFooter>*/}
         {/*<hr />*/}
