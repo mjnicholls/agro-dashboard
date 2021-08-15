@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {useSelector} from 'react-redux';
+import axios from 'axios';
 
 import {getHistorySoilData} from "../../services/api/chartApi";
 import {toDateShort} from '../../utils/dateTime'
@@ -12,19 +13,20 @@ import {tariffError} from "../../config";
 
 const selectUnits = state => state.units.isMetric;
 
-const HistorySoilChart = ({ polyId, startDate, endDate }) => {
+const HistorySoilChart = ({ polyId, startDate, endDate}) => {
 
   const units = useSelector(selectUnits);
 
   const [data, setData] = useState([]);
   const [error, setError] = useState(startDate ? null : tariffError);
   const [isLoading, setIsLoading] = useState(startDate);
+  const cancelToken = axios.CancelToken.source();
 
   React.useEffect(() => {
     if (startDate && endDate && polyId) {
       setIsLoading(true);
       setError(null);
-      getHistorySoilData(polyId, startDate, endDate)
+      getHistorySoilData(polyId, startDate, endDate, cancelToken)
         .then(response => {
           if (response) {
             if (response.length) {
@@ -45,6 +47,9 @@ const HistorySoilChart = ({ polyId, startDate, endDate }) => {
         .finally(() => {
           setIsLoading(false)
         })
+    }
+    return () => {
+      cancelToken.cancel()
     }
   }, [startDate, endDate, polyId])
 

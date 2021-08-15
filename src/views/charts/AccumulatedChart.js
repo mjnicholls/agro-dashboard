@@ -207,20 +207,29 @@ const AccumulatedChart = ({polyId, startDate, endDate}) => {
   }
 
   return (
+     <div style={{position: "relative"}}>
         <ChartContainer
           isLoading={isLoading}
           error={error}
         >
-          <Line
-            data={chartData}
-            options={options}
-          />
-          <hr />
-        <Form className="form-horizontal">
-          <Row style={{justifyContent: "flex-end"}}>
-            <Label sm="3">Threshold, °{isMetric ? 'C' : 'F'}</Label>
-            <Col sm="3">
+          <Line data={chartData} options={options} />
+          {/*<hr />*/}
+          <Form className="form-horizontal my-0" style={{position: "absolute", top: 0, left: 60}}>
+            {/*<Row>*/}
+              {/*<FormGroup className={`has-label ${loginFullNameState}`}>*/}
+                    {/*<label>Full Name *</label>*/}
+                    {/*<Input*/}
+                      {/*name="fullname"*/}
+                      {/*type="text"*/}
+                      {/*onChange={(e) => change(e, "loginFullName", "length", 1)}*/}
+                    {/*/>*/}
+                    {/*{loginFullNameState === "has-danger" ? (*/}
+                      {/*<label className="error">This field is required.</label>*/}
+                    {/*) : null}*/}
+                  {/*</FormGroup>*/}
+
               <FormGroup>
+                <Label>Threshold, °{isMetric ? 'C' : 'F'}</Label>
                 <Input
                   type="number"
                   value={threshold}
@@ -229,10 +238,25 @@ const AccumulatedChart = ({polyId, startDate, endDate}) => {
                   max={isMetric ? thresholdMaxC : thresholdMaxF}
                 />
               </FormGroup>
-            </Col>
-          </Row>
-        </Form>
+            {/*</Row>*/}
+
+            {/*<Row style={{justifyContent: "flex-end"}}>*/}
+              {/*<Label sm="3">Threshold, °{isMetric ? 'C' : 'F'}</Label>*/}
+              {/*<Col sm="3">*/}
+                {/*<FormGroup>*/}
+                  {/*<Input*/}
+                    {/*type="number"*/}
+                    {/*value={threshold}*/}
+                    {/*onChange={e => setThreshold(e.target.value)}*/}
+                    {/*min={isMetric ? thresholdMinC : thresholdMinF}*/}
+                    {/*max={isMetric ? thresholdMaxC : thresholdMaxF}*/}
+                  {/*/>*/}
+                {/*</FormGroup>*/}
+              {/*</Col>*/}
+            {/*</Row>*/}
+          </Form>
         </ChartContainer>
+       </div>
   )
 }
 

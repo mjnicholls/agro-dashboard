@@ -33,16 +33,30 @@ export const deletePolygonApi = (polygonId) => {
     })
 }
 
-export const getSatelliteImagesList = (polygonId) => {
-  let url = `${polygonSatelliteImagesList}?polyid=${polygonId}&start=${startSatelliteImagesSearchDate}&end=${Math.round(new Date().getTime() / 1000)}`
-  return axiosInstance.get(url)
+// export const getSatelliteImagesList = (polygonId) => {
+//   let url = `${polygonSatelliteImagesList}?polyid=${polygonId}&start=${startSatelliteImagesSearchDate}&end=${Math.round(new Date().getTime() / 1000)}`
+//   return axiosInstance.get(url)
+//     .then(response => response.data)
+//     .catch(err => {
+//       throw new Error(err)})
+// }
+
+export const getSatelliteImagesList = (polygonId, cancelToken) => {
+  let url = `${polygonSatelliteImagesList}?polyid=${polygonId}&start=${startSatelliteImagesSearchDate}&end=${Math.floor(new Date().getTime() / 1000)}`
+  let config = {
+    cancelToken: cancelToken.token,
+  };
+  return axiosInstance.get(url, config)
     .then(response => response.data)
     .catch(err => {
       throw new Error(err)})
 }
 
-export const getImageStats = (url) => {
-  return axiosInstance.get(url)
+export const getImageStats = (url, cancelToken) => {
+  let config = {
+    cancelToken: cancelToken.token,
+  };
+  return axiosInstance.get(url, config)
     .then(response => response.data)
     .catch(err => {
       throw new Error(err)})

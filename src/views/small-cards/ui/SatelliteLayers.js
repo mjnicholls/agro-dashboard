@@ -4,9 +4,10 @@ import {
   Col,
   DropdownItem,
   DropdownMenu,
+  DropdownToggle,
   Row,
+  UncontrolledDropdown
 } from "reactstrap";
-import classnames from "classnames";
 
 const SatelliteLayers = ({satelliteImage, satelliteLayer, setSatelliteLayer}) => {
   /**
@@ -14,7 +15,6 @@ const SatelliteLayers = ({satelliteImage, satelliteLayer, setSatelliteLayer}) =>
    * */
 
   const [layers, setLayers] = useState([]);
-  const [isOpen, setIsOpen] = useState(false)
 
   useEffect(() => {
     if (satelliteImage) {
@@ -37,7 +37,6 @@ const SatelliteLayers = ({satelliteImage, satelliteLayer, setSatelliteLayer}) =>
   const selectLayer = (e, layer) => {
     e.preventDefault();
     setSatelliteLayer(layer);
-    setIsOpen(false);
   }
 
   return  (
@@ -45,45 +44,35 @@ const SatelliteLayers = ({satelliteImage, satelliteLayer, setSatelliteLayer}) =>
         <h2 className="card-category">Layer</h2>
         <Row>
           <Col>
-            <div className={classnames("dropdown agro-dropdown", {
-              "show": isOpen,
-            })}>
-              <div className="dropdown horizontal-container justify"
-                aria-expanded={false}
-                aria-haspopup={true}
-                data-toggle="dropdown"
-                id="dropdownMenuButton"
-                onClick={(e) => {
-                  e.preventDefault();
-                  setIsOpen(!isOpen);
-                }}
-              >
-                <h2
-                  className="mb-0"
-                  style={{fontWeight: 100}}
-                >{satelliteLayer ? satelliteLayer.label : "True color"}</h2>
-                <i className="tim-icons icon-minimal-down dropdown-caret"/>
-              </div>
-              {
-                satelliteImage ? <DropdownMenu aria-labelledby="dropdownMenuButton">
-                {layers.map((layer, index) => {
-                  if (layer.value !== satelliteLayer.value) {
-                    return (<DropdownItem
-                      // href="#pablo"
-                      key={"layer_" + index}
-                      onClick={(e) => {
-                        selectLayer(e, layer)
-                      }}
-                    >
-                      {layer.label}
-                    </DropdownItem>)
-                  }
-                  return null
-                })}
-              </DropdownMenu> : null
-              }
-
-            </div>
+              {satelliteImage ?
+                <UncontrolledDropdown>
+                <DropdownToggle
+                  caret
+                  className="btn-link btn-icon"
+                  color="default"
+                  data-toggle="dropdown"
+                  style={{width: "100%", display: "flex", alignItems: "center"}}
+                  >
+                    <h2 className="mb-0"
+                      style={{fontWeight: 100}}
+                    >{satelliteLayer ? satelliteLayer.label : "True color"}</h2>
+                  </DropdownToggle>
+                <DropdownMenu aria-labelledby="dropdownMenuButton">
+              {layers.map((layer, index) => {
+                if (layer.value !== satelliteLayer.value) {
+                  return (<DropdownItem
+                    key={"layer_" + index}
+                    onClick={(e) => {
+                      selectLayer(e, layer)
+                    }}
+                  >
+                    {layer.label}
+                  </DropdownItem>)
+                }
+                return null
+              })}
+                </DropdownMenu></UncontrolledDropdown> : null
+            }
           </Col>
         </Row>
       </>

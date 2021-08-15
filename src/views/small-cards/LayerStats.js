@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import axios from "axios/index";
 
 import {
   Card,
@@ -9,9 +10,9 @@ import {
   Table
 } from "reactstrap";
 
-import {getImageStats} from '../../services/api/polygonApi';
 import ChartContainer from '../charts/ui/ChartContainer';
-import SatelliteLayers3 from './ui/SatelliteLayers';
+import SatelliteLayerDropdown from './ui/SatelliteLayers';
+import {getImageStats} from '../../services/api/polygonApi';
 import {toDate} from "../../utils/dateTime";
 
 const ImageStats = ({satelliteImage, satelliteLayer, setSatelliteLayer }) => {
@@ -20,6 +21,7 @@ const ImageStats = ({satelliteImage, satelliteLayer, setSatelliteLayer }) => {
   const [name, setName] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  const cancelToken = axios.CancelToken.source();
 
   useEffect(() => {
     if (satelliteImage && satelliteLayer) {
@@ -33,7 +35,7 @@ const ImageStats = ({satelliteImage, satelliteLayer, setSatelliteLayer }) => {
       setIsLoading(true);
       setError(null);
       setStats(null);
-      getImageStats(url)
+      getImageStats(url, cancelToken)
         .then(res => {
           setStats(res)
         })
@@ -45,13 +47,16 @@ const ImageStats = ({satelliteImage, satelliteLayer, setSatelliteLayer }) => {
         })
         .finally(() => {setIsLoading(false)})
     }
+    return () => {
+      cancelToken.cancel()
+    }
   }, [satelliteImage, satelliteLayer])
   return (
     <Card className="small-card">
       <CardHeader>
         <Row>
           <Col>
-            <SatelliteLayers3
+            <SatelliteLayerDropdown
               name={name}
               satelliteImage={satelliteImage}
               satelliteLayer={satelliteLayer}

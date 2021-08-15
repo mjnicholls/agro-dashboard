@@ -27,7 +27,7 @@ const DatePickerChart = ({startDate, setStartDate, endDate, setEndDate, earliest
   return (
     <div className="datepicker-container">
       <DatePicker
-        className="card-header-calendar"
+        className="agro-datepicker"
         value={startDate}
         dateFormat={"DD MMM YY"}
         timeFormat={false}
@@ -38,7 +38,7 @@ const DatePickerChart = ({startDate, setStartDate, endDate, setEndDate, earliest
         }}
      />
       <DatePicker
-        className="card-header-calendar chart-calendar-right pb-3"
+        className="agro-datepicker chart-calendar-right pb-3"
         value={endDate}
         dateFormat={"DD MMM YY"}
         timeFormat={false}

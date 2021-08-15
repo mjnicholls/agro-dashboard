@@ -155,7 +155,6 @@ const CombinedWeatherSoilCurrent = ({selectedPolygon}) => {
         </Row>
       </CardHeader>
         <CardBody className="pt-0">
-
         {isLoading ?
           <div className="chart-placeholder">Fetching data...</div> :
           error ?

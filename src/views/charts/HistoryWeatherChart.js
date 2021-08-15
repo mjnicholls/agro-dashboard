@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {useSelector} from 'react-redux';
+import axios from "axios/index";
 
 import {toDateShort} from "../../utils/dateTime";
 import {convertTemp} from '../../utils/utils'
@@ -16,6 +17,7 @@ const HistoryWeather = ({polyId, startDate, endDate}) => {
   const [data, setData] = useState([]);
   const [error, setError] = useState(startDate ? null : tariffError);
   const [isLoading, setIsLoading] = useState(startDate);
+  const cancelToken = axios.CancelToken.source();
 
   const isMetric = useSelector(selectUnits);
 
@@ -23,7 +25,7 @@ const HistoryWeather = ({polyId, startDate, endDate}) => {
     if (startDate && endDate && polyId) {
       setIsLoading(true);
       setError(null);
-      getHistoryWeatherData(polyId, startDate, endDate)
+      getHistoryWeatherData(polyId, startDate, endDate, cancelToken)
         .then(response => {
           if (response) {
             if (response.length) {
@@ -44,6 +46,9 @@ const HistoryWeather = ({polyId, startDate, endDate}) => {
         .finally(() => {
         setIsLoading(false);
       })
+    }
+    return () => {
+      cancelToken.cancel()
     }
   }, [polyId, startDate, endDate])
 

@@ -272,12 +272,14 @@ export const displayPolygons = (map, mapBounds, polygons, onClick) => {
 }
 
 const removeLayer = (map, sourceId) => {
-  if (map.getLayer(sourceId)) {
+  if (map) {
+    console.log("map is", map)
+    if (map.getLayer(sourceId)) {
       map.removeLayer(sourceId);
-  }
-
-  if (map.getSource(sourceId)) {
-    map.removeSource(sourceId);
+    }
+    if (map.getSource(sourceId)) {
+      map.removeSource(sourceId);
+    }
   }
 }
 

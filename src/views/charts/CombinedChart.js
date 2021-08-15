@@ -124,6 +124,7 @@ const CombinedChart = ({polyId}) => {
     <Card className={classNames("card-chart agro-chart ", {
       "daily-chart ": onecall.data && activeTab.id === "Daily",
       "daily-chart hourly-chart": onecall.data && activeTab.id === "Hourly",
+      "accumulated-chart": onecall.data && activeTab.id === "Accumulated"
     })}>
         <CardHeader>
           <Row>
@@ -149,7 +150,6 @@ const CombinedChart = ({polyId}) => {
                   </span>
                   <span className="d-block d-sm-none">
                     {tab[1].short}
-                    {/*<i className="tim-icons icon-single-02" />*/}
                   </span>
                 </Button>)}
               </ButtonGroup>

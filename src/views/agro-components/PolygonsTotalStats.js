@@ -43,39 +43,8 @@ const PolygonsTotalStats = ({polygons}) => {
             <Col xs="8"><CardTitle tag="h3" className="text-right">{totalArea(polygons)}ha</CardTitle></Col>
           </Row>
         </div>
-        {/*<Row>*/}
-          {/*<Col sm="4" className="text-right"></Col>*/}
-          {/*<Col sm="4" className="text-right">*/}
-            {/*<div className="numbers">*/}
-              {/*<p className="card-category">Polygons</p>*/}
-                {/*<CardTitle tag="h3">{polygons.length}</CardTitle>*/}
-            {/*</div>*/}
-          {/*</Col>*/}
-          {/*<Col sm="4" className="text-right">*/}
-            {/*<div className="numbers">*/}
-              {/*<p className="card-category">Area</p>*/}
-              {/*<CardTitle tag="h3">{totalArea(polygons)}ha</CardTitle>*/}
-            {/*</div>*/}
-          {/*</Col>*/}
-        {/*</Row>*/}
       </CardBody>
       {/*<CardFooter>*/}
-        {/*<hr />*/}
-        {/*<Row>*/}
-          {/*<Col sm="4" className="text-right"></Col>*/}
-          {/*<Col sm="4" className="text-right">*/}
-            {/*<div className="numbers">*/}
-              {/*<p className="card-category">Total polygons</p>*/}
-                {/*<CardTitle tag="h3">{polygons.length}</CardTitle>*/}
-            {/*</div>*/}
-          {/*</Col>*/}
-          {/*<Col sm="4" className="text-right">*/}
-            {/*<div className="numbers">*/}
-              {/*<p className="card-category">Total area</p>*/}
-              {/*<CardTitle tag="h3">{totalArea(polygons)}ha</CardTitle>*/}
-            {/*</div>*/}
-          {/*</Col>*/}
-        {/*</Row>*/}
         {/*/!*<div className="stats">*!/*/}
           {/*/!*<i className="tim-icons icon-sound-wave" /> Last Research*!/*/}
         {/*/!*</div>*!/*/}

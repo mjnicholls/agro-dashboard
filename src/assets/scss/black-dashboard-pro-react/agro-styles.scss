@@ -262,20 +262,31 @@ $mapHeight: 400px;
   justify-content: flex-end;
 }
 
-.card-header-calendar {
+
+.agro-datepicker {
   color: #525f7f;
   margin-left: 10px;
-  .chart-calendar-right {
-    .rdtPicker {
-      right: 0;
-      &:before {
-        display: none;
+  .rdtDays {
+    tr {
+      .rdtDay {
+        color: #344675;
+        &.rdtDisabled {
+          color: #9A9A9A;
+        }
       }
-      &:after {
-        left: auto;
-        right: 10px;
-      }
+    }
+  }
+}
 
+.chart-calendar-right {
+  .rdtPicker {
+    right: 0 !important;
+    &:before {
+      display: none;
+    }
+    &:after {
+      left: auto;
+      right: 10px;
     }
   }
 }

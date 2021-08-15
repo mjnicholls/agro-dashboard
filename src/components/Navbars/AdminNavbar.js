@@ -25,7 +25,6 @@ const AdminNavbar = (props) => {
   const [collapseOpen, setCollapseOpen] = React.useState(false);
   const [color, setColor] = React.useState("navbar-transparent");
   const userEmail = useSelector(userEmailSelector);
-  console.log("userEmail", userEmail)
   const dispatch = useDispatch();
 
   React.useEffect(() => {

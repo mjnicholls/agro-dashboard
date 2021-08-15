@@ -22,7 +22,7 @@ import {axiosInstance} from "../base";
 
 export const getHistoryNDVIData = (polygonId, start, end) => {
   /** Get history NDVI chart data by polygon  */
-  let url = `${historyNDVI}?polyid=${polygonId}&start=${Math.round(start/1000)}&end=${Math.round(end/1000)}`
+  let url = `${historyNDVI}?polyid=${polygonId}&start=${Math.ceil(start/1000)}&end=${Math.floor(end/1000)}`
   return axiosInstance.get(url)
     .then(response => response.data)
     .catch(err => {
@@ -30,10 +30,13 @@ export const getHistoryNDVIData = (polygonId, start, end) => {
     })
 }
 
-export const getHistorySoilData = (polygonId, start, end) => {
+export const getHistorySoilData = (polygonId, start, end, cancelToken) => {
   /** Get soil chart data by polygon  */
-  let url = `${historySoil}?polyid=${polygonId}&start=${Math.round(start/1000)}&end=${Math.round(end/1000)}`
-  return axiosInstance.get(url)
+  let url = `${historySoil}?polyid=${polygonId}&start=${Math.ceil(start/1000)}&end=${Math.floor(end/1000)}`
+  let config = {
+    cancelToken: cancelToken.token,
+  };
+  return axiosInstance.get(url, config)
     .then(response => {
       return response.data
     })
@@ -81,8 +84,8 @@ const getAccumulatedPrecipitation = (polygonId, start, end) => {
 
 export const getAccumulatedData = async (polygonId, start, end) => {
   /** Get accumulated data */
-  start = Math.round(start/1000);
-  end = Math.round(end/1000);
+  start = Math.ceil(start/1000);
+  end = Math.floor(end/1000);
 
   let [tempData, rainData] = await Promise.all([
     getAccumulatedTemperature(polygonId, start, end),
@@ -106,10 +109,13 @@ export const getAccumulatedData = async (polygonId, start, end) => {
   return res
 }
 
-export const getHistoryWeatherData = (polygonId, start, end) => {
+export const getHistoryWeatherData = (polygonId, start, end, cancelToken) => {
   /** Get soil chart data by polygon  */
-  let url = `${historyWeather}?polyid=${polygonId}&start=${Math.round(start/1000)}&end=${Math.round(end/1000)}`
-  return axiosInstance.get(url)
+  let config = {
+    cancelToken: cancelToken.token,
+  };
+  let url = `${historyWeather}?polyid=${polygonId}&start=${Math.ceil(start/1000)}&end=${Math.floor(end/1000)}`
+  return axiosInstance.get(url, config)
     .then(response => {
       return response.data
     })

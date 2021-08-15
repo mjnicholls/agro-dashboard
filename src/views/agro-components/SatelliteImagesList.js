@@ -2,6 +2,7 @@ import React, {useEffect, useRef, useState} from 'react';
 import {useSelector} from 'react-redux';
 import DatePicker from "react-datetime";
 import moment from "moment/moment";
+import axios from 'axios';
 
 import {
   Card,
@@ -25,29 +26,34 @@ const SatelliteImagesList = ({satelliteImage, setSatelliteImage}) => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const activePolygon = useSelector(selectActivePoly);
+  const cancelToken = axios.CancelToken.source();
 
   useEffect(() => {
+    let isMounted = true;
     if (activePolygon) {
       setIsLoading(true);
-      setError(null)
-      getSatelliteImagesList(activePolygon.id)
+      setError(null);
+      getSatelliteImagesList(activePolygon.id, cancelToken)
         .then(response => {
           if (response && response.length) {
-            response.reverse();
-            setImages(response);
-            setSatelliteImage(response[0]);
+            if (isMounted) {
+              response.reverse();
+              setImages(response);
+              setAvailableDates(response.map(image => moment(image.dt * 1000).format('L')));
+              setSatelliteImage(response[0]);
+            }
           }
         })
         .catch(err => {console.log(err)})
         .finally(() => setIsLoading(false))
     }
-  }, [activePolygon])
-
-  useEffect(() => {
-    if (images && images.length) {
-      setAvailableDates(images.map(image => moment(image.dt * 1000).format('L')));
+    return () => {
+      isMounted = false;
+      if (cancelToken) {
+        cancelToken.cancel()
+      }
     }
-  }, [images])
+  }, [activePolygon])
 
   const isDateAvailable = function( current ){
     if (availableDates) {
@@ -91,7 +97,7 @@ const SatelliteImagesList = ({satelliteImage, setSatelliteImage}) => {
                 value={satelliteImage ? moment(satelliteImage.dt * 1000) : null}
                 isValidDate={ isDateAvailable }
                 onChange={onSelectDate}
-                className="satellite-calendar"
+                className="satellite-calendar agro-datepicker"
                 closeOnSelect
                 closeOnClickOutside
               />
