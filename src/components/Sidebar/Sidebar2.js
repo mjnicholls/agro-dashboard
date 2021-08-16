@@ -136,21 +136,13 @@ const Sidebar = (props) => {
               }}
             >
               {prop.icon !== undefined ? (
-                prop.icon.includes("tim-icons") ?
                 <>
-                  <i className={prop.icon} />
+                  {(typeof prop.icon === "string") ? <i className={prop.icon} /> : <i>{prop.icon}</i>}
                   <p>
                     {rtlActive ? prop.rtlName : prop.name}
                     <b className="caret" />
                   </p>
-                </> :
-                  <>
-                    <FontAwesomeIcon icon={faTemperatureLow} />
-                    <p>
-                      {rtlActive ? prop.rtlName : prop.name}
-                      <b className="caret" />
-                    </p>
-                  </>
+                </>
               ) : (
                 <>
                   <span className="sidebar-mini-icon">
@@ -178,6 +170,7 @@ const Sidebar = (props) => {
           key={key}>
 
           {prop.isFake ?
+            (!polygons.length && (prop.onclick === "weather" || prop.onclick === "satellite")) ? null :
             <a onClick={() => {
               onClickAction(prop);
               props.closeSidebar();
@@ -185,7 +178,6 @@ const Sidebar = (props) => {
               {(typeof prop.icon === "string") ? <i className={prop.icon} /> : <i>{prop.icon}</i>}
               <p>{rtlActive ? prop.rtlName : prop.name}</p>
             </a>
-
             : <NavLink
                 to={prop.layout + prop.path}
                 activeClassName=""

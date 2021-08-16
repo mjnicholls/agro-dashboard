@@ -18,7 +18,7 @@ const MapBox = ({setArea, setGeoJson, setIntersection, drawRef, mode}) => {
   const mapBounds = useSelector(getMapBounds);
   const [apiCallCount, setApiCallCount] = React.useState(0);
   const [initialised, setInitialised] = useState(false);
-
+  const [mapHeight, setMapHeight] = useState(550);
   const polygons = useSelector(selectPolygons);
   const dispatch = useDispatch();
 
@@ -28,6 +28,12 @@ const MapBox = ({setArea, setGeoJson, setIntersection, drawRef, mode}) => {
   }
 
   useEffect(() => {
+    let menuHeight = document.getElementsByClassName('navbar-collapse')[0].clientHeight;
+    let mapHeight = window.innerHeight - menuHeight - 100;
+    if (mapHeight > 200) {
+      setMapHeight(mapHeight);
+    }
+
     return () => {
       if (map.current) {
         map.current.remove();
@@ -166,7 +172,11 @@ const MapBox = ({setArea, setGeoJson, setIntersection, drawRef, mode}) => {
 
   return (
     <div>
-      <div ref={mapContainer} className="map-container map-box-container draw-container" />
+      <div
+        ref={mapContainer}
+        className="map-container map-box-container mb-5"
+        style={{height: mapHeight + "px"}}
+      />
     </div>
   );
 }

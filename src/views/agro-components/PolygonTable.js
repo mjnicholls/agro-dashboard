@@ -127,7 +127,7 @@ const PolygonTable = ({data, setActivePolygon}) => {
                 placeholder={`Search ${data.length} polygons...`}
                 style={{maxWidth: "300px"}}
               />
-              <Link to="/dashboard/create" >
+              <Link to="/dashboard/new-polygon" >
                 <Button  color="primary" style={{minWidth: "200px"}}>Create polygon</Button>
               </Link>
           </div>
