@@ -9,7 +9,6 @@ import {
   CardHeader,
   CardTitle,
   Col,
-  Form,
   FormGroup,
   Input,
   Nav,
@@ -18,14 +17,14 @@ import {
   TabContent,
   TabPane,
   Row,
-
 } from "reactstrap";
 import {addPolygon} from '../../features/polygons/actions';
 import {notifyError} from '../../features/notifications/actions';
+import classNames from "classnames";
 
 const selectAreaLimits = state => state.auth.limits.polygon_area;
 
-const PolygonCreateCard = ({area, geoJson, intersections, mode, setMode, resetMap}) => {
+const PolygonCreateCard = ({area, geoJson, intersections, mode, setMode, resetMap, mapHeight, blockResetMap}) => {
 
   const [name, setName] = useState("");
   const [error, setError] = useState({});
@@ -33,13 +32,6 @@ const PolygonCreateCard = ({area, geoJson, intersections, mode, setMode, resetMa
   const minPolygonArea = areaLimits.min_polygon_area || 0.01;
   const maxPolygonArea = areaLimits.max_polygon_area || 3000;
   const dispatch = useDispatch();
-  // TODO
-  const areaErrorStyle = () => {
-    // let errorStyle = "danger-color";
-    // if (error.area) return errorStyle;
-    // if (area > maxPolygonArea || area < minPolygonArea) return errorStyle;
-    return ""
-  }
 
   const blockCreation = () => {
     return name.length === 0 || area < minPolygonArea || area > maxPolygonArea;
@@ -72,8 +64,12 @@ const PolygonCreateCard = ({area, geoJson, intersections, mode, setMode, resetMa
       geo_json: geoJson
     }
     dispatch(addPolygon(data));
+    reset();
+  }
+
+  const reset = () => {
     setName("");
-    resetMap();
+    resetMap()
   }
 
   const rules = () => (<>
@@ -86,31 +82,42 @@ const PolygonCreateCard = ({area, geoJson, intersections, mode, setMode, resetMa
   </>)
 
   return (
-    <Form>
-      <Card className="draw-container overflow-auto position-relative small-card">
+      <Card className="overflow-auto small-card" style={{height: mapHeight}}>
         <CardHeader className="mb-0">
           <CardTitle tag="h2">New polygon</CardTitle>
           <FormGroup className="mb-3">
-          <label>Polygon name *</label>
-          <Row>
-            <Col>
-              <Input
-                className={error.name ? "danger-border" : ""}
-                name="name"
-                type="text"
-                onChange={e => setName(e.target.value)}
-                value={name}
-              />
-            </Col>
-          </Row>
-        </FormGroup>
-          <Nav className="nav-pills-info" pills>
+            <label>Polygon name *</label>
+            <Row>
+              <Col>
+                <Input
+                  className={error.name ? "danger-border" : ""}
+                  name="name"
+                  type="text"
+                  onChange={e => setName(e.target.value)}
+                  value={name}
+                />
+              </Col>
+            </Row>
+          </FormGroup>
+         <div
+          className="category form-category"
+
+          style={{textTransform: "none", visibility: area ? "visible" : "hidden"}}>
+          Area <h4 className={
+            classNames({
+              "danger-color": (area > maxPolygonArea || area < minPolygonArea),
+            })}>{area} ha</h4>
+        </div>
+
+
+        <Nav className="nav-pills-github" pills>
           <NavItem>
             <NavLink
               data-toggle="tab"
               href="#pablo"
               className={mode === "draw" ? "active" : ""}
               onClick={() => setMode("draw") }
+              style={{paddingRight: "15px", paddingLeft: "15px"}}
             >
               Draw
             </NavLink>
@@ -123,6 +130,8 @@ const PolygonCreateCard = ({area, geoJson, intersections, mode, setMode, resetMa
               onClick={() =>
                 setMode("select")
               }
+              style={{paddingRight: "15px", paddingLeft: "15px"}}
+              // style={{padding: "5px 10px"}}
             >
               Select
             </NavLink>
@@ -140,16 +149,16 @@ const PolygonCreateCard = ({area, geoJson, intersections, mode, setMode, resetMa
             {/*</NavLink>*/}
           {/*</NavItem>*/}
         </Nav>
-        </CardHeader>
-        <CardBody>
+      </CardHeader>
+    <CardBody>
 
         <TabContent className="tab-space agro-tab" activeTab={mode}>
           <TabPane tabId="draw">
             Draw polygon
             <br />
             <ol>
+              <li>Click on the polygon icon to activate draw mode.</li>
               <li>Place the pointer on the map and click the location of the first point to start drawing.</li>
-              <li>Move the pointer to the next point and click.</li>
               <li>Continue clicking at each corner of the shape until you have created the polygon.</li>
               <li>Click the first point to stop drawing.</li>
               <li>Double-click any point to edit.</li>
@@ -169,17 +178,14 @@ const PolygonCreateCard = ({area, geoJson, intersections, mode, setMode, resetMa
             {rules()}
           </TabPane>
         </TabContent>
-        <div
-          className="category form-category"
-          style={{textTransform: "none", visibility: area ? "visible" : "hidden"}}>
-          Area <h4 className={areaErrorStyle()}>{area} ha</h4>
-        </div>
+
       </CardBody>
-        <CardFooter className="text-right">
+        <CardFooter className="justify-content-end pr-0 w-100">
+          <Row className="justify-content-end w-100">
           <Button
-            // disabled={blockResetting()}  TODO
+            // disabled={!name || blockResetMap()} TODO
             color="default"
-            // onClick={reset} TODO
+            onClick={reset}
           >
             Reset
           </Button>
@@ -190,9 +196,9 @@ const PolygonCreateCard = ({area, geoJson, intersections, mode, setMode, resetMa
           >
             Create
           </Button>
+          </Row>
         </CardFooter>
       </Card>
-    </Form>
   )
 }
 

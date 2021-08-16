@@ -125,13 +125,28 @@ const addPolygon = (map, polygon, setPolygonInFocus) => {
     });
   }
 
-const addClusters = (map, polygons) => {
+export const addClusters = (map, polygons) => {
 
   const CLUSTER_SOURCE_ID = 'polygon_clusters';
 
-  if (map.getSource(CLUSTER_SOURCE_ID)) {
-    return
+  let ids = [
+    'clusters',
+    'cluster-count',
+    'unclustered-point',
+    'uncluster-count'
+  ]
+  for (let i=0; i<ids.length; i++) {
+     if (map.getLayer(ids[i])) {
+       map.removeLayer(ids[i])
+     }
   }
+  if (map.getSource(CLUSTER_SOURCE_ID)) {
+    map.removeSource(CLUSTER_SOURCE_ID);
+  }
+
+  // if (map.getSource(CLUSTER_SOURCE_ID)) {
+  //   return
+  // }
 
   let tmp = {
     type: "FeatureCollection",
@@ -141,7 +156,7 @@ const addClusters = (map, polygons) => {
         name: "urn:ogc:def:crs:OGC:1.3:CRS84"
       }
     },
-    features:  polygons.map(polygon =>
+    features: polygons.map(polygon =>
        ({
          type: "Feature",
          geometry: {
@@ -273,7 +288,6 @@ export const displayPolygons = (map, mapBounds, polygons, onClick) => {
 
 const removeLayer = (map, sourceId) => {
   if (map) {
-    console.log("map is", map)
     if (map.getLayer(sourceId)) {
       map.removeLayer(sourceId);
     }

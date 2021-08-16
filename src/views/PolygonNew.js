@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 
 import {
   Col,
@@ -16,8 +16,17 @@ const PolygonNew = () => {
   const [area, setArea] = React.useState("");
   const [intersection, setIntersection] = React.useState(false);
   const [mode, setMode] = React.useState("draw");
+  const [mapHeight, setMapHeight] = useState(550);
 
   const drawRef = React.useRef(null);
+
+  useEffect(() => {
+    let menuHeight = document.getElementsByClassName('navbar-collapse')[0].clientHeight;
+    let mapHeight = window.innerHeight - menuHeight - 100;
+    if (mapHeight > 200) {
+      setMapHeight(mapHeight);
+    }
+  }, [])
 
   const resetMap = () => {
     const data = drawRef.current.getAll();
@@ -28,10 +37,9 @@ const PolygonNew = () => {
     })
     setArea(null);
     setGeoJson(null);
-
   }
 
-  const blockMapResetting = () => {
+  const blockResetMap = () => {
     return !drawRef.current || !drawRef.current.getAll().features.length
   }
 
@@ -46,6 +54,7 @@ const PolygonNew = () => {
               setIntersection={setIntersection}
               drawRef={drawRef}
               mode={mode}
+              mapHeight={mapHeight}
             />
           </Col>
           <Col md="4">
@@ -56,6 +65,8 @@ const PolygonNew = () => {
               mode={mode}
               setMode={setMode}
               resetMap={resetMap}
+              blockResetMap={blockResetMap}
+              mapHeight={mapHeight}
             />
           </Col>
         </Row>
