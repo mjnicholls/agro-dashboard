@@ -1295,3 +1295,15 @@ export const cropColorDict = {
         "visible": 1
     }
 };
+
+export const treshold = {
+  celsius: {
+    min: 0,
+    max: 50
+  },
+  fahrenheit: {
+    min: 32,
+    max: 122
+  }
+
+}

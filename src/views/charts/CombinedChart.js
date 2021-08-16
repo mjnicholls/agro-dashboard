@@ -9,6 +9,9 @@ import {
   CardBody,
   CardTitle,
   Col,
+  FormGroup,
+  Input,
+  Label,
   Row
 } from "reactstrap";
 import classNames from "classnames";
@@ -16,7 +19,8 @@ import classNames from "classnames";
 import DatePickerFromTo from './ui/DatePickerFromTo';
 import {AccumulatedChart, DailyChart, HourlyChart, HistoryWeather, HistorySoilChart} from './'
 import {getDateInPast} from "../../utils/dateTime";
-import {defaultStartHistoryWeatherCharts} from "../../config";
+import {defaultStartHistoryWeatherCharts, treshold} from "../../config";
+import {convertTemp} from "../../utils/utils";
 
 const selectOneCall = state => state.onecall;
 const selectUnits = state => state.units.isMetric;
@@ -79,6 +83,10 @@ const CombinedChart = ({polyId}) => {
   const limitSoil = useSelector(selectLimitSoil);
   const limitHistoryWeather = useSelector(selectLimitHistoryWeather);
 
+  const [threshold, setThreshold] = useState(treshold[isMetric ? "celsius" : "fahrenheit"].min);
+  useEffect(() => {
+    setThreshold(treshold[isMetric ? "celsius" : "fahrenheit"].min)
+  }, [isMetric])
 
   useEffect(() => {
     /** Set start and end date for charts based on tariff and api limits
@@ -157,17 +165,35 @@ const CombinedChart = ({polyId}) => {
           </Row>
         </CardHeader>
       <CardBody>
-        {activeTab.calendar && <Row>
-          <Col className="pb-3">
-            <DatePickerFromTo
-              startDate={startDate}
-              setStartDate={setStartDate}
-              endDate={endDate}
-              setEndDate={setEndDate}
-              earliestAvailableDate={earliestAvailableDate}
-            />
-          </Col>
-        </Row>}
+        {activeTab.calendar &&
+        <Row className="justify-content-end align-items-center">
+          {activeTab.id === "Accumulated" &&
+            <>
+            <Label >Threshold, °{isMetric ? 'C' : 'F'}</Label>
+            <Col xs="4" sm="3" md="2" >
+                <FormGroup>
+                  <Input
+                    type="number"
+                    value={threshold}
+                    onChange={e => setThreshold(e.target.value)}
+                    min={treshold[isMetric ? "celsius" : "fahrenheit"].min}
+                    max={treshold[isMetric ? "celsius" : "fahrenheit"].max}
+                  />
+                </FormGroup>
+            </Col>
+              </>
+            }
+            <Col xs="8" sm="6" md="4">
+              <DatePickerFromTo
+                startDate={startDate}
+                setStartDate={setStartDate}
+                endDate={endDate}
+                setEndDate={setEndDate}
+                earliestAvailableDate={earliestAvailableDate}
+              />
+            </Col>
+          </Row>
+          }
         {(activeTab.id === "Hourly") ?
           <HourlyChart isMetric={isMetric} onecall={onecall}/>
           : (activeTab.id === "Daily") ?
@@ -188,6 +214,7 @@ const CombinedChart = ({polyId}) => {
             polyId={polyId}
             startDate={startDate}
             endDate={endDate}
+            threshold={threshold}
           />
         }
       </CardBody>

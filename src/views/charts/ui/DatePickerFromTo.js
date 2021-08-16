@@ -2,6 +2,12 @@ import React from 'react';
 import DatePicker from "react-datetime";
 import moment from "moment/moment";
 
+import {
+  Col,
+  Label,
+  Row
+} from "reactstrap";
+
 const DatePickerChart = ({startDate, setStartDate, endDate, setEndDate, earliestAvailableDate}) => {
 
   const onStartDateChange = (moment) => {
@@ -25,30 +31,34 @@ const DatePickerChart = ({startDate, setStartDate, endDate, setEndDate, earliest
   };
 
   return (
-    <div className="datepicker-container">
-      <DatePicker
-        className="agro-datepicker"
-        value={startDate}
-        dateFormat={"DD MMM YY"}
-        timeFormat={false}
-        onChange={onStartDateChange}
-        isValidDate={validateStartDate}
-        inputProps={{
-          disabled: !earliestAvailableDate
-        }}
-     />
-      <DatePicker
-        className="agro-datepicker chart-calendar-right pb-3"
-        value={endDate}
-        dateFormat={"DD MMM YY"}
-        timeFormat={false}
-        onChange={onEndDateChange}
-        isValidDate={validateEndDate}
-        inputProps={{
-          disabled: !earliestAvailableDate
-        }}
-      />
-    </div>
+      <Row>
+        <Col xs="6">
+          <DatePicker
+            className="agro-datepicker"
+            value={startDate}
+            dateFormat={"DD MMM YY"}
+            timeFormat={false}
+            onChange={onStartDateChange}
+            isValidDate={validateStartDate}
+            inputProps={{
+              disabled: !earliestAvailableDate
+            }}
+         />
+            </Col>
+            <Col xs="6">
+          <DatePicker
+            className="agro-datepicker chart-calendar-right pb-3"
+            value={endDate}
+            dateFormat={"DD MMM YY"}
+            timeFormat={false}
+            onChange={onEndDateChange}
+            isValidDate={validateEndDate}
+            inputProps={{
+              disabled: !earliestAvailableDate
+            }}
+          />
+        </Col>
+      </Row>
   )
 }
 

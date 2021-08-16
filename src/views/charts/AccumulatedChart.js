@@ -1,59 +1,46 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useSelector} from 'react-redux';
 
 import ReactBSAlert from "react-bootstrap-sweetalert";
-import Slider from "nouislider";
 import {Line} from "react-chartjs-2";
-import {
-  Form,
-  FormGroup,
-  Input,
-  Label,
-  Row,
-  Col,
-} from "reactstrap";
 
 import AccumulatedInfo from '../info/AccumulatedInfo';
 import ChartContainer from './ui/ChartContainer';
 import {getAccumulatedData} from '../../services/api/chartApi';
 import {toDateShort} from '../../utils/dateTime';
 import {chartOptions} from "./base";
-import {convertTemp} from '../../utils/utils';
+// import {convertTemp} from '../../utils/utils';
 import {tariffError} from "../../config";
 
 const selectUnits = state => state.units.isMetric;
 
-const AccumulatedChart = ({polyId, startDate, endDate}) => {
-
+const AccumulatedChart = ({polyId, startDate, endDate, threshold}) => {
+  console.log("threshold in props", threshold)
   const [data, setData] = useState([]);
 
   const [error, setError] = useState(startDate ? null : tariffError);
   const [isLoading, setIsLoading] = useState(startDate);
 
   const isMetric = useSelector(selectUnits);
-  const thresholdMinC = 0;
-  const thresholdMinF = 32;
-  const thresholdMaxC = 50;
-  const thresholdMaxF = 122;
-
-  const [threshold, setThreshold] = useState(isMetric ? thresholdMinC : thresholdMinF);
 
   const [rainData, setRainData] = useState([]);
   const [tempData, setTempData] = useState([]);
+  const [tempDataThreshold, setTempDataThreshold] = useState([]);
   const [alert, setAlert] = React.useState(null);
 
-  const sliderRef = useRef(null);
+  const convertTemp = (temp, isMetric) => {
+    /** Convert temperature from Kelvin to Celsius */
+    return isMetric ? kelvinToCelsius(temp) :  kelvinToFahrenheit(temp);
+  }
 
-  useEffect(() => {
-    if (sliderRef.current) {
-      Slider.create(sliderRef.current, {
-        start: [isMetric ? thresholdMinC : thresholdMinF],
-        connect: [true, false],
-        step: 1,
-        range: { min: isMetric ? thresholdMinC : thresholdMinF, max: isMetric ? thresholdMaxC : thresholdMaxF },
-      });
-    }
-  }, []);
+
+  const kelvinToCelsius = (temp) => {
+    return temp - 273.15
+  }
+
+  const kelvinToFahrenheit = (temp) => {
+    return temp * 9/5 - 459.67
+  }
 
 
   useEffect(() => {
@@ -80,13 +67,8 @@ const AccumulatedChart = ({polyId, startDate, endDate}) => {
 
   useEffect(() => {
     let newData = tempData.map(el => el >= threshold ? el - threshold : 0)
-    setTempData(newData)
-  }, [threshold])
-
-  useEffect(() => {
-    setTempData(data.map(el => convertTemp(el.temp, isMetric)))
-    setThreshold(isMetric ? thresholdMinC : thresholdMinF)
-  }, [isMetric])
+    setTempDataThreshold(newData)
+  }, [threshold, tempData])
 
   const htmlAlert = () => {
     setAlert(
@@ -98,7 +80,6 @@ const AccumulatedChart = ({polyId, startDate, endDate}) => {
         showConfirm={false}
       >
         <AccumulatedInfo close={hideAlert} />
-        <div className="slider" ref={sliderRef} />
       </ReactBSAlert>
     );
   };
@@ -181,7 +162,8 @@ const AccumulatedChart = ({polyId, startDate, endDate}) => {
           pointHoverRadius: 4,
           pointHoverBorderWidth: 15,
           pointRadius: 1,
-          data: tempData.map(el => el > threshold ? el - threshold : 0)
+          data: tempDataThreshold
+          // data: tempData.map(el => el > threshold ? el - threshold : 0)
         },
         {
           label: "Rainfall",
@@ -213,48 +195,6 @@ const AccumulatedChart = ({polyId, startDate, endDate}) => {
           error={error}
         >
           <Line data={chartData} options={options} />
-          {/*<hr />*/}
-          <Form className="form-horizontal my-0" style={{position: "absolute", top: 0, left: 60}}>
-            {/*<Row>*/}
-              {/*<FormGroup className={`has-label ${loginFullNameState}`}>*/}
-                    {/*<label>Full Name *</label>*/}
-                    {/*<Input*/}
-                      {/*name="fullname"*/}
-                      {/*type="text"*/}
-                      {/*onChange={(e) => change(e, "loginFullName", "length", 1)}*/}
-                    {/*/>*/}
-                    {/*{loginFullNameState === "has-danger" ? (*/}
-                      {/*<label className="error">This field is required.</label>*/}
-                    {/*) : null}*/}
-                  {/*</FormGroup>*/}
-
-              <FormGroup>
-                <Label>Threshold, °{isMetric ? 'C' : 'F'}</Label>
-                <Input
-                  type="number"
-                  value={threshold}
-                  onChange={e => setThreshold(e.target.value)}
-                  min={isMetric ? thresholdMinC : thresholdMinF}
-                  max={isMetric ? thresholdMaxC : thresholdMaxF}
-                />
-              </FormGroup>
-            {/*</Row>*/}
-
-            {/*<Row style={{justifyContent: "flex-end"}}>*/}
-              {/*<Label sm="3">Threshold, °{isMetric ? 'C' : 'F'}</Label>*/}
-              {/*<Col sm="3">*/}
-                {/*<FormGroup>*/}
-                  {/*<Input*/}
-                    {/*type="number"*/}
-                    {/*value={threshold}*/}
-                    {/*onChange={e => setThreshold(e.target.value)}*/}
-                    {/*min={isMetric ? thresholdMinC : thresholdMinF}*/}
-                    {/*max={isMetric ? thresholdMaxC : thresholdMaxF}*/}
-                  {/*/>*/}
-                {/*</FormGroup>*/}
-              {/*</Col>*/}
-            {/*</Row>*/}
-          </Form>
         </ChartContainer>
        </div>
   )
