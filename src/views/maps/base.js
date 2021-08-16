@@ -273,7 +273,6 @@ export const addClusters = (map, polygons) => {
     );
 }
 
-
 export const displayPolygons = (map, mapBounds, polygons, onClick) => {
   /** Add all polygons to the map
    * Set bounds to contain all polygons
@@ -286,7 +285,7 @@ export const displayPolygons = (map, mapBounds, polygons, onClick) => {
   }
 }
 
-const removeLayer = (map, sourceId) => {
+export const removeLayer = (map, sourceId) => {
   if (map) {
     if (map.getLayer(sourceId)) {
       map.removeLayer(sourceId);

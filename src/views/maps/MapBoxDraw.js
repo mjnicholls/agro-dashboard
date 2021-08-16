@@ -1,9 +1,8 @@
 import React, {useEffect, useRef, useState} from 'react';
 import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import * as turf from '@turf/turf'
 import {axiosInstance} from '../../services/base'
-import {fetchPolygons} from "../../features/polygons/actions";
 import MapboxDraw from "@mapbox/mapbox-gl-draw";
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 import {addClusters, cropsSourceId, displayPolygons, initialiseMap, removeCropLayer, renderCrop} from './base';
@@ -11,20 +10,13 @@ import {getMapBounds} from '../../features/polygons/selectors'
 
 const selectPolygons = state => state.polygons;
 
-const MapBox = ({setArea, setGeoJson, setIntersection, drawRef, mode, mapHeight}) => {
+const MapBoxDraw = ({setArea, setGeoJson, setIntersection, drawRef, mode, mapHeight}) => {
 
   const mapContainer = useRef(null);
   const map = useRef(null);
   const mapBounds = useSelector(getMapBounds);
-  const [apiCallCount, setApiCallCount] = React.useState(0);
   const [initialised, setInitialised] = useState(false);
   const polygons = useSelector(selectPolygons);
-  const dispatch = useDispatch();
-
-  if (!polygons.length && !apiCallCount) {
-    dispatch(fetchPolygons());
-    setApiCallCount(1)
-  }
 
   useEffect(() => {
     return () => {
@@ -35,9 +27,19 @@ const MapBox = ({setArea, setGeoJson, setIntersection, drawRef, mode, mapHeight}
   }, []);
 
   useEffect(() => {
+    if (!initialised) {
+      // first initialisation of the map
+      initialiseMap(mapContainer.current, map, mapBounds, () => setInitialised(true))
+    } else {
+      // new polygon has been added
+      displayPolygons(map.current, mapBounds, polygons);
+      addClusters(map.current, polygons);
+    }
+  }, [polygons]);
+
+  useEffect(() => {
     if (initialised) {
       if (mode === 'select') {
-        // drawRef.current.changeMode("simple_select");
         deletePreviousAreas();
         renderCrop(map.current);
         map.current.on('click', cropsSourceId, function (e) {
@@ -47,25 +49,11 @@ const MapBox = ({setArea, setGeoJson, setIntersection, drawRef, mode, mapHeight}
         })
       } else {
         removeCropLayer(map.current)
-
-        // if (mode === "draw") {
-        //   drawRef.current.changeMode("draw_polygon");
-        // }
       }
     }
   }, [mode])
 
-  useEffect(() => {
-    if (!initialised) {
-      // first initialisation of the map
-      initialiseMap(mapContainer.current, map, mapBounds, () => setInitialised(true))
-    } else {
-      // new polygon has been added
-      displayPolygons(map.current, mapBounds, polygons);
-      addClusters(map.current, polygons);
-    }
 
-  }, [polygons]);
 
   useEffect(() => {
     if (initialised) {
@@ -168,4 +156,4 @@ const MapBox = ({setArea, setGeoJson, setIntersection, drawRef, mode, mapHeight}
   );
 }
 
-export default MapBox;
+export default MapBoxDraw;

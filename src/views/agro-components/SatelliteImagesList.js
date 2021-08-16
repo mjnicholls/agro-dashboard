@@ -78,7 +78,7 @@ const SatelliteImagesList = ({satelliteImage, setSatelliteImage}) => {
 
   return (
     <Card className="satellite-images-container mb-0">
-      <CardBody>
+      <CardBody style={{padding: "5px"}}>
         <div className='satellite-images-list'>
           <a
             className="satellite-arrow left"

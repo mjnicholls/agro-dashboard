@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 
 import { Col, Row } from "reactstrap";
 
-import MapBox from "./maps/MapBoxInteractive";
+import MapBox from "./maps/MapBox";
 import PolygonTable from './agro-components/PolygonTable';
 import PolygonTableSmall from './small-cards/PolygonList';
 import PolygonsTotalStats from './agro-components/PolygonsTotalStats';
