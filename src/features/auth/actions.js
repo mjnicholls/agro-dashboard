@@ -15,13 +15,10 @@ export const LOGOUT_FRONTEND = 'LOGOUT_FRONTEND'
 export const TOKEN_COOK = "AGRO_TOKEN"
 
 
-const requestLogin = (email, password) => {
+const requestLogin = (email) => {
   return {
     type: LOGIN_REQUEST,
-    isFetching: true,
-    isAuthenticated: false,
-    email: email,
-    password: password
+    payload: email,
   }
 }
 
@@ -82,7 +79,7 @@ export function logoutFrontEnd() {
 export function loginUser (email, password) {
 
   return dispatch => {
-    dispatch(requestLogin(email, password))
+    dispatch(requestLogin(email))
 
     axiosInstance.post(loginURL, {
       "email": email,

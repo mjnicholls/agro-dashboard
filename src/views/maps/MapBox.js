@@ -12,7 +12,6 @@ const selectPolygons = state => state.polygons;
 const selectActivePoly = state => state.state.polygon;
 const selectIsSatelliteMode = state => state.state.isSatelliteMode;
 
-//activePolygon
 const MapBox = ({ satelliteImage, setSatelliteImage, satelliteLayer, isSatellitePage, setPolygonInFocus }) => {
 
   const activePolygon = useSelector(selectActivePoly);
@@ -57,18 +56,6 @@ const MapBox = ({ satelliteImage, setSatelliteImage, satelliteLayer, isSatellite
   }, [tile])
 
   useEffect(() => {
-    if (activePolygon) {
-      let layers = map.current.getStyle().layers;
-      for (let i=0; i< layers.length; i++) {
-        if (layers[i].id.startsWith("layer_")) {
-          map.current.setPaintProperty(layers[i].id, 'fill-color',
-          layers[i].id === "layer_" + activePolygon ? activeColor : basicColor);
-        }
-      }
-    }
-  }, [activePolygon])
-
-  useEffect(() => {
     /** On polygon select:
      * zoom to the polygon
      * apply satellite image
@@ -80,7 +67,9 @@ const MapBox = ({ satelliteImage, setSatelliteImage, satelliteLayer, isSatellite
         padding: {left: 20, right: 20, top: 20, bottom: 100}
       });
       for (let i=0; i<polygons.length; i++) {
-        map.current.setPaintProperty("layer_" + polygons[i].id, "fill-opacity", polygons[i].id === activePolygon.id ? 0 : 0.5)
+        // map.current.setPaintProperty("layer_" + polygons[i].id, "fill-opacity", polygons[i].id === activePolygon.id ? 0 : 0.5)
+        map.current.setPaintProperty("layer_" + polygons[i].id, 'fill-color',
+          polygons[i].id === "layer_" + activePolygon ? activeColor : basicColor);
       }
     }
       else {
@@ -89,9 +78,6 @@ const MapBox = ({ satelliteImage, setSatelliteImage, satelliteLayer, isSatellite
         }
         removeSatelliteLayer(map.current);
         map.current.fitBounds(mapBounds);
-        // if (mapBounds) {
-        //   map.current.fitBounds(mapBounds)
-        // }
       }
     }
   }, [activePolygon])

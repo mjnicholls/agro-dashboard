@@ -34,7 +34,11 @@ export default function authReducer(state = initialState, action) {
       return Object.assign({}, state, {
         isFetching: true,
         isAuthenticated: false,
-        user: action.creds
+        user: {
+          email: action.payload,
+          appid: null,
+          tariff: null
+        }
       })
     case LOGIN_SUCCESS:
       return {
@@ -42,7 +46,11 @@ export default function authReducer(state = initialState, action) {
         isAuthenticated: true,
         errorMessage: null,
         token: action.data.token,
-        user: action.data.user,
+        user: {
+          email: action.data.user.email || null,
+          appid: action.data.user.appid || null,
+          tariff: action.data.user.tariff || null,
+        },
         limits: action.data.limits
       }
     case LOGIN_FAILURE:

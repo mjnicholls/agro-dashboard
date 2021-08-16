@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
+import { HashRouter, BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import store from './store'
 import { Provider } from 'react-redux'
 
@@ -21,14 +21,14 @@ const App = () => {
 
   return (
     <Provider store={store}>
-      <BrowserRouter>
+      <HashRouter>
         <Switch>
           <Route path="/auth" render={(props) => <AuthLayout {...props} />} />
           <Route path="/dashboard" render={(props) => <AdminLayout {...props} />} />
           {/*<Route path="/rtl" render={(props) => <RTLLayout {...props} />} />*/}
           <Redirect from="/" to="/dashboard/polygons" />
         </Switch>
-      </BrowserRouter>
+      </HashRouter>
       <Notifications />
     </Provider>
   )
