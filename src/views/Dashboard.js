@@ -43,7 +43,7 @@ const Dashboard = () => {
               />
             </Col>
 
-            <Col lg="3" >
+            <Col lg="3" sm="6" >
               {activePolygon ?
                 isSatelliteMode ? <ImageStats
                     satelliteImage={satelliteImage}
@@ -57,7 +57,7 @@ const Dashboard = () => {
               }
             </Col>
 
-            <Col lg="3" >
+            <Col lg="3" sm="6">
               {activePolygon ?
                 <PolygonTableSmall /> :
                 <PolygonsTotalStats polygons={polygons} activePolygon={polygons[0]} />
