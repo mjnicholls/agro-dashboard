@@ -52,7 +52,7 @@ const ImageStats = ({satelliteImage, satelliteLayer, setSatelliteLayer }) => {
     }
   }, [satelliteImage, satelliteLayer])
   return (
-    <Card className="small-card">
+    <Card className="small-card mb-5">
       <CardHeader>
         <Row>
           <Col>

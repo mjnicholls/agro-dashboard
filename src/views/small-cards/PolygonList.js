@@ -27,7 +27,7 @@ const PolygonTableSmall = () => {
   const dispatch = useDispatch();
 
   return (
-    <Card className="small-card">
+    <Card className="small-card mb-5">
       <CardHeader>
         <Row>
           <Col xs="9">

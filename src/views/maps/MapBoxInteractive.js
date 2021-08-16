@@ -105,7 +105,7 @@ const MapBox = ({ satelliteImage, setSatelliteImage, satelliteLayer, isSatellite
   }, [activePolygon])
 
  return (
-  <div>
+  <div className="mb-5">
     <div ref={mapContainer} className="map-container map-box-container" >
     {(activePolygon && isSatellitePage) &&
       <SatelliteImagesList

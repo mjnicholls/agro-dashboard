@@ -15,7 +15,6 @@ import {tariffError} from "../../config";
 const selectUnits = state => state.units.isMetric;
 
 const AccumulatedChart = ({polyId, startDate, endDate, threshold}) => {
-  console.log("threshold in props", threshold)
   const [data, setData] = useState([]);
 
   const [error, setError] = useState(startDate ? null : tariffError);

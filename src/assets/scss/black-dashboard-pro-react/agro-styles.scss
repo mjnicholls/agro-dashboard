@@ -58,6 +58,7 @@ $mapHeight: 400px;
   height: $mapHeight;
   overflow: auto;
   position: relative;
+  margin-bottom: 0;
 
   .card-header {
     position: sticky;

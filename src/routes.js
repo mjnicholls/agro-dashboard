@@ -1,4 +1,4 @@
-import DashboardMain from "views/DashboardInteractive.js";
+import DashboardMain from "views/Dashboard.js";
 // import Pricing from "views/pages/Pricing.js";
 // import Register from "views/pages/Register.js";
 // import User from "views/pages/User.js";

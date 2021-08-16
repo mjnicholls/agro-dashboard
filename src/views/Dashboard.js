@@ -31,8 +31,8 @@ const Dashboard = () => {
   return (
     <>
       <div className="content">
-          <Row className="map-row mb-4">
-            <Col md="6" >
+          <Row>
+            <Col sm="12" md="6" >
               <MapBox
                 // activePolygon={activePolygon}
                 satelliteImage={satelliteImage}
@@ -43,7 +43,7 @@ const Dashboard = () => {
               />
             </Col>
 
-            <Col md="3">
+            <Col sm="6" md="3" >
               {activePolygon ?
                 isSatelliteMode ? <ImageStats
                     satelliteImage={satelliteImage}
@@ -57,35 +57,12 @@ const Dashboard = () => {
               }
             </Col>
 
-            <Col md="3">{activePolygon ? <PolygonTableSmall /> : <PolygonsTotalStats polygons={polygons} activePolygon={polygons[0]} />}</Col>
-            {/*  <Row>
-
-            {activePolygon ?
-              <>
-                <Col md="6">
-                  {isSatelliteMode ? <ImageStats
-                    satelliteImage={satelliteImage}
-                    satelliteLayer={satelliteLayer}
-                    setSatelliteLayer={setSatelliteLayer}
-                  /> :
-                    <>
-                      <WeatherCurrent />
-                      <SoilCurrent polyId={activePolygon.id}/>
-                    </>
-                  }
-                </Col>
-                <Col md="6">
-                  <PolygonTableSmall />
-                </Col>
-              </>
-          : <Col>
-                <>
-                  <PolygonsTotalStats polygons={polygons} activePolygon={polygons[0]} />
-                  <PolygonInfo polygonInFocus={polygonInFocus} />
-                </>
-          </Col>}
-              </Row>
-            </Col>*/}
+            <Col sm="6" md="3">
+              {activePolygon ?
+                <PolygonTableSmall /> :
+                <PolygonsTotalStats polygons={polygons} activePolygon={polygons[0]} />
+              }
+            </Col>
         </Row>
         <Row>
           <Col>

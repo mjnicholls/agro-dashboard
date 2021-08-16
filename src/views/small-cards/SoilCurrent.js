@@ -43,7 +43,7 @@ const CurrentSoil = ({ polyId }) => {
   }, [polyId])
 
   return (
-    <Card>
+    <Card className="mb-5">
       <CardHeader>
         <Row>
           <Col className="text-left">
