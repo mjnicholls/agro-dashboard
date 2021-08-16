@@ -4,7 +4,8 @@ import { NavLink, useLocation } from "react-router-dom";
 import PropTypes from "prop-types";
 // javascript plugin used to create scrollbars on windows
 import PerfectScrollbar from "perfect-scrollbar";
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus, faSatellite, faTemperatureLow } from '@fortawesome/free-solid-svg-icons';
 // reactstrap components
 import { Nav, Collapse } from "reactstrap";
 import {setActivePoly, setSatelliteMode} from "../../features/state/actions";
@@ -135,13 +136,21 @@ const Sidebar = (props) => {
               }}
             >
               {prop.icon !== undefined ? (
+                prop.icon.includes("tim-icons") ?
                 <>
                   <i className={prop.icon} />
                   <p>
                     {rtlActive ? prop.rtlName : prop.name}
                     <b className="caret" />
                   </p>
-                </>
+                </> :
+                  <>
+                    <FontAwesomeIcon icon={faTemperatureLow} />
+                    <p>
+                      {rtlActive ? prop.rtlName : prop.name}
+                      <b className="caret" />
+                    </p>
+                  </>
               ) : (
                 <>
                   <span className="sidebar-mini-icon">
@@ -173,7 +182,7 @@ const Sidebar = (props) => {
               onClickAction(prop);
               props.closeSidebar();
             }}>
-              <i className={prop.icon} />
+              {(typeof prop.icon === "string") ? <i className={prop.icon} /> : <i>{prop.icon}</i>}
               <p>{rtlActive ? prop.rtlName : prop.name}</p>
             </a>
 
@@ -182,12 +191,14 @@ const Sidebar = (props) => {
                 activeClassName=""
                 onClick={props.closeSidebar}
               >
-            {prop.icon !== undefined ? (
+            {prop.icon !== undefined ?
+              (
               <>
-                <i className={prop.icon} />
+                {(typeof prop.icon === "string") ? <i className={prop.icon} /> : <i>{prop.icon}</i>}
                 <p>{rtlActive ? prop.rtlName : prop.name}</p>
               </>
-            ) : (
+            )
+              : (
               <>
                 <span className="sidebar-mini-icon">
                   {rtlActive ? prop.rtlMini : prop.mini}

@@ -1,16 +1,19 @@
+import React from "react";
 import DashboardMain from "views/Dashboard.js";
 // import Pricing from "views/pages/Pricing.js";
 // import Register from "views/pages/Register.js";
 // import User from "views/pages/User.js";
 import Login from "views/pages/Login.js";
 import PolygonNew from 'views/PolygonNew';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faListUl, faPlus, faSatellite, faTemperatureLow } from '@fortawesome/free-solid-svg-icons';
 
 const routes = [
   {
     path: "/polygons",
     name: "Polygons",
     rtlName: "لوحة القيادة",
-    icon: "tim-icons icon-bullet-list-67",
+    icon: <FontAwesomeIcon icon={faListUl} />,
     component: DashboardMain,
     layout: "/dashboard",
     isFake: true,
@@ -20,7 +23,7 @@ const routes = [
     path: "/polygons",
     name: "Satellite data & statistics",
     rtlName: "لوحة القيادة",
-    icon: "tim-icons icon-image-02",
+    icon: <FontAwesomeIcon icon={faSatellite} />,
     component: DashboardMain,
     layout: "/dashboard",
     isFake: true,
@@ -30,17 +33,17 @@ const routes = [
     path: "/polygons",
     name: "Weather Data",
     rtlName: "لوحة القيادة",
-    icon: "tim-icons icon-chart-pie-36",
+    icon: <FontAwesomeIcon icon={faTemperatureLow} />,
     component: DashboardMain,
     layout: "/dashboard",
     isFake: true,
-    onclick: "weather"
+    onclick: "weather",
   },
   {
     path: "/new-polygon",
     name: "New Polygon",
     rtlName: "لوحة القيادة",
-    icon: "tim-icons icon-simple-add",
+    icon: <FontAwesomeIcon icon={faPlus} />,
     component: PolygonNew,
     layout: "/dashboard",
   },

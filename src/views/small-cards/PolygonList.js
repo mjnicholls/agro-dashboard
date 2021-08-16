@@ -2,10 +2,8 @@ import React from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 
 import {
-  Button,
   Card,
   CardBody,
-  CardFooter,
   CardHeader,
   CardTitle,
   Col,
@@ -14,7 +12,7 @@ import {
 } from "reactstrap";
 import classNames from "classnames";
 
-import TogglerSatelliteMode from '../agro-components/TogglerSatellite'
+import TogglerThree from '../agro-components/TogglerModes';
 import {setActivePoly} from "../../features/state/actions";
 
 const selectActivePoly = state => state.state.polygon;
@@ -30,22 +28,16 @@ const PolygonTableSmall = () => {
     <Card className="small-card mb-5">
       <CardHeader>
         <Row>
-          <Col xs="9">
+          <Col xs="6" sm="8" md="9">
             <h5 className="card-category mb-0">All</h5>
             <CardTitle tag="h2">Polygons</CardTitle>
           </Col>
-          <Col xs="3">
-            <Button
-              color="github"
-              className="btn-simple"
-              size="sm"
-              tag="label"
-              onClick={() => dispatch(setActivePoly(null))}
-            ><i className="tim-icons icon-bullet-list-67" /></Button>
+          <Col xs="6" sm="4" md="3">
+            <TogglerThree />
           </Col>
         </Row>
       </CardHeader>
-      <CardBody className="py-0" style={{overflowY: "scroll", marginBottom: "60px"}}>
+      <CardBody className="py-0 overflow-auto">
         <Table>
           <tbody>
             {polygons.map(polygon => (
@@ -62,13 +54,6 @@ const PolygonTableSmall = () => {
           </tbody>
         </Table>
       </CardBody>
-      <CardFooter style={{position: "absolute", bottom: 0, right: 0}}>
-        <Row>
-          <Col>
-            <TogglerSatelliteMode />
-          </Col>
-        </Row>
-      </CardFooter>
     </Card>
   )
 }

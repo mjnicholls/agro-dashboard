@@ -32,7 +32,7 @@ const Dashboard = () => {
     <>
       <div className="content">
           <Row>
-            <Col sm="12" md="6" >
+            <Col lg="6" >
               <MapBox
                 // activePolygon={activePolygon}
                 satelliteImage={satelliteImage}
@@ -43,7 +43,7 @@ const Dashboard = () => {
               />
             </Col>
 
-            <Col sm="6" md="3" >
+            <Col lg="3" >
               {activePolygon ?
                 isSatelliteMode ? <ImageStats
                     satelliteImage={satelliteImage}
@@ -57,7 +57,7 @@ const Dashboard = () => {
               }
             </Col>
 
-            <Col sm="6" md="3">
+            <Col lg="3" >
               {activePolygon ?
                 <PolygonTableSmall /> :
                 <PolygonsTotalStats polygons={polygons} activePolygon={polygons[0]} />
@@ -66,6 +66,7 @@ const Dashboard = () => {
         </Row>
         <Row>
           <Col>
+
             {activePolygon ?
               isSatelliteMode ?
               <NdviChart polyId={activePolygon.id} />

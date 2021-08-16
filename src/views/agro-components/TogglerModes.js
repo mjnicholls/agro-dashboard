@@ -7,44 +7,46 @@ import {
   Button,
   ButtonGroup,
 } from "reactstrap";
-import {setActivePoly} from "../../features/state/actions";
+import {setActivePoly, setSatelliteMode} from "../../features/state/actions";
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faListUl, faSatellite, faTemperatureLow } from '@fortawesome/free-solid-svg-icons';
+
 
 const selectPolygons = state => state.polygons;
 const selectActivePoly = state => state.state.polygon;
+const selectIsSatelliteMode = state => state.state.isSatelliteMode;
 
-const TogglerThree = ({activePage, setActivePage, setIsSatellitePage, labelOne, labelTwo, labelThree}) => {
+const TogglerModes = () => {
 
   const dispatch = useDispatch();
   const polygons = useSelector(selectPolygons);
   const activePoly = useSelector(selectActivePoly);
+  const isSatelliteMode = useSelector(selectIsSatelliteMode);
 
   const selectAllPolygons = () => {
     if (activePoly) {
       dispatch(setActivePoly(null));
     }
-    setActivePage("Home");
   }
 
   const selectSatellite = () => {
     if (activePoly) {
-      setIsSatellitePage(true);
+      dispatch(setSatelliteMode(true));
     } else {
       dispatch(setActivePoly(polygons[0]));
-      // setIsSatellitePage(true)
+      dispatch(setSatelliteMode(true));
     }
-    setActivePage("Satellite");
   }
 
   const selectWeather = () => {
     if (activePoly) {
-      setIsSatellitePage(false);
+      dispatch(setSatelliteMode(false));
     } else {
       dispatch(setActivePoly(polygons[0]));
-      setIsSatellitePage(false);
+      setSatelliteMode(false);
     }
-    setActivePage("Weather");
   }
-
 
 
   return (
@@ -53,57 +55,51 @@ const TogglerThree = ({activePage, setActivePage, setIsSatellitePage, labelOne, 
       data-toggle="buttons"
     >
       <Button
-        color="info"
+        color="github"
         id="0"
         size="sm"
         tag="label"
         className={classNames("btn-simple", {
-          active: labelOne === activePage,
+          active: !activePoly,
         })}
+        style={{padding: "5px 10px"}}
         onClick={selectAllPolygons}
       >
-        <span className="d-none d-sm-block d-md-block d-lg-block d-xl-block">
-          {labelOne}
-        </span>
-        <span className="d-block d-sm-none">
-          <i className="tim-icons icon-single-02" />
+        <span>
+          <FontAwesomeIcon icon={faListUl} />
         </span>
       </Button>
       <Button
-        color="info"
+        color="github"
         id="1"
         size="sm"
         tag="label"
         className={classNames("btn-simple", {
-          active: labelTwo === activePage,
+          active: activePoly && isSatelliteMode,
         })}
+        style={{padding: "5px 10px"}}
         onClick={selectSatellite}
       >
-        <span className="d-none d-sm-block d-md-block d-lg-block d-xl-block">
-          {labelTwo}
-        </span>
-        <span className="d-block d-sm-none">
-          <i className="tim-icons icon-gift-2" />
+        <span>
+          <FontAwesomeIcon icon={faSatellite} />
         </span>
       </Button>
       <Button
-        color="info"
+        color="github"
         id="2"
         size="sm"
         tag="label"
         className={classNames("btn-simple", {
-          active: labelThree === activePage,
+          active: activePoly && !isSatelliteMode,
         })}
+        style={{padding: "5px 10px"}}
         onClick={selectWeather}
       >
-        <span className="d-none d-sm-block d-md-block d-lg-block d-xl-block">
-          {labelThree}
-        </span>
-        <span className="d-block d-sm-none">
-          <i className="tim-icons icon-gift-2" />
+        <span>
+          <FontAwesomeIcon icon={faTemperatureLow} />
         </span>
       </Button>
     </ButtonGroup>
 )}
 
-export default TogglerThree;
+export default TogglerModes;

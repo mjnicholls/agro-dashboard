@@ -14,7 +14,7 @@ import {
 const PolygonsTotalStats = ({polygons}) => {
 
   return (
-    <Card className="card-stats d-none d-md-block mb-5">
+    <Card className="card-stats d-none d-lg-block mb-5">
       <CardHeader>
          <Row>
           <Col xs="4">
