@@ -1,8 +1,8 @@
 import {axiosInstance} from "../../services/base";
 import {createPolygonApi, deletePolygonApi, editPolygonApi} from "../../services/api/polygonApi"
-import {polygonsEndpoint} from "./endpoints"
 import {notifySuccess, notifyError} from "../notifications/actions";
 import {polygonShapeSize} from "../../config";
+import {polygonsEndpoint} from "../../services/api";
 
 export const POLYGONS_FETCH = 'polygons/fetch';
 export const POLYGONS_FETCH_SUCCESS = 'polygons/fetch_success';

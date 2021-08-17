@@ -1,14 +1,13 @@
 
-export const serverBaseURL = "http://k8s-eu4.owm.io";
-const personalAccountPort = "12346"
-const agriPort = "12345"
+export const serverBaseURL = "https://new.agromonitoring.com/api/";
 
-const personalAccountBase = `${serverBaseURL}:${personalAccountPort}/`;
-export const agriBase = `${serverBaseURL}:${agriPort}/`;
+export const personalAccountBase = `${serverBaseURL}auth/`
+const agriBase = `${serverBaseURL}proxy/`;
 
 export const loginURL = `${personalAccountBase}auth/login`
 export const logoutURL = `${personalAccountBase}auth/logout`
 
+export const polygonsEndpoint = `${agriBase}polygons`
 export const polygonCreate = `${agriBase}polygon`
 export const polygonDelete = `${agriBase}polygon/`
 export const polygonSatelliteImagesList = `${agriBase}image/search`

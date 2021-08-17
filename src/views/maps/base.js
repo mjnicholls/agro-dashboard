@@ -45,7 +45,7 @@ export const initialiseMap = (mapContainer, map, mapBounds, onLoad, setPolygonIn
     accessToken: mapBoxAccessToken,
     fitBoundsOptions: { duration: 0, padding: 20 },
     transformRequest: (url) => {
-      if (url.indexOf(serverBaseURL) > -1) {
+      if (url.indexOf(serverBaseURL) > -1 || url.indexOf("http://k8s-eu4.owm.io") > -1) {
         return {
           url: url,
           headers: { 'Authorization': 'Bearer ' + token },
