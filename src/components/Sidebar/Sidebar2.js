@@ -289,7 +289,7 @@ const Sidebar = (props) => {
       <div className="sidebar-wrapper" ref={sidebarRef}>
         {logoImg !== null || logoText !== null ? (
           <div className="logo">
-            {logoImg}
+            {/*{logoImg}*/}
             {logoText}
           </div>
         ) : null}
