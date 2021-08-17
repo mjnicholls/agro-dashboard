@@ -288,7 +288,7 @@ const Sidebar = (props) => {
     <div className="sidebar" data={activeColor}>
       <div className="sidebar-wrapper" ref={sidebarRef}>
         {logoImg !== null || logoText !== null ? (
-          <div className="logo">
+          <div className="logo" style={{paddingLeft: "30px"}}>
             {/*{logoImg}*/}
             {logoText}
           </div>
