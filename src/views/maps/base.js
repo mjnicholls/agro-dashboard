@@ -11,10 +11,24 @@ export const defaultBBox = new mapboxgl.LngLatBounds(
   new mapboxgl.LngLat(-0.5103751, 0.3340155)
 );
 
-export const basicColor = "#006400";
+// green
+// export const basicColor = "#006400";
+// export const activeColor = '#00FC00';
+const blue = "#5e72e4";
+const indigo = "#5603ad";
+const purple = "#8965e0";
+const pink = "#f3a4b5";
+const red = "#f5365c";
+const orange = "#fb6340";
+
+
+export const basicColor = purple;
+export const activeColor = red;
 export const basicOpacity = 0.4;
+export const activeOpacity = 0.8;
+
 export const basicBlueColor = '#0080ff';
-export const activeColor = '#00FC00';
+
 // export const activeColor = '#8512B0';
 // export const activeColor = '#e14eca';
 const satelliteSourceId = 'satellite-agro';
@@ -44,12 +58,11 @@ export const initialiseMap = (mapContainer, map, mapBounds, onLoad, setPolygonIn
   }), 'top-right');
   map.current.on('load', function () {
     const polygons = store.getState().polygons;
-    // map.current.setPadding({left: 20, right: 20, top: 20, bottom: 100})
-    for (let i=0; i<polygons.length; i++) {
-      addPolygon(map.current, polygons[i], setPolygonInFocus)
-    }
     if (polygons.length) {
-      addClusters(map.current, polygons)
+      for (let i=0; i<polygons.length; i++) {
+        addPolygon(map.current, polygons[i], setPolygonInFocus)
+      }
+      displayClusters(map.current, polygons)
     }
     onLoad()
   })
@@ -72,7 +85,7 @@ const addPolygon = (map, polygon, setPolygonInFocus) => {
     source: polygon.id,
     layout: {},
     paint: {
-      'fill-color': activeColor,
+      'fill-color': basicColor,
       'fill-opacity': basicOpacity
     },
   });
@@ -88,18 +101,8 @@ const addPolygon = (map, polygon, setPolygonInFocus) => {
     },
   });
 
-  // let popup = new mapboxgl.Popup({
-  //   closeButton: false,
-  //   closeOnMove: true,
-  //   closeOnClick: true
-  // })
-
   map.on('mouseenter', "layer_" + polygon.id, function (e) {
     map.getCanvas().style.cursor = 'pointer';
-    // popup
-    //   .setLngLat(e.lngLat)
-    //   .setHTML(polygon.name + ', ' + polygon.area.toFixed(2) + 'ha    ')
-    //   .addTo(map);
     if (setPolygonInFocus) {
       setPolygonInFocus(polygon)
     }
@@ -107,7 +110,6 @@ const addPolygon = (map, polygon, setPolygonInFocus) => {
 
   map.on('mouseleave', 'layer_'  + polygon.id, function () {
     map.getCanvas().style.cursor = '';
-    // popup.remove();
     if (setPolygonInFocus) {
       setPolygonInFocus(null)
     }
@@ -125,7 +127,19 @@ const addPolygon = (map, polygon, setPolygonInFocus) => {
     });
   }
 
-export const addClusters = (map, polygons) => {
+export const displayPolygons = (map, mapBounds, polygons, onClick) => {
+  /** Add all polygons to the map
+   * Set bounds to contain all polygons
+   */
+  for (let i=0; i<polygons.length; i++) {
+    addPolygon(map, polygons[i], onClick)
+  }
+  if (mapBounds) {
+    map.fitBounds(mapBounds, { padding: 20 })
+  }
+}
+
+export const displayClusters = (map, polygons) => {
 
   const CLUSTER_SOURCE_ID = 'polygon_clusters';
 
@@ -271,18 +285,6 @@ export const addClusters = (map, polygons) => {
     map.fitBounds(polygonBbox, {padding: 165});
       }
     );
-}
-
-export const displayPolygons = (map, mapBounds, polygons, onClick) => {
-  /** Add all polygons to the map
-   * Set bounds to contain all polygons
-   */
-  for (let i=0; i<polygons.length; i++) {
-    addPolygon(map, polygons[i], onClick)
-  }
-  if (mapBounds) {
-    map.fitBounds(mapBounds, { padding: 20 })
-  }
 }
 
 export const removeLayer = (map, sourceId) => {

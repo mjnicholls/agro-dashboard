@@ -2,8 +2,8 @@ import React, {useEffect, useRef, useState} from 'react';
 import {useSelector} from 'react-redux';
 
 import {
-  activeColor, addClusters, basicColor, displayPolygons, initialiseMap, removeSatelliteLayer,
-  renderSatelliteImage
+  activeColor, activeOpacity, displayClusters, basicColor, displayPolygons, initialiseMap, removeSatelliteLayer,
+  renderSatelliteImage, basicBlueColor, basicOpacity
 } from './base';
 import {getMapBounds} from '../../features/polygons/selectors'
 import SatelliteImagesList from "../agro-components/SatelliteImagesList";
@@ -30,7 +30,7 @@ const MapBox = ({ satelliteImage, setSatelliteImage, satelliteLayer, isSatellite
     } else {
       // new polygon has been added
       displayPolygons(map.current, mapBounds, polygons);
-      addClusters(map.current, polygons);
+      displayClusters(map.current, polygons);
     }
   }, [polygons]);
 
@@ -61,26 +61,17 @@ const MapBox = ({ satelliteImage, setSatelliteImage, satelliteLayer, isSatellite
      * apply satellite image
      * apply layer
      */
-    if (initialised) {
-      if (activePolygon) {
+    if (initialised && activePolygon) {
       map.current.fitBounds(activePolygon.bbox, {
         padding: {left: 20, right: 20, top: 20, bottom: 100}
       });
       for (let i=0; i<polygons.length; i++) {
-        // map.current.setPaintProperty("layer_" + polygons[i].id, "fill-opacity", polygons[i].id === activePolygon.id ? 0 : 0.5)
+        map.current.setPaintProperty("layer_" + polygons[i].id, "fill-opacity", polygons[i].id === activePolygon.id ? activeOpacity : basicOpacity)
         map.current.setPaintProperty("layer_" + polygons[i].id, 'fill-color',
-          polygons[i].id === "layer_" + activePolygon ? activeColor : basicColor);
+          polygons[i].id === "layer_" + activePolygon.id ? basicBlueColor : basicColor);
       }
     }
-      else {
-        for (let i=0; i<polygons.length; i++) {
-          map.current.setPaintProperty("layer_" + polygons[i].id, "fill-opacity", 0.5)
-        }
-        removeSatelliteLayer(map.current);
-        map.current.fitBounds(mapBounds);
-      }
-    }
-  }, [activePolygon])
+  }, [initialised, activePolygon])
 
   useEffect(() => {
     if (initialised) {
