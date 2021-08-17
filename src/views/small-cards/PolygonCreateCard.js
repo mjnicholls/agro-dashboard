@@ -114,7 +114,7 @@ const PolygonCreateCard = ({area, geoJson, intersections, mode, setMode, resetMa
           <NavItem>
             <NavLink
               data-toggle="tab"
-              href="#pablo"
+              // href="#pablo"
               className={mode === "draw" ? "active" : ""}
               onClick={() => setMode("draw") }
               style={{paddingRight: "15px", paddingLeft: "15px"}}
@@ -125,7 +125,7 @@ const PolygonCreateCard = ({area, geoJson, intersections, mode, setMode, resetMa
           <NavItem>
             <NavLink
               data-toggle="tab"
-              href="#pablo"
+              // href="#pablo"
               className={mode === "select" ? "active" : ""}
               onClick={() =>
                 setMode("select")

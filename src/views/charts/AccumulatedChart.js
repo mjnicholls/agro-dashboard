@@ -131,7 +131,7 @@ const AccumulatedChart = ({polyId, startDate, endDate, threshold}) => {
     ...options.tooltips,
     callbacks: {
       label: function(tooltipItem, data) {
-        return data.datasets[tooltipItem.datasetIndex].label + ": " + tooltipItem.value + ( tooltipItem.datasetIndex  ? 'mm' : '°');
+        return data.datasets[tooltipItem.datasetIndex].label + ": " + Math.round(tooltipItem.value) + ( tooltipItem.datasetIndex  ? 'mm' : '°');
         }
     }
   }

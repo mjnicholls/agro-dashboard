@@ -2,11 +2,7 @@ import React from "react";
 import {useSelector, useDispatch} from 'react-redux';
 import { NavLink, useLocation } from "react-router-dom";
 import PropTypes from "prop-types";
-// javascript plugin used to create scrollbars on windows
 import PerfectScrollbar from "perfect-scrollbar";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faSatellite, faTemperatureLow } from '@fortawesome/free-solid-svg-icons';
-// reactstrap components
 import { Nav, Collapse } from "reactstrap";
 import {setActivePoly, setSatelliteMode} from "../../features/state/actions";
 var ps;
