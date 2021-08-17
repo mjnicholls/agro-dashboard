@@ -73,24 +73,24 @@ const AuthNavbar = (props) => {
               </NavLink>
             </NavItem>
             <NavItem>
-              <NavLink to="/auth/register" className="nav-link">
-                <i className="tim-icons icon-laptop" /> Register
-              </NavLink>
+              <a className="nav-link" href="https://wp.agromonitoring.com/users/sign_up">
+                <i className="tim-icons icon-single-02" /> Register
+              </a>
             </NavItem>
+            {/*<NavItem>*/}
+              {/*<NavLink to="/auth/login" className="nav-link">*/}
+                {/*<i className="tim-icons icon-single-02" /> Login*/}
+              {/*</NavLink>*/}
+            {/*</NavItem>*/}
             <NavItem>
-              <NavLink to="/auth/login" className="nav-link">
-                <i className="tim-icons icon-single-02" /> Login
-              </NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink to="/auth/pricing" className="nav-link">
+              <a className="nav-link" href="https://home.agromonitoring.com/subscriptions">
                 <i className="tim-icons icon-coins" /> Pricing
-              </NavLink>
+              </a>
             </NavItem>
             <NavItem>
-              <NavLink to="/auth/lock-screen" className="nav-link">
-                <i className="tim-icons icon-lock-circle" /> Lock
-              </NavLink>
+              <a className="nav-link" href="https://agromonitoring.com/">
+                <i className="tim-icons icon-laptop" /> Website
+              </a>
             </NavItem>
           </Nav>
         </Collapse>
