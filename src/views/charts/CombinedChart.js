@@ -20,7 +20,6 @@ import DatePickerFromTo from './ui/DatePickerFromTo';
 import {AccumulatedChart, DailyChart, HourlyChart, HistoryWeather, HistorySoilChart} from './'
 import {getDateInPast} from "../../utils/dateTime";
 import {defaultStartHistoryWeatherCharts, treshold} from "../../config";
-import {convertTemp} from "../../utils/utils";
 
 const selectOneCall = state => state.onecall;
 const selectUnits = state => state.units.isMetric;
@@ -95,26 +94,29 @@ const CombinedChart = ({polyId}) => {
      * - accumulated precipitation
      * - history soil
      * - history weather data
+     * Limits come from backend as:
+     * -1: unlimited
+     * 0: not available for this tariff
+     * int - number in years
      *  */
 
     let depth, startDate, earliestAvailableDate;
-    // limits come from backend as
-    // -1: unlimited, 0: not available for this tariff, > 0 - number in years
     let depths = [limitAccPrec.depth, limitAccTemp.depth, limitSoil.depth, limitSoil.depth];
     let positiveDepths = depths.filter(el => el >= 0);
     if (positiveDepths.length) {
       depth = Math.min(...positiveDepths)
+    } else {
+      depth = -1;
     }
     if (depth && depth > 0 ) {
-      // tariffs small, starter
+      // limited data is available
       earliestAvailableDate = new Date();
       earliestAvailableDate.setFullYear(earliestAvailableDate.getFullYear() - depth);
       // set default start date from config unless earliestAvailableDate is later
-
       startDate = getDateInPast(Math.min(depth * 12, defaultStartHistoryWeatherCharts));
 
     } else if (depth < 0) {
-      // tarrif corp // TODO выбираю максимальную дату, нет возможности увидеть более ранние даты
+      // unlimited data is available // TODO выбираю максимальную дату, нет возможности увидеть более ранние даты
       earliestAvailableDate = new Date(Math.max(
         limitAccPrec.start, limitAccTemp.start, limitSoil.start, limitHistoryWeather.start) * 1000);
       startDate = getDateInPast(defaultStartHistoryWeatherCharts); // один месяц назад
@@ -126,6 +128,7 @@ const CombinedChart = ({polyId}) => {
         setEndDate(new Date().getTime());
       }
     }
+
   }, [limitAccPrec, limitAccTemp, limitSoil, limitHistoryWeather, polyId])
 
   return (
@@ -167,21 +170,21 @@ const CombinedChart = ({polyId}) => {
       <CardBody>
         {activeTab.calendar &&
         <Row className="justify-content-end align-items-center">
-          {activeTab.id === "Accumulated" &&
+          {(activeTab.id === "Accumulated" && earliestAvailableDate) &&
             <>
-            <Label >Threshold, °{isMetric ? 'C' : 'F'}</Label>
-            <Col xs="4" sm="3" md="2" >
-                <FormGroup>
-                  <Input
-                    type="number"
-                    value={threshold}
-                    onChange={e => setThreshold(e.target.value)}
-                    min={treshold[isMetric ? "celsius" : "fahrenheit"].min}
-                    max={treshold[isMetric ? "celsius" : "fahrenheit"].max}
-                  />
-                </FormGroup>
-            </Col>
-              </>
+              <Label >Threshold, °{isMetric ? 'C' : 'F'}</Label>
+              <Col xs="4" sm="3" md="2" >
+                  <FormGroup>
+                    <Input
+                      type="number"
+                      value={threshold}
+                      onChange={e => setThreshold(e.target.value)}
+                      min={treshold[isMetric ? "celsius" : "fahrenheit"].min}
+                      max={treshold[isMetric ? "celsius" : "fahrenheit"].max}
+                    />
+                  </FormGroup>
+              </Col>
+            </>
             }
             <Col xs="8" sm="6" md="4">
               <DatePickerFromTo

@@ -456,3 +456,10 @@ $daily-chart-width: 1000px;
   border-color: $github-states !important;
   color: $background-states-black !important;
 }
+
+.autofill-color {
+  input:-webkit-autofill
+    {
+     -webkit-text-fill-color: yellow !important;
+    }
+}

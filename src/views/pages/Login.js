@@ -1,21 +1,8 @@
-/*!
-
-=========================================================
-* Black Dashboard PRO React - v1.2.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/black-dashboard-pro-react
-* Copyright 2020 Creative Tim (https://www.creative-tim.com)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
 import React from "react";
 import classnames from "classnames";
+import { css } from "@emotion/react";
+import { Redirect } from "react-router-dom";
+
 import {
   Button,
   Card,
@@ -35,17 +22,22 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { validateEmail } from "../../utils/validation";
 import { loginUser, clearLoginError } from '../../features/auth/actions'
-import {signUpUrl} from "../../services/api";
-import { Redirect } from "react-router-dom";
+import DotLoader from 'react-spinners/DotLoader';
 
 const isAuthenticatedSelector = state => state.auth.isAuthenticated;
+const isFetchingSelector = state => state.auth.isFetching;
 const errorMessageSelector = state => state.auth.errorMessage;
+
+const override = css`
+  align-self: center;
+`;
 
 const Login = (props) => {
   const [state, setState] = React.useState({});
   const [errors, setErrors] = React.useState({});
   let { from } = props.location.state || { from: { pathname: "/dashboard" } };
   const isAuthenticated = useSelector(isAuthenticatedSelector);
+  const isFetching = useSelector(isFetchingSelector);
   const errorMessage = useSelector(errorMessageSelector);
 
   const dispatch = useDispatch();
@@ -90,7 +82,16 @@ const Login = (props) => {
                   <CardTitle tag="h1">Log in</CardTitle>
                 </CardHeader>
                 <CardBody>
-                  <InputGroup
+                  <div style={{minHeight: "125px"}}>
+                  {
+                    isFetching ?
+
+                      <div style={{display: "flex", justifyContent: "center", alignItems: "center", height: "125px"}}>
+                        <DotLoader size="60" color="#e14eca" css={override} />
+                      </div> :
+
+                      <>
+                        <InputGroup
                     className={classnames({
                       "input-group-focus": state.emailFocus,
                       "has-danger": errors.email
@@ -110,27 +111,31 @@ const Login = (props) => {
                       />
                   </InputGroup>
 
-                  <InputGroup
-                    className={classnames({
-                      "input-group-focus": state.passFocus,
-                      "has-danger": errors.password
-                    })}
-                  >
-                    <InputGroupAddon addonType="prepend">
-                      <InputGroupText>
-                        <i className="tim-icons icon-lock-circle" />
-                      </InputGroupText>
-                    </InputGroupAddon>
-                    <Input
-                      placeholder="Password"
-                      type="password"
-                      onChange={(e) => setState({...state, password: e.target.value})}
-                      onFocus={() => setState({ ...state, passFocus: true })}
-                      onBlur={() => setState({ ...state, passFocus: false })}
-                    />
-                  </InputGroup>
-                  {errors.message && <FormText color="muted">{errors.message}</FormText>}
-                  {errorMessage && <FormText color="muted">{errorMessage}</FormText>}
+                      <InputGroup
+                        className={classnames({
+                          "input-group-focus": state.passFocus,
+                          "has-danger": errors.password
+                        })}
+                      >
+                        <InputGroupAddon addonType="prepend">
+                          <InputGroupText>
+                            <i className="tim-icons icon-lock-circle" />
+                          </InputGroupText>
+                        </InputGroupAddon>
+                        <Input
+                          placeholder="Password"
+                          type="password"
+                          onChange={(e) => setState({...state, password: e.target.value})}
+                          onFocus={() => setState({ ...state, passFocus: true })}
+                          onBlur={() => setState({ ...state, passFocus: false })}
+                        />
+                      </InputGroup>
+                      {(errors.message || errorMessage) &&
+                      <FormText color="muted">{errors.message || errorMessage}</FormText>}
+                      </>
+                  }
+                  </div>
+
                 </CardBody>
                 <CardFooter>
                   <Button
@@ -147,8 +152,7 @@ const Login = (props) => {
                     <h6>
                       <a
                         className="link footer-link"
-                        href={signUpUrl}
-                        // onClick={(e) => e.preventDefault()}
+                        href="https://wp.agromonitoring.com/users/sign_up"
                       >
                         Create Account
                       </a>

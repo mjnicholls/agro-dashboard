@@ -25,8 +25,6 @@ const requestLogin = (email) => {
 const receiveLogin = (data) => {
   return {
     type: LOGIN_SUCCESS,
-    isFetching: false,
-    isAuthenticated: true,
     data
   }
 }
@@ -43,7 +41,6 @@ const loginError = (message) => {
 export const clearLoginError = () => {
   return {
     type: CLEAR_LOGIN_ERROR,
-    errorMessage: null
   }
 }
 
@@ -108,11 +105,16 @@ export function loginUser (email, password) {
         dispatch(fetchPolygons())
       })
       .catch(err => {
-        let message = "Something went wrong"
-        if (err.response && err.response.data && err.response.data.message) {
+        console.log(err, typeof err)
+        let message;
+        if (typeof err === "string") {
+          message = err;
+        }
+        else if (err.response && err.response.data && err.response.data.message) {
           message = err.response.data.message;
         }
-        dispatch(loginError(message))
+        console.log("message")
+        dispatch(loginError(message || "Something went wrong"))
       })
   }
 }

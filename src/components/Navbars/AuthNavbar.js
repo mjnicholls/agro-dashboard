@@ -83,7 +83,7 @@ const AuthNavbar = (props) => {
               {/*</NavLink>*/}
             {/*</NavItem>*/}
             <NavItem>
-              <a className="nav-link" href="https://home.agromonitoring.com/subscriptions">
+              <a className="nav-link" href="https://agromonitoring.com/price">
                 <i className="tim-icons icon-coins" /> Pricing
               </a>
             </NavItem>
