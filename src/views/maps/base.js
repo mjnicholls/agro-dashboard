@@ -316,7 +316,10 @@ export const renderSatelliteImage = (map, tileUrl) => {
       tiles: [tileUrl],
     },
     minzoom: 0,
-    maxzoom: 22
+    maxzoom: 22,
+    paint: {
+      'raster-opacity': 1
+    }
   });
 }
 
