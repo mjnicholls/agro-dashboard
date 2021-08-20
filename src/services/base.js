@@ -2,7 +2,7 @@ import axios from 'axios';
 import * as rax from 'retry-axios';
 
 
-import {logoutFrontEnd} from '../features/auth/actions'
+import {receiveLogout} from '../features/auth/actions'
 import store from '../store'
 
 const axiosInstance = axios.create({
@@ -38,7 +38,7 @@ axiosInstance.interceptors.request.use(function (config) {
 axiosInstance.interceptors.response.use(response => response,
   error => {
     if (error.response && error.response.status === 401) {
-      store.dispatch(logoutFrontEnd());
+      store.dispatch(receiveLogout());
     } else {
       let message = "Something went wrong";
       if (error.response && error.response.data && error.response.data.message) {

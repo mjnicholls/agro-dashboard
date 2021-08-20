@@ -79,6 +79,7 @@ const Sidebar = (props) => {
       if (prop.onclick) {
         if (prop.onclick === "all") {
           dispatch(setActivePoly(null))
+          dispatch(setSatelliteMode(true))
           if (location.pathname !== prop.layout + prop.path) {
             props.history.push(prop.layout + prop.path)
           }

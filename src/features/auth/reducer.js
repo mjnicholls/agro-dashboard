@@ -2,7 +2,8 @@ import {parseJwt} from "./utils";
 import {getCookie} from '../../utils/cookies'
 
 import {
-  CLEAR_LOGIN_ERROR, LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_SUCCESS, LOGOUT_FRONTEND, TOKEN_COOK
+  CLEAR_LOGIN_ERROR, LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_SUCCESS, LOGOUT_FRONTEND,
+  TOKEN_COOK, LOGOUT_REQUEST
 } from './actions'
 
 let token, tokenData;
@@ -64,6 +65,12 @@ export default function authReducer(state = initialState, action) {
         errorMessage: null
       })
     }
+    case LOGOUT_REQUEST: {
+      return Object.assign({}, state, {
+        isFetching: true
+      })
+    }
+
     case LOGOUT_SUCCESS:
       return Object.assign({}, state, {
         isFetching: false,

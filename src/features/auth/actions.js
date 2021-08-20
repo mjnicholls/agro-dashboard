@@ -2,7 +2,9 @@ import {axiosInstance} from "../../services/base";
 import {loginURL, logoutURL} from "../../services/api";
 import {clearCookies, setCookie} from '../../utils/cookies';
 import {parseJwt} from "./utils";
-import {fetchPolygons} from '../polygons/actions'
+import {fetchPolygons, polygonAdded} from '../polygons/actions'
+import {notifyError, notifySuccess} from "../notifications/actions";
+import {createPolygonApi} from "../../services/api/polygonApi";
 
 export const LOGIN_REQUEST = 'LOGIN_REQUEST'
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
@@ -47,31 +49,23 @@ export const clearLoginError = () => {
 function requestLogout() {
   return {
     type: LOGOUT_REQUEST,
-    isFetching: true,
-    isAuthenticated: true
   }
 }
 
-function receiveLogout() {
+export function receiveLogout() {
   return {
     type: LOGOUT_SUCCESS,
-    isFetching: false,
-    isAuthenticated: false,
   }
 }
 
-export function logoutFrontEnd() {
+export function destroyReduxStore() {
   return {
-    type: LOGOUT_FRONTEND,
-    // isAuthenticated: false,
-    // token: null,
-    // user: {
-    //   email: null,
-    //   appid: null,
-    //   tariff: null
-    // }
+    type: "DESTROY_STATE"
   }
 }
+
+
+
 
 export function loginUser (email, password) {
 
@@ -119,26 +113,38 @@ export function loginUser (email, password) {
   }
 }
 
+// export function logoutUser() {
+//   return dispatch => {
+//     dispatch(requestLogout())
+//     axiosInstance.delete(logoutURL)
+//       .then(() => {
+//         // clearCookies(); // TODO remove only token
+//         dispatch(receiveLogout());
+//         dispatch("DESTROY_STATE")
+//         // set all state
+//       })
+//       .catch(err => {
+//         console.log("Logout error", err)
+//       })
+//   }
+// }
 
-export function logoutUser() {
-  return dispatch => {
+
+export const logoutUser = () => {
+  return async function logoutThunk(dispatch, getState) {
     dispatch(requestLogout())
     axiosInstance.delete(logoutURL)
       .then(() => {
-        clearCookies();
+        // clearCookies(); // TODO remove only token
         dispatch(receiveLogout());
+        // dispatch(destroyReduxStore())
+        // set all state
       })
       .catch(err => {
         console.log("Logout error", err)
-        // let message = "Something went wrong"
-        // if (err.response && err.response.data && err.response.data.message) {
-        //   message = err.response.data.message;
-        // }
-        // dispatch((message))
       })
   }
 }
-
 
 
 

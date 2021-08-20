@@ -27,6 +27,7 @@ const TogglerModes = () => {
   const selectAllPolygons = () => {
     if (activePoly) {
       dispatch(setActivePoly(null));
+      dispatch(setSatelliteMode(true));
     }
   }
 

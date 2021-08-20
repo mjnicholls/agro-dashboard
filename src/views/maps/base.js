@@ -1,11 +1,9 @@
 import React from "react";
 import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
 
-import {mapBoxAccessToken} from '../../config'
+import {mapBoxAccessToken} from '../../config';
 import {serverBaseURL} from "../../services/api/index";
 import store from "../../store";
-import {setActivePoly} from "../../features/state/actions";
-
 
 mapboxgl.accessToken = mapBoxAccessToken;
 
@@ -14,25 +12,26 @@ export const defaultBBox = new mapboxgl.LngLatBounds(
   new mapboxgl.LngLat(-0.5103751, 0.3340155)
 );
 
+const CLUSTER_SOURCE_ID = 'polygon_clusters';
+const SATELLITE_SOURCE_ID = 'satellite-agro';
+
 export const clusterPadding = {padding: 40};
-export const polygonPadding = {left: 20, right: 20, top: 20, bottom: 100};
+export const polygonPadding = {padding: {left: 20, right: 20, top: 20, bottom: 100}};
 // green
 // export const basicColor = "#006400";
 // export const activeColor = '#00FC00';
-const blue = "#5e72e4";
-const indigo = "#5603ad";
+// const blue = "#5e72e4";
+// const indigo = "#5603ad";
 const purple = "#8965e0";
-const pink = "#f3a4b5";
+// const pink = "#f3a4b5";
 const red = "#f5365c";
-const orange = "#fb6340";
+// const orange = "#fb6340";
+export const basicBlueColor = '#0080ff';
 
 export const basicColor = purple;
 export const activeColor = red;
 export const basicOpacity = 0.4;
 export const activeOpacity = 0.8;
-
-export const basicBlueColor = '#0080ff';
-const satelliteSourceId = 'satellite-agro';
 
 class allPolygonsControl {
 
@@ -59,10 +58,10 @@ class allPolygonsControl {
     el.innerHTML = '<i class="fa fa-list-ul" aria-hidden="true"/>';
     let map = this.map;
     let mapBounds = this.mapBounds;
-    el.addEventListener('click',(e) => {
+    el.addEventListener('click', (e) => {
       map.fitBounds(mapBounds, clusterPadding)
       e.stopPropagation()
-    },false )
+    }, false)
     return el;
   }
 }
@@ -101,7 +100,6 @@ export const initialiseMap = (mapContainer, map, mapBounds, onLoad, setPolygonIn
       displayClusters(map.current, polygons)
     }
 
-
     onLoad()
   })
 }
@@ -120,7 +118,7 @@ export const displayPolygons = (map, mapBounds, polygons, onClick) => {
 
 export const displayClusters = (map, polygons) => {
 
-  const CLUSTER_SOURCE_ID = 'polygon_clusters';
+  const CLUSTER_MAX_ZOOM = 13;
 
   let ids = [
     'clusters',
@@ -136,10 +134,6 @@ export const displayClusters = (map, polygons) => {
   if (map.getSource(CLUSTER_SOURCE_ID)) {
     map.removeSource(CLUSTER_SOURCE_ID);
   }
-
-  // if (map.getSource(CLUSTER_SOURCE_ID)) {
-  //   return
-  // }
 
   let tmp = {
     type: "FeatureCollection",
@@ -158,7 +152,8 @@ export const displayClusters = (map, polygons) => {
          },
          properties: {
            bbox: polygon.bbox
-         }
+         },
+         polygonProperties: polygon
       })
     )
   }
@@ -167,7 +162,7 @@ export const displayClusters = (map, polygons) => {
     type: 'geojson',
     data: tmp,
     cluster: true,
-    clusterMaxZoom: 11, // Max zoom to cluster points on
+    clusterMaxZoom: CLUSTER_MAX_ZOOM, // Max zoom to cluster points on
     clusterRadius: 50 // Radius of each cluster when clustering points (defaults to 50)
   })
 
@@ -197,7 +192,7 @@ export const displayClusters = (map, polygons) => {
       40
     ]
     },
-    maxzoom: 11
+    maxzoom: CLUSTER_MAX_ZOOM
   });
 
   map.addLayer({
@@ -210,7 +205,7 @@ export const displayClusters = (map, polygons) => {
       'text-font': ['DIN Offc Pro Medium', 'Arial Unicode MS Bold'],
       'text-size': 12
     },
-    maxzoom: 11
+    maxzoom: CLUSTER_MAX_ZOOM
   });
 
   map.addLayer({
@@ -222,7 +217,7 @@ export const displayClusters = (map, polygons) => {
       'circle-color': '#51bbd6',
       'circle-radius': 20,
     },
-    maxzoom: 11
+    maxzoom: CLUSTER_MAX_ZOOM
   });
 
   map.addLayer({
@@ -235,10 +230,11 @@ export const displayClusters = (map, polygons) => {
         'text-font': ['DIN Offc Pro Medium', 'Arial Unicode MS Bold'],
         'text-size': 12
       },
-      maxzoom: 11
+      maxzoom: CLUSTER_MAX_ZOOM
     });
 
   map.on('click', 'clusters', (e) => {
+    console.log(map.queryRenderedFeatures(e.point));
     const features = map.queryRenderedFeatures(e.point, {
       layers: ['clusters']
     });
@@ -259,6 +255,7 @@ export const displayClusters = (map, polygons) => {
     const features = map.queryRenderedFeatures(e.point, {
       layers: ['unclustered-point']
     });
+    console.log(features);
     let polygonBbox = new mapboxgl.LngLatBounds(JSON.parse(features[0].properties.bbox))
 
     map.fitBounds(polygonBbox, {padding: 165});
@@ -316,12 +313,12 @@ const addPolygon = (map, polygon, setPolygonInFocus) => {
   let polygonBbox = new mapboxgl.LngLatBounds(polygon.bbox);
 
   map.on('click', "layer_" + polygon.id, () => {
-    map.fitBounds(polygonBbox);
-    store.dispatch(setActivePoly(polygon))
+    map.fitBounds(polygonBbox, polygonPadding);
+    // store.dispatch(setActivePoly(polygon))
   });
 
   map.on('click', "outline_" + polygon.id, () => {
-    map.fitBounds(polygonBbox);
+    map.fitBounds(polygonBbox, polygonPadding);
     });
   }
 
@@ -337,13 +334,13 @@ export const removeLayer = (map, sourceId) => {
 }
 
 export const removeSatelliteLayer = (map) => {
-  removeLayer(map, satelliteSourceId)
+  removeLayer(map, SATELLITE_SOURCE_ID)
 }
 
 export const renderSatelliteImage = (map, tileUrl) => {
   removeSatelliteLayer(map);
   map.addLayer({
-    id: satelliteSourceId,
+    id: SATELLITE_SOURCE_ID,
     type: 'raster',
     source: {
       type: 'raster',
@@ -370,8 +367,6 @@ export const deletePreviousAreas = (drawRef) => {
             oldPolygonIds.push(f.id)
           }
         })
-        console.log(data.features);
-        console.log("oldPolygonIds", oldPolygonIds)
         if (oldPolygonIds.length) {
           drawRef.current.delete(oldPolygonIds);
         }
@@ -379,10 +374,5 @@ export const deletePreviousAreas = (drawRef) => {
         drawRef.current.deleteAll()
       }
     }
-
-
   }
 }
-
-
-

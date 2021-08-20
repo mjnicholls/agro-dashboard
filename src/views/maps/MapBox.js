@@ -64,9 +64,7 @@ const MapBox = ({ satelliteImage, setSatelliteImage, satelliteLayer, isSatellite
      */
     if (initialised) {
       if (activePolygon) {
-        map.current.fitBounds(activePolygon.bbox, {
-          padding: polygonPadding
-        });
+        map.current.fitBounds(activePolygon.bbox, polygonPadding);
         for (let i=0; i<polygons.length; i++) {
           map.current.setPaintProperty("layer_" + polygons[i].id, "fill-opacity", polygons[i].id === activePolygon.id ? activeOpacity : basicOpacity)
           map.current.setPaintProperty("layer_" + polygons[i].id, 'fill-color',

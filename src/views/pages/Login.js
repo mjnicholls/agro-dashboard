@@ -157,17 +157,17 @@ const Login = (props) => {
                       </a>
                     </h6>
                   </div>
-                  <div className="pull-right">
-                    <h6>
-                      <a
-                        className="link footer-link"
-                        href="#pablo"
-                        onClick={(e) => e.preventDefault()}
-                      >
-                        Need Help?
-                      </a>
-                    </h6>
-                  </div>
+                  {/*<div className="pull-right">*/}
+                    {/*<h6>*/}
+                      {/*<a*/}
+                        {/*className="link footer-link"*/}
+                        {/*href="#pablo"*/}
+                        {/*onClick={(e) => e.preventDefault()}*/}
+                      {/*>*/}
+                        {/*Need Help?*/}
+                      {/*</a>*/}
+                    {/*</h6>*/}
+                  {/*</div>*/}
                 </CardFooter>
               </Card>
             </Form>
