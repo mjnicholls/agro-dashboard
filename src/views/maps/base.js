@@ -43,6 +43,7 @@ class allPolygonsControl {
     this.map = map;
     this.container = document.createElement('div');
     this.container.className = 'mapboxgl-ctrl mapboxgl-ctrl-group';
+    this.container.id = 'all-polygons-control';
     const button = this._createButton()
     this.container.appendChild(button);
     return this.container;

@@ -78,13 +78,15 @@ const Sidebar = (props) => {
       /** Define actions for menu items without a page */
       if (prop.onclick) {
         if (prop.onclick === "all") {
-          dispatch(setActivePoly(null))
-          dispatch(setSatelliteMode(true))
+          dispatch(setActivePoly(null));
+          dispatch(setSatelliteMode(true));
+          // document.getElementById('all-polygons-control').style.display = "flex";
           if (location.pathname !== prop.layout + prop.path) {
             props.history.push(prop.layout + prop.path)
           }
         }
         else if (prop.onclick === "satellite") {
+          // document.getElementById('all-polygons-control').style.display = "none";
           if (location.pathname !== prop.layout + prop.path) {
             props.history.push(prop.layout + prop.path)
           }
@@ -96,6 +98,7 @@ const Sidebar = (props) => {
           }
         }
         else if (prop.onclick === "weather") {
+          // document.getElementById('all-polygons-control').style.display = "none";
           if (location.pathname !== prop.layout + prop.path) {
             props.history.push(prop.layout + prop.path)
           }

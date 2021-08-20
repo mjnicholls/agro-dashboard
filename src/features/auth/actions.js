@@ -11,7 +11,6 @@ export const CLEAR_LOGIN_ERROR = 'CLEAR_LOGIN_ERROR'
 export const LOGOUT_REQUEST = 'LOGOUT_REQUEST'
 export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS'
 export const LOGOUT_FRONTEND = 'LOGOUT_FRONTEND'
-// export const LOGOUT_FAILURE = 'LOGOUT_FAILURE'
 export const TOKEN_COOK = "AGRO_TOKEN"
 
 
@@ -118,7 +117,10 @@ export const logoutUser = () => {
       .then(() => {
         deleteCookie(TOKEN_COOK);
         dispatch(receiveLogout());
-        dispatch(destroyReduxState());
+        setTimeout(() => {
+          dispatch(destroyReduxState());
+        }, 200)
+
       })
       .catch(err => {
         console.log("Logout error", err)
