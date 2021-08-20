@@ -1,10 +1,8 @@
 import {axiosInstance} from "../../services/base";
 import {loginURL, logoutURL} from "../../services/api";
-import {clearCookies, setCookie} from '../../utils/cookies';
+import {deleteCookie, setCookie} from '../../utils/cookies';
 import {parseJwt} from "./utils";
-import {fetchPolygons, polygonAdded} from '../polygons/actions'
-import {notifyError, notifySuccess} from "../notifications/actions";
-import {createPolygonApi} from "../../services/api/polygonApi";
+import {fetchPolygons} from '../polygons/actions'
 
 export const LOGIN_REQUEST = 'LOGIN_REQUEST'
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
@@ -58,7 +56,7 @@ export function receiveLogout() {
   }
 }
 
-export function destroyReduxStore() {
+export function destroyReduxState() {
   return {
     type: "DESTROY_STATE"
   }
@@ -113,32 +111,14 @@ export function loginUser (email, password) {
   }
 }
 
-// export function logoutUser() {
-//   return dispatch => {
-//     dispatch(requestLogout())
-//     axiosInstance.delete(logoutURL)
-//       .then(() => {
-//         // clearCookies(); // TODO remove only token
-//         dispatch(receiveLogout());
-//         dispatch("DESTROY_STATE")
-//         // set all state
-//       })
-//       .catch(err => {
-//         console.log("Logout error", err)
-//       })
-//   }
-// }
-
-
 export const logoutUser = () => {
-  return async function logoutThunk(dispatch, getState) {
+  return async function logoutThunk(dispatch) {
     dispatch(requestLogout())
     axiosInstance.delete(logoutURL)
       .then(() => {
-        // clearCookies(); // TODO remove only token
+        deleteCookie(TOKEN_COOK);
         dispatch(receiveLogout());
-        // dispatch(destroyReduxStore())
-        // set all state
+        dispatch(destroyReduxState());
       })
       .catch(err => {
         console.log("Logout error", err)

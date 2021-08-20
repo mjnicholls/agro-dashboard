@@ -35,10 +35,10 @@ function setCookie (name, value, options) {
   document.cookie = updatedCookie
 }
 
-function clearCookies () {
-  document.cookie.split(';').forEach((c) => {
-    document.cookie = c.replace(/^ +/, '').replace(/=.*/, '=;expires=' + new Date().toUTCString() + ';path=/')
-  })
+function deleteCookie( name ) {
+  if (getCookie(name)) {
+    document.cookie = name + "=" + ";expires=Thu, 01 Jan 1970 00:00:01 GMT";
+  }
 }
 
-export {getCookie, setCookie, clearCookies}
+export {getCookie, deleteCookie, setCookie}
