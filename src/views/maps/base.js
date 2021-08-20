@@ -15,7 +15,7 @@ export const defaultBBox = new mapboxgl.LngLatBounds(
 );
 
 export const clusterPadding = {padding: 40};
-export const polygonPadding = {padding: {left: 20, right: 20, top: 20, bottom: 100}};
+export const polygonPadding = {left: 20, right: 20, top: 20, bottom: 100};
 // green
 // export const basicColor = "#006400";
 // export const activeColor = '#00FC00';
