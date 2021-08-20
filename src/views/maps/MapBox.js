@@ -2,8 +2,9 @@ import React, {useEffect, useRef, useState} from 'react';
 import {useSelector} from 'react-redux';
 
 import {
-  activeColor, activeOpacity, displayClusters, basicColor, displayPolygons, initialiseMap, removeSatelliteLayer,
-  renderSatelliteImage, basicBlueColor, basicOpacity
+  activeColor, activeOpacity, displayClusters, basicColor, clusterPadding, displayPolygons, initialiseMap,
+  removeSatelliteLayer,
+  renderSatelliteImage, basicBlueColor, basicOpacity, polygonPadding
 } from './base';
 import {getMapBounds} from '../../features/polygons/selectors'
 import SatelliteImagesList from "../agro-components/SatelliteImagesList";
@@ -64,7 +65,7 @@ const MapBox = ({ satelliteImage, setSatelliteImage, satelliteLayer, isSatellite
     if (initialised) {
       if (activePolygon) {
         map.current.fitBounds(activePolygon.bbox, {
-          padding: {left: 20, right: 20, top: 20, bottom: 100}
+          padding: polygonPadding
         });
         for (let i=0; i<polygons.length; i++) {
           map.current.setPaintProperty("layer_" + polygons[i].id, "fill-opacity", polygons[i].id === activePolygon.id ? activeOpacity : basicOpacity)
@@ -72,7 +73,7 @@ const MapBox = ({ satelliteImage, setSatelliteImage, satelliteLayer, isSatellite
             polygons[i].id === "layer_" + activePolygon.id ? basicBlueColor : basicColor);
         }
       } else {
-        map.current.fitBounds(mapBounds, {padding: 40})
+        map.current.fitBounds(mapBounds, clusterPadding)
       }
     } {
 

@@ -1,8 +1,11 @@
+import React from "react";
 import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
-import {cropColorDict, mapBoxAccessToken} from '../../config'
+
+import {mapBoxAccessToken} from '../../config'
 import {serverBaseURL} from "../../services/api/index";
 import store from "../../store";
 import {setActivePoly} from "../../features/state/actions";
+
 
 mapboxgl.accessToken = mapBoxAccessToken;
 
@@ -11,6 +14,8 @@ export const defaultBBox = new mapboxgl.LngLatBounds(
   new mapboxgl.LngLat(-0.5103751, 0.3340155)
 );
 
+export const clusterPadding = {padding: 40};
+export const polygonPadding = {padding: {left: 20, right: 20, top: 20, bottom: 100}};
 // green
 // export const basicColor = "#006400";
 // export const activeColor = '#00FC00';
@@ -21,7 +26,6 @@ const pink = "#f3a4b5";
 const red = "#f5365c";
 const orange = "#fb6340";
 
-
 export const basicColor = purple;
 export const activeColor = red;
 export const basicOpacity = 0.4;
@@ -29,8 +33,39 @@ export const activeOpacity = 0.8;
 
 export const basicBlueColor = '#0080ff';
 const satelliteSourceId = 'satellite-agro';
-export const cropsSourceId = 'crops-agro';
-const cropsIndexId = 'crops-index';
+
+class allPolygonsControl {
+
+  constructor(mapBounds) {
+    this.mapBounds = mapBounds;
+  }
+
+  onAdd(map){
+    this.map = map;
+    this.container = document.createElement('div');
+    this.container.className = 'mapboxgl-ctrl mapboxgl-ctrl-group';
+    const button = this._createButton()
+    this.container.appendChild(button);
+    return this.container;
+  }
+  onRemove(){
+    if (this.container && this.container.parentNode) {
+      this.container.parentNode.removeChild(this.container);
+    }
+  }
+  _createButton() {
+    const el = window.document.createElement('button');
+    el.className = "all-polygons-control";
+    el.innerHTML = '<i class="fa fa-list-ul" aria-hidden="true"/>';
+    let map = this.map;
+    let mapBounds = this.mapBounds;
+    el.addEventListener('click',(e) => {
+      map.fitBounds(mapBounds, clusterPadding)
+      e.stopPropagation()
+    },false )
+    return el;
+  }
+}
 
 export const initialiseMap = (mapContainer, map, mapBounds, onLoad, setPolygonInFocus) => {
   // if (map.current) return;
@@ -41,7 +76,7 @@ export const initialiseMap = (mapContainer, map, mapBounds, onLoad, setPolygonIn
     bounds: mapBounds ? mapBounds : defaultBBox,
     zoom: 9,
     accessToken: mapBoxAccessToken,
-    fitBoundsOptions: { duration: 0, padding: 20 },
+    fitBoundsOptions: { duration: 0, ...clusterPadding },
     transformRequest: (url) => {
       if (url.indexOf(serverBaseURL) > -1 || url.indexOf("http://k8s-eu4.owm.io") > -1) {
         return {
@@ -54,6 +89,9 @@ export const initialiseMap = (mapContainer, map, mapBounds, onLoad, setPolygonIn
   map.current.addControl(new mapboxgl.NavigationControl({
     showCompass: false
   }), 'top-right');
+  const allPolygons = new allPolygonsControl(mapBounds);
+  map.current.addControl(allPolygons, 'top-right');
+
   map.current.on('load', function () {
     const polygons = store.getState().polygons;
     if (polygons.length) {
@@ -62,68 +100,11 @@ export const initialiseMap = (mapContainer, map, mapBounds, onLoad, setPolygonIn
       }
       displayClusters(map.current, polygons)
     }
+
+
     onLoad()
   })
 }
-
-const addPolygon = (map, polygon, setPolygonInFocus) => {
-
-  if (map.getSource(polygon.id)) {
-    return
-  }
-
-  map.addSource(polygon.id, {
-    type: 'geojson',
-    data: polygon.geo_json,
-  })
-
-  map.addLayer({
-    id: "layer_" + polygon.id,
-    type: 'fill',
-    source: polygon.id,
-    layout: {},
-    paint: {
-      'fill-color': basicColor,
-      'fill-opacity': basicOpacity
-    },
-  });
-
-  map.addLayer({
-    id: 'outline_' + polygon.id,
-    type: 'line',
-    source: polygon.id,
-    layout: {},
-    paint: {
-      'line-color': basicColor,
-      'line-width': 2
-    },
-  });
-
-  map.on('mouseenter', "layer_" + polygon.id, function (e) {
-    map.getCanvas().style.cursor = 'pointer';
-    if (setPolygonInFocus) {
-      setPolygonInFocus(polygon)
-    }
-  });
-
-  map.on('mouseleave', 'layer_'  + polygon.id, function () {
-    map.getCanvas().style.cursor = '';
-    if (setPolygonInFocus) {
-      setPolygonInFocus(null)
-    }
-  });
-
-  let polygonBbox = new mapboxgl.LngLatBounds(polygon.bbox);
-
-  map.on('click', "layer_" + polygon.id, () => {
-    map.fitBounds(polygonBbox);
-    store.dispatch(setActivePoly(polygon))
-  });
-
-  map.on('click', "outline_" + polygon.id, () => {
-    map.fitBounds(polygonBbox);
-    });
-  }
 
 export const displayPolygons = (map, mapBounds, polygons, onClick) => {
   /** Add all polygons to the map
@@ -133,7 +114,7 @@ export const displayPolygons = (map, mapBounds, polygons, onClick) => {
     addPolygon(map, polygons[i], onClick)
   }
   if (mapBounds) {
-    map.fitBounds(mapBounds, { padding: 20 })
+    map.fitBounds(mapBounds, clusterPadding)
   }
 }
 
@@ -285,6 +266,65 @@ export const displayClusters = (map, polygons) => {
     );
 }
 
+const addPolygon = (map, polygon, setPolygonInFocus) => {
+
+  if (map.getSource(polygon.id)) {
+    return
+  }
+
+  map.addSource(polygon.id, {
+    type: 'geojson',
+    data: polygon.geo_json,
+  })
+
+  map.addLayer({
+    id: "layer_" + polygon.id,
+    type: 'fill',
+    source: polygon.id,
+    layout: {},
+    paint: {
+      'fill-color': basicColor,
+      'fill-opacity': basicOpacity
+    },
+  });
+
+  map.addLayer({
+    id: 'outline_' + polygon.id,
+    type: 'line',
+    source: polygon.id,
+    layout: {},
+    paint: {
+      'line-color': basicColor,
+      'line-width': 2
+    },
+  });
+
+  map.on('mouseenter', "layer_" + polygon.id, function (e) {
+    map.getCanvas().style.cursor = 'pointer';
+    if (setPolygonInFocus) {
+      setPolygonInFocus(polygon)
+    }
+  });
+
+  map.on('mouseleave', 'layer_'  + polygon.id, function () {
+    map.getCanvas().style.cursor = '';
+    if (setPolygonInFocus) {
+      setPolygonInFocus(null)
+    }
+  });
+
+  let polygonBbox = new mapboxgl.LngLatBounds(polygon.bbox);
+
+  map.on('click', "layer_" + polygon.id, () => {
+    map.fitBounds(polygonBbox);
+    store.dispatch(setActivePoly(polygon))
+  });
+
+  map.on('click', "outline_" + polygon.id, () => {
+    map.fitBounds(polygonBbox);
+    });
+  }
+
 export const removeLayer = (map, sourceId) => {
   if (map) {
     if (map.getLayer(sourceId)) {
@@ -294,10 +334,6 @@ export const removeLayer = (map, sourceId) => {
       map.removeSource(sourceId);
     }
   }
-}
-
-export const removeCropLayer = (map) => {
-  removeLayer(map, cropsSourceId);
 }
 
 export const removeSatelliteLayer = (map) => {
@@ -321,113 +357,32 @@ export const renderSatelliteImage = (map, tileUrl) => {
   });
 }
 
-export const renderCrop = (map) => {
-
-  map.addSource(cropsSourceId, {
-    type: 'vector',
-    tiles: ['https://api.agromonitoring.com/cropmap/zz/{z}/{x}/{y}.pbf'],
-    // tiles: [tileUrl],
-    minzoom: 9,
-    maxzoom: 15,
-    promoteId: {valid: "id"}
-  })
-  map.addLayer({
-    id: cropsSourceId,
-    type: 'fill',
-    source: cropsSourceId,
-    "source-layer": 'valid',
-        // 'maxzoom' : 15,
-    layout: {},
-    paint: {
-      // 'fill-color': getCropColorCase(),
-      'fill-color': [
-        'case',
-        ['boolean', ['feature-state', 'hover'], false],
-        basicBlueColor, getCropColorCase()
-      ],
-      'fill-opacity': [
-        'case',
-        ['boolean', ['feature-state', 'hover'], false],
-        0.7, 0.9
-      ]
-    },
-  });
-
-  let hoveredStateId = null;
-
-  map.on('mousemove', cropsSourceId, function (e) {
-    if (map.getZoom()<9)
-        return;
-
-    if (e.features.length > 0) {
-      map.getCanvas().style.cursor = 'auto';
-      if (hoveredStateId) {
-        map.setFeatureState(
-          { source: cropsSourceId, sourceLayer: 'valid', id: hoveredStateId },
-          { hover: false }
-        );
+export const deletePreviousAreas = (drawRef) => {
+  if (drawRef && drawRef.current) {
+    const data = drawRef.current.getAll();
+    if (data.features.length) {
+      if (drawRef.current.getMode() === 'draw_polygon') {
+        let oldPolygonIds = []
+        const newPolygonId = data.features[data.features.length - 1].id;
+        data.features.forEach((f) => {
+          // f.geometry.type === 'Polygon' &&
+          if (f.id !== newPolygonId) {
+            oldPolygonIds.push(f.id)
+          }
+        })
+        console.log(data.features);
+        console.log("oldPolygonIds", oldPolygonIds)
+        if (oldPolygonIds.length) {
+          drawRef.current.delete(oldPolygonIds);
+        }
+      } else {
+        drawRef.current.deleteAll()
       }
-      hoveredStateId = e.features[0].id;
-      map.setFeatureState(
-        { source: cropsSourceId, sourceLayer: 'valid', id: hoveredStateId },
-        { hover: true }
-      );
     }
-  });
 
-  map.on('mouseleave', cropsSourceId, function () {
-    map.getCanvas().style.cursor = '';
-    if (hoveredStateId) {
-      map.setFeatureState(
-        { source: cropsSourceId, sourceLayer: 'valid', id: hoveredStateId },
-        { hover: false }
-      );
-    }
-    hoveredStateId = null;
-  });
 
-  renderCropIndex(map);
-  // map.on('click', cropsSourceId, function (e) {
-  //   let feature = e.features[0].geometry;
-  //   console.log("click", feature) //
-  // })
-
-}
-
-const renderCropIndex = (map) => {
-
-  map.addSource(cropsIndexId, {
-        'type': 'vector',
-        'tiles': ['https://api.agromonitoring.com/cropmap/index/{z}/{x}/{y}.pbf'],
-        'minzoom': 2,
-        'maxzoom': 8,
-        "promoteId": {"valid": "id"}
-    });
-
-    map.addLayer({
-        'id': cropsIndexId,
-        'type': 'fill',
-        'source': cropsIndexId,
-        'source-layer': 'valid',
-        'maxzoom' : 9,
-        'layout': {},
-        'paint': {
-            'fill-color': '#AA00FF',
-            'fill-opacity': 0.3
-        },
-    }, 'clusters');
-}
-
-const getCropColorCase = () => {
-  let c = ['case'];
-  for (let cid in cropColorDict) {
-      c.push(['==', ['get', 'cdid'], cid]);
-      let cl = cropColorDict[cid]['color'];
-      if ( cropColorDict[cid]['visible'] === 0 ){
-          cl = "rgba(150,150,150,0)";
-      }
-      c.push(cl);
   }
-  c.push("rgb(102, 102, 102)");
-  return c;
 }
+
+
+

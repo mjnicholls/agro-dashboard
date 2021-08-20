@@ -85,9 +85,8 @@ const Login = (props) => {
                   <div style={{minHeight: "125px"}}>
                   {
                     isFetching ?
-
                       <div style={{display: "flex", justifyContent: "center", alignItems: "center", height: "125px"}}>
-                        <DotLoader size="60" color="#e14eca" css={override} />
+                        <DotLoader size="60px" color="#e14eca" css={override} />
                       </div> :
 
                       <>

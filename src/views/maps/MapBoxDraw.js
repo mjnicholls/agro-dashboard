@@ -5,7 +5,8 @@ import * as turf from '@turf/turf'
 import {axiosInstance} from '../../services/base'
 import MapboxDraw from "@mapbox/mapbox-gl-draw";
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
-import {displayClusters, cropsSourceId, displayPolygons, initialiseMap, removeCropLayer, renderCrop} from './base';
+import {deletePreviousAreas, displayClusters, displayPolygons, initialiseMap} from './base';
+import {cropsSourceId, removeCropLayer, displayCropLayer} from './crops';
 import {getMapBounds} from '../../features/polygons/selectors'
 
 const selectPolygons = state => state.polygons;
@@ -15,8 +16,14 @@ const MapBoxDraw = ({setArea, setGeoJson, setIntersection, drawRef, mode, mapHei
   const mapContainer = useRef(null);
   const map = useRef(null);
   const mapBounds = useSelector(getMapBounds);
+
   const [initialised, setInitialised] = useState(false);
   const polygons = useSelector(selectPolygons);
+
+  const deletePreviousAreasLocal = () => {
+    deletePreviousAreas(drawRef);
+    deleteArea();
+  }
 
   useEffect(() => {
     return () => {
@@ -40,9 +47,10 @@ const MapBoxDraw = ({setArea, setGeoJson, setIntersection, drawRef, mode, mapHei
   useEffect(() => {
     if (initialised) {
       if (mode === 'select') {
-        deletePreviousAreas();
-        renderCrop(map.current);
+        deletePreviousAreasLocal(drawRef);
+        displayCropLayer(map.current);
         map.current.on('click', cropsSourceId, function (e) {
+          deletePreviousAreasLocal(drawRef);
           let feature = e.features[0].geometry;
           drawRef.current.add(feature);
           updateArea();
@@ -51,9 +59,7 @@ const MapBoxDraw = ({setArea, setGeoJson, setIntersection, drawRef, mode, mapHei
         removeCropLayer(map.current)
       }
     }
-  }, [mode])
-
-
+  }, [initialised, mode])
 
   useEffect(() => {
     if (initialised) {
@@ -67,8 +73,7 @@ const MapBoxDraw = ({setArea, setGeoJson, setIntersection, drawRef, mode, mapHei
         localGeocoder: dummyLocalSearch,
         externalGeocoder: nominatimGeocoder,
       }), 'top-left')
-    addDrawFunctionality(map.current);
-
+      addDrawFunctionality(map.current);
     }
   }, [initialised])
 
@@ -96,10 +101,10 @@ const MapBoxDraw = ({setArea, setGeoJson, setIntersection, drawRef, mode, mapHei
     return [];
   }
 
-  const deleteArea = () => {
-      setArea(null);
-      setGeoJson(null);
-    }
+  const createArea = () => {
+    deletePreviousAreas(drawRef);
+    updateArea();
+  }
 
   const updateArea = () => {
     let data = drawRef.current.getAll();
@@ -113,21 +118,9 @@ const MapBoxDraw = ({setArea, setGeoJson, setIntersection, drawRef, mode, mapHei
     }
   }
 
-  const deletePreviousAreas = () => {
-    const data = drawRef.current.getAll();
-    if (drawRef.current.getMode() === 'draw_polygon') {
-      let oldPolygonIds = []
-      const newPolygonId = data.features[data.features.length - 1].id;
-      data.features.forEach((f) => {
-        if (f.geometry.type === 'Polygon' && f.id !== newPolygonId) {
-          oldPolygonIds.push(f.id)
-        }
-      })
-      if (oldPolygonIds.length) {
-        drawRef.current.delete(oldPolygonIds);
-        deleteArea();
-      }
-    }
+  const deleteArea = () => {
+    setArea(null);
+    setGeoJson(null);
   }
 
   const addDrawFunctionality = (map) => {
@@ -139,10 +132,10 @@ const MapBoxDraw = ({setArea, setGeoJson, setIntersection, drawRef, mode, mapHei
         }
       });
     map.addControl(drawRef.current, 'top-right');
-    map.on('draw.create', updateArea);
-    map.on('draw.delete', deleteArea);
+    map.on('draw.create', createArea);
     map.on('draw.update', updateArea);
-    map.on('draw.modechange', deletePreviousAreas);
+    map.on('draw.delete', deleteArea);
+    // map.on('draw.modechange', deletePreviousAreas);
   }
 
   return (
