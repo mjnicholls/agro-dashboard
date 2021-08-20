@@ -167,9 +167,10 @@ const PolygonCreateCard = ({area, geoJson, intersections, mode, setMode, resetMa
           </TabPane>
           <TabPane tabId="select">
             <ol>
+              <li>If you can't see crops - zoom out to see the territories where we have recognized crops</li>
               <li>Click on a polygon to select.</li>
               <li>Double-click to edit.</li>
-              <li>If you can't see crops...</li>
+              <li>If you can't see crops for your territory please use the "Draw" mode to create your polygon.</li>
             </ol>
             {rules()}
           </TabPane>

@@ -28,11 +28,9 @@ export const basicOpacity = 0.4;
 export const activeOpacity = 0.8;
 
 export const basicBlueColor = '#0080ff';
-
-// export const activeColor = '#8512B0';
-// export const activeColor = '#e14eca';
 const satelliteSourceId = 'satellite-agro';
 export const cropsSourceId = 'crops-agro';
+const cropsIndexId = 'crops-index';
 
 export const initialiseMap = (mapContainer, map, mapBounds, onLoad, setPolygonInFocus) => {
   // if (map.current) return;
@@ -388,11 +386,36 @@ export const renderCrop = (map) => {
     hoveredStateId = null;
   });
 
+  renderCropIndex(map);
   // map.on('click', cropsSourceId, function (e) {
   //   let feature = e.features[0].geometry;
   //   console.log("click", feature) //
   // })
 
+}
+
+const renderCropIndex = (map) => {
+
+  map.addSource(cropsIndexId, {
+        'type': 'vector',
+        'tiles': ['https://api.agromonitoring.com/cropmap/index/{z}/{x}/{y}.pbf'],
+        'minzoom': 2,
+        'maxzoom': 8,
+        "promoteId": {"valid": "id"}
+    });
+
+    map.addLayer({
+        'id': cropsIndexId,
+        'type': 'fill',
+        'source': cropsIndexId,
+        'source-layer': 'valid',
+        'maxzoom' : 9,
+        'layout': {},
+        'paint': {
+            'fill-color': '#AA00FF',
+            'fill-opacity': 0.3
+        },
+    }, 'clusters');
 }
 
 const getCropColorCase = () => {

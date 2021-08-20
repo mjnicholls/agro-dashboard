@@ -107,7 +107,7 @@ const SatelliteImagesList = ({satelliteImage, setSatelliteImage}) => {
           <div ref={scrollRef} className="satellite-image-list">
             {isLoading ? <div className="satellite-pagination horizontal-container">
             {
-              [0,0,0,0,0,0,0].map((_,index) => (
+              [0,0,0,0,0,0,0,0].map((_,index) => (
                 <div key={index} className="satellite-image">
                   <SatelliteImagePlaceholder />
                 </div>))

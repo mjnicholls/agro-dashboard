@@ -16,11 +16,11 @@ const MapBox = ({ satelliteImage, setSatelliteImage, satelliteLayer, isSatellite
 
   const activePolygon = useSelector(selectActivePoly);
   const polygons = useSelector(selectPolygons);
+  const mapBounds = useSelector(getMapBounds);
   const mapContainer = useRef(null);
   const map = useRef(null);
   const [tile, setTile] = useState(null);
   const [initialised, setInitialised] = useState(false);
-  const mapBounds = useSelector(getMapBounds);
   const isSatelliteMode = useSelector(selectIsSatelliteMode);
 
   useEffect(() => {
@@ -61,17 +61,23 @@ const MapBox = ({ satelliteImage, setSatelliteImage, satelliteLayer, isSatellite
      * apply satellite image
      * apply layer
      */
-    if (initialised && activePolygon) {
-      map.current.fitBounds(activePolygon.bbox, {
-        padding: {left: 20, right: 20, top: 20, bottom: 100}
-      });
-      for (let i=0; i<polygons.length; i++) {
-        map.current.setPaintProperty("layer_" + polygons[i].id, "fill-opacity", polygons[i].id === activePolygon.id ? activeOpacity : basicOpacity)
-        map.current.setPaintProperty("layer_" + polygons[i].id, 'fill-color',
-          polygons[i].id === "layer_" + activePolygon.id ? basicBlueColor : basicColor);
+    if (initialised) {
+      if (activePolygon) {
+        map.current.fitBounds(activePolygon.bbox, {
+          padding: {left: 20, right: 20, top: 20, bottom: 100}
+        });
+        for (let i=0; i<polygons.length; i++) {
+          map.current.setPaintProperty("layer_" + polygons[i].id, "fill-opacity", polygons[i].id === activePolygon.id ? activeOpacity : basicOpacity)
+          map.current.setPaintProperty("layer_" + polygons[i].id, 'fill-color',
+            polygons[i].id === "layer_" + activePolygon.id ? basicBlueColor : basicColor);
+        }
+      } else {
+        map.current.fitBounds(mapBounds, {padding: 40})
       }
+    } {
+
     }
-  }, [initialised, activePolygon])
+  }, [initialised, activePolygon, mapBounds])
 
   useEffect(() => {
     if (initialised) {
