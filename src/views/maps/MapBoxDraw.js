@@ -5,7 +5,7 @@ import * as turf from '@turf/turf'
 import {axiosInstance} from '../../services/base'
 import MapboxDraw from "@mapbox/mapbox-gl-draw";
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
-import {deletePreviousAreas, displayClusters, displayPolygons, displayPolygonsGroup, initialiseMap} from './base';
+import {deletePreviousAreas, displayClusters, displayPolygons, displayPolygonGroup, initialiseMap} from './base';
 import {cropsSourceId, removeCropLayer, displayCropLayer} from './crops';
 import {getMapBounds} from '../../features/polygons/selectors'
 
@@ -39,7 +39,7 @@ const MapBoxDraw = ({setArea, setGeoJson, setIntersection, drawRef, mode, setMod
       initialiseMap(mapContainer.current, map, mapBounds, () => setInitialised(true))
     } else {
       // new polygon has been added
-      displayPolygonsGroup(map.current, mapBounds, polygons);
+      displayPolygonGroup(map.current, mapBounds, polygons);
       // displayPolygons(map.current, mapBounds, polygons);
       displayClusters(map.current, polygons);
     }

@@ -1,13 +1,15 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 
 import {
-  activeColor, activeOpacity, displayClusters, basicColor, clusterPadding, displayPolygons, initialiseMap,
+  activeColor, activeOpacity, displayClusters, basicColor, clusterPadding, displayPolygons,
+  initialiseMap,
   removeSatelliteLayer,
-  renderSatelliteImage, basicBlueColor, basicOpacity, polygonPadding
+  renderSatelliteImage, basicBlueColor, basicOpacity, polygonPadding, displayPolygonGroup
 } from './base';
 import {getMapBounds} from '../../features/polygons/selectors'
 import SatelliteImagesList from "../agro-components/SatelliteImagesList";
+import {setActivePoly} from "../../features/state/actions";
 
 const selectPolygons = state => state.polygons;
 const selectActivePoly = state => state.state.polygon;
@@ -23,14 +25,20 @@ const MapBox = ({ satelliteImage, setSatelliteImage, satelliteLayer, isSatellite
   const [tile, setTile] = useState(null);
   const [initialised, setInitialised] = useState(false);
   const isSatelliteMode = useSelector(selectIsSatelliteMode);
+  const dispatch = useDispatch();
+
+  const onClickPolygon = (poly) => {
+    console.log("onClickPolygon", onClickPolygon)
+    dispatch(setActivePoly(poly))
+  }
 
   useEffect(() => {
     if (!initialised) {
       // first initialisation of the map
-      initialiseMap(mapContainer.current, map, mapBounds, () => {setInitialised(true)}, setPolygonInFocus)
+      initialiseMap(mapContainer.current, map, mapBounds, () => {setInitialised(true)}, setPolygonInFocus, onClickPolygon)
     } else {
       // new polygon has been added or removed
-      displayPolygons(map.current, mapBounds, polygons);
+      displayPolygonGroup(map.current, mapBounds, polygons, setPolygonInFocus, onClickPolygon);
       displayClusters(map.current, polygons);
 
     }
@@ -77,8 +85,6 @@ const MapBox = ({ satelliteImage, setSatelliteImage, satelliteLayer, isSatellite
           map.current.fitBounds(mapBounds, clusterPadding)
         }
       }
-    } {
-
     }
   }, [initialised, activePolygon, mapBounds])
 

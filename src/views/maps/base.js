@@ -67,7 +67,7 @@ class allPolygonsControl {
   }
 }
 
-export const initialiseMap = (mapContainer, map, mapBounds, onLoad, setPolygonInFocus) => {
+export const initialiseMap = (mapContainer, map, mapBounds, onLoad, onHover, onClick) => {
   // if (map.current) return;
   const token = store.getState().auth.token;
   map.current = new mapboxgl.Map({
@@ -95,11 +95,8 @@ export const initialiseMap = (mapContainer, map, mapBounds, onLoad, setPolygonIn
   map.current.on('load', function () {
     const polygons = store.getState().polygons;
     if (polygons.length) {
-      displayPolygonsGroup(map.current, mapBounds, polygons, setPolygonInFocus)
-      // for (let i=0; i<polygons.length; i++) {
-      //   addPolygon(map.current, polygons[i], setPolygonInFocus)
-      // }
-      displayClusters(map.current, polygons)
+      displayPolygonGroup(map.current, mapBounds, polygons, onHover, onClick);
+      displayClusters(map.current, polygons);
     }
     onLoad()
   })
@@ -112,15 +109,13 @@ export const displayPolygons = (map, mapBounds, polygons, onClick) => {
   for (let i=0; i<polygons.length; i++) {
     addPolygon(map, polygons[i], onClick)
   }
-  // if (map && map.getStyle() && map.getStyle().layers) {
-  //   let layers =
-  // }
+
   if (mapBounds) {
     map.fitBounds(mapBounds, clusterPadding)
   }
 }
 
-export const displayPolygonsGroup = (map, mapBounds, polygons, onClick) => {
+export const displayPolygonGroup = (map, mapBounds, polygons, onHover, onClick) => {
 
   if (map.getLayer('outline_' + POLYGON_GROUP_ID)) {
     map.removeLayer('outline_' + POLYGON_GROUP_ID)
@@ -135,6 +130,7 @@ export const displayPolygonsGroup = (map, mapBounds, polygons, onClick) => {
   let tmp = {
     type: 'FeatureCollection',
     features: polygons.map(polygon => ({
+      properties: polygon,
       type: 'Feature',
       geometry: polygon.geo_json.geometry
     }))
@@ -163,15 +159,38 @@ export const displayPolygonsGroup = (map, mapBounds, polygons, onClick) => {
     },
   });
 
-  map.on('mouseenter', POLYGON_GROUP_ID, function (e) {
-    map.getCanvas().style.cursor = 'pointer';
+  if (onHover) {
+    map.on('mouseenter', POLYGON_GROUP_ID, function (e) {
+      map.getCanvas().style.cursor = 'pointer';
+      let features = map.queryRenderedFeatures(e.point);
+      console.log(features)
+      if (features.length) {
+        onHover(features[0].properties)
+      }
+    });
+    map.on('mouseleave', POLYGON_GROUP_ID, function () {
+      onHover(null)
+    })
+  }
 
-    const features = map.queryRenderedFeatures(e.point);
-    console.log(features)
-    // if (setPolygonInFocus) {
-    //   setPolygonInFocus(polygon)
-    // }
-  });
+  map.on('click', POLYGON_GROUP_ID, function(e) {
+
+    let features = map.queryRenderedFeatures(e.point);
+
+    if (features.length) {
+      let polygon = features[0].properties;
+      polygon.bbox = typeof polygon.bbox === "string" ? JSON.parse(polygon.bbox) : polygon.bbox;
+      if (onClick) {
+        polygon.geo_json = typeof polygon.geo_json === "string" ? JSON.parse(polygon.geo_json) : polygon.geo_json;
+        polygon.center = typeof polygon.center === "string" ? JSON.parse(polygon.center) : polygon.center;
+        polygon.pixels = typeof polygon.pixels === "string" ? JSON.parse(polygon.pixels) : polygon.pixels;
+        onClick(polygon)
+      } else {
+        let polygonBbox = new mapboxgl.LngLatBounds(polygon.bbox);
+        map.fitBounds(polygonBbox, polygonPadding);
+      }
+    }
+  })
 
   if (mapBounds) {
     map.fitBounds(mapBounds, clusterPadding)
