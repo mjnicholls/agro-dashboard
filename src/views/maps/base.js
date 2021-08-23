@@ -173,6 +173,9 @@ export const displayPolygonsGroup = (map, mapBounds, polygons, onClick) => {
     // }
   });
 
+  if (mapBounds) {
+    map.fitBounds(mapBounds, clusterPadding)
+  }
 }
 
 export const displayClusters = (map, polygons) => {

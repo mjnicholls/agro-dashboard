@@ -3,7 +3,7 @@ import {useSelector} from 'react-redux';
 import axios from 'axios';
 
 import {getHistorySoilData} from "../../services/api/chartApi";
-import {toDateShort} from '../../utils/dateTime'
+import {toDate} from '../../utils/dateTime'
 import {Line} from "react-chartjs-2";
 import {chartOptions} from './base';
 import {convertTemp} from '../../utils/utils';
@@ -13,7 +13,7 @@ import {tariffError} from "../../config";
 
 const selectUnits = state => state.units.isMetric;
 
-const HistorySoilChart = ({ polyId, startDate, endDate}) => {
+const HistorySoilChart = ({ polyId, startDate, endDate, earliestAvailableDate}) => {
 
   const units = useSelector(selectUnits);
 
@@ -26,7 +26,9 @@ const HistorySoilChart = ({ polyId, startDate, endDate}) => {
     if (startDate && endDate && polyId) {
       setIsLoading(true);
       setError(null);
-      getHistorySoilData(polyId, startDate, endDate, cancelToken)
+      console.log("earliestAvailableDate", earliestAvailableDate)
+      console.log("startDate", startDate)
+      getHistorySoilData(polyId, Math.max(startDate, earliestAvailableDate),  Math.max(endDate, earliestAvailableDate), cancelToken)
         .then(response => {
           if (response) {
             if (response.length) {
@@ -108,7 +110,7 @@ const HistorySoilChart = ({ polyId, startDate, endDate}) => {
     gradientStrokeGreen.addColorStop(0, "rgba(66,134,121,0)"); //green colors
 
     return {
-      labels: data.map(el => toDateShort(el.dt)),
+      labels: data.map(el => toDate(el.dt)),
       datasets: [
         {
           label: "Temperature at a depth of 10cm",

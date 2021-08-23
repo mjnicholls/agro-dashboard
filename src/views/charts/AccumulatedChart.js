@@ -7,14 +7,14 @@ import {Line} from "react-chartjs-2";
 import AccumulatedInfo from '../info/AccumulatedInfo';
 import ChartContainer from './ui/ChartContainer';
 import {getAccumulatedData} from '../../services/api/chartApi';
-import {toDateShort} from '../../utils/dateTime';
+import {toDate} from '../../utils/dateTime';
 import {chartOptions} from "./base";
 // import {convertTemp} from '../../utils/utils';
 import {tariffError} from "../../config";
 
 const selectUnits = state => state.units.isMetric;
 
-const AccumulatedChart = ({polyId, startDate, endDate, threshold}) => {
+const AccumulatedChart = ({polyId, startDate, endDate, threshold, earliestAvailableDate}) => {
   const [data, setData] = useState([]);
 
   const [error, setError] = useState(startDate ? null : tariffError);
@@ -46,7 +46,7 @@ const AccumulatedChart = ({polyId, startDate, endDate, threshold}) => {
     if (startDate && endDate && polyId) {
       setIsLoading(true);
       setError(null);
-      getAccumulatedData(polyId, startDate, endDate)
+      getAccumulatedData(polyId, Math.max(startDate, earliestAvailableDate), Math.max(endDate, earliestAvailableDate))
         .then(res => {
           setData(res);
           setRainData(res.map(el => el.rain.toFixed(2)));
@@ -144,7 +144,7 @@ const AccumulatedChart = ({polyId, startDate, endDate, threshold}) => {
     gradientStrokeBlue.addColorStop(0, "rgba(29,140,248,0)");
 
     return {
-      labels: data.map(el => toDateShort(el.dt)),
+      labels: data.map(el => toDate(el.dt)),
       datasets: [
         {
           label: "Temperature",

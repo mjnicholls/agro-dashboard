@@ -103,6 +103,7 @@ export const fetchPolygons = () => dispatch => {
   axiosInstance.get(polygonsEndpoint)
     .then(response => {
       let polygons = response.data;
+      polygons.reverse();
       for (let i=0; i<polygons.length; i++) {
         polygons[i] = enrichPolygon(polygons[i]);
       }

@@ -83,6 +83,7 @@ const CombinedChart = ({polyId}) => {
   const limitHistoryWeather = useSelector(selectLimitHistoryWeather);
 
   const [threshold, setThreshold] = useState(treshold[isMetric ? "celsius" : "fahrenheit"].min);
+
   useEffect(() => {
     setThreshold(treshold[isMetric ? "celsius" : "fahrenheit"].min)
   }, [isMetric])
@@ -116,8 +117,7 @@ const CombinedChart = ({polyId}) => {
       startDate = getDateInPast(Math.min(depth * 12, defaultStartHistoryWeatherCharts));
 
     } else if (depth < 0) {
-      // unlimited data is available // TODO выбираю максимальную дату, нет возможности увидеть более ранние даты
-      earliestAvailableDate = new Date(Math.max(
+      earliestAvailableDate = new Date(Math.min(
         limitAccPrec.start, limitAccTemp.start, limitSoil.start, limitHistoryWeather.start) * 1000);
       startDate = getDateInPast(defaultStartHistoryWeatherCharts); // один месяц назад
     }
@@ -206,18 +206,21 @@ const CombinedChart = ({polyId}) => {
                 polyId={polyId}
                 startDate={startDate}
                 endDate={endDate}
+                earliestAvailableDate={limitHistoryWeather.start * 1000}
               />
               : (activeTab.id === "History Soil") ?
                 <HistorySoilChart
                   polyId={polyId}
                   startDate={startDate}
                   endDate={endDate}
+                  earliestAvailableDate={limitSoil.start  * 1000}
                 /> :
           <AccumulatedChart
             polyId={polyId}
             startDate={startDate}
             endDate={endDate}
             threshold={threshold}
+            earliestAvailableDate={Math.min(limitAccPrec.start, limitAccTemp.start) * 1000 }
           />
         }
       </CardBody>

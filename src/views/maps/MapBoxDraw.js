@@ -43,7 +43,7 @@ const MapBoxDraw = ({setArea, setGeoJson, setIntersection, drawRef, mode, setMod
       // displayPolygons(map.current, mapBounds, polygons);
       displayClusters(map.current, polygons);
     }
-  }, [polygons]);
+  }, [polygons, mapBounds]);
 
   useEffect(() => {
     if (initialised) {

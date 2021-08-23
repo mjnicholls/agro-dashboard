@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {useSelector} from 'react-redux';
 import axios from "axios/index";
 
-import {toDateShort} from "../../utils/dateTime";
+import {toDate} from "../../utils/dateTime";
 import {convertTemp} from '../../utils/utils'
 import {tariffError} from '../../config'
 import ChartContainer from './ui/ChartContainer';
@@ -12,7 +12,7 @@ import {getHistoryWeatherData} from "../../services/api/chartApi";
 
 const selectUnits = state => state.units.isMetric;
 
-const HistoryWeather = ({polyId, startDate, endDate}) => {
+const HistoryWeather = ({polyId, startDate, endDate, earliestAvailableDate}) => {
 
   const [data, setData] = useState([]);
   const [error, setError] = useState(startDate ? null : tariffError);
@@ -25,7 +25,7 @@ const HistoryWeather = ({polyId, startDate, endDate}) => {
     if (startDate && endDate && polyId) {
       setIsLoading(true);
       setError(null);
-      getHistoryWeatherData(polyId, startDate, endDate, cancelToken)
+      getHistoryWeatherData(polyId, Math.max(startDate, earliestAvailableDate), Math.max(endDate, earliestAvailableDate), cancelToken)
         .then(response => {
           if (response) {
             if (response.length) {
@@ -82,6 +82,7 @@ const HistoryWeather = ({polyId, startDate, endDate}) => {
       },
       ticks: {
         fontColor: "#9a9a9a",
+        beginAtZero: true,
         callback: function (value) {
           return value + 'mm';
         }
@@ -117,7 +118,7 @@ const HistoryWeather = ({polyId, startDate, endDate}) => {
     let rainData = [];
     for (let i=0; i<data.length; i++) {
       let el = data[i];
-      labels.push(toDateShort(el.dt)); // TODO local date
+      labels.push(toDate(el.dt)); // TODO local date
       let prec = 0 + (el.rain ? el.rain["1h"] || 0 : 0) + (el.snow ? el.snow["1h"] || 0 : 0);
       rainData.push(prec.toFixed(2));
     }
