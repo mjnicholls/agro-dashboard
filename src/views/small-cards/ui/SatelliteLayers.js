@@ -55,7 +55,10 @@ const SatelliteLayers = ({satelliteImage, satelliteLayer, setSatelliteLayer}) =>
                   >
                     <h2 className="mb-0"
                       style={{fontWeight: 100}}
-                    >{satelliteLayer ? satelliteLayer.label : "True color"}</h2>
+                    >
+                      {satelliteLayer.label}
+                      {/*{satelliteLayer ? satelliteLayer.label : "NDVI"}*/}
+                      </h2>
                   </DropdownToggle>
                 <DropdownMenu aria-labelledby="dropdownMenuButton">
               {layers.map((layer, index) => {

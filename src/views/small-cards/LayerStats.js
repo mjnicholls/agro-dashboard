@@ -18,23 +18,21 @@ import {toDate} from "../../utils/dateTime";
 const ImageStats = ({satelliteImage, satelliteLayer, setSatelliteLayer }) => {
 
   const [stats, setStats] = useState(null);
-  const [name, setName] = useState('');
+  // const [name, setName] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const cancelToken = axios.CancelToken.source();
 
   useEffect(() => {
     if (satelliteImage && satelliteLayer) {
-      let url = satelliteImage.stats[satelliteLayer.value];
-      if (!url) {
-        url = satelliteImage.stats.ndvi;
-        setName("ndvi")
-      } else {
-        setName(satelliteLayer.value)
-      }
-      setIsLoading(true);
       setError(null);
       setStats(null);
+      let url = satelliteImage.stats[satelliteLayer.value];
+      if (!url) {
+        setStats(null);
+        return
+      }
+      setIsLoading(true);
       getImageStats(url, cancelToken)
         .then(res => {
           setStats(res)
@@ -57,7 +55,7 @@ const ImageStats = ({satelliteImage, satelliteLayer, setSatelliteLayer }) => {
         <Row>
           <Col>
             <SatelliteLayerDropdown
-              name={name}
+              // name={name}
               satelliteImage={satelliteImage}
               satelliteLayer={satelliteLayer}
               setSatelliteLayer={setSatelliteLayer}
@@ -75,7 +73,7 @@ const ImageStats = ({satelliteImage, satelliteLayer, setSatelliteLayer }) => {
             <thead>
               <tr>
                 <th>{toDate(satelliteImage.dt)}</th>
-                <th>{name.toUpperCase()}</th>
+                <th>{satelliteLayer.label}</th>
               </tr>
             </thead>
             <tbody>
@@ -105,7 +103,12 @@ const ImageStats = ({satelliteImage, satelliteLayer, setSatelliteLayer }) => {
                </tr>
              </tbody>
           </Table>
-        </div> : null}
+        </div> :
+          <Row>
+            <Col>
+              <p className="my-3">Please select NDVI, EVI, EVI2, NRI, DSWI, or NDWI layer to see detailed statistics</p>
+            </Col>
+          </Row>}
       </ChartContainer>
     </CardBody>
   </Card>)

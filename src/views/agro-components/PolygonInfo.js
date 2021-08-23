@@ -48,7 +48,8 @@ const PolygonInfo = ({ polygonInFocus }) => {
               <Col xs="4">Created</Col>
               <Col xs="8"><CardTitle tag="h3" className="text-right">{toDate(polygonInFocus.created_at)}</CardTitle></Col>
             </Row>
-            </> : <Row>
+            </> :
+            <Row>
               <Col>
               <p className="mb-3">Hover over a polygon for more information</p>
               <p>Click on a polygon to see its detailed satellite and weather data</p>
