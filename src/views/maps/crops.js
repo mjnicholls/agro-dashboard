@@ -1,11 +1,14 @@
-import {basicBlueColor, removeLayer} from "./base";
+import {basicBlueColor, removeLayer, removeSource} from "./base";
 import {cropColorDict} from "../../config";
+import {POLYGON_GROUP_ID} from './base';
 
 export const cropsSourceId = 'crops-agro';
 const cropsIndexId = 'crops-index';
 
-export const displayCropLayer = (map) => {
+export const displayCropLayer = (map, drawRef, setMode, updateArea) => {
 
+  removeLayer(map, cropsSourceId);
+  removeLayer(map, cropsSourceId);
   map.addSource(cropsSourceId, {
     type: 'vector',
     tiles: ['https://api.agromonitoring.com/cropmap/zz/{z}/{x}/{y}.pbf'],
@@ -31,7 +34,7 @@ export const displayCropLayer = (map) => {
         0.7, 0.9
       ]
     },
-  });
+  }, POLYGON_GROUP_ID);
 
   let hoveredStateId = null;
 
@@ -57,7 +60,7 @@ export const displayCropLayer = (map) => {
 
   map.on('mouseleave', cropsSourceId, function () {
     map.getCanvas().style.cursor = '';
-    if (hoveredStateId) {
+    if (hoveredStateId && map.getSource(cropsSourceId)) {
       map.setFeatureState(
         { source: cropsSourceId, sourceLayer: 'valid', id: hoveredStateId },
         { hover: false }
@@ -65,6 +68,27 @@ export const displayCropLayer = (map) => {
     }
     hoveredStateId = null;
   });
+
+  map.on('click', cropsSourceId, function (e) {
+    let feature = e.features[0];
+    // сравнить с предыдущим слоем
+    const data = drawRef.current.getAll();
+    if (data.features.length) {
+      // 2 варианта, либо тут тот же полигон - edit, либо другой - тогда его нужно удалить
+      data.features.forEach((f) => {
+        if (f.id !== feature.id) {
+          // прошлый полигон - удаляем
+          drawRef.current.delete(f.id);
+        } else {
+          // тот же полигон - редактируем
+          // setMode("draw")
+        }
+      })
+    } else {
+      drawRef.current.add(feature);
+    }
+    updateArea();
+  })
 
   displayCropIndexLayer(map);
   // map.on('click', cropsSourceId, function (e) {
@@ -100,7 +124,9 @@ const displayCropIndexLayer = (map) => {
 
 export const removeCropLayer = (map) => {
   removeLayer(map, cropsSourceId);
+  removeSource(map, cropsSourceId);
   removeLayer(map, cropsIndexId);
+  removeSource(map, cropsIndexId);
 }
 
 const getCropColorCase = () => {

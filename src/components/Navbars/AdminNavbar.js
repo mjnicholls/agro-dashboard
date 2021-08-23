@@ -53,6 +53,11 @@ const AdminNavbar = (props) => {
     setCollapseOpen(!collapseOpen);
   };
 
+  const logOut = () => {
+    props.history.push('/auth/login');
+    dispatch(logoutUser());
+  }
+
   return (
       <Navbar
         className={classNames("navbar-absolute", {
@@ -140,7 +145,7 @@ const AdminNavbar = (props) => {
                   {/*</NavLink>*/}
                   {/*<DropdownItem divider tag="li" />*/}
                   <NavLink tag="li">
-                    <DropdownItem className="nav-item" onClick={() => dispatch(logoutUser())}>Log out</DropdownItem>
+                    <DropdownItem className="nav-item" onClick={logOut}>Log out</DropdownItem>
                   </NavLink>
                 </DropdownMenu>
               </UncontrolledDropdown>

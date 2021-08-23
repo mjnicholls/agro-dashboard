@@ -246,7 +246,7 @@ const Sidebar = (props) => {
           onClick={props.closeSidebar}
         >
           <div className="logo-img">
-            <img src={logo.imgSrc} alt="react-logo" />
+            <img src={logo.imgSrc} alt="agro-logo" />
           </div>
         </a>
       );
@@ -288,8 +288,8 @@ const Sidebar = (props) => {
     <div className="sidebar" data={activeColor}>
       <div className="sidebar-wrapper" ref={sidebarRef}>
         {logoImg !== null || logoText !== null ? (
-          <div className="logo" style={{paddingLeft: "30px"}}>
-            {/*{logoImg}*/}
+          <div className="logo">
+            {logoImg}
             {logoText}
           </div>
         ) : null}

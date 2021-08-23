@@ -1,4 +1,3 @@
-import React from "react";
 import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
 
 import {mapBoxAccessToken} from '../../config';
@@ -14,6 +13,7 @@ export const defaultBBox = new mapboxgl.LngLatBounds(
 
 const CLUSTER_SOURCE_ID = 'polygon_clusters';
 const SATELLITE_SOURCE_ID = 'satellite-agro';
+export const POLYGON_GROUP_ID = 'polygon-group'
 
 export const clusterPadding = {padding: 40};
 export const polygonPadding = {padding: {left: 20, right: 20, top: 20, bottom: 100}};
@@ -95,12 +95,12 @@ export const initialiseMap = (mapContainer, map, mapBounds, onLoad, setPolygonIn
   map.current.on('load', function () {
     const polygons = store.getState().polygons;
     if (polygons.length) {
-      for (let i=0; i<polygons.length; i++) {
-        addPolygon(map.current, polygons[i], setPolygonInFocus)
-      }
+      displayPolygonsGroup(map.current, mapBounds, polygons, setPolygonInFocus)
+      // for (let i=0; i<polygons.length; i++) {
+      //   addPolygon(map.current, polygons[i], setPolygonInFocus)
+      // }
       displayClusters(map.current, polygons)
     }
-
     onLoad()
   })
 }
@@ -112,14 +112,72 @@ export const displayPolygons = (map, mapBounds, polygons, onClick) => {
   for (let i=0; i<polygons.length; i++) {
     addPolygon(map, polygons[i], onClick)
   }
+  // if (map && map.getStyle() && map.getStyle().layers) {
+  //   let layers =
+  // }
   if (mapBounds) {
     map.fitBounds(mapBounds, clusterPadding)
   }
 }
 
+export const displayPolygonsGroup = (map, mapBounds, polygons, onClick) => {
+
+  if (map.getLayer('outline_' + POLYGON_GROUP_ID)) {
+    map.removeLayer('outline_' + POLYGON_GROUP_ID)
+  }
+  if (map.getLayer(POLYGON_GROUP_ID)) {
+    map.removeLayer(POLYGON_GROUP_ID)
+  }
+  if (map.getSource(POLYGON_GROUP_ID)) {
+    map.removeSource(POLYGON_GROUP_ID)
+  }
+
+  let tmp = {
+    type: 'FeatureCollection',
+    features: polygons.map(polygon => ({
+      type: 'Feature',
+      geometry: polygon.geo_json.geometry
+    }))
+  }
+  map.addSource(POLYGON_GROUP_ID, {
+    type: "geojson",
+    data: tmp
+  })
+  map.addLayer({
+    id: POLYGON_GROUP_ID,
+    type: 'fill',
+    source: POLYGON_GROUP_ID,
+    paint: {
+      'fill-color': basicColor,
+      'fill-opacity': basicOpacity
+    },
+  });
+  map.addLayer({
+    id: 'outline_' + POLYGON_GROUP_ID,
+    type: 'line',
+    source: POLYGON_GROUP_ID,
+    layout: {},
+    paint: {
+      'line-color': basicColor,
+      'line-width': 2
+    },
+  });
+
+  map.on('mouseenter', POLYGON_GROUP_ID, function (e) {
+    map.getCanvas().style.cursor = 'pointer';
+
+    const features = map.queryRenderedFeatures(e.point);
+    console.log(features)
+    // if (setPolygonInFocus) {
+    //   setPolygonInFocus(polygon)
+    // }
+  });
+
+}
+
 export const displayClusters = (map, polygons) => {
 
-  const CLUSTER_MAX_ZOOM = 13;
+  const CLUSTER_MAX_ZOOM = 12;
 
   let ids = [
     'clusters',
@@ -235,7 +293,6 @@ export const displayClusters = (map, polygons) => {
     });
 
   map.on('click', 'clusters', (e) => {
-    console.log(map.queryRenderedFeatures(e.point));
     const features = map.queryRenderedFeatures(e.point, {
       layers: ['clusters']
     });
@@ -244,6 +301,7 @@ export const displayClusters = (map, polygons) => {
       clusterId,
       (err, zoom) => {
       if (err) return;
+      if (!zoom) return;
 
     map.easeTo({
       center: features[0].geometry.coordinates,
@@ -256,7 +314,6 @@ export const displayClusters = (map, polygons) => {
     const features = map.queryRenderedFeatures(e.point, {
       layers: ['unclustered-point']
     });
-    console.log(features);
     let polygonBbox = new mapboxgl.LngLatBounds(JSON.parse(features[0].properties.bbox))
 
     map.fitBounds(polygonBbox, {padding: 165});
@@ -323,22 +380,25 @@ const addPolygon = (map, polygon, setPolygonInFocus) => {
     });
   }
 
-export const removeLayer = (map, sourceId) => {
-  if (map) {
-    if (map.getLayer(sourceId)) {
-      map.removeLayer(sourceId);
-    }
-    if (map.getSource(sourceId)) {
-      map.removeSource(sourceId);
-    }
+export const removeLayer = (map, layerId) => {
+  if (map && map.getLayer(layerId)) {
+    map.removeLayer(layerId);
+  }
+}
+
+export const removeSource = (map, sourceId) => {
+  if (map && map.getSource(sourceId)) {
+    map.removeSource(sourceId);
   }
 }
 
 export const removeSatelliteLayer = (map) => {
   removeLayer(map, SATELLITE_SOURCE_ID)
+  removeSource(map, SATELLITE_SOURCE_ID)
 }
 
 export const renderSatelliteImage = (map, tileUrl) => {
+  console.log(tileUrl)
   removeSatelliteLayer(map);
   map.addLayer({
     id: SATELLITE_SOURCE_ID,
@@ -346,6 +406,7 @@ export const renderSatelliteImage = (map, tileUrl) => {
     source: {
       type: 'raster',
       tiles: [tileUrl],
+      tileSize: 256,
     },
     minzoom: 0,
     maxzoom: 22,

@@ -13,7 +13,7 @@ import Sidebar from "components/Sidebar/Sidebar2.js";
 
 import routes from "routes.js";
 
-import logo from "assets/img/react-logo.png";
+import logo from "assets/img/agro-logo.png";
 import AuthRoute from '../../services/AuthRoute'
 
 

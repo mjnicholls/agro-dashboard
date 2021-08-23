@@ -96,7 +96,6 @@ export function loginUser (email, password) {
         dispatch(fetchPolygons())
       })
       .catch(err => {
-        console.log(err, typeof err)
         let message;
         if (typeof err === "string") {
           message = err;
@@ -116,10 +115,8 @@ export const logoutUser = () => {
     axiosInstance.delete(logoutURL)
       .then(() => {
         deleteCookie(TOKEN_COOK);
-        dispatch(receiveLogout());
-        setTimeout(() => {
-          dispatch(destroyReduxState());
-        }, 200)
+        dispatch(destroyReduxState());
+        // dispatch(receiveLogout());
 
       })
       .catch(err => {

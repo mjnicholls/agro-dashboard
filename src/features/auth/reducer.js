@@ -4,7 +4,7 @@ import {getCookie} from '../../utils/cookies'
 import {
   CLEAR_LOGIN_ERROR, LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_SUCCESS, LOGOUT_FRONTEND,
   TOKEN_COOK, LOGOUT_REQUEST
-} from './actions'
+} from './actions';
 
 let token, tokenData;
 token = getCookie(TOKEN_COOK);
@@ -72,7 +72,7 @@ export default function authReducer(state = initialState, action) {
     }
 
     case LOGOUT_SUCCESS:
-      return Object.assign({}, state, {
+      return {
         isFetching: false,
         isAuthenticated: false,
         token: null,
@@ -82,7 +82,7 @@ export default function authReducer(state = initialState, action) {
           tariff: null
         },
         limits: null
-      })
+      }
     case LOGOUT_FRONTEND: {
       return Object.assign({}, state, {
         isAuthenticated: false,

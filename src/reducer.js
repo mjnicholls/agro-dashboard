@@ -6,7 +6,6 @@ import polygonsReducer from "./features/polygons/reducer";
 import notificationsReducer from "./features/notifications/reducer";
 import unitsReducer from "./features/units/reducer";
 import onecallReducer from "./features/onecall/reducer"
-import {LOGOUT_REQUEST} from "./features/auth/actions";
 
 const appReducer = combineReducers({
   auth: authReducer,

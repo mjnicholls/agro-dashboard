@@ -18,7 +18,7 @@ const oneCallError = payload => {
   }
 }
 
-const oneCallSuccess = payload => {
+export const oneCallSuccess = payload => {
   return {
     type: ONECALL_FETCH_SUCCESS,
     payload: payload

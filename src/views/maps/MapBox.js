@@ -29,13 +29,15 @@ const MapBox = ({ satelliteImage, setSatelliteImage, satelliteLayer, isSatellite
       // first initialisation of the map
       initialiseMap(mapContainer.current, map, mapBounds, () => {setInitialised(true)}, setPolygonInFocus)
     } else {
-      // new polygon has been added
+      // new polygon has been added or removed
       displayPolygons(map.current, mapBounds, polygons);
       displayClusters(map.current, polygons);
+
     }
   }, [polygons]);
 
   useEffect(() => {
+
     return () => {
       if (map.current) {
         setInitialised(false);
@@ -71,7 +73,9 @@ const MapBox = ({ satelliteImage, setSatelliteImage, satelliteLayer, isSatellite
             polygons[i].id === "layer_" + activePolygon.id ? basicBlueColor : basicColor);
         }
       } else {
-        map.current.fitBounds(mapBounds, clusterPadding)
+        if (mapBounds) {
+          map.current.fitBounds(mapBounds, clusterPadding)
+        }
       }
     } {
 

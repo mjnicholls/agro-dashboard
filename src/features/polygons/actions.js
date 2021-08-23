@@ -19,10 +19,9 @@ const polygonsFetched = () => {
   }
 }
 
-const receivePolygons = (data) => {
+export const receivePolygons = (data) => {
   return {
     type: POLYGONS_FETCH_SUCCESS,
-    isFetching: false,
     polygons: data
   }
 }

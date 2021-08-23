@@ -114,10 +114,10 @@ const PolygonCreateCard = ({area, geoJson, intersections, mode, setMode, resetMa
           <NavItem>
             <NavLink
               data-toggle="tab"
-              // href="#pablo"
-              className={mode === "draw" ? "active" : ""}
+              className={classNames("agro-tab", {
+                active: mode === "draw",
+              })}
               onClick={() => setMode("draw") }
-              style={{paddingRight: "15px", paddingLeft: "15px"}}
             >
               Draw
             </NavLink>
@@ -125,14 +125,10 @@ const PolygonCreateCard = ({area, geoJson, intersections, mode, setMode, resetMa
           <NavItem>
             <NavLink
               data-toggle="tab"
-              // href="#pablo"
-              className={mode === "select" ? "active" : ""}
-              onClick={() =>
-                setMode("select")
-              }
-              style={{paddingRight: "15px", paddingLeft: "15px"}}
-              // style={{padding: "5px 10px"}}
-            >
+              className={classNames("agro-tab", {
+                active: mode === "select",
+              })}
+              onClick={() => setMode("select") }>
               Select
             </NavLink>
           </NavItem>

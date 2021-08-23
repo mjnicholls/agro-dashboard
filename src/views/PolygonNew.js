@@ -54,6 +54,7 @@ const PolygonNew = () => {
               setIntersection={setIntersection}
               drawRef={drawRef}
               mode={mode}
+              setMode={setMode}
               mapHeight={mapHeight}
             />
           </Col>

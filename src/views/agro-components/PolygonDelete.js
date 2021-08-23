@@ -9,7 +9,6 @@ import {
   Row
 } from "reactstrap";
 import {deletePolygon} from "../../features/polygons/actions";
-import {removeLayer} from "../maps/base";
 
 const PolygonDelete = ({ polygon, close }) => {
 
