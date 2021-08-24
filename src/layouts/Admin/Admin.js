@@ -175,7 +175,7 @@ const Admin = (props) => {
         activeColor={activeColor}
         logo={{
           outterLink: "https://agromonitoring.com/",
-          text: "Agro Monitoring",
+          text: "AgroMonitoring",
           imgSrc: logo,
         }}
         closeSidebar={closeSidebar}

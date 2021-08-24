@@ -46,7 +46,7 @@ const Pages = (props) => {
   };
 
   const getActiveRoute = (routes) => {
-    let activeRoute = "Agro Monitoring";
+    let activeRoute = "AgroMonitoring";
     for (let i = 0; i < routes.length; i++) {
       if (routes[i].collapse) {
         let collapseActiveRoute = getActiveRoute(routes[i].views);

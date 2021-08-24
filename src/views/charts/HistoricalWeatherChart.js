@@ -12,7 +12,7 @@ import {getHistoryWeatherData} from "../../services/api/chartApi";
 
 const selectUnits = state => state.units.isMetric;
 
-const HistoryWeather = ({polyId, startDate, endDate, earliestAvailableDate}) => {
+const HistoricalWeather = ({polyId, startDate, endDate, earliestAvailableDate}) => {
 
   const [data, setData] = useState([]);
   const [error, setError] = useState(startDate ? null : tariffError);
@@ -200,4 +200,4 @@ const HistoryWeather = ({polyId, startDate, endDate, earliestAvailableDate}) => 
   )
 }
 
-export default HistoryWeather;
+export default HistoricalWeather;

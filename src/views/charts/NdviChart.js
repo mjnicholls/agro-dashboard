@@ -39,7 +39,7 @@ const NdviChart = ({ polyId }) => {
       let earliestAvailableDate, startDate;
       if (limit.depth > 0) {
         earliestAvailableDate = new Date();
-        earliestAvailableDate.setFullYear(earliestAvailableDate.getFullYear() - limit.depth);
+        earliestAvailableDate.setMonth(earliestAvailableDate.getMonth() - limit.depth * 12);
         startDate = getDateInPast(Math.min(limit.depth * 12, defaultStartHistoryWeatherCharts));
       }
       else if (limit.depth < 0) {

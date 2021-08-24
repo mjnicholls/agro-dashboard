@@ -165,7 +165,7 @@ const AdminNavbar = (props) => {
               </UncontrolledDropdown>
               <li>
                 <a className="btn btn-simple btn-github"
-                     role="button" href="https://wp.agromonitoring.com/dashboard/satellite"
+                     role="button" href="https://old.agromonitoring.com/dashboard/satellite"
                      target="_blank" rel="noopener noreferrer"
               >Old Dashboard</a></li>
               <li className="separator d-lg-none" />

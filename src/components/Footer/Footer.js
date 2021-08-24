@@ -8,20 +8,28 @@ const Footer = (props) => {
       <Container fluid={props.fluid ? true : false}>
         <ul className="nav">
           <li className="nav-item">
-            <a className="nav-link" href="https://agromonitoring.com/">
+            <a className="nav-link"
+               href="https://agromonitoring.com/"
+                target="_blank" rel="noopener noreferrer"
+            >
               AgroMonitoring
             </a>
           </li>{" "}
           <li className="nav-item">
             <a
               className="nav-link"
-              href="https://agromonitoring.com/api/get"
+              href="https://agromonitoring.com/dashboard/dashboard-documentation"
+              target="_blank"
+              rel="noopener noreferrer"
             >
-              API
+              Documentation
             </a>
           </li>{" "}
           <li className="nav-item">
-            <a className="nav-link" href="https://home.agromonitoring.com/">
+            <a className="nav-link"
+               href="https://home.agromonitoring.com/"
+               target="_blank" rel="noopener noreferrer"
+            >
               Account
             </a>
           </li>

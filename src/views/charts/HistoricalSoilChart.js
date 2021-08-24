@@ -13,7 +13,7 @@ import {tariffError} from "../../config";
 
 const selectUnits = state => state.units.isMetric;
 
-const HistorySoilChart = ({ polyId, startDate, endDate, earliestAvailableDate}) => {
+const HistoricalSoilChart = ({ polyId, startDate, endDate, earliestAvailableDate}) => {
 
   const units = useSelector(selectUnits);
 
@@ -178,4 +178,4 @@ const HistorySoilChart = ({ polyId, startDate, endDate, earliestAvailableDate}) 
   )
 }
 
-export default HistorySoilChart;
+export default HistoricalSoilChart;

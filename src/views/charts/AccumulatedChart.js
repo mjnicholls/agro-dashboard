@@ -1,10 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import {useSelector} from 'react-redux';
 
-import ReactBSAlert from "react-bootstrap-sweetalert";
 import {Line} from "react-chartjs-2";
 
-import AccumulatedInfo from '../info/AccumulatedInfo';
 import ChartContainer from './ui/ChartContainer';
 import {getAccumulatedData} from '../../services/api/chartApi';
 import {toDate} from '../../utils/dateTime';

@@ -46,8 +46,8 @@ const tabsConfig = {
       calendar: true,
       short: "HW"
     },
-    "History Soil": {
-      id: "History Soil",
+    "Historical Soil": {
+      id: "Historical Soil",
       label: "Historical",
       name: "Soil Data",
       calendar: true,
@@ -112,7 +112,7 @@ const CombinedChart = ({polyId}) => {
     if (depth && depth > 0 ) {
       // limited data is available
       earliestAvailableDate = new Date();
-      earliestAvailableDate.setFullYear(earliestAvailableDate.getFullYear() - depth);
+      earliestAvailableDate.setMonth(earliestAvailableDate.getMonth() - depth * 12);
       // set default start date from config unless earliestAvailableDate is later
       startDate = getDateInPast(Math.min(depth * 12, defaultStartHistoryWeatherCharts));
 
@@ -208,7 +208,7 @@ const CombinedChart = ({polyId}) => {
                 endDate={endDate}
                 earliestAvailableDate={limitHistoryWeather.start * 1000}
               />
-              : (activeTab.id === "History Soil") ?
+              : (activeTab.id === "Historical Soil") ?
                 <HistorySoilChart
                   polyId={polyId}
                   startDate={startDate}
