@@ -3,7 +3,6 @@ import React from 'react';
 import {
   Card,
   CardBody,
-  CardFooter,
   CardHeader,
   CardTitle,
   Col,
@@ -11,8 +10,6 @@ import {
 } from "reactstrap";
 import {toDate} from "../../utils/dateTime";
 import Shape from "../agro-components/Shape";
-import {totalArea} from "../../utils/utils";
-
 
 const PolygonInfo = ({ polygonInFocus }) => {
 

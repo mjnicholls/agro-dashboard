@@ -124,7 +124,7 @@ const PolygonTable = ({data, setActivePolygon}) => {
                 onChange={(e) => {
                   filterTable(e.target.value || undefined); // Set undefined to remove the filter entirely
                 }}
-                placeholder={`Search ${data.length} polygons...`}
+                placeholder={`Search ${data.length} polygon${data.length > 1 ? "s" : ""}...`}
                 style={{maxWidth: "300px"}}
               />
               <Link to="/dashboard/new-polygon" >

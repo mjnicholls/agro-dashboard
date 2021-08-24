@@ -9,8 +9,10 @@ import {
   CardHeader,
   CardTitle,
   Col,
+  Form,
   FormGroup,
   Input,
+  Label,
   Nav,
   NavItem,
   NavLink,
@@ -21,6 +23,8 @@ import {
 import {addPolygon} from '../../features/polygons/actions';
 import {notifyError} from '../../features/notifications/actions';
 import classNames from "classnames";
+
+import AllPolygonsButton from '../agro-components/AllPolygonsButton';
 
 const selectAreaLimits = state => state.auth.limits.polygon_area;
 
@@ -72,116 +76,111 @@ const PolygonCreateCard = ({area, geoJson, intersections, mode, setMode, resetMa
     resetMap()
   }
 
-  const rules = () => (<>
-    Please follow the rules below:
-    <ul>
-      <li>Minimum area is {minPolygonArea} ha</li>
-      <li>Maximum area is {maxPolygonArea} hа</li>
-      <li>No self-intersections</li>
-    </ul>
-  </>)
 
   return (
-      <Card className="overflow-auto small-card" style={{height: mapHeight}}>
+      <Card className="card-stats overflow-auto small-card" style={{height: mapHeight}}>
         <CardHeader className="mb-0">
-          <CardTitle tag="h2">New polygon</CardTitle>
-          <FormGroup className="mb-3">
-            <label>Polygon name *</label>
+          <Row>
+            <Col xs="6" sm="8" md="9">
+              <h5 className="card-category mb-0">create</h5>
+              <CardTitle tag="h2">Polygon</CardTitle>
+            </Col>
+            <Col xs="6" sm="4" md="3">
+              <AllPolygonsButton />
+            </Col>
+          </Row>
+        </CardHeader>
+        <CardBody className="overflow-auto mb-5">
+          <hr />
+          <Nav className="nav-pills-github my-3" pills>
+            <NavItem>
+              <NavLink
+                data-toggle="tab"
+                className={classNames("agro-tab", {
+                  active: mode === "draw",
+                })}
+                onClick={() => setMode("draw") }
+              >
+                Draw
+              </NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink
+                data-toggle="tab"
+                className={classNames("agro-tab", {
+                  active: mode === "select",
+                })}
+                onClick={() => setMode("select") }>
+                Select
+              </NavLink>
+            </NavItem>
+          </Nav>
+          <Form className="form-horizontal">
             <Row>
-              <Col>
-                <Input
-                  className={error.name ? "danger-border" : ""}
-                  name="name"
-                  type="text"
-                  onChange={e => setName(e.target.value)}
-                  value={name}
-                />
+              <Label md="4 text-left">Name: * </Label>
+              <Col md="8">
+                <FormGroup>
+                  <Input
+                    className={error.name ? "danger-border" : ""}
+                    name="name"
+                    type="text"
+                    onChange={e => setName(e.target.value)}
+                    value={name}
+                  />
+                </FormGroup>
               </Col>
             </Row>
-          </FormGroup>
-         <div
-          className="category form-category"
+          </Form>
+          <Row>
+            <Col md="4">
+              <div className="category form-category">
+                Area:
+              </div>
+            </Col>
+            <Col md="8">
+              <h4 className={
+                classNames("text-right", {
+                  "danger-color": (area > maxPolygonArea || area < minPolygonArea),
+                  "invisible": !area
+                })}>{area} ha</h4>
+            </Col>
+          </Row>
+          <div className="card-category mb-3">
+            <Row>
+              <Col>
+                <p>Minimum area is {minPolygonArea} ha</p>
+                <p>Maximum area is {maxPolygonArea} hа</p>
+                <p>No self-intersections</p>
+              </Col>
+            </Row>
+          </div>
 
-          style={{textTransform: "none", visibility: area ? "visible" : "hidden"}}>
-          Area <h4 className={
-            classNames({
-              "danger-color": (area > maxPolygonArea || area < minPolygonArea),
-            })}>{area} ha</h4>
-        </div>
-
-
-        <Nav className="nav-pills-github" pills>
-          <NavItem>
-            <NavLink
-              data-toggle="tab"
-              className={classNames("agro-tab", {
-                active: mode === "draw",
-              })}
-              onClick={() => setMode("draw") }
-            >
-              Draw
-            </NavLink>
-          </NavItem>
-          <NavItem>
-            <NavLink
-              data-toggle="tab"
-              className={classNames("agro-tab", {
-                active: mode === "select",
-              })}
-              onClick={() => setMode("select") }>
-              Select
-            </NavLink>
-          </NavItem>
-          {/*<NavItem>*/}
-            {/*<NavLink*/}
-              {/*data-toggle="tab"*/}
-              {/*href="#pablo"*/}
-              {/*className={mode === "import" ? "active" : ""}*/}
-              {/*onClick={() =>*/}
-                {/*setMode("import")*/}
-              {/*}*/}
-            {/*>*/}
-              {/*Import*/}
-            {/*</NavLink>*/}
-          {/*</NavItem>*/}
-        </Nav>
-      </CardHeader>
-    <CardBody>
-
-        <TabContent className="tab-space agro-tab" activeTab={mode}>
+        <TabContent className="tab-space agro-tab card-category" activeTab={mode}>
           <TabPane tabId="draw">
-            Draw polygon
-            <br />
-            <ol>
-              <li>Click on the polygon icon to activate draw mode.</li>
+            <ol style={{paddingLeft: 0}}>
+              <li>Click on the polygon tool to activate draw mode.</li>
               <li>Place the pointer on the map and click the location of the first point to start drawing.</li>
               <li>Continue clicking at each corner of the shape until you have created the polygon.</li>
               <li>Click the first point to stop drawing.</li>
               <li>Double-click any point to edit.</li>
             </ol>
-            {rules()}
           </TabPane>
           <TabPane tabId="select">
-            <ol>
-              <li>If you can't see crops - zoom out to see the territories with recognized crops available.</li>
-              <li>Click on a polygon to select.</li>
-              <li>Double-click to edit.</li>
-              <li>If you can't see crops for your territory please use the "Draw" mode to create your polygon.</li>
+            <ol style={{paddingLeft: 0}}>
+              <li>If you can't see crops layer, please zoom out to see the territories where crops have been identified.</li>
+              <li>If there is no identified crops for your territory at the moment please use the "Draw" mode to create your polygon.</li>
+              <li>Click on any crop to select.</li>
+              <li>Double-click any point to edit.</li>
             </ol>
-            {rules()}
-          </TabPane>
-          <TabPane tabId="import">
-            Import file. Help on importing, available formats description <br /><br />
-            {rules()}
           </TabPane>
         </TabContent>
-
       </CardBody>
         <CardFooter className="justify-content-end pr-0 w-100">
-          <Row className="justify-content-end w-100">
+          <Row className="justify-content-end w-100 my-3">
           <Button
             // disabled={!name || blockResetMap()} TODO
-            color="default"
+            className="btn-simple"
+            color="github"
             onClick={reset}
           >
             Reset

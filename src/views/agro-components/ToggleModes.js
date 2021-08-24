@@ -1,15 +1,14 @@
 import React from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
-import classNames from "classnames";
-
 import {
   Button,
   ButtonGroup,
 } from "reactstrap";
-import {setActivePoly, setSatelliteMode} from "../../features/state/actions";
-
+import classNames from "classnames";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+import {setActivePoly, setSatelliteMode} from "../../features/state/actions";
 import { faListUl, faSatellite, faTemperatureLow } from '@fortawesome/free-solid-svg-icons';
 
 
@@ -17,7 +16,7 @@ const selectPolygons = state => state.polygons;
 const selectActivePoly = state => state.state.polygon;
 const selectIsSatelliteMode = state => state.state.isSatelliteMode;
 
-const TogglerModes = () => {
+const ToggleModes = () => {
 
   const dispatch = useDispatch();
   const polygons = useSelector(selectPolygons);
@@ -103,4 +102,4 @@ const TogglerModes = () => {
     </ButtonGroup>
 )}
 
-export default TogglerModes;
+export default ToggleModes;

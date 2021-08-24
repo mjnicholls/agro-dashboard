@@ -2,11 +2,13 @@ import React, {useEffect, useRef, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
 import {
-  activeColor, activeOpacity, displayClusters, basicColor, clusterPadding, displayPolygons,
+  activeColor, activeOpacity, basicColor, clusterPadding,
   initialiseMap,
   removeSatelliteLayer,
-  renderSatelliteImage, basicBlueColor, basicOpacity, polygonPadding, displayPolygonGroup
+  renderSatelliteImage, basicBlueColor, basicOpacity, polygonPadding,
 } from './base';
+import {displayClusters} from './clusters';
+import {displayPolygonGroup} from './polygons';
 import {getMapBounds} from '../../features/polygons/selectors'
 import SatelliteImagesList from "../agro-components/SatelliteImagesList";
 import {setActivePoly} from "../../features/state/actions";
@@ -22,13 +24,13 @@ const MapBox = ({ satelliteImage, setSatelliteImage, satelliteLayer, isSatellite
   const mapBounds = useSelector(getMapBounds);
   const mapContainer = useRef(null);
   const map = useRef(null);
+
   const [tile, setTile] = useState(null);
   const [initialised, setInitialised] = useState(false);
   const isSatelliteMode = useSelector(selectIsSatelliteMode);
   const dispatch = useDispatch();
 
   const onClickPolygon = (poly) => {
-    console.log("onClickPolygon", onClickPolygon)
     dispatch(setActivePoly(poly))
   }
 
@@ -42,10 +44,9 @@ const MapBox = ({ satelliteImage, setSatelliteImage, satelliteLayer, isSatellite
       displayClusters(map.current, polygons);
 
     }
-  }, [polygons]);
+  }, [polygons, mapBounds]);
 
   useEffect(() => {
-
     return () => {
       if (map.current) {
         setInitialised(false);
@@ -55,57 +56,46 @@ const MapBox = ({ satelliteImage, setSatelliteImage, satelliteLayer, isSatellite
   }, []);
 
   useEffect(() => {
-    if (satelliteImage && satelliteLayer) {
-      setTile(satelliteImage.tile[satelliteLayer.value]);
+    if (isSatelliteMode) {
+      if (satelliteImage) {
+        setTile(satelliteImage.tile[satelliteLayer.value])
+      }
+    } else {
+      setTile(null)
     }
-  }, [satelliteImage, satelliteLayer])
+  }, [isSatelliteMode, satelliteImage, satelliteLayer])
 
   useEffect(() => {
     if (tile) {
       renderSatelliteImage(map.current, tile)
+    } else {
+      removeSatelliteLayer(map.current)
     }
   }, [tile])
 
   useEffect(() => {
-    /** On polygon select:
-     * zoom to the polygon
-     * apply satellite image
-     * apply layer
-     */
+    /** On polygon select: zoom to the polygon, apply satellite image, apply layer */
     if (initialised) {
       if (activePolygon) {
+        console.log("activePolygon", activePolygon)
         map.current.fitBounds(activePolygon.bbox, polygonPadding);
-        for (let i=0; i<polygons.length; i++) {
-          map.current.setPaintProperty("layer_" + polygons[i].id, "fill-opacity", polygons[i].id === activePolygon.id ? activeOpacity : basicOpacity)
-          map.current.setPaintProperty("layer_" + polygons[i].id, 'fill-color',
-            polygons[i].id === "layer_" + activePolygon.id ? basicBlueColor : basicColor);
-        }
       } else {
         if (mapBounds) {
           map.current.fitBounds(mapBounds, clusterPadding)
         }
+        setTile(null);
       }
     }
   }, [initialised, activePolygon, mapBounds])
 
-  useEffect(() => {
-    if (initialised) {
-      if (isSatelliteMode && tile) {
-        renderSatelliteImage(map.current, tile)
-      } else {
-        removeSatelliteLayer(map.current);
-      }
-    }
-
-  }, [isSatelliteMode, tile])
-
  return (
   <div className="mb-5">
     <div ref={mapContainer} className="map-container map-box-container" >
-    {(activePolygon && isSatellitePage) &&
+    {(activePolygon) &&
       <SatelliteImagesList
         satelliteImage={satelliteImage}
         setSatelliteImage={setSatelliteImage}
+        isSatellitePage={isSatellitePage}
       />}
     </div>
   </div>

@@ -12,7 +12,7 @@ import {
 } from "reactstrap";
 import classNames from "classnames";
 
-import TogglerThree from '../agro-components/TogglerModes';
+import ToggleModes from '../agro-components/ToggleModes';
 import {setActivePoly} from "../../features/state/actions";
 
 const selectActivePoly = state => state.state.polygon;
@@ -33,7 +33,7 @@ const PolygonTableSmall = () => {
             <CardTitle tag="h2">Polygons</CardTitle>
           </Col>
           <Col xs="6" sm="4" md="3">
-            <TogglerThree />
+            <ToggleModes />
           </Col>
         </Row>
       </CardHeader>

@@ -5,8 +5,10 @@ import * as turf from '@turf/turf'
 import {axiosInstance} from '../../services/base'
 import MapboxDraw from "@mapbox/mapbox-gl-draw";
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
-import {deletePreviousAreas, displayClusters, displayPolygons, displayPolygonGroup, initialiseMap} from './base';
-import {cropsSourceId, removeCropLayer, displayCropLayer} from './crops';
+import {deletePreviousAreas, initialiseMap} from './base';
+import {displayClusters} from './clusters';
+import {displayPolygonGroup} from './polygons';
+import {removeCropLayer, displayCropLayer} from './crops';
 import {getMapBounds} from '../../features/polygons/selectors'
 
 const selectPolygons = state => state.polygons;

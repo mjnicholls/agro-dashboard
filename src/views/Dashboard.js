@@ -31,54 +31,54 @@ const Dashboard = () => {
   return (
     <>
       <div className="content">
-          <Row>
-            <Col lg="6" >
-              <MapBox
-                // activePolygon={activePolygon}
-                satelliteImage={satelliteImage}
-                setSatelliteImage={setSatelliteImage}
-                satelliteLayer={satelliteLayer}
-                isSatellitePage={isSatelliteMode}
-                setPolygonInFocus={setPolygonInFocus}
-              />
-            </Col>
-
-            <Col lg="3" sm="6" >
-              {activePolygon ?
-                isSatelliteMode ? <ImageStats
-                    satelliteImage={satelliteImage}
-                    satelliteLayer={satelliteLayer}
-                    setSatelliteLayer={setSatelliteLayer}
-                  /> :
-                    <>
-                      <WeatherCurrent />
-                      <SoilCurrent polyId={activePolygon.id}/>
-                    </> : <PolygonInfo polygonInFocus={polygonInFocus} />
-              }
-            </Col>
-
-            <Col lg="3" sm="6">
-              {activePolygon ?
-                <PolygonTableSmall /> :
-                <PolygonsTotalStats polygons={polygons} activePolygon={polygons[0]} />
-              }
-            </Col>
-        </Row>
         <Row>
-          <Col>
+          <Col lg="6" >
+            <MapBox
+              // activePolygon={activePolygon}
+              satelliteImage={satelliteImage}
+              setSatelliteImage={setSatelliteImage}
+              satelliteLayer={satelliteLayer}
+              isSatellitePage={isSatelliteMode}
+              setPolygonInFocus={setPolygonInFocus}
+            />
+          </Col>
 
+          <Col lg="3" sm="6" >
             {activePolygon ?
-              isSatelliteMode ?
-              <NdviChart polyId={activePolygon.id} />
-                : <CombinedChart polyId={activePolygon.id} />
-                : <PolygonTable
-                  data={polygons}
-                  // activePolygon={activePolygon}
-                  // setActivePolygon={setActivePolygon}
-                />
-              }
-            </Col>
-          </Row>
+              isSatelliteMode ? <ImageStats
+                  satelliteImage={satelliteImage}
+                  satelliteLayer={satelliteLayer}
+                  setSatelliteLayer={setSatelliteLayer}
+                /> :
+                  <>
+                    <WeatherCurrent />
+                    <SoilCurrent polyId={activePolygon.id}/>
+                  </> : <PolygonInfo polygonInFocus={polygonInFocus} />
+            }
+          </Col>
+
+          <Col lg="3" sm="6">
+            {activePolygon ?
+              <PolygonTableSmall /> :
+              <PolygonsTotalStats polygons={polygons} activePolygon={polygons[0]} />
+            }
+          </Col>
+      </Row>
+      <Row>
+        <Col>
+
+          {activePolygon ?
+            isSatelliteMode ?
+            <NdviChart polyId={activePolygon.id} />
+              : <CombinedChart polyId={activePolygon.id} />
+              : <PolygonTable
+                data={polygons}
+                // activePolygon={activePolygon}
+                // setActivePolygon={setActivePolygon}
+              />
+            }
+          </Col>
+        </Row>
       </div>
     </>
   );

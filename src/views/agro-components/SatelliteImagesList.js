@@ -8,6 +8,7 @@ import {
   Card,
   CardBody,
 } from "reactstrap";
+import classNames from "classnames";
 
 import SatelliteImagePlaceholder from './SatelliteImagePlaceholder';
 import {toDate} from '../../utils/dateTime';
@@ -15,7 +16,7 @@ import {getSatelliteImagesList} from "../../services/api/polygonApi";
 const selectActivePoly = state => state.state.polygon;
 
 
-const SatelliteImagesList = ({satelliteImage, setSatelliteImage}) => {
+const SatelliteImagesList = ({satelliteImage, setSatelliteImage, isSatellitePage}) => {
   /** Displays a list of satellite images for selected polygon */
 
   const scrollRef = useRef(null);
@@ -77,7 +78,10 @@ const SatelliteImagesList = ({satelliteImage, setSatelliteImage}) => {
   }
 
   return (
-    <Card className="satellite-images-container mb-0">
+    <Card className={classNames("satellite-images-container mb-0 ", {
+          "d-none": !isSatellitePage
+        })}
+    >
       <CardBody style={{padding: "5px"}}>
         <div className='satellite-images-list'>
           <a
