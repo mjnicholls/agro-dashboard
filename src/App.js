@@ -1,6 +1,6 @@
 import React from "react";
 //BrowserRouter
-import { HashRouter, Route, Switch, Redirect } from "react-router-dom";
+import { BrowserRouter, HashRouter, Route, Switch, Redirect } from "react-router-dom";
 import store from './store';
 import { Provider } from 'react-redux';
 
@@ -24,14 +24,14 @@ const App = () => {
 
   return (
     <Provider store={store}>
-      <HashRouter>
+      <BrowserRouter>
         <Switch>
           <Route path="/auth" render={(props) => <AuthLayout {...props} />} />
           <Route path="/dashboard" render={(props) => <AdminLayout {...props} />} />
           {/*<Route path="/rtl" render={(props) => <RTLLayout {...props} />} />*/}
           <Redirect from="/" to="/dashboard/polygons" />
         </Switch>
-      </HashRouter>
+      </BrowserRouter>
       <Notifications />
     </Provider>
   )
