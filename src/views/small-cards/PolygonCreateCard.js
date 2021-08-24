@@ -97,7 +97,6 @@ const PolygonCreateCard = ({area, geoJson, intersections, mode, setMode, resetMa
     resetMap()
   }
 
-
   return (
       <Card className="card-stats overflow-auto small-card" style={{height: mapHeight}}>
         <CardHeader className="mb-0">
