@@ -52,7 +52,7 @@ const CurrentSoil = ({ polyId }) => {
           </Col>
         </Row>
       </CardHeader>
-      <CardBody className="pt-0" style={{overflow: "scroll"}}>
+      <CardBody className="py-2 overflow-auto">
         <ChartContainer
           isLoading={isLoading}
           error={error}
@@ -60,16 +60,16 @@ const CurrentSoil = ({ polyId }) => {
         >
         {data ? <div className="card-category">
             <Row>
-              <Col xs="8">Temperature at the surface</Col>
-              <Col xs="4"><CardTitle tag="h3" className="text-right">{convertTemp(data.t0, isMetric)}°</CardTitle></Col>
+              <Col xs="7">Temperature at the surface</Col>
+              <Col xs="5" ><CardTitle tag="h3" className="text-right mb-2">{convertTemp(data.t0, isMetric)}°</CardTitle></Col>
             </Row>
             <Row>
-              <Col xs="8">Temperature at the depth of 10cm</Col>
-              <Col xs="4"><CardTitle tag="h3" className="text-right">{convertTemp(data.t10, isMetric)}°</CardTitle></Col>
+              <Col xs="7">Temperature at the depth of 10cm</Col>
+              <Col xs="5"><CardTitle tag="h3" className="text-right mb-2">{convertTemp(data.t10, isMetric)}°</CardTitle></Col>
             </Row>
             <Row>
-              <Col xs="8">Soil moisture</Col>
-              <Col xs="4"><CardTitle tag="h3" className="text-right">{Math.round(data.moisture * 100)}%</CardTitle></Col>
+              <Col xs="7">Soil moisture</Col>
+              <Col xs="5"><CardTitle tag="h3" className="text-right mb-2">{Math.round(data.moisture * 100)}%</CardTitle></Col>
             </Row>
           </div> : null}
         </ChartContainer>

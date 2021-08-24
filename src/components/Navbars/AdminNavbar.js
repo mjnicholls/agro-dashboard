@@ -118,7 +118,6 @@ const AdminNavbar = (props) => {
             <span className="navbar-toggler-bar navbar-kebab" />
           </button>
           <Collapse navbar isOpen={collapseOpen}>
-
             <Nav className="ml-auto" navbar>
               <UncontrolledDropdown nav>
                 <UnitsToggle className="search-bar input-group" />
@@ -149,6 +148,10 @@ const AdminNavbar = (props) => {
                   </NavLink>
                 </DropdownMenu>
               </UncontrolledDropdown>
+              <li><a className="btn btn-simple btn-github"
+                     role="button" href="https://wp.agromonitoring.com/dashboard/satellite"
+                     target="_blank" rel="noopener noreferrer"
+              >Go to old Dashboard</a></li>
               <li className="separator d-lg-none" />
             </Nav>
           </Collapse>

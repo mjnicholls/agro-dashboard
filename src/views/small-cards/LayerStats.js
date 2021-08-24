@@ -63,7 +63,7 @@ const ImageStats = ({satelliteImage, satelliteLayer, setSatelliteLayer }) => {
           </Col>
         </Row>
       </CardHeader>
-      <CardBody className="pt-0">
+      <CardBody className="py-2">
       <ChartContainer
         isLoading={isLoading}
         error={error}

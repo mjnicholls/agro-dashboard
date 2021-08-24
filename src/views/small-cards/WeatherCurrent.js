@@ -97,7 +97,7 @@ const WeatherCurrent = () => {
             </Col>}
           </Row>
         </CardHeader>
-        <CardBody>
+        <CardBody className="pb-2">
           <ChartContainer
             isLoading={onecall.isLoading}
             error={onecall.error}

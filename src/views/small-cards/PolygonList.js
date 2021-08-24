@@ -37,7 +37,7 @@ const PolygonTableSmall = () => {
           </Col>
         </Row>
       </CardHeader>
-      <CardBody className="py-0 overflow-auto">
+      <CardBody className="py-2 overflow-auto">
         <Table>
           <tbody>
             {polygons.map(polygon => (
