@@ -22,11 +22,15 @@ import {
 } from "reactstrap";
 import {addPolygon} from '../../features/polygons/actions';
 import {notifyError} from '../../features/notifications/actions';
+
+import {totalArea} from '../../utils/utils'
 import classNames from "classnames";
 
 import AllPolygonsButton from '../agro-components/AllPolygonsButton';
 
 const selectAreaLimits = state => state.auth.limits.polygon_area;
+const selectUserTariff = state => state.auth.user.tariff;
+const selectPolygons = state => state.polygons;
 
 const PolygonCreateCard = ({area, geoJson, intersections, mode, setMode, resetMap, mapHeight, blockResetMap}) => {
 
@@ -37,6 +41,8 @@ const PolygonCreateCard = ({area, geoJson, intersections, mode, setMode, resetMa
   const maxPolygonArea = areaLimits.max_polygon_area || 3000;
   const dispatch = useDispatch();
 
+  const userTariff = useSelector(selectUserTariff);
+  const polygons = useSelector(selectPolygons);
   // const blockCreation = () => {
   //   return name.length === 0 || area < minPolygonArea || area > maxPolygonArea;
   // }
@@ -47,18 +53,22 @@ const PolygonCreateCard = ({area, geoJson, intersections, mode, setMode, resetMa
     let errorMessage = '';
     if (!name.length) {
       newError.name = true;
-      errorMessage = "Please enter polygon's name\n"
+      errorMessage = "Please enter polygon's name. \n"
     }
     if (intersections) {
       newError.intersection = true;
-      errorMessage = errorMessage + "Polygons cannot contain self-intersections\n";
+      errorMessage = errorMessage + "Polygons cannot contain self-intersections. \n";
     }
     if (area < minPolygonArea || area > maxPolygonArea) {
       newError.area = true;
-      let err = area < minPolygonArea ? "Polygon's area should be more than " + minPolygonArea + " ha" : "Polygon's area should not exceed " + maxPolygonArea + " ha"
+      let err = area < minPolygonArea ? "Polygon's area should be more than " + minPolygonArea + " ha" : "Polygon's area should not exceed " + maxPolygonArea + " ha. "
       errorMessage = errorMessage + err;
     }
-    if (Object.keys(newError).length) {
+    // TODO delete hard code
+    if (userTariff === "free" && totalArea(polygons) > 1000) {
+      errorMessage = errorMessage + " Total polygons area cannot exceed 1000 ha"
+    }
+    if (Object.keys(newError).length || errorMessage.length) {
       setError(newError);
       dispatch(notifyError(errorMessage));
       return
