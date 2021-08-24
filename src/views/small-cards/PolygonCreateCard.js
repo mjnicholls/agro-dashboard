@@ -23,7 +23,6 @@ import {
 import {addPolygon} from '../../features/polygons/actions';
 import {notifyError} from '../../features/notifications/actions';
 
-import {totalArea} from '../../utils/utils'
 import classNames from "classnames";
 
 import AllPolygonsButton from '../agro-components/AllPolygonsButton';
@@ -47,6 +46,15 @@ const PolygonCreateCard = ({area, geoJson, intersections, mode, setMode, resetMa
   //   return name.length === 0 || area < minPolygonArea || area > maxPolygonArea;
   // }
 
+  const totalArea = (polygons) => {
+    if (polygons.length) {
+      let x = polygons.reduce((a,b) => ({area: a.area + b.area}))
+      return x.area
+    }
+  return 0
+}
+
+
   const createPolygonLocal = () => {
     setError({});
     let newError = {};
@@ -64,9 +72,12 @@ const PolygonCreateCard = ({area, geoJson, intersections, mode, setMode, resetMa
       let err = area < minPolygonArea ? "Polygon's area should be more than " + minPolygonArea + " ha" : "Polygon's area should not exceed " + maxPolygonArea + " ha. "
       errorMessage = errorMessage + err;
     }
-    // TODO delete hard code
-    if (userTariff === "free" && totalArea(polygons) > 1000) {
-      errorMessage = errorMessage + " Total polygons area cannot exceed 1000 ha"
+    if (area) {
+      let totalA = totalArea(polygons);
+      let potentialArea = parseFloat(area) + totalA;
+      if (userTariff === "free" && potentialArea > 1000) {
+        errorMessage = errorMessage + " Total polygons area cannot exceed 1000 ha"
+      }
     }
     if (Object.keys(newError).length || errorMessage.length) {
       setError(newError);
