@@ -1,4 +1,5 @@
 import React from "react";
+import {useSelector} from "react-redux";
 import { Switch, Redirect, useLocation } from "react-router-dom";
 // javascript plugin used to create scrollbars on windows
 import PerfectScrollbar from "perfect-scrollbar";
@@ -18,6 +19,7 @@ import AuthRoute from '../../services/AuthRoute'
 
 
 var ps;
+
 
 const Admin = (props) => {
 
@@ -102,7 +104,7 @@ const Admin = (props) => {
   };
 
   const getActiveRoute = (routes) => {
-    let activeRoute = "Default Brand Text";
+    let activeRoute = "AgroMonitoring Dashboard";
     for (let i = 0; i < routes.length; i++) {
       if (routes[i].collapse) {
         let collapseActiveRoute = getActiveRoute(routes[i].views);

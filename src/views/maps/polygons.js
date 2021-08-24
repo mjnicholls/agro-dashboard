@@ -1,7 +1,6 @@
 import {
   basicColor,
   basicOpacity, clusterPadding, POLYGON_GROUP_ID, polygonPadding, removeLayer, removeSource,
-  singlePolygonPadding
 } from "./base";
 
 export const displayPolygonGroup = (map, mapBounds, polygons, onHover, onClick) => {
@@ -46,7 +45,6 @@ export const displayPolygonGroup = (map, mapBounds, polygons, onHover, onClick) 
     map.on('mouseenter', POLYGON_GROUP_ID, function (e) {
       map.getCanvas().style.cursor = 'pointer';
       let features = map.queryRenderedFeatures(e.point);
-      console.log(features)
       if (features.length) {
         onHover(features[0].properties)
       }
@@ -72,6 +70,11 @@ export const displayPolygonGroup = (map, mapBounds, polygons, onHover, onClick) 
     }
   })
   if (mapBounds) {
-    map.fitBounds(mapBounds, polygons.length > 1 ? clusterPadding : singlePolygonPadding)
+    if (polygons.length > 1) {
+      map.fitBounds(mapBounds, clusterPadding)
+    } else {
+      map.setCenter(polygons[0].center);
+      map.setZoom(12);
+    }
   }
 }

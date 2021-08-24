@@ -4,7 +4,6 @@ import moment from "moment/moment";
 
 import {
   Col,
-  Label,
   Row
 } from "reactstrap";
 

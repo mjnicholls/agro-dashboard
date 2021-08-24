@@ -2,10 +2,11 @@ import React, {useEffect, useRef, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
 import {
-  activeColor, activeOpacity, basicColor, clusterPadding,
+  clusterPadding,
   initialiseMap,
   removeSatelliteLayer,
-  renderSatelliteImage, basicBlueColor, basicOpacity, polygonPadding,
+  renderSatelliteImage,
+  polygonPadding,
 } from './base';
 import {displayClusters} from './clusters';
 import {displayPolygonGroup} from './polygons';
@@ -44,7 +45,7 @@ const MapBox = ({ satelliteImage, setSatelliteImage, satelliteLayer, isSatellite
       displayClusters(map.current, polygons);
 
     }
-  }, [polygons, mapBounds]);
+  }, [initialised, polygons, mapBounds]);
 
   useEffect(() => {
     return () => {
@@ -77,11 +78,13 @@ const MapBox = ({ satelliteImage, setSatelliteImage, satelliteLayer, isSatellite
     /** On polygon select: zoom to the polygon, apply satellite image, apply layer */
     if (initialised) {
       if (activePolygon) {
-        console.log("activePolygon", activePolygon)
         map.current.fitBounds(activePolygon.bbox, polygonPadding);
       } else {
-        if (mapBounds) {
+        if (polygons.length > 1) {
           map.current.fitBounds(mapBounds, clusterPadding)
+        } else {
+          map.current.setCenter(polygons[0].center);
+          map.current.setZoom(12);
         }
         setTile(null);
       }

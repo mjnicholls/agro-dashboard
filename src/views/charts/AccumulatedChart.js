@@ -9,7 +9,6 @@ import ChartContainer from './ui/ChartContainer';
 import {getAccumulatedData} from '../../services/api/chartApi';
 import {toDate} from '../../utils/dateTime';
 import {chartOptions} from "./base";
-// import {convertTemp} from '../../utils/utils';
 import {tariffError} from "../../config";
 
 const selectUnits = state => state.units.isMetric;
@@ -25,7 +24,6 @@ const AccumulatedChart = ({polyId, startDate, endDate, threshold, earliestAvaila
   const [rainData, setRainData] = useState([]);
   const [tempData, setTempData] = useState([]);
   const [tempDataThreshold, setTempDataThreshold] = useState([]);
-  const [alert, setAlert] = React.useState(null);
 
   const convertTemp = (temp, isMetric) => {
     /** Convert temperature from Kelvin to Celsius */
@@ -69,23 +67,6 @@ const AccumulatedChart = ({polyId, startDate, endDate, threshold, earliestAvaila
     setTempDataThreshold(newData)
   }, [threshold, tempData])
 
-  const htmlAlert = () => {
-    setAlert(
-      <ReactBSAlert
-        customClass="agro-alert"
-        title="Accumulated Parameters"
-        onConfirm={() => hideAlert()}
-        onCancel={() => hideAlert()}
-        showConfirm={false}
-      >
-        <AccumulatedInfo close={hideAlert} />
-      </ReactBSAlert>
-    );
-  };
-
-  const hideAlert = () => {
-    setAlert(null);
-  };
 
   const options = JSON.parse(JSON.stringify(chartOptions))
 

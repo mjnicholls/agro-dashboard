@@ -45,36 +45,13 @@ const MapBoxDraw = ({setArea, setGeoJson, setIntersection, drawRef, mode, setMod
       // displayPolygons(map.current, mapBounds, polygons);
       displayClusters(map.current, polygons);
     }
-  }, [polygons, mapBounds]);
+  }, [initialised, polygons, mapBounds]);
 
   useEffect(() => {
     if (initialised) {
       if (mode === 'select') {
         deletePreviousAreasLocal(drawRef);
         displayCropLayer(map.current, drawRef, setMode, updateArea);
-        // map.current.on('click', cropsSourceId, function (e) {
-        //   // получить feature id
-        //   let feature = e.features[0];
-        //   console.log("feature", feature)
-        //   // сравнить с предыдущим слоем
-        //   const data = drawRef.current.getAll();
-        //   if (data.features.length) {
-        //     // 2 варианта, либо тут тот же полигон - edit, либо другой - тогда его нужно удалить
-        //     data.features.forEach((f) => {
-        //       console.log("forEach", f.id)
-        //       if (f.id !== feature.id) {
-        //         // прошлый полигон - удаляем
-        //         drawRef.current.delete(f.id);
-        //       } else {
-        //         // тот же полигон - редактируем
-        //         setMode("draw")
-        //       }
-        //     })
-        //   } else {
-        //     drawRef.current.add(feature);
-        //   }
-        //   updateArea();
-        // })
       } else {
         removeCropLayer(map.current)
       }

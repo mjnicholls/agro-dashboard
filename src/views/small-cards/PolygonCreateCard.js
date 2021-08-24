@@ -37,9 +37,9 @@ const PolygonCreateCard = ({area, geoJson, intersections, mode, setMode, resetMa
   const maxPolygonArea = areaLimits.max_polygon_area || 3000;
   const dispatch = useDispatch();
 
-  const blockCreation = () => {
-    return name.length === 0 || area < minPolygonArea || area > maxPolygonArea;
-  }
+  // const blockCreation = () => {
+  //   return name.length === 0 || area < minPolygonArea || area > maxPolygonArea;
+  // }
 
   const createPolygonLocal = () => {
     setError({});
@@ -89,9 +89,9 @@ const PolygonCreateCard = ({area, geoJson, intersections, mode, setMode, resetMa
               <AllPolygonsButton />
             </Col>
           </Row>
+          <Row><Col><hr /></Col></Row>
         </CardHeader>
-        <CardBody className="overflow-auto mb-5">
-          <hr />
+        <CardBody className="overflow-auto mb-5 py-2">
           <Nav className="nav-pills-github my-3" pills>
             <NavItem>
               <NavLink
@@ -157,7 +157,7 @@ const PolygonCreateCard = ({area, geoJson, intersections, mode, setMode, resetMa
 
         <TabContent className="tab-space agro-tab card-category" activeTab={mode}>
           <TabPane tabId="draw">
-            <ol style={{paddingLeft: 0}}>
+            <ol className="pl-0">
               <li>Click on the polygon tool to activate draw mode.</li>
               <li>Place the pointer on the map and click the location of the first point to start drawing.</li>
               <li>Continue clicking at each corner of the shape until you have created the polygon.</li>
@@ -166,7 +166,7 @@ const PolygonCreateCard = ({area, geoJson, intersections, mode, setMode, resetMa
             </ol>
           </TabPane>
           <TabPane tabId="select">
-            <ol style={{paddingLeft: 0}}>
+            <ol className="pl-0">
               <li>Click on any crop to select.</li>
               <li>Double-click any point to edit.</li>
               <span className="my-3">If you can't see crops layer, please zoom out to see the territories where crops have been identified.
@@ -186,7 +186,7 @@ If there is no identified crops for your territory at the moment please use the 
             Reset
           </Button>
           <Button
-            // disabled={blockCreation()} TODO
+            // disabled={blockCreation()}
             color="primary"
             onClick={createPolygonLocal}
           >

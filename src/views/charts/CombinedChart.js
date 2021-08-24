@@ -39,8 +39,8 @@ const tabsConfig = {
       calendar: false,
       short: "D"
     },
-    "History Weather": {
-      id: "History Weather",
+    "Historical Weather": {
+      id: "Historical Weather",
       label: "Historical",
       name: "Weather Data",
       calendar: true,
@@ -201,7 +201,7 @@ const CombinedChart = ({polyId}) => {
           <HourlyChart isMetric={isMetric} onecall={onecall}/>
           : (activeTab.id === "Daily") ?
             <DailyChart isMetric={isMetric} onecall={onecall} />
-            : (activeTab.id === "History Weather") ?
+            : (activeTab.id === "Historical Weather") ?
               <HistoryWeather
                 polyId={polyId}
                 startDate={startDate}

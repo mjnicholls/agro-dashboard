@@ -17,13 +17,7 @@ const SATELLITE_SOURCE_ID = 'satellite-agro';
 export const POLYGON_GROUP_ID = 'polygon-group'
 
 export const clusterPadding = {padding: 40};
-export const singlePolygonPadding = {padding: 180};
 export const polygonPadding = {padding: {left: 20, right: 20, top: 20, bottom: 100}};
-// green
-// export const basicColor = "#006400";
-// export const activeColor = '#00FC00';
-// const blue = "#5e72e4";
-// const indigo = "#5603ad";
 const purple = "#8965e0";
 // const pink = "#f3a4b5";
 const red = "#f5365c";

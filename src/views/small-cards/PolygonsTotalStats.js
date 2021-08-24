@@ -1,5 +1,5 @@
 import React from 'react';
-import {convertTemp, totalArea} from "../../utils/utils";
+import {totalArea} from "../../utils/utils";
 
 import {
   Card,

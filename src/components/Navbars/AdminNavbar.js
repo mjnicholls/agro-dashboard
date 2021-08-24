@@ -20,12 +20,17 @@ import {
 import UnitsToggle from '../../views/agro-components/UnitsToggle'
 
 const userEmailSelector = state => state.auth.user.email;
+const selectActivePoly = state => state.state.polygon;
+const selectIsSatelliteMode = state => state.state.isSatelliteMode;
 
 const AdminNavbar = (props) => {
+
   const [collapseOpen, setCollapseOpen] = React.useState(false);
   const [color, setColor] = React.useState("navbar-transparent");
   const userEmail = useSelector(userEmailSelector);
   const dispatch = useDispatch();
+  const activePolygon = useSelector(selectActivePoly);
+  const isSatelliteMode = useSelector(selectIsSatelliteMode);
 
   React.useEffect(() => {
     window.addEventListener("resize", updateColor);
@@ -56,6 +61,16 @@ const AdminNavbar = (props) => {
   const logOut = () => {
     props.history.push('/auth/login');
     dispatch(logoutUser());
+  }
+
+  const pageName = () => {
+    let activeRoute = "AgroMonitoring Dashboard";
+    if (props.location.pathname.indexOf("/new-polygon") !== -1) {
+      activeRoute = "Create polygon"
+    } else if (activePolygon) {
+      activeRoute = activePolygon.name + ": " + (isSatelliteMode ? "Satellite data" : "Weather data")
+    }
+    return activeRoute
   }
 
   return (
@@ -101,7 +116,8 @@ const AdminNavbar = (props) => {
               </button>
             </div>
             <NavbarBrand href="#pablo" onClick={(e) => e.preventDefault()}>
-              {props.brandText}
+              {pageName()}
+              {/*{props.brandText}*/}
             </NavbarBrand>
           </div>
           <button
@@ -130,7 +146,7 @@ const AdminNavbar = (props) => {
                   nav
                   onClick={(e) => e.preventDefault()}
                 >
-                  <div className="d-none d-lg-block">{userEmail}
+                  <div className="d-none d-lg-block" style={{alignItems: "center", textOverflow: "ellipsis", overflow: "hidden", maxWidth: "150px" }}>{userEmail}
                   </div>
                   <b className="caret d-none d-lg-block d-xl-block" style={{left: "auto", right: 0, top: "60%"}} />
                   <p className="d-lg-none">{userEmail}</p>
@@ -148,10 +164,11 @@ const AdminNavbar = (props) => {
                   </NavLink>
                 </DropdownMenu>
               </UncontrolledDropdown>
-              <li><a className="btn btn-simple btn-github"
+              <li>
+                <a className="btn btn-simple btn-github"
                      role="button" href="https://wp.agromonitoring.com/dashboard/satellite"
                      target="_blank" rel="noopener noreferrer"
-              >Go to old Dashboard</a></li>
+              >Old Dashboard</a></li>
               <li className="separator d-lg-none" />
             </Nav>
           </Collapse>

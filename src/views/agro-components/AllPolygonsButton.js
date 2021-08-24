@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 
 const AllPolygonsButton = () => (
-  <NavLink to="/dashboard/polygons" className="nav-link text-primary">
+  <NavLink to="/dashboard/polygons" className="nav-link text-primary p-0">
     <Button
         color="github"
         id="0"
