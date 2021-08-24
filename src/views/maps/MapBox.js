@@ -79,17 +79,17 @@ const MapBox = ({ satelliteImage, setSatelliteImage, satelliteLayer, isSatellite
     if (initialised) {
       if (activePolygon) {
         map.current.fitBounds(activePolygon.bbox, polygonPadding);
-      } else {
+      } else if (polygons.length) {
         if (polygons.length > 1) {
           map.current.fitBounds(mapBounds, clusterPadding)
-        } else {
+        } else  {
           map.current.setCenter(polygons[0].center);
           map.current.setZoom(12);
         }
         setTile(null);
       }
     }
-  }, [initialised, activePolygon, mapBounds])
+  }, [initialised, activePolygon, mapBounds, polygons])
 
  return (
   <div className="mb-5">

@@ -62,8 +62,6 @@ export function destroyReduxState() {
 }
 
 
-
-
 export function loginUser (email, password) {
 
   return dispatch => {
@@ -103,7 +101,6 @@ export function loginUser (email, password) {
         else if (err.response && err.response.data && err.response.data.message) {
           message = err.response.data.message;
         }
-        console.log("message")
         dispatch(loginError(message || "Something went wrong"))
       })
   }
@@ -114,13 +111,12 @@ export const logoutUser = () => {
     dispatch(requestLogout())
     axiosInstance.delete(logoutURL)
       .then(() => {
-        deleteCookie(TOKEN_COOK);
+        deleteCookie(TOKEN_COOK, "/");
         dispatch(destroyReduxState());
-        // dispatch(receiveLogout());
-
+        dispatch(receiveLogout());
       })
       .catch(err => {
-        console.log("Logout error", err)
+        console.log(err)
       })
   }
 }

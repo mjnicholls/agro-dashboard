@@ -14,7 +14,7 @@ export const defaultBBox = new mapboxgl.LngLatBounds(
 );
 
 const SATELLITE_SOURCE_ID = 'satellite-agro';
-export const POLYGON_GROUP_ID = 'polygon-group'
+export const POLYGON_GROUP_ID = 'polygon-group';
 
 export const clusterPadding = {padding: 40};
 export const polygonPadding = {padding: {left: 20, right: 20, top: 20, bottom: 100}};

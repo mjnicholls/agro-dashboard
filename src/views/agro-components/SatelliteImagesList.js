@@ -42,7 +42,6 @@ const SatelliteImagesList = ({satelliteImage, setSatelliteImage, isSatellitePage
               setImages(response);
               setAvailableDates(response.map(image => moment(image.dt * 1000).format('L')));
               setSatelliteImage(response[0]);
-              console.log(response[0]);
             }
           }
         })

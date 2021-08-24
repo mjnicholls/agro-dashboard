@@ -59,7 +59,6 @@ const AdminNavbar = (props) => {
   };
 
   const logOut = () => {
-    props.history.push('/auth/login');
     dispatch(logoutUser());
   }
 

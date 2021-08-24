@@ -5,7 +5,9 @@ import {
 
 export const displayPolygonGroup = (map, mapBounds, polygons, onHover, onClick) => {
 
-  removeLayer(map, 'outline_' + POLYGON_GROUP_ID);
+  const OUTLINE_LAYER_ID = 'outline_' + POLYGON_GROUP_ID;
+
+  removeLayer(map, OUTLINE_LAYER_ID);
   removeLayer(map, POLYGON_GROUP_ID);
   removeSource(map, POLYGON_GROUP_ID)
 
@@ -31,7 +33,7 @@ export const displayPolygonGroup = (map, mapBounds, polygons, onHover, onClick) 
     },
   });
   map.addLayer({
-    id: 'outline_' + POLYGON_GROUP_ID,
+    id: OUTLINE_LAYER_ID,
     type: 'line',
     source: POLYGON_GROUP_ID,
     layout: {},
@@ -44,7 +46,7 @@ export const displayPolygonGroup = (map, mapBounds, polygons, onHover, onClick) 
   if (onHover) {
     map.on('mouseenter', POLYGON_GROUP_ID, function (e) {
       map.getCanvas().style.cursor = 'pointer';
-      let features = map.queryRenderedFeatures(e.point);
+      let features = map.queryRenderedFeatures(e.point, {layers: [POLYGON_GROUP_ID, OUTLINE_LAYER_ID]});
       if (features.length) {
         onHover(features[0].properties)
       }
@@ -55,7 +57,7 @@ export const displayPolygonGroup = (map, mapBounds, polygons, onHover, onClick) 
   }
 
   map.on('click', POLYGON_GROUP_ID, function(e) {
-    let features = map.queryRenderedFeatures(e.point);
+    let features = map.queryRenderedFeatures(e.point, {layers: [POLYGON_GROUP_ID, OUTLINE_LAYER_ID]});
     if (features.length) {
       let polygon = features[0].properties;
       polygon.bbox = typeof polygon.bbox === "string" ? JSON.parse(polygon.bbox) : polygon.bbox;

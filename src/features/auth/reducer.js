@@ -8,7 +8,6 @@ import {
 
 let token, tokenData;
 token = getCookie(TOKEN_COOK);
-console.log("token", token)
 
 if (token) {
   try {

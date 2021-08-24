@@ -1,5 +1,4 @@
 import React from "react";
-import {useSelector} from "react-redux";
 import { Switch, Redirect, useLocation } from "react-router-dom";
 // javascript plugin used to create scrollbars on windows
 import PerfectScrollbar from "perfect-scrollbar";
@@ -23,8 +22,9 @@ var ps;
 
 const Admin = (props) => {
 
-  const [activeColor, setActiveColor] = React.useState("blue");
-  const [sidebarMini, setSidebarMini] = React.useState(true);
+  const activeColor = "blue";
+  // const [activeColor, setActiveColor] = React.useState("blue");
+  // const [sidebarMini, setSidebarMini] = React.useState(true);
   const [opacity, setOpacity] = React.useState(0);
   const [sidebarOpened, setSidebarOpened] = React.useState(false);
   const mainPanelRef = React.useRef(null);
@@ -126,13 +126,13 @@ const Admin = (props) => {
 
   const handleMiniClick = () => {
     let notifyMessage = "Sidebar mini ";
-    if (document.body.classList.contains("sidebar-mini")) {
-      setSidebarMini(false);
-      notifyMessage += "deactivated...";
-    } else {
-      setSidebarMini(true);
-      notifyMessage += "activated...";
-    }
+    // if (document.body.classList.contains("sidebar-mini")) {
+    //   setSidebarMini(false);
+    //   notifyMessage += "deactivated...";
+    // } else {
+    //   setSidebarMini(true);
+    //   notifyMessage += "activated...";
+    // }
     let options = {};
     options = {
       place: "tr",

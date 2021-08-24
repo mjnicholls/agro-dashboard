@@ -13,11 +13,9 @@ import Shape from "../agro-components/Shape";
 
 const PolygonInfo = ({ polygonInFocus }) => {
 
-  console.log("polygonInFocus", polygonInFocus)
-
   return (
     <Card className="card-stats d-none d-lg-block mb-5">
-      {(polygonInFocus && polygonInFocus.id) ?
+      {polygonInFocus ?
         <>
           <CardHeader>
             <Row>

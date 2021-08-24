@@ -26,8 +26,6 @@ const HistorySoilChart = ({ polyId, startDate, endDate, earliestAvailableDate}) 
     if (startDate && endDate && polyId) {
       setIsLoading(true);
       setError(null);
-      console.log("earliestAvailableDate", earliestAvailableDate)
-      console.log("startDate", startDate)
       getHistorySoilData(polyId, Math.max(startDate, earliestAvailableDate),  Math.max(endDate, earliestAvailableDate), cancelToken)
         .then(response => {
           if (response) {
