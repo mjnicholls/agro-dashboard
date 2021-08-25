@@ -18,37 +18,42 @@ import {toDate} from "../../utils/dateTime";
 const ImageStats = ({satelliteImage, satelliteLayer, setSatelliteLayer }) => {
 
   const [stats, setStats] = useState(null);
-  // const [name, setName] = useState('');
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const cancelToken = axios.CancelToken.source();
 
   useEffect(() => {
     if (satelliteImage && satelliteLayer) {
-      setError(null);
       setStats(null);
-      let url = satelliteImage.stats[satelliteLayer.value];
-      if (!url) {
+      if (!["truecolor", "falsecolor"].includes(satelliteLayer.value)) {
+        setIsLoading(true);
+        setError(null);
         setStats(null);
-        return
+        let url = satelliteImage.stats[satelliteLayer.value];
+        if (!url) {
+          setStats(null);
+          return
+        }
+        setIsLoading(true);
+        getImageStats(url, cancelToken)
+          .then(res => {
+            setStats(res)
+          })
+          .catch(error => {
+            if (typeof error === "object") {
+              error = error.message || "Something went wrong"
+            }
+            setError(error)
+          })
+          .finally(() => {setIsLoading(false)})
+        }
       }
-      setIsLoading(true);
-      getImageStats(url, cancelToken)
-        .then(res => {
-          setStats(res)
-        })
-        .catch(error => {
-          if (typeof error === "object") {
-            error = error.message || "Something went wrong"
-          }
-          setError(error)
-        })
-        .finally(() => {setIsLoading(false)})
-    }
+
     return () => {
       cancelToken.cancel()
     }
   }, [satelliteImage, satelliteLayer])
+
   return (
     <Card className="small-card mb-5">
       <CardHeader>
@@ -106,7 +111,7 @@ const ImageStats = ({satelliteImage, satelliteLayer, setSatelliteLayer }) => {
         </div> :
           <Row>
             <Col>
-              <p className="my-3">Please select NDVI, EVI, EVI2, NRI, DSWI, or NDWI layer to see detailed statistics</p>
+              <p className="my-3">Please select NDVI, EVI, EVI2, NRI, DSWI, or NDWI layer to see vegetation indices statistics</p>
             </Col>
           </Row>}
       </ChartContainer>

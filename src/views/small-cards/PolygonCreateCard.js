@@ -102,7 +102,7 @@ const PolygonCreateCard = ({area, geoJson, intersections, mode, setMode, resetMa
         <CardHeader className="mb-0">
           <Row>
             <Col xs="6" sm="8" md="9">
-              <h5 className="card-category mb-0">create</h5>
+              <h5 className="card-category mb-0">new</h5>
               <CardTitle tag="h2">Polygon</CardTitle>
             </Col>
             <Col xs="6" sm="4" md="3">

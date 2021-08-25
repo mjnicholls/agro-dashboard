@@ -47,6 +47,8 @@ $mapHeight: 400px;
   height: 100%;
   min-height: $mapHeight;
   position: relative;
+  overflow: visible;
+
 }
 
 .small-card {
@@ -221,8 +223,8 @@ $mapHeight: 400px;
     display: none;
   }
   .rdtPicker {
-    margin-top: -250px !important;
-    margin-left: 80px;
+    //margin-top: -250px !important;
+    //margin-left: 80px;
     top: 10px;
     .rdtDays {
       td[class=rdtDay] {

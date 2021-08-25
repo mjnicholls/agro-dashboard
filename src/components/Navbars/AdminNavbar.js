@@ -65,7 +65,7 @@ const AdminNavbar = (props) => {
   const pageName = () => {
     let activeRoute = "AgroMonitoring Dashboard";
     if (props.location.pathname.indexOf("/new-polygon") !== -1) {
-      activeRoute = "Create polygon"
+      activeRoute = "New polygon"
     } else if (activePolygon) {
       activeRoute = activePolygon.name + ": " + (isSatelliteMode ? "Satellite data" : "Weather data")
     }

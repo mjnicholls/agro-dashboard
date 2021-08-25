@@ -1,6 +1,5 @@
 import React from "react";
-//BrowserRouter
-import { BrowserRouter, HashRouter, Route, Switch, Redirect } from "react-router-dom";
+import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import store from './store';
 import { Provider } from 'react-redux';
 

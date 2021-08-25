@@ -1,5 +1,5 @@
 
-export const serverBaseURL = "https://wp.agromonitoring.com/api/";
+export const serverBaseURL = "https://new.agromonitoring.com/api/";
 
 export const personalAccountBase = `${serverBaseURL}auth/`
 const agriBase = `${serverBaseURL}proxy/`;
