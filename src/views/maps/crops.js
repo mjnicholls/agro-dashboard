@@ -34,6 +34,7 @@ export const displayCropLayer = (map, drawRef, setMode, updateArea) => {
         0.7, 0.9
       ]
     },
+    filter: ["all", [">", ["*", 2, ["get", "cdpr"]], ["get", "cdsm"] ]]
   }, POLYGON_GROUP_ID);
 
   let hoveredStateId = null;

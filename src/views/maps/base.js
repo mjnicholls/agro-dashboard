@@ -68,7 +68,7 @@ export const initialiseMap = (mapContainer, map, mapBounds, onLoad, onHover, onC
   const token = store.getState().auth.token;
   map.current = new mapboxgl.Map({
     container: mapContainer,
-    style: 'mapbox://styles/mapbox/satellite-streets-v11',
+    style: 'mapbox://styles/mapbox/satellite-streets-v11?optimize=true',
     bounds: mapBounds ? mapBounds : defaultBBox,
     zoom: 9,
     accessToken: mapBoxAccessToken,
@@ -92,10 +92,15 @@ export const initialiseMap = (mapContainer, map, mapBounds, onLoad, onHover, onC
     const polygons = store.getState().polygons;
     if (polygons.length) {
       displayPolygonGroup(map.current, mapBounds, polygons, onHover, onClick);
-      displayClusters(map.current, polygons);
+      displayClusters(map.current, polygons, onHover);
     }
     onLoad()
   })
+  map.current.on('error', e => {
+    // Hide those annoying non-error errors
+    if (e && e.error.status !== 421 )
+        console.error(e);
+});
 }
 
 export const removeLayer = (map, layerId) => {

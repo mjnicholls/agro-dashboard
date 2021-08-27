@@ -9,12 +9,26 @@ import {
 
 const AgroPagination = ({ count, itemsPerPage, page, setPage }) => {
 
-  const maxPage = Math.floor(count / itemsPerPage);
+  const maxPageNumber = Math.floor(count / itemsPerPage) - 1;
+  const maxPaginationItems = 5;
 
   const pages = () => {
     let arr = [];
-    for (let i=0; i <= maxPage; i++ ) {
-      arr.push(i + 1)
+    if (maxPageNumber < 5) {
+      for (let i=0; i <= maxPageNumber; i++ ) {
+        arr.push(i + 1)
+      }
+    } else {
+      let startPage;
+      if (maxPageNumber - page < maxPaginationItems) {
+        startPage = maxPageNumber - maxPaginationItems;
+      } else {
+        startPage = page >= 2 ? page - 2 : 0;
+      }
+      let endPage = Math.min(startPage + 5, maxPageNumber);
+      for (let i = startPage; i <= endPage; i++ ) {
+        arr.push(i + 1)
+      }
     }
     return arr
   }
@@ -25,9 +39,7 @@ const AgroPagination = ({ count, itemsPerPage, page, setPage }) => {
         <PaginationItem>
           <PaginationLink
             aria-label="Previous"
-            href="#pablo"
-            onClick={(e) => {
-              e.preventDefault();
+            onClick={() => {
               if (page >= 1) {
                 setPage(page-1);
               }
@@ -47,9 +59,7 @@ const AgroPagination = ({ count, itemsPerPage, page, setPage }) => {
               key={'page_' + item}
             >
               <PaginationLink
-                href="#pablo"
-                onClick={(e) => {
-                  e.preventDefault();
+                onClick={() => {
                   setPage(item - 1);
                 }}
               >
@@ -61,10 +71,8 @@ const AgroPagination = ({ count, itemsPerPage, page, setPage }) => {
         <PaginationItem>
           <PaginationLink
             aria-label="Next"
-            href="#pablo"
-            onClick={(e) => {
-              e.preventDefault();
-              if (page <= maxPage - 1) {
+            onClick={() => {
+              if (page < maxPageNumber) {
                 setPage(page+1);
               }
             }}

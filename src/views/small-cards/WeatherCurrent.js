@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
 import {
@@ -28,12 +28,31 @@ const WeatherCurrent = () => {
   const isMetric = useSelector(selectUnits);
   const onecall = useSelector(selectOneCall);
   const dispatch = useDispatch();
+  const stableDispatch = useCallback(dispatch, []) ; // eslint-disable-line react-hooks/exhaustive-deps
+
   const activePolygon = useSelector(selectActivePoly);
   const [alert, setAlert] = useState(null);
 
   const [precipitation, setPrecipitation] = useState('');
 
-   const htmlAlert = (alerts) => {
+  useEffect(() => {
+    if (activePolygon) {
+      stableDispatch(fetchOneCall(activePolygon.center[1], activePolygon.center[0]))
+    }
+  }, [activePolygon, stableDispatch])
+
+  useEffect(() => {
+    if (onecall.data) {
+      if (onecall.data.minutely) {
+      setPrecipitation(getPreticipationInfo(onecall.data.minutely));
+    } else if (onecall.data.current) {
+      setPrecipitation(onecall.data.current.rain && onecall.data.current.rain['1h'] ?
+          'Precipitation: ' + onecall.data.current.rain['1h'] + 'mm/h' : 'No precipitation');
+    }
+    }
+  }, [onecall.data])
+
+  const htmlAlert = (alerts) => {
     setAlert(
       <ReactBSAlert
         customClass="agro-alert"
@@ -59,22 +78,9 @@ const WeatherCurrent = () => {
     );
   };
 
-  useEffect(() => {
-    if (onecall.data) {
-      if (onecall.data.minutely) {
-      setPrecipitation(getPreticipationInfo(onecall.data.minutely));
-    } else if (onecall.data.current) {
-      setPrecipitation(onecall.data.current.rain && onecall.data.current.rain['1h'] ?
-          'Precipitation: ' + onecall.data.current.rain['1h'] + 'mm/h' : 'No precipitation');
-    }
-    }
-  }, [onecall.data])
 
-  useEffect(() => {
-    if (activePolygon) {
-      dispatch(fetchOneCall(activePolygon.center[1], activePolygon.center[0]))
-    }
-  }, [activePolygon])
+
+
 
   return (
     <>

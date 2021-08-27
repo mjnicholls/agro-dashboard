@@ -55,7 +55,6 @@ $mapHeight: 400px;
   height: $mapHeight;
   overflow: auto;
   position: relative;
-  margin-bottom: 0;
 
   .card-header {
     position: sticky;
@@ -469,4 +468,34 @@ $daily-chart-width: 1000px;
 .agro-tab {
   padding: 7px !important;
   cursor: pointer;
+}
+
+.agro-select {
+  min-width: 200px;
+  max-width: 250px;
+}
+
+.agro-layer-select {
+  .react-select__control {
+    border: none;
+    border-radius: 0;
+    .react-select__value-container {
+      padding-left: 0;
+      .react-select__placeholder {
+        white-space: nowrap;
+        font-weight: 100;
+        color: $white;
+        font-size: $h2-font-size;
+      }
+    }
+    .react-select__indicators {
+      width: 20px;
+    }
+    .react-select__control--menu-is-open {
+      height: 500px;
+    }
+  }
+  .react-select__menu {
+    height: 500px !important;
+  }
 }

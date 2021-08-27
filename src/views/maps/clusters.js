@@ -2,7 +2,7 @@ import {removeLayer, removeSource} from "./base";
 
 const CLUSTER_SOURCE_ID = 'polygon_clusters';
 
-export const displayClusters = (map, polygons) => {
+export const displayClusters = (map, polygons, onHover) => {
 
   const CLUSTER_MAX_ZOOM = 12;
 
@@ -31,9 +31,7 @@ export const displayClusters = (map, polygons) => {
            type: "Point",
            coordinates: polygon.center
          },
-         properties: {
-           bbox: polygon.bbox
-         },
+         properties: polygon,
          polygonProperties: polygon
       })
     )
@@ -141,4 +139,34 @@ export const displayClusters = (map, polygons) => {
     map.fitBounds(bounds, {padding: 165});
     }
   );
+
+  if (onHover) {
+    map.on('mouseenter', 'unclustered-point', function (e) {
+      map.getCanvas().style.cursor = 'pointer';
+      let features = map.queryRenderedFeatures(e.point, {layers: ['unclustered-point']});
+      onHover(features[0].properties)
+    });
+
+    map.on('mouseenter', 'clusters', function (e) {
+      map.getCanvas().style.cursor = 'pointer';
+      let features = map.queryRenderedFeatures(e.point, {layers: ['clusters']});
+      let clusterId = features[0].properties.cluster_id;
+      let pointCount = features[0].properties.point_count
+      let clusterSource = map.getSource(CLUSTER_SOURCE_ID);
+      clusterSource.getClusterLeaves(clusterId, pointCount, 0, function(err, aFeatures){
+        if (aFeatures) {
+          let res = aFeatures.map(leaf => leaf.properties)
+          onHover(res)
+        }
+      })
+    });
+
+    // map.on('mouseleave', 'unclustered-point', function () {
+    //   onHover(null)
+    // })
+    //
+    // map.on('mouseleave', 'clusters', function () {
+    //   onHover(null)
+    // })
+  }
 }

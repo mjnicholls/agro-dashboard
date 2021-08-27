@@ -42,7 +42,7 @@ const MapBox = ({ satelliteImage, setSatelliteImage, satelliteLayer, isSatellite
     } else {
       // new polygon has been added or removed
       displayPolygonGroup(map.current, mapBounds, polygons, setPolygonInFocus, onClickPolygon);
-      displayClusters(map.current, polygons);
+      displayClusters(map.current, polygons, setPolygonInFocus);
 
     }
   }, [initialised, polygons, mapBounds]);
@@ -59,7 +59,7 @@ const MapBox = ({ satelliteImage, setSatelliteImage, satelliteLayer, isSatellite
   useEffect(() => {
     if (isSatelliteMode) {
       if (satelliteImage) {
-        setTile(satelliteImage.tile[satelliteLayer.value])
+        setTile(satelliteImage.tile[satelliteLayer])
       }
     } else {
       setTile(null)

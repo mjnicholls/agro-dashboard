@@ -3,12 +3,6 @@
  * */
 export const startSatelliteImagesSearchDate = 1262304000;
 
-export const userLevels = {
-  "free": 0,
-  "starter": 1,
-  "small": 2,
-  "corp": 3
-}
 
 // center map to London
 export const mapBoxAccessToken = 'pk.eyJ1IjoiYXZvbG92aWsiLCJhIjoiY2txdzNpdWs1MGkwZjJ3cGNrYnZua3I4aCJ9.Le6NapjFYy5FfdDXfBmvrg';
@@ -1293,7 +1287,6 @@ export const cropColorDict = {
         "visible": 1
     }
 };
-
 export const treshold = {
   celsius: {
     min: 0,
@@ -1305,3 +1298,13 @@ export const treshold = {
   }
 
 }
+export const availableLayers = [
+  {value: 'ndvi', label: 'NDVI'},
+  {value: 'evi', label: 'EVI'},
+  {value: 'evi2', label: 'EVI2'},
+  {value: 'nri', label: 'NRI'},
+  {value: 'dswi', label: 'DSWI'},
+  {value: 'ndwi', label: 'NDWI'},
+  {value: 'truecolor', label: 'True Color'},
+  {value: 'falsecolor', label: 'False Color'},
+]

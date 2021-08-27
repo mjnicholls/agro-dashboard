@@ -2,12 +2,12 @@ import React, {useEffect, useState} from 'react';
 
 import {
   Col,
-  DropdownItem,
-  DropdownMenu,
-  DropdownToggle,
   Row,
-  UncontrolledDropdown
 } from "reactstrap";
+import Select from "react-select";
+
+
+import {availableLayers} from '../../../config'
 
 const SatelliteLayers = ({satelliteImage, satelliteLayer, setSatelliteLayer}) => {
   /**
@@ -16,27 +16,40 @@ const SatelliteLayers = ({satelliteImage, satelliteLayer, setSatelliteLayer}) =>
 
   const [layers, setLayers] = useState([]);
 
+  const customStyles = {
+    menu: (provided) => ({
+      ...provided,
+      minHeight: "290px",
+    }),
+    menuList: (provided) => ({
+      ...provided,
+      minHeight: "270px",
+    }),
+};
+
   useEffect(() => {
     if (satelliteImage) {
-      let newLayers = Object.keys(satelliteImage.tile).map(layer => ({
-          label: (layer === 'truecolor') ? 'True Color' : (layer === 'falsecolor') ? 'False Color' : layer.toUpperCase(),
-          value: layer
-        })
-      )
+      let newLayers = availableLayers.filter(layer => satelliteImage.tile[layer.value])
       setLayers(newLayers)
       /** In case previously selected layer does not exist for this satellite image
        * select another layer
        * */
-      let index = newLayers.findIndex(layer => layer.value === satelliteLayer.value);
+      let index = newLayers.findIndex(layer => layer.value === satelliteLayer);
       if (index === -1) {
         setSatelliteLayer(newLayers[0])
       }
     }
   }, [satelliteImage, satelliteLayer])
 
-  const selectLayer = (e, layer) => {
-    e.preventDefault();
-    setSatelliteLayer(layer);
+  const getPlaceholder = () => {
+    let res = 'Statistics';
+    if (layers) {
+      let currentLayer = layers.find(layer => layer.value === satelliteLayer)
+      if (currentLayer) {
+        res = currentLayer.label;
+      }
+    }
+    return res
   }
 
   return  (
@@ -44,38 +57,16 @@ const SatelliteLayers = ({satelliteImage, satelliteLayer, setSatelliteLayer}) =>
         <h2 className="card-category">Layer</h2>
         <Row>
           <Col>
-              {satelliteImage ?
-                <UncontrolledDropdown>
-                <DropdownToggle
-                  caret
-                  className="btn-link btn-icon"
-                  color="default"
-                  data-toggle="dropdown"
-                  style={{width: "100%", display: "flex", alignItems: "center"}}
-                  >
-                    <h2 className="mb-0"
-                      style={{fontWeight: 100}}
-                    >
-                      {satelliteLayer.label}
-                      {/*{satelliteLayer ? satelliteLayer.label : "NDVI"}*/}
-                      </h2>
-                  </DropdownToggle>
-                <DropdownMenu aria-labelledby="dropdownMenuButton">
-              {layers.map((layer, index) => {
-                if (layer.value !== satelliteLayer.value) {
-                  return (<DropdownItem
-                    key={"layer_" + index}
-                    onClick={(e) => {
-                      selectLayer(e, layer)
-                    }}
-                  >
-                    {layer.label}
-                  </DropdownItem>)
-                }
-                return null
-              })}
-                </DropdownMenu></UncontrolledDropdown> : null
-            }
+              <Select
+                className="react-select info agro-layer-select"
+                classNamePrefix="react-select"
+                name="singleSelect"
+                value={satelliteLayer}
+                onChange={(layer) => setSatelliteLayer(layer.value)}
+                options={layers.filter(layer => layer.value !== satelliteLayer)}
+                placeholder={getPlaceholder()}
+                styles={customStyles}
+              />
           </Col>
         </Row>
       </>

@@ -37,7 +37,6 @@ const AccumulatedChart = ({polyId, startDate, endDate, threshold, earliestAvaila
     return temp * 9/5 - 459.67
   }
 
-
   useEffect(() => {
     if (startDate && endDate && polyId) {
       setIsLoading(true);
@@ -58,7 +57,7 @@ const AccumulatedChart = ({polyId, startDate, endDate, threshold, earliestAvaila
           setIsLoading(false);
         })
     }
-  }, [startDate, endDate, polyId])
+  }, [startDate, endDate, polyId, earliestAvailableDate])
 
   useEffect(() => {
     let newData = tempData.map(el => el >= threshold ? el - threshold : 0)

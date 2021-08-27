@@ -50,7 +50,7 @@ const HistoricalWeather = ({polyId, startDate, endDate, earliestAvailableDate}) 
     return () => {
       cancelToken.cancel()
     }
-  }, [polyId, startDate, endDate])
+  }, [polyId, startDate, endDate, earliestAvailableDate])
 
   const options = JSON.parse(JSON.stringify(chartOptions))
 

@@ -2,8 +2,10 @@ import {parseJwt} from "./utils";
 import {getCookie} from '../../utils/cookies'
 
 import {
-  CLEAR_LOGIN_ERROR, LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_SUCCESS, LOGOUT_FRONTEND,
-  TOKEN_COOK, LOGOUT_REQUEST
+  API_KEY_STATUS, CLEAR_LOGIN_ERROR,
+  LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE,
+  LOGOUT_REQUEST, LOGOUT_SUCCESS, LOGOUT_FRONTEND,
+  TOKEN_COOK,
 } from './actions';
 
 let token, tokenData;
@@ -27,7 +29,8 @@ const initialState =   {
     appid: null,
     tariff: null
   },
-  limits: tokenData ? tokenData.limits : null
+  limits: tokenData ? tokenData.limits : null,
+  isApiKeyValid: null
 }
 
 export default function authReducer(state = initialState, action) {
@@ -71,7 +74,6 @@ export default function authReducer(state = initialState, action) {
         isFetching: true
       })
     }
-
     case LOGOUT_SUCCESS:
       return {
         isFetching: false,
@@ -82,7 +84,8 @@ export default function authReducer(state = initialState, action) {
           appid: null,
           tariff: null
         },
-        limits: null
+        limits: null,
+        isApiKeyValid: null
       }
     case LOGOUT_FRONTEND: {
       return Object.assign({}, state, {
@@ -94,6 +97,11 @@ export default function authReducer(state = initialState, action) {
           tariff: null
         },
         limits: null
+      })
+    }
+    case API_KEY_STATUS: {
+      return Object.assign({}, state, {
+        isApiKeyValid: action.payload
       })
     }
     default:

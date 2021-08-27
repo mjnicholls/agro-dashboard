@@ -27,20 +27,19 @@ import classNames from "classnames";
 
 import AllPolygonsButton from '../agro-components/AllPolygonsButton';
 
-const selectAreaLimits = state => state.auth.limits.polygon_area;
-const selectUserTariff = state => state.auth.user.tariff;
+const selectMinPolygonArea = state => state.auth.limits.polygon_area.min_polygon_area;
+const selectMaxPolygonArea = state => state.auth.limits.polygon_area.max_polygon_area;
+const selectMaxTotalArea = state => state.auth.limits.polygon_area.max_total_polygons_area;
 const selectPolygons = state => state.polygons;
 
 const PolygonCreateCard = ({area, geoJson, intersections, mode, setMode, resetMap, mapHeight, blockResetMap}) => {
 
   const [name, setName] = useState("");
   const [error, setError] = useState({});
-  const areaLimits = useSelector(selectAreaLimits) || {};
-  const minPolygonArea = areaLimits.min_polygon_area || 0.01;
-  const maxPolygonArea = areaLimits.max_polygon_area || 3000;
+  const minPolygonArea = useSelector(selectMinPolygonArea);
+  const maxPolygonArea = useSelector(selectMaxPolygonArea);
+  const maxTotalArea = useSelector(selectMaxTotalArea);
   const dispatch = useDispatch();
-
-  const userTariff = useSelector(selectUserTariff);
   const polygons = useSelector(selectPolygons);
   // const blockCreation = () => {
   //   return name.length === 0 || area < minPolygonArea || area > maxPolygonArea;
@@ -72,18 +71,18 @@ const PolygonCreateCard = ({area, geoJson, intersections, mode, setMode, resetMa
       let err = area < minPolygonArea ? "Polygon's area should be more than " + minPolygonArea + " ha" : "Polygon's area should not exceed " + maxPolygonArea + " ha. "
       errorMessage = errorMessage + err;
     }
-    if (area) {
-      let totalA = totalArea(polygons);
-      let potentialArea = parseFloat(area) + totalA;
-      if (userTariff === "free" && potentialArea > 1000) {
-        errorMessage = errorMessage + " Total polygons area cannot exceed 1000 ha"
+    if (area && maxTotalArea > 0) {
+      console.log("parseFloat(area)", parseFloat(area))
+      console.log(maxTotalArea - totalArea(polygons))
+      if (parseFloat(area) > maxTotalArea - totalArea(polygons)) {
+        errorMessage = errorMessage + ` Total polygons area cannot exceed ${maxTotalArea} ha`
       }
     }
     if (Object.keys(newError).length || errorMessage.length) {
       setError(newError);
       dispatch(notifyError(errorMessage));
       return
-    };
+    }
     let data = {
       name: name,
       geo_json: geoJson

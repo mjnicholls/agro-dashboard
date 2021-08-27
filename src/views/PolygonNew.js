@@ -8,7 +8,6 @@ import {
 import MapBoxDraw from './maps/MapBoxDraw';
 import PolygonCreateCard from './small-cards/PolygonCreateCard';
 
-
 const PolygonNew = () => {
   /** Draw a new polygon, give it a name */
 
@@ -17,7 +16,6 @@ const PolygonNew = () => {
   const [intersection, setIntersection] = React.useState(false);
   const [mode, setMode] = React.useState("draw");
   const [mapHeight, setMapHeight] = useState(550);
-
   const drawRef = React.useRef(null);
 
   useEffect(() => {
@@ -44,35 +42,33 @@ const PolygonNew = () => {
   }
 
   return (
-     <>
-      <div className="content">
-        <Row>
-          <Col md="8">
-            <MapBoxDraw
-              setArea={setArea}
-              setGeoJson={setGeoJson}
-              setIntersection={setIntersection}
-              drawRef={drawRef}
-              mode={mode}
-              setMode={setMode}
-              mapHeight={mapHeight}
-            />
-          </Col>
-          <Col md="4">
-            <PolygonCreateCard
-              area={area}
-              geoJson={geoJson}
-              intersections={intersection}
-              mode={mode}
-              setMode={setMode}
-              resetMap={resetMap}
-              blockResetMap={blockResetMap}
-              mapHeight={mapHeight}
-            />
-          </Col>
-        </Row>
-      </div>
-     </>
+    <>
+      <Row>
+        <Col md="8">
+          <MapBoxDraw
+            setArea={setArea}
+            setGeoJson={setGeoJson}
+            setIntersection={setIntersection}
+            drawRef={drawRef}
+            mode={mode}
+            setMode={setMode}
+            mapHeight={mapHeight}
+          />
+        </Col>
+        <Col md="4">
+          <PolygonCreateCard
+            area={area}
+            geoJson={geoJson}
+            intersections={intersection}
+            mode={mode}
+            setMode={setMode}
+            resetMap={resetMap}
+            blockResetMap={blockResetMap}
+            mapHeight={mapHeight}
+          />
+        </Col>
+      </Row>
+    </>
   )
 }
 

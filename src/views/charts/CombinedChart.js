@@ -2,8 +2,6 @@ import React, {useEffect, useState} from 'react';
 import {useSelector} from 'react-redux';
 
 import {
-  Button,
-  ButtonGroup,
   Card,
   CardHeader,
   CardBody,
@@ -20,47 +18,38 @@ import DatePickerFromTo from './ui/DatePickerFromTo';
 import {AccumulatedChart, DailyChart, HourlyChart, HistoryWeather, HistorySoilChart} from './'
 import {getDateInPast} from "../../utils/dateTime";
 import {defaultStartHistoryWeatherCharts, treshold} from "../../config";
+import TabsSelector from './ui/TabsSelector';
 
 const selectOneCall = state => state.onecall;
 const selectUnits = state => state.units.isMetric;
 
-const tabsConfig = {
-    Hourly: {
-      id: "Hourly",
-      label: "Forecast",
-      name: "Hourly",
-      calendar: false,
-      short: "H"
-    },
-    Daily: {
-      id: "Daily",
-      label: "Forecast",
-      name: "Daily",
-      calendar: false,
-      short: "D"
-    },
-    "Historical Weather": {
-      id: "Historical Weather",
-      label: "Historical",
-      name: "Weather Data",
-      calendar: true,
-      short: "HW"
-    },
-    "Historical Soil": {
-      id: "Historical Soil",
-      label: "Historical",
-      name: "Soil Data",
-      calendar: true,
-      short: "S"
-    },
-    Accumulated: {
-      id: "Accumulated",
-      label: "Accumulated",
-      name: "Parameters",
-      calendar: true,
-      short: "A"
-    }
+const weatherTabs = [
+  {
+    id: "Hourly",
+    label: "Hourly Forecast",
+    calendar: false,
+  },
+  {
+    id: "Daily",
+    label: "Daily Forecast",
+    calendar: false,
+  },
+  {
+    id: "Historical Weather",
+    label: "Historical Weather Data",
+    calendar: true,
+  },
+  {
+    id: "Historical Soil",
+    label: "Historical Soil Data",
+    calendar: true,
+  },
+  {
+    id: "Accumulated",
+    label: "Accumulated Parameters",
+    calendar: true,
   }
+]
 
 const selectLimitPrec = state => state.auth.limits.history.weather_history_accumulated_precipitation;
 const selectLimitTemp = state => state.auth.limits.history.weather_history_accumulated_temperature;
@@ -69,7 +58,7 @@ const selectLimitHistoryWeather = state => state.auth.limits.history.weather_his
 
 const CombinedChart = ({polyId}) => {
 
-  const [activeTab, setActiveTab] = useState(tabsConfig.Hourly);
+  const [activeTab, setActiveTab] = useState(weatherTabs[0]);
   const isMetric = useSelector(selectUnits);
   const onecall = useSelector(selectOneCall);
 
@@ -139,31 +128,15 @@ const CombinedChart = ({polyId}) => {
     })}>
         <CardHeader>
           <Row>
-            <Col className="text-left" xs="4">
-              <h5 className="card-category">{activeTab.label}</h5>
-              <CardTitle tag="h2">{activeTab.name}</CardTitle>
+            <Col className="text-left" xs="6" md="4">
+              <h5 className="card-category">{activeTab.label.split(" ")[0]}</h5>
+              <CardTitle tag="h2">{activeTab.label.split(" ").slice(1).join(" ")}</CardTitle>
             </Col>
-            <Col xs="8">
-              <ButtonGroup
-                className="btn-group-toggle float-right"
-                data-toggle="buttons"
-              >
-                {Object.entries(tabsConfig).map((tab, index) => <Button
-                  color="github" id={index} size="sm" tag="label" key={tab}
-                  className={classNames("btn-simple", {
-                    active: activeTab.id === tab[0],
-                  })}
-                  onClick={() => setActiveTab(tab[1])}
-                  style={{padding: "5px 10px"}}
-                >
-                  <span className="d-none d-sm-block d-md-block d-lg-block d-xl-block">
-                    {tab[0]}
-                  </span>
-                  <span className="d-block d-sm-none">
-                    {tab[1].short}
-                  </span>
-                </Button>)}
-              </ButtonGroup>
+            <Col xs="6" md="8">
+              <TabsSelector
+                activeTab={activeTab}
+                setActiveTab={setActiveTab}
+                options={weatherTabs} />
             </Col>
           </Row>
         </CardHeader>

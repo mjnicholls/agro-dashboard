@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import {useSelector} from 'react-redux';
 import axios from "axios/index";
 
 import {
@@ -15,27 +16,28 @@ import SatelliteLayerDropdown from './ui/SatelliteLayers';
 import {getImageStats} from '../../services/api/polygonApi';
 import {toDate} from "../../utils/dateTime";
 
+const selectActivePoly = state => state.state.polygon;
+
 const ImageStats = ({satelliteImage, satelliteLayer, setSatelliteLayer }) => {
 
   const [stats, setStats] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+
   const cancelToken = axios.CancelToken.source();
+  const activePolygon = useSelector(selectActivePoly);
+
+  // const stableCancelToken= useMemo(() => cancelToken, []) ; // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
-    if (satelliteImage && satelliteLayer) {
-      setStats(null);
-      if (!["truecolor", "falsecolor"].includes(satelliteLayer.value)) {
-        setIsLoading(true);
-        setError(null);
-        setStats(null);
-        let url = satelliteImage.stats[satelliteLayer.value];
-        if (!url) {
-          setStats(null);
-          return
-        }
-        setIsLoading(true);
-        getImageStats(url, cancelToken)
+    if (satelliteImage && activePolygon) {
+      setIsLoading(true);
+      setError(null);
+      if (["truecolor", "falsecolor"].includes(satelliteLayer)) {
+        setIsLoading(false);
+        setStats("Please select NDVI, EVI, EVI2, NRI, DSWI, or NDWI layer to see vegetation indices' statistics")
+      } else {
+        getImageStats(satelliteImage.stats[satelliteLayer], cancelToken)
           .then(res => {
             setStats(res)
           })
@@ -43,16 +45,20 @@ const ImageStats = ({satelliteImage, satelliteLayer, setSatelliteLayer }) => {
             if (typeof error === "object") {
               error = error.message || "Something went wrong"
             }
-            setError(error)
+            setStats(null);
+            setError(error);
           })
           .finally(() => {setIsLoading(false)})
-        }
       }
+    } else {
+      setStats(null);
+      setError(null);
+    }
 
     return () => {
       cancelToken.cancel()
     }
-  }, [satelliteImage, satelliteLayer])
+  }, [satelliteImage, satelliteLayer, activePolygon])
 
   return (
     <Card className="small-card mb-5">
@@ -60,7 +66,6 @@ const ImageStats = ({satelliteImage, satelliteLayer, setSatelliteLayer }) => {
         <Row>
           <Col>
             <SatelliteLayerDropdown
-              // name={name}
               satelliteImage={satelliteImage}
               satelliteLayer={satelliteLayer}
               setSatelliteLayer={setSatelliteLayer}
@@ -73,47 +78,46 @@ const ImageStats = ({satelliteImage, satelliteLayer, setSatelliteLayer }) => {
         isLoading={isLoading}
         error={error}
       >
-        {stats ? <div>
-            <Table>
-            <thead>
-              <tr>
-                <th>{toDate(satelliteImage.dt)}</th>
-                <th>{satelliteLayer.label}</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>max</td>
-                <td>{stats.max.toFixed(2)}</td>
-              </tr>
-              <tr>
-                <td>mean</td>
-                <td>{stats.mean.toFixed(2)}</td>
-              </tr>
-              <tr>
-                 <td>median</td>
-                 <td>{stats.median.toFixed(2)}</td>
-               </tr>
-               <tr>
-                 <td>min</td>
-                 <td>{stats.min.toFixed(2)}</td>
-               </tr>
-               <tr>
-                 <td>deviation</td>
-                 <td>{stats.std.toFixed(2)}</td>
-               </tr>
-               <tr>
-                 <td>num</td>
-                 <td>{stats.num}</td>
-               </tr>
-             </tbody>
-          </Table>
-        </div> :
-          <Row>
+        <Row>
             <Col>
-              <p className="my-3">Please select NDVI, EVI, EVI2, NRI, DSWI, or NDWI layer to see vegetation indices statistics</p>
+              {stats ? (typeof stats === "string" ?
+                <p className="my-3">{stats}</p> :
+              <Table>
+                <thead>
+                  <tr>
+                    <th>{toDate(satelliteImage.dt)}</th>
+                    <th>{satelliteLayer.label}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>max</td>
+                    <td>{stats.max.toFixed(2)}</td>
+                  </tr>
+                  <tr>
+                    <td>mean</td>
+                    <td>{stats.mean.toFixed(2)}</td>
+                  </tr>
+                  <tr>
+                     <td>median</td>
+                     <td>{stats.median.toFixed(2)}</td>
+                  </tr>
+                  <tr>
+                    <td>min</td>
+                    <td>{stats.min.toFixed(2)}</td>
+                  </tr>
+                  <tr>
+                    <td>deviation</td>
+                    <td>{stats.std.toFixed(2)}</td>
+                  </tr>
+                  <tr>
+                    <td>num</td>
+                    <td>{stats.num}</td>
+                  </tr>
+                </tbody>
+              </Table>) : null}
             </Col>
-          </Row>}
+          </Row>
       </ChartContainer>
     </CardBody>
   </Card>)

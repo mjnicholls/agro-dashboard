@@ -6,7 +6,7 @@ const agriBase = `${serverBaseURL}proxy/`;
 
 export const loginURL = `${personalAccountBase}auth/login`
 export const logoutURL = `${personalAccountBase}auth/logout`
-
+export const apiKeyStatus = `${personalAccountBase}appid/status`
 export const polygonsEndpoint = `${agriBase}polygons`
 export const polygonCreate = `${agriBase}polygon`
 export const polygonDelete = `${agriBase}polygon/`

@@ -24,7 +24,6 @@ import {setActivePoly} from "../../features/state/actions";
 
 
 const PolygonTable = ({data, setActivePolygon}) => {
-  // pagination должно взаимодействовать с tableData
 
   const dispatch = useDispatch();
 
@@ -38,7 +37,6 @@ const PolygonTable = ({data, setActivePolygon}) => {
   });
 
   const itemsPerPage = 10;
-
 
   useEffect(() => {
     setTableData(data);

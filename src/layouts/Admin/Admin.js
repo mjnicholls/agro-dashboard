@@ -1,9 +1,11 @@
 import React from "react";
-import { Switch, Redirect, useLocation } from "react-router-dom";
+import {useSelector} from "react-redux";
+import { Redirect, Route, Switch, useLocation } from "react-router-dom";
 // javascript plugin used to create scrollbars on windows
 import PerfectScrollbar from "perfect-scrollbar";
 // react plugin for creating notifications over the dashboard
 import NotificationAlert from "react-notification-alert";
+import { Col, Row } from "reactstrap";
 
 // core components
 import AdminNavbar from "components/Navbars/AdminNavbar.js";
@@ -11,13 +13,16 @@ import Footer from "components/Footer/Footer.js";
 import Sidebar from "components/Sidebar/Sidebar2.js";
 // import FixedPlugin from "components/FixedPlugin/FixedPlugin.js";
 
+import PropagateLoader from 'react-spinners/PropagateLoader';
+
 import routes from "routes.js";
 
 import logo from "assets/img/agro-logo.png";
-import AuthRoute from '../../services/AuthRoute'
 
 
 var ps;
+
+const selectIsApiKeyValid = state => state.auth.isApiKeyValid;
 
 
 const Admin = (props) => {
@@ -30,6 +35,7 @@ const Admin = (props) => {
   const mainPanelRef = React.useRef(null);
   const notificationAlertRef = React.useRef(null);
   const location = useLocation();
+  const isApiKeyValid = useSelector(selectIsApiKeyValid);
 
   React.useEffect(() => {
     document.documentElement.scrollTop = 0;
@@ -91,7 +97,7 @@ const Admin = (props) => {
       }
       if (prop.layout === "/dashboard") {
         return (
-          <AuthRoute
+          <Route
             path={prop.layout + prop.path}
             component={prop.component}
             key={key}
@@ -188,10 +194,28 @@ const Admin = (props) => {
           sidebarOpened={sidebarOpened}
           toggleSidebar={toggleSidebar}
         />
-        <Switch>
-          {getRoutes(routes)}
-          <Redirect from="*" to="/dashboard/polygons" />
-        </Switch>
+
+        <div className="content">
+          {isApiKeyValid ?
+            <Switch>
+              {getRoutes(routes)}
+              <Redirect from="*" to="/dashboard/polygons" />
+            </Switch> :
+              <Row>
+                <Col className="text-center my-5 align-self-center">
+                  <div className="my-5">
+                    <div>
+                      <PropagateLoader color="#f2f2f2" size={15}/>
+                      <br />
+                    </div>
+                    {(isApiKeyValid === false) &&
+                      <p className="my-3">Synchronizing API key... It might take a few minutes</p>
+                    }
+                  </div>
+                </Col>
+              </Row>
+              }
+        </div>
         {
           // we don't want the Footer to be rendered on full screen maps page
           props.location.pathname.indexOf("full-screen-map") !== -1 ? null : (

@@ -13,11 +13,24 @@ import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
 import Notifications from './views/agro-components/Notifications';
 import AuthLayout from "layouts/Auth/Auth.js";
 import AdminLayout from "layouts/Admin/Admin.js";
+import Login from './views/pages/Login';
 import {fetchPolygons} from "./features/polygons/actions";
+import {checkApiKey} from './features/auth/actions';
+import AuthRoute from './services/AuthRoute';
 
-if (store.getState().auth.token) {
-  store.dispatch(fetchPolygons())
+const setState = () => {
+  if (store.getState().auth.token) {
+    store.dispatch(checkApiKey())
+    if (store.getState().auth.isApiKeyValid) {
+      store.dispatch(fetchPolygons())
+    }
+    else {
+      setTimeout(setState, 20000)
+    }
+  }
 }
+
+setState();
 
 const App = () => {
 
@@ -26,8 +39,7 @@ const App = () => {
       <BrowserRouter>
         <Switch>
           <Route path="/auth" render={(props) => <AuthLayout {...props} />} />
-          <Route path="/dashboard" render={(props) => <AdminLayout {...props} />} />
-          {/*<Route path="/rtl" render={(props) => <RTLLayout {...props} />} />*/}
+          <AuthRoute path="/dashboard" render={(props) => <AdminLayout {...props} /> } />
           <Redirect from="/" to="/dashboard/polygons" />
         </Switch>
       </BrowserRouter>

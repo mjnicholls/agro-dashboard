@@ -51,7 +51,7 @@ const HistoricalSoilChart = ({ polyId, startDate, endDate, earliestAvailableDate
     return () => {
       cancelToken.cancel()
     }
-  }, [startDate, endDate, polyId])
+  }, [startDate, endDate, polyId, earliestAvailableDate])
 
   const options = JSON.parse(JSON.stringify(chartOptions))
 

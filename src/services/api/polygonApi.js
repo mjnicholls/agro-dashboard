@@ -56,8 +56,10 @@ export const getImageStats = (url, cancelToken) => {
   let config = {
     cancelToken: cancelToken.token,
   };
-  return axiosInstance.get(url, config)
-    .then(response => response.data)
+  return axiosInstance.get(url)
+    .then(response => {
+      return response.data
+    })
     .catch(err => {
       throw new Error(err)})
 }

@@ -1,9 +1,10 @@
 import {axiosInstance} from "../../services/base";
-import {loginURL, logoutURL} from "../../services/api";
+import {apiKeyStatus, loginURL, logoutURL} from "../../services/api";
 import {deleteCookie, setCookie} from '../../utils/cookies';
 import {parseJwt} from "./utils";
 import {fetchPolygons} from '../polygons/actions'
 
+export const API_KEY_STATUS = 'API_KEY_STATUS';
 export const LOGIN_REQUEST = 'LOGIN_REQUEST'
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
 export const LOGIN_FAILURE = 'LOGIN_FAILURE'
@@ -37,6 +38,13 @@ const loginError = (message) => {
   }
 }
 
+export const setApiKeyStatus = (status) => {
+  return {
+    type: API_KEY_STATUS,
+    payload: status
+  }
+}
+
 export const clearLoginError = () => {
   return {
     type: CLEAR_LOGIN_ERROR,
@@ -55,14 +63,14 @@ export function receiveLogout() {
   }
 }
 
-export function destroyReduxState() {
+export const destroyReduxState = () => {
   return {
     type: "DESTROY_STATE"
   }
 }
 
 
-export function loginUser (email, password) {
+export const loginUser = (email, password) => {
 
   return dispatch => {
     dispatch(requestLogin(email))
@@ -90,8 +98,8 @@ export function loginUser (email, password) {
           user: tokenInfo.data,
           limits: tokenInfo.limits
         }
-        dispatch(receiveLogin(data))
-        dispatch(fetchPolygons())
+        dispatch(receiveLogin(data));
+        dispatch(checkApiKey());
       })
       .catch(err => {
         let message;
@@ -121,5 +129,17 @@ export const logoutUser = () => {
   }
 }
 
-
-
+export const checkApiKey = () => {
+  console.log("checkApiKey")
+  return dispatch => {
+    axiosInstance.get(apiKeyStatus)
+      .then(() => {
+        dispatch(setApiKeyStatus(true))
+        dispatch(fetchPolygons())
+      })
+      .catch(err => {
+        console.log(err) // TODO test
+        dispatch(setApiKeyStatus(false))
+      })
+  }
+}
