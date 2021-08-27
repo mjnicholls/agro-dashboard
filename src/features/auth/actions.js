@@ -130,7 +130,6 @@ export const logoutUser = () => {
 }
 
 export const checkApiKey = () => {
-  console.log("checkApiKey")
   return dispatch => {
     axiosInstance.get(apiKeyStatus)
       .then(() => {
