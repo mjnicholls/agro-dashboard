@@ -166,9 +166,10 @@ const HourlyChart = ({isMetric, onecall}) => {
         let windSpeed = "Wind speed: " + formatWindSpeed(source, isMetric);
         let pressure = "Pressure: " + formatPressure(source);
         let humidity = "Humidity: " + formatHumidity(source);
+        let dewPoint = "Dew point: " + formatTemp(source.dew_point, isMetric);
         let uvi = "UVI index: " + formatUvi(source);
         let clouds = "Clouds: " +formatClouds(source);
-        return ["", windSpeed, pressure, humidity, uvi, clouds];
+        return ["", windSpeed, pressure, humidity, dewPoint, uvi, clouds];
       }
 
     }
