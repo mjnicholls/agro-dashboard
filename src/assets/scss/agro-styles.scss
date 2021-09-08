@@ -82,7 +82,7 @@ $mapHeight: 400px;
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: 2;
+  z-index: 3;
   border-radius: 0;
 
   .satellite-images-list {
@@ -470,10 +470,7 @@ $daily-chart-width: 1000px;
   cursor: pointer;
 }
 
-.agro-select {
-  min-width: 200px;
-  max-width: 250px;
-}
+
 
 .agro-layer-select {
   .react-select__control {

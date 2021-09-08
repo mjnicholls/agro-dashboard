@@ -12,7 +12,6 @@ import {tariffError} from "../../config";
 const selectUnits = state => state.units.isMetric;
 
 const AccumulatedChart = ({polyId, startDate, endDate, threshold, earliestAvailableDate}) => {
-  const [data, setData] = useState([]);
 
   const [error, setError] = useState(startDate ? null : tariffError);
   const [isLoading, setIsLoading] = useState(startDate);
@@ -21,13 +20,11 @@ const AccumulatedChart = ({polyId, startDate, endDate, threshold, earliestAvaila
 
   const [rainData, setRainData] = useState([]);
   const [tempData, setTempData] = useState([]);
-  const [tempDataThreshold, setTempDataThreshold] = useState([]);
 
   const convertTemp = (temp, isMetric) => {
     /** Convert temperature from Kelvin to Celsius */
     return isMetric ? kelvinToCelsius(temp) :  kelvinToFahrenheit(temp);
   }
-
 
   const kelvinToCelsius = (temp) => {
     return temp - 273.15
@@ -41,11 +38,12 @@ const AccumulatedChart = ({polyId, startDate, endDate, threshold, earliestAvaila
     if (startDate && endDate && polyId) {
       setIsLoading(true);
       setError(null);
-      getAccumulatedData(polyId, Math.max(startDate, earliestAvailableDate), Math.max(endDate, earliestAvailableDate))
+      let thresholdKelvin = isMetric ? (parseInt(threshold) + 273.15) : (parseInt(threshold) + 459.67) * 5/9;
+      getAccumulatedData(polyId, Math.max(startDate, earliestAvailableDate), Math.max(endDate, earliestAvailableDate), thresholdKelvin)
         .then(res => {
-          setData(res);
-          setRainData(res.map(el => el.rain.toFixed(2)));
-          setTempData(res.map(el => convertTemp(el.temp, isMetric)));
+          let [tempData, rainData] = res;
+          setTempData(tempData);
+          setRainData(rainData);
         })
         .catch(err => {
           if (typeof err === "object") {
@@ -57,13 +55,7 @@ const AccumulatedChart = ({polyId, startDate, endDate, threshold, earliestAvaila
           setIsLoading(false);
         })
     }
-  }, [startDate, endDate, polyId, earliestAvailableDate])
-
-  useEffect(() => {
-    let newData = tempData.map(el => el >= threshold ? el - threshold : 0)
-    setTempDataThreshold(newData)
-  }, [threshold, tempData])
-
+  }, [startDate, endDate, polyId, earliestAvailableDate, threshold, isMetric])
 
   const options = JSON.parse(JSON.stringify(chartOptions))
 
@@ -122,7 +114,7 @@ const AccumulatedChart = ({polyId, startDate, endDate, threshold, earliestAvaila
     gradientStrokeBlue.addColorStop(0, "rgba(29,140,248,0)");
 
     return {
-      labels: data.map(el => toDate(el.dt)),
+      labels: tempData.map(el => toDate(el.dt)),
       datasets: [
         {
           label: "Temperature",
@@ -139,8 +131,8 @@ const AccumulatedChart = ({polyId, startDate, endDate, threshold, earliestAvaila
           pointHoverRadius: 4,
           pointHoverBorderWidth: 15,
           pointRadius: 1,
-          data: tempDataThreshold
-          // data: tempData.map(el => el > threshold ? el - threshold : 0)
+          // data: tempDataThreshold
+          data: tempData.map(el => el.temp ? convertTemp(el.temp, isMetric) : 0)
         },
         {
           label: "Rainfall",
@@ -158,7 +150,7 @@ const AccumulatedChart = ({polyId, startDate, endDate, threshold, earliestAvaila
           pointHoverRadius: 4,
           pointHoverBorderWidth: 15,
           pointRadius: 1,
-          data: rainData,
+          data: rainData.map(el => el.rain.toFixed(2)),
           type: "bar"
         }
       ],

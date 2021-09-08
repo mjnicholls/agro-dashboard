@@ -9,6 +9,22 @@ import Select from "react-select";
 
 const TabsSelector = ({activeTab, setActiveTab, options}) => {
 
+  const customStyles = {
+    menu: (provided, state) => ({
+      ...provided,
+      minHeight: "230px",
+    }),
+    menuList: (provided, state) => ({
+      ...provided,
+      minHeight: "210px",
+    }),
+    input: (provided, state) => ({
+      ...provided,
+      minWidth: "200px",
+      maxWidth: "250px",
+    })
+  };
+
   return (
     <>
       <ButtonGroup
@@ -28,13 +44,14 @@ const TabsSelector = ({activeTab, setActiveTab, options}) => {
       </ButtonGroup>
 
       <Select
-        className="agro-select react-select info d-lg-none float-right"
+        className="react-select info d-lg-none float-right"
         classNamePrefix="react-select"
         name="singleSelect"
         value={activeTab.label}
         onChange={(tab) => setActiveTab(tab)}
         options={options}
         placeholder={activeTab.id}
+        styles={customStyles}
       />
     </>
   )

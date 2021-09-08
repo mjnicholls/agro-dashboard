@@ -40,7 +40,6 @@ axiosInstance.interceptors.response.use(response => response,
     if (error.response && error.response.status === 401) {
       store.dispatch(receiveLogout());
     } else {
-      console.log("__", error)
       let message = "Something went wrong";
       if (error.response && error.response.data && error.response.data.message) {
         message = error.response.data.message;

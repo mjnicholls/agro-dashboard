@@ -44,9 +44,9 @@ export const getHistorySoilData = (polygonId, start, end, cancelToken) => {
       throw new Error(err)})
 }
 
-const getAccumulatedTemperature = (polygonId, start, end) => {
+const getAccumulatedTemperature = (polygonId, start, end, threshold) => {
   /** Get accumulated temperature data by polygon */
-  let url = `${historyAccumulatedTemperature}?polyid=${polygonId}&start=${start}&end=${end}`
+  let url = `${historyAccumulatedTemperature}?polyid=${polygonId}&start=${start}&end=${end}&threshold=${threshold}`
   return axiosInstance.get(url)
     .then(response => {
       if (response.data) {
@@ -63,9 +63,9 @@ const getAccumulatedTemperature = (polygonId, start, end) => {
       throw new Error(err)})
 }
 
-const getAccumulatedPrecipitation = (polygonId, start, end) => {
+const getAccumulatedPrecipitation = (polygonId, start, end, threshold) => {
   /** Get accumulated temperature data by polygon */
-  let url = `${historyAccumulatedPrecipitation}?polyid=${polygonId}&start=${start}&end=${end}`
+  let url = `${historyAccumulatedPrecipitation}?polyid=${polygonId}&start=${start}&end=${end}&threshold=${threshold}`
   return axiosInstance.get(url)
     .then(response => {
       if (response.data) {
@@ -82,17 +82,17 @@ const getAccumulatedPrecipitation = (polygonId, start, end) => {
       throw new Error(err)})
 }
 
-export const getAccumulatedData = async (polygonId, start, end) => {
+export const getAccumulatedData = async (polygonId, start, end, threshold) => {
   /** Get accumulated data */
   start = Math.ceil(start/1000);
   end = Math.floor(end/1000);
 
   let [tempData, rainData] = await Promise.all([
-    getAccumulatedTemperature(polygonId, start, end),
-    getAccumulatedPrecipitation(polygonId, start, end)
+    getAccumulatedTemperature(polygonId, start, end, threshold),
+    getAccumulatedPrecipitation(polygonId, start, end, threshold)
   ])
 
-  let res = [];
+  // let res = [];
   if (tempData.length !== rainData.length) {
     if (tempData.length > rainData.length) {
       tempData = tempData.slice(0, rainData.length)
@@ -100,13 +100,14 @@ export const getAccumulatedData = async (polygonId, start, end) => {
       rainData = rainData.slice(0, tempData.length)
     }
   }
-  for (let i=0; i<rainData.length; i++) {
-    res.push({
-      ...rainData[i],
-      temp: (tempData[i].temp - (273.15 * tempData[i].count))
-    })
-  }
-  return res
+  // for (let i=0; i<rainData.length; i++) {
+  //   res.push({
+  //     ...rainData[i],
+  //     temp: tempData[i].temp
+  //     // temp: (tempData[i].temp - (273.15 * tempData[i].count))
+  //   })
+  // }
+  return [tempData, rainData]
 }
 
 export const getHistoryWeatherData = (polygonId, start, end, cancelToken) => {

@@ -72,8 +72,6 @@ const PolygonCreateCard = ({area, geoJson, intersections, mode, setMode, resetMa
       errorMessage = errorMessage + err;
     }
     if (area && maxTotalArea > 0) {
-      console.log("parseFloat(area)", parseFloat(area))
-      console.log(maxTotalArea - totalArea(polygons))
       if (parseFloat(area) > maxTotalArea - totalArea(polygons)) {
         errorMessage = errorMessage + ` Total polygons area cannot exceed ${maxTotalArea} ha`
       }

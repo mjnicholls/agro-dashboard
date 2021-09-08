@@ -137,7 +137,6 @@ export const checkApiKey = () => {
         dispatch(fetchPolygons())
       })
       .catch(err => {
-        console.log(err)
         dispatch(setApiKeyStatus(false))
       })
   }
