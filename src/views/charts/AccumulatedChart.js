@@ -59,11 +59,9 @@ const AccumulatedChart = ({polyId, startDate, endDate, threshold, earliestAvaila
   }, [startDate, endDate, polyId, earliestAvailableDate, threshold, isMetric])
 
   useEffect(() => {
-    let convertedTemp = []
-    if (isMetric) {
-      convertedTemp = tempData.map(el => el.temp ? el.temp - (273.15 * el.count) : 0);
-    } else {
-      convertedTemp = tempData.map(el => el.temp);
+    let convertedTemp = tempData.map(el => el.temp ? el.temp - (273.15 * el.count) : 0);
+    if (!isMetric) {
+      convertedTemp = convertedTemp.map(el => el ? el * 9/5 + 32 : 32)
     }
     setConvertedTempData(convertedTemp);
   }, [isMetric, tempData])
