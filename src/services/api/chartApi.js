@@ -92,7 +92,6 @@ export const getAccumulatedData = async (polygonId, start, end, threshold) => {
     getAccumulatedPrecipitation(polygonId, start, end, threshold)
   ])
 
-  // let res = [];
   if (tempData.length !== rainData.length) {
     if (tempData.length > rainData.length) {
       tempData = tempData.slice(0, rainData.length)
@@ -100,13 +99,6 @@ export const getAccumulatedData = async (polygonId, start, end, threshold) => {
       rainData = rainData.slice(0, tempData.length)
     }
   }
-  // for (let i=0; i<rainData.length; i++) {
-  //   res.push({
-  //     ...rainData[i],
-  //     temp: tempData[i].temp
-  //     // temp: (tempData[i].temp - (273.15 * tempData[i].count))
-  //   })
-  // }
   return [tempData, rainData]
 }
 

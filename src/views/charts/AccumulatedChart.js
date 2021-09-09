@@ -20,6 +20,7 @@ const AccumulatedChart = ({polyId, startDate, endDate, threshold, earliestAvaila
 
   const [rainData, setRainData] = useState([]);
   const [tempData, setTempData] = useState([]);
+  const [convertedTempData, setConvertedTempData] = useState([]);
 
   const convertTemp = (temp, isMetric) => {
     /** Convert temperature from Kelvin to Celsius */
@@ -56,6 +57,16 @@ const AccumulatedChart = ({polyId, startDate, endDate, threshold, earliestAvaila
         })
     }
   }, [startDate, endDate, polyId, earliestAvailableDate, threshold, isMetric])
+
+  useEffect(() => {
+    let convertedTemp = []
+    if (isMetric) {
+      convertedTemp = tempData.map(el => el.temp ? el.temp - (273.15 * el.count) : 0);
+    } else {
+      convertedTemp = tempData.map(el => el.temp);
+    }
+    setConvertedTempData(convertedTemp);
+  }, [isMetric, tempData])
 
   const options = JSON.parse(JSON.stringify(chartOptions))
 
@@ -131,8 +142,7 @@ const AccumulatedChart = ({polyId, startDate, endDate, threshold, earliestAvaila
           pointHoverRadius: 4,
           pointHoverBorderWidth: 15,
           pointRadius: 1,
-          // data: tempDataThreshold
-          data: tempData.map(el => el.temp ? convertTemp(el.temp, isMetric) : 0)
+          data: convertedTempData
         },
         {
           label: "Rainfall",

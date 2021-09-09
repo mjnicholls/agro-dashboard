@@ -85,7 +85,7 @@ const ImageStats = ({satelliteImage, satelliteLayer, setSatelliteLayer }) => {
               <Table>
                 <thead>
                   <tr>
-                    <th>{toDate(satelliteImage.dt)}</th>
+                    <th>{satelliteImage ? toDate(satelliteImage.dt) : ""}</th>
                     <th>{satelliteLayer.label}</th>
                   </tr>
                 </thead>
