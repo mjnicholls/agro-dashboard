@@ -64,7 +64,7 @@ const AccumulatedChart = ({polyId, startDate, endDate, threshold, earliestAvaila
       convertedTemp = convertedTemp.map(el => el ? el * 9/5 + 32 : 32)
     }
     setConvertedTempData(convertedTemp);
-  }, [isMetric, tempData])
+  }, [tempData])
 
   const options = JSON.parse(JSON.stringify(chartOptions))
 
