@@ -23,7 +23,7 @@ Based on [Black Dashboard PRO React](https://demos.creative-tim.com/black-dashbo
 ## Quick start
 `npm install`
 
-`npm run`
+`npm start`
 
 
 ## Documentation
