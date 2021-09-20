@@ -90,11 +90,12 @@ const SatelliteImagesList = ({satelliteImage, setSatelliteImage, isSatellitePage
     >
       <CardBody style={{padding: "5px"}}>
         <div className='satellite-images-list'>
-          <a
+          <div
             className="satellite-arrow left"
+            style={{backgroundColor: "none"}}
             onClick={() => {onClickArrow("left")}}>
             <i className="tim-icons icon-double-left" />
-          </a>
+          </div>
           <label>
             <div
               className="info-icon text-center calendar-icon"
@@ -147,12 +148,12 @@ const SatelliteImagesList = ({satelliteImage, setSatelliteImage, isSatellitePage
                 </div>
                 ))}
           </div>
-          <a
+          <div
             className="satellite-arrow right"
             onClick={() => {onClickArrow("right")}}
           >
             <i className="tim-icons icon-double-right" />
-          </a>
+          </div>
         </div>
       </CardBody>
     </Card>

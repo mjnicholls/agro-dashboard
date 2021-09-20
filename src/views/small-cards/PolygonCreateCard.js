@@ -19,11 +19,11 @@ import {
   TabContent,
   TabPane,
   Row,
-} from "reactstrap";
+} from 'reactstrap';
 import {addPolygon} from '../../features/polygons/actions';
 import {notifyError} from '../../features/notifications/actions';
 
-import classNames from "classnames";
+import classNames from 'classnames';
 
 import AllPolygonsButton from '../agro-components/AllPolygonsButton';
 

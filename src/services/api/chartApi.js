@@ -89,7 +89,7 @@ export const getAccumulatedData = async (polygonId, start, end, threshold) => {
 
   let [tempData, rainData] = await Promise.all([
     getAccumulatedTemperature(polygonId, start, end, threshold),
-    getAccumulatedPrecipitation(polygonId, start, end, threshold)
+    getAccumulatedPrecipitation(polygonId, start, end)
   ])
 
   if (tempData.length !== rainData.length) {

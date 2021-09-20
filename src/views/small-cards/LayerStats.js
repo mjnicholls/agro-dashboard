@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {useSelector} from 'react-redux';
-import axios from "axios/index";
+import axios from 'axios/index';
 
 import {
   Card,
@@ -9,12 +9,12 @@ import {
   Col,
   Row,
   Table
-} from "reactstrap";
+} from 'reactstrap';
 
 import ChartContainer from '../charts/ui/ChartContainer';
 import SatelliteLayerDropdown from './ui/SatelliteLayers';
 import {getImageStats} from '../../services/api/polygonApi';
-import {toDate} from "../../utils/dateTime";
+import {toDate} from '../../utils/dateTime';
 
 const selectActivePoly = state => state.state.polygon;
 

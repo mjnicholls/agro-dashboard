@@ -12,28 +12,13 @@ const axiosInstance = axios.create({
 axiosInstance.defaults.raxConfig = {
   instance: axiosInstance
 };
-const interceptorId = rax.attach(axiosInstance);
+rax.attach(axiosInstance);
 
 axiosInstance.interceptors.request.use(function (config) {
   const token = store.getState().auth.token;
   config.headers.Authorization =  token ? `Bearer ${token}` : '';
-  // config.cancelToken = axios.CancelToken.source().token;
   return config;
 });
-
-// // Store requests
-// let sourceRequest = {};
-// axiosInstance.interceptors.request.use(function (request) {
-//   if (sourceRequest[request.url]) {
-//     sourceRequest[request.url].cancelToken.cancel();
-//   }
-//   // Store or update application token
-//   const axiosSource = axios.CancelToken.source();
-//   sourceRequest[request.url] = { cancelToken: axios.CancelToken.source() };
-//   request.cancelToken = axiosSource.token;
-//
-//   return request;
-// });
 
 axiosInstance.interceptors.response.use(response => response,
   error => {

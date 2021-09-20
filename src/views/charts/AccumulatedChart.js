@@ -22,19 +22,6 @@ const AccumulatedChart = ({polyId, startDate, endDate, threshold, earliestAvaila
   const [tempData, setTempData] = useState([]);
   const [convertedTempData, setConvertedTempData] = useState([]);
 
-  const convertTemp = (temp, isMetric) => {
-    /** Convert temperature from Kelvin to Celsius */
-    return isMetric ? kelvinToCelsius(temp) :  kelvinToFahrenheit(temp);
-  }
-
-  const kelvinToCelsius = (temp) => {
-    return temp - 273.15
-  }
-
-  const kelvinToFahrenheit = (temp) => {
-    return temp * 9/5 - 459.67
-  }
-
   useEffect(() => {
     if (startDate && endDate && polyId) {
       setIsLoading(true);
@@ -110,7 +97,7 @@ const AccumulatedChart = ({polyId, startDate, endDate, threshold, earliestAvaila
     ...options.tooltips,
     callbacks: {
       label: function(tooltipItem, data) {
-        return data.datasets[tooltipItem.datasetIndex].label + ": " + Math.round(tooltipItem.value) + ( tooltipItem.datasetIndex  ? 'mm' : '°');
+        return data.datasets[tooltipItem.datasetIndex].label + ": " + tooltipItem.value + ( tooltipItem.datasetIndex  ? 'mm' : '°');
         }
     }
   }
