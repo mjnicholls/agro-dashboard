@@ -28,11 +28,8 @@ const SatelliteImagesList = ({satelliteImage, setSatelliteImage, isSatellitePage
   const [error, setError] = useState(null);
   const activePolygon = useSelector(selectActivePoly);
 
-  const cancelToken = axios.CancelToken.source();
-  // const stableCancelToken= useMemo(() => cancelToken, []) ; // eslint-disable-line react-hooks/exhaustive-deps
-
-
   useEffect(() => {
+    let cancelToken = axios.CancelToken.source();
     let isMounted = true;
     if (activePolygon) {
       setIsLoading(true);

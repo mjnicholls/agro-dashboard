@@ -47,7 +47,6 @@ const routes = [
     component: PolygonNew,
     layout: "/dashboard",
   },
-
   {
     collapse: true,
     name: "Pages",

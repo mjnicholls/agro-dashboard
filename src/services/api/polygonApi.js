@@ -34,7 +34,7 @@ export const deletePolygonApi = (polygonId) => {
 }
 
 export const getSatelliteImagesList = (polygonId, cancelToken) => {
-  let url = `${polygonSatelliteImagesList}?polyid=${polygonId}&start=${startSatelliteImagesSearchDate}&end=${Math.floor(new Date().getTime() / 1000)}`
+  let url = `${polygonSatelliteImagesList}?polyid=${polygonId}&start=${startSatelliteImagesSearchDate}&end=${(Math.floor(new Date().getTime() - 60000) / 1000)}`
   let config = {
     cancelToken: cancelToken.token,
   };

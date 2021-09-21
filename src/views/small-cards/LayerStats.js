@@ -24,12 +24,10 @@ const ImageStats = ({satelliteImage, satelliteLayer, setSatelliteLayer }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const cancelToken = axios.CancelToken.source();
   const activePolygon = useSelector(selectActivePoly);
 
-  // const stableCancelToken= useMemo(() => cancelToken, []) ; // eslint-disable-line react-hooks/exhaustive-deps
-
   useEffect(() => {
+    let cancelToken = axios.CancelToken.source();
     if (satelliteImage && activePolygon) {
       setIsLoading(true);
       setError(null);

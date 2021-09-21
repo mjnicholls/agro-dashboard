@@ -20,9 +20,9 @@ const HistoricalSoilChart = ({ polyId, startDate, endDate, earliestAvailableDate
   const [data, setData] = useState([]);
   const [error, setError] = useState(startDate ? null : tariffError);
   const [isLoading, setIsLoading] = useState(startDate);
-  const cancelToken = axios.CancelToken.source();
 
   React.useEffect(() => {
+    let cancelToken = axios.CancelToken.source();
     if (startDate && endDate && polyId) {
       setIsLoading(true);
       setError(null);

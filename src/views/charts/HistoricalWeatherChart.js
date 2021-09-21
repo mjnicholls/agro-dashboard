@@ -17,11 +17,11 @@ const HistoricalWeather = ({polyId, startDate, endDate, earliestAvailableDate}) 
   const [data, setData] = useState([]);
   const [error, setError] = useState(startDate ? null : tariffError);
   const [isLoading, setIsLoading] = useState(startDate);
-  const cancelToken = axios.CancelToken.source();
 
   const isMetric = useSelector(selectUnits);
 
   useEffect(() => {
+    let cancelToken = axios.CancelToken.source();
     if (startDate && endDate && polyId) {
       setIsLoading(true);
       setError(null);

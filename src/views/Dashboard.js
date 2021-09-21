@@ -18,6 +18,7 @@ import NdviChart from "./charts/NdviChart";
 const selectPolygons = state => state.polygons;
 const selectActivePoly = state => state.state.polygon;
 const selectIsSatelliteMode = state => state.state.isSatelliteMode;
+
 const Dashboard = () => {
 
   const [satelliteImage, setSatelliteImage] = useState(null);
