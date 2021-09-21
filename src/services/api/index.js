@@ -1,7 +1,7 @@
 
 export const serverBaseURL = "https://new.agromonitoring.com/api/";
 
-export const personalAccountBase = `${serverBaseURL}auth/`
+export const personalAccountBase = `${serverBaseURL}auth/`;
 const agriBase = `${serverBaseURL}proxy/`;
 
 export const loginURL = `${personalAccountBase}auth/login`
@@ -29,4 +29,4 @@ export const weatherOneCall = `${agriBase}one_call`;
 
 
 // personal account
-export const apiKeys = `${serverBaseURL}appid/all/`
+export const apiKeys = `${personalAccountBase}appid/all`;
