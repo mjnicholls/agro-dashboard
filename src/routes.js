@@ -7,6 +7,7 @@ import Login from "views/pages/Login.js";
 import PolygonNew from 'views/NewPolygon';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faListUl, faPlus, faSatellite, faTemperatureLow } from '@fortawesome/free-solid-svg-icons';
+import ApiKeys from 'views/personal-account/ApiKeys';
 
 const routes = [
   {
@@ -47,6 +48,26 @@ const routes = [
     component: PolygonNew,
     layout: "/dashboard",
   },
+  {
+    collapse: true,
+    name: "Personal account",
+    rtlName: "",
+    icon: "tim-icons icon-image-02",
+    state: "pagesCollapse",
+    // hidden: true,
+    views: [
+      {
+        path: "/api-keys",
+        name: "Api Keys",
+        rtlName: "",
+        mini: "A",
+        rtlMini: "",
+        component: ApiKeys,
+        layout: "/dashboard",
+      },
+    ]
+  },
+
   {
     collapse: true,
     name: "Pages",

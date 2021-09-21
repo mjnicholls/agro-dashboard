@@ -26,3 +26,7 @@ export const historyAccumulatedPrecipitation = `${agriBase}${history}weather_ap`
 export const historyWeather = `${agriBase}${history}weather`;
 
 export const weatherOneCall = `${agriBase}one_call`;
+
+
+// personal account
+export const apiKeys = `${serverBaseURL}appid/all/`
