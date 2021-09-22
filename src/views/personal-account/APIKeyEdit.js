@@ -1,6 +1,6 @@
-import React, {useState} from "react";
-import {updateAPIKey} from '../../services/api/personalAccountAPI';
-import {useDispatch} from 'react-redux';
+import React, { useState } from "react";
+import { updateAPIKey } from '../../services/api/personalAccountAPI';
+import { useDispatch } from 'react-redux';
 import { notifyError, notifySuccess } from "../../features/notifications/actions";
 
 import {
@@ -79,7 +79,7 @@ const ApiKeyEdit = ({ apiKey, close, refreshData  }) => {
           type="button"
           onClick={confirmEdit}
         >
-          Rename
+          Create
         </Button>
       </div>
     </div>

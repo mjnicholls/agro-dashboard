@@ -1,18 +1,34 @@
 import React, {useEffect, useState} from 'react';
-import {getAPIKeys} from '../../services/api/personalAccountAPI'
+import { getAPIKeys } from '../../services/api/personalAccountAPI'
 // reactstrap components
-import { Button, Card, CardHeader, CardBody, CardTitle, Row, Col, Table, UncontrolledTooltip } from "reactstrap";
+import { Button,
+  Card,
+  CardHeader,
+  CardBody,
+  CardTitle,
+  Input,
+  Row,
+  Col,
+  Table,
+  UncontrolledTooltip } from "reactstrap";
 import { setApiKeyStatus } from 'features/auth/actions';
 import { apiKeys } from 'services/api';
 import ReactBSAlert from "react-bootstrap-sweetalert";
 import APIKeyEdit from './APIKeyEdit';
 import ApiKeysDelete from './APIKeysDelete';
+import ApiKeyCreate from './ApiKeyCreate';
+import {createApiKey} from '../../services/api/personalAccountAPI';
+import {useDispatch} from 'react-redux';
+import { notifyError, notifySuccess } from "../../features/notifications/actions";
+
+
 
 const ApiKeys = () => {
-  
 
   const [data, setData] = useState([]);
   const [alert, setAlert] = React.useState(null);
+  const dispatch = useDispatch();
+
 
   useEffect(() => {
     getAPIKeys()
@@ -31,6 +47,21 @@ const ApiKeys = () => {
   const hideAlert = () => {
     setAlert(null);
   };
+
+  const [name, setName] = useState("");
+
+  const confirmCreate = () => {
+    let data = {
+        appid_name: name,
+      };
+
+      createApiKey(data).then(() => {
+        refreshData();
+        dispatch(notifySuccess("API Key created"))
+      }).catch(error => {
+        dispatch(notifyError("Error creating API Key" + error.message))
+      })
+  }
 
   // to create modal for the delete/
 
@@ -51,100 +82,150 @@ const ApiKeys = () => {
           apiKey={apiKey}
           close={hideAlert}
           refreshData={refreshData}
-        />}
+        /> }
       </ReactBSAlert>
     );
   };
+      
 
 
-  return (   <>
-    <div className="content">
-      {alert}
-      <Row>
-        <Col className="mb-5" md="12">
-          <Card>
-            <CardHeader>
-              <CardTitle tag="h4">API Keys</CardTitle>
-            </CardHeader>
-            <CardBody>
-              <Table>
-                <thead>
-                <tr>
-                  <th>Key</th>
-                  <th>Name</th>
-                  <th>Status</th>
-                  <th></th>
-                  <th></th>
-                </tr>
+  return (
+    <>
+      <div className="content">
+        {alert}
 
-                </thead>
-
-                <tbody>
-                  {data.map(item => (
+        <Row>
+          <Col className="mb-2" md="12" mt="8">
+            <Card>
+              <CardHeader>
+                <div className="horizontal-container justify">
+                  <Input
+                    type="email"
+                    placeholder="New API Key"
+                    style={{ maxWidth: "400px", marginBottom: "20px" }}
+                    onChange={(e) => setName(e.target.value)}
+                  />
+                  <Button
+                    className="btn-link btn-icon btn-neutral"
+                    style={{
+                      minWidth: "200px",
+                      marginBottom: "20px",
+                      backgroundColor: "#e14eca",
+                    }}
+                    size="sm"
+                    title="Create"
+                    type="button"
+                    disabled={name.length === 0}
+                    onClick={() => confirmCreate()}
+                  >
+                    Create New API Key
+                  </Button>
+                </div>
+              </CardHeader>
+            </Card>
+          </Col>
+        </Row>
+        <Row>
+          <Col className="mb-0" md="12" mt="20">
+            <Card>
+              <CardHeader>
+                <CardTitle tag="h3">API Keys</CardTitle>
+              </CardHeader>
+              <CardBody>
+                <Table className="mb-0">
+                  <thead>
                     <tr>
-                      <td>{item.appid}</td>
-                      <td>{item.name}</td>
-                      <td></td>
-                      <td className="text-right">
-                    <Button
-                      className="btn-link btn-icon btn-neutral"
-                      color="success"
-                      id="tooltip618296632"
-                      size="sm"
-                      title="Refresh"
-                      type="button"
-                      onClick={(e) => {
-                        htmlAlert(item, true);
-                        e.stopPropagation();
-                      }}
-                    >
-                      <i className="tim-icons icon-pencil" />
-                    </Button>
-                    <UncontrolledTooltip
-                      delay={0}
-                      target="tooltip618296632"
-                    >
-                      Edit key
-                    </UncontrolledTooltip>
-                    <Button
-                      className="btn-link btn-icon btn-neutral"
-                      color="danger"
-                      id="tooltip707467505"
-                      size="sm"
-                      title="Delete"
-                      type="button"
-                      onClick={(e) => {
-                        htmlAlert(item, false);
-                        e.stopPropagation();
-                      }}
-                    >
-                      <i className="tim-icons icon-simple-remove" />
-                    </Button>
-                    <UncontrolledTooltip
-                      delay={0}
-                      target="tooltip707467505"
-                    >
-                      Delete key
-                    </UncontrolledTooltip>
-                  </td>
+                      <th>Key</th>
+                      <th>Name</th>
+                    {/*  <th>Status</th>  */}
+                      <th></th>
+                      <th></th>
                     </tr>
-                  ))}
-                </tbody>
-               
-                
-             
-                 
-                 
-              
-                 
-               </Table>
-            </CardBody>
-          </Card>
-        </Col>
-        
-      </Row>
-    </div>
-  </>)
+                  </thead>
+
+                  <tbody>
+                    {data.map((item) => (
+                      <tr>
+                        <td>
+                          <code>{item.appid}</code>
+                        </td>
+                        <td>{item.name}</td>
+                        {/* <td></td> */}
+                        <td className="text-right">
+                          <Button
+                            className="btn-link btn-icon btn-neutral"
+                            color="success"
+                            id="tooltip618296632"
+                            size="sm"
+                            title="Refresh"
+                            type="button"
+                            onClick={(e) => {
+                              htmlAlert(item, true);
+                              e.stopPropagation();
+                            }}
+                          >
+                            <i className="tim-icons icon-pencil" />
+                          </Button>
+                          <UncontrolledTooltip
+                            delay={0}
+                            target="tooltip618296632"
+                          >
+                            Edit key
+                          </UncontrolledTooltip>
+                          <Button
+                            className="btn-link btn-icon btn-neutral"
+                            color="danger"
+                            id="tooltip707467505"
+                            size="sm"
+                            title="Delete"
+                            type="button"
+                            disabled={data.length === 1}
+                            onClick={(e) => {
+                              htmlAlert(item, false);
+                              e.stopPropagation();
+                            }}
+                          >
+                            <i className="tim-icons icon-simple-remove" />
+                          </Button>
+                          <UncontrolledTooltip
+                            delay={0}
+                            target="tooltip707467505"
+                          >
+                            Delete key
+                          </UncontrolledTooltip>
+                          <Button
+                            className="btn-link btn-icon btn-neutral"
+                            color="danger"
+                            id="tooltip707467506"
+                            size="sm"
+                            title="Copy"
+                            type="button"
+                            onClick={(e) => {
+                              navigator.clipboard.writeText(item.appid);
+                              dispatch(notifySuccess("Copied!"));
+                              e.stopPropagation();
+                            }}
+                          >
+                            <i className="tim-icons icon-single-copy-04" />
+                          </Button>
+                          <UncontrolledTooltip
+                            delay={0}
+                            target="tooltip707467506"
+                          >
+                            Click to copy
+                          </UncontrolledTooltip>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </Table>
+              </CardBody>
+            </Card>
+          </Col>
+        </Row>
+      </div>
+    </>
+  );
 
 }
 

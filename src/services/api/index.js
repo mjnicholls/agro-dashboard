@@ -32,3 +32,4 @@ export const weatherOneCall = `${agriBase}one_call`;
 export const apiKeys = `${personalAccountBase}appid/all`;
 export const apiKeyUpdate = `${personalAccountBase}appid/update`;
 export const apiKeyDelete = `${personalAccountBase}appid/delete`;
+export const apiKeyCreate = `${personalAccountBase}appid/create`;

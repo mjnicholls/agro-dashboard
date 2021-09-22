@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {deleteAPIKey} from '../../services/api/personalAccountAPI';
+import {createApiKey} from '../../services/api/personalAccountAPI';
 import {useDispatch} from 'react-redux';
 import { notifyError, notifySuccess } from "../../features/notifications/actions";
 
@@ -12,44 +12,46 @@ import {
   Row
 } from "reactstrap";
 
-const ApiKeyDelete = ({ apiKey, close, refreshData }) => {
+const ApiKeyCreate = ({ apiKey, close, refreshData }) => {
 
      const [name, setName] = useState("");
      const dispatch = useDispatch();
      
-     const deletionDisabled = () => {
+     const createDisabled = () => {
       return apiKey && name !== apiKey.name
     };
   
-    const confirmDelete = () => {
+    const confirmCreate = () => {
         let data = {
-            appid: apiKey.appid,
-            name: apiKey.name
+            appid_name: name,
           };
 
-          deleteAPIKey(data).then(() => {
+          createApiKey(data).then(() => {
             refreshData();
-            dispatch(notifySuccess("API Key deleted"))
+            dispatch(notifySuccess("API Key created"))
           }).catch(error => {
-            dispatch(notifyError("Error deleting API Key" + error.message))
+            dispatch(notifyError("Error creating API Key" + error.message))
           })
         close();
       }
+
+      
     
     return (
         <div>
           <Row>
             <Col className="mb-3">
-              <p>Are you sure you want to delete the API Key?</p>
+              <p>Enter the name of your new API Key.</p>
             </Col>
           </Row>
           <Row>
             <Col>
               <FormGroup>
-                <label>Please enter its name to confirm:</label>
+                <label>Name:</label>
                 <Row>
                   <Col>
                     <Input
+                      style={{color: "#222a42"}}
                       name="name"
                       type="text"
                       onChange={e => setName(e.target.value)}
@@ -73,16 +75,16 @@ const ApiKeyDelete = ({ apiKey, close, refreshData }) => {
             <Button
               className="btn-neutral"
               color="default"
-              disabled={deletionDisabled()}
+              disabled={createDisabled()}
               data-dismiss="modal"
               type="button"
-              onClick={confirmDelete}
+              onClick={confirmCreate}
             >
-              Delete
+              Create
             </Button>
           </div>
         </div>
       )
     }
 
-export default ApiKeyDelete;
+export default ApiKeyCreate;
