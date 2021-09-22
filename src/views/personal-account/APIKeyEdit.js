@@ -12,6 +12,7 @@ import {
 } from "reactstrap";
 
 const ApiKeyEdit = ({ apiKey, close, refreshData  }) => {
+
   const [name, setName] = useState(apiKey ? apiKey.name : '')
   const dispatch = useDispatch();
 
@@ -33,7 +34,6 @@ const ApiKeyEdit = ({ apiKey, close, refreshData  }) => {
       })
     close();
   }
-  
 
   return (
     <div>
@@ -64,7 +64,6 @@ const ApiKeyEdit = ({ apiKey, close, refreshData  }) => {
         <Button
           className="btn-neutral"
           color="default"
-          // color="link"
           type="button"
           onClick={close}
         >
@@ -74,7 +73,6 @@ const ApiKeyEdit = ({ apiKey, close, refreshData  }) => {
           className="btn-neutral"
           color="default"
           disabled={editingDisabled()}
-          // color="link"
           data-dismiss="modal"
           type="button"
           onClick={confirmEdit}

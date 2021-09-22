@@ -16,25 +16,18 @@ import { apiKeys } from 'services/api';
 import ReactBSAlert from "react-bootstrap-sweetalert";
 import APIKeyEdit from './APIKeyEdit';
 import ApiKeysDelete from './APIKeysDelete';
-import ApiKeyCreate from './ApiKeyCreate';
 import {createApiKey} from '../../services/api/personalAccountAPI';
 import {useDispatch} from 'react-redux';
 import { notifyError, notifySuccess } from "../../features/notifications/actions";
-
 
 
 const ApiKeys = () => {
 
   const [data, setData] = useState([]);
   const [alert, setAlert] = React.useState(null);
+  const [name, setName] = useState("");
+
   const dispatch = useDispatch();
-
-
-  useEffect(() => {
-    getAPIKeys()
-      .then(res => {setData(res)})
-      .catch(err => {console.log(err)})
-  }, [])
 
   const refreshData = () => {
     getAPIKeys()
@@ -44,18 +37,23 @@ const ApiKeys = () => {
       .catch(err => {console.log(err)})
   }
 
+  useEffect(() => {
+    refreshData();
+  }, [])
+
   const hideAlert = () => {
     setAlert(null);
   };
 
-  const [name, setName] = useState("");
 
   const confirmCreate = () => {
     let data = {
-        appid_name: name,
-      };
+      appid_name: name,
+    };
 
-      createApiKey(data).then(() => {
+    createApiKey(data)
+      .then(() => {
+        setName("");
         refreshData();
         dispatch(notifySuccess("API Key created"))
       }).catch(error => {
@@ -88,12 +86,10 @@ const ApiKeys = () => {
   };
       
 
-
   return (
     <>
       <div className="content">
         {alert}
-
         <Row>
           <Col className="mb-2" md="12" mt="8">
             <Card>
@@ -104,9 +100,11 @@ const ApiKeys = () => {
                     placeholder="New API Key"
                     style={{ maxWidth: "400px", marginBottom: "20px" }}
                     onChange={(e) => setName(e.target.value)}
+                    value={name}
                   />
                   <Button
-                    className="btn-link btn-icon btn-neutral"
+                    color="primary"
+                    // className="btn-link btn-icon btn-primary"
                     style={{
                       minWidth: "200px",
                       marginBottom: "20px",
@@ -145,7 +143,7 @@ const ApiKeys = () => {
 
                   <tbody>
                     {data.map((item) => (
-                      <tr>
+                      <tr key={item.appid}>
                         <td>
                           <code>{item.appid}</code>
                         </td>
@@ -157,7 +155,7 @@ const ApiKeys = () => {
                             color="success"
                             id="tooltip618296632"
                             size="sm"
-                            title="Refresh"
+                            title="Edit"
                             type="button"
                             onClick={(e) => {
                               htmlAlert(item, true);
