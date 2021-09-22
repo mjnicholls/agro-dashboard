@@ -8,6 +8,7 @@ import PolygonNew from 'views/NewPolygon';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faListUl, faPlus, faSatellite, faTemperatureLow } from '@fortawesome/free-solid-svg-icons';
 import ApiKeys from 'views/personal-account/ApiKeys';
+import InvoiceList from 'views/personal-account/Payments'
 
 const routes = [
   {
@@ -63,6 +64,15 @@ const routes = [
         mini: "A",
         rtlMini: "",
         component: ApiKeys,
+        layout: "/dashboard",
+      },
+      {
+        path: "/payments",
+        name: "Invoices",
+        rtlName: "",
+        mini: "A",
+        rtlMini: "",
+        component: InvoiceList,
         layout: "/dashboard",
       },
     ]

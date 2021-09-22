@@ -16,8 +16,8 @@ import { apiKeys } from 'services/api';
 import ReactBSAlert from "react-bootstrap-sweetalert";
 import APIKeyEdit from './APIKeyEdit';
 import ApiKeysDelete from './APIKeysDelete';
-import {createApiKey} from '../../services/api/personalAccountAPI';
-import {useDispatch} from 'react-redux';
+import { createApiKey } from '../../services/api/personalAccountAPI';
+import { useDispatch } from 'react-redux';
 import { notifyError, notifySuccess } from "../../features/notifications/actions";
 
 

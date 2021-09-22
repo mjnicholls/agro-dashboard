@@ -2,13 +2,13 @@ import {
   apiKeys,
   apiKeyUpdate,
   apiKeyDelete,
-  apiKeyCreate
+  apiKeyCreate,
+  invoicesList
 } from "./index";
 import {axiosInstance} from "../base";
 
 
 export const getAPIKeys = () => {
-  /** Get history NDVI chart data by polygon  */
   return axiosInstance.get(apiKeys)
     .then(response => response.data)
     .catch(err => {
@@ -47,4 +47,13 @@ export const deleteAPIKey = (apiKey) => {
     })
 }
 
+// Invoices
+
+export const getInvoices = () => {
+  return axiosInstance.get(invoicesList)
+    .then(response => response.data)
+    .catch(err => {
+      throw new Error(err)
+    })
+}
 
