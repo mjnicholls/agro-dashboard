@@ -9,6 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faListUl, faPlus, faSatellite, faTemperatureLow } from '@fortawesome/free-solid-svg-icons';
 import ApiKeys from 'views/personal-account/ApiKeys';
 import InvoiceList from 'views/personal-account/Payments'
+import AccountSettings from 'views/personal-account/AccountSettings'
 
 const routes = [
   {
@@ -70,9 +71,18 @@ const routes = [
         path: "/payments",
         name: "Invoices",
         rtlName: "",
-        mini: "A",
+        mini: "I",
         rtlMini: "",
         component: InvoiceList,
+        layout: "/dashboard",
+      },
+      {
+        path: "/account-settings",
+        name: "Account Settings",
+        rtlName: "",
+        mini: "I",
+        rtlMini: "",
+        component: AccountSettings,
         layout: "/dashboard",
       },
     ]

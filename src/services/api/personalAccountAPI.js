@@ -3,7 +3,10 @@ import {
   apiKeyUpdate,
   apiKeyDelete,
   apiKeyCreate,
-  invoicesList
+  invoicesList,
+  updateName,
+  updatePass, 
+  mailing
 } from "./index";
 import {axiosInstance} from "../base";
 
@@ -54,6 +57,36 @@ export const getInvoices = () => {
     .then(response => response.data)
     .catch(err => {
       throw new Error(err)
+    })
+}
+
+// update name method
+
+export const updateUserName = (params) => {
+  return axiosInstance.put(updateName, params)
+    .then(response => response)
+    .catch(error => {
+      throw new Error(error)
+    })
+}
+
+// update password method
+
+export const updatePassword = (params) => {
+  return axiosInstance.put(updatePass, params)
+    .then(response => response)
+    .catch(error => {
+      throw new Error(error)
+    })
+}
+
+// update mailing method
+
+export const updateMailing = (params) => {
+  return axiosInstance.put(mailing, params)
+    .then(response => response)
+    .catch(error => {
+      throw new Error(error)
     })
 }
 

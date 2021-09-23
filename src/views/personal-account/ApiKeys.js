@@ -6,6 +6,8 @@ import { Button,
   CardHeader,
   CardBody,
   CardTitle,
+  Form,
+  FormGroup,
   Input,
   Row,
   Col,
@@ -26,6 +28,7 @@ const ApiKeys = () => {
   const [data, setData] = useState([]);
   const [alert, setAlert] = React.useState(null);
   const [name, setName] = useState("");
+  const [error, setError] = useState(null);
 
   const dispatch = useDispatch();
 
@@ -47,6 +50,17 @@ const ApiKeys = () => {
 
 
   const confirmCreate = () => {
+    
+    setError(null);
+    
+    if (!name.length){
+      setError(true)
+      dispatch(notifyError('Name cannot be empty'))
+      return
+    }
+    
+    setError({});
+    
     let data = {
       appid_name: name,
     };
@@ -59,7 +73,9 @@ const ApiKeys = () => {
       }).catch(error => {
         dispatch(notifyError("Error creating API Key" + error.message))
       })
-  }
+
+    
+    }
 
   // to create modal for the delete/
 
@@ -91,40 +107,7 @@ const ApiKeys = () => {
       <div className="content">
         {alert}
         <Row>
-          <Col className="mb-2" md="12" mt="8">
-            <Card>
-              <CardHeader>
-                <div className="horizontal-container justify">
-                  <Input
-                    type="email"
-                    placeholder="New API Key"
-                    style={{ maxWidth: "400px", marginBottom: "20px" }}
-                    onChange={(e) => setName(e.target.value)}
-                    value={name}
-                  />
-                  <Button
-                    color="primary"
-                    // className="btn-link btn-icon btn-primary"
-                    style={{
-                      minWidth: "200px",
-                      marginBottom: "20px",
-                      backgroundColor: "#e14eca",
-                    }}
-                    size="sm"
-                    title="Create"
-                    type="button"
-                    disabled={name.length === 0}
-                    onClick={() => confirmCreate()}
-                  >
-                    Create New API Key
-                  </Button>
-                </div>
-              </CardHeader>
-            </Card>
-          </Col>
-        </Row>
-        <Row>
-          <Col className="mb-0" md="12" mt="20">
+          <Col className="mb-0" md="8" mt="20">
             <Card>
               <CardHeader>
                 <CardTitle tag="h3">API Keys</CardTitle>
@@ -219,6 +202,40 @@ const ApiKeys = () => {
                   </tbody>
                 </Table>
               </CardBody>
+            </Card>
+          </Col>
+
+          <Col className="mb-2" md="4" mt="6">
+    
+            <Card>
+              <CardHeader>
+              <CardTitle tag="h3">Get New API Key </CardTitle>
+             
+                  <Form>
+                  
+                  <FormGroup>
+                  <Input
+                    className={error ? "danger-border" : ""}
+                    type="email"
+                    placeholder="New API Key"
+                    style={{ maxWidth: "400px", marginBottom: "20px" }}
+                    onChange={(e) => setName(e.target.value)}
+                    value={name}
+                  />
+                   </FormGroup>
+                   <FormGroup>
+                  <Button
+                    color="primary"
+                    title="Create"
+                    type="button"
+                    onClick={() => confirmCreate()}
+                  >
+                    Create New API Key
+                  </Button>
+                  </FormGroup>
+                  </Form>
+            
+              </CardHeader>
             </Card>
           </Col>
         </Row>

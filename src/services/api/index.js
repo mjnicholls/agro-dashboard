@@ -38,3 +38,8 @@ export const apiKeyCreate = `${personalAccountBase}appid/create`;
 
 // payments
 export const invoicesList = `${personalAccountBase}/payments`;
+
+//update name
+export const updateName = `${personalAccountBase}account/user/names`
+export const updatePass = `${personalAccountBase}account/user/password`
+export const mailing = `${personalAccountBase}account/mailing`
