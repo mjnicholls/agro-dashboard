@@ -22,6 +22,9 @@ import Shape from "./Shape";
 import {toDate} from "../../utils/dateTime";
 import {setActivePoly} from "../../features/state/actions";
 
+//page/setpage
+//input read only
+//dashboard settings
 
 const PolygonTable = ({data, setActivePolygon}) => {
 

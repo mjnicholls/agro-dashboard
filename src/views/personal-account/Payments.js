@@ -10,10 +10,26 @@ import { Button,
   Col,
   Table,
  } from "reactstrap";
+ import AgroPagination from '../agro-components/AgroPagination';
 
   const InvoiceList = () => {
 
     const [data, setData] = useState([]);
+    const [tableData, setTableData] = useState(data);
+    const [page, setPage] = useState(0);
+    const [pageData, setPageData] = useState([]);
+    const [column, setColumn] = React.useState({
+      name: -1,
+      order: "",
+    });
+
+    const itemsPerPage = 2;
+
+    useEffect(() => {
+      setTableData(data);
+    }, [data])
+
+    // update the data
 
     const refreshData = () => {
         getInvoices()
@@ -26,11 +42,16 @@ import { Button,
       useEffect(() => {
         refreshData();
       }, [])
-  
-      const view = () => {
 
-      }
-  
+
+      // pagination 
+
+      useEffect(() => {
+        setPageData(tableData.slice(page * itemsPerPage, (page + 1) * itemsPerPage));
+      }, [tableData, page, column])
+    
+
+   
     return (
       <>
         <div className="content">
@@ -55,7 +76,7 @@ import { Button,
                     </thead>
   
                     <tbody>
-                      {data.map((item) => (
+                      {pageData.map((item) => (
                         <tr key={item.invoice_number}>
                           <td>
                             <code>{item.invoice_number}</code>
@@ -71,9 +92,11 @@ import { Button,
                             size="sm"
                             title="Download"
                             type="button"
-                       // onClick=
+                           
                           >
-                            <i className="tim-icons icon-cloud-download-93" />
+                            <a role="button" href={item.pdf_link}>
+                              <i className="tim-icons icon-cloud-download-93" />
+                              </a>
                           </Button>
                         
                           <Button
@@ -81,11 +104,13 @@ import { Button,
                             color="success"
                             id="tooltip618296632"
                             size="sm"
-                            title="Edit"
-                            type="View"
+                            title="View"
+                            type="button"
                            // onClick
                           >
-                            <i className="tim-icons icon-map-big" />
+                            <a role="button" href={item.view_link}>
+                              <i className="tim-icons icon-map-big" />
+                              </a>
                           </Button>
                           </td>
                         </tr>
@@ -93,6 +118,12 @@ import { Button,
                     </tbody>
                   </Table>
                 </CardBody>
+                <AgroPagination
+            count={tableData.length}
+            itemsPerPage={itemsPerPage}
+            page={page}
+            setPage={setPage}
+          />
               </Card>
             </Col>
           </Row>
