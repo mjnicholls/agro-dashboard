@@ -42,4 +42,12 @@ export const invoicesList = `${personalAccountBase}/payments`;
 //update name
 export const updateName = `${personalAccountBase}account/user/names`
 export const updatePass = `${personalAccountBase}account/user/password`
+
+// mailing preferences
 export const mailing = `${personalAccountBase}account/mailing`
+
+//get mailing preferences
+export const mailPref = `${personalAccountBase}account`
+
+//delete account
+export const deleteAccount = `${personalAccountBase}account/delete`

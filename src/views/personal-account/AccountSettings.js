@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import { useDispatch } from 'react-redux';
-import { updateUserName, updatePassword, updateMailing } from '../../services/api/personalAccountAPI';
+import { updateUserName, updatePassword, updateMailing, getMailPrefs } from '../../services/api/personalAccountAPI';
 import { notifyError, notifySuccess } from "../../features/notifications/actions";
 import { useSelector } from "react-redux";
 // reactstrap components
@@ -17,7 +17,6 @@ import { Button,
   Label,
   Row,
  } from "reactstrap";
-import { bool } from 'prop-types';
 
  const userEmailSelector = state => state.auth.user.email;
 
@@ -25,13 +24,12 @@ import { bool } from 'prop-types';
 
     const userEmail = useSelector(userEmailSelector);
 
+    const dispatch = useDispatch();
+
     const [name, setName] = useState('');
     const [username, setUsername] = useState('');
     const [pass, setPass] = useState('');
-    const [mail, setMail] = useState(false);
-    
-    
-    const dispatch = useDispatch();
+    //const [mail, setMail] = useState(false);
 
     const [error, setError] = useState(null)
 
@@ -42,21 +40,21 @@ import { bool } from 'prop-types';
     })
 
     useEffect(() => {
-      // get request
-      // .then(res => {
-      // setMailSettings(res.mailing)
-      // OR
-      // setProductCheckbox(res.mailing.product)
+      getMailPrefs()
+      .then(res => {
+     setMailSettings(res.mailing)
+     console.log(res.mailing)
 
-      // }
+       })
     }, [])
 
-    const [productCheckBox, setProductCheckbox] = useState(false)
-
     const handleCheckBoxClick = (key, value) => {
-      setMailSettings({
-        ...mailSettings,
-        key: value})
+    
+        let newObj = mailSettings;
+        newObj[key] = value;
+        setMailSettings(newObj);
+
+        console.log(key,value);
     }
 
   const confirmUpdate = () => {
@@ -111,17 +109,10 @@ import { bool } from 'prop-types';
 
     const confirmMailSettings = () => {
 
-      setMail(current => !current);
-
-    let maildata = {
-      news: false,
-      product: false,
-      system: false
-    }
+      setMailSettings(current => !current);
 
 
-
-    updateMailing(maildata).then(
+    updateMailing(mailSettings).then(
       () => { 
         dispatch(notifySuccess("Settings updated"))
       }).catch(error => {
@@ -226,7 +217,7 @@ import { bool } from 'prop-types';
                       <FormGroup check>
                         <Label check>
                           <Input type="checkbox"
-                            onChange={e => handleCheckBoxClick("news", e.target.value)}
+                            onChange={e => handleCheckBoxClick("news", e.target.checked)}
                             value={mailSettings.news}
                             defaultChecked={mailSettings.news}
                           />
@@ -237,9 +228,9 @@ import { bool } from 'prop-types';
                       <FormGroup check>
                       <Label check>
                           <Input type="checkbox"
-                              onChange={e => setProductCheckbox(e.target.value)}
-                              value={mail}
-                              defaultChecked={productCheckBox}
+                               onChange={e => handleCheckBoxClick("product", e.target.checked)}
+                               value={mailSettings.product}
+                               defaultChecked={mailSettings.product}
                           />
                           <span className="form-check-sign" />
                           Product news (change to price, new product features, etc)
@@ -248,8 +239,9 @@ import { bool } from 'prop-types';
                       <FormGroup check>
                       <Label check>
                           <Input type="checkbox"
-                           onChange={e => setMail(e.target.value)}
-                           value={mail} />
+                                 onChange={e => handleCheckBoxClick("system", e.target.checked)}
+                                 value={mailSettings.system}
+                                 defaultChecked={mailSettings.system} />
                           <span className="form-check-sign" />
                           Corporate news (our life, the launch of a new service, etc)
                         </Label>
@@ -265,6 +257,32 @@ import { bool } from 'prop-types';
           onClick={confirmMailSettings}
         >
           Update
+        </Button>
+              </CardFooter>
+            </Card>
+         
+            </Col>
+          </Row>
+
+
+          <Row>
+            <Col>
+            <Card>
+            <CardHeader>
+                <CardTitle tag="h4">Delete Account</CardTitle>
+              </CardHeader>
+              <CardBody>
+              <Label>Are you sure you want to delete your account?</Label>
+                    
+                    </CardBody>
+                    <CardFooter>
+              <Button
+          className="btn-fill"
+          color="danger"
+          type="button"
+        //  onClick={}
+        >
+          Delete Account
         </Button>
               </CardFooter>
             </Card>

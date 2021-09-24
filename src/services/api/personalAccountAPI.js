@@ -6,7 +6,9 @@ import {
   invoicesList,
   updateName,
   updatePass, 
-  mailing
+  mailing,
+  mailPref,
+  deleteAccount
 } from "./index";
 import {axiosInstance} from "../base";
 
@@ -80,6 +82,17 @@ export const updatePassword = (params) => {
     })
 }
 
+// get mailing preferences method
+
+export const getMailPrefs = () => {
+  return axiosInstance.get(mailPref)
+    .then(response => response.data)
+    .catch(err => {
+      throw new Error(err)
+    })
+}
+
+
 // update mailing method
 
 export const updateMailing = (params) => {
@@ -90,3 +103,10 @@ export const updateMailing = (params) => {
     })
 }
 
+export const deleteAcct = (params) => {
+  return axiosInstance.delete(deleteAccount, params)
+    .then(response => response)
+    .catch(error => {
+      throw new Error(error)
+    })
+}
