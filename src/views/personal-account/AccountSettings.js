@@ -29,38 +29,31 @@ import { Button,
     const [name, setName] = useState('');
     const [username, setUsername] = useState('');
     const [pass, setPass] = useState('');
-    //const [mail, setMail] = useState(false);
 
     const [error, setError] = useState(null)
 
     const [mailSettings, setMailSettings] = useState({
-      "news": false,
-      "product": false,
-      "system": false
+      news: false,
+      product: false,
+      system: false
     })
 
     useEffect(() => {
       getMailPrefs()
-      .then(res => {
-     setMailSettings(res.mailing)
-     console.log(res.mailing)
-
-       })
+        .then(res => {
+          setMailSettings(res.mailing)
+         })
     }, [])
 
     const handleCheckBoxClick = (key, value) => {
-    
-        let newObj = mailSettings;
+        let newObj = Object.assign({}, mailSettings);;
         newObj[key] = value;
         setMailSettings(newObj);
-
-        console.log(key,value);
     }
 
   const confirmUpdate = () => {
 
    setError(null);
-
    if 
     (!username.length && !name.length) {
       setError(true);
@@ -82,35 +75,31 @@ import { Button,
     
     }
 
+  const confirmPassUpdate = () => {
 
-    const confirmPassUpdate = () => {
+    setError(null);
 
-      setError(null);
-   
-      if 
-       (!pass.length) {
-         setError(true);
-         dispatch(notifyError("Cannot be empty"));
-         return
-       }
+    if
+     (!pass.length) {
+       setError(true);
+       dispatch(notifyError("Cannot be empty"));
+       return
+     }
 
-    let passdata = {
-      new_password: pass,
-      new_password_confirm: pass,
-    }
+  let passdata = {
+    new_password: pass,
+    new_password_confirm: pass,
+  }
 
-    updatePassword(passdata).then(
-      () => { 
-        dispatch(notifySuccess("Password updated"))
-      }).catch(error => {
-        dispatch(notifyError("Error updating password " + error.message))
-      })
-    }
+  updatePassword(passdata).then(
+    () => {
+      dispatch(notifySuccess("Password updated"))
+    }).catch(error => {
+      dispatch(notifyError("Error updating password " + error.message))
+    })
+  }
 
-    const confirmMailSettings = () => {
-
-      setMailSettings(current => !current);
-
+  const confirmMailSettings = () => {
 
     updateMailing(mailSettings).then(
       () => { 
@@ -216,10 +205,10 @@ import { Button,
                     <Col className="checkbox-radios" sm="12">
                       <FormGroup check>
                         <Label check>
-                          <Input type="checkbox"
-                            onChange={e => handleCheckBoxClick("news", e.target.checked)}
-                            value={mailSettings.news}
-                            defaultChecked={mailSettings.news}
+                          <Input
+                            type="checkbox"
+                            onChange={e => {handleCheckBoxClick("news", e.target.checked)}}
+                            checked={mailSettings.news}
                           />
                           <span className="form-check-sign" />
                           System news (API usage alert, system update, temporary system shutdown, etc)
@@ -227,10 +216,10 @@ import { Button,
                       </FormGroup>
                       <FormGroup check>
                       <Label check>
-                          <Input type="checkbox"
-                               onChange={e => handleCheckBoxClick("product", e.target.checked)}
-                               value={mailSettings.product}
-                               defaultChecked={mailSettings.product}
+                          <Input
+                            type="checkbox"
+                            onChange={e => {handleCheckBoxClick("product", e.target.checked)}}
+                            checked={mailSettings.product}
                           />
                           <span className="form-check-sign" />
                           Product news (change to price, new product features, etc)
@@ -238,10 +227,11 @@ import { Button,
                       </FormGroup>
                       <FormGroup check>
                       <Label check>
-                          <Input type="checkbox"
-                                 onChange={e => handleCheckBoxClick("system", e.target.checked)}
-                                 value={mailSettings.system}
-                                 defaultChecked={mailSettings.system} />
+                          <Input
+                            type="checkbox"
+                            onChange={e => {handleCheckBoxClick("system", e.target.checked)}}
+                            checked={mailSettings.system}
+                          />
                           <span className="form-check-sign" />
                           Corporate news (our life, the launch of a new service, etc)
                         </Label>
@@ -250,7 +240,7 @@ import { Button,
                     </Col>
                     </CardBody>
                     <CardFooter>
-              <Button
+        <Button
           className="btn-fill"
           color="primary"
           type="button"
