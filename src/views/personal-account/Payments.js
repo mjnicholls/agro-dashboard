@@ -15,19 +15,11 @@ import { Button,
   const InvoiceList = () => {
 
     const [data, setData] = useState([]);
-    const [tableData, setTableData] = useState(data);
+
     const [page, setPage] = useState(0);
     const [pageData, setPageData] = useState([]);
-    const [column, setColumn] = React.useState({
-      name: -1,
-      order: "",
-    });
 
-    const itemsPerPage = 2;
-
-    useEffect(() => {
-      setTableData(data);
-    }, [data])
+    const itemsPerPage = 10;
 
     // update the data
 
@@ -39,19 +31,18 @@ import { Button,
           .catch(err => {console.log(err)})
       }
     
-      useEffect(() => {
-        refreshData();
-      }, [])
+    useEffect(() => {
+      refreshData();
+    }, [])
 
 
-      // pagination 
+    // pagination
+    useEffect(() => {
+      setPageData(data.slice(page * itemsPerPage, (page + 1) * itemsPerPage));
+    }, [data, page])
 
-      useEffect(() => {
-        setPageData(tableData.slice(page * itemsPerPage, (page + 1) * itemsPerPage));
-      }, [tableData, page, column])
-    
 
-   
+
     return (
       <>
         <div className="content">
@@ -82,36 +73,16 @@ import { Button,
                             <code>{item.invoice_number}</code>
                           </td>
                           <td>{item.description}</td>
-                           <td>{item.date.substring(0,21)}</td>
+                           {/*<td>{item.date.substring(0,21)}</td>*/}
+                           <td>{item.date.replace(" UTC", "")}</td>
                            <td>{item.amount}</td>
                           <td className="text-right">
-                          <Button
-                            className="btn-link btn-icon btn-neutral"
-                            color="success"
-                            id="tooltip618296632"
-                            size="sm"
-                            title="Download"
-                            type="button"
-                           
-                          >
-                            <a role="button" href={item.pdf_link}>
+                            <a role="button" href={item.pdf_link} download className="btn-link btn-icon btn-neutral">
                               <i className="tim-icons icon-cloud-download-93" />
                               </a>
-                          </Button>
-                        
-                          <Button
-                            className="btn-link btn-icon btn-neutral"
-                            color="success"
-                            id="tooltip618296632"
-                            size="sm"
-                            title="View"
-                            type="button"
-                           // onClick
-                          >
-                            <a role="button" href={item.view_link}>
+                            <a role="button" href={item.view_link} target="_blank" className="btn-link btn-icon btn-neutral">
                               <i className="tim-icons icon-map-big" />
                               </a>
-                          </Button>
                           </td>
                         </tr>
                       ))}
@@ -119,7 +90,7 @@ import { Button,
                   </Table>
                 </CardBody>
                 <AgroPagination
-            count={tableData.length}
+            count={data.length}
             itemsPerPage={itemsPerPage}
             page={page}
             setPage={setPage}

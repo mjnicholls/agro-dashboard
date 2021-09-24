@@ -35,7 +35,29 @@ import { bool } from 'prop-types';
 
     const [error, setError] = useState(null)
 
+    const [mailSettings, setMailSettings] = useState({
+      "news": false,
+      "product": false,
+      "system": false
+    })
 
+    useEffect(() => {
+      // get request
+      // .then(res => {
+      // setMailSettings(res.mailing)
+      // OR
+      // setProductCheckbox(res.mailing.product)
+
+      // }
+    }, [])
+
+    const [productCheckBox, setProductCheckbox] = useState(false)
+
+    const handleCheckBoxClick = (key, value) => {
+      setMailSettings({
+        ...mailSettings,
+        key: value})
+    }
 
   const confirmUpdate = () => {
 
@@ -121,8 +143,9 @@ import { bool } from 'prop-types';
                 <Form action="#">
                 <label>Email address</label>
                   <FormGroup>
-                    <Input type="email" 
+                    <Input type="email"
                     value={userEmail}
+                           disabled
                     />
                   </FormGroup>
                   <label>Username</label>
@@ -203,8 +226,10 @@ import { bool } from 'prop-types';
                       <FormGroup check>
                         <Label check>
                           <Input type="checkbox"
-                           onChange={e => setMail(e.target.value)}
-                           value={mail} />
+                            onChange={e => handleCheckBoxClick("news", e.target.value)}
+                            value={mailSettings.news}
+                            defaultChecked={mailSettings.news}
+                          />
                           <span className="form-check-sign" />
                           System news (API usage alert, system update, temporary system shutdown, etc)
                         </Label>
@@ -212,8 +237,10 @@ import { bool } from 'prop-types';
                       <FormGroup check>
                       <Label check>
                           <Input type="checkbox"
-                              onChange={e => setMail(e.target.value)}
-                              value={mail} />
+                              onChange={e => setProductCheckbox(e.target.value)}
+                              value={mail}
+                              defaultChecked={productCheckBox}
+                          />
                           <span className="form-check-sign" />
                           Product news (change to price, new product features, etc)
                         </Label>

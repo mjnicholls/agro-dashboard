@@ -31,8 +31,10 @@ const PolygonTable = ({data, setActivePolygon}) => {
   const dispatch = useDispatch();
 
   const [tableData, setTableData] = useState(data);
+
   const [page, setPage] = useState(0);
   const [pageData, setPageData] = useState([]);
+
   const [alert, setAlert] = React.useState(null);
   const [column, setColumn] = React.useState({
     name: -1,
@@ -44,6 +46,14 @@ const PolygonTable = ({data, setActivePolygon}) => {
   useEffect(() => {
     setTableData(data);
   }, [data])
+
+  useEffect(() => {
+    setPageData(tableData.slice(page * itemsPerPage, (page + 1) * itemsPerPage));
+  }, [tableData, page])
+
+  // useEffect(() => {
+  //   setPageData(tableData.slice(page * itemsPerPage, (page + 1) * itemsPerPage));
+  // }, [tableData, page, column])
 
   const filterTable = (keyword) => {
     if (keyword) {
@@ -86,9 +96,7 @@ const PolygonTable = ({data, setActivePolygon}) => {
     });
   };
 
-  useEffect(() => {
-    setPageData(tableData.slice(page * itemsPerPage, (page + 1) * itemsPerPage));
-  }, [tableData, page, column])
+
 
   const hideAlert = () => {
     setAlert(null);
