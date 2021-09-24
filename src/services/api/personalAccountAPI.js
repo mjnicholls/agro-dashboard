@@ -8,7 +8,8 @@ import {
   updatePass, 
   mailing,
   mailPref,
-  deleteAccount
+  deleteAccount, 
+  invoiceUpdate
 } from "./index";
 import {axiosInstance} from "../base";
 
@@ -103,8 +104,20 @@ export const updateMailing = (params) => {
     })
 }
 
+// delete account 
+
 export const deleteAcct = (params) => {
   return axiosInstance.delete(deleteAccount, params)
+    .then(response => response)
+    .catch(error => {
+      throw new Error(error)
+    })
+}
+
+// update invoice info 
+
+export const invoiceEdit = (params) => {
+  return axiosInstance.put(invoiceUpdate, params)
     .then(response => response)
     .catch(error => {
       throw new Error(error)

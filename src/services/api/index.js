@@ -51,3 +51,6 @@ export const mailPref = `${personalAccountBase}account`
 
 //delete account
 export const deleteAccount = `${personalAccountBase}account/delete`
+
+//update invoice info
+export const invoiceUpdate = `${personalAccountBase}account/invoice`
