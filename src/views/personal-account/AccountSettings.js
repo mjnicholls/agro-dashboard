@@ -66,7 +66,7 @@ import { Button,
     // send mail prefs
 
     const handleCheckBoxClick = (key, value) => {
-        let newObj = Object.assign({}, mailSettings);;
+        let newObj = Object.assign({}, mailSettings);
         newObj[key] = value;
         setMailSettings(newObj);
     }
@@ -96,6 +96,47 @@ import { Button,
         })
     
     }
+
+    // update invoice
+
+    const confirmInvoice = () => {
+
+      setError(null);
+      if 
+       (!type.length &&
+        !country.length && 
+        !address_line_1.length && 
+        !city.length && 
+        !postal_code.length && 
+        !phone.length) {
+         setError(true);
+         dispatch(notifyError("Cannot be empty"));
+         return
+       }
+
+       let data = {
+        type: type,
+        vat_id: vat_id,
+        country: country,
+        address_line_1: address_line_1,
+        address_line_2: address_line_2,
+        city: city, 
+        postal_code: postal_code,
+        state: state,
+        phone: phone
+
+      }
+   
+         invoiceEdit(data).then(
+           () => { 
+             dispatch(notifySuccess("Invoice updated"))
+           }).catch(error => {
+             dispatch(notifyError("Error updating name " + error.message))
+           })
+       
+       }
+
+    // password update 
 
   const confirmPassUpdate = () => {
 
