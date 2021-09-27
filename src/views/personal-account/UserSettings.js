@@ -1,7 +1,6 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { updateUserName,
-  updatePassword,
+import { updateUserName
 } from '../../services/api/personalAccountAPI';
 import { notifyError, notifySuccess } from "../../features/notifications/actions";
 import { useSelector } from "react-redux";
