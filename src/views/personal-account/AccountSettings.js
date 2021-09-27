@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import { useDispatch } from 'react-redux';
-import { getMailPrefs, invoiceEdit } from '../../services/api/personalAccountAPI';
+import { getMailPrefs, deleteAcct } from '../../services/api/personalAccountAPI';
 import { notifyError, notifySuccess } from "../../features/notifications/actions";
 import { useSelector } from "react-redux";
 // reactstrap components
@@ -16,17 +16,36 @@ import { Button,
   Input,
   Label,
   Row,
+  UncontrolledTooltip
  } from "reactstrap";
 import UserSettings from './UserSettings';
 import UserPassword from './UserPassword';
 import PrivacySettings from './PrivacySettings';
 import InvoiceSettings from './InvoiceInfo';
+import DeleteAccount from './DeleteAccount';
+import ReactBSAlert from "react-bootstrap-sweetalert";
 
 
 
   const AccountSettings = ({}) => {
 
     const dispatch = useDispatch();
+
+    const hideAlert = () => {
+      setAlert(null);
+    };
+  
+    const [data, setData] = useState([]);
+    const [alert, setAlert] = React.useState(null);
+
+    const refreshData = () => {
+      deleteAcct()
+        .then(res => {
+          setData(res)
+        })
+        .catch(err => {console.log(err)})
+    }
+
     const [invoiceSettings, setInvoiceSettings] = useState({
       type: "individual",
       title: "",
@@ -64,12 +83,36 @@ import InvoiceSettings from './InvoiceInfo';
     }, [])
 
 
+    const htmlAlert = (acctNo) => {
+      setAlert(
+        <ReactBSAlert
+          customClass="agro-alert"
+          title={"Delete Account"}
+          onConfirm={() => hideAlert()}
+          onCancel={() => hideAlert()}
+          showConfirm={false}
+        >
+          { <DeleteAccount
+            acctNo={acctNo}
+            close={hideAlert}
+          /> }
+        </ReactBSAlert>
+      );
+    };
+
+
     return (
       <>
+        {alert}
         <div className="content">
           <Row>
             <Col md="6">
-              <UserSettings name={name} setName={setName} username={username} setUserName={setUsername} />
+              <UserSettings
+                name={name}
+                setName={setName}
+                username={username}
+                setUserName={setUsername}
+              />
             </Col>
             <Col md="6">
               <UserPassword />
@@ -77,43 +120,48 @@ import InvoiceSettings from './InvoiceInfo';
           </Row>
           <Row>
             <Col>
-              <PrivacySettings mailSettings={mailSettings} setMailSettings={setMailSettings} />
-              </Col>
+              <PrivacySettings
+                mailSettings={mailSettings}
+                setMailSettings={setMailSettings}
+              />
+            </Col>
           </Row>
 
           <Row>
             <Col>
               <Card>
                 <CardHeader>
-                  <CardTitle tag="h4">Delete Account</CardTitle>
+                  <CardTitle tag="h4">Delete Your Account</CardTitle>
                 </CardHeader>
                 <CardBody>
-                  <Label>Are you sure you want to delete your account?</Label>
-                </CardBody>
-                <CardFooter>
                   <Button
-                    className="btn-fill"
-                    color="danger"
-                    type="button"
-                    //  onClick={}
+                         className="btn-fill"
+                         color="danger"
+                         type="submit"
+                    title="Delete"
+                    disabled={data.length === 1}
+                    onClick={(e) => {
+                      htmlAlert(false);
+                      e.stopPropagation();
+                    }}
                   >
-                    Delete Account
+                    Delete
                   </Button>
-                </CardFooter>
+                </CardBody>
               </Card>
             </Col>
           </Row>
           <Row>
             <Col>
-            <InvoiceSettings invoiceSettings={invoiceSettings} setInvoiceSettings={setInvoiceSettings} />
+              <InvoiceSettings
+                invoiceSettings={invoiceSettings}
+                setInvoiceSettings={setInvoiceSettings}
+              />
             </Col>
-         
           </Row>
 
           <Row>
-            <Col>
-             
-            </Col>
+            <Col></Col>
           </Row>
         </div>
       </>
