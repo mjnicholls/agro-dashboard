@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import { useDispatch } from 'react-redux';
-import { getMailPrefs, invoiceEdit } from '../../services/api/personalAccountAPI';
+import { getMailPrefs, deleteAcct } from '../../services/api/personalAccountAPI';
 import { notifyError, notifySuccess } from "../../features/notifications/actions";
 import { useSelector } from "react-redux";
 // reactstrap components
@@ -16,6 +16,7 @@ import { Button,
   Input,
   Label,
   Row,
+  UncontrolledTooltip
  } from "reactstrap";
 import UserSettings from './UserSettings';
 import UserPassword from './UserPassword';
@@ -29,6 +30,22 @@ import ReactBSAlert from "react-bootstrap-sweetalert";
   const AccountSettings = ({}) => {
 
     const dispatch = useDispatch();
+
+    const hideAlert = () => {
+      setAlert(null);
+    };
+  
+    const [data, setData] = useState([]);
+    const [alert, setAlert] = React.useState(null);
+
+    const refreshData = () => {
+      deleteAcct()
+        .then(res => {
+          setData(res)
+        })
+        .catch(err => {console.log(err)})
+    }
+
     const [invoiceSettings, setInvoiceSettings] = useState({
       type: "individual",
       title: "",
@@ -86,10 +103,16 @@ import ReactBSAlert from "react-bootstrap-sweetalert";
 
     return (
       <>
+        {alert}
         <div className="content">
           <Row>
             <Col md="6">
-              <UserSettings name={name} setName={setName} username={username} setUserName={setUsername} />
+              <UserSettings
+                name={name}
+                setName={setName}
+                username={username}
+                setUserName={setUsername}
+              />
             </Col>
             <Col md="6">
               <UserPassword />
@@ -97,38 +120,48 @@ import ReactBSAlert from "react-bootstrap-sweetalert";
           </Row>
           <Row>
             <Col>
-              <PrivacySettings mailSettings={mailSettings} setMailSettings={setMailSettings} />
-              </Col>
+              <PrivacySettings
+                mailSettings={mailSettings}
+                setMailSettings={setMailSettings}
+              />
+            </Col>
           </Row>
 
           <Row>
             <Col>
-            <Button
-                            className="btn-link btn-icon btn-neutral"
-                            color="primary"
-                            title="Delete"
-                            type="button"
-                            onClick={(e) => {
-                              htmlAlert(true);
-                              e.stopPropagation();
-                            }}
-                          >
-                           
-                          </Button>
-           
+              <Card>
+                <CardHeader>
+                  <CardTitle tag="h4">Delete Your Account</CardTitle>
+                </CardHeader>
+                <CardBody>
+                  <Button
+                         className="btn-fill"
+                         color="danger"
+                         type="submit"
+                    title="Delete"
+                    disabled={data.length === 1}
+                    onClick={(e) => {
+                      htmlAlert(false);
+                      e.stopPropagation();
+                    }}
+                  >
+                    Delete
+                  </Button>
+                </CardBody>
+              </Card>
             </Col>
           </Row>
           <Row>
             <Col>
-            <InvoiceSettings invoiceSettings={invoiceSettings} setInvoiceSettings={setInvoiceSettings} />
+              <InvoiceSettings
+                invoiceSettings={invoiceSettings}
+                setInvoiceSettings={setInvoiceSettings}
+              />
             </Col>
-         
           </Row>
 
           <Row>
-            <Col>
-            
-            </Col>
+            <Col></Col>
           </Row>
         </div>
       </>

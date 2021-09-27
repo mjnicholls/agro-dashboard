@@ -106,8 +106,8 @@ export const updateMailing = (params) => {
 
 // delete account 
 
-export const deleteAcct = (params) => {
-  return axiosInstance.delete(deleteAccount, params)
+export const deleteAcct = () => {
+  return axiosInstance.delete(deleteAccount)
     .then(response => response)
     .catch(error => {
       throw new Error(error)
