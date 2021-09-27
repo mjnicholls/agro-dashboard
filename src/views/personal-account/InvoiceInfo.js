@@ -18,6 +18,7 @@ import { Button,
  } from "reactstrap";
 import {countriesDefault} from '../../config';
 import Select from "react-select";
+import { getVat } from 'services/api';
 
 
 const InvoiceSettings = ({ invoiceSettings, setInvoiceSettings }) => {
@@ -27,6 +28,14 @@ const InvoiceSettings = ({ invoiceSettings, setInvoiceSettings }) => {
   const [error, setError] = useState(null)
   const [countries, setCountries] = useState(countriesDefault);
   const [country, setCountry] = useState({country: "", code: ""});
+  const [vat, setVat] = useState({message:"", code:""})
+  const titles = [
+    { value: 'Mr', label: 'Mr' },
+    { value: 'Mrs', label: 'Mrs' },
+    { value: 'Miss', label: 'Miss' },
+    { value: 'Ms', label: 'Ms' },
+    { value: 'Dr', label: 'Dr' },
+  ]
 
   useState(() => {
     if (invoiceSettings.country) {
@@ -46,6 +55,28 @@ const InvoiceSettings = ({ invoiceSettings, setInvoiceSettings }) => {
     setCountry(country);
     handleChange('country', country.code)
   }
+  
+  // check VAT
+
+  const checkVAT = () => {
+
+    setError(null);
+    if
+     (!invoiceSettings.vat_id.length) {
+       setError(true);
+       dispatch(notifyError("VAT does not match"));
+       return
+     }
+
+     getVat(invoiceSettings.vat_id).then(
+        () => {
+          dispatch(notifySuccess("VAT updated"))
+        }).catch(error => {
+          dispatch(notifyError("Error updating VAT " + error.message))
+        })
+  }
+
+
 
 
   const confirmInvoice = () => {
@@ -73,137 +104,139 @@ const InvoiceSettings = ({ invoiceSettings, setInvoiceSettings }) => {
 
 
   return (
-
     <Card>
-      <CardHeader><h4>Invoice Info</h4></CardHeader>
+      <CardHeader>
+        <h4>Invoice Info</h4>
+      </CardHeader>
       <CardBody>
         <FormGroup check className="form-check-radio mb-3">
-            <Label check>
-              <Input
-                id="exampleRadios3"
-                name="legalForm"
-                type="radio"
-                checked={invoiceSettings.type === "individual"}
-                onChange={() => handleChange("type", "individual")}
-              />
-              <span className="form-check-sign" />
-              Individual .
+          <Label check>
+            <Input
+              id="exampleRadios3"
+              name="legalForm"
+              type="radio"
+              checked={invoiceSettings.type === "individual"}
+              onChange={() => handleChange("type", "individual")}
+            />
+            <span className="form-check-sign" />
+            Individual
+          </Label>
+          <Label check></Label>
+          <Label check>
+            <Input
+              id="exampleRadios4"
+              name="legalForm"
+              type="radio"
+              checked={invoiceSettings.type === "organisation"}
+              onChange={() => handleChange("type", "organisation")}
+            />
+            <span className="form-check-sign" />
+            Organisation
+          </Label>
+        </FormGroup>
 
-            </Label>
-
-            <Label check>
-              <Input
-                id="exampleRadios4"
-                name="legalForm"
-                type="radio"
-                checked={invoiceSettings.type === "organisation"}
-                onChange={() => handleChange("type", "organisation")}
-              />
-              <span className="form-check-sign" />
-              Organisation
-            </Label>
-          </FormGroup>
-
-        { invoiceSettings.type === "individual" ?
+        {invoiceSettings.type === "individual" ? (
           <>
             <CardTitle tag="h4">Individual</CardTitle>
             <Form className="form-horizontal">
-          <Row>
-            <Label md="3">Title *</Label>
-            <Col md="9">
-              <FormGroup>
-                <Input
-                  type="select"
-                  name="select"
-                  id="exampleSelect"
-                  style={{ color: "black" }}
-                >
-                  <option selected value="blank"></option>
-                  <option value="Mr">Mr</option>
-                  <option value="Miss">Miss</option>
-                  <option value="Miss">Miss</option>
-                  <option value="Ms">Ms</option>
-                  <option value="Dr">Dr</option>
-                </Input>
-              </FormGroup>
-            </Col>
-          </Row>
-          <Row>
-            <Label md="3">First Name *</Label>
-            <Col md="9">
-              <FormGroup>
-                <Input type="text" />
-              </FormGroup>
-            </Col>
-          </Row>
-          <Row>
-            <Label md="3">Last Name *</Label>
-            <Col md="9">
-              <FormGroup>
-                <Input type="text" />
-              </FormGroup>
-            </Col>
-          </Row>
-          <Row>
-            <Label md="3">Country *</Label>
-            <Col md="9">
-              <FormGroup>
-              </FormGroup>
-            </Col>
-          </Row>
-          <Row>
-            <Label md="3">Address Line 1 *</Label>
-            <Col md="9">
-              <FormGroup>
-                <Input type="text" />
-              </FormGroup>
-            </Col>
-          </Row>
-          <Row>
-            <Label md="3">Address Line 2</Label>
-            <Col md="9">
-              <FormGroup>
-                <Input type="text" />
-              </FormGroup>
-            </Col>
-          </Row>
-          <Row>
-            <Label md="3">City *</Label>
-            <Col md="9">
-              <FormGroup>
-                <Input type="text" />
-              </FormGroup>
-            </Col>
-          </Row>
-          <Row>
-            <Label md="3">Postcode *</Label>
-            <Col md="9">
-              <FormGroup>
-                <Input type="text" />
-              </FormGroup>
-            </Col>
-          </Row>
-          <Row>
-            <Label md="3">State</Label>
-            <Col md="9">
-              <FormGroup>
-                <Input type="text" />
-              </FormGroup>
-            </Col>
-          </Row>
-          <Row>
-            <Label md="3">Phone *</Label>
-            <Col md="9">
-              <FormGroup>
-                <Input type="text" />
-              </FormGroup>
-            </Col>
-          </Row>
-          <Row></Row>
-        </Form>
+              <Row>
+                <Label md="3">Title *</Label>
+                <Col md="9">
+                  <FormGroup>
+                    <Select
+                          className="react-select info mb-3"
+                          classNamePrefix="react-select"
+                          options={titles}
+                    >
+                    </Select>
+                  </FormGroup>
+                </Col>
+              </Row>
+              <Row>
+                <Label md="3">First Name *</Label>
+                <Col md="9">
+                  <FormGroup>
+                    <Input type="text" />
+                  </FormGroup>
+                </Col>
+              </Row>
+              <Row>
+                <Label md="3">Last Name *</Label>
+                <Col md="9">
+                  <FormGroup>
+                    <Input type="text" />
+                  </FormGroup>
+                </Col>
+              </Row>
+              <Row>
+                <Label md="3">Country *</Label>
+                <Col md="9">
+                  <Select
+                    className="react-select info mb-3"
+                    classNamePrefix="react-select"
+                    name="singleSelect"
+                    value={country.country}
+                    onChange={(country) => {
+                      handleCountryChange(country);
+                    }}
+                    options={countries}
+                    placeholder={country.country}
+                    
+                  />
+                </Col>
+              </Row>
+              <Row>
+                <Label md="3">Address Line 1 *</Label>
+                <Col md="9">
+                  <FormGroup>
+                    <Input type="text" />
+                  </FormGroup>
+                </Col>
+              </Row>
+              <Row>
+                <Label md="3">Address Line 2</Label>
+                <Col md="9">
+                  <FormGroup>
+                    <Input type="text" />
+                  </FormGroup>
+                </Col>
+              </Row>
+              <Row>
+                <Label md="3">City *</Label>
+                <Col md="9">
+                  <FormGroup>
+                    <Input type="text" />
+                  </FormGroup>
+                </Col>
+              </Row>
+              <Row>
+                <Label md="3">Postcode *</Label>
+                <Col md="9">
+                  <FormGroup>
+                    <Input type="text" />
+                  </FormGroup>
+                </Col>
+              </Row>
+              <Row>
+                <Label md="3">State</Label>
+                <Col md="9">
+                  <FormGroup>
+                    <Input type="text" />
+                  </FormGroup>
+                </Col>
+              </Row>
+              <Row>
+                <Label md="3">Phone *</Label>
+                <Col md="9">
+                  <FormGroup>
+                    <Input type="text" />
+                  </FormGroup>
+                </Col>
+              </Row>
+              <Row></Row>
+            </Form>
           </>
-          :
-
+        ) : (
           <>
             <CardTitle tag="h4">Organisation</CardTitle>
             <Form className="form-horizontal">
@@ -226,7 +259,7 @@ const InvoiceSettings = ({ invoiceSettings, setInvoiceSettings }) => {
                   <FormGroup>
                     <Input
                       type="text"
-                      onChange={(e) => handleChange("vat_id", e.target.value)}
+                      onChange={(e) => checkVAT("vat_id", e.target.value)}
                       value={invoiceSettings.vat_id}
                     />
                   </FormGroup>
@@ -235,17 +268,17 @@ const InvoiceSettings = ({ invoiceSettings, setInvoiceSettings }) => {
               <Row>
                 <Label md="3">Country *</Label>
                 <Col md="9">
-
                   <Select
                     className="react-select info mb-3"
                     classNamePrefix="react-select"
                     name="singleSelect"
                     value={country.country}
-                    onChange={(country) => {handleCountryChange(country)}}
+                    onChange={(country) => {
+                      handleCountryChange(country);
+                    }}
                     options={countries}
                     placeholder={country.country}
                   />
-
                 </Col>
               </Row>
               <Row>
@@ -254,7 +287,9 @@ const InvoiceSettings = ({ invoiceSettings, setInvoiceSettings }) => {
                   <FormGroup>
                     <Input
                       type="text"
-                      onChange={(e) => handleChange("address_line_1", e.target.value)}
+                      onChange={(e) =>
+                        handleChange("address_line_1", e.target.value)
+                      }
                       value={invoiceSettings.address_line_1}
                       className={error ? "danger-border" : ""}
                     />
@@ -267,7 +302,9 @@ const InvoiceSettings = ({ invoiceSettings, setInvoiceSettings }) => {
                   <FormGroup>
                     <Input
                       type="text"
-                      onChange={(e) => handleChange("address_line_2", e.target.value)}
+                      onChange={(e) =>
+                        handleChange("address_line_2", e.target.value)
+                      }
                       value={invoiceSettings.address_line_2}
                     />
                   </FormGroup>
@@ -325,27 +362,26 @@ const InvoiceSettings = ({ invoiceSettings, setInvoiceSettings }) => {
               </Row>
             </Form>
           </>
-        }
-         </CardBody>
+        )}
+      </CardBody>
       <CardFooter>
-          <Form className="form-horizontal">
-            <Row>
-              <Label md="3" />
-              <Col md="9">
-                <Button
-                  className="btn-fill"
-                  color="primary"
-                  type="button"
-                  onClick={confirmInvoice}
-                >
-                  Save
-                </Button>
-              </Col>
-            </Row>
-          </Form>
-        </CardFooter>
+        <Form className="form-horizontal">
+          <Row>
+            <Label md="3" />
+            <Col md="9">
+              <Button
+                className="btn-fill"
+                color="primary"
+                type="button"
+                onClick={confirmInvoice}
+              >
+                Save
+              </Button>
+            </Col>
+          </Row>
+        </Form>
+      </CardFooter>
     </Card>
-
   );
 }
 

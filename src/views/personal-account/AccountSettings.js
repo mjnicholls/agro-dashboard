@@ -1,22 +1,14 @@
 import React, {useEffect, useState} from 'react';
-import { useDispatch } from 'react-redux';
 import { getMailPrefs, deleteAcct } from '../../services/api/personalAccountAPI';
-import { notifyError, notifySuccess } from "../../features/notifications/actions";
-import { useSelector } from "react-redux";
 // reactstrap components
 import { Button,
   Card,
   CardBody,
-  CardFooter,
   CardHeader,
   CardTitle,
   Col,
-  Form,
-  FormGroup,
-  Input,
   Label,
-  Row,
-  UncontrolledTooltip
+  Row
  } from "reactstrap";
 import UserSettings from './UserSettings';
 import UserPassword from './UserPassword';
@@ -24,12 +16,9 @@ import PrivacySettings from './PrivacySettings';
 import InvoiceSettings from './InvoiceInfo';
 import DeleteAccount from './DeleteAccount';
 import ReactBSAlert from "react-bootstrap-sweetalert";
-
-
+import UnitsToggle from '../agro-components/UnitsToggle';
 
   const AccountSettings = ({}) => {
-
-    const dispatch = useDispatch();
 
     const hideAlert = () => {
       setAlert(null);
@@ -159,9 +148,19 @@ import ReactBSAlert from "react-bootstrap-sweetalert";
               />
             </Col>
           </Row>
-
+       
           <Row>
-            <Col></Col>
+            <Col>
+            <Card>
+            <CardHeader>
+                  <CardTitle tag="h4">Dashboard Settings</CardTitle>
+                </CardHeader>
+                <CardBody>
+                  <Label className="mb-3">Toggle Units: </Label>
+            <UnitsToggle />
+            </CardBody>
+            </Card>
+            </Col>
           </Row>
         </div>
       </>

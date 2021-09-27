@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useDispatch } from "react-redux";
 import { deleteAcct } from "../../services/api/personalAccountAPI";
 import {
@@ -8,20 +8,14 @@ import {
 // reactstrap components
 import {
   Button,
-  Card,
-  CardBody,
-  CardFooter,
-  CardHeader,
-  CardTitle,
   Col,
-  Form,
   FormGroup,
   Input,
   Label,
   Row,
 } from "reactstrap";
 
-const DeleteAccount = ({ acctNo, close, refreshData }) => {
+const DeleteAccount = ({ close, refreshData }) => {
   const dispatch = useDispatch();
 
   const confirmDeleteAcct = () => {
