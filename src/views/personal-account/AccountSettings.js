@@ -21,12 +21,21 @@ import UserSettings from './UserSettings';
 import UserPassword from './UserPassword';
 import PrivacySettings from './PrivacySettings';
 import InvoiceSettings from './InvoiceInfo';
+import DeleteAccount from './DeleteAccount';
+import ReactBSAlert from "react-bootstrap-sweetalert";
 
 
 
   const AccountSettings = ({}) => {
 
     const dispatch = useDispatch();
+
+    const hideAlert = () => {
+      setAlert(null);
+    };
+
+    const [alert, setAlert] = React.useState(null);
+
     const [invoiceSettings, setInvoiceSettings] = useState({});
 
     const [mailSettings, setMailSettings] = useState({
@@ -37,17 +46,6 @@ import InvoiceSettings from './InvoiceInfo';
 
     const [name, setName] = useState('');
     const [username, setUsername] = useState('');
-    const [isIndividual, setIsIndividual] = useState(true);
-    const [type, setType] = useState('');
-    const [vat_id, setVat_id] = useState('');
-    const [country, setCountry] = useState('')
-    const [address_line_1, setAddress_line_1] = useState('');
-    const [address_line_2, setAddress_line_2] = useState('');
-    const [city, setCity] = useState('');
-    const [postal_code, setPostal_code] = useState('');
-    const [state, setState] = useState('');
-    const [phone, setPhone] = useState('');
-
 
     useEffect(() => {
       getMailPrefs()
@@ -55,10 +53,28 @@ import InvoiceSettings from './InvoiceInfo';
           setName(res.user.full_name)
           setUsername(res.user.username)
           setMailSettings(res.mailing)
-          console.log(res.invoice_info)
+      
           setInvoiceSettings(res.invoice_info)
          })
     }, [])
+
+
+    const htmlAlert = (acctNo) => {
+      setAlert(
+        <ReactBSAlert
+          customClass="agro-alert"
+          title={"Delete Account"}
+          onConfirm={() => hideAlert()}
+          onCancel={() => hideAlert()}
+          showConfirm={false}
+        >
+          { <DeleteAccount
+            acctNo={acctNo}
+            close={hideAlert}
+          /> }
+        </ReactBSAlert>
+      );
+    };
 
 
     return (
@@ -80,24 +96,19 @@ import InvoiceSettings from './InvoiceInfo';
 
           <Row>
             <Col>
-              <Card>
-                <CardHeader>
-                  <CardTitle tag="h4">Delete Account</CardTitle>
-                </CardHeader>
-                <CardBody>
-                  <Label>Are you sure you want to delete your account?</Label>
-                </CardBody>
-                <CardFooter>
-                  <Button
-                    className="btn-fill"
-                    color="danger"
-                    type="button"
-                    //  onClick={}
-                  >
-                    Delete Account
-                  </Button>
-                </CardFooter>
-              </Card>
+            <Button
+                            className="btn-link btn-icon btn-neutral"
+                            color="primary"
+                            title="Delete"
+                            type="button"
+                            onClick={(e) => {
+                              htmlAlert(true);
+                              e.stopPropagation();
+                            }}
+                          >
+                           
+                          </Button>
+           
             </Col>
           </Row>
           <Row>
@@ -109,7 +120,7 @@ import InvoiceSettings from './InvoiceInfo';
 
           <Row>
             <Col>
-             
+            
             </Col>
           </Row>
         </div>

@@ -1,6 +1,6 @@
 import React from "react";
-import {deleteAPIKey} from '../../services/api/personalAccountAPI';
-import {useDispatch} from 'react-redux';
+import { deleteAPIKey } from '../../services/api/personalAccountAPI';
+import { useDispatch } from 'react-redux';
 import { notifyError, notifySuccess } from "../../features/notifications/actions";
 
 import {
