@@ -27,7 +27,20 @@ import InvoiceSettings from './InvoiceInfo';
   const AccountSettings = ({}) => {
 
     const dispatch = useDispatch();
-    const [invoiceSettings, setInvoiceSettings] = useState({});
+    const [invoiceSettings, setInvoiceSettings] = useState({
+      type: "individual",
+      title: "",
+      first_name: "",
+      last_name: "",
+      country: "",
+      address_line_1: "",
+      address_line_2: "",
+      city: "",
+      postal_code: "",
+      state: "",
+      phone: "",
+      vat_id: ""
+    });
 
     const [mailSettings, setMailSettings] = useState({
       news: false,
@@ -37,17 +50,6 @@ import InvoiceSettings from './InvoiceInfo';
 
     const [name, setName] = useState('');
     const [username, setUsername] = useState('');
-    const [isIndividual, setIsIndividual] = useState(true);
-    const [type, setType] = useState('');
-    const [vat_id, setVat_id] = useState('');
-    const [country, setCountry] = useState('')
-    const [address_line_1, setAddress_line_1] = useState('');
-    const [address_line_2, setAddress_line_2] = useState('');
-    const [city, setCity] = useState('');
-    const [postal_code, setPostal_code] = useState('');
-    const [state, setState] = useState('');
-    const [phone, setPhone] = useState('');
-
 
     useEffect(() => {
       getMailPrefs()
@@ -55,8 +57,9 @@ import InvoiceSettings from './InvoiceInfo';
           setName(res.user.full_name)
           setUsername(res.user.username)
           setMailSettings(res.mailing)
-          console.log(res.invoice_info)
-          setInvoiceSettings(res.invoice_info)
+          if (Object.keys(res.invoice_info).length) {
+            setInvoiceSettings(res.invoice_info)
+          }
          })
     }, [])
 
