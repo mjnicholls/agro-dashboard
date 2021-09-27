@@ -12,81 +12,46 @@ import { Button,
   CardFooter,
   CardHeader,
   CardTitle,
-  Col,
   Form,
   FormGroup,
   Input,
-  Label,
-  Row,
  } from "reactstrap";
 
- const userEmailSelector = state => state.auth.user.email;
+const userEmailSelector = state => state.auth.user.email;
 
- const userSettings = ({}) => {
+const UserSettings = ({name, setName, username, setUserName}) => {
 
-    const userEmail = useSelector(userEmailSelector);
+  const userEmail = useSelector(userEmailSelector);
 
-    const [name, setName] = useState('');
-    const [username, setUsername] = useState('');
-    const [pass, setPass] = useState('');
+  const [error, setError] = useState(null);
 
-    const confirmUpdate = () => {
+  const dispatch = useDispatch();
 
-        setError(null);
-        if 
-         (!username.length && !name.length) {
-           setError(true);
-           dispatch(notifyError("Cannot be empty"));
-           return
-         }
-         
-         let data = {
-           new_username: username,
-           new_full_name: name
-         }
-     
-         updateUserName(data).then(
-             () => { 
-               dispatch(notifySuccess("Username updated"))
-             }).catch(error => {
-               dispatch(notifyError("Error updating name " + error.message))
-             })
-         
-         }
+  const confirmUpdate = () => {
+      setError(null);
+      if
+       (!username.length && !name.length) {
+         setError(true);
+         dispatch(notifyError("Cannot be empty"));
+         return
+       }
 
-             // password update 
+       let data = {
+         new_username: username,
+         new_full_name: name
+       }
 
-  const confirmPassUpdate = () => {
+       updateUserName(data).then(
+           () => {
+             dispatch(notifySuccess("Username updated"))
+           }).catch(error => {
+             dispatch(notifyError("Error updating name " + error.message))
+           })
 
-    setError(null);
-
-    if
-     (!pass.length) {
-       setError(true);
-       dispatch(notifyError("Cannot be empty"));
-       return
-     }
-
-  let passdata = {
-    new_password: pass,
-    new_password_confirm: pass,
-  }
-
-  updatePassword(passdata).then(
-    () => {
-      dispatch(notifySuccess("Password updated"))
-    }).catch(error => {
-      dispatch(notifyError("Error updating password " + error.message))
-    })
-  }
-
+       }
 
   return (
-    <>
-      <div className="content">
-        <Row>
-          <Col md="6">
-            <Card>
+    <Card>
               <CardHeader>
                 <CardTitle tag="h4">Update Details</CardTitle>
               </CardHeader>
@@ -100,7 +65,7 @@ import { Button,
                   <FormGroup>
                     <Input
                       type="email"
-                      onChange={(e) => setUsername(e.target.value)}
+                      onChange={(e) => setUserName(e.target.value)}
                       value={username}
                       className={error ? "danger-border" : ""}
                     />
@@ -127,55 +92,8 @@ import { Button,
                 </Button>
               </CardFooter>
             </Card>
-          </Col>
-
-          <Col md="6">
-            <Card>
-              <CardHeader>
-                <CardTitle tag="h4">Update Password</CardTitle>
-              </CardHeader>
-              <CardBody>
-                <Form action="#">
-                  <label>New Password</label>
-                  <FormGroup>
-                    <Input
-                      type="password"
-                      autoComplete="off"
-                      onChange={(e) => setPass(e.target.value)}
-                      value={pass}
-                      className={error ? "danger-border" : ""}
-                    />
-                  </FormGroup>
-                  <label>Confirm New Password</label>
-                  <FormGroup>
-                    <Input
-                      type="password"
-                      autoComplete="off"
-                      onChange={(e) => setPass(e.target.value)}
-                      value={pass}
-                      className={error ? "danger-border" : ""}
-                    />
-                  </FormGroup>
-                </Form>
-              </CardBody>
-              <CardFooter>
-                <Button
-                  className="btn-fill"
-                  color="primary"
-                  type="submit"
-                  onClick={confirmPassUpdate}
-                >
-                  Submit
-                </Button>
-              </CardFooter>
-            </Card>
-          </Col>
-        </Row>
-        </div>
-        </>
   );
+}
 
- }
 
-
- export default userSettings;
+export default UserSettings;

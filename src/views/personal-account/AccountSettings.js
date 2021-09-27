@@ -22,10 +22,12 @@ import { Button,
   Label,
   Row,
  } from "reactstrap";
+import UserSettings from './UserSettings';
+import UserPassword from './UserPassword';
 
- const userEmailSelector = state => state.auth.user.email;
+const userEmailSelector = state => state.auth.user.email;
 
-  const AccountSettings = ({  }) => {
+  const AccountSettings = ({ }) => {
 
     const userEmail = useSelector(userEmailSelector);
 
@@ -46,7 +48,15 @@ import { Button,
     const [postal_code, setPostal_code] = useState('');
     const [state, setState] = useState('');
     const [phone, setPhone] = useState('');
- 
+
+    useEffect(() => {
+      getMailPrefs()
+        .then(res => {
+          setMailSettings(res.mailing);
+          setName(res.user.full_name)
+          setUsername(res.user.username)
+         })
+    }, [])
 
     const [mailSettings, setMailSettings] = useState({
       news: false,
@@ -54,47 +64,12 @@ import { Button,
       system: false
     })
 
-    // update mail preferences
-
-    useEffect(() => {
-      getMailPrefs()
-        .then(res => {
-          setMailSettings(res.mailing)
-         })
-    }, [])
-
     // send mail prefs
 
     const handleCheckBoxClick = (key, value) => {
         let newObj = Object.assign({}, mailSettings);
         newObj[key] = value;
         setMailSettings(newObj);
-    }
-
-    // update username
-
-  const confirmUpdate = () => {
-
-   setError(null);
-   if 
-    (!username.length && !name.length) {
-      setError(true);
-      dispatch(notifyError("Cannot be empty"));
-      return
-    }
-    
-    let data = {
-      new_username: username,
-      new_full_name: name
-    }
-
-    updateUserName(data).then(
-        () => { 
-          dispatch(notifySuccess("Username updated"))
-        }).catch(error => {
-          dispatch(notifyError("Error updating name " + error.message))
-        })
-    
     }
 
     // update invoice
@@ -138,30 +113,6 @@ import { Button,
 
     // password update 
 
-  const confirmPassUpdate = () => {
-
-    setError(null);
-
-    if
-     (!pass.length) {
-       setError(true);
-       dispatch(notifyError("Cannot be empty"));
-       return
-     }
-
-  let passdata = {
-    new_password: pass,
-    new_password_confirm: pass,
-  }
-
-  updatePassword(passdata).then(
-    () => {
-      dispatch(notifySuccess("Password updated"))
-    }).catch(error => {
-      dispatch(notifyError("Error updating password " + error.message))
-    })
-  }
-
   const confirmMailSettings = () => {
 
     updateMailing(mailSettings).then(
@@ -178,89 +129,10 @@ import { Button,
         <div className="content">
           <Row>
             <Col md="6">
-              <Card>
-                <CardHeader>
-                  <CardTitle tag="h4">Update Details</CardTitle>
-                </CardHeader>
-                <CardBody>
-                  <Form action="#">
-                    <label>Email address</label>
-                    <FormGroup>
-                      <Input type="email" value={userEmail} disabled />
-                    </FormGroup>
-                    <label>Username</label>
-                    <FormGroup>
-                      <Input
-                        type="email"
-                        onChange={(e) => setUsername(e.target.value)}
-                        value={username}
-                        className={error ? "danger-border" : ""}
-                      />
-                    </FormGroup>
-                    <label>Full Name</label>
-                    <FormGroup>
-                      <Input
-                        type="email"
-                        onChange={(e) => setName(e.target.value)}
-                        value={name}
-                        className={error ? "danger-border" : ""}
-                      />
-                    </FormGroup>
-                  </Form>
-                </CardBody>
-                <CardFooter>
-                  <Button
-                    className="btn-fill"
-                    color="primary"
-                    type="button"
-                    onClick={confirmUpdate}
-                  >
-                    Update
-                  </Button>
-                </CardFooter>
-              </Card>
+              <UserSettings name={name} setName={setName} username={username} setUserName={setUsername} />
             </Col>
-
             <Col md="6">
-              <Card>
-                <CardHeader>
-                  <CardTitle tag="h4">Update Password</CardTitle>
-                </CardHeader>
-                <CardBody>
-                  <Form action="#">
-                    <label>New Password</label>
-                    <FormGroup>
-                      <Input
-                        type="password"
-                        autoComplete="off"
-                        onChange={(e) => setPass(e.target.value)}
-                        value={pass}
-                        className={error ? "danger-border" : ""}
-                      />
-                    </FormGroup>
-                    <label>Confirm New Password</label>
-                    <FormGroup>
-                      <Input
-                        type="password"
-                        autoComplete="off"
-                        onChange={(e) => setPass(e.target.value)}
-                        value={pass}
-                        className={error ? "danger-border" : ""}
-                      />
-                    </FormGroup>
-                  </Form>
-                </CardBody>
-                <CardFooter>
-                  <Button
-                    className="btn-fill"
-                    color="primary"
-                    type="submit"
-                    onClick={confirmPassUpdate}
-                  >
-                    Submit
-                  </Button>
-                </CardFooter>
-              </Card>
+              <UserPassword />
             </Col>
           </Row>
           <Row>
