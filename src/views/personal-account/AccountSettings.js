@@ -29,14 +29,20 @@ import ReactBSAlert from "react-bootstrap-sweetalert";
   const AccountSettings = ({}) => {
 
     const dispatch = useDispatch();
-
-    const hideAlert = () => {
-      setAlert(null);
-    };
-
-    const [alert, setAlert] = React.useState(null);
-
-    const [invoiceSettings, setInvoiceSettings] = useState({});
+    const [invoiceSettings, setInvoiceSettings] = useState({
+      type: "individual",
+      title: "",
+      first_name: "",
+      last_name: "",
+      country: "",
+      address_line_1: "",
+      address_line_2: "",
+      city: "",
+      postal_code: "",
+      state: "",
+      phone: "",
+      vat_id: ""
+    });
 
     const [mailSettings, setMailSettings] = useState({
       news: false,
@@ -53,8 +59,9 @@ import ReactBSAlert from "react-bootstrap-sweetalert";
           setName(res.user.full_name)
           setUsername(res.user.username)
           setMailSettings(res.mailing)
-      
-          setInvoiceSettings(res.invoice_info)
+          if (Object.keys(res.invoice_info).length) {
+            setInvoiceSettings(res.invoice_info)
+          }
          })
     }, [])
 
