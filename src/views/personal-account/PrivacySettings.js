@@ -72,7 +72,8 @@ const PrivacySettings = ({ mailSettings, setMailSettings }) => {
                           }}
                           checked={mailSettings.product}
                         />
-                        <span className="form-check-sign" />
+                        <span className="form-check-sign"
+                        />
                         Product news (changes to prices, new product features,
                         etc)
                       </Label>
@@ -85,6 +86,7 @@ const PrivacySettings = ({ mailSettings, setMailSettings }) => {
                             handleCheckBoxClick("system", e.target.checked);
                           }}
                           checked={mailSettings.system}
+                          
                         />
                         <span className="form-check-sign" />
                         Corporate news (our life, launch of new services, etc)
@@ -98,6 +100,7 @@ const PrivacySettings = ({ mailSettings, setMailSettings }) => {
                     color="primary"
                     type="button"
                     onClick={confirmMailSettings}
+                    style={{marginTop:"28px" }}
                   >
                     Update
                   </Button>

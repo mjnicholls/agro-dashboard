@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { invoiceEdit, confirmUserVat } from '../../services/api/personalAccountAPI';
+import { invoiceEdit, confirmUserVat, getCountries, invoiceCreate} from '../../services/api/personalAccountAPI';
 import { notifyError, notifySuccess } from "../../features/notifications/actions";
 import classnames from "classnames";
-
-
-// reactstrap components
 import { Button,
   Card,
   CardBody,
@@ -21,19 +18,15 @@ import { Button,
  } from "reactstrap";
 import {countriesDefault} from '../../config';
 import Select from "react-select";
-import { confirmVat, getVat } from '../../services/api';
 
 
-const InvoiceSettings = ({ invoiceSettings, setInvoiceSettings }) => {
+const InvoiceSettings = ({ invoiceSettings, setInvoiceSettings, isNew, refreshData }) => {
 
   const dispatch = useDispatch();
 
-  const [error, setError] = useState({
-
-  })
+  const [error, setError] = useState({ })
   const [countries, setCountries] = useState(countriesDefault);
   const [country, setCountry] = useState({country: "", code: ""});
-  const [vat, setVat] = useState({message:"", code:""})
   const titles = [
     { value: 'Mr', label: 'Mr' },
     { value: 'Mrs', label: 'Mrs' },
@@ -43,8 +36,16 @@ const InvoiceSettings = ({ invoiceSettings, setInvoiceSettings }) => {
   ]
 
   useState(() => {
+
+    getCountries().then((res) => {
+      if (res.length) {
+        setCountry(res);
+      }
+    })
+
     // get request for country
     // if we have the result setCountries(result)
+
     if (invoiceSettings.country) {
       let country = countries.find(obj => obj.code === invoiceSettings.country)
       setCountry(country)
@@ -58,7 +59,7 @@ const InvoiceSettings = ({ invoiceSettings, setInvoiceSettings }) => {
 }
 
   // check VAT
-
+  /*
   const checkVAT = () => {
 
     setError(null);
@@ -76,14 +77,23 @@ const InvoiceSettings = ({ invoiceSettings, setInvoiceSettings }) => {
           dispatch(notifyError("Error updating VAT " + error.message))
         })
   }
+  */
 
   const confirmInvoice = () => {
-    setError(null);
+    setError({});
 
     if (invoiceSettings.type === 'individual') {
-      // first name
-      // last name
-    } else {
+
+      if (!invoiceSettings.first_name.length ||
+        !invoiceSettings.last_name.length){
+          setError({
+            first_name: invoiceSettings.first_name.length === 0,
+            last_name: invoiceSettings.last_name.length === 0
+          })
+        }
+    } 
+
+    else {
       if (!invoiceSettings.organisation.length) {
       setError({
         organisation: true
@@ -96,36 +106,102 @@ const InvoiceSettings = ({ invoiceSettings, setInvoiceSettings }) => {
         country: true
       })
     }
-    // address, city, postcode, phone
 
+    if (!invoiceSettings.address_line_1.length) {
+      setError({
+       address_line_1: true
+     })
+   }
 
+   if (!invoiceSettings.address_line_2.length) {
+    setError({
+     address_line_2: true
+   })
+ }
+
+ if (!invoiceSettings.city.length) {
+  setError({
+   city: true
+ })
+}
+
+if (!invoiceSettings.city.length) {
+  setError({
+   city: true
+ })
+}
+
+if (!invoiceSettings.postal_code.length) {
+  setError({
+    postal_code: true
+ })
+}
+
+if (!invoiceSettings.phone.length) {
+  setError({
+    phone: true
+ })
+}
+  
+console.log(error)
     if (Object.keys(error).length) {
       dispatch(notifyError("Cannot be empty"));
+     
       return
     }
 
     if (invoiceSettings.type === "organisation" && invoiceSettings.vat_id.length) {
       confirmUserVat(invoiceSettings.vat_id)
        .then(() => {
-         invoiceEdit(invoiceSettings)
+         if (isNew){
+           invoiceCreate(invoiceSettings)
            .then(() => {
-             dispatch(notifySuccess("Invoice updated"))
+             dispatch(notifySuccess("Invoice created"))
+             refreshData();
            })
            .catch(error => {
-             dispatch(notifyError("Error updating name " + error.message))
+             dispatch(notifyError("Error creating invoice " + error.message))
            })
+         }
+
+         else {
+          invoiceEdit(invoiceSettings)
+          .then(() => {
+            dispatch(notifySuccess("Invoice updated"))
+            
+          })
+          .catch(error => {
+            dispatch(notifyError("Error updating invoice " + error.message))
+          })
+         }
+    
        })
        .catch(() => {
          dispatch(notifyError("Incorrect VAT number"))
        })
-    } else {
-      invoiceEdit(invoiceSettings)
+    } 
+    
+    else {
+      if (isNew){
+        invoiceCreate(invoiceSettings)
+        .then(() => {
+          dispatch(notifySuccess("Invoice created"))
+          refreshData();
+        })
+        .catch(error => {
+          dispatch(notifyError("Error creating invoice " + error.message))
+        })
+      }
+
+      else {
+       invoiceEdit(invoiceSettings)
        .then(() => {
          dispatch(notifySuccess("Invoice updated"))
        })
        .catch(error => {
-         dispatch(notifyError("Error updating name " + error.message))
+         dispatch(notifyError("Error updating invoice " + error.message))
        })
+      }
     }
 
 
@@ -146,6 +222,7 @@ const InvoiceSettings = ({ invoiceSettings, setInvoiceSettings }) => {
                 type="radio"
                 checked={invoiceSettings.type === "individual"}
                 onChange={() => handleChange("type", "individual")}
+                disabled={!isNew && invoiceSettings.type === "organisation"}
               />
               <span className="form-check-sign" />
               Individual
@@ -157,6 +234,7 @@ const InvoiceSettings = ({ invoiceSettings, setInvoiceSettings }) => {
                 type="radio"
                 checked={invoiceSettings.type === "organisation"}
                 onChange={() => handleChange("type", "organisation")}
+                disabled={!isNew && invoiceSettings.type === "individual"}
               />
               <span className="form-check-sign" />
               Organisation
@@ -168,8 +246,8 @@ const InvoiceSettings = ({ invoiceSettings, setInvoiceSettings }) => {
         {invoiceSettings.type === "individual" ?
             <Form className="form-horizontal">
               <Row>
-                <Label md="3">Title *</Label>
-                <Col md="9">
+              <Col md="2"><Label>Title *</Label></Col>
+                <Col md="10">
                   <FormGroup>
                     <Select
                       className="react-select info mb-3"
@@ -181,27 +259,42 @@ const InvoiceSettings = ({ invoiceSettings, setInvoiceSettings }) => {
                 </Col>
               </Row>
               <Row>
-                <Label md="3">First Name *</Label>
-                <Col md="9">
+                <Col md="2"><Label>First Name *</Label></Col>
+                <Col md="10">
                   <FormGroup>
-                    <Input type="text" />
+                  <Input
+                      type="text"
+                      onChange={(e) =>
+                        handleChange("first_name", e.target.value)
+                      }
+                      value={invoiceSettings.first_name}
+                      className={error.first_name ? "danger-border" : ""}
+                    />
                   </FormGroup>
                 </Col>
               </Row>
               <Row>
-                <Label md="3">Last Name *</Label>
-                <Col md="9">
+              <Col md="2"><Label>Last Name *</Label></Col>
+                <Col md="10">
                   <FormGroup>
-                    <Input type="text" required />
+                  <Input
+                      type="text"
+                      onChange={(e) =>
+                        handleChange("last_name", e.target.value)
+                      }
+                      value={invoiceSettings.last_name}
+                      className={error.last_name ? "danger-border" : ""}
+                    />
                   </FormGroup>
                 </Col>
               </Row>
               <Row>
-                <Label md="3">Country *</Label>
-                <Col md="9">
+              <Col md="2"><Label>Country *</Label></Col>
+                <Col md="10">
                   <FormGroup>
                   <Select
-                    className="react-select info mb-3"
+                    // className="react-select info mb-3"
+                    className={classnames("react-select info mb-3", error.country ? 'danger-border' : "")}
                     classNamePrefix="react-select"
                     onChange={country => {
                       handleChange('country', country.code);
@@ -209,56 +302,87 @@ const InvoiceSettings = ({ invoiceSettings, setInvoiceSettings }) => {
                     options={countries}
                     getOptionLabel={(option)=>option.name}
                     getOptionValue={(option)=>option.code}
-                    placeholder={invoiceSettings.country ? countries.find(obj => obj.code === invoiceSettings.country).name : ""}
-                  />
+                    placeholder={invoiceSettings.country ? countries.find(obj => obj.code === invoiceSettings.country).name : ""} />
                   </FormGroup>
                 </Col>
               </Row>
               <Row>
-                <Label md="3">Address Line 1 *</Label>
-                <Col md="9">
-                  <FormGroup>
-                    <Input type="text" />
+              <Col md="2"><Label>Address Line 1 *</Label></Col>
+                <Col md="10">
+                <FormGroup>
+                    <Input
+                      type="text"
+                      onChange={(e) =>
+                        handleChange("address_line_1", e.target.value)
+                      }
+                      value={invoiceSettings.address_line_1}
+                      className={error.address_line_1 ? "danger-border" : ""}
+                    />
                   </FormGroup>
                 </Col>
               </Row>
               <Row>
-                <Label md="3">Address Line 2</Label>
-                <Col md="9">
-                  <FormGroup>
-                    <Input type="text" />
+              <Col md="2"><Label>Address Line 2</Label></Col>
+                <Col md="10">
+                <FormGroup>
+                    <Input
+                      type="text"
+                      onChange={(e) =>
+                        handleChange("address_line_2", e.target.value)
+                      }
+                      value={invoiceSettings.address_line_2}
+                    />
                   </FormGroup>
                 </Col>
               </Row>
               <Row>
-                <Label md="3">City *</Label>
-                <Col md="9">
+              <Col md="2"><Label>City *</Label></Col>
+                <Col md="10">
                   <FormGroup>
-                    <Input type="text" />
+                  <Input
+                      type="text"
+                      onChange={(e) => handleChange("city", e.target.value)}
+                      value={invoiceSettings.city}
+                      className={error.city ? "danger-border" : ""}
+                    />
                   </FormGroup>
                 </Col>
               </Row>
               <Row>
-                <Label md="3">Postcode *</Label>
-                <Col md="9">
+              <Col md="2"><Label>Postcode *</Label></Col>
+                <Col md="10">
                   <FormGroup>
-                    <Input type="text" />
+                  <Input
+                      type="text"
+                      onChange={(e) => handleChange("postal_code", e.target.value)}
+                      value={invoiceSettings.postal_code}
+                      className={error.postal_code ? "danger-border" : ""}
+                    />
                   </FormGroup>
                 </Col>
               </Row>
               <Row>
-                <Label md="3">State</Label>
-                <Col md="9">
+              <Col md="2"><Label>State</Label></Col>
+                <Col md="10">
                   <FormGroup>
-                    <Input type="text" />
+                  <Input
+                      type="text"
+                      onChange={(e) => handleChange("state", e.target.value)}
+                      value={invoiceSettings.state}
+                    />
                   </FormGroup>
                 </Col>
               </Row>
               <Row>
-                <Label md="3">Phone *</Label>
-                <Col md="9">
+              <Col md="2"><Label>Phone *</Label></Col>
+                <Col md="10">
                   <FormGroup>
-                    <Input type="text" />
+                  <Input
+                      type="text"
+                      onChange={(e) => handleChange("phone", e.target.value)}
+                      value={invoiceSettings.phone}
+                      className={error.phone ? "danger-border" : ""}
+                    />
                   </FormGroup>
                 </Col>
               </Row>
@@ -266,8 +390,8 @@ const InvoiceSettings = ({ invoiceSettings, setInvoiceSettings }) => {
             </Form> :
             <Form className="form-horizontal">
               <Row>
-                <Label md="3">Organisation *</Label>
-                <Col md="9">
+              <Col md="2"><Label>Organisation *</Label></Col>
+                <Col md="10">
                   <FormGroup>
                     <Input
                       type="text"
@@ -279,8 +403,8 @@ const InvoiceSettings = ({ invoiceSettings, setInvoiceSettings }) => {
                 </Col>
               </Row>
               <Row>
-                <Label md="3">VAT ID</Label>
-                <Col md="9">
+              <Col md="2"><Label>VAT ID</Label></Col>
+                <Col md="10">
                   <FormGroup>
                     <Input
                       type="text"
@@ -289,13 +413,14 @@ const InvoiceSettings = ({ invoiceSettings, setInvoiceSettings }) => {
                         handleChange('vat_id', e.target.value);
                       }}
                       value={invoiceSettings.vat_id}
+                      className={error.vat_id ? "danger-border" : ""}
                     />
                   </FormGroup>
                 </Col>
               </Row>
               <Row>
-                <Label md="3">Country *</Label>
-                <Col md="9">
+              <Col md="2"><Label>Country *</Label></Col>
+                <Col md="10">
                   <Select
                     // className="react-select info mb-3"
                     className={classnames("react-select info mb-3", error.country ? 'danger-border' : "")}
@@ -311,8 +436,8 @@ const InvoiceSettings = ({ invoiceSettings, setInvoiceSettings }) => {
                 </Col>
               </Row>
               <Row>
-                <Label md="3">Address Line 1 *</Label>
-                <Col md="9">
+              <Col md="2"><Label>Address Line 1 *</Label></Col>
+                <Col md="10">
                   <FormGroup>
                     <Input
                       type="text"
@@ -320,14 +445,14 @@ const InvoiceSettings = ({ invoiceSettings, setInvoiceSettings }) => {
                         handleChange("address_line_1", e.target.value)
                       }
                       value={invoiceSettings.address_line_1}
-                      className={error ? "danger-border" : ""}
+                      className={error.address_line_1 ? "danger-border" : ""}
                     />
                   </FormGroup>
                 </Col>
               </Row>
               <Row>
-                <Label md="3">Address Line 2</Label>
-                <Col md="9">
+              <Col md="2"><Label>Address Line 2</Label></Col>
+                <Col md="10">
                   <FormGroup>
                     <Input
                       type="text"
@@ -335,39 +460,40 @@ const InvoiceSettings = ({ invoiceSettings, setInvoiceSettings }) => {
                         handleChange("address_line_2", e.target.value)
                       }
                       value={invoiceSettings.address_line_2}
+                      className={error.address_line_2 ? "danger-border" : ""}
                     />
                   </FormGroup>
                 </Col>
               </Row>
               <Row>
-                <Label md="3">City *</Label>
-                <Col md="9">
+              <Col md="2"><Label>City *</Label></Col>
+                <Col md="10">
                   <FormGroup>
                     <Input
                       type="text"
                       onChange={(e) => handleChange("city", e.target.value)}
                       value={invoiceSettings.city}
-                      className={error ? "danger-border" : ""}
+                      className={error.city ? "danger-border" : ""}
                     />
                   </FormGroup>
                 </Col>
               </Row>
               <Row>
-                <Label md="3">Postcode *</Label>
-                <Col md="9">
+              <Col md="2"><Label>Postcode *</Label></Col>
+                <Col md="10">
                   <FormGroup>
                     <Input
                       type="text"
                       onChange={(e) => handleChange("postcode", e.target.value)}
                       value={invoiceSettings.postal_code}
-                      className={error ? "danger-border" : ""}
+                      className={error.postal_code ? "danger-border" : ""}
                     />
                   </FormGroup>
                 </Col>
               </Row>
               <Row>
-                <Label md="3">State</Label>
-                <Col md="9">
+              <Col md="2"><Label>State</Label></Col>
+                <Col md="10">
                   <FormGroup>
                     <Input
                       type="text"
@@ -378,13 +504,14 @@ const InvoiceSettings = ({ invoiceSettings, setInvoiceSettings }) => {
                 </Col>
               </Row>
               <Row>
-                <Label md="3">Phone *</Label>
-                <Col md="9">
+              <Col md="2"><Label>Phone *</Label></Col>
+                <Col md="10">
                   <FormGroup>
                     <Input
                       type="text"
                       onChange={(e) => handleChange("phone", e.target.value)}
                       value={invoiceSettings.phone}
+                      className={error.phone ? "danger-border" : ""}
                     />
                   </FormGroup>
                 </Col>

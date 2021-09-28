@@ -11,7 +11,8 @@ import {
   deleteAccount, 
   invoiceUpdate,
   getVat,
-  confirmVat
+  confirmVat,
+  countriesList
 } from "./index";
 import {axiosInstance} from "../base";
 
@@ -126,6 +127,17 @@ export const invoiceEdit = (params) => {
     })
 }
 
+// post invoice info (new members)
+
+export const invoiceCreate = (params) => {
+  console.log(params)
+  return axiosInstance.post(invoiceUpdate, params)
+    .then(response => response)
+    .catch(error => {
+      throw new Error(error)
+    })
+}
+
 // get VAT method
 export const getUserVat = () => {
   return axiosInstance.get(getVat)
@@ -144,3 +156,10 @@ export const confirmUserVat = () => {
     })
 }
 
+export const getCountries = () => {
+  return axiosInstance.get(countriesList)
+    .then(response => response.data)
+    .catch(err => {
+      throw new Error(err)
+    })
+}

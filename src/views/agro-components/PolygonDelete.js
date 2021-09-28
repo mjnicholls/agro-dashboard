@@ -1,3 +1,4 @@
+import { polygonToLine } from "@turf/turf";
 import React, {useState} from "react";
 import {useDispatch} from 'react-redux';
 
@@ -27,41 +28,30 @@ const PolygonDelete = ({ polygon, close }) => {
   return (
     <div>
       <Row>
-        <Col className="mb-3">
-          <p>Are you sure you want to delete selected polygon?</p>
+        <Col className="mb-3" style={{marginBottom:"22px", marginTop:"22px" }}>
+          <p>Are you sure you want to delete this polygon?</p>
         </Col>
       </Row>
       <Row>
-        <Col>
-          <FormGroup>
-            <label>Please enter its name to confirm:</label>
-            <Row>
-              <Col>
-                <Input
-                  name="name"
-                  type="text"
-                  onChange={e => setName(e.target.value)}
-                  value={name}
-                />
-              </Col>
-            </Row>
-          </FormGroup>
+        <Col className="mb-3"  color="danger">
+          <p> <b>Name: </b>{polygon.name}, <b>Area: </b> {polygon.area}</p>
         </Col>
       </Row>
+     
 
       <div className="agro-pop-up-footer">
         <Button
-          className="btn-neutral"
-          color="default"
+          className="btn-primary"
+          color="primary"
           type="button"
           onClick={close}
         >
           Cancel
         </Button>
         <Button
-          className="btn-neutral"
-          color="default"
-          disabled={deletionDisabled()}
+          className="btn-danger"
+          color="danger"
+         // disabled={deletionDisabled()}
           data-dismiss="modal"
           type="button"
           onClick={confirmDelete}

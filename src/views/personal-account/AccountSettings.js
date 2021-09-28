@@ -20,7 +20,6 @@ import UnitsRadioButtons from '../agro-components/UnitsRadioButtons';
 
 const userSubscriptionSelector = state => state.auth.user.tariff;
 
-
   const AccountSettings = ({}) => {
 
     const hideAlert = () => {
@@ -31,13 +30,14 @@ const userSubscriptionSelector = state => state.auth.user.tariff;
     const [alert, setAlert] = React.useState(null);
     const subscription = useSelector(userSubscriptionSelector);
 
-    const refreshData = () => {
+  /*  const refreshData = () => {
       deleteAcct()
         .then(res => {
           setData(res)
         })
         .catch(err => {console.log(err)})
     }
+    */
 
     const [invoiceSettings, setInvoiceSettings] = useState({
       type: "individual",
@@ -55,6 +55,9 @@ const userSubscriptionSelector = state => state.auth.user.tariff;
       vat_id: ""
     });
 
+    const [isNew, setIsNew] = useState(true);
+    const [isFree, setIsFree] = useState(true);
+
     const [mailSettings, setMailSettings] = useState({
       news: false,
       product: false,
@@ -66,17 +69,25 @@ const userSubscriptionSelector = state => state.auth.user.tariff;
     const [email, setEmail] = useState('');
 
     useEffect(() => {
-      getMailPrefs()
-        .then(res => {
-          setName(res.user.full_name)
-          setUsername(res.user.username)
-          setEmail(res.user.email)
-          setMailSettings(res.mailing)
-          if (Object.keys(res.invoice_info).length) {
-            setInvoiceSettings(res.invoice_info)
-          }
-         })
+     refreshData();
     }, [])
+
+   const refreshData = () => {
+    getMailPrefs()
+    .then(res => {
+      setName(res.user.full_name)
+      setUsername(res.user.username)
+      setEmail(res.user.email)
+      setMailSettings(res.mailing)
+      if (Object.keys(res.invoice_info).length) {
+        setInvoiceSettings(res.invoice_info)
+        setIsNew(false)
+      }
+      else {
+        setIsNew(true);
+      }
+     })
+   }
 
 
     const htmlAlert = (acctNo) => {
@@ -130,6 +141,8 @@ const userSubscriptionSelector = state => state.auth.user.tariff;
               <InvoiceSettings
                 invoiceSettings={invoiceSettings}
                 setInvoiceSettings={setInvoiceSettings}
+                isNew={isNew}
+                refreshData={refreshData}
               />
             </Col>
             <Col lg="4">

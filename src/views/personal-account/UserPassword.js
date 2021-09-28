@@ -18,6 +18,7 @@ import { Button,
 const UserPassword = () => {
 
   const [pass, setPass] = useState('');
+  const [confirmPass, setConfirmPass] = useState('')
 
   const [error, setError] = useState(null);
 
@@ -33,9 +34,15 @@ const UserPassword = () => {
        return
      }
 
+     if (!confirmPass.length) {
+      setError(true);
+      dispatch(notifyError("Cannot be empty"));
+      return
+    }
+
     let passdata = {
       new_password: pass,
-      new_password_confirm: pass,
+      new_password_confirm: confirmPass,
     }
 
     updatePassword(passdata)
@@ -66,24 +73,28 @@ const UserPassword = () => {
                 className={error ? "danger-border" : ""}
               />
             </FormGroup>
+            <CardBody></CardBody>
             <label>Confirm New Password</label>
             <FormGroup>
               <Input
                 type="password"
                 autoComplete="off"
-                onChange={(e) => setPass(e.target.value)}
-                value={pass}
+                onChange={(e) => setConfirmPass(e.target.value)}
+                value={confirmPass}
                 className={error ? "danger-border" : ""}
+                style={{marginBottom:"22px" }}
               />
             </FormGroup>
           </Form>
         </CardBody>
+        <CardBody></CardBody>
         <CardFooter className="text-right">
           <Button
             className="btn-fill"
             color="primary"
             type="submit"
             onClick={confirmPassUpdate}
+           
           >
             Submit
           </Button>
