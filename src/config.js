@@ -1560,3 +1560,11 @@ export const countriesDefault = [
 {code: "ZM", name:	"Zambia"},
 {code: "ZW", name:	"Zimbabwe"},
 ]
+
+export const titles = [
+    { value: "Mr", label: "Mr" },
+    { value: "Mrs", label: "Mrs" },
+    { value: "Miss", label: "Miss" },
+    { value: "Ms", label: "Ms" },
+    { value: "Dr", label: "Dr" },
+  ];
