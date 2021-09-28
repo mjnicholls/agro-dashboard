@@ -15,6 +15,7 @@ import UserPassword from './UserPassword';
 import PrivacySettings from './PrivacySettings';
 import InvoiceSettings from './InvoiceInfo';
 import DeleteAccount from './DeleteAccount';
+import BillingPlans from './BillingPlans'
 import ReactBSAlert from "react-bootstrap-sweetalert";
 import UnitsRadioButtons from '../agro-components/UnitsRadioButtons';
 

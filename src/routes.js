@@ -10,6 +10,7 @@ import { faListUl, faPlus, faSatellite, faTemperatureLow } from '@fortawesome/fr
 import ApiKeys from 'views/personal-account/ApiKeys';
 import InvoiceList from 'views/personal-account/Payments'
 import AccountSettings from 'views/personal-account/AccountSettings'
+import BillingPlans from 'views/personal-account/BillingPlans'
 
 const routes = [
   {
@@ -80,9 +81,18 @@ const routes = [
         path: "/account-settings",
         name: "Account Settings",
         rtlName: "",
-        mini: "I",
+        mini: "S",
         rtlMini: "",
         component: AccountSettings,
+        layout: "/dashboard",
+      },
+      {
+        path: "/billing-plans",
+        name: "Billing Plans",
+        rtlName: "",
+        mini: "B",
+        rtlMini: "",
+        component: BillingPlans,
         layout: "/dashboard",
       },
     ]
