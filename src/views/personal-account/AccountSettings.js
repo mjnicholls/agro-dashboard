@@ -185,12 +185,6 @@ const userSubscriptionSelector = state => state.auth.user.tariff;
               </Row>
             </Col>
           </Row>
-
-
-
-          <Row>
-
-          </Row>
         </div>
       </>
     );
