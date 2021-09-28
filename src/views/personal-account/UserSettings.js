@@ -3,7 +3,6 @@ import { useDispatch } from 'react-redux';
 import { updateUserName
 } from '../../services/api/personalAccountAPI';
 import { notifyError, notifySuccess } from "../../features/notifications/actions";
-import { useSelector } from "react-redux";
 // reactstrap components
 import { Button,
   Card,
@@ -16,11 +15,8 @@ import { Button,
   Input,
  } from "reactstrap";
 
-const userEmailSelector = state => state.auth.user.email;
 
-const UserSettings = ({name, setName, username, setUserName}) => {
-
-  const userEmail = useSelector(userEmailSelector);
+const UserSettings = ({name, setName, username, setUserName, email}) => {
 
   const [error, setError] = useState(null);
 
@@ -51,46 +47,46 @@ const UserSettings = ({name, setName, username, setUserName}) => {
 
   return (
     <Card>
-              <CardHeader>
-                <CardTitle tag="h4">Update Details</CardTitle>
-              </CardHeader>
-              <CardBody>
-                <Form action="#">
-                  <label>Email address</label>
-                  <FormGroup>
-                    <Input type="email" value={userEmail} disabled />
-                  </FormGroup>
-                  <label>Username</label>
-                  <FormGroup>
-                    <Input
-                      type="email"
-                      onChange={(e) => setUserName(e.target.value)}
-                      value={username}
-                      className={error ? "danger-border" : ""}
-                    />
-                  </FormGroup>
-                  <label>Full Name</label>
-                  <FormGroup>
-                    <Input
-                      type="email"
-                      onChange={(e) => setName(e.target.value)}
-                      value={name}
-                      className={error ? "danger-border" : ""}
-                    />
-                  </FormGroup>
-                </Form>
-              </CardBody>
-              <CardFooter>
-                <Button
-                  className="btn-fill"
-                  color="primary"
-                  type="button"
-                  onClick={confirmUpdate}
-                >
-                  Update
-                </Button>
-              </CardFooter>
-            </Card>
+        <CardHeader>
+          <CardTitle tag="h4">Update Details</CardTitle>
+        </CardHeader>
+        <CardBody>
+          <Form>
+            <label>Username</label>
+            <FormGroup>
+              <Input
+                type="text"
+                onChange={(e) => setUserName(e.target.value)}
+                value={username}
+                className={error ? "danger-border" : ""}
+              />
+            </FormGroup>
+            <label>Full Name</label>
+            <FormGroup>
+              <Input
+                type="text"
+                onChange={(e) => setName(e.target.value)}
+                value={name}
+                className={error ? "danger-border" : ""}
+              />
+            </FormGroup>
+            <label>Email address</label>
+            <FormGroup>
+              <Input type="email" value={email} disabled />
+            </FormGroup>
+          </Form>
+        </CardBody>
+        <CardFooter className="text-right">
+          <Button
+            className="btn-fill"
+            color="primary"
+            type="button"
+            onClick={confirmUpdate}
+          >
+            Update
+          </Button>
+        </CardFooter>
+      </Card>
   );
 }
 

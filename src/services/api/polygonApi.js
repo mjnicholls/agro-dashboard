@@ -9,28 +9,16 @@ import {startSatelliteImagesSearchDate} from '../../config'
 
 export const createPolygonApi = async (polygonData) => {
   return axiosInstance.post(polygonCreate, polygonData)
-    .then(response => response)
-    .catch(error => {
-      throw new Error(error)
-    })
 }
 
 export const editPolygonApi = async (polygonData) => {
   let url = polygonDelete + polygonData.id;
   return axiosInstance.put(url, polygonData)
-    .then(response => response)
-    .catch(error => {
-      throw new Error(error)
-    })
 }
 
 export const deletePolygonApi = (polygonId) => {
   let url = polygonDelete + polygonId;
   return axiosInstance.delete(url)
-    .then(response => response)
-    .catch(error => {
-      throw new Error(error)
-    })
 }
 
 export const getSatelliteImagesList = (polygonId, cancelToken) => {
@@ -49,9 +37,7 @@ export const getImageStats = (url, cancelToken) => {
     cancelToken: cancelToken.token,
   };
   return axiosInstance.get(url, config)
-    .then(response => {
-      return response.data
-    })
+    .then(response => response.data)
     .catch(err => {
       throw new Error(err)})
 }

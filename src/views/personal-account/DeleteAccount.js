@@ -34,17 +34,10 @@ const DeleteAccount = ({ close, refreshData }) => {
 
   return (
     <div>
-      <Row>
-        <Col className="mb-3">
-          <p>Are you sure you want to delete your account?</p>
-        </Col>
-      </Row>
-
- 
         <Row>
           <Col className="mb-3">
             <p>
-              If you delete your personal account all your API keys will be blocked.
+              If you delete your account all your API keys will be blocked.
             </p>
           </Col>
         </Row>
@@ -52,7 +45,7 @@ const DeleteAccount = ({ close, refreshData }) => {
           <Col className="mb-3">
             <p>
               If you have any questions, please reach out to our friendly
-              support team by emailing us at: info@openweathermap.org.
+              support team by emailing us at <a href="mailto:info@openweathermap.org" target="_blank">info@openweathermap.org</a>
             </p>
           </Col>
         </Row>

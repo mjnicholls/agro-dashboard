@@ -17,7 +17,6 @@ import {
   Container,
   UncontrolledTooltip,
 } from "reactstrap";
-import UnitsToggle from '../../views/agro-components/UnitsToggle'
 
 const userEmailSelector = state => state.auth.user.email;
 const selectActivePoly = state => state.state.polygon;
@@ -135,9 +134,6 @@ const AdminNavbar = (props) => {
           <Collapse navbar isOpen={collapseOpen}>
             <Nav className="ml-auto" navbar>
               <UncontrolledDropdown nav>
-                <UnitsToggle className="search-bar input-group" />
-              </UncontrolledDropdown>
-              <UncontrolledDropdown nav>
                 <DropdownToggle
                   caret
                   color="default"
@@ -145,7 +141,7 @@ const AdminNavbar = (props) => {
                   nav
                   onClick={(e) => e.preventDefault()}
                 >
-                  <div className="d-none d-lg-block" style={{alignItems: "center", textOverflow: "ellipsis", overflow: "hidden", maxWidth: "150px" }}>{userEmail}
+                  <div className="d-none d-lg-block" >{userEmail}
                   </div>
                   <b className="caret d-none d-lg-block d-xl-block" style={{left: "auto", right: 0, top: "60%"}} />
                   <p className="d-lg-none">{userEmail}</p>
@@ -163,11 +159,11 @@ const AdminNavbar = (props) => {
                   </NavLink>
                 </DropdownMenu>
               </UncontrolledDropdown>
-              <li>
-                <a className="btn btn-simple btn-github"
-                     role="button" href="https://old.agromonitoring.com/dashboard/satellite"
-                     target="_blank" rel="noopener noreferrer"
-              >Old Dashboard</a></li>
+              {/*<li>*/}
+                {/*<a className="btn btn-simple btn-github"*/}
+                     {/*role="button" href="https://old.agromonitoring.com/dashboard/satellite"*/}
+                     {/*target="_blank" rel="noopener noreferrer"*/}
+              {/*>Old Dashboard</a></li>*/}
               <li className="separator d-lg-none" />
             </Nav>
           </Collapse>

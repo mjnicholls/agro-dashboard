@@ -78,7 +78,7 @@ const UserPassword = () => {
             </FormGroup>
           </Form>
         </CardBody>
-        <CardFooter>
+        <CardFooter className="text-right">
           <Button
             className="btn-fill"
             color="primary"

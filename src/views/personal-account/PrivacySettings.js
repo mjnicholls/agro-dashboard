@@ -47,7 +47,7 @@ const PrivacySettings = ({ mailSettings, setMailSettings }) => {
                   <CardTitle tag="h4">Privacy Settings</CardTitle>
                 </CardHeader>
                 <CardBody>
-                  <Label sm="12">Custom Checkboxes &amp; radios</Label>
+                  <Label sm="12">Please indicate what news from our company you would like to receive by email:</Label>
                   <Col className="checkbox-radios" sm="12">
                     <FormGroup check>
                       <Label check>
@@ -59,7 +59,7 @@ const PrivacySettings = ({ mailSettings, setMailSettings }) => {
                           checked={mailSettings.news}
                         />
                         <span className="form-check-sign" />
-                        System news (API usage alert, system update, temporary
+                        System news (API usage alerts, system updates, temporary
                         system shutdown, etc)
                       </Label>
                     </FormGroup>
@@ -73,7 +73,7 @@ const PrivacySettings = ({ mailSettings, setMailSettings }) => {
                           checked={mailSettings.product}
                         />
                         <span className="form-check-sign" />
-                        Product news (change to price, new product features,
+                        Product news (changes to prices, new product features,
                         etc)
                       </Label>
                     </FormGroup>
@@ -87,13 +87,12 @@ const PrivacySettings = ({ mailSettings, setMailSettings }) => {
                           checked={mailSettings.system}
                         />
                         <span className="form-check-sign" />
-                        Corporate news (our life, the launch of a new service,
-                        etc)
+                        Corporate news (our life, launch of new services, etc)
                       </Label>
                     </FormGroup>
                   </Col>
                 </CardBody>
-                <CardFooter>
+                <CardFooter className="text-right">
                   <Button
                     className="btn-fill"
                     color="primary"

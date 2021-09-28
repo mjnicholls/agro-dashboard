@@ -35,7 +35,9 @@ const selectPolygons = state => state.polygons;
 const PolygonCreateCard = ({area, geoJson, intersections, mode, setMode, resetMap, mapHeight, blockResetMap}) => {
 
   const [name, setName] = useState("");
+
   const [error, setError] = useState({});
+
   const minPolygonArea = useSelector(selectMinPolygonArea);
   const maxPolygonArea = useSelector(selectMaxPolygonArea);
   const maxTotalArea = useSelector(selectMaxTotalArea);

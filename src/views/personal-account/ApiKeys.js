@@ -1,7 +1,8 @@
-import React, {useEffect, useState} from 'react';
-import { getAPIKeys } from '../../services/api/personalAccountAPI'
+import React, { useEffect, useState } from "react";
+import { getAPIKeys } from "../../services/api/personalAccountAPI";
 // reactstrap components
-import { Button,
+import {
+  Button,
   Card,
   CardHeader,
   CardBody,
@@ -12,19 +13,19 @@ import { Button,
   Row,
   Col,
   Table,
-  UncontrolledTooltip } from "reactstrap";
-import { setApiKeyStatus } from 'features/auth/actions';
-import { apiKeys } from 'services/api';
+  UncontrolledTooltip,
+} from "reactstrap";
 import ReactBSAlert from "react-bootstrap-sweetalert";
-import APIKeyEdit from './APIKeyEdit';
-import ApiKeysDelete from './APIKeysDelete';
-import { createApiKey } from '../../services/api/personalAccountAPI';
-import { useDispatch } from 'react-redux';
-import { notifyError, notifySuccess } from "../../features/notifications/actions";
-
+import APIKeyEdit from "./APIKeyEdit";
+import ApiKeysDelete from "./APIKeysDelete";
+import { createApiKey } from "../../services/api/personalAccountAPI";
+import { useDispatch } from "react-redux";
+import {
+  notifyError,
+  notifySuccess,
+} from "../../features/notifications/actions";
 
 const ApiKeys = () => {
-
   const [data, setData] = useState([]);
   const [alert, setAlert] = React.useState(null);
   const [name, setName] = useState("");
@@ -32,35 +33,35 @@ const ApiKeys = () => {
 
   const dispatch = useDispatch();
 
-  const refreshData = () => {
-    getAPIKeys()
-      .then(res => {
-        setData(res)
-      })
-      .catch(err => {console.log(err)})
-  }
-
   useEffect(() => {
     refreshData();
-  }, [])
+  }, []);
+
+  const refreshData = () => {
+    getAPIKeys()
+      .then((res) => {
+        setData(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   const hideAlert = () => {
     setAlert(null);
   };
 
-
   const confirmCreate = () => {
-    
     setError(null);
-    
-    if (!name.length){
-      setError(true)
-      dispatch(notifyError('Name cannot be empty'))
-      return
+
+    if (!name.length) {
+      setError(true);
+      dispatch(notifyError("Name cannot be empty"));
+      return;
     }
-    
+
     setError({});
-    
+
     let data = {
       appid_name: name,
     };
@@ -69,16 +70,14 @@ const ApiKeys = () => {
       .then(() => {
         setName("");
         refreshData();
-        dispatch(notifySuccess("API Key created"))
-      }).catch(error => {
-        dispatch(notifyError("Error creating API Key" + error.message))
+        dispatch(notifySuccess("API Key created"));
       })
-
-    
-    }
+      .catch((error) => {
+        dispatch(notifyError("Error creating API Key" + error.message));
+      });
+  };
 
   // to create modal for the delete/
-
   const htmlAlert = (apiKey, isEdit) => {
     setAlert(
       <ReactBSAlert
@@ -88,37 +87,43 @@ const ApiKeys = () => {
         onCancel={() => hideAlert()}
         showConfirm={false}
       >
-        {isEdit ? <APIKeyEdit
-          apiKey={apiKey}
-          close={hideAlert}
-          refreshData={refreshData}
-        /> : <ApiKeysDelete
-          apiKey={apiKey}
-          close={hideAlert}
-          refreshData={refreshData}
-        /> }
+        {isEdit ? (
+          <APIKeyEdit
+            apiKey={apiKey}
+            close={hideAlert}
+            refreshData={refreshData}
+          />
+        ) : (
+          <ApiKeysDelete
+            apiKey={apiKey}
+            close={hideAlert}
+            refreshData={refreshData}
+          />
+        )}
       </ReactBSAlert>
     );
   };
-      
 
   return (
     <>
       <div className="content">
         {alert}
         <Row>
+          <Col><h1>API Keys</h1></Col>
+        </Row>
+        <Row>
           <Col className="mb-0" md="8" mt="20">
             <Card>
-              <CardHeader>
-                <CardTitle tag="h3">API Keys</CardTitle>
-              </CardHeader>
+              {/*<CardHeader>*/}
+                {/*<CardTitle tag="h3">API Keys</CardTitle>*/}
+              {/*</CardHeader>*/}
               <CardBody>
-                <Table className="mb-0">
+                <Table>
                   <thead>
                     <tr>
                       <th>Key</th>
                       <th>Name</th>
-                    {/*  <th>Status</th>  */}
+                      {/*  <th>Status</th>  */}
                       <th></th>
                       <th></th>
                     </tr>
@@ -145,7 +150,6 @@ const ApiKeys = () => {
                               e.stopPropagation();
                             }}
                           >
-                           
                             <i className="tim-icons icon-pencil" />
                           </Button>
                           <UncontrolledTooltip
@@ -206,35 +210,32 @@ const ApiKeys = () => {
           </Col>
 
           <Col className="mb-2" md="4" mt="6">
-    
             <Card>
               <CardHeader>
-              <CardTitle tag="h3">Get New API Key </CardTitle>
-             
-                  <Form>
-                  
+                <CardTitle tag="h3">New API Key </CardTitle>
+
+                <Form>
                   <FormGroup>
-                  <Input
-                    className={error ? "danger-border" : ""}
-                    type="email"
-                    placeholder="New API Key"
-                    style={{ maxWidth: "400px", marginBottom: "20px" }}
-                    onChange={(e) => setName(e.target.value)}
-                    value={name}
-                  />
-                   </FormGroup>
-                   <FormGroup>
-                  <Button
-                    color="primary"
-                    title="Create"
-                    type="button"
-                    onClick={() => confirmCreate()}
-                  >
-                    Create New API Key
-                  </Button>
+                    <label>Name</label>
+                    <Input
+                      className={error ? "danger-border" : ""}
+                      type="text"
+                      onChange={(e) => setName(e.target.value)}
+                      value={name}
+                    />
                   </FormGroup>
-                  </Form>
-            
+
+                  <div className="text-right mb-3">
+                    <Button
+                      color="primary"
+                      title="Create"
+                      type="button"
+                      onClick={() => confirmCreate()}
+                    >
+                      Create
+                    </Button>
+                  </div>
+                </Form>
               </CardHeader>
             </Card>
           </Col>
@@ -242,7 +243,6 @@ const ApiKeys = () => {
       </div>
     </>
   );
-
-}
+};
 
 export default ApiKeys;

@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { invoiceEdit } from '../../services/api/personalAccountAPI';
+import { invoiceEdit, confirmUserVat } from '../../services/api/personalAccountAPI';
 import { notifyError, notifySuccess } from "../../features/notifications/actions";
+import classnames from "classnames";
+
+
 // reactstrap components
 import { Button,
   Card,
@@ -18,14 +21,16 @@ import { Button,
  } from "reactstrap";
 import {countriesDefault} from '../../config';
 import Select from "react-select";
-import { getVat } from 'services/api';
+import { confirmVat, getVat } from '../../services/api';
 
 
 const InvoiceSettings = ({ invoiceSettings, setInvoiceSettings }) => {
 
   const dispatch = useDispatch();
 
-  const [error, setError] = useState(null)
+  const [error, setError] = useState({
+
+  })
   const [countries, setCountries] = useState(countriesDefault);
   const [country, setCountry] = useState({country: "", code: ""});
   const [vat, setVat] = useState({message:"", code:""})
@@ -38,6 +43,8 @@ const InvoiceSettings = ({ invoiceSettings, setInvoiceSettings }) => {
   ]
 
   useState(() => {
+    // get request for country
+    // if we have the result setCountries(result)
     if (invoiceSettings.country) {
       let country = countries.find(obj => obj.code === invoiceSettings.country)
       setCountry(country)
@@ -50,12 +57,6 @@ const InvoiceSettings = ({ invoiceSettings, setInvoiceSettings }) => {
     setInvoiceSettings(newObj);
 }
 
-
-  const handleCountryChange = (country) => {
-    setCountry(country);
-    handleChange('country', country.code)
-  }
-  
   // check VAT
 
   const checkVAT = () => {
@@ -76,29 +77,57 @@ const InvoiceSettings = ({ invoiceSettings, setInvoiceSettings }) => {
         })
   }
 
-
-
-
   const confirmInvoice = () => {
     setError(null);
-    if
-     (!invoiceSettings.type.length &&
-      !invoiceSettings.country.length &&
-      !invoiceSettings.address_line_1.length &&
-      !invoiceSettings.city.length &&
-      !invoiceSettings.postal_code.length &&
-      !invoiceSettings.phone.length) {
-       setError(true);
-       dispatch(notifyError("Cannot be empty"));
-       return
-     }
 
-     invoiceEdit(invoiceSettings).then(
-       () => {
+    if (invoiceSettings.type === 'individual') {
+      // first name
+      // last name
+    } else {
+      if (!invoiceSettings.organisation.length) {
+      setError({
+        organisation: true
+      })
+    }
+    }
+
+    if (!invoiceSettings.country.length) {
+       setError({
+        country: true
+      })
+    }
+    // address, city, postcode, phone
+
+
+    if (Object.keys(error).length) {
+      dispatch(notifyError("Cannot be empty"));
+      return
+    }
+
+    if (invoiceSettings.type === "organisation" && invoiceSettings.vat_id.length) {
+      confirmUserVat(invoiceSettings.vat_id)
+       .then(() => {
+         invoiceEdit(invoiceSettings)
+           .then(() => {
+             dispatch(notifySuccess("Invoice updated"))
+           })
+           .catch(error => {
+             dispatch(notifyError("Error updating name " + error.message))
+           })
+       })
+       .catch(() => {
+         dispatch(notifyError("Incorrect VAT number"))
+       })
+    } else {
+      invoiceEdit(invoiceSettings)
+       .then(() => {
          dispatch(notifySuccess("Invoice updated"))
-       }).catch(error => {
+       })
+       .catch(error => {
          dispatch(notifyError("Error updating name " + error.message))
        })
+    }
+
 
    }
 
@@ -106,47 +135,46 @@ const InvoiceSettings = ({ invoiceSettings, setInvoiceSettings }) => {
   return (
     <Card>
       <CardHeader>
-        <h4>Invoice Info</h4>
+        <CardTitle tag="h4">Billing Details</CardTitle>
+        <Form>
+          <Label>Legal form: </Label>
+          <FormGroup check className="form-check-radio">
+            <Label check className="mr-3">
+              <Input
+                id="individualRadioButton"
+                name="legalForm"
+                type="radio"
+                checked={invoiceSettings.type === "individual"}
+                onChange={() => handleChange("type", "individual")}
+              />
+              <span className="form-check-sign" />
+              Individual
+            </Label>
+            <Label check>
+              <Input
+                id="organisationRadioButton"
+                name="legalForm"
+                type="radio"
+                checked={invoiceSettings.type === "organisation"}
+                onChange={() => handleChange("type", "organisation")}
+              />
+              <span className="form-check-sign" />
+              Organisation
+            </Label>
+          </FormGroup>
+        </Form>
       </CardHeader>
       <CardBody>
-        <FormGroup check className="form-check-radio mb-3">
-          <Label check>
-            <Input
-              id="exampleRadios3"
-              name="legalForm"
-              type="radio"
-              checked={invoiceSettings.type === "individual"}
-              onChange={() => handleChange("type", "individual")}
-            />
-            <span className="form-check-sign" />
-            Individual
-          </Label>
-          <Label check></Label>
-          <Label check>
-            <Input
-              id="exampleRadios4"
-              name="legalForm"
-              type="radio"
-              checked={invoiceSettings.type === "organisation"}
-              onChange={() => handleChange("type", "organisation")}
-            />
-            <span className="form-check-sign" />
-            Organisation
-          </Label>
-        </FormGroup>
-
-        {invoiceSettings.type === "individual" ? (
-          <>
-            <CardTitle tag="h4">Individual</CardTitle>
+        {invoiceSettings.type === "individual" ?
             <Form className="form-horizontal">
               <Row>
                 <Label md="3">Title *</Label>
                 <Col md="9">
                   <FormGroup>
                     <Select
-                          className="react-select info mb-3"
-                          classNamePrefix="react-select"
-                          options={titles}
+                      className="react-select info mb-3"
+                      classNamePrefix="react-select"
+                      options={titles}
                     >
                     </Select>
                   </FormGroup>
@@ -164,25 +192,26 @@ const InvoiceSettings = ({ invoiceSettings, setInvoiceSettings }) => {
                 <Label md="3">Last Name *</Label>
                 <Col md="9">
                   <FormGroup>
-                    <Input type="text" />
+                    <Input type="text" required />
                   </FormGroup>
                 </Col>
               </Row>
               <Row>
                 <Label md="3">Country *</Label>
                 <Col md="9">
+                  <FormGroup>
                   <Select
                     className="react-select info mb-3"
                     classNamePrefix="react-select"
-                    name="singleSelect"
-                    value={country.country}
-                    onChange={(country) => {
-                      handleCountryChange(country);
+                    onChange={country => {
+                      handleChange('country', country.code);
                     }}
                     options={countries}
-                    placeholder={country.country}
-                    
+                    getOptionLabel={(option)=>option.name}
+                    getOptionValue={(option)=>option.code}
+                    placeholder={invoiceSettings.country ? countries.find(obj => obj.code === invoiceSettings.country).name : ""}
                   />
+                  </FormGroup>
                 </Col>
               </Row>
               <Row>
@@ -234,11 +263,7 @@ const InvoiceSettings = ({ invoiceSettings, setInvoiceSettings }) => {
                 </Col>
               </Row>
               <Row></Row>
-            </Form>
-          </>
-        ) : (
-          <>
-            <CardTitle tag="h4">Organisation</CardTitle>
+            </Form> :
             <Form className="form-horizontal">
               <Row>
                 <Label md="3">Organisation *</Label>
@@ -246,9 +271,9 @@ const InvoiceSettings = ({ invoiceSettings, setInvoiceSettings }) => {
                   <FormGroup>
                     <Input
                       type="text"
-                      onChange={(e) => handleChange("type", e.target.value)}
-                      value={invoiceSettings.type}
-                      className={error ? "danger-border" : ""}
+                      onChange={(e) => handleChange("organisation", e.target.value)}
+                      value={invoiceSettings.organisation}
+                      className={error.organisation ? "danger-border" : ""}
                     />
                   </FormGroup>
                 </Col>
@@ -259,7 +284,10 @@ const InvoiceSettings = ({ invoiceSettings, setInvoiceSettings }) => {
                   <FormGroup>
                     <Input
                       type="text"
-                      onChange={(e) => checkVAT("vat_id", e.target.value)}
+                      // onChange={(e) => checkVAT("vat_id", e.target.value)}
+                      onChange={(e) => {
+                        handleChange('vat_id', e.target.value);
+                      }}
                       value={invoiceSettings.vat_id}
                     />
                   </FormGroup>
@@ -269,15 +297,16 @@ const InvoiceSettings = ({ invoiceSettings, setInvoiceSettings }) => {
                 <Label md="3">Country *</Label>
                 <Col md="9">
                   <Select
-                    className="react-select info mb-3"
+                    // className="react-select info mb-3"
+                    className={classnames("react-select info mb-3", error.country ? 'danger-border' : "")}
                     classNamePrefix="react-select"
-                    name="singleSelect"
-                    value={country.country}
-                    onChange={(country) => {
-                      handleCountryChange(country);
+                    onChange={country => {
+                      handleChange('country', country.code);
                     }}
                     options={countries}
-                    placeholder={country.country}
+                    getOptionLabel={(option)=>option.name}
+                    getOptionValue={(option)=>option.code}
+                    placeholder={invoiceSettings.country ? countries.find(obj => obj.code === invoiceSettings.country).name : ""}
                   />
                 </Col>
               </Row>
@@ -361,14 +390,13 @@ const InvoiceSettings = ({ invoiceSettings, setInvoiceSettings }) => {
                 </Col>
               </Row>
             </Form>
-          </>
-        )}
+        }
       </CardBody>
       <CardFooter>
         <Form className="form-horizontal">
           <Row>
             <Label md="3" />
-            <Col md="9">
+            <Col md="9" className="text-right">
               <Button
                 className="btn-fill"
                 color="primary"

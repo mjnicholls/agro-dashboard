@@ -10,7 +10,8 @@ import {
   mailPref,
   deleteAccount, 
   invoiceUpdate,
-  getVat
+  getVat,
+  confirmVat
 } from "./index";
 import {axiosInstance} from "../base";
 
@@ -128,6 +129,15 @@ export const invoiceEdit = (params) => {
 // get VAT method
 export const getUserVat = () => {
   return axiosInstance.get(getVat)
+    .then(response => response.data)
+    .catch(err => {
+      throw new Error(err)
+    })
+}
+
+
+export const confirmUserVat = () => {
+  return axiosInstance.get(confirmVat)
     .then(response => response.data)
     .catch(err => {
       throw new Error(err)
