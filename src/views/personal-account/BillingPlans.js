@@ -9,19 +9,46 @@ import { Button,
   Col,
   Table,
  } from "reactstrap";
+ 
  import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
-
+import InvoiceSettings from './SubscriptionPop';
 import VectorMapView from './VectorMapPersonal'
+import ReactBSAlert from "react-bootstrap-sweetalert";
 
   const BillingPlans = () => {
 
+    const [data, setData] = useState([]);
+
+    const [alert, setAlert] = React.useState(null);
+
+    const hideAlert = () => {
+      setAlert(null);
+    };
+
+    const htmlAlert = (subPop) => {
+      setAlert(
+        <ReactBSAlert
+          customClass="agro-alert"
+          onConfirm={() => hideAlert()}
+          onCancel={() => hideAlert()}
+          showConfirm={false}
+        >
+          { <InvoiceSettings
+            subPop={subPop}
+            close={hideAlert}
+          /> }
+        </ReactBSAlert>
+      );
+    };
+
     return (
       <>
+         
         <div className="content">
-      
-
+  
+        {alert}
           <Row>
             <Col>
               <h1>Billing Plans</h1>
@@ -66,44 +93,51 @@ import VectorMapView from './VectorMapPersonal'
                         <td>
                           <h3>Starter</h3>
                           <h3>£20</h3>
-                          <Link to="/dashboard/api-keys">
+                        
                             <Button
                               className="btn-primary"
                               color="primary"
                               data-dismiss="modal"
                               type="button"
+                              onClick={(e) => {
+                                htmlAlert(false);
+                                e.stopPropagation();
+                              }}
                             >
                              Subscribe
                             </Button>
-                          </Link>
+                      
                         </td>
                         <td>
                           <h3>Small Kit</h3>
                           <h3>£200</h3>
-                          <Link to="/dashboard/home">
+                        
                             <Button
                               className="btn-primary"
                               color="primary"
                               data-dismiss="modal"
                               type="button"
+                              onClick={(e) => {
+                                htmlAlert(false);
+                                e.stopPropagation();
+                              }}
                             >
                              Subscribe
                             </Button>
-                          </Link>
+                        
                         </td>
                         <td>
                           <h3>Corporate</h3>
                           <h3>£</h3>
-                       {/*   <Link to="/dashboard/home"> */}
+                     <a href="https://openweathermap.force.com/s/contactsupport" target="_blank"> 
                             <Button
                               className="btn-primary"
                               color="primary"
-                              data-dismiss="modal"
                               type="button"
                             >
                              Contact Us
                             </Button>
-                         {/*  </Link>  */}
+                          </a>  
                         </td>
                       </tr>
                     </tbody>
