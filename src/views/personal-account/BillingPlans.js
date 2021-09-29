@@ -9,217 +9,758 @@ import { Button,
   Col,
   Table,
  } from "reactstrap";
- 
+ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
+import { Link } from 'react-router-dom';
+
+import VectorMapView from './VectorMapPersonal'
 
   const BillingPlans = () => {
 
     return (
       <>
         <div className="content">
+      
+
           <Row>
-            <Col><h1>Billing Plans</h1></Col>
+            <Col>
+              <h1>Billing Plans</h1>
+            </Col>
           </Row>
+
           <Row>
             <Col className="mb-0" md="12" mt="20">
               <Card>
                 <CardBody>
-                  <Table className="mb-2" style={{tableLayout: "fixed"}}>
-                      
+                  <Table className="mb-2" style={{ tableLayout: "fixed", textAlign:"center" }}>
                   <thead>
                       <tr>
-                        <th colSpan="5"><h4>Satellite data (imageries and statistics by polygon)</h4></th>
-                    
+                        <th colSpan="5">
+                          <h4>
+                            Plans
+                          </h4>
+                        </th>
                       </tr>
                     </thead>
                     <tbody>
-                   <tr className="mb-2">
-                   <td>Total area of created polygons</td>
+                      <tr>
+                        <td>
+                          <h4>Fixed price per month</h4>
+                          <h5>(excl. VAT)</h5>
+                        </td>
+                        <td>
+                          <h3>Free</h3>
+                          <h3>£0</h3>
+                          <Link to="/dashboard/api-keys">
+                            <Button
+                              className="btn-primary"
+                              color="primary"
+                              data-dismiss="modal"
+                              type="button"
+                            >
+                              Get API Key
+                            </Button>
+                          </Link>
+                        </td>
+                        
+                        <td>
+                          <h3>Starter</h3>
+                          <h3>£20</h3>
+                          <Link to="/dashboard/api-keys">
+                            <Button
+                              className="btn-primary"
+                              color="primary"
+                              data-dismiss="modal"
+                              type="button"
+                            >
+                             Subscribe
+                            </Button>
+                          </Link>
+                        </td>
+                        <td>
+                          <h3>Small Kit</h3>
+                          <h3>£200</h3>
+                          <Link to="/dashboard/home">
+                            <Button
+                              className="btn-primary"
+                              color="primary"
+                              data-dismiss="modal"
+                              type="button"
+                            >
+                             Subscribe
+                            </Button>
+                          </Link>
+                        </td>
+                        <td>
+                          <h3>Corporate</h3>
+                          <h3>£</h3>
+                       {/*   <Link to="/dashboard/home"> */}
+                            <Button
+                              className="btn-primary"
+                              color="primary"
+                              data-dismiss="modal"
+                              type="button"
+                            >
+                             Contact Us
+                            </Button>
+                         {/*  </Link>  */}
+                        </td>
+                      </tr>
+                    </tbody>
+                  </Table>
+                </CardBody>
+              </Card>
+            </Col>
+          </Row>
+
+          <Row>
+            <Col className="mb-0" md="12" mt="20">
+              <Card>
+                <CardBody>
+                  <Table className="mb-2" style={{ tableLayout: "fixed", textAlign:"center" }}
+>
+                    <thead>
+                      <tr>
+                        <th colSpan="5">
+                          <h4>
+                            Satellite data (imageries and statistics by polygon)
+                          </h4>
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr className="mb-2">
+                        <td>Total area of created polygons</td>
                         <td>1,000 ha</td>
-                       <td>4,000 ha</td>  
+                        <td>4,000 ha</td>
                         <td>20,000 ha</td>
                         <td>Unlimited</td>
-                   </tr>
+                      </tr>
 
-                   <tr>
-                   <td>API calls <b>per minute</b> to satellite data</td>
+                      <tr>
+                        <td>
+                          API calls <b>per minute</b> to satellite data
+                        </td>
                         <td>&#60; 60</td>
-                       <td>&#60; 600</td>  
+                        <td>&#60; 600</td>
                         <td>&#60; 3,000</td>
                         <td>Unlimited</td>
-                   </tr>
+                      </tr>
 
-                   <tr>
-                   <td>Number of created polygons per month</td>
+                      <tr>
+                        <td>Number of created polygons per month</td>
                         <td>&#60; 10</td>
-                       <td>Unlimited</td>  
-                       <td>Unlimited</td>  
                         <td>Unlimited</td>
-                   </tr>
+                        <td>Unlimited</td>
+                        <td>Unlimited</td>
+                      </tr>
 
-                   <tr>
-                   <td>Satellite imagery (NDVI, EVI, True color, False color)</td>
-                        <td>All available data (сheck)</td>
-                       <td>All available data (сheck) + total archive on request</td>  
-                       <td>All available data (сheck) + total archive on request</td>  
+                      <tr>
+                        <td>
+                          Satellite imagery (NDVI, EVI, True color, False color)
+                        </td>
+                        <td>
+                          All available data{" "}
+                          <a
+                            href="https://home.agromonitoring.com/subscriptions#map"
+                            target="_blank"
+                          >
+                            (check)
+                          </a>
+                        </td>
+                        <td>
+                          All available data{" "}
+                          <a
+                            href="https://home.agromonitoring.com/subscriptions#map"
+                            target="_blank"
+                          >
+                            (check)
+                          </a>{" "}
+                          + total archive on request
+                        </td>
+                        <td>
+                          All available data{" "}
+                          <a
+                            href="https://home.agromonitoring.com/subscriptions#map"
+                            target="_blank"
+                          >
+                            (check)
+                          </a>{" "}
+                          + total archive on request
+                        </td>
                         <td>Total archive</td>
-                   </tr>
+                      </tr>
 
-                   <tr>
-                   <td>Price for exceeded area (learn more)</td>
+                      <tr>
+                        <td>
+                          Price for exceeded area{" "}
+                          <a
+                            href="https://home.agromonitoring.com/subscriptions#description"
+                            target="_blank"
+                          >
+                            (learn more)
+                          </a>
+                        </td>
                         <td>Unavailable</td>
-                       <td>£0.02 per each 1 ha</td>  
-                       <td>£0.01 per each 1 ha</td>  
+                        <td>£0.02 per each 1 ha</td>
+                        <td>£0.01 per each 1 ha</td>
                         <td>Flexible discount system</td>
-                   </tr>
+                      </tr>
 
-                   <tr>
-                   <td>Satellite imagery (NDVI, EVI, True color, False color)</td>
-                        <td>✔</td>
-                       <td>✔</td>  
-                       <td>✔</td>  
-                        <td rowSpan="3"><p>We provide a customised service and extended data range under this plan. You can receive data for broader areas, get access to more in-depth archives, ask for an almost unlimited number of requests per minute, etc.</p>
+                      <tr>
+                        <td>
+                          <a
+                            href="https://agromonitoring.com/api/images"
+                            target="_blank"
+                          >
+                            Satellite imagery (NDVI, EVI, True color, False
+                            color
+                          </a>
+                        </td>
+                        <td>
+                          <FontAwesomeIcon icon={faCheckCircle} />
+                        </td>
+                        <td>
+                          <FontAwesomeIcon icon={faCheckCircle} />
+                        </td>
+                        <td>
+                          <FontAwesomeIcon icon={faCheckCircle} />
+                        </td>
+                        <td rowSpan="4">
+                          <p>
+                            We provide a customised service and extended data
+                            range under this plan. You can receive data for
+                            broader areas, get access to more in-depth archives,
+                            ask for an almost unlimited number of requests per
+                            minute, etc.
+                          </p>
 
-<p>Write to us with your requirements, and we will prepare a relevant offer for you.</p></td>
-                   </tr>
+                          <p>
+                            Write to us with your requirements, and we will
+                            prepare a relevant offer for you.
+                          </p>
+                        </td>
+                      </tr>
 
-                   <tr>
-                   <td>NDVI history for a polygon</td>
-                        <td>✔</td>
-                       <td>✔</td>  
-                       <td>✔</td>  
-                      
-                   </tr>
+                      <tr>
+                        <td>
+                          <a
+                            href="https://agromonitoring.com/api/history-ndvi"
+                            target="_blank"
+                          >
+                            NDVI history for a polygon
+                          </a>
+                        </td>
+                        <td>
+                          <FontAwesomeIcon icon={faCheckCircle} />
+                        </td>
+                        <td>
+                          <FontAwesomeIcon icon={faCheckCircle} />
+                        </td>
+                        <td>
+                          <FontAwesomeIcon icon={faCheckCircle} />
+                        </td>
+                      </tr>
 
-                   <tr>
-                   <td>Current soil temperature and moisture</td>
-                        <td>✔</td>
-                       <td>✔</td>  
-                       <td>✔</td>  
-                   </tr>
+                      <tr>
+                        <td>
+                          <a
+                            href="https://agromonitoring.com/api/current-soil"
+                            target="_blank"
+                          >
+                            Current soil temperature and moisture
+                          </a>
+                        </td>
+                        <td>
+                          <FontAwesomeIcon icon={faCheckCircle} />
+                        </td>
+                        <td>
+                          <FontAwesomeIcon icon={faCheckCircle} />
+                        </td>
+                        <td>
+                          <FontAwesomeIcon icon={faCheckCircle} />
+                        </td>
+                      </tr>
 
-                   <tr>
-                   <td>Historical soil temperature and moisture</td>
-                        <td>✔</td>
-                       <td>✔</td>  
-                       <td>✔</td>  
-                   </tr>
-
-            
+                      <tr>
+                        <td>
+                          <a
+                            href="https://agromonitoring.com/api/history-soil"
+                            target="_blank"
+                          >
+                            Historical soil temperature and moisture
+                          </a>
+                        </td>
+                        <td>
+                          <FontAwesomeIcon icon={faCheckCircle} />
+                        </td>
+                        <td>
+                          <FontAwesomeIcon icon={faCheckCircle} />
+                        </td>
+                        <td>
+                          <FontAwesomeIcon icon={faCheckCircle} />
+                        </td>
+                      </tr>
                     </tbody>
                   </Table>
                 </CardBody>
-            
               </Card>
             </Col>
           </Row>
 
-        
           <Row>
             <Col className="mb-0" md="12" mt="20">
               <Card>
                 <CardBody>
-                  <Table className="mb-2" style={{tableLayout: "fixed"}}>
-                      
-                  <thead>
+                  <Table className="mb-2" style={{ tableLayout: "fixed", textAlign:"center" }}>
+                    <thead>
                       <tr>
-                        <th colSpan="5"><h4>Weather data</h4></th>
-                    
+                        <th colSpan="5">
+                          <h4>Weather data</h4>
+                        </th>
                       </tr>
                     </thead>
                     <tbody>
-                   <tr className="mb-2">
-                   <td>API calls <b>per day</b> to current and forecast weather data</td>
-                   <td>&#60; 500</td>
-                       <td>&#60; 1,000</td>  
+                      <tr className="mb-2">
+                        <td>
+                          API calls <b>per day</b> to current and forecast
+                          weather data
+                        </td>
+                        <td>&#60; 500</td>
+                        <td>&#60; 1,000</td>
                         <td>&#60; 10,000</td>
                         <td>Unlimited</td>
-                   </tr>
+                      </tr>
 
-                   <tr>
-                   <td>API calls <b>per day</b> to historical weather data</td>
+                      <tr>
+                        <td>
+                          API calls <b>per day</b> to historical weather data
+                        </td>
                         <td>—</td>
-                       <td>&#60; 500</td>  
+                        <td>&#60; 500</td>
                         <td>&#60; 5,000</td>
                         <td>Unlimited</td>
-                   </tr>
+                      </tr>
 
-                   <tr>
-                   <td>Historical weather data depth</td>
+                      <tr>
+                        <td>Historical weather data depth</td>
                         <td>—</td>
-                       <td>1 Year</td>  
-                       <td>1 Year</td>  
+                        <td>1 Year</td>
+                        <td>1 Year</td>
                         <td>Total archive</td>
-                   </tr>
+                      </tr>
 
-                   <tr>
-                   <td>Current weather data</td>
-                        <td>✔</td>
-                       <td>✔</td>  
-                       <td>✔</td>  
-                        <td rowSpan="8"><p>We provide a customised service and extended data range under this plan. You can receive data for broader areas, get access to more in-depth archives, ask for an almost unlimited number of requests per minute, historical data depth, etc.</p>
+                      <tr>
+                        <td>
+                          <a
+                            href="https://agromonitoring.com/api/current-weather"
+                            target="_blank"
+                          >
+                            Current weather data
+                          </a>
+                        </td>
+                        <td>
+                          <FontAwesomeIcon icon={faCheckCircle} />
+                        </td>
+                        <td>
+                          <FontAwesomeIcon icon={faCheckCircle} />
+                        </td>
+                        <td>
+                          <FontAwesomeIcon icon={faCheckCircle} />
+                        </td>
+                        <td rowSpan="8">
+                          <p>
+                            We provide a customised service and extended data
+                            range under this plan. You can receive data for
+                            broader areas, get access to more in-depth archives,
+                            ask for an almost unlimited number of requests per
+                            minute, historical data depth, etc.
+                          </p>
 
-<p>Write to us with your requirements, and we will prepare a relevant offer for you.</p></td>
-                   </tr>
+                          <p>
+                            Write to us with your requirements, and we will
+                            prepare a relevant offer for you.
+                          </p>
+                        </td>
+                      </tr>
 
-                   <tr>
-                   <td>5 day/3 hour weather forecast</td>
-                   <td>✔</td>
-                       <td>✔</td>  
-                       <td>✔</td>  
-                   </tr>
+                      <tr>
+                        <td>
+                          <a
+                            href="https://agromonitoring.com/api/forecast-weather"
+                            target="_blank"
+                          >
+                            5 day/3 hour weather forecast
+                          </a>
+                        </td>
+                        <td>
+                          <FontAwesomeIcon icon={faCheckCircle} />
+                        </td>
+                        <td>
+                          <FontAwesomeIcon icon={faCheckCircle} />
+                        </td>
+                        <td>
+                          <FontAwesomeIcon icon={faCheckCircle} />
+                        </td>
+                      </tr>
 
-                   <tr>
-                   <td>Historical weather data</td>
+                      <tr>
+                        <td>
+                          <a
+                            href="https://agromonitoring.com/api/history-weather"
+                            target="_blank"
+                          >
+                            Historical weather data
+                          </a>
+                        </td>
                         <td>—</td>
-                       <td>✔</td>  
-                       <td>✔</td>  
-                
-                   </tr>
+                        <td>
+                          <FontAwesomeIcon icon={faCheckCircle} />
+                        </td>
+                        <td>
+                          <FontAwesomeIcon icon={faCheckCircle} />
+                        </td>
+                      </tr>
 
-                   <tr>
-                   <td>Accumulated precipitation</td>
+                      <tr>
+                        <td>
+                          <a
+                            href="https://agromonitoring.com/api/accumulated-precipitation"
+                            target="_blank"
+                          >
+                            Accumulated precipitation
+                          </a>
+                        </td>
                         <td>—</td>
-                       <td>✔</td>  
-                       <td>✔</td>  
-                      
-                   </tr>
+                        <td>
+                          <FontAwesomeIcon icon={faCheckCircle} />
+                        </td>
+                        <td>
+                          <FontAwesomeIcon icon={faCheckCircle} />
+                        </td>
+                      </tr>
 
-                   <tr>
-                   <td>Accumulated temperature</td>
+                      <tr>
+                        <td>
+                          <a
+                            href="https://agromonitoring.com/api/accumulated-temperature"
+                            target="_blank"
+                          >
+                            Accumulated temperature
+                          </a>
+                        </td>
                         <td>—</td>
-                       <td>✔</td>  
-                       <td>✔</td>  
-                   </tr>
+                        <td>
+                          <FontAwesomeIcon icon={faCheckCircle} />
+                        </td>
+                        <td>
+                          <FontAwesomeIcon icon={faCheckCircle} />
+                        </td>
+                      </tr>
 
-                   <tr>
-                   <td>Current UV index</td>
-                        <td>✔</td>
-                       <td>✔</td>  
-                       <td>✔</td>  
-                   </tr>
+                      <tr>
+                        <td>
+                          <a
+                            href="https://agromonitoring.com/api/current-uvi"
+                            target="_blank"
+                          >
+                            Current UV index
+                          </a>
+                        </td>
+                        <td>
+                          <FontAwesomeIcon icon={faCheckCircle} />
+                        </td>
+                        <td>
+                          <FontAwesomeIcon icon={faCheckCircle} />
+                        </td>
+                        <td>
+                          <FontAwesomeIcon icon={faCheckCircle} />
+                        </td>
+                      </tr>
 
-                   <tr>
-                   <td>Forecast UV index</td>
+                      <tr>
+                        <td>
+                          <a
+                            href="https://agromonitoring.com/api/forecast-uvi"
+                            target="_blank"
+                          >
+                            Forecast UV index
+                          </a>
+                        </td>
                         <td>—</td>
-                       <td>✔</td>  
-                       <td>✔</td>  
-                   </tr>
+                        <td>
+                          <FontAwesomeIcon icon={faCheckCircle} />
+                        </td>
+                        <td>
+                          <FontAwesomeIcon icon={faCheckCircle} />
+                        </td>
+                      </tr>
 
-                   <tr>
-                   <td>Historical UV index</td>
+                      <tr>
+                        <td>
+                          <a
+                            href="https://agromonitoring.com/api/history-uvi"
+                            target="_blank"
+                          >
+                            Historical UV index
+                          </a>
+                        </td>
                         <td>—</td>
-                       <td>✔</td>  
-                       <td>✔</td>  
-                   </tr>
-
-            
+                        <td>
+                          <FontAwesomeIcon icon={faCheckCircle} />
+                        </td>
+                        <td>
+                          <FontAwesomeIcon icon={faCheckCircle} />
+                        </td>
+                      </tr>
                     </tbody>
                   </Table>
                 </CardBody>
-            
               </Card>
             </Col>
           </Row>
+
+          <Row>
+            <Col className="mb-0" md="12" mt="20">
+              <Card>
+                <CardBody>
+                  <Table className="mb-2" style={{ tableLayout: "fixed", textAlign:"center" }}>
+                    <thead>
+                      <tr>
+                        <th colSpan="5">
+                          <h4>Service</h4>
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr className="mb-2">
+                        <td>
+                          Satellite imagery (NDVI, EVI, True color, False color)
+                          data update
+                        </td>
+                        <td colspan="4">
+                          Near real-time (operative) satellite data
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <td>
+                          Current soil temperature and moisture data update
+                        </td>
+                        <td>2 times per day</td>
+                        <td>2 times per day</td>
+                        <td>2 times per day</td>
+                        <td>2 times per day</td>
+                      </tr>
+
+                      <tr>
+                        <td>Weather API data update</td>
+                        <td>&#60; 2 hours</td>
+                        <td>&#60; 1 hour</td>
+                        <td>&#60; 1 hour</td>
+                        <td>&#60; 10 mins</td>
+                      </tr>
+
+                      <tr>
+                        <td>SSL</td>
+                        <td>
+                          <FontAwesomeIcon icon={faCheckCircle} />
+                        </td>
+                        <td>
+                          <FontAwesomeIcon icon={faCheckCircle} />
+                        </td>
+                        <td>
+                          <FontAwesomeIcon icon={faCheckCircle} />
+                        </td>
+                        <td>
+                          <FontAwesomeIcon icon={faCheckCircle} />
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <td>License for maps, APIs, and other products</td>
+                        <td>
+                          <a
+                            href="http://creativecommons.org/licenses/by-sa/4.0/"
+                            target="_blank"
+                          >
+                            CC BY-SA 4.0
+                          </a>
+                        </td>
+                        <td>
+                          <a
+                            href="http://creativecommons.org/licenses/by-sa/4.0/"
+                            target="_blank"
+                          >
+                            CC BY-SA 4.0
+                          </a>
+                        </td>
+                        <td>
+                          <a
+                            href="http://creativecommons.org/licenses/by-sa/4.0/"
+                            target="_blank"
+                          >
+                            CC BY-SA 4.0
+                          </a>
+                        </td>
+                        <td>
+                          <a
+                            href="http://creativecommons.org/licenses/by-sa/4.0/"
+                            target="_blank"
+                          >
+                            CC BY-SA 4.0{" "}
+                          </a>
+                           (or custom)
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <td>License for data and database</td>
+                        <td>
+                          <a
+                            href="http://opendatacommons.org/licenses/odbl/"
+                            target="_blank"
+                          >
+                            ODbL
+                          </a>
+                        </td>
+                        <td>
+                          <a
+                            href="http://opendatacommons.org/licenses/odbl/"
+                            target="_blank"
+                          >
+                            ODbL
+                          </a>
+                        </td>
+                        <td>
+                          <a
+                            href="http://opendatacommons.org/licenses/odbl/"
+                            target="_blank"
+                          >
+                            ODbL
+                          </a>
+                        </td>
+                        <td><a
+                            href="http://opendatacommons.org/licenses/odbl/"
+                            target="_blank"
+                          >
+                            ODbL{" "}
+                          </a> 
+                            (or custom)
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <td>Support</td>
+                        <td>Helpdesk</td>
+                        <td>Helpdesk</td>
+                        <td>Helpdesk</td>
+                        <td>Direct 24x7</td>
+                      </tr>
+                    </tbody>
+                  </Table>
+                </CardBody>
+              </Card>
+            </Col>
+          </Row>
+
+          <Row>
+            <Col className="mb-0" md="12" mt="20">
+              <Card>
+                <CardBody>
+                  <Row>
+                    <Col>
+                      <h4>
+                        If you need a broader territory that exceeds your plan
+                        threshold, you can still call data without limitation
+                        (available for Starter subscription plan and above). In
+                        this case, you will be charged according to your
+                        subscription plan (please see the "Price for exceeded
+                        area" row in the pricing table). We send you an invoice
+                        for the exceeded amount at the very beginning of the
+                        next month.
+                      </h4>
+                    </Col>
+                  </Row>
+
+                  <Row>
+                    <Col>
+                      <h4>
+                        Please note that if a polygon was created and then
+                        deleted in the same payment month, it{" "}
+                        <b>will be included</b> in the total area of used
+                        polygons for that particular month, but it{" "}
+                        <b>will not be included</b> in your next payment month.
+                        The total area of used polygons will also include those
+                        polygons, which have been created before the current
+                        payment month and that still exist now or have been
+                        deleted during the current payment month.
+                      </h4>
+                    </Col>
+                  </Row>
+                </CardBody>
+              </Card>
+            </Col>
+          </Row>
+
+          <Row>
+            <Col className="mb-0" md="12" mt="20">
+              <Card>
+                <CardHeader>
+                  <h3>Where you can get satellite imagery data right now</h3>
+                </CardHeader>
+                <CardBody>
+                  <Row>
+                    <Col>
+                      <h4>
+                        This map shows areas for which satellite imagery data is
+                        available in our system.
+                      </h4>
+                    </Col>
+                  </Row>
+
+                  <Row>
+                    <Col>
+                      <h4>
+                        <li>
+                          <b>If you have a paid plan</b>, the satellite data
+                          archive for your polygons can be downloaded for any
+                          territories.
+                        </li>
+                      </h4>
+                      <h4>
+                        <li>
+                          <b>If you have the FREE plan</b> and create a polygon
+                          outside these areas, you will receive satellite
+                          imagery for the polygon in a few days.
+                        </li>
+                      </h4>
+                    </Col>
+                  </Row>
+
+                  <Row>
+                    <Col>
+                      <h4>
+                        Please{" "}
+                        <a
+                          href="https://openweathermap.force.com/s/contactsupport"
+                          target="_blank"
+                        >
+                          contact us
+                        </a>{" "}
+                        with any questions. We will do our best to prepare a
+                        proper solution for you.
+                      </h4>
+                    </Col>
+                  </Row>
+                </CardBody>
+              </Card>
+            </Col>
+          </Row>
+
+       
+           <VectorMapView />
+       
         </div>
       </>
     );

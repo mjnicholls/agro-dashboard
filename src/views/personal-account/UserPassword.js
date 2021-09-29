@@ -28,17 +28,11 @@ const UserPassword = () => {
 
     setError(null);
 
-    if (!pass.length) {
+    if (!pass.length || !confirmPass.length) {
        setError(true);
        dispatch(notifyError("Cannot be empty"));
        return
      }
-
-     if (!confirmPass.length) {
-      setError(true);
-      dispatch(notifyError("Cannot be empty"));
-      return
-    }
 
     let passdata = {
       new_password: pass,
