@@ -23,7 +23,7 @@ import { Button,
             <Col className="mb-0" md="12" mt="20">
               <Card>
                 <CardBody>
-                  <Table className="mb-2">
+                  <Table className="mb-2" style={{tableLayout: "fixed"}}>
                       
                   <thead>
                       <tr>
@@ -118,7 +118,7 @@ import { Button,
             <Col className="mb-0" md="12" mt="20">
               <Card>
                 <CardBody>
-                  <Table className="mb-2">
+                  <Table className="mb-2" style={{tableLayout: "fixed"}}>
                       
                   <thead>
                       <tr>

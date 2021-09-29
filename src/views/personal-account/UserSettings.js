@@ -48,7 +48,7 @@ const UserSettings = ({name, setName, username, setUserName, email}) => {
   return (
     <Card>
         <CardHeader>
-          <CardTitle tag="h4">Update Details</CardTitle>
+          <CardTitle tag="h4">Personal information</CardTitle>
         </CardHeader>
         <CardBody>
           <Form>

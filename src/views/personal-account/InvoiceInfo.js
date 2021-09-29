@@ -79,10 +79,8 @@ const InvoiceSettings = ({
       });
   }
 
-
   const confirmInvoice = () => {
     setError({});
-    console.log("confirmInvoice", invoiceSettings)
     let newError = {
       country: !invoiceSettings.country.length,
       address_line_1: !invoiceSettings.address_line_1.length,
@@ -106,7 +104,6 @@ const InvoiceSettings = ({
       }
     }
     setError(newError);
-    console.log("newError ", newError)
 
     if (Object.values(newError).filter(Boolean).length) {
       dispatch(notifyError("Please fill in required fields"));

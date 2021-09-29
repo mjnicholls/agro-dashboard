@@ -34,15 +34,15 @@ const PolygonDelete = ({ polygon, close }) => {
       </Row>
       <Row>
         <Col className="mb-3"  color="danger">
-          <p> <b>Name: </b>{polygon.name}, <b>Area: </b> {polygon.area}</p>
+          <p> <b>{polygon.name}, {polygon.area.toFixed(2)} ha</b></p>
         </Col>
       </Row>
      
 
       <div className="agro-pop-up-footer">
         <Button
-          className="btn-primary"
-          color="primary"
+          className="btn-neutral"
+          color="default"
           type="button"
           onClick={close}
         >

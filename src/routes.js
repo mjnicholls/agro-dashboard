@@ -9,7 +9,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faListUl, faPlus, faSatellite, faTemperatureLow } from '@fortawesome/free-solid-svg-icons';
 import ApiKeys from 'views/personal-account/ApiKeys';
 import InvoiceList from 'views/personal-account/Payments'
+import Subscription from './views/personal-account/Subscription';
+
 import AccountSettings from 'views/personal-account/AccountSettings'
+import AccountSettings2 from 'views/personal-account/AccountSettings2'
 import BillingPlans from 'views/personal-account/BillingPlans'
 
 const routes = [
@@ -87,12 +90,30 @@ const routes = [
         layout: "/dashboard",
       },
       {
+        path: "/account-settings-2",
+        name: "Account Settings 2",
+        rtlName: "",
+        mini: "S",
+        rtlMini: "",
+        component: AccountSettings2,
+        layout: "/dashboard",
+      },
+      {
         path: "/billing-plans",
         name: "Billing Plans",
         rtlName: "",
         mini: "B",
         rtlMini: "",
         component: BillingPlans,
+        layout: "/dashboard",
+      },
+      {
+        path: "/home",
+        name: "Subscription",
+        rtlName: "",
+        mini: "A",
+        rtlMini: "",
+        component: Subscription,
         layout: "/dashboard",
       },
     ]

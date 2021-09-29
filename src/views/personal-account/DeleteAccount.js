@@ -14,6 +14,7 @@ import {
   Label,
   Row,
 } from "reactstrap";
+import { NavLink } from "react-router-dom";
 
 const userSubscriptionSelector = state => state.auth.user.tariff;
 
@@ -54,7 +55,12 @@ const DeleteAccount = ({ close, refreshData }) => {
         </p>
       </Col>
     </Row>
+      <Row>
+        <Col className="mb-3">
+          <p>We are sad to see you leave. Please share with us the reason why you are deleting your account:</p>
+        </Col></Row>
     <div className="agro-pop-up-footer">
+
     <Label md="3">Reason *</Label>
     <Col md="9">
       <FormGroup>
@@ -79,7 +85,9 @@ const DeleteAccount = ({ close, refreshData }) => {
       </Col>
     </Row>
     <Button
-      className="btn-primary"
+      // className="btn-primary"
+      // color="default"
+      className="btn-neutral"
       color="default"
       type="button"
       onClick={close}
@@ -104,44 +112,36 @@ const DeleteAccount = ({ close, refreshData }) => {
     <Row>
           <Col className="mb-3">
             <p>
-            Please cancel your subscriptions before deleting your account. 
+              Please <NavLink to='/dashboard/billing-plans'>cancel your subscriptions</NavLink> before deleting your account.
             </p>
+            <p>If you have a paid subscription and delete your account, <b>your money will not be returned.</b></p>
           </Col>
         </Row>
-        <Row>
-          <Col className="mb-3">
-            <p>
-              If you have a paid subscription and delete your account, <b>your money will not be returned.</b>
-            </p>
-          </Col>
-          </Row>
-          <Row>
-          <Col className="mb-3">
-         
-              <li>If you have a subscription to weather services (Weather API or Weather Historical Data), kindly please unsubscribe <a href = "">here.</a></li>
-
-              <li>If you have a subscription Agriculture API, kindly please unsubscribe <a href = "">here.</a></li>
-            
-          </Col>
-        </Row>
+        {/*<Row>*/}
+          {/*</Row>*/}
+          {/*<Row>*/}
+          {/*<Col className="mb-3">*/}
+              {/*<li>If you have a subscription Agriculture API, please unsubscribe <a href = "">here.</a></li>*/}
+          {/*</Col>*/}
+        {/*</Row>*/}
         <div className="agro-pop-up-footer">
         <Button
-      className="btn-primary"
+      className="btn-neutral"
       color="default"
       type="button"
       onClick={close}
     >
       Cancel
     </Button>
-    <Button
-      className="btn-danger"
-      color="danger"
-      data-dismiss="modal"
-      type="button"
-      onClick={confirmDeleteAcct}
-    >
-      Delete
-    </Button>
+    {/*<Button*/}
+      {/*className="btn-danger"*/}
+      {/*color="danger"*/}
+      {/*data-dismiss="modal"*/}
+      {/*type="button"*/}
+      {/*onClick={confirmDeleteAcct}*/}
+    {/*>*/}
+      {/*Delete*/}
+    {/*</Button>*/}
     </div>
         </div>
   

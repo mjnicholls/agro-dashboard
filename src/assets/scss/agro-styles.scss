@@ -497,3 +497,12 @@ $daily-chart-width: 1000px;
   }
 }
 
+.no-card-header {
+  //.card-header {
+  //  display: none !important;
+  //}
+  .card-title {
+    display: none !important;
+  }
+}
+

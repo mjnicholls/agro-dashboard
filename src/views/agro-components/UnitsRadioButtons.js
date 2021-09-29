@@ -18,7 +18,7 @@ const UnitsToggle = () => {
 
   return (
     <Form>
-        <Label>Units: </Label>
+        <Label>Units of measurement:</Label>
         <FormGroup check className="form-check-radio">
           <Label check className="mr-3">
             <Input
