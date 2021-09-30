@@ -1,7 +1,7 @@
-import React from "react";
-import classnames from "classnames";
-import { css } from "@emotion/react";
-import { Redirect } from "react-router-dom";
+import React from 'react'
+import classnames from 'classnames'
+import { css } from '@emotion/react'
+import { Redirect } from 'react-router-dom'
 
 import {
   Button,
@@ -18,57 +18,59 @@ import {
   InputGroup,
   Container,
   Col,
-} from "reactstrap";
-import { useDispatch, useSelector } from 'react-redux';
-import { validateEmail } from "../../utils/validation";
+} from 'reactstrap'
+import { useDispatch, useSelector } from 'react-redux'
+import DotLoader from 'react-spinners/DotLoader'
+import { validateEmail } from '../../utils/validation'
 import { loginUser, clearLoginError } from '../../features/auth/actions'
-import DotLoader from 'react-spinners/DotLoader';
 
-const isAuthenticatedSelector = state => state.auth.isAuthenticated;
-const isFetchingSelector = state => state.auth.isFetching;
-const errorMessageSelector = state => state.auth.errorMessage;
+const isAuthenticatedSelector = (state) => state.auth.isAuthenticated
+const isFetchingSelector = (state) => state.auth.isFetching
+const errorMessageSelector = (state) => state.auth.errorMessage
 
 const override = css`
   align-self: center;
-`;
+`
 
 const Login = (props) => {
-  const [state, setState] = React.useState({});
-  const [errors, setErrors] = React.useState({});
-  let { from } = props.location.state || { from: { pathname: "/dashboard" } };
-  const isAuthenticated = useSelector(isAuthenticatedSelector);
-  const isFetching = useSelector(isFetchingSelector);
-  const errorMessage = useSelector(errorMessageSelector);
+  const [state, setState] = React.useState({})
+  const [errors, setErrors] = React.useState({})
+  const { from } = props.location.state || { from: { pathname: '/dashboard' } }
+  const isAuthenticated = useSelector(isAuthenticatedSelector)
+  const isFetching = useSelector(isFetchingSelector)
+  const errorMessage = useSelector(errorMessageSelector)
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
   React.useEffect(() => {
-    document.body.classList.toggle("login-page");
+    document.body.classList.toggle('login-page')
     return function cleanup() {
-      document.body.classList.toggle("login-page");
-    };
-  });
+      document.body.classList.toggle('login-page')
+    }
+  })
 
   const clearErrors = () => {
-    setErrors({});
+    setErrors({})
     dispatch(clearLoginError())
   }
 
   const onSubmitLogin = () => {
-    clearErrors();
+    clearErrors()
     if (!state.email || !validateEmail(state.email)) {
-      setErrors({email: true})
+      setErrors({ email: true })
       return
     }
     if (!state.password) {
-      setErrors({password: true})
+      setErrors({ password: true })
       return
     }
     dispatch(loginUser(state.email, state.password))
-  };
+  }
 
-  return isAuthenticated ?
-    <Redirect to={from} /> : <>
+  return isAuthenticated ? (
+    <Redirect to={from} />
+  ) : (
+    <>
       <div className="content">
         <Container>
           <Col className="ml-auto mr-auto" lg="4" md="6">
@@ -77,64 +79,84 @@ const Login = (props) => {
                 <CardHeader>
                   <img
                     alt="..."
-                    src={require("assets/img/card-primary.png").default}
+                    src={require('../../assets/img/card-primary.png').default}
                   />
                   <CardTitle tag="h1">Log in</CardTitle>
                 </CardHeader>
                 <CardBody>
-                  <div style={{minHeight: "125px"}}>
-                  {
-                    isFetching ?
-                      <div style={{display: "flex", justifyContent: "center", alignItems: "center", height: "125px"}}>
+                  <div style={{ minHeight: '125px' }}>
+                    {isFetching ? (
+                      <div
+                        style={{
+                          display: 'flex',
+                          justifyContent: 'center',
+                          alignItems: 'center',
+                          height: '125px',
+                        }}
+                      >
                         <DotLoader size="60px" color="#e14eca" css={override} />
-                      </div> :
-
+                      </div>
+                    ) : (
                       <>
                         <InputGroup
-                    className={classnames({
-                      "input-group-focus": state.emailFocus,
-                      "has-danger": errors.email
-                    })}
-                  >
-                    <InputGroupAddon addonType="prepend">
-                      <InputGroupText>
-                        <i className="tim-icons icon-email-85" />
-                      </InputGroupText>
-                    </InputGroupAddon>
-                      <Input
-                        placeholder="Email"
-                        type="text"
-                        onChange={(e) => setState({...state, email: e.target.value})}
-                        onFocus={() => setState({ ...state, emailFocus: true })}
-                        onBlur={() => setState({ ...state, emailFocus: false })}
-                      />
-                  </InputGroup>
+                          className={classnames({
+                            'input-group-focus': state.emailFocus,
+                            'has-danger': errors.email,
+                          })}
+                        >
+                          <InputGroupAddon addonType="prepend">
+                            <InputGroupText>
+                              <i className="tim-icons icon-email-85" />
+                            </InputGroupText>
+                          </InputGroupAddon>
+                          <Input
+                            placeholder="Email"
+                            type="text"
+                            onChange={(e) =>
+                              setState({ ...state, email: e.target.value })
+                            }
+                            onFocus={() =>
+                              setState({ ...state, emailFocus: true })
+                            }
+                            onBlur={() =>
+                              setState({ ...state, emailFocus: false })
+                            }
+                          />
+                        </InputGroup>
 
-                      <InputGroup
-                        className={classnames({
-                          "input-group-focus": state.passFocus,
-                          "has-danger": errors.password
-                        })}
-                      >
-                        <InputGroupAddon addonType="prepend">
-                          <InputGroupText>
-                            <i className="tim-icons icon-lock-circle" />
-                          </InputGroupText>
-                        </InputGroupAddon>
-                        <Input
-                          placeholder="Password"
-                          type="password"
-                          onChange={(e) => setState({...state, password: e.target.value})}
-                          onFocus={() => setState({ ...state, passFocus: true })}
-                          onBlur={() => setState({ ...state, passFocus: false })}
-                        />
-                      </InputGroup>
-                      {(errors.message || errorMessage) &&
-                      <FormText color="muted">{errors.message || errorMessage}</FormText>}
+                        <InputGroup
+                          className={classnames({
+                            'input-group-focus': state.passFocus,
+                            'has-danger': errors.password,
+                          })}
+                        >
+                          <InputGroupAddon addonType="prepend">
+                            <InputGroupText>
+                              <i className="tim-icons icon-lock-circle" />
+                            </InputGroupText>
+                          </InputGroupAddon>
+                          <Input
+                            placeholder="Password"
+                            type="password"
+                            onChange={(e) =>
+                              setState({ ...state, password: e.target.value })
+                            }
+                            onFocus={() =>
+                              setState({ ...state, passFocus: true })
+                            }
+                            onBlur={() =>
+                              setState({ ...state, passFocus: false })
+                            }
+                          />
+                        </InputGroup>
+                        {(errors.message || errorMessage) && (
+                          <FormText color="muted">
+                            {errors.message || errorMessage}
+                          </FormText>
+                        )}
                       </>
-                  }
+                    )}
                   </div>
-
                 </CardBody>
                 <CardFooter>
                   <Button
@@ -157,17 +179,17 @@ const Login = (props) => {
                       </a>
                     </h6>
                   </div>
-                  {/*<div className="pull-right">*/}
-                    {/*<h6>*/}
-                      {/*<a*/}
-                        {/*className="link footer-link"*/}
-                        {/*href="#pablo"*/}
-                        {/*onClick={(e) => e.preventDefault()}*/}
-                      {/*>*/}
-                        {/*Need Help?*/}
-                      {/*</a>*/}
-                    {/*</h6>*/}
-                  {/*</div>*/}
+                  {/* <div className="pull-right"> */}
+                  {/* <h6> */}
+                  {/* <a */}
+                  {/* className="link footer-link" */}
+                  {/* href="#pablo" */}
+                  {/* onClick={(e) => e.preventDefault()} */}
+                  {/* > */}
+                  {/* Need Help? */}
+                  {/* </a> */}
+                  {/* </h6> */}
+                  {/* </div> */}
                 </CardFooter>
               </Card>
             </Form>
@@ -175,6 +197,7 @@ const Login = (props) => {
         </Container>
       </div>
     </>
-};
+  )
+}
 
-export default Login;
+export default Login

@@ -14,9 +14,9 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React from "react";
+import React from 'react'
 // react plugin for creating notifications over the dashboard
-import NotificationAlert from "react-notification-alert";
+import NotificationAlert from 'react-notification-alert'
 
 // reactstrap components
 import {
@@ -31,47 +31,47 @@ import {
   ModalBody,
   Row,
   Col,
-} from "reactstrap";
+} from 'reactstrap'
 
 const Notifications = () => {
-  const [modalMini, setModalMini] = React.useState(false);
-  const [modalClassic, setModalClassic] = React.useState(false);
-  const [modalNotice, setModalNotice] = React.useState(false);
-  const notificationAlertRef = React.useRef(null);
+  const [modalMini, setModalMini] = React.useState(false)
+  const [modalClassic, setModalClassic] = React.useState(false)
+  const [modalNotice, setModalNotice] = React.useState(false)
+  const notificationAlertRef = React.useRef(null)
   const toggleModalClassic = () => {
-    setModalClassic(!modalClassic);
-  };
+    setModalClassic(!modalClassic)
+  }
   const toggleModalNotice = () => {
-    setModalNotice(!modalNotice);
-  };
+    setModalNotice(!modalNotice)
+  }
   const toggleModalMini = () => {
-    setModalMini(!modalMini);
-  };
+    setModalMini(!modalMini)
+  }
   const notify = (place) => {
-    var color = Math.floor(Math.random() * 5 + 1);
-    var type;
+    const color = Math.floor(Math.random() * 5 + 1)
+    let type
     switch (color) {
       case 1:
-        type = "primary";
-        break;
+        type = 'primary'
+        break
       case 2:
-        type = "success";
-        break;
+        type = 'success'
+        break
       case 3:
-        type = "danger";
-        break;
+        type = 'danger'
+        break
       case 4:
-        type = "warning";
-        break;
+        type = 'warning'
+        break
       case 5:
-        type = "info";
-        break;
+        type = 'info'
+        break
       default:
-        break;
+        break
     }
-    var options = {};
+    let options = {}
     options = {
-      place: place,
+      place,
       message: (
         <div>
           <div>
@@ -80,12 +80,12 @@ const Notifications = () => {
           </div>
         </div>
       ),
-      type: type,
-      icon: "tim-icons icon-bell-55",
+      type,
+      icon: 'tim-icons icon-bell-55',
       autoDismiss: 7,
-    };
-    notificationAlertRef.current.notificationAlert(options);
-  };
+    }
+    notificationAlertRef.current.notificationAlert(options)
+  }
   return (
     <>
       <div className="rna-container">
@@ -189,7 +189,7 @@ const Notifications = () => {
                           <Button
                             block
                             color="info"
-                            onClick={() => notify("tl")}
+                            onClick={() => notify('tl')}
                           >
                             Top Left
                           </Button>
@@ -198,7 +198,7 @@ const Notifications = () => {
                           <Button
                             block
                             color="info"
-                            onClick={() => notify("tc")}
+                            onClick={() => notify('tc')}
                           >
                             Top Center
                           </Button>
@@ -207,7 +207,7 @@ const Notifications = () => {
                           <Button
                             block
                             color="info"
-                            onClick={() => notify("tr")}
+                            onClick={() => notify('tr')}
                           >
                             Top Right
                           </Button>
@@ -222,7 +222,7 @@ const Notifications = () => {
                           <Button
                             block
                             color="info"
-                            onClick={() => notify("bl")}
+                            onClick={() => notify('bl')}
                           >
                             Bottom Left
                           </Button>
@@ -231,7 +231,7 @@ const Notifications = () => {
                           <Button
                             block
                             color="info"
-                            onClick={() => notify("bc")}
+                            onClick={() => notify('bc')}
                           >
                             Bottom Center
                           </Button>
@@ -240,7 +240,7 @@ const Notifications = () => {
                           <Button
                             block
                             color="info"
-                            onClick={() => notify("br")}
+                            onClick={() => notify('br')}
                           >
                             Bottom Right
                           </Button>
@@ -267,7 +267,7 @@ const Notifications = () => {
                     <Modal isOpen={modalClassic} toggle={toggleModalClassic}>
                       <div className="modal-header justify-content-center">
                         <button
-                          aria-hidden={true}
+                          aria-hidden
                           className="close"
                           data-dismiss="modal"
                           type="button"
@@ -312,7 +312,7 @@ const Notifications = () => {
                     <Modal isOpen={modalNotice} toggle={toggleModalNotice}>
                       <div className="modal-header">
                         <button
-                          aria-hidden={true}
+                          aria-hidden
                           className="close"
                           data-dismiss="modal"
                           type="button"
@@ -330,7 +330,7 @@ const Notifications = () => {
                             <Col md="8">
                               <strong>1. Register</strong>
                               <p className="description">
-                                The first step is to create an account at{" "}
+                                The first step is to create an account at{' '}
                                 <a href="https://www.creative-tim.com/">
                                   Creative Tim
                                 </a>
@@ -343,7 +343,7 @@ const Notifications = () => {
                                 <img
                                   alt="..."
                                   className="rounded img-raised"
-                                  src={require("assets/img/bg1.jpg").default}
+                                  src={require('assets/img/bg1.jpg').default}
                                 />
                               </div>
                             </Col>
@@ -354,7 +354,7 @@ const Notifications = () => {
                             <Col md="8">
                               <strong>2. Apply</strong>
                               <p className="description">
-                                The first step is to create an account at{" "}
+                                The first step is to create an account at{' '}
                                 <a href="https://www.creative-tim.com/">
                                   Creative Tim
                                 </a>
@@ -367,7 +367,7 @@ const Notifications = () => {
                                 <img
                                   alt="..."
                                   className="rounded img-raised"
-                                  src={require("assets/img/bg3.jpg").default}
+                                  src={require('assets/img/bg3.jpg').default}
                                 />
                               </div>
                             </Col>
@@ -400,7 +400,7 @@ const Notifications = () => {
                     >
                       <div className="modal-header justify-content-center">
                         <button
-                          aria-hidden={true}
+                          aria-hidden
                           className="close"
                           data-dismiss="modal"
                           type="button"
@@ -444,7 +444,7 @@ const Notifications = () => {
         </Row>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default Notifications;
+export default Notifications

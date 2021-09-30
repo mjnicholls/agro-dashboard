@@ -1,26 +1,26 @@
-import React from 'react';
+import React from 'react'
 // import ScaleLoader from 'react-spinners/ScaleLoader';
-import PropagateLoader from 'react-spinners/PropagateLoader';
-
+import PropagateLoader from 'react-spinners/PropagateLoader'
 
 const ChartContainer = (props) => {
   /** Container that supports
    * - loading
    * - displaying errors */
-  const Content = () => {
-    return <div className="chart-area">{props.children}</div>
-  };
+  const Content = () => <div className="chart-area">{props.children}</div>
 
-
-  return (props.isLoading || props.error) ?
-    <div className="agro-placeholder" style={{...props.style}}>
+  return props.isLoading || props.error ? (
+    <div className="agro-placeholder" style={{ ...props.style }}>
       <div className="agro-placeholder-content">
-      {props.isLoading ?
-        <PropagateLoader color="#f2f2f2" size={15} /> :
-        <div>{props.error}</div>
-      }
+        {props.isLoading ? (
+          <PropagateLoader color="#f2f2f2" size={15} />
+        ) : (
+          <div>{props.error}</div>
+        )}
       </div>
-    </div> : <Content />
+    </div>
+  ) : (
+    <Content />
+  )
 
   // <PropagateLoader color="#f2f2f2" size={15} />
   // return (props.isLoading || props.error) ?
@@ -32,4 +32,4 @@ const ChartContainer = (props) => {
   //   </div> : <Content />
 }
 
-export default ChartContainer;
+export default ChartContainer

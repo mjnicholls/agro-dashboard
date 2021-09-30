@@ -1,32 +1,36 @@
-import {ONECALL_FETCH, ONECALL_FETCH_SUCCESS, ONECALL_FETCH_FAILURE} from "./actions";
+import {
+  ONECALL_FETCH,
+  ONECALL_FETCH_SUCCESS,
+  ONECALL_FETCH_FAILURE,
+} from './actions'
 
 const initialState = {
   data: null,
   isLoading: true,
-  error: null
+  error: null,
 }
 
 export default function polygonsReducer(state = initialState, action) {
-  switch(action.type) {
+  switch (action.type) {
     case ONECALL_FETCH: {
       return {
         data: null,
         isLoading: true,
-        error: null
+        error: null,
       }
     }
     case ONECALL_FETCH_FAILURE: {
       return {
         data: null,
         isLoading: false,
-        error: action.payload
+        error: action.payload,
       }
     }
     case ONECALL_FETCH_SUCCESS: {
       return {
         data: action.payload,
         isLoading: false,
-        error: null
+        error: null,
       }
     }
     default:

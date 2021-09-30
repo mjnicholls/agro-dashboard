@@ -1,8 +1,8 @@
-import React from 'react';
-import ContentLoader from 'react-content-loader';
+import React from 'react'
+import ContentLoader from 'react-content-loader'
 
 const SatelliteImagePlaceholder = () => (
-  <div style={{backgroundColor: "#27293d", borderRadius: "4px"}}>
+  <div style={{ backgroundColor: '#27293d', borderRadius: '4px' }}>
     <ContentLoader
       speed={2}
       width={74}
@@ -18,6 +18,4 @@ const SatelliteImagePlaceholder = () => (
   </div>
 )
 
-export default SatelliteImagePlaceholder;
-
-
+export default SatelliteImagePlaceholder

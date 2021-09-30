@@ -14,32 +14,32 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React from "react";
+import React from 'react'
 
-import { Button, CustomInput } from "reactstrap";
+import { Button, CustomInput } from 'reactstrap'
 
 const FixedPlugin = (props) => {
-  const [classes, setClasses] = React.useState("dropdown");
-  const [darkMode, setDarkMode] = React.useState(false);
+  const [classes, setClasses] = React.useState('dropdown')
+  const [darkMode, setDarkMode] = React.useState(false)
   const handleClick = () => {
-    if (classes === "dropdown") {
-      setClasses("dropdown show");
+    if (classes === 'dropdown') {
+      setClasses('dropdown show')
     } else {
-      setClasses("dropdown");
+      setClasses('dropdown')
     }
-  };
+  }
   const handleActiveMode = () => {
-    setDarkMode(!darkMode);
-    document.body.classList.toggle("white-content");
-  };
+    setDarkMode(!darkMode)
+    document.body.classList.toggle('white-content')
+  }
   return (
     <div className="fixed-plugin">
       <div className={classes}>
         <a
           href="#pablo"
           onClick={(e) => {
-            e.preventDefault();
-            handleClick();
+            e.preventDefault()
+            handleClick()
           }}
         >
           <i className="fa fa-cog fa-2x" />
@@ -50,57 +50,57 @@ const FixedPlugin = (props) => {
             <div className="badge-colors text-center">
               <span
                 className={
-                  props.activeColor === "primary"
-                    ? "badge filter badge-primary active"
-                    : "badge filter badge-primary"
+                  props.activeColor === 'primary'
+                    ? 'badge filter badge-primary active'
+                    : 'badge filter badge-primary'
                 }
                 data-color="primary"
                 onClick={() => {
-                  props.handleActiveClick("primary");
+                  props.handleActiveClick('primary')
                 }}
               />
               <span
                 className={
-                  props.activeColor === "blue"
-                    ? "badge filter badge-info active"
-                    : "badge filter badge-info"
+                  props.activeColor === 'blue'
+                    ? 'badge filter badge-info active'
+                    : 'badge filter badge-info'
                 }
                 data-color="info"
                 onClick={() => {
-                  props.handleActiveClick("blue");
+                  props.handleActiveClick('blue')
                 }}
               />
               <span
                 className={
-                  props.activeColor === "green"
-                    ? "badge filter badge-success active"
-                    : "badge filter badge-success"
+                  props.activeColor === 'green'
+                    ? 'badge filter badge-success active'
+                    : 'badge filter badge-success'
                 }
                 data-color="success"
                 onClick={() => {
-                  props.handleActiveClick("green");
+                  props.handleActiveClick('green')
                 }}
               />
               <span
                 className={
-                  props.activeColor === "orange"
-                    ? "badge filter badge-warning active"
-                    : "badge filter badge-warning"
+                  props.activeColor === 'orange'
+                    ? 'badge filter badge-warning active'
+                    : 'badge filter badge-warning'
                 }
                 data-color="warning"
                 onClick={() => {
-                  props.handleActiveClick("orange");
+                  props.handleActiveClick('orange')
                 }}
               />
               <span
                 className={
-                  props.activeColor === "red"
-                    ? "badge filter badge-danger active"
-                    : "badge filter badge-danger"
+                  props.activeColor === 'red'
+                    ? 'badge filter badge-danger active'
+                    : 'badge filter badge-danger'
                 }
                 data-color="danger"
                 onClick={() => {
-                  props.handleActiveClick("red");
+                  props.handleActiveClick('red')
                 }}
               />
             </div>
@@ -167,7 +167,7 @@ const FixedPlugin = (props) => {
         </ul>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default FixedPlugin;
+export default FixedPlugin

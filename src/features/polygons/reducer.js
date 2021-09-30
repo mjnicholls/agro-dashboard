@@ -1,11 +1,14 @@
 import {
-  POLYGONS_FETCH_SUCCESS, POLYGON_ADDED, POLYGON_UPDATED, POLYGON_DELETED
+  POLYGONS_FETCH_SUCCESS,
+  POLYGON_ADDED,
+  POLYGON_UPDATED,
+  POLYGON_DELETED,
 } from './actions'
 
 const initialState = []
 
 export default function polygonsReducer(state = initialState, action) {
-  switch(action.type) {
+  switch (action.type) {
     case POLYGONS_FETCH_SUCCESS: {
       return action.polygons
     }
@@ -13,13 +16,13 @@ export default function polygonsReducer(state = initialState, action) {
       return [action.payload, ...state]
     }
     case POLYGON_UPDATED: {
-      return state.map(item => {
+      return state.map((item) => {
         if (item.id !== action.payload.id) {
           return item
         }
         return {
           ...item,
-          ...action.payload
+          ...action.payload,
         }
       })
     }
@@ -28,5 +31,5 @@ export default function polygonsReducer(state = initialState, action) {
     }
     default:
       return state
-    }
+  }
 }

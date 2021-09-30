@@ -5,10 +5,10 @@ import {
   apiKeyCreate,
   invoicesList,
   updateName,
-  updatePass, 
+  updatePass,
   mailing,
   mailPref,
-  deleteAccount, 
+  deleteAccount,
   invoiceUpdate,
   getVat,
   confirmVat,
@@ -25,7 +25,7 @@ export const getAPIKeys = () => {
     })
 }
 
-// create API Key method 
+// create API Key method
 
 export const createApiKey = async (name) => {
   let appid_name = name.appid_name;
@@ -107,7 +107,7 @@ export const updateMailing = (params) => {
     })
 }
 
-// delete account 
+// delete account
 
 export const deleteAcct = () => {
   return axiosInstance.delete(deleteAccount)
@@ -117,7 +117,7 @@ export const deleteAcct = () => {
     })
 }
 
-// update invoice info 
+// update invoice info
 
 export const invoiceEdit = (params) => {
   return axiosInstance.put(invoiceUpdate, params)

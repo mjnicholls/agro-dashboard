@@ -34,12 +34,37 @@ const mapData = {
   US: 2920,
 }
 
-const VectorMapView = () => (
+const MapDataCoverage = () => (
   <>
     <div className="content">
       <Row>
         <Col md="12">
           <Card className="card-plain">
+            <CardHeader>
+              <h4 className="text-center map-title">
+                World Map <br />
+                <small>
+                  Looks great on any resolution.{' '}
+                  <a
+                    href="https://www.npmjs.com/package/react-jvectormap"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    React wrapper component
+                  </a>{' '}
+                  of jQuery{' '}
+                  <a
+                    href="http://jvectormap.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    jVector Map
+                  </a>{' '}
+                  pluging.
+                </small>
+              </h4>
+              <br />
+            </CardHeader>
             <CardBody>
               <div className="map map-big" id="worldMap">
                 <VectorMap
@@ -78,4 +103,4 @@ const VectorMapView = () => (
   </>
 )
 
-export default VectorMapView
+export default MapDataCoverage

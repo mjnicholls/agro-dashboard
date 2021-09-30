@@ -1,16 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import {
-  invoiceEdit,
-  confirmUserVat,
-  getCountries,
-  invoiceCreate,
-} from "../../services/api/personalAccountAPI";
-import {
-  notifyError,
-  notifySuccess,
-} from "../../features/notifications/actions";
-import classnames from "classnames";
+import React, { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux'
+import classnames from 'classnames'
 import {
   Button,
   Card,
@@ -24,9 +14,19 @@ import {
   FormGroup,
   Input,
   Row,
-} from "reactstrap";
-import { countriesDefault, titles } from "../../config";
-import Select from "react-select";
+} from 'reactstrap'
+import Select from 'react-select'
+import {
+  invoiceEdit,
+  confirmUserVat,
+  getCountries,
+  invoiceCreate,
+} from '../../services/api/personalAccountAPI'
+import {
+  notifyError,
+  notifySuccess,
+} from '../../features/notifications/actions'
+import { countriesDefault, titles } from '../../config'
 
 const InvoiceSettings = ({
   invoiceSettings,
@@ -34,84 +34,76 @@ const InvoiceSettings = ({
   isNew,
   refreshData,
 }) => {
-
-  const dispatch = useDispatch();
-  const [error, setError] = useState({});
-  const [countries, setCountries] = useState(countriesDefault);
+  const dispatch = useDispatch()
+  const [error, setError] = useState({})
+  const [countries, setCountries] = useState(countriesDefault)
 
   useState(() => {
     getCountries().then((res) => {
       if (res.length) {
-        setCountries(res);
+        setCountries(res)
       }
-    });
-  }, [invoiceSettings]);
+    })
+  }, [invoiceSettings])
 
   const handleChange = (key, value) => {
-    let newObj = Object.assign({}, invoiceSettings);
-    newObj[key] = value;
-    setInvoiceSettings(newObj);
-  };
+    const newObj = { ...invoiceSettings }
+    newObj[key] = value
+    setInvoiceSettings(newObj)
+  }
 
   const billingInfoCreate = () => {
     invoiceCreate(invoiceSettings)
       .then(() => {
-        dispatch(notifySuccess("Billing details saved"));
-        refreshData();
+        dispatch(notifySuccess('Billing details saved'))
+        refreshData()
       })
       .catch((error) => {
-        dispatch(
-          notifyError("Error saving billing details " + error.message)
-        );
-      });
-
+        dispatch(notifyError(`Error saving billing details ${error.message}`))
+      })
   }
 
   const billingInfoUpdate = () => {
     invoiceEdit(invoiceSettings)
       .then(() => {
-        dispatch(notifySuccess("Billing details updated"));
+        dispatch(notifySuccess('Billing details updated'))
       })
       .catch((error) => {
-        dispatch(
-          notifyError("Error updating billing details " + error.message)
-        );
-      });
+        dispatch(notifyError(`Error updating billing details ${error.message}`))
+      })
   }
 
   const confirmInvoice = () => {
-    setError({});
-    let newError = {
+    setError({})
+    const newError = {
       country: !invoiceSettings.country.length,
       address_line_1: !invoiceSettings.address_line_1.length,
       address_line_2: !invoiceSettings.address_line_2.length,
       city: !invoiceSettings.address_line_2.length,
       postal_code: !invoiceSettings.postal_code.length,
-      phone: !invoiceSettings.phone.length
+      phone: !invoiceSettings.phone.length,
     }
 
-    if (invoiceSettings.type === "individual") {
+    if (invoiceSettings.type === 'individual') {
       if (
         !invoiceSettings.first_name.length ||
         !invoiceSettings.last_name.length
       ) {
-        newError.first_name = !invoiceSettings.first_name.length;
+        newError.first_name = !invoiceSettings.first_name.length
         newError.last_name = !invoiceSettings.last_name.length
       }
-    } else {
-      if (!invoiceSettings.organisation.length) {
-        newError.organisation = true
-      }
+    } else if (!invoiceSettings.organisation.length) {
+      newError.organisation = true
     }
-    setError(newError);
+    setError(newError)
 
     if (Object.values(newError).filter(Boolean).length) {
-      dispatch(notifyError("Please fill in required fields"));
-      return;
+      dispatch(notifyError('Please fill in required fields'))
+      return
     }
 
     if (
-      invoiceSettings.type === "organisation" &&
+      invoiceSettings.type === 'organisation' &&
       invoiceSettings.vat_id.length
     ) {
       confirmUserVat(invoiceSettings.vat_id)
@@ -119,12 +111,12 @@ const InvoiceSettings = ({
           isNew ? billingInfoCreate() : billingInfoUpdate()
         })
         .catch(() => {
-          dispatch(notifyError("Incorrect VAT number"));
-        });
+          dispatch(notifyError('Incorrect VAT number'))
+        })
     } else {
-      isNew ? billingInfoCreate() : billingInfoUpdate();
+      isNew ? billingInfoCreate() : billingInfoUpdate()
     }
-  };
+  }
 
   return (
     <Card>
@@ -138,9 +130,9 @@ const InvoiceSettings = ({
                 id="individualRadioButton"
                 name="legalForm"
                 type="radio"
-                checked={invoiceSettings.type === "individual"}
-                onChange={() => handleChange("type", "individual")}
-                disabled={!isNew && invoiceSettings.type === "organisation"}
+                checked={invoiceSettings.type === 'individual'}
+                onChange={() => handleChange('type', 'individual')}
+                disabled={!isNew && invoiceSettings.type === 'organisation'}
               />
               <span className="form-check-sign" />
               Individual
@@ -150,9 +142,9 @@ const InvoiceSettings = ({
                 id="organisationRadioButton"
                 name="legalForm"
                 type="radio"
-                checked={invoiceSettings.type === "organisation"}
-                onChange={() => handleChange("type", "organisation")}
-                disabled={!isNew && invoiceSettings.type === "individual"}
+                checked={invoiceSettings.type === 'organisation'}
+                onChange={() => handleChange('type', 'organisation')}
+                disabled={!isNew && invoiceSettings.type === 'individual'}
               />
               <span className="form-check-sign" />
               Organisation
@@ -162,7 +154,7 @@ const InvoiceSettings = ({
       </CardHeader>
       <CardBody>
         <Form className="form-horizontal">
-          {invoiceSettings.type === "individual" ? (
+          {invoiceSettings.type === 'individual' ? (
             <>
               <Row>
                 <Col md="2">
@@ -187,10 +179,10 @@ const InvoiceSettings = ({
                     <Input
                       type="text"
                       onChange={(e) =>
-                        handleChange("first_name", e.target.value)
+                        handleChange('first_name', e.target.value)
                       }
                       value={invoiceSettings.first_name}
-                      className={error.first_name ? "danger-border" : ""}
+                      className={error.first_name ? 'danger-border' : ''}
                     />
                   </FormGroup>
                 </Col>
@@ -204,10 +196,10 @@ const InvoiceSettings = ({
                     <Input
                       type="text"
                       onChange={(e) =>
-                        handleChange("last_name", e.target.value)
+                        handleChange('last_name', e.target.value)
                       }
                       value={invoiceSettings.last_name}
-                      className={error.last_name ? "danger-border" : ""}
+                      className={error.last_name ? 'danger-border' : ''}
                     />
                   </FormGroup>
                 </Col>
@@ -224,10 +216,10 @@ const InvoiceSettings = ({
                     <Input
                       type="text"
                       onChange={(e) =>
-                        handleChange("organisation", e.target.value)
+                        handleChange('organisation', e.target.value)
                       }
                       value={invoiceSettings.organisation}
-                      className={error.organisation ? "danger-border" : ""}
+                      className={error.organisation ? 'danger-border' : ''}
                     />
                   </FormGroup>
                 </Col>
@@ -241,10 +233,10 @@ const InvoiceSettings = ({
                     <Input
                       type="text"
                       onChange={(e) => {
-                        handleChange("vat_id", e.target.value);
+                        handleChange('vat_id', e.target.value)
                       }}
                       value={invoiceSettings.vat_id}
-                      className={error.vat_id ? "danger-border" : ""}
+                      className={error.vat_id ? 'danger-border' : ''}
                     />
                   </FormGroup>
                 </Col>
@@ -259,12 +251,12 @@ const InvoiceSettings = ({
               <FormGroup>
                 <Select
                   className={classnames(
-                    "react-select info mb-3",
-                    error.country ? "danger-border" : ""
+                    'react-select info mb-3',
+                    error.country ? 'danger-border' : '',
                   )}
                   classNamePrefix="react-select"
                   onChange={(country) => {
-                    handleChange("country", country.code);
+                    handleChange('country', country.code)
                   }}
                   options={countries}
                   getOptionLabel={(option) => option.name}
@@ -272,9 +264,9 @@ const InvoiceSettings = ({
                   placeholder={
                     invoiceSettings.country
                       ? countries.find(
-                          (obj) => obj.code === invoiceSettings.country
+                          (obj) => obj.code === invoiceSettings.country,
                         ).name
-                      : ""
+                      : ''
                   }
                 />
               </FormGroup>
@@ -289,10 +281,10 @@ const InvoiceSettings = ({
                 <Input
                   type="text"
                   onChange={(e) =>
-                    handleChange("address_line_1", e.target.value)
+                    handleChange('address_line_1', e.target.value)
                   }
                   value={invoiceSettings.address_line_1}
-                  className={error.address_line_1 ? "danger-border" : ""}
+                  className={error.address_line_1 ? 'danger-border' : ''}
                 />
               </FormGroup>
             </Col>
@@ -306,7 +298,7 @@ const InvoiceSettings = ({
                 <Input
                   type="text"
                   onChange={(e) =>
-                    handleChange("address_line_2", e.target.value)
+                    handleChange('address_line_2', e.target.value)
                   }
                   value={invoiceSettings.address_line_2}
                 />
@@ -321,9 +313,9 @@ const InvoiceSettings = ({
               <FormGroup>
                 <Input
                   type="text"
-                  onChange={(e) => handleChange("city", e.target.value)}
+                  onChange={(e) => handleChange('city', e.target.value)}
                   value={invoiceSettings.city}
-                  className={error.city ? "danger-border" : ""}
+                  className={error.city ? 'danger-border' : ''}
                 />
               </FormGroup>
             </Col>
@@ -336,9 +328,9 @@ const InvoiceSettings = ({
               <FormGroup>
                 <Input
                   type="text"
-                  onChange={(e) => handleChange("postal_code", e.target.value)}
+                  onChange={(e) => handleChange('postal_code', e.target.value)}
                   value={invoiceSettings.postal_code}
-                  className={error.postal_code ? "danger-border" : ""}
+                  className={error.postal_code ? 'danger-border' : ''}
                 />
               </FormGroup>
             </Col>
@@ -351,7 +343,7 @@ const InvoiceSettings = ({
               <FormGroup>
                 <Input
                   type="text"
-                  onChange={(e) => handleChange("state", e.target.value)}
+                  onChange={(e) => handleChange('state', e.target.value)}
                   value={invoiceSettings.state}
                 />
               </FormGroup>
@@ -365,9 +357,9 @@ const InvoiceSettings = ({
               <FormGroup>
                 <Input
                   type="text"
-                  onChange={(e) => handleChange("phone", e.target.value)}
+                  onChange={(e) => handleChange('phone', e.target.value)}
                   value={invoiceSettings.phone}
-                  className={error.phone ? "danger-border" : ""}
+                  className={error.phone ? 'danger-border' : ''}
                 />
               </FormGroup>
             </Col>
@@ -392,7 +384,7 @@ const InvoiceSettings = ({
         </Form>
       </CardFooter>
     </Card>
-  );
-};
+  )
+}
 
-export default InvoiceSettings;
+export default InvoiceSettings

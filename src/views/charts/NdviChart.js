@@ -1,150 +1,147 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react'
 
-import {useSelector} from 'react-redux';
-import {Line} from "react-chartjs-2";
+import { useSelector } from 'react-redux'
+import { Line } from 'react-chartjs-2'
 
-import DatePickerChart from './ui/DatePickerFromTo';
-import {getHistoryNDVIData} from "../../services/api/chartApi";
+import { Card, CardHeader, CardBody, CardTitle, Row, Col } from 'reactstrap'
+import DatePickerChart from './ui/DatePickerFromTo'
+import { getHistoryNDVIData } from '../../services/api/chartApi'
 
-import {toDate, getDateInPast} from '../../utils/dateTime'
-import {chartOptions} from './base'
+import { toDate, getDateInPast } from '../../utils/dateTime'
+import { chartOptions } from './base'
 
-import ChartContainer from './ui/ChartContainer';
-import {
-  Card,
-  CardHeader,
-  CardBody,
-  CardTitle,
-  Row,
-  Col,
-} from "reactstrap";
-import {defaultStartHistoryWeatherCharts, tariffError} from "../../config";
+import ChartContainer from './ui/ChartContainer'
+import { defaultStartHistoryWeatherCharts, tariffError } from '../../config'
 
-
-const selectLimit = state => state.auth.limits.history.ndvi_history;
+const selectLimit = (state) => state.auth.limits.history.ndvi_history
 
 const NdviChart = ({ polyId }) => {
+  const limit = useSelector(selectLimit)
 
-  const limit = useSelector(selectLimit);
-
-  const [startDate, setStartDate] = useState(null);
-  const [endDate, setEndDate] = useState(null);
-  const [earliestAvailableDate, setEarliestAvailableDate] = useState(null);
-  const [data, setData] = useState([]);
-  const [error, setError] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [startDate, setStartDate] = useState(null)
+  const [endDate, setEndDate] = useState(null)
+  const [earliestAvailableDate, setEarliestAvailableDate] = useState(null)
+  const [data, setData] = useState([])
+  const [error, setError] = useState(null)
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     if (limit) {
-      let earliestAvailableDate, startDate;
+      let earliestAvailableDate
+      let startDate
       if (limit.depth > 0) {
-        earliestAvailableDate = new Date();
-        earliestAvailableDate.setMonth(earliestAvailableDate.getMonth() - limit.depth * 12);
-        startDate = getDateInPast(Math.min(limit.depth * 12, defaultStartHistoryWeatherCharts));
-      }
-      else if (limit.depth < 0) {
-        earliestAvailableDate = limit.start;
-        startDate = getDateInPast(defaultStartHistoryWeatherCharts);
+        earliestAvailableDate = new Date()
+        earliestAvailableDate.setMonth(
+          earliestAvailableDate.getMonth() - limit.depth * 12,
+        )
+        startDate = getDateInPast(
+          Math.min(limit.depth * 12, defaultStartHistoryWeatherCharts),
+        )
+      } else if (limit.depth < 0) {
+        earliestAvailableDate = limit.start
+        startDate = getDateInPast(defaultStartHistoryWeatherCharts)
       }
       if (earliestAvailableDate) {
-        setEarliestAvailableDate(earliestAvailableDate);
-        setEarliestAvailableDate(earliestAvailableDate);
-        setStartDate(startDate);
-        setEndDate(new Date().getTime());
+        setEarliestAvailableDate(earliestAvailableDate)
+        setEarliestAvailableDate(earliestAvailableDate)
+        setStartDate(startDate)
+        setEndDate(new Date().getTime())
       } else {
-        setIsLoading(false);
-        setError(tariffError);
+        setIsLoading(false)
+        setError(tariffError)
       }
     }
   }, [limit])
 
   useEffect(() => {
     if (startDate && endDate && polyId) {
-      setIsLoading(true);
-      setError(null);
+      setIsLoading(true)
+      setError(null)
       getHistoryNDVIData(polyId, startDate, endDate)
-        .then(response => {
+        .then((response) => {
           if (response) {
             if (response.length) {
-              response.reverse();
-              setData(response);
+              response.reverse()
+              setData(response)
             } else {
-              setError("No data for selected period");
+              setError('No data for selected period')
             }
           } else {
-            setError("Failed to fetch data");
+            setError('Failed to fetch data')
           }
         })
-        .catch(err => {
-          if (typeof err === "object") {
-            err = err.message || "Something went wrong";
+        .catch((err) => {
+          if (typeof err === 'object') {
+            err = err.message || 'Something went wrong'
           }
-          setError(err);
+          setError(err)
         })
-        .finally(() => {setIsLoading(false)})
-      }
+        .finally(() => {
+          setIsLoading(false)
+        })
+    }
   }, [startDate, endDate, polyId])
 
-  let chartData = (canvas) => {
-    let ctx = canvas.getContext("2d");
-    let gradientStrokeBlue = ctx.createLinearGradient(0, 230, 0, 50);
-    gradientStrokeBlue.addColorStop(1, "rgba(29,140,248,0.2)");
-    gradientStrokeBlue.addColorStop(0.4, "rgba(29,140,248,0.0)");
-    gradientStrokeBlue.addColorStop(0, "rgba(29,140,248,0)");
+  const chartData = (canvas) => {
+    const ctx = canvas.getContext('2d')
+    const gradientStrokeBlue = ctx.createLinearGradient(0, 230, 0, 50)
+    gradientStrokeBlue.addColorStop(1, 'rgba(29,140,248,0.2)')
+    gradientStrokeBlue.addColorStop(0.4, 'rgba(29,140,248,0.0)')
+    gradientStrokeBlue.addColorStop(0, 'rgba(29,140,248,0)')
 
     return {
-      labels: data.map(el => toDate(el.dt)),
+      labels: data.map((el) => toDate(el.dt)),
       datasets: [
         {
-          label: "Max",
-          fill: "+1",
+          label: 'Max',
+          fill: '+1',
           backgroundColor: gradientStrokeBlue,
-          borderColor: "#1f8ef1",
+          borderColor: '#1f8ef1',
           borderWidth: 2,
           borderDash: [],
           borderDashOffset: 0.0,
-          pointBackgroundColor: "#1f8ef1",
-          pointBorderColor: "rgba(255,255,255,0)",
-          pointHoverBackgroundColor: "#1f8ef1",
+          pointBackgroundColor: '#1f8ef1',
+          pointBorderColor: 'rgba(255,255,255,0)',
+          pointHoverBackgroundColor: '#1f8ef1',
           pointBorderWidth: 20,
           pointHoverRadius: 4,
           pointHoverBorderWidth: 15,
           pointRadius: 4,
-          data: data.map(el => el.data.max.toFixed(2)),
+          data: data.map((el) => el.data.max.toFixed(2)),
         },
         {
-          label: "Min",
+          label: 'Min',
           fill: false,
-          borderColor: "#1f8ef1",
+          borderColor: '#1f8ef1',
           borderWidth: 2,
           borderDash: [],
           borderDashOffset: 0.0,
-          pointBackgroundColor: "#1f8ef1",
-          pointBorderColor: "rgba(255,255,255,0)",
-          pointHoverBackgroundColor: "#1f8ef1",
+          pointBackgroundColor: '#1f8ef1',
+          pointBorderColor: 'rgba(255,255,255,0)',
+          pointHoverBackgroundColor: '#1f8ef1',
           pointBorderWidth: 20,
           pointHoverRadius: 4,
           pointHoverBorderWidth: 15,
           pointRadius: 4,
-          data: data.map(el => el.data.min.toFixed(2)),
+          data: data.map((el) => el.data.min.toFixed(2)),
         },
         {
-          label: "Mean",
+          label: 'Mean',
           fill: false,
-          borderColor: "#00d6b4",
+          borderColor: '#00d6b4',
           borderWidth: 2,
           borderDash: [],
           borderDashOffset: 0.0,
-          pointBackgroundColor: "#00d6b4",
-          pointBorderColor: "rgba(255,255,255,0)",
-          pointHoverBackgroundColor: "#00d6b4",
+          pointBackgroundColor: '#00d6b4',
+          pointBorderColor: 'rgba(255,255,255,0)',
+          pointHoverBackgroundColor: '#00d6b4',
           pointBorderWidth: 20,
           pointHoverRadius: 4,
           pointHoverBorderWidth: 15,
           pointRadius: 4,
-          data: data.map(el => el.data.mean.toFixed(2)),
-        }
-      ]
+          data: data.map((el) => el.data.mean.toFixed(2)),
+        },
+      ],
     }
   }
 
@@ -168,17 +165,12 @@ const NdviChart = ({ polyId }) => {
         </Row>
       </CardHeader>
       <CardBody>
-        <ChartContainer
-          isLoading={isLoading}
-          error={error}
-          >
-          <Line
-            data={chartData}
-            options={chartOptions} />
+        <ChartContainer isLoading={isLoading} error={error}>
+          <Line data={chartData} options={chartOptions} />
         </ChartContainer>
       </CardBody>
     </Card>
   )
 }
 
-export default NdviChart;
+export default NdviChart

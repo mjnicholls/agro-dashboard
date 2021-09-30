@@ -1,19 +1,11 @@
-import React, {useEffect, useState} from "react";
-import {useDispatch} from 'react-redux';
-import {editPolygon} from "../../features/polygons/actions";
+import React, { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { Button, Col, FormGroup, Input, Row } from 'reactstrap'
+import { editPolygon } from '../../features/polygons/actions'
 
-import {
-  Button,
-  Col,
-  FormGroup,
-  Input,
-  Row
-} from "reactstrap";
-
-const PolygonEdit = ({ polygon, close  }) => {
-
-  const dispatch = useDispatch();
-  const [name, setName] = useState("");
+const PolygonEdit = ({ polygon, close }) => {
+  const dispatch = useDispatch()
+  const [name, setName] = useState('')
 
   useEffect(() => {
     if (polygon) {
@@ -21,14 +13,12 @@ const PolygonEdit = ({ polygon, close  }) => {
     }
   }, [polygon])
 
-  const editingDisabled = () => {
-    return polygon && !name.length
-  }
+  const editingDisabled = () => polygon && !name.length
 
   const confirmEdit = () => {
-    let updatedPolygon = {...polygon, name: name};
-    dispatch(editPolygon(updatedPolygon));
-    close();
+    const updatedPolygon = { ...polygon, name }
+    dispatch(editPolygon(updatedPolygon))
+    close()
   }
 
   return (
@@ -45,10 +35,10 @@ const PolygonEdit = ({ polygon, close  }) => {
             <Row>
               <Col>
                 <Input
-                  style={{color: "#222a42"}}
+                  style={{ color: '#222a42' }}
                   name="name"
                   type="text"
-                  onChange={e => setName(e.target.value)}
+                  onChange={(e) => setName(e.target.value)}
                   value={name}
                 />
               </Col>
@@ -82,4 +72,4 @@ const PolygonEdit = ({ polygon, close  }) => {
   )
 }
 
-export default PolygonEdit;
+export default PolygonEdit

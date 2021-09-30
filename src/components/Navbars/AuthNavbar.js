@@ -14,9 +14,9 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React from "react";
-import classnames from "classnames";
-import { NavLink } from "react-router-dom";
+import React from 'react'
+import classnames from 'classnames'
+import { NavLink } from 'react-router-dom'
 // reactstrap components
 import {
   Collapse,
@@ -25,25 +25,25 @@ import {
   NavItem,
   Nav,
   Container,
-} from "reactstrap";
+} from 'reactstrap'
 
 const AuthNavbar = (props) => {
-  const [collapseOpen, setCollapseOpen] = React.useState(false);
-  const [color, setColor] = React.useState("navbar-transparent");
+  const [collapseOpen, setCollapseOpen] = React.useState(false)
+  const [color, setColor] = React.useState('navbar-transparent')
   // this function opens and closes the collapse on small devices
   // it also adds navbar-transparent class to the navbar when closed
   // ad bg-white when opened
   const toggleCollapse = () => {
     if (collapseOpen) {
-      setColor("navbar-transparent");
+      setColor('navbar-transparent')
     } else {
-      setColor("bg-white");
+      setColor('bg-white')
     }
-    setCollapseOpen(!collapseOpen);
-  };
+    setCollapseOpen(!collapseOpen)
+  }
   return (
     <Navbar
-      className={classnames("navbar-absolute fixed-top", color)}
+      className={classnames('navbar-absolute fixed-top', color)}
       expand="lg"
     >
       <Container fluid>
@@ -68,20 +68,26 @@ const AuthNavbar = (props) => {
         <Collapse isOpen={collapseOpen} navbar>
           <Nav navbar className="ml-auto">
             <NavItem>
-              <NavLink to="/dashboard/polygons" className="nav-link text-primary">
+              <NavLink
+                to="/dashboard/polygons"
+                className="nav-link text-primary"
+              >
                 <i className="tim-icons icon-minimal-left" /> Back to Dashboard
               </NavLink>
             </NavItem>
             <NavItem>
-              <a className="nav-link" href="https://wp.agromonitoring.com/users/sign_up">
+              <a
+                className="nav-link"
+                href="https://wp.agromonitoring.com/users/sign_up"
+              >
                 <i className="tim-icons icon-single-02" /> Register
               </a>
             </NavItem>
-            {/*<NavItem>*/}
-              {/*<NavLink to="/auth/login" className="nav-link">*/}
-                {/*<i className="tim-icons icon-single-02" /> Login*/}
-              {/*</NavLink>*/}
-            {/*</NavItem>*/}
+            {/* <NavItem> */}
+            {/* <NavLink to="/auth/login" className="nav-link"> */}
+            {/* <i className="tim-icons icon-single-02" /> Login */}
+            {/* </NavLink> */}
+            {/* </NavItem> */}
             <NavItem>
               <a className="nav-link" href="https://agromonitoring.com/price">
                 <i className="tim-icons icon-coins" /> Pricing
@@ -96,7 +102,7 @@ const AuthNavbar = (props) => {
         </Collapse>
       </Container>
     </Navbar>
-  );
-};
+  )
+}
 
-export default AuthNavbar;
+export default AuthNavbar

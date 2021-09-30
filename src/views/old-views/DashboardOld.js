@@ -14,13 +14,13 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React from "react";
+import React from 'react'
 // nodejs library that concatenates classes
-import classNames from "classnames";
+import classNames from 'classnames'
 // react plugin used to create charts
-import { Line, Bar } from "react-chartjs-2";
+import { Line, Bar } from 'react-chartjs-2'
 // react plugin for creating vector maps
-import { VectorMap } from "react-jvectormap";
+import { VectorMap } from 'react-jvectormap'
 
 // reactstrap components
 import {
@@ -43,7 +43,7 @@ import {
   Row,
   Col,
   UncontrolledTooltip,
-} from "reactstrap";
+} from 'reactstrap'
 
 // core components
 import {
@@ -51,9 +51,9 @@ import {
   chartExample2,
   chartExample3,
   chartExample4,
-} from "variables/charts.js";
+} from 'variables/charts.js'
 
-var mapData = {
+const mapData = {
   AU: 760,
   BR: 550,
   CA: 120,
@@ -65,13 +65,13 @@ var mapData = {
   RO: 600,
   RU: 300,
   US: 2920,
-};
+}
 
 const Dashboard = () => {
-  const [bigChartData, setbigChartData] = React.useState("data1");
+  const [bigChartData, setbigChartData] = React.useState('data1')
   const setBgChartData = (name) => {
-    setbigChartData(name);
-  };
+    setbigChartData(name)
+  }
   return (
     <>
       <div className="content">
@@ -94,10 +94,10 @@ const Dashboard = () => {
                         id="0"
                         size="sm"
                         tag="label"
-                        className={classNames("btn-simple", {
-                          active: bigChartData === "data1",
+                        className={classNames('btn-simple', {
+                          active: bigChartData === 'data1',
                         })}
-                        onClick={() => setBgChartData("data1")}
+                        onClick={() => setBgChartData('data1')}
                       >
                         <span className="d-none d-sm-block d-md-block d-lg-block d-xl-block">
                           Accounts
@@ -111,10 +111,10 @@ const Dashboard = () => {
                         id="1"
                         size="sm"
                         tag="label"
-                        className={classNames("btn-simple", {
-                          active: bigChartData === "data2",
+                        className={classNames('btn-simple', {
+                          active: bigChartData === 'data2',
                         })}
-                        onClick={() => setBgChartData("data2")}
+                        onClick={() => setBgChartData('data2')}
                       >
                         <span className="d-none d-sm-block d-md-block d-lg-block d-xl-block">
                           Purchases
@@ -128,10 +128,10 @@ const Dashboard = () => {
                         id="2"
                         size="sm"
                         tag="label"
-                        className={classNames("btn-simple", {
-                          active: bigChartData === "data3",
+                        className={classNames('btn-simple', {
+                          active: bigChartData === 'data3',
                         })}
-                        onClick={() => setBgChartData("data3")}
+                        onClick={() => setBgChartData('data3')}
                       >
                         <span className="d-none d-sm-block d-md-block d-lg-block d-xl-block">
                           Sessions
@@ -277,7 +277,7 @@ const Dashboard = () => {
               <CardHeader>
                 <h5 className="card-category">Daily Sales</h5>
                 <CardTitle tag="h3">
-                  <i className="tim-icons icon-delivery-fast text-info" />{" "}
+                  <i className="tim-icons icon-delivery-fast text-info" />{' '}
                   3,500€
                 </CardTitle>
               </CardHeader>
@@ -635,7 +635,7 @@ const Dashboard = () => {
                         <div className="photo">
                           <img
                             alt="..."
-                            src={require("assets/img/tania.jpg").default}
+                            src={require('assets/img/tania.jpg').default}
                           />
                         </div>
                       </td>
@@ -690,7 +690,7 @@ const Dashboard = () => {
                         <div className="photo">
                           <img
                             alt="..."
-                            src={require("assets/img/robi.jpg").default}
+                            src={require('assets/img/robi.jpg').default}
                           />
                         </div>
                       </td>
@@ -745,7 +745,7 @@ const Dashboard = () => {
                         <div className="photo">
                           <img
                             alt="..."
-                            src={require("assets/img/lora.jpg").default}
+                            src={require('assets/img/lora.jpg').default}
                           />
                         </div>
                       </td>
@@ -800,7 +800,7 @@ const Dashboard = () => {
                         <div className="photo">
                           <img
                             alt="..."
-                            src={require("assets/img/jana.jpg").default}
+                            src={require('assets/img/jana.jpg').default}
                           />
                         </div>
                       </td>
@@ -855,7 +855,7 @@ const Dashboard = () => {
                         <div className="photo">
                           <img
                             alt="..."
-                            src={require("assets/img/mike.jpg").default}
+                            src={require('assets/img/mike.jpg').default}
                           />
                         </div>
                       </td>
@@ -910,7 +910,7 @@ const Dashboard = () => {
                         <div className="photo">
                           <img
                             alt="..."
-                            src={require("assets/img/emilyz.jpg").default}
+                            src={require('assets/img/emilyz.jpg').default}
                           />
                         </div>
                       </td>
@@ -978,7 +978,7 @@ const Dashboard = () => {
                             <div className="flag">
                               <img
                                 alt="..."
-                                src={require("assets/img/US.png").default}
+                                src={require('assets/img/US.png').default}
                               />
                             </div>
                           </td>
@@ -991,7 +991,7 @@ const Dashboard = () => {
                             <div className="flag">
                               <img
                                 alt="..."
-                                src={require("assets/img/DE.png").default}
+                                src={require('assets/img/DE.png').default}
                               />
                             </div>
                           </td>
@@ -1004,7 +1004,7 @@ const Dashboard = () => {
                             <div className="flag">
                               <img
                                 alt="..."
-                                src={require("assets/img/AU.png").default}
+                                src={require('assets/img/AU.png').default}
                               />
                             </div>
                           </td>
@@ -1017,7 +1017,7 @@ const Dashboard = () => {
                             <div className="flag">
                               <img
                                 alt="..."
-                                src={require("assets/img/GB.png").default}
+                                src={require('assets/img/GB.png').default}
                               />
                             </div>
                           </td>
@@ -1030,7 +1030,7 @@ const Dashboard = () => {
                             <div className="flag">
                               <img
                                 alt="..."
-                                src={require("assets/img/RO.png").default}
+                                src={require('assets/img/RO.png').default}
                               />
                             </div>
                           </td>
@@ -1043,7 +1043,7 @@ const Dashboard = () => {
                             <div className="flag">
                               <img
                                 alt="..."
-                                src={require("assets/img/BR.png").default}
+                                src={require('assets/img/BR.png').default}
                               />
                             </div>
                           </td>
@@ -1056,28 +1056,28 @@ const Dashboard = () => {
                   </Col>
                   <Col className="ml-auto mr-auto" md="6">
                     <VectorMap
-                      map={"world_mill"}
+                      map="world_mill"
                       backgroundColor="transparent"
                       zoomOnScroll={false}
                       containerStyle={{
-                        width: "100%",
-                        height: "300px",
+                        width: '100%',
+                        height: '300px',
                       }}
                       regionStyle={{
                         initial: {
-                          fill: "#e4e4e4",
-                          "fill-opacity": 0.9,
-                          stroke: "none",
-                          "stroke-width": 0,
-                          "stroke-opacity": 0,
+                          fill: '#e4e4e4',
+                          'fill-opacity': 0.9,
+                          stroke: 'none',
+                          'stroke-width': 0,
+                          'stroke-opacity': 0,
                         },
                       }}
                       series={{
                         regions: [
                           {
                             values: mapData,
-                            scale: ["#AAAAAA", "#444444"],
-                            normalizeFunction: "polynomial",
+                            scale: ['#AAAAAA', '#444444'],
+                            normalizeFunction: 'polynomial',
                           },
                         ],
                       }}
@@ -1090,7 +1090,7 @@ const Dashboard = () => {
         </Row>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default Dashboard;
+export default Dashboard

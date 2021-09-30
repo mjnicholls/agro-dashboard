@@ -1,57 +1,68 @@
-import React, {useEffect, useRef, useState} from 'react';
-import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
-import { useSelector } from 'react-redux';
+import React, { useEffect, useRef, useState } from 'react'
+import { useSelector } from 'react-redux'
 import * as turf from '@turf/turf'
-import {axiosInstance} from '../../services/base'
-import MapboxDraw from "@mapbox/mapbox-gl-draw";
-import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
-import {deletePreviousAreas, initialiseMap} from './base';
-import {displayClusters} from './clusters';
-import {displayPolygonGroup} from './polygons';
-import {removeCropLayer, displayCropLayer} from './crops';
-import {getMapBounds} from '../../features/polygons/selectors'
+import MapboxDraw from '@mapbox/mapbox-gl-draw'
+import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder'
+import { axiosInstance } from '../../services/base'
+import mapboxgl from '!mapbox-gl' // eslint-disable-line import/no-unresolved
+// import mapboxgl from '!mapbox-gl' // eslint-disable-line import/no-webpack-loader-syntax
+import { deletePreviousAreas, initialiseMap } from './base'
+import { displayClusters } from './clusters'
+import { displayPolygonGroup } from './polygons'
+import { removeCropLayer, displayCropLayer } from './crops'
+import { getMapBounds } from '../../features/polygons/selectors'
 
-const selectPolygons = state => state.polygons;
+const selectPolygons = (state) => state.polygons
 
-const MapBoxDraw = ({setArea, setGeoJson, setIntersection, drawRef, mode, setMode, mapHeight}) => {
+const MapBoxDraw = ({
+  setArea,
+  setGeoJson,
+  setIntersection,
+  drawRef,
+  mode,
+  setMode,
+  mapHeight,
+}) => {
+  const mapContainer = useRef(null)
+  const map = useRef(null)
+  const mapBounds = useSelector(getMapBounds)
 
-  const mapContainer = useRef(null);
-  const map = useRef(null);
-  const mapBounds = useSelector(getMapBounds);
-
-  const [initialised, setInitialised] = useState(false);
-  const polygons = useSelector(selectPolygons);
+  const [initialised, setInitialised] = useState(false)
+  const polygons = useSelector(selectPolygons)
 
   const deletePreviousAreasLocal = () => {
-    deletePreviousAreas(drawRef);
-    deleteArea();
+    deletePreviousAreas(drawRef)
+    deleteArea()
   }
 
-  useEffect(() => {
-    return () => {
+  useEffect(
+    () => () => {
       if (map.current) {
-        map.current.remove();
+        map.current.remove()
       }
-    }
-  }, []);
+    },
+    [],
+  )
 
   useEffect(() => {
     if (!initialised) {
       // first initialisation of the map
-      initialiseMap(mapContainer.current, map, mapBounds, () => setInitialised(true))
+      initialiseMap(mapContainer.current, map, mapBounds, () =>
+        setInitialised(true),
+      )
     } else {
       // new polygon has been added
-      displayPolygonGroup(map.current, mapBounds, polygons);
+      displayPolygonGroup(map.current, mapBounds, polygons)
       // displayPolygons(map.current, mapBounds, polygons);
-      displayClusters(map.current, polygons);
+      displayClusters(map.current, polygons)
     }
-  }, [initialised, polygons, mapBounds]);
+  }, [initialised, polygons, mapBounds])
 
   useEffect(() => {
     if (initialised) {
       if (mode === 'select') {
-        deletePreviousAreasLocal(drawRef);
-        displayCropLayer(map.current, drawRef, setMode, updateArea);
+        deletePreviousAreasLocal(drawRef)
+        displayCropLayer(map.current, drawRef, setMode, updateArea)
       } else {
         removeCropLayer(map.current)
       }
@@ -60,78 +71,82 @@ const MapBoxDraw = ({setArea, setGeoJson, setIntersection, drawRef, mode, setMod
 
   useEffect(() => {
     if (initialised) {
-      map.current.addControl(new MapboxGeocoder({
-        accessToken: mapboxgl.accessToken,
-        autocomplete: false,
-        minLength: 3,
-        externalGeocoderOnly: true,
-        marker: false,
-        localGeocoderOnly: true,
-        localGeocoder: dummyLocalSearch,
-        externalGeocoder: nominatimGeocoder,
-      }), 'top-left')
-      addDrawFunctionality(map.current);
+      map.current.addControl(
+        new MapboxGeocoder({
+          accessToken: mapboxgl.accessToken,
+          autocomplete: false,
+          minLength: 3,
+          externalGeocoderOnly: true,
+          marker: false,
+          localGeocoderOnly: true,
+          localGeocoder: dummyLocalSearch,
+          externalGeocoder: nominatimGeocoder,
+        }),
+        'top-left',
+      )
+      addDrawFunctionality(map.current)
     }
   }, [initialised])
 
-  const nominatimGeocoder = (query) => {
+  const nominatimGeocoder = (query) =>
     /** Load custom data to supplement the search results */
-    return axiosInstance.get(`https://nominatim.openstreetmap.org/search?format=json&q=${query}&limit=5`)
-      .then(response => {
-        let features = [];
-        for (let i=0; i < response.data.length; i++) {
-          let feature = response.data[i];
-          feature['place_name'] = feature["display_name"];
-          feature['center'] = [feature.lon, feature.lat];
-          feature['place_type'] = feature.type;
-          features.push(feature);
+    axiosInstance
+      .get(
+        `https://nominatim.openstreetmap.org/search?format=json&q=${query}&limit=5`,
+      )
+      .then((response) => {
+        const features = []
+        for (let i = 0; i < response.data.length; i++) {
+          const feature = response.data[i]
+          feature.place_name = feature.display_name
+          feature.center = [feature.lon, feature.lat]
+          feature.place_type = feature.type
+          features.push(feature)
         }
         return features
       })
-      .catch(err => {
-        return []
-      })
-  }
+      .catch((err) => [])
 
-  const dummyLocalSearch = () => {
-    /** Dummy function to be able to set localGeocoderOnly to true to avoid using mapbox geocoder **/
-    return [];
-  }
+  const dummyLocalSearch = () =>
+    /** Dummy function to be able to set localGeocoderOnly to true to avoid using mapbox geocoder * */
+    []
 
   const createArea = () => {
-    deletePreviousAreas(drawRef);
-    updateArea();
+    deletePreviousAreas(drawRef)
+    updateArea()
   }
 
   const updateArea = () => {
-    let data = drawRef.current.getAll();
+    const data = drawRef.current.getAll()
     if (data.features.length > 0) {
-      let area = (turf.area(data) / 10000).toFixed(2);
-      let poly = turf.polygon(data.features[0].geometry.coordinates, { name: 'poly1'});
-      let intersections = turf.kinks(poly);
-      setArea(area);
-      setGeoJson(data.features[0]);
+      const area = (turf.area(data) / 10000).toFixed(2)
+      const poly = turf.polygon(data.features[0].geometry.coordinates, {
+        name: 'poly1',
+      })
+      const intersections = turf.kinks(poly)
+      setArea(area)
+      setGeoJson(data.features[0])
       setIntersection(intersections.features.length > 0)
     }
   }
 
   const deleteArea = () => {
-    setArea(null);
-    setGeoJson(null);
+    setArea(null)
+    setGeoJson(null)
   }
 
   const addDrawFunctionality = (map) => {
     drawRef.current = new MapboxDraw({
       displayControlsDefault: false,
-        controls: {
-          polygon: true,
-          trash: true
-        }
-      });
-    map.addControl(drawRef.current, 'top-right');
-    map.on('draw.create', createArea);
-    map.on('draw.update', updateArea);
-    map.on('draw.delete', deleteArea);
+      controls: {
+        polygon: true,
+        trash: true,
+      },
+    })
+    map.addControl(drawRef.current, 'top-right')
+    map.on('draw.create', createArea)
+    map.on('draw.update', updateArea)
+    map.on('draw.delete', deleteArea)
     // map.on('draw.modechange', deletePreviousAreas);
   }
 
@@ -140,10 +155,10 @@ const MapBoxDraw = ({setArea, setGeoJson, setIntersection, drawRef, mode, setMod
       <div
         ref={mapContainer}
         className="map-container map-box-container mb-5"
-        style={{height: mapHeight + "px"}}
+        style={{ height: `${mapHeight}px` }}
       />
     </div>
-  );
+  )
 }
 
-export default MapBoxDraw;
+export default MapBoxDraw

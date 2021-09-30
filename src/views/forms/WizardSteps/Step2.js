@@ -14,18 +14,18 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React from "react";
+import React from 'react'
 
 // reactstrap components
-import { Row, Col } from "reactstrap";
+import { Row, Col } from 'reactstrap'
 
 // core components
-import ImageUpload from "components/CustomUpload/ImageUpload.js";
+import ImageUpload from 'components/CustomUpload/ImageUpload.js'
 
 const Step2 = React.forwardRef((props, ref) => {
   React.useImperativeHandle(ref, () => ({
     isValidated: undefined,
-  }));
+  }))
   return (
     <>
       <h5 className="info-text">Who are you? (Fileinput)</h5>
@@ -39,7 +39,7 @@ const Step2 = React.forwardRef((props, ref) => {
         </Col>
       </Row>
     </>
-  );
-});
+  )
+})
 
-export default Step2;
+export default Step2

@@ -1,11 +1,11 @@
 import { combineReducers } from 'redux'
 
-import authReducer from "./features/auth/reducer";
+import authReducer from './features/auth/reducer'
 import stateReducer from './features/state/reducer'
-import polygonsReducer from "./features/polygons/reducer";
-import notificationsReducer from "./features/notifications/reducer";
-import unitsReducer from "./features/units/reducer";
-import onecallReducer from "./features/onecall/reducer"
+import polygonsReducer from './features/polygons/reducer'
+import notificationsReducer from './features/notifications/reducer'
+import unitsReducer from './features/units/reducer'
+import onecallReducer from './features/onecall/reducer'
 
 const appReducer = combineReducers({
   auth: authReducer,
@@ -13,14 +13,14 @@ const appReducer = combineReducers({
   onecall: onecallReducer,
   polygons: polygonsReducer,
   notifications: notificationsReducer,
-  units: unitsReducer
+  units: unitsReducer,
 })
 
 const rootReducer = (state, action) => {
-  if (action.type === "DESTROY_STATE") {
+  if (action.type === 'DESTROY_STATE') {
     return appReducer(undefined, action)
   }
   return appReducer(state, action)
 }
 
-export default rootReducer;
+export default rootReducer

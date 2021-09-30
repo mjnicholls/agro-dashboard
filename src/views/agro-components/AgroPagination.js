@@ -1,39 +1,33 @@
-import React from 'react';
+import React from 'react'
 
-import {
-  Pagination,
-  PaginationItem,
-  PaginationLink,
-} from "reactstrap";
-
+import { Pagination, PaginationItem, PaginationLink } from 'reactstrap'
 
 const AgroPagination = ({ count, itemsPerPage, page, setPage }) => {
-
-  const maxPageNumber = Math.floor(count / itemsPerPage) - 1;
-  const maxPaginationItems = 5;
+  const maxPageNumber = Math.floor(count / itemsPerPage) - 1
+  const maxPaginationItems = 5
 
   const pages = () => {
-    let arr = [];
+    const arr = []
     if (maxPageNumber < 5) {
-      for (let i=0; i <= maxPageNumber; i++ ) {
+      for (let i = 0; i <= maxPageNumber; i++) {
         arr.push(i + 1)
       }
     } else {
-      let startPage;
+      let startPage
       if (maxPageNumber - page < maxPaginationItems) {
-        startPage = maxPageNumber - maxPaginationItems;
+        startPage = maxPageNumber - maxPaginationItems
       } else {
-        startPage = page >= 2 ? page - 2 : 0;
+        startPage = page >= 2 ? page - 2 : 0
       }
-      let endPage = Math.min(startPage + 5, maxPageNumber);
-      for (let i = startPage; i <= endPage; i++ ) {
+      const endPage = Math.min(startPage + 5, maxPageNumber)
+      for (let i = startPage; i <= endPage; i++) {
         arr.push(i + 1)
       }
     }
     return arr
   }
 
-  return ( count / itemsPerPage > 1 ?
+  return count / itemsPerPage > 1 ? (
     <nav>
       <Pagination>
         <PaginationItem>
@@ -41,53 +35,46 @@ const AgroPagination = ({ count, itemsPerPage, page, setPage }) => {
             aria-label="Previous"
             onClick={() => {
               if (page >= 1) {
-                setPage(page-1);
+                setPage(page - 1)
               }
             }}
           >
-            <span aria-hidden={true}>
-              <i
-                aria-hidden={true}
-                className="tim-icons icon-double-left"
-              />
+            <span aria-hidden>
+              <i aria-hidden className="tim-icons icon-double-left" />
             </span>
           </PaginationLink>
         </PaginationItem>
-        {pages().map(item => (
-            <PaginationItem
-              className={item === (page + 1) ? "active" : ""}
-              key={'page_' + item}
+        {pages().map((item) => (
+          <PaginationItem
+            className={item === page + 1 ? 'active' : ''}
+            key={`page_${item}`}
+          >
+            <PaginationLink
+              onClick={() => {
+                setPage(item - 1)
+              }}
             >
-              <PaginationLink
-                onClick={() => {
-                  setPage(item - 1);
-                }}
-              >
-                {item}
-              </PaginationLink>
-            </PaginationItem>
-          ))
-        }
+              {item}
+            </PaginationLink>
+          </PaginationItem>
+        ))}
         <PaginationItem>
           <PaginationLink
             aria-label="Next"
             onClick={() => {
               if (page < maxPageNumber) {
-                setPage(page+1);
+                setPage(page + 1)
               }
             }}
           >
-            <span aria-hidden={true}>
-              <i
-                aria-hidden={true}
-                className="tim-icons icon-double-right"
-              />
+            <span aria-hidden>
+              <i aria-hidden className="tim-icons icon-double-right" />
             </span>
           </PaginationLink>
         </PaginationItem>
-    </Pagination>
-    </nav> : null
-  )
+      </Pagination>
+    </nav>
+  ) : null
 }
 
 export default AgroPagination

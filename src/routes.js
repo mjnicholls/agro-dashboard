@@ -1,130 +1,136 @@
-import React from "react";
-import DashboardMain from "views/Dashboard.js";
+import React from 'react'
 // import Pricing from "views/pages/Pricing.js";
 // import Register from "views/pages/Register.js";
 // import User from "views/pages/User.js";
-import Login from "views/pages/Login.js";
-import PolygonNew from 'views/NewPolygon';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faListUl, faPlus, faSatellite, faTemperatureLow } from '@fortawesome/free-solid-svg-icons';
-import ApiKeys from 'views/personal-account/ApiKeys';
-import InvoiceList from 'views/personal-account/Payments'
-import Subscription from './views/personal-account/Subscription';
 
-import AccountSettings from 'views/personal-account/AccountSettings'
-import AccountSettings2 from 'views/personal-account/AccountSettings2'
-import BillingPlans from 'views/personal-account/BillingPlans'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {
+  faListUl,
+  faPlus,
+  faSatellite,
+  faTemperatureLow,
+} from '@fortawesome/free-solid-svg-icons'
+import DashboardMain from './views/Dashboard.js'
+import Login from './views/pages/Login.js'
+import PolygonNew from './views/NewPolygon'
+import ApiKeys from './views/personal-account/ApiKeys'
+import InvoiceList from './views/personal-account/Payments'
+
+import AccountSettings from './views/personal-account/AccountSettings'
+import AccountSettings2 from './views/personal-account/AccountSettings2'
+import BillingPlans from './views/personal-account/BillingPlans'
+import Subscription from './views/personal-account/Subscription'
 
 const routes = [
   {
-    path: "/polygons",
-    name: "Polygons",
-    rtlName: "",
+    path: '/polygons',
+    name: 'Polygons',
+    rtlName: '',
     icon: <FontAwesomeIcon icon={faListUl} />,
     component: DashboardMain,
-    layout: "/dashboard",
+    layout: '/dashboard',
     isFake: true,
-    onclick: "all"
+    onclick: 'all',
   },
   {
-    path: "/polygons",
-    name: "Satellite data & statistics",
-    rtlName: "",
+    path: '/polygons',
+    name: 'Satellite data & statistics',
+    rtlName: '',
     icon: <FontAwesomeIcon icon={faSatellite} />,
     component: DashboardMain,
-    layout: "/dashboard",
+    layout: '/dashboard',
     isFake: true,
-    onclick: "satellite"
+    onclick: 'satellite',
   },
   {
-    path: "/polygons",
-    name: "Weather Data",
-    rtlName: "",
+    path: '/polygons',
+    name: 'Weather Data',
+    rtlName: '',
     icon: <FontAwesomeIcon icon={faTemperatureLow} />,
     component: DashboardMain,
-    layout: "/dashboard",
+    layout: '/dashboard',
     isFake: true,
-    onclick: "weather",
+    onclick: 'weather',
   },
   {
-    path: "/new-polygon",
-    name: "New Polygon",
-    rtlName: "",
+    path: '/new-polygon',
+    name: 'New Polygon',
+    rtlName: '',
     icon: <FontAwesomeIcon icon={faPlus} />,
     component: PolygonNew,
-    layout: "/dashboard",
+    layout: '/dashboard',
   },
   {
     collapse: true,
-    name: "Personal account",
-    rtlName: "",
-    icon: "tim-icons icon-image-02",
-    state: "pagesCollapse",
+    name: 'Personal account',
+    rtlName: '',
+    icon: 'tim-icons icon-image-02',
+    state: 'pagesCollapse',
     // hidden: true,
     views: [
       {
-        path: "/api-keys",
-        name: "Api Keys",
-        rtlName: "",
-        mini: "A",
-        rtlMini: "",
+        path: '/api-keys',
+        name: 'Api Keys',
+        rtlName: '',
+        mini: 'A',
+        rtlMini: '',
         component: ApiKeys,
-        layout: "/dashboard",
+        layout: '/dashboard',
       },
       {
-        path: "/payments",
-        name: "Invoices",
-        rtlName: "",
-        mini: "I",
-        rtlMini: "",
+        path: '/payments',
+        name: 'Invoices',
+        rtlName: '',
+        mini: 'I',
+        rtlMini: '',
         component: InvoiceList,
-        layout: "/dashboard",
+        layout: '/dashboard',
       },
       {
-        path: "/account-settings",
-        name: "Account Settings",
-        rtlName: "",
-        mini: "S",
-        rtlMini: "",
+        path: '/account-settings',
+        name: 'Account Settings',
+        rtlName: '',
+        mini: 'S',
+        rtlMini: '',
         component: AccountSettings,
-        layout: "/dashboard",
+        layout: '/dashboard',
       },
       {
-        path: "/account-settings-2",
-        name: "Account Settings 2",
-        rtlName: "",
-        mini: "S",
-        rtlMini: "",
+        path: '/account-settings-2',
+        name: 'Account Settings 2',
+        rtlName: '',
+        mini: 'S',
+        rtlMini: '',
         component: AccountSettings2,
-        layout: "/dashboard",
+        layout: '/dashboard',
       },
       {
-        path: "/billing-plans",
-        name: "Billing Plans",
-        rtlName: "",
-        mini: "B",
-        rtlMini: "",
+        path: '/billing-plans',
+        name: 'Billing Plans',
+        rtlName: '',
+        mini: 'B',
+        rtlMini: '',
         component: BillingPlans,
-        layout: "/dashboard",
+        layout: '/dashboard',
       },
       {
-        path: "/home",
-        name: "Subscription",
-        rtlName: "",
-        mini: "A",
-        rtlMini: "",
+        path: '/home',
+        name: 'Subscription',
+        rtlName: '',
+        mini: 'A',
+        rtlMini: '',
         component: Subscription,
-        layout: "/dashboard",
+        layout: '/dashboard',
       },
-    ]
+    ],
   },
 
   {
     collapse: true,
-    name: "Pages",
-    rtlName: "صفحات",
-    icon: "tim-icons icon-image-02",
-    state: "pagesCollapse",
+    name: 'Pages',
+    rtlName: 'صفحات',
+    icon: 'tim-icons icon-image-02',
+    state: 'pagesCollapse',
     hidden: true,
     views: [
       // {
@@ -137,13 +143,13 @@ const routes = [
       //   layout: "/auth",
       // },
       {
-        path: "/login",
-        name: "Login",
-        rtlName: "هعذاتسجيل الدخول",
-        mini: "L",
-        rtlMini: "هعذا",
+        path: '/login',
+        name: 'Login',
+        rtlName: 'هعذاتسجيل الدخول',
+        mini: 'L',
+        rtlMini: 'هعذا',
         component: Login,
-        layout: "/auth",
+        layout: '/auth',
       },
       // {
       //   path: "/register",
@@ -165,6 +171,6 @@ const routes = [
       // },
     ],
   },
-];
+]
 
-export default routes;
+export default routes
