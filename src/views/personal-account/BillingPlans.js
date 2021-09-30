@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import {useSelector } from "react-redux";
 // reactstrap components
 import { Button,
   Card,
@@ -18,9 +19,13 @@ import SubscriptionPop2 from './SubscriptionPop2';
 import VectorMapView from './VectorMapPersonal'
 import ReactBSAlert from "react-bootstrap-sweetalert";
 
+const userSubscriptionSelector = state => state.auth.user.tariff;
+
   const BillingPlans = () => {
 
     const [data, setData] = useState([]);
+
+    const subscription = useSelector(userSubscriptionSelector);
 
     const [alert, setAlert] = React.useState(null);
 
@@ -49,10 +54,9 @@ import ReactBSAlert from "react-bootstrap-sweetalert";
 
     return (
       <>
-
         <div className="content">
+          {alert}
 
-        {alert}
           <Row>
             <Col>
               <h1>Billing Plans</h1>
@@ -63,13 +67,14 @@ import ReactBSAlert from "react-bootstrap-sweetalert";
             <Col className="mb-0" md="12" mt="20">
               <Card>
                 <CardBody>
-                  <Table className="mb-2" style={{ tableLayout: "fixed", textAlign:"center" }}>
-                  <thead>
+                  <Table
+                    className="mb-2"
+                    style={{ tableLayout: "fixed", textAlign: "center" }}
+                  >
+                    <thead>
                       <tr>
                         <th colSpan="5">
-                          <h4>
-                            Plans
-                          </h4>
+                          <h4>Plans</h4>
                         </th>
                       </tr>
                     </thead>
@@ -93,10 +98,67 @@ import ReactBSAlert from "react-bootstrap-sweetalert";
                             </Button>
                           </Link>
                         </td>
-                        
-                        <td>
+
+                        {subscription === "starter" ? (
+                          <td>
+                            <h3>Starter</h3>
+                            <h3>£20</h3>
+
+                            <Button
+                              className="btn-primary"
+                              color="primary"
+                              data-dismiss="modal"
+                              type="button"
+                              /* onClick={(e) => {
+                                htmlAlert(false);
+                                e.stopPropagation();
+                              }} */
+                            >
+                              Unsubscribe
+                            </Button>
+                          </td>
+                        ) : (
+                          <td>
                           <h3>Starter</h3>
                           <h3>£20</h3>
+                          <Button
+                            className="btn-primary"
+                            color="primary"
+                            data-dismiss="modal"
+                            type="button"
+                            onClick={(e) => {
+                              htmlAlert(false);
+                              e.stopPropagation();
+                            }}
+                          >
+                            Subscribe
+                          </Button>
+                          </td>
+                        )}
+
+                        {subscription === "small" ? (
+                          <td>
+                            <h3>Small Kit</h3>
+                            <h3>£200</h3>
+
+                            <Button
+                              className="btn-primary"
+                              color="primary"
+                              data-dismiss="modal"
+                              type="button"
+                              /* onClick={(e) => {
+                                htmlAlert(false);
+                                e.stopPropagation();
+                              }}
+                              */
+                            >
+                              Unsubscribe
+                            </Button>
+                          </td>
+                        ) : (
+                          <td>
+                            <h3>Small Kit</h3>
+                            <h3>£200</h3>
 
                             <Button
                               className="btn-primary"
@@ -108,38 +170,23 @@ import ReactBSAlert from "react-bootstrap-sweetalert";
                                 e.stopPropagation();
                               }}
                             >
-                             Subscribe
+                              Subscribe
                             </Button>
-
-                        </td>
-                        <td>
-                          <h3>Small Kit</h3>
-                          <h3>£200</h3>
-
-                            <Button
-                              className="btn-primary"
-                              color="primary"
-                              data-dismiss="modal"
-                              type="button"
-                              onClick={(e) => {
-                                htmlAlert(false);
-                                e.stopPropagation();
-                              }}
-                            >
-                             Subscribe
-                            </Button>
-
-                        </td>
+                          </td>
+                        )}
                         <td>
                           <h3>Corporate</h3>
                           <h3>£</h3>
-                     <a href="https://openweathermap.force.com/s/contactsupport" target="_blank">
+                          <a
+                            href="https://openweathermap.force.com/s/contactsupport"
+                            target="_blank"
+                          >
                             <Button
                               className="btn-primary"
                               color="primary"
                               type="button"
                             >
-                             Contact Us
+                              Contact Us
                             </Button>
                           </a>
                         </td>
@@ -155,8 +202,10 @@ import ReactBSAlert from "react-bootstrap-sweetalert";
             <Col className="mb-0" md="12" mt="20">
               <Card>
                 <CardBody>
-                  <Table className="mb-2" style={{ tableLayout: "fixed", textAlign:"center" }}
->
+                  <Table
+                    className="mb-2"
+                    style={{ tableLayout: "fixed", textAlign: "center" }}
+                  >
                     <thead>
                       <tr>
                         <th colSpan="5">
@@ -350,7 +399,10 @@ import ReactBSAlert from "react-bootstrap-sweetalert";
             <Col className="mb-0" md="12" mt="20">
               <Card>
                 <CardBody>
-                  <Table className="mb-2" style={{ tableLayout: "fixed", textAlign:"center" }}>
+                  <Table
+                    className="mb-2"
+                    style={{ tableLayout: "fixed", textAlign: "center" }}
+                  >
                     <thead>
                       <tr>
                         <th colSpan="5">
@@ -562,7 +614,10 @@ import ReactBSAlert from "react-bootstrap-sweetalert";
             <Col className="mb-0" md="12" mt="20">
               <Card>
                 <CardBody>
-                  <Table className="mb-2" style={{ tableLayout: "fixed", textAlign:"center" }}>
+                  <Table
+                    className="mb-2"
+                    style={{ tableLayout: "fixed", textAlign: "center" }}
+                  >
                     <thead>
                       <tr>
                         <th colSpan="5">
@@ -648,7 +703,7 @@ import ReactBSAlert from "react-bootstrap-sweetalert";
                           >
                             CC BY-SA 4.0{" "}
                           </a>
-                           (or custom)
+                          (or custom)
                         </td>
                       </tr>
 
@@ -678,13 +733,14 @@ import ReactBSAlert from "react-bootstrap-sweetalert";
                             ODbL
                           </a>
                         </td>
-                        <td><a
+                        <td>
+                          <a
                             href="http://opendatacommons.org/licenses/odbl/"
                             target="_blank"
                           >
                             ODbL{" "}
-                          </a> 
-                            (or custom)
+                          </a>
+                          (or custom)
                         </td>
                       </tr>
 
@@ -796,9 +852,7 @@ import ReactBSAlert from "react-bootstrap-sweetalert";
             </Col>
           </Row>
 
-       
-           <VectorMapView />
-       
+          <VectorMapView />
         </div>
       </>
     );

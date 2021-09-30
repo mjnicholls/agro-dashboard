@@ -31,7 +31,7 @@ import { getMailPrefs } from '../../services/api/personalAccountAPI';
 import Step1 from './subscription-form/Step1'
 import Step2 from './subscription-form/Step2'
 
-const userSubscriptionSelector = state => state.auth.user.tariff;
+
 
 const InvoiceSettings = ({ close }) => {
 
@@ -40,7 +40,6 @@ const InvoiceSettings = ({ close }) => {
   const [countries, setCountries] = useState(countriesDefault);
   const [isNew, setIsNew] = useState(true);
 
-  const subscription = useSelector(userSubscriptionSelector);
 
   const [invoiceSettings, setInvoiceSettings] = useState({
     type: "individual",
@@ -194,9 +193,7 @@ const InvoiceSettings = ({ close }) => {
   }
 
   return (
-    
-   <>
-   {subscription === "starter" || "small" || "corp" ? 
+   
       <div>
           <h2>Subscribe</h2>
           {step === 1 ?
@@ -205,10 +202,10 @@ const InvoiceSettings = ({ close }) => {
         }
         
         <Form className="form-horizontal">
-     
           <Row>
             <Label md="3" />
             <Col md="12" className="text-right">
+
 
               {step === 1 ? 
               <Button
@@ -216,6 +213,8 @@ const InvoiceSettings = ({ close }) => {
                 color="primary"
                 type="button"
                 onClick={incrementStep}
+                style={{
+                  float:"right"}}
                 
               >
                 Next
@@ -225,20 +224,20 @@ const InvoiceSettings = ({ close }) => {
               className="btn-fill"
               color="primary"
               type="button"
-             // onClick={}
+              onClick={confirmInvoice}
+              style={{
+                float:"right"}}
             >
-              Unsubscribe
+              Subscribe
             </Button>
             
             }
 
               {(step === 2) && <Button
-              className="btn-neutral align-right"
+              className="btn-neutral"
               color="default"
               type="button"
               onClick={decrementStep}
-              style={{
-              float:"right"}}
             >
               Back
             </Button>}
@@ -247,61 +246,6 @@ const InvoiceSettings = ({ close }) => {
         </Form>
      
     </div>
-
-    :
-<div>
-<h2>Subscribe</h2>
-{step === 1 ?
-<Step1 invoiceSettings={invoiceSettings} setInvoiceSettings={setInvoiceSettings} isNew={isNew} error={error}/> :
-<Step2 invoiceSettings={invoiceSettings} setInvoiceSettings={setInvoiceSettings} isNew={isNew} error={error}/>
-}
-
-<Form className="form-horizontal">
-
-<Row>
-  <Label md="3" />
-  <Col md="12" className="text-right">
-
-    {step === 1 ? 
-    <Button
-      className="btn-fill"
-      color="primary"
-      type="button"
-      onClick={incrementStep}
-      
-    >
-      Next
-    </Button>
-    :
-    <Button
-    className="btn-fill"
-    color="primary"
-    type="button"
-    onClick={confirmInvoice}
-  >
-    Subscribe
-  </Button>
-  
-  }
-
-    {(step === 2) && <Button
-    className="btn-neutral align-right"
-    color="default"
-    type="button"
-    onClick={decrementStep}
-    style={{
-    float:"right"}}
-  >
-    Back
-  </Button>}
-  </Col>
-</Row>
-</Form>
-
-</div>}
-
-</>
-
   );
 };
 
