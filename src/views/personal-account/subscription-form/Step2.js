@@ -27,9 +27,38 @@ const Step2 = ({invoiceSettings, setInvoiceSettings, isNew, error}) => {
   return (
       <div>
           <Form>
+         
           <Row>
 
             <Col md="12">
+            <Label>Address Line 1 *</Label>
+              <FormGroup>
+                <Input
+                  type="text"
+                  onChange={(e) =>
+                    handleChange("address_line_1", e.target.value)
+                  }
+                  value={invoiceSettings.address_line_1}
+                  className={error.address_line_1 ? "danger-border" : ""}
+                />
+              </FormGroup>
+            </Col>
+          </Row>
+          <Row>
+
+            <Col md="6">
+            <Label>Address Line 2</Label>
+              <FormGroup>
+                <Input
+                  type="text"
+                  onChange={(e) =>
+                    handleChange("address_line_2", e.target.value)
+                  }
+                  value={invoiceSettings.address_line_2}
+                />
+              </FormGroup>
+            </Col>
+            <Col md="6">
             <Label>Country *</Label>
               <FormGroup>
                 <Select
@@ -55,41 +84,8 @@ const Step2 = ({invoiceSettings, setInvoiceSettings, isNew, error}) => {
               </FormGroup>
             </Col>
           </Row>
-
           <Row>
-
-            <Col md="12">
-            <Label>Address Line 1 *</Label>
-              <FormGroup>
-                <Input
-                  type="text"
-                  onChange={(e) =>
-                    handleChange("address_line_1", e.target.value)
-                  }
-                  value={invoiceSettings.address_line_1}
-                  className={error.address_line_1 ? "danger-border" : ""}
-                />
-              </FormGroup>
-            </Col>
-          </Row>
-          <Row>
-
-            <Col md="12">
-            <Label>Address Line 2</Label>
-              <FormGroup>
-                <Input
-                  type="text"
-                  onChange={(e) =>
-                    handleChange("address_line_2", e.target.value)
-                  }
-                  value={invoiceSettings.address_line_2}
-                />
-              </FormGroup>
-            </Col>
-          </Row>
-          <Row>
-
-            <Col md="12">
+            <Col md="6">
             <Label>City *</Label>
               <FormGroup>
                 <Input
@@ -100,10 +96,9 @@ const Step2 = ({invoiceSettings, setInvoiceSettings, isNew, error}) => {
                 />
               </FormGroup>
             </Col>
-          </Row>
-          <Row>
+         
 
-            <Col md="12">
+            <Col md="6">
             <Label>Postcode *</Label>
               <FormGroup>
                 <Input
@@ -117,7 +112,7 @@ const Step2 = ({invoiceSettings, setInvoiceSettings, isNew, error}) => {
           </Row>
           <Row>
 
-            <Col md="12">
+            <Col md="6">
             <Label>State</Label>
               <FormGroup>
                 <Input
@@ -127,10 +122,9 @@ const Step2 = ({invoiceSettings, setInvoiceSettings, isNew, error}) => {
                 />
               </FormGroup>
             </Col>
-          </Row>
-          <Row>
+        
 
-<Col md="12" style={{marginBottom: "20px"}}>
+<Col md="6" style={{marginBottom: "20px"}}>
 <Label>Phone *</Label>
   <FormGroup>
     <Input

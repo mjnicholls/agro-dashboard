@@ -19,6 +19,7 @@ import { NavLink } from "react-router-dom";
 const userSubscriptionSelector = state => state.auth.user.tariff;
 
 const DeleteAccount = ({ close, refreshData }) => {
+  
   const dispatch = useDispatch();
 
   const subscription = useSelector(userSubscriptionSelector);
