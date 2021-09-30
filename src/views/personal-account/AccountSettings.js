@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import {
   getMailPrefs,
-  deleteAcct,
 } from "../../services/api/personalAccountAPI";
 // reactstrap components
 import {

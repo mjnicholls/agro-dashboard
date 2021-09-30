@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {useSelector} from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
-
+import ExportPolygons from "./ExportPolygons";
 import {
   Button,
   Card,
@@ -176,6 +176,12 @@ const Subscription = () => {
             </CardBody>
           </Card>
         </Col>
+
+      </Row>
+      <ExportPolygons 
+      />
+      <Row>
+
 
       </Row>
 

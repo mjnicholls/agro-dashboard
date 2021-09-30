@@ -58,5 +58,8 @@ export const invoiceUpdate = `${personalAccountBase}account/invoice`
 // get vat info
 export const getVat = `${personalAccountBase}account/vat_id`
 
+// get vat info
+export const PolygonGet = `${personalAccountBase}account/polygons`
+
 export const confirmVat = "https://home.agromonitoring.com/api/check_vat"
 export const countriesList = "https://home.agromonitoring.com/api/countries"

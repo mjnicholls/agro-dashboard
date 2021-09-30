@@ -13,6 +13,7 @@ import {
   getVat,
   confirmVat,
   countriesList,
+  PolygonGet
 } from "./index";
 import {axiosInstance} from "../base";
 
@@ -159,6 +160,16 @@ export const confirmUserVat = () => {
 
 export const getCountries = () => {
   return axiosInstance.get(countriesList)
+    .then(response => response.data)
+    .catch(err => {
+      throw new Error(err)
+    })
+}
+
+// get polygon
+
+export const getPolygons = () => {
+  return axiosInstance.get(PolygonGet)
     .then(response => response.data)
     .catch(err => {
       throw new Error(err)
