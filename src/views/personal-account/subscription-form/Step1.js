@@ -24,7 +24,6 @@ const Step1 = ({invoiceSettings, setInvoiceSettings, isNew, error}) => {
 
   return (
       <div>
-          <h2>Subscribe</h2>
         <Form>
           <Label>Legal form: </Label>
           <FormGroup check className="form-check-radio">

@@ -29,6 +29,7 @@ import { countriesDefault, titles } from "../../config";
 import Select from "react-select";
 import { getMailPrefs } from '../../services/api/personalAccountAPI';
 import Step1 from './subscription-form/Step1'
+import Step2 from './subscription-form/Step2'
 
 const InvoiceSettings = ({ close }) => {
 
@@ -113,12 +114,6 @@ const InvoiceSettings = ({ close }) => {
       });
   }
 
-  const decrementStep = () => {
-    if (step === 2) {
-      setStep(1)
-    }
-  }
-
   const confirmInvoice = () => {
     setError({});
     let newError = {
@@ -154,6 +149,14 @@ const InvoiceSettings = ({ close }) => {
     }
   };
 
+  const decrementStep = () => {
+    if (step === 2) {
+      setStep(1)
+    }
+  }
+
+
+
   const incrementStep = () => {
     setError({});
     if (step === 1) {
@@ -182,140 +185,24 @@ const InvoiceSettings = ({ close }) => {
     }
 
     else {
-      // run checks, including VAT check
-      // call api to update / create
+      //
     }
   }
 
   return (
       <div>
           <h2>Subscribe</h2>
-        {step === 1 ?
-
+          {step === 1 ?
           <Step1 invoiceSettings={invoiceSettings} setInvoiceSettings={setInvoiceSettings} isNew={isNew} error={error}/> :
-          <Form>
-          <Row>
-
-            <Col md="12">
-            <Label>Country *</Label>
-              <FormGroup>
-                <Select
-                  className={classnames(
-                    "react-select info mb-3",
-                    error.country ? "danger-border" : ""
-                  )}
-                  classNamePrefix="react-select"
-                  onChange={(country) => {
-                    handleChange("country", country.code);
-                  }}
-                  options={countries}
-                  getOptionLabel={(option) => option.name}
-                  getOptionValue={(option) => option.code}
-                  placeholder={
-                    invoiceSettings.country
-                      ? countries.find(
-                          (obj) => obj.code === invoiceSettings.country
-                        ).name
-                      : ""
-                  }
-                />
-              </FormGroup>
-            </Col>
-          </Row>
-          <Row>
-
-            <Col md="12">
-            <Label>Address Line 1 *</Label>
-              <FormGroup>
-                <Input
-                  type="text"
-                  onChange={(e) =>
-                    handleChange("address_line_1", e.target.value)
-                  }
-                  value={invoiceSettings.address_line_1}
-                  className={error.address_line_1 ? "danger-border" : ""}
-                />
-              </FormGroup>
-            </Col>
-          </Row>
-          <Row>
-
-            <Col md="12">
-            <Label>Address Line 2</Label>
-              <FormGroup>
-                <Input
-                  type="text"
-                  onChange={(e) =>
-                    handleChange("address_line_2", e.target.value)
-                  }
-                  value={invoiceSettings.address_line_2}
-                />
-              </FormGroup>
-            </Col>
-          </Row>
-          <Row>
-
-            <Col md="12">
-            <Label>City *</Label>
-              <FormGroup>
-                <Input
-                  type="text"
-                  onChange={(e) => handleChange("city", e.target.value)}
-                  value={invoiceSettings.city}
-                  className={error.city ? "danger-border" : ""}
-                />
-              </FormGroup>
-            </Col>
-          </Row>
-          <Row>
-
-            <Col md="12">
-            <Label>Postcode *</Label>
-              <FormGroup>
-                <Input
-                  type="text"
-                  onChange={(e) => handleChange("postal_code", e.target.value)}
-                  value={invoiceSettings.postal_code}
-                  className={error.postal_code ? "danger-border" : ""}
-                />
-              </FormGroup>
-            </Col>
-          </Row>
-          <Row>
-
-            <Col md="12">
-            <Label>State</Label>
-              <FormGroup>
-                <Input
-                  type="text"
-                  onChange={(e) => handleChange("state", e.target.value)}
-                  value={invoiceSettings.state}
-                />
-              </FormGroup>
-            </Col>
-          </Row>
-          <Row>
-
-            <Col md="12" style={{marginBottom: "20px"}}>
-            <Label>Phone *</Label>
-              <FormGroup>
-                <Input
-                  type="text"
-                  onChange={(e) => handleChange("phone", e.target.value)}
-                  value={invoiceSettings.phone}
-                  className={error.phone ? "danger-border" : ""}
-                />
-              </FormGroup>
-            </Col>
-          </Row>
-        </Form>
-
+          <Step2 invoiceSettings={invoiceSettings} setInvoiceSettings={setInvoiceSettings} isNew={isNew} error={error}/>
         }
+        
 
         <Form className="form-horizontal">
           <Row>
             <Label md="3" />
             <Col md="12" className="text-right">
+              {step === 1 ? 
               <Button
                 className="btn-fill"
                 color="primary"
@@ -324,6 +211,17 @@ const InvoiceSettings = ({ close }) => {
               >
                 Next
               </Button>
+              :
+              <Button
+              className="btn-fill"
+              color="primary"
+              type="button"
+              onClick={confirmInvoice}
+            >
+              Subscribe
+            </Button>
+            
+            }
               {(step === 2) && <Button
               className="btn-neutral"
               color="default"
@@ -335,7 +233,7 @@ const InvoiceSettings = ({ close }) => {
             </Col>
           </Row>
         </Form>
-
+     
     </div>
   );
 };
