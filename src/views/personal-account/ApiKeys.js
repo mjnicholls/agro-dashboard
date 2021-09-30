@@ -26,12 +26,13 @@ import {
 } from "../../features/notifications/actions";
 
 const ApiKeys = () => {
+
+  const dispatch = useDispatch();
+
   const [data, setData] = useState([]);
   const [alert, setAlert] = React.useState(null);
   const [name, setName] = useState("");
   const [error, setError] = useState(null);
-
-  const dispatch = useDispatch();
 
   useEffect(() => {
     refreshData();
@@ -77,7 +78,6 @@ const ApiKeys = () => {
       });
   };
 
-  // to create modal for the delete/
   const htmlAlert = (apiKey, isEdit) => {
     setAlert(
       <ReactBSAlert

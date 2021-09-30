@@ -86,8 +86,6 @@ const DeleteAccount = ({ close, refreshData }) => {
       </Col>
     </Row>
     <Button
-      // className="btn-primary"
-      // color="default"
       className="btn-neutral"
       color="default"
       type="button"

@@ -13,7 +13,6 @@ import {
   getVat,
   confirmVat,
   countriesList,
-  getInvoice
 } from "./index";
 import {axiosInstance} from "../base";
 
@@ -117,18 +116,6 @@ export const deleteAcct = () => {
       throw new Error(error)
     })
 }
-
-
-//get invoice
-
-export const invoiceGet = () => {
-  return axiosInstance.put(getInvoice)
-    .then(response => response)
-    .catch(error => {
-      throw new Error(error)
-    })
-}
-
 
 // update invoice info 
 

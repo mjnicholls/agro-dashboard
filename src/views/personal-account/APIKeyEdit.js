@@ -13,8 +13,9 @@ import {
 
 const ApiKeyEdit = ({ apiKey, close, refreshData  }) => {
 
-  const [name, setName] = useState(apiKey ? apiKey.name : '')
   const dispatch = useDispatch();
+
+  const [name, setName] = useState(apiKey ? apiKey.name : '')
 
   const editingDisabled = () => {
     return apiKey && !name.length

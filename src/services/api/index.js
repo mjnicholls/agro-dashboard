@@ -55,9 +55,6 @@ export const deleteAccount = `${personalAccountBase}account/delete`
 //update invoice info
 export const invoiceUpdate = `${personalAccountBase}account/invoice`
 
-//get 
-export const getInvoice = `${personalAccountBase}account/invoice`
-
 // get vat info
 export const getVat = `${personalAccountBase}account/vat_id`
 
