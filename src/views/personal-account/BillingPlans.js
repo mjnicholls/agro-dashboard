@@ -9,11 +9,12 @@ import { Button,
   Col,
   Table,
  } from "reactstrap";
- 
+
  import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 import InvoiceSettings from './SubscriptionPop';
+import SubscriptionPop2 from './SubscriptionPop2';
 import VectorMapView from './VectorMapPersonal'
 import ReactBSAlert from "react-bootstrap-sweetalert";
 
@@ -35,19 +36,22 @@ import ReactBSAlert from "react-bootstrap-sweetalert";
           onCancel={() => hideAlert()}
           showConfirm={false}
         >
-          { <InvoiceSettings
-            subPop={subPop}
-            close={hideAlert}
-          /> }
+          {/*<SubscriptionForm*/}
+            {/*close={hideAlert} />*/}
+          {/*<InvoiceSettings*/}
+            {/*subPop={subPop}*/}
+            {/*close={hideAlert}*/}
+          {/*/>*/}
+          <SubscriptionPop2 close={hideAlert}/>
         </ReactBSAlert>
       );
     };
 
     return (
       <>
-         
+
         <div className="content">
-  
+
         {alert}
           <Row>
             <Col>
@@ -93,7 +97,7 @@ import ReactBSAlert from "react-bootstrap-sweetalert";
                         <td>
                           <h3>Starter</h3>
                           <h3>£20</h3>
-                        
+
                             <Button
                               className="btn-primary"
                               color="primary"
@@ -106,12 +110,12 @@ import ReactBSAlert from "react-bootstrap-sweetalert";
                             >
                              Subscribe
                             </Button>
-                      
+
                         </td>
                         <td>
                           <h3>Small Kit</h3>
                           <h3>£200</h3>
-                        
+
                             <Button
                               className="btn-primary"
                               color="primary"
@@ -124,12 +128,12 @@ import ReactBSAlert from "react-bootstrap-sweetalert";
                             >
                              Subscribe
                             </Button>
-                        
+
                         </td>
                         <td>
                           <h3>Corporate</h3>
                           <h3>£</h3>
-                     <a href="https://openweathermap.force.com/s/contactsupport" target="_blank"> 
+                     <a href="https://openweathermap.force.com/s/contactsupport" target="_blank">
                             <Button
                               className="btn-primary"
                               color="primary"
@@ -137,7 +141,7 @@ import ReactBSAlert from "react-bootstrap-sweetalert";
                             >
                              Contact Us
                             </Button>
-                          </a>  
+                          </a>
                         </td>
                       </tr>
                     </tbody>

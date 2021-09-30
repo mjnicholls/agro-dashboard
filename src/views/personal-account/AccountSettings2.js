@@ -19,6 +19,7 @@ import DeleteAccount from './DeleteAccount';
 import ReactBSAlert from "react-bootstrap-sweetalert";
 import UnitsRadioButtons from '../agro-components/UnitsRadioButtons';
 import TabsSelector from '../charts/ui/TabsSelector';
+import ExportPolygons from './ExportPolygons';
 
 const AccountSettings = ({}) => {
 
@@ -123,6 +124,7 @@ const AccountSettings = ({}) => {
                     </CardBody>
                   </Card>
                 </Col>
+                <Col><ExportPolygons /></Col>
               </Row>
               <Row>
                 <Col>
