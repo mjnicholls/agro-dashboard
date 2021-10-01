@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 // import mapboxgl from '!mapbox-gl' // eslint-disable-line import/no-webpack-loader-syntax
 import mapboxgl from '!mapbox-gl' // eslint-disable-line import/no-unresolved
 
@@ -89,17 +91,19 @@ export const initialiseMap = (
     accessToken: mapBoxAccessToken,
     fitBoundsOptions: { duration: 0, ...clusterPadding },
 
-    transformRequest: (url) => { // eslint-disable-line
+    transformRequest: (url) => {
+      // eslint-disable-line
       if (
         url.indexOf(serverBaseURL) > -1 ||
         url.indexOf('http://k8s-eu4.owm.io') > -1
       ) {
-        return { // eslint-disable-line
+        return {
+          // eslint-disable-line
           url,
           headers: { Authorization: `Bearer ${token}` },
         }
       }
-    } ,
+    },
   })
   map.current.addControl(
     new mapboxgl.NavigationControl({

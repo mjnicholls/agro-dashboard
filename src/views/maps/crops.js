@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import {
   basicBlueColor,
   removeLayer,
@@ -140,7 +142,8 @@ export const removeCropLayer = (map) => {
 
 const getCropColorCase = () => {
   const c = ['case']
-  for (const cid in cropColorDict) { // eslint-disable-line
+  for (const cid in cropColorDict) {
+    // eslint-disable-line
     c.push(['==', ['get', 'cdid'], cid])
     let cl = cropColorDict[cid].color
     if (cropColorDict[cid].visible === 0) {

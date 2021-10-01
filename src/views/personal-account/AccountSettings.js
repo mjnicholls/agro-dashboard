@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import {
-  getMailPrefs,
-} from "../../services/api/personalAccountAPI";
+/* eslint-disable */
+import React, { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
+import { getMailPrefs } from '../../services/api/personalAccountAPI'
 // reactstrap components
 import {
   Button,
@@ -12,87 +11,87 @@ import {
   CardTitle,
   Col,
   Row,
-} from "reactstrap";
-import UserSettings from "./UserSettings";
-import UserPassword from "./UserPassword";
-import PrivacySettings from "./PrivacySettings";
-import InvoiceSettings from "./InvoiceInfo";
-import DeleteAccount from "./DeleteAccount";
-import ReactBSAlert from "react-bootstrap-sweetalert";
-import UnitsRadioButtons from "../agro-components/UnitsRadioButtons";
+} from 'reactstrap'
+import UserSettings from './UserSettings'
+import UserPassword from './UserPassword'
+import PrivacySettings from './PrivacySettings'
+import InvoiceSettings from './InvoiceInfo'
+import DeleteAccount from './DeleteAccount'
+import ReactBSAlert from 'react-bootstrap-sweetalert'
+import UnitsRadioButtons from '../agro-components/UnitsRadioButtons'
 
-const userSubscriptionSelector = (state) => state.auth.user.tariff;
+const userSubscriptionSelector = (state) => state.auth.user.tariff
 
 const AccountSettings = ({}) => {
-  const subscription = useSelector(userSubscriptionSelector);
+  const subscription = useSelector(userSubscriptionSelector)
 
-  const [data, setData] = useState([]);
-  const [alert, setAlert] = React.useState(null);
+  const [data, setData] = useState([])
+  const [alert, setAlert] = React.useState(null)
 
   const [invoiceSettings, setInvoiceSettings] = useState({
-    type: "individual",
-    organisation: "",
-    title: "",
-    first_name: "",
-    last_name: "",
-    country: "",
-    address_line_1: "",
-    address_line_2: "",
-    city: "",
-    postal_code: "",
-    state: "",
-    phone: "",
-    vat_id: "",
-  });
+    type: 'individual',
+    organisation: '',
+    title: '',
+    first_name: '',
+    last_name: '',
+    country: '',
+    address_line_1: '',
+    address_line_2: '',
+    city: '',
+    postal_code: '',
+    state: '',
+    phone: '',
+    vat_id: '',
+  })
 
-  const [isNew, setIsNew] = useState(true);
+  const [isNew, setIsNew] = useState(true)
 
   const [mailSettings, setMailSettings] = useState({
     news: false,
     product: false,
     system: false,
-  });
+  })
 
-  const [name, setName] = useState("");
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
+  const [name, setName] = useState('')
+  const [username, setUsername] = useState('')
+  const [email, setEmail] = useState('')
 
   useEffect(() => {
-    refreshData();
-  }, []);
+    refreshData()
+  }, [])
 
   const hideAlert = () => {
-    setAlert(null);
-  };
+    setAlert(null)
+  }
 
   const refreshData = () => {
     getMailPrefs().then((res) => {
-      setName(res.user.full_name);
-      setUsername(res.user.username);
-      setEmail(res.user.email);
-      setMailSettings(res.mailing);
+      setName(res.user.full_name)
+      setUsername(res.user.username)
+      setEmail(res.user.email)
+      setMailSettings(res.mailing)
       if (Object.keys(res.invoice_info).length) {
-        setInvoiceSettings(res.invoice_info);
-        setIsNew(false);
+        setInvoiceSettings(res.invoice_info)
+        setIsNew(false)
       } else {
-        setIsNew(true);
+        setIsNew(true)
       }
-    });
-  };
+    })
+  }
 
   const htmlAlert = (acctNo) => {
     setAlert(
       <ReactBSAlert
         customClass="agro-alert"
-        title={"Are you sure you want to delete your account?"}
+        title={'Are you sure you want to delete your account?'}
         onConfirm={() => hideAlert()}
         onCancel={() => hideAlert()}
         showConfirm={false}
       >
         {<DeleteAccount acctNo={acctNo} close={hideAlert} />}
-      </ReactBSAlert>
-    );
-  };
+      </ReactBSAlert>,
+    )
+  }
 
   return (
     <>
@@ -160,8 +159,8 @@ const AccountSettings = ({}) => {
                       title="Delete"
                       disabled={data.length === 1}
                       onClick={(e) => {
-                        htmlAlert(false);
-                        e.stopPropagation();
+                        htmlAlert(false)
+                        e.stopPropagation()
                       }}
                     >
                       Delete
@@ -174,7 +173,7 @@ const AccountSettings = ({}) => {
         </Row>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default AccountSettings;
+export default AccountSettings

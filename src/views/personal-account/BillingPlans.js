@@ -1,32 +1,25 @@
-import React from "react";
-import { useSelector } from "react-redux";
+/* eslint-disable */
+import React from 'react'
+import { useSelector } from 'react-redux'
 // reactstrap components
-import {
-  Button,
-  Card,
-  CardHeader,
-  CardBody,
-  Row,
-  Col,
-  Table,
-} from "reactstrap";
+import { Button, Card, CardHeader, CardBody, Row, Col, Table } from 'reactstrap'
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
-import SubscriptionPop2 from "./SubscriptionPop";
-import VectorMapView from "./VectorMapPersonal";
-import ReactBSAlert from "react-bootstrap-sweetalert";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
+import { Link } from 'react-router-dom'
+import SubscriptionPop2 from './SubscriptionPop'
+import VectorMapView from './VectorMapPersonal'
+import ReactBSAlert from 'react-bootstrap-sweetalert'
 
-const userSubscriptionSelector = (state) => state.auth.user.tariff;
+const userSubscriptionSelector = (state) => state.auth.user.tariff
 
 const BillingPlans = () => {
-  const subscription = useSelector(userSubscriptionSelector);
-  const [alert, setAlert] = React.useState(null);
+  const subscription = useSelector(userSubscriptionSelector)
+  const [alert, setAlert] = React.useState(null)
 
   const hideAlert = () => {
-    setAlert(null);
-  };
+    setAlert(null)
+  }
 
   const htmlAlert = () => {
     setAlert(
@@ -37,9 +30,9 @@ const BillingPlans = () => {
         showConfirm={false}
       >
         <SubscriptionPop2 close={hideAlert} />
-      </ReactBSAlert>
-    );
-  };
+      </ReactBSAlert>,
+    )
+  }
 
   return (
     <>
@@ -58,7 +51,7 @@ const BillingPlans = () => {
               <CardBody>
                 <Table
                   className="mb-2"
-                  style={{ tableLayout: "fixed", textAlign: "center" }}
+                  style={{ tableLayout: 'fixed', textAlign: 'center' }}
                 >
                   <thead>
                     <tr>
@@ -88,7 +81,7 @@ const BillingPlans = () => {
                         </Link>
                       </td>
 
-                      {subscription === "starter" ? (
+                      {subscription === 'starter' ? (
                         <td>
                           <h3>Starter</h3>
                           <h3>£20</h3>
@@ -116,8 +109,8 @@ const BillingPlans = () => {
                             data-dismiss="modal"
                             type="button"
                             onClick={(e) => {
-                              htmlAlert(false);
-                              e.stopPropagation();
+                              htmlAlert(false)
+                              e.stopPropagation()
                             }}
                           >
                             Subscribe
@@ -125,7 +118,7 @@ const BillingPlans = () => {
                         </td>
                       )}
 
-                      {subscription === "small" ? (
+                      {subscription === 'small' ? (
                         <td>
                           <h3>Small Kit</h3>
                           <h3>£200</h3>
@@ -155,8 +148,8 @@ const BillingPlans = () => {
                             data-dismiss="modal"
                             type="button"
                             onClick={(e) => {
-                              htmlAlert(false);
-                              e.stopPropagation();
+                              htmlAlert(false)
+                              e.stopPropagation()
                             }}
                           >
                             Subscribe
@@ -193,7 +186,7 @@ const BillingPlans = () => {
               <CardBody>
                 <Table
                   className="mb-2"
-                  style={{ tableLayout: "fixed", textAlign: "center" }}
+                  style={{ tableLayout: 'fixed', textAlign: 'center' }}
                 >
                   <thead>
                     <tr>
@@ -236,7 +229,7 @@ const BillingPlans = () => {
                         Satellite imagery (NDVI, EVI, True color, False color)
                       </td>
                       <td>
-                        All available data{" "}
+                        All available data{' '}
                         <a
                           href="https://home.agromonitoring.com/subscriptions#map"
                           target="_blank"
@@ -245,23 +238,23 @@ const BillingPlans = () => {
                         </a>
                       </td>
                       <td>
-                        All available data{" "}
+                        All available data{' '}
                         <a
                           href="https://home.agromonitoring.com/subscriptions#map"
                           target="_blank"
                         >
                           (check)
-                        </a>{" "}
+                        </a>{' '}
                         + total archive on request
                       </td>
                       <td>
-                        All available data{" "}
+                        All available data{' '}
                         <a
                           href="https://home.agromonitoring.com/subscriptions#map"
                           target="_blank"
                         >
                           (check)
-                        </a>{" "}
+                        </a>{' '}
                         + total archive on request
                       </td>
                       <td>Total archive</td>
@@ -269,7 +262,7 @@ const BillingPlans = () => {
 
                     <tr>
                       <td>
-                        Price for exceeded area{" "}
+                        Price for exceeded area{' '}
                         <a
                           href="https://home.agromonitoring.com/subscriptions#description"
                           target="_blank"
@@ -389,7 +382,7 @@ const BillingPlans = () => {
               <CardBody>
                 <Table
                   className="mb-2"
-                  style={{ tableLayout: "fixed", textAlign: "center" }}
+                  style={{ tableLayout: 'fixed', textAlign: 'center' }}
                 >
                   <thead>
                     <tr>
@@ -604,7 +597,7 @@ const BillingPlans = () => {
               <CardBody>
                 <Table
                   className="mb-2"
-                  style={{ tableLayout: "fixed", textAlign: "center" }}
+                  style={{ tableLayout: 'fixed', textAlign: 'center' }}
                 >
                   <thead>
                     <tr>
@@ -687,7 +680,7 @@ const BillingPlans = () => {
                           href="http://creativecommons.org/licenses/by-sa/4.0/"
                           target="_blank"
                         >
-                          CC BY-SA 4.0{" "}
+                          CC BY-SA 4.0{' '}
                         </a>
                         (or custom)
                       </td>
@@ -724,7 +717,7 @@ const BillingPlans = () => {
                           href="http://opendatacommons.org/licenses/odbl/"
                           target="_blank"
                         >
-                          ODbL{" "}
+                          ODbL{' '}
                         </a>
                         (or custom)
                       </td>
@@ -820,13 +813,13 @@ const BillingPlans = () => {
                 <Row>
                   <Col>
                     <h4>
-                      Please{" "}
+                      Please{' '}
                       <a
                         href="https://openweathermap.force.com/s/contactsupport"
                         target="_blank"
                       >
                         contact us
-                      </a>{" "}
+                      </a>{' '}
                       with any questions. We will do our best to prepare a
                       proper solution for you.
                     </h4>
@@ -840,7 +833,7 @@ const BillingPlans = () => {
         <VectorMapView />
       </div>
     </>
-  );
-};
+  )
+}
 
-export default BillingPlans;
+export default BillingPlans

@@ -4,11 +4,7 @@ import { useSelector } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 
-import React, {useState} from 'react';
-import {useSelector} from 'react-redux';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
-import ExportPolygons from "./ExportPolygons";
+import ExportPolygons from './ExportPolygons'
 import {
   Card,
   CardBody,
@@ -21,10 +17,8 @@ import {
 } from 'reactstrap'
 
 // import {getPolygons} from '../../services/api/personalAccountAPI.js'
-import { faListUl } from '@fortawesome/free-solid-svg-icons/index'
-const authSelector = (state) => state.auth
 
-const authSelector = state => state.auth;
+const authSelector = (state) => state.auth
 
 const Subscription = () => {
   const [polygonsData, setPolygonsData] = useState({})

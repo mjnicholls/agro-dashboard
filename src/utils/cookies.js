@@ -1,10 +1,15 @@
+/* eslint-disable */
+
 function getCookie(name) {
-  let res;
+  let res
   if (name) {
-     const matches = document.cookie.match(
+    const matches = document.cookie.match(
       new RegExp(
         /* eslint-disable no-useless-escape */
-        `(?:^|; )${name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1')}=([^;]*)`,
+        `(?:^|; )${name.replace(
+          /([\.$?*|{}\(\)\[\]\\\/\+^])/g,
+          '\\$1',
+        )}=([^;]*)`,
         /* eslint-enable */
       ),
     )
@@ -21,8 +26,8 @@ function setCookie(name, value, options) {
   if (typeof expires === 'number' && expires) {
     const d = new Date()
     d.setTime(d.getTime() + expires * 1000)
-    expires = d;
-    options.expires = d;
+    expires = d
+    options.expires = d
   }
   if (expires && expires.toUTCString) {
     options.expires = expires.toUTCString()
@@ -31,8 +36,9 @@ function setCookie(name, value, options) {
   value = encodeURIComponent(value)
 
   let updatedCookie = `${name}=${value}`
+  // eslint-disable-next-line
+  for (const propName in options) {
 
-  for (const propName in options) { // eslint-disable-line
     updatedCookie += `; ${propName}`
     const propValue = options[propName]
     if (propValue !== true) {
