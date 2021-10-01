@@ -26,10 +26,9 @@ export const getAPIKeys = () => {
 }
 
 // create API Key method
-
 export const createApiKey = async (name) => {
-  let appid_name = name.appid_name;
-  return axiosInstance.post(apiKeyCreate, {}, {params: {appid_name}})
+  let appidName = name.appid_name;
+  return axiosInstance.post(apiKeyCreate, {}, {params: {appid_name: appidName}})
     .then(response => response)
     .catch(error => {
       throw new Error(error)
@@ -37,7 +36,6 @@ export const createApiKey = async (name) => {
 }
 
 // update API Key method
-
 export const updateAPIKey = (params) => {
   return axiosInstance.put(apiKeyUpdate, params)
     .then(response => response)
@@ -67,7 +65,6 @@ export const getInvoices = () => {
 }
 
 // update name method
-
 export const updateUserName = (params) => {
   return axiosInstance.put(updateName, params)
     .then(response => response)

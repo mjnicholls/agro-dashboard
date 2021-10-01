@@ -1,7 +1,6 @@
+/* eslint-disable */
 import React, { useState } from "react";
-import { updateAPIKey } from '../../services/api/personalAccountAPI';
 import { useDispatch } from 'react-redux';
-import { notifyError, notifySuccess } from "../../features/notifications/actions";
 
 import {
   Button,
@@ -10,6 +9,9 @@ import {
   Input,
   Row
 } from "reactstrap";
+
+import { updateAPIKey } from '../../services/api/personalAccountAPI';
+import { notifyError, notifySuccess } from "../../features/notifications/actions";
 
 const ApiKeyEdit = ({ apiKey, close, refreshData  }) => {
 

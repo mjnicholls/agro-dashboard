@@ -1,9 +1,6 @@
+/* eslint-disable */
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import {
-  getMailPrefs,
-  deleteAcct,
-} from "../../services/api/personalAccountAPI";
 // reactstrap components
 import {
   Button,
@@ -14,17 +11,21 @@ import {
   Col,
   Row,
 } from "reactstrap";
+import ReactBSAlert from "react-bootstrap-sweetalert";
+
 import UserSettings from "./UserSettings";
 import UserPassword from "./UserPassword";
 import PrivacySettings from "./PrivacySettings";
 import InvoiceSettings from "./InvoiceInfo";
 import DeleteAccount from "./DeleteAccount";
-import ReactBSAlert from "react-bootstrap-sweetalert";
 import UnitsRadioButtons from "../agro-components/UnitsRadioButtons";
+import {
+  getMailPrefs,
+} from "../../services/api/personalAccountAPI";
 
 const userSubscriptionSelector = (state) => state.auth.user.tariff;
 
-const AccountSettings = ({}) => {
+const AccountSettings = () => {
   const subscription = useSelector(userSubscriptionSelector);
 
   const [data, setData] = useState([]);
@@ -81,16 +82,16 @@ const AccountSettings = ({}) => {
     });
   };
 
-  const htmlAlert = (acctNo) => {
+  const htmlAlert = () => {
     setAlert(
       <ReactBSAlert
         customClass="agro-alert"
-        title={"Are you sure you want to delete your account?"}
+        title="Are you sure you want to delete your account?"
         onConfirm={() => hideAlert()}
         onCancel={() => hideAlert()}
         showConfirm={false}
       >
-        {<DeleteAccount acctNo={acctNo} close={hideAlert} />}
+        <DeleteAccount close={hideAlert} />
       </ReactBSAlert>
     );
   };
@@ -161,7 +162,7 @@ const AccountSettings = ({}) => {
                       title="Delete"
                       disabled={data.length === 1}
                       onClick={(e) => {
-                        htmlAlert(false);
+                        htmlAlert();
                         e.stopPropagation();
                       }}
                     >

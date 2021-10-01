@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import {
@@ -21,7 +22,6 @@ import DeleteAccount from './DeleteAccount'
 import UnitsRadioButtons from '../agro-components/UnitsRadioButtons'
 import TabsSelector from '../charts/ui/TabsSelector'
 // import ExportPolygons from './ExportPolygons';
-
 const AccountSettings = () => {
   const hideAlert = () => {
     setAlert(null)

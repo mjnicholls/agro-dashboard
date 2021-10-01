@@ -1,5 +1,7 @@
+/* eslint-disable */
 import React, { useEffect, useState } from "react";
-import { getAPIKeys } from "../../services/api/personalAccountAPI";
+import { useDispatch } from "react-redux";
+
 // reactstrap components
 import {
   Button,
@@ -18,8 +20,7 @@ import {
 import ReactBSAlert from "react-bootstrap-sweetalert";
 import APIKeyEdit from "./APIKeyEdit";
 import ApiKeysDelete from "./APIKeysDelete";
-import { createApiKey } from "../../services/api/personalAccountAPI";
-import { useDispatch } from "react-redux";
+import { createApiKey, getAPIKeys } from "../../services/api/personalAccountAPI";
 import {
   notifyError,
   notifySuccess,
