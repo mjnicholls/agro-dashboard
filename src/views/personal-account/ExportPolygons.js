@@ -32,34 +32,38 @@ const ExportPolygon = () => {
     const arrayToCSV = (polygons) => {
       let res = "";
 
-      // make different order
-      // Name
-      // Polygon ID
-      // Source
-      // Created at
-      // Deleted at
-      // Area
-
-      // header human readable
-
-      // dates: 19 May 2021
-
-      // escape " (double quotes)
-
-      // replace nulls with ""
-
+     let header = ["Name", "Polygon ID", "Source", "Created At", "Deleted At", "Area" ]
+     
       if (polygons.length) {
-        let csv = polygons.map(row => Object.values(row));
-        csv.unshift(Object.keys(polygons[0]));
-        res = `"${csv.join('"\n"').replace(/,/g, '","')}"`
+            let csv = polygons.map(polygons =>
+         `${polygons.name}, ${polygons.poly_id}, ${polygons.roles}, ${polygons.source}, ${polygons.created_at.slice(0,11)}, ${polygons.deleted_at}, ${polygons.area}`
+      );
+        csv.unshift(header + '');
+        res = `"${csv.join('"\n"').replace(/['"]+/g, '')}"`
         console.log("res", res)
       } else {
-        // if we don't have polygons, we should return header
+        return header
       }
 
       return res;
     }
 
+    
+   /*
+      const header = ["Name", "Polygon ID", "Source", "Created At", "Deleted At", "Area" ];
+      if (polygons.length) {
+      let csv = polygons.map(polygons =>
+         `${polygons.name}, ${polygons.poly_id}, ${polygons.roles}, ${polygons.source}, ${polygons.created_at}, ${polygons.deleted_at}, ${polygons.area}`
+      );
+      console.log("res", res)
+      return header.concat(csv).join("\n");
+      }
+      else {
+
+      }
+    
+      }
+      */
 
     const downLoad = () => {
         const polygonData = arrayToCSV(polygons)
