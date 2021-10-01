@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { getPolygons } from '../../services/api/personalAccountAPI';
-//import { useDispatch } from 'react-redux';
-//import { notifyError, notifySuccess } from "../../features/notifications/actions";
 
 import {
   Button,
