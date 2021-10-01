@@ -4,8 +4,6 @@ import { getPolygons } from '../../services/api/personalAccountAPI';
 import {
   Button,
 } from "reactstrap";
-//import { array } from "prop-types";
-//import booleanPointInPolygon from "@turf/boolean-point-in-polygon";
 
 
 const ExportPolygon = () => {
@@ -34,7 +32,7 @@ const ExportPolygon = () => {
      
       if (polygons.length) {
             let csv = polygons.map(polygons =>
-         `"${polygons.name}", "${polygons.poly_id}", "${polygons.source}", "${polygons.created_at.slice(0,11)}", "${polygons.deleted_at  || ''}", "${polygons.area}"`
+         `"${polygons.name}", "${polygons.poly_id}", "${polygons.source}", "${polygons.created_at.slice(0,11)}", "${polygons.deleted_at  || '' }", "${polygons.area}"`
       );
         csv.unshift(header + '');
         res = `${csv.join('\n').replace(/','/g, '","')}`
@@ -46,22 +44,6 @@ const ExportPolygon = () => {
       return res;
     }
 
-    
-   /*
-      const header = ["Name", "Polygon ID", "Source", "Created At", "Deleted At", "Area" ];
-      if (polygons.length) {
-      let csv = polygons.map(polygons =>
-         `${polygons.name}, ${polygons.poly_id}, ${polygons.roles}, ${polygons.source}, ${polygons.created_at}, ${polygons.deleted_at}, ${polygons.area}`
-      );
-      console.log("res", res)
-      return header.concat(csv).join("\n");
-      }
-      else {
-
-      }
-    
-      }
-      */
 
     const downLoad = () => {
         const polygonData = arrayToCSV(polygons)

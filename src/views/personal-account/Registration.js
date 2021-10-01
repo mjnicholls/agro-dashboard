@@ -14,7 +14,7 @@ const RegisterForm = () => {
         <div className="content">
         <Container>
           <Row>
-            <Col className="mr-auto" md="7">
+            <Col>
               <Card className="card-register card-white">
                 <CardHeader>
                   <CardImg
@@ -112,4 +112,4 @@ const RegisterForm = () => {
       )
     }
 
-export default ExportPolygon;
+export default RegisterForm;
