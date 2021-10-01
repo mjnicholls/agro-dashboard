@@ -9,7 +9,6 @@ import './assets/demo/demo.css'
 import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css'
 import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css'
 
-import AccountLayout from './layouts/Account/Account'
 import AdminLayout from './layouts/Admin/Admin'
 import AuthLayout from './layouts/Auth/Auth'
 import Notifications from './views/agro-components/Notifications'
@@ -40,10 +39,6 @@ const App = () => (
         <AuthRoute
           path="/dashboard"
           render={(props) => <AdminLayout {...props} />}
-        />
-        <AuthRoute
-          path="/"
-          render={(props) => <AccountLayout {...props} />}
         />
         <Redirect from="/" to="/dashboard/polygons" />
       </Switch>

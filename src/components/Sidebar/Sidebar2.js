@@ -224,21 +224,23 @@ const Sidebar = (props) => {
 
   const activeRouteCustom = (prop) => {
     const routeName = prop.layout + prop.path
+    let res;
     if (location.pathname !== routeName) {
-      return ''
+      res = ''
     }
     if (location.pathname === routeName && !prop.onclick) {
-      return 'active'
+      res = 'active'
     }
     if (prop.onclick === 'all') {
-      return activePolygon ? '' : 'active'
+      res = activePolygon ? '' : 'active'
     }
     if (prop.onclick === 'satellite') {
-      return activePolygon && isSatelliteMode ? 'active' : ''
+      res = activePolygon && isSatelliteMode ? 'active' : ''
     }
     if (prop.onclick === 'weather') {
-      return activePolygon && !isSatelliteMode ? 'active' : ''
+      res = activePolygon && !isSatelliteMode ? 'active' : ''
     }
+    return res
   }
 
   const { activeColor, logo } = props

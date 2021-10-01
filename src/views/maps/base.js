@@ -88,17 +88,18 @@ export const initialiseMap = (
     zoom: 9,
     accessToken: mapBoxAccessToken,
     fitBoundsOptions: { duration: 0, ...clusterPadding },
-    transformRequest: (url) => {
+
+    transformRequest: (url) => { // eslint-disable-line
       if (
         url.indexOf(serverBaseURL) > -1 ||
         url.indexOf('http://k8s-eu4.owm.io') > -1
       ) {
-        return {
+        return { // eslint-disable-line
           url,
           headers: { Authorization: `Bearer ${token}` },
         }
       }
-    },
+    } ,
   })
   map.current.addControl(
     new mapboxgl.NavigationControl({

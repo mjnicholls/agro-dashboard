@@ -32,6 +32,8 @@ const override = css`
   align-self: center;
 `
 
+const picture = require('../../assets/img/card-primary.png')
+
 const Login = (props) => {
   const [state, setState] = React.useState({})
   const [errors, setErrors] = React.useState({})
@@ -79,7 +81,7 @@ const Login = (props) => {
                 <CardHeader>
                   <img
                     alt="..."
-                    src={require('../../assets/img/card-primary.png').default}
+                    src={picture.default}
                   />
                   <CardTitle tag="h1">Log in</CardTitle>
                 </CardHeader>

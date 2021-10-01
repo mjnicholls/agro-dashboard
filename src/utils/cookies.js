@@ -1,4 +1,5 @@
 function getCookie(name) {
+  let res;
   if (name) {
      const matches = document.cookie.match(
       new RegExp(
@@ -7,9 +8,9 @@ function getCookie(name) {
         /* eslint-enable */
       ),
     )
-    return matches ? decodeURIComponent(matches[1]) : undefined
+    res = matches ? decodeURIComponent(matches[1]) : undefined
   }
-
+  return res
 }
 
 function setCookie(name, value, options) {
@@ -20,7 +21,8 @@ function setCookie(name, value, options) {
   if (typeof expires === 'number' && expires) {
     const d = new Date()
     d.setTime(d.getTime() + expires * 1000)
-    expires = options.expires = d
+    expires = d;
+    options.expires = d;
   }
   if (expires && expires.toUTCString) {
     options.expires = expires.toUTCString()

@@ -47,8 +47,9 @@ const Admin = (props) => {
       document.documentElement.classList.add('perfect-scrollbar-on')
       document.documentElement.classList.remove('perfect-scrollbar-off')
       ps = new PerfectScrollbar(mainPanelRef.current)
-      mainPanelRef.current &&
+      if (mainPanelRef.current) {
         mainPanelRef.current.addEventListener('ps-scroll-y', showNavbarButton)
+      }
       const tables = document.querySelectorAll('.table-responsive')
       for (let i = 0; i < tables.length; i++) {
         ps = new PerfectScrollbar(tables[i])
@@ -60,11 +61,13 @@ const Admin = (props) => {
         ps.destroy()
         document.documentElement.classList.add('perfect-scrollbar-off')
         document.documentElement.classList.remove('perfect-scrollbar-on')
-        innerMainPanelRef.current &&
+        if (innerMainPanelRef.current) {
           innerMainPanelRef.current.removeEventListener(
             'ps-scroll-y',
             showNavbarButton,
           )
+        }
+
       }
       window.removeEventListener('scroll', showNavbarButton)
     }
