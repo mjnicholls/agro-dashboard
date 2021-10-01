@@ -1,12 +1,15 @@
 function getCookie(name) {
-  const matches = document.cookie.match(
-    new RegExp(
-      /* eslint-disable no-useless-escape */
-      `(?:^|; )${name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1')}=([^;]*)`,
-      /* eslint-enable */
-    ),
-  )
-  return matches ? decodeURIComponent(matches[1]) : undefined
+  if (name) {
+     const matches = document.cookie.match(
+      new RegExp(
+        /* eslint-disable no-useless-escape */
+        `(?:^|; )${name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1')}=([^;]*)`,
+        /* eslint-enable */
+      ),
+    )
+    return matches ? decodeURIComponent(matches[1]) : undefined
+  }
+
 }
 
 function setCookie(name, value, options) {

@@ -75,7 +75,7 @@ const routes = [
         mini: 'A',
         rtlMini: '',
         component: ApiKeys,
-        layout: '/account',
+        layout: '/dashboard',
       },
       {
         path: '/payments',
@@ -84,7 +84,7 @@ const routes = [
         mini: 'I',
         rtlMini: '',
         component: InvoiceList,
-        layout: '/account',
+        layout: '/dashboard',
       },
       {
         path: '/account-settings',
@@ -102,7 +102,7 @@ const routes = [
         mini: 'S',
         rtlMini: '',
         component: AccountSettings2,
-        layout: '/account',
+        layout: '/dashboard',
       },
       {
         path: '/billing-plans',
@@ -111,7 +111,7 @@ const routes = [
         mini: 'B',
         rtlMini: '',
         component: BillingPlans,
-        layout: '/account',
+        layout: '/dashboard',
       },
       {
         path: '/home',
@@ -120,7 +120,7 @@ const routes = [
         mini: 'A',
         rtlMini: '',
         component: Subscription,
-        layout: '/account',
+        layout: '/dashboard',
       },
     ],
   },
