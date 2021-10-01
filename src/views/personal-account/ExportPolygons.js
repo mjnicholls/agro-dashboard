@@ -1,8 +1,8 @@
 /* eslint-disable */
 import React, { useEffect, useState } from 'react'
-import { getPolygons } from '../../services/api/personalAccountAPI'
-
 import { Button } from 'reactstrap'
+
+import { getPolygons } from '../../services/api/personalAccountAPI'
 
 const ExportPolygon = () => {
   const [polygons, setPolygons] = useState([])

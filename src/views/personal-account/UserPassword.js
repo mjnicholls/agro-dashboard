@@ -1,9 +1,6 @@
 /* eslint-disable */
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import {  updatePassword } from '../../services/api/personalAccountAPI';
-import { notifyError, notifySuccess } from "../../features/notifications/actions";
-// reactstrap components
 import { Button,
   Card,
   CardBody,
@@ -14,6 +11,10 @@ import { Button,
   FormGroup,
   Input,
  } from "reactstrap";
+
+
+import {  updatePassword } from '../../services/api/personalAccountAPI';
+import { notifyError, notifySuccess } from "../../features/notifications/actions";
 
 
 const UserPassword = () => {

@@ -1,12 +1,6 @@
 /* eslint-disable */
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteAcct } from "../../services/api/personalAccountAPI";
-import {
-  notifyError,
-  notifySuccess,
-} from "../../features/notifications/actions";
-// reactstrap components
 import {
   Button,
   Col,
@@ -16,6 +10,12 @@ import {
   Row,
 } from "reactstrap";
 import { NavLink } from "react-router-dom";
+import { deleteAcct } from "../../services/api/personalAccountAPI";
+import {
+  notifyError,
+  notifySuccess,
+} from "../../features/notifications/actions";
+
 
 const userSubscriptionSelector = state => state.auth.user.tariff;
 
@@ -76,7 +76,7 @@ const DeleteAccount = ({ close, refreshData }) => {
           <option value="bad">Bad service</option>
           <option value="another">I found another company</option>
           <option value="price">Price</option>
-          <option value="service">I don't use this service</option>
+          <option value="service">I don&#39;t use this service</option>
           <option value="email">Wrong email</option>
         </Input>
       </FormGroup>
@@ -117,13 +117,13 @@ const DeleteAccount = ({ close, refreshData }) => {
             <p>If you have a paid subscription and delete your account, <b>your money will not be returned.</b></p>
           </Col>
         </Row>
-        {/*<Row>*/}
-          {/*</Row>*/}
-          {/*<Row>*/}
-          {/*<Col className="mb-3">*/}
-              {/*<li>If you have a subscription Agriculture API, please unsubscribe <a href = "">here.</a></li>*/}
-          {/*</Col>*/}
-        {/*</Row>*/}
+        {/* <Row>
+          </Row>
+          <Row>
+          <Col className="mb-3">
+              <li>If you have a subscription Agriculture API, please unsubscribe <a href = "">here.</a></li>
+          </Col>
+        </Row> */}
         <div className="agro-pop-up-footer">
         <Button
       className="btn-neutral"
@@ -133,15 +133,15 @@ const DeleteAccount = ({ close, refreshData }) => {
     >
       Cancel
     </Button>
-    {/*<Button*/}
-      {/*className="btn-danger"*/}
-      {/*color="danger"*/}
-      {/*data-dismiss="modal"*/}
-      {/*type="button"*/}
-      {/*onClick={confirmDeleteAcct}*/}
-    {/*>*/}
-      {/*Delete*/}
-    {/*</Button>*/}
+    {/* <Button
+      className="btn-danger"
+      color="danger"
+      data-dismiss="modal"
+      type="button"
+      onClick={confirmDeleteAcct}
+    >
+      Delete
+    </Button> */}
     </div>
         </div>
   

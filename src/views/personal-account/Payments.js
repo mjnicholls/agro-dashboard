@@ -1,8 +1,8 @@
 /* eslint-disable */
 import React, { useEffect, useState } from "react";
-import { getInvoices } from "../../services/api/personalAccountAPI";
-// reactstrap components
 import { Card, CardBody, Row, Col, Table } from "reactstrap";
+import { getInvoices } from "../../services/api/personalAccountAPI";
+
 import AgroPagination from "../agro-components/AgroPagination";
 
 const InvoiceList = () => {
@@ -42,9 +42,9 @@ const InvoiceList = () => {
         <Row>
           <Col className="mb-0" md="12" mt="20">
             <Card>
-              {/*<CardHeader>*/}
-              {/*<CardTitle tag="h3">Invoices</CardTitle>*/}
-              {/*</CardHeader>*/}
+              {/* <CardHeader>
+              <CardTitle tag="h3">Invoices</CardTitle>
+              </CardHeader> */}
               <CardBody>
                 <Table className="mb-0">
                   <thead>
@@ -65,7 +65,7 @@ const InvoiceList = () => {
                           <code>{item.invoice_number}</code>
                         </td>
                         <td>{item.description}</td>
-                        {/*<td>{item.date.substring(0,21)}</td>*/}
+                        {/* <td>{item.date.substring(0,21)}</td> */}
                         <td>{item.date.replace(" UTC", "")}</td>
                         <td>{item.amount}</td>
                         <td className="text-right">

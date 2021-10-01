@@ -1,12 +1,6 @@
 /* eslint-disable */
 import React from "react";
 import { useDispatch } from "react-redux";
-import { updateMailing } from "../../services/api/personalAccountAPI";
-import {
-  notifyError,
-  notifySuccess,
-} from "../../features/notifications/actions";
-// reactstrap components
 import {
   Button,
   Card,
@@ -20,10 +14,17 @@ import {
   Input,
 } from "reactstrap";
 
+import { updateMailing } from "../../services/api/personalAccountAPI";
+import {
+  notifyError,
+  notifySuccess,
+} from "../../features/notifications/actions";
+
 const PrivacySettings = ({ mailSettings, setMailSettings }) => {
   const dispatch = useDispatch();
 
   const handleCheckBoxClick = (key, value) => {
+    // eslint-disable-next-line
     let newObj = Object.assign({}, mailSettings);
     newObj[key] = value;
     setMailSettings(newObj);

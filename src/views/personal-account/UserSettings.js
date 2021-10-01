@@ -1,10 +1,6 @@
 /* eslint-disable */
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { updateUserName
-} from '../../services/api/personalAccountAPI';
-import { notifyError, notifySuccess } from "../../features/notifications/actions";
-// reactstrap components
 import { Button,
   Card,
   CardBody,
@@ -15,6 +11,11 @@ import { Button,
   FormGroup,
   Input,
  } from "reactstrap";
+import { updateUserName
+} from '../../services/api/personalAccountAPI';
+import { notifyError, notifySuccess } from "../../features/notifications/actions";
+// reactstrap components
+
 
 
 const UserSettings = ({name, setName, username, setUserName, email}) => {

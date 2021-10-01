@@ -1,15 +1,15 @@
 /* eslint-disable */
 import React from 'react'
 import { useSelector } from 'react-redux'
-// reactstrap components
+
 import { Button, Card, CardHeader, CardBody, Row, Col, Table } from 'reactstrap'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import { Link } from 'react-router-dom'
+import ReactBSAlert from 'react-bootstrap-sweetalert'
 import SubscriptionPop2 from './SubscriptionPop'
 import VectorMapView from './VectorMapPersonal'
-import ReactBSAlert from 'react-bootstrap-sweetalert'
 
 const userSubscriptionSelector = (state) => state.auth.user.tariff
 
@@ -612,7 +612,7 @@ const BillingPlans = () => {
                         Satellite imagery (NDVI, EVI, True color, False color)
                         data update
                       </td>
-                      <td colspan="4">
+                      <td colSpan="4">
                         Near real-time (operative) satellite data
                       </td>
                     </tr>
@@ -748,8 +748,8 @@ const BillingPlans = () => {
                       threshold, you can still call data without limitation
                       (available for Starter subscription plan and above). In
                       this case, you will be charged according to your
-                      subscription plan (please see the "Price for exceeded
-                      area" row in the pricing table). We send you an invoice
+                      subscription plan (please see the &#34;Price for exceeded
+                      area&#34; row in the pricing table). We send you an invoice
                       for the exceeded amount at the very beginning of the next
                       month.
                     </h4>

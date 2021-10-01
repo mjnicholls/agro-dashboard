@@ -115,10 +115,10 @@ const ApiKeys = () => {
         <Row>
           <Col className="mb-0" md="8" mt="20">
             <Card>
-              {/*<CardHeader>*/}
-                {/*<CardTitle tag="h3">API Keys</CardTitle>*/}
-              {/*</CardHeader>*/}
-              <CardBody>
+              {/* <CardHeader>
+                <CardTitle tag="h3">API Keys</CardTitle>
+              </CardHeader> */}
+              <CardBody> 
                 <Table>
                   <thead>
                     <tr>

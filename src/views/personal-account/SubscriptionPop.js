@@ -1,7 +1,10 @@
 /* eslint-disable */
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+import { Button, Col, Form, Label, Row } from 'reactstrap'
+
 import {
+  getMailPrefs,
   invoiceEdit,
   confirmUserVat,
   invoiceCreate,
@@ -10,12 +13,11 @@ import {
   notifyError,
   notifySuccess,
 } from "../../features/notifications/actions";
-import { Button, Col, Form, Label, Row } from "reactstrap";
-import { getMailPrefs } from "../../services/api/personalAccountAPI";
+
 import Step1 from "./subscription-form/Step1";
 import Step2 from "./subscription-form/Step2";
 
-const InvoiceSettings = ({}) => {
+const InvoiceSettings = () => {
   const dispatch = useDispatch();
   const [error, setError] = useState({});
   const [isNew, setIsNew] = useState(true);
@@ -100,12 +102,14 @@ const InvoiceSettings = ({}) => {
     ) {
       confirmUserVat(invoiceSettings.vat_id)
         .then(() => {
+          // eslint-disable-next-line
           isNew ? billingInfoCreate() : billingInfoUpdate();
         })
         .catch(() => {
           dispatch(notifyError("Incorrect VAT number"));
         });
     } else {
+      // eslint-disable-next-line
       isNew ? billingInfoCreate() : billingInfoUpdate();
     }
   };
@@ -129,6 +133,7 @@ const InvoiceSettings = ({}) => {
           newError.last_name = !invoiceSettings.last_name.length;
         }
       } else {
+        // eslint-disable-next-line
         if (!invoiceSettings.organisation.length) {
           newError.organisation = true;
         }
@@ -136,7 +141,9 @@ const InvoiceSettings = ({}) => {
       console.log("newError", newError);
       setError(newError);
       if (Object.keys(newError).length) {
-        return;
+        // eslint-disable-next-line
+        return
+        // eslint-disable-next-line
       } else {
         setStep(2);
       }

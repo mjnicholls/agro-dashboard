@@ -3,8 +3,6 @@ import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
-
-import ExportPolygons from './ExportPolygons'
 import {
   Card,
   CardBody,
@@ -12,9 +10,11 @@ import {
   CardTitle,
   Col,
   Table,
-  TabPane,
   Row,
 } from 'reactstrap'
+
+import ExportPolygons from './ExportPolygons'
+
 
 // import {getPolygons} from '../../services/api/personalAccountAPI.js'
 

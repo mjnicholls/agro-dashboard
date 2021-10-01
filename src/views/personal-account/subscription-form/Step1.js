@@ -1,11 +1,14 @@
 /* eslint-disable */
 import React from "react";
 import { Col, Form, Label, FormGroup, Input, Row } from "reactstrap";
-import { titles } from "../../../config";
 import Select from "react-select";
+
+import { titles } from "../../../config";
+
 
 const Step1 = ({ invoiceSettings, setInvoiceSettings, isNew, error }) => {
   const handleChange = (key, value) => {
+    // eslint-disable-next-line
     let newObj = Object.assign({}, invoiceSettings);
     newObj[key] = value;
     setInvoiceSettings(newObj);

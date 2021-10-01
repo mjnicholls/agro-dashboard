@@ -1,17 +1,8 @@
 /* eslint-disable */
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import {
-  invoiceEdit,
-  confirmUserVat,
-  getCountries,
-  invoiceCreate,
-} from '../../services/api/personalAccountAPI'
-import {
-  notifyError,
-  notifySuccess,
-} from '../../features/notifications/actions'
 import classnames from 'classnames'
+import Select from 'react-select'
 import {
   Button,
   Card,
@@ -26,8 +17,20 @@ import {
   Input,
   Row,
 } from 'reactstrap'
+
+import {
+  invoiceEdit,
+  confirmUserVat,
+  getCountries,
+  invoiceCreate,
+} from '../../services/api/personalAccountAPI'
+import {
+  notifyError,
+  notifySuccess,
+} from '../../features/notifications/actions'
+
 import { countriesDefault, titles } from '../../config'
-import Select from 'react-select'
+
 
 const InvoiceSettings = ({
   invoiceSettings,
@@ -48,6 +51,7 @@ const InvoiceSettings = ({
   }, [invoiceSettings])
 
   const handleChange = (key, value) => {
+    // eslint-disable-next-line
     let newObj = Object.assign({}, invoiceSettings)
     newObj[key] = value
     setInvoiceSettings(newObj)
@@ -94,6 +98,7 @@ const InvoiceSettings = ({
         newError.last_name = !invoiceSettings.last_name.length
       }
     } else {
+      // eslint-disable-next-line
       if (!invoiceSettings.organisation.length) {
         newError.organisation = true
       }
@@ -111,12 +116,14 @@ const InvoiceSettings = ({
     ) {
       confirmUserVat(invoiceSettings.vat_id)
         .then(() => {
+          // eslint-disable-next-line
           isNew ? billingInfoCreate() : billingInfoUpdate()
         })
         .catch(() => {
           dispatch(notifyError('Incorrect VAT number'))
         })
     } else {
+      // eslint-disable-next-line
       isNew ? billingInfoCreate() : billingInfoUpdate()
     }
   }
