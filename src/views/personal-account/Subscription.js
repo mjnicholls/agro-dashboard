@@ -4,29 +4,16 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 import ExportPolygons from "./ExportPolygons";
 import {
-  Button,
   Card,
   CardBody,
-  CardFooter,
   CardHeader,
   CardTitle,
   Col,
-  Form,
-  FormGroup,
-  Input,
-  Label,
-  Nav,
-  NavItem,
-  NavLink,
-  TabContent,
   Table,
-
-  TabPane,
   Row,
 } from 'reactstrap';
 
-// import {getPolygons} from '../../services/api/personalAccountAPI.js'
-import {faListUl} from "@fortawesome/free-solid-svg-icons/index";
+
 const authSelector = state => state.auth;
 
 const Subscription = () => {
@@ -173,22 +160,20 @@ const Subscription = () => {
               <p>Charge this month:</p>
               <p>- Fixed fee</p>
               <p>- Over limit use charge</p>
+              <ExportPolygons />
             </CardBody>
           </Card>
         </Col>
 
       </Row>
-      <ExportPolygons 
+      <ExportPolygons
       />
       <Row>
 
 
       </Row>
-
     </div>
-
   )
-
 }
 
 export default Subscription;

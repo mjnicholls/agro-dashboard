@@ -3,7 +3,6 @@ import { useDispatch } from "react-redux";
 import {
   invoiceEdit,
   confirmUserVat,
-  getCountries,
   invoiceCreate,
 } from "../../services/api/personalAccountAPI";
 import {
@@ -11,7 +10,6 @@ import {
   notifySuccess,
 } from "../../features/notifications/actions";
 import { Button, Col, Form, Label, Row } from "reactstrap";
-import { countriesDefault, titles } from "../../config";
 import { getMailPrefs } from "../../services/api/personalAccountAPI";
 import Step1 from "./subscription-form/Step1";
 import Step2 from "./subscription-form/Step2";
@@ -19,8 +17,6 @@ import Step2 from "./subscription-form/Step2";
 const InvoiceSettings = ({}) => {
   const dispatch = useDispatch();
   const [error, setError] = useState({});
-
-  const [countries, setCountries] = useState(countriesDefault);
   const [isNew, setIsNew] = useState(true);
   const [step, setStep] = useState(1);
 
@@ -40,13 +36,6 @@ const InvoiceSettings = ({}) => {
     vat_id: "",
   });
 
-  useState(() => {
-    getCountries().then((res) => {
-      if (res.length) {
-        setCountries(res);
-      }
-    });
-  }, [invoiceSettings]);
 
   useEffect(() => {
     refreshData();
