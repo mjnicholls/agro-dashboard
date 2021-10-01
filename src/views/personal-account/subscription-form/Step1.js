@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from "react";
 import { Col, Form, Label, FormGroup, Input, Row } from "reactstrap";
 import { titles } from "../../../config";

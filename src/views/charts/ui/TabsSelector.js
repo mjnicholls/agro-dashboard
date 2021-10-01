@@ -1,29 +1,24 @@
-import React from 'react';
-import classNames from "classnames";
-import {
-  Button,
-  ButtonGroup,
-} from "reactstrap";
-import Select from "react-select";
+import React from 'react'
+import classNames from 'classnames'
+import { Button, ButtonGroup } from 'reactstrap'
+import Select from 'react-select'
 
-
-const TabsSelector = ({activeTab, setActiveTab, options}) => {
-
+const TabsSelector = ({ activeTab, setActiveTab, options }) => {
   const customStyles = {
     menu: (provided, state) => ({
       ...provided,
-      minHeight: "230px",
+      minHeight: '230px',
     }),
     menuList: (provided, state) => ({
       ...provided,
-      minHeight: "210px",
+      minHeight: '210px',
     }),
     input: (provided, state) => ({
       ...provided,
-      minWidth: "200px",
-      maxWidth: "250px",
-    })
-  };
+      minWidth: '200px',
+      maxWidth: '250px',
+    }),
+  }
 
   return (
     <>
@@ -31,16 +26,22 @@ const TabsSelector = ({activeTab, setActiveTab, options}) => {
         className=" btn-group-toggle d-none d-lg-block float-right"
         data-toggle="buttons"
       >
-        {options.map((option) => <Button
-          color="github" id={option.id} size="sm" tag="label" key={option.id}
-          className={classNames("btn-simple", {
-            active: activeTab.id === option.id,
-          })}
-          onClick={() => setActiveTab(option)}
-          style={{padding: "5px 10px"}}
-        >
-          <span>{option.id}</span>
-        </Button>)}
+        {options.map((option) => (
+          <Button
+            color="github"
+            id={option.id}
+            size="sm"
+            tag="label"
+            key={option.id}
+            className={classNames('btn-simple', {
+              active: activeTab.id === option.id,
+            })}
+            onClick={() => setActiveTab(option)}
+            style={{ padding: '5px 10px' }}
+          >
+            <span>{option.id}</span>
+          </Button>
+        ))}
       </ButtonGroup>
 
       <Select
@@ -57,4 +58,4 @@ const TabsSelector = ({activeTab, setActiveTab, options}) => {
   )
 }
 
-export default TabsSelector;
+export default TabsSelector

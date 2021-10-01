@@ -14,63 +14,63 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React from "react";
+import React from 'react'
 // react component used to create a calendar with events on it
-import { Calendar as BigCalendar, momentLocalizer } from "react-big-calendar";
+import { Calendar as BigCalendar, momentLocalizer } from 'react-big-calendar'
 // dependency plugin for react-big-calendar
-import moment from "moment";
+import moment from 'moment'
 // react component used to create alerts
-import SweetAlert from "react-bootstrap-sweetalert";
+import SweetAlert from 'react-bootstrap-sweetalert'
 
 // reactstrap components
-import { Card, CardBody, Row, Col } from "reactstrap";
+import { Card, CardBody, Row, Col } from 'reactstrap'
 
-import { events } from "variables/general.js";
+import { events } from 'variables/general.js'
 
-const localizer = momentLocalizer(moment);
+const localizer = momentLocalizer(moment)
 
 const Calendar = () => {
-  const [event, setEvents] = React.useState(events);
-  const [alert, setAlert] = React.useState(null);
+  const [event, setEvents] = React.useState(events)
+  const [alert, setAlert] = React.useState(null)
   const selectedEvent = (event) => {
-    window.alert(event.title);
-  };
+    window.alert(event.title)
+  }
   const addNewEventAlert = (slotInfo) => {
     setAlert(
       <SweetAlert
         input
         showCancel
-        style={{ display: "block", marginTop: "-100px" }}
+        style={{ display: 'block', marginTop: '-100px' }}
         title="Input something"
         onConfirm={(e) => addNewEvent(e, slotInfo)}
         onCancel={() => hideAlert()}
         confirmBtnBsStyle="info"
         cancelBtnBsStyle="danger"
-      />
-    );
-  };
+      />,
+    )
+  }
   const addNewEvent = (e, slotInfo) => {
-    var newEvents = events;
+    const newEvents = events
     newEvents.push({
       title: e,
       start: slotInfo.start,
       end: slotInfo.end,
-    });
-    setAlert(null);
-    setEvents(newEvents);
-  };
+    })
+    setAlert(null)
+    setEvents(newEvents)
+  }
   const hideAlert = () => {
-    setAlert(null);
-  };
+    setAlert(null)
+  }
   const eventColors = (event, start, end, isSelected) => {
-    var backgroundColor = "event-";
+    let backgroundColor = 'event-'
     event.color
-      ? (backgroundColor = backgroundColor + event.color)
-      : (backgroundColor = backgroundColor + "default");
+      ? (backgroundColor += event.color)
+      : (backgroundColor += 'default')
     return {
       className: backgroundColor,
-    };
-  };
+    }
+  }
   return (
     <>
       <div className="content">
@@ -96,7 +96,7 @@ const Calendar = () => {
         </Row>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default Calendar;
+export default Calendar

@@ -3,9 +3,9 @@ import {
   historyAccumulatedTemperature,
   historyNDVI,
   historySoil,
-  historyWeather
-} from "./index";
-import {axiosInstance} from "../base";
+  historyWeather,
+} from './index'
+import { axiosInstance } from '../base'
 
 // const parseResponse = (response) => {
 //   if (response) {
@@ -19,77 +19,83 @@ import {axiosInstance} from "../base";
 //   }
 // }
 
-
 export const getHistoryNDVIData = (polygonId, start, end) => {
   /** Get history NDVI chart data by polygon  */
-  let url = `${historyNDVI}?polyid=${polygonId}&start=${Math.ceil(start/1000)}&end=${Math.floor(end/1000)}`
-  return axiosInstance.get(url)
-    .then(response => response.data)
-    .catch(err => {
+  const url = `${historyNDVI}?polyid=${polygonId}&start=${Math.ceil(
+    start / 1000,
+  )}&end=${Math.floor(end / 1000)}`
+  return axiosInstance
+    .get(url)
+    .then((response) => response.data)
+    .catch((err) => {
       throw new Error(err)
     })
 }
 
 export const getHistorySoilData = (polygonId, start, end, cancelToken) => {
   /** Get soil chart data by polygon  */
-  let url = `${historySoil}?polyid=${polygonId}&start=${Math.ceil(start/1000)}&end=${Math.floor(end/1000)}`
-  let config = {
+  const url = `${historySoil}?polyid=${polygonId}&start=${Math.ceil(
+    start / 1000,
+  )}&end=${Math.floor(end / 1000)}`
+  const config = {
     cancelToken: cancelToken.token,
-  };
-  return axiosInstance.get(url, config)
-    .then(response => {
-      return response.data
+  }
+  return axiosInstance
+    .get(url, config)
+    .then((response) => response.data)
+    .catch((err) => {
+      throw new Error(err)
     })
-    .catch(err => {
-      throw new Error(err)})
 }
 
 const getAccumulatedTemperature = (polygonId, start, end, threshold) => {
   /** Get accumulated temperature data by polygon */
-  let url = `${historyAccumulatedTemperature}?polyid=${polygonId}&start=${start}&end=${end}&threshold=${threshold}`
-  return axiosInstance.get(url)
-    .then(response => {
+  const url = `${historyAccumulatedTemperature}?polyid=${polygonId}&start=${start}&end=${end}&threshold=${threshold}`
+  return axiosInstance
+    .get(url)
+    .then((response) => {
       if (response.data) {
         if (response.data.length) {
           return response.data
-        } else {
-          throw new Error("No data for selected period")
         }
+        throw new Error('No data for selected period')
       } else {
-        throw new Error("Something went wrong");
+        throw new Error('Something went wrong')
       }
     })
-    .catch(err => {
-      throw new Error(err)})
+    .catch((err) => {
+      throw new Error(err)
+    })
 }
 
 const getAccumulatedPrecipitation = (polygonId, start, end, threshold) => {
   /** Get accumulated temperature data by polygon */
-  let url = `${historyAccumulatedPrecipitation}?polyid=${polygonId}&start=${start}&end=${end}&threshold=${threshold}`
-  return axiosInstance.get(url)
-    .then(response => {
+  const url = `${historyAccumulatedPrecipitation}?polyid=${polygonId}&start=${start}&end=${end}&threshold=${threshold}`
+  return axiosInstance
+    .get(url)
+    .then((response) => {
       if (response.data) {
         if (response.data.length) {
           return response.data
-        } else {
-          throw new Error("No data for selected period")
         }
+        throw new Error('No data for selected period')
       } else {
-        throw new Error("Something went wrong");
+        throw new Error('Something went wrong')
       }
     })
-    .catch(err => {
-      throw new Error(err)})
+    .catch((err) => {
+      throw new Error(err)
+    })
 }
 
 export const getAccumulatedData = async (polygonId, start, end, threshold) => {
   /** Get accumulated data */
-  start = Math.ceil(start/1000);
-  end = Math.floor(end/1000);
+  start = Math.ceil(start / 1000)
+  end = Math.floor(end / 1000)
 
   let [tempData, rainData] = await Promise.all([
     getAccumulatedTemperature(polygonId, start, end, threshold),
-    getAccumulatedPrecipitation(polygonId, start, end)
+    getAccumulatedPrecipitation(polygonId, start, end),
   ])
 
   if (tempData.length !== rainData.length) {
@@ -104,15 +110,16 @@ export const getAccumulatedData = async (polygonId, start, end, threshold) => {
 
 export const getHistoryWeatherData = (polygonId, start, end, cancelToken) => {
   /** Get soil chart data by polygon  */
-  let config = {
+  const config = {
     cancelToken: cancelToken.token,
-  };
-  let url = `${historyWeather}?polyid=${polygonId}&start=${Math.ceil(start/1000)}&end=${Math.floor(end/1000)}`
-  return axiosInstance.get(url, config)
-    .then(response => {
-      return response.data
-    })
-    .catch(err => {
+  }
+  const url = `${historyWeather}?polyid=${polygonId}&start=${Math.ceil(
+    start / 1000,
+  )}&end=${Math.floor(end / 1000)}`
+  return axiosInstance
+    .get(url, config)
+    .then((response) => response.data)
+    .catch((err) => {
       throw new Error(err)
     })
 }

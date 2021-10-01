@@ -39,20 +39,20 @@ export const apiKeyCreate = `${personalAccountBase}appid/create`;
 // payments
 export const invoicesList = `${personalAccountBase}/payments`;
 
-//update name
+// update name
 export const updateName = `${personalAccountBase}account/user/names`
 export const updatePass = `${personalAccountBase}account/user/password`
 
 // mailing preferences
 export const mailing = `${personalAccountBase}account/mailing`
 
-//get mailing preferences
+// get mailing preferences
 export const mailPref = `${personalAccountBase}account`
 
-//delete account
+// delete account
 export const deleteAccount = `${personalAccountBase}account/delete`
 
-//update invoice info
+// update invoice info
 export const invoiceUpdate = `${personalAccountBase}account/invoice`
 
 // get vat info

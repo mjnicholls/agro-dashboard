@@ -14,7 +14,7 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React from "react";
+import React from 'react'
 
 // reactstrap components
 import {
@@ -30,36 +30,36 @@ import {
   TabPane,
   Row,
   Col,
-} from "reactstrap";
+} from 'reactstrap'
 
 const Panels = () => {
-  const [horizontalTabs, sethorizontalTabs] = React.useState("profile");
-  const [verticalTabs, setverticalTabs] = React.useState("profile");
-  const [verticalTabsIcons, setverticalTabsIcons] = React.useState("home");
-  const [pageTabs, setpageTabs] = React.useState("home");
-  const [openedCollapseOne, setopenedCollapseOne] = React.useState(true);
-  const [openedCollapseTwo, setopenedCollapseTwo] = React.useState(false);
-  const [openedCollapseThree, setopenedCollapseThree] = React.useState(false);
+  const [horizontalTabs, sethorizontalTabs] = React.useState('profile')
+  const [verticalTabs, setverticalTabs] = React.useState('profile')
+  const [verticalTabsIcons, setverticalTabsIcons] = React.useState('home')
+  const [pageTabs, setpageTabs] = React.useState('home')
+  const [openedCollapseOne, setopenedCollapseOne] = React.useState(true)
+  const [openedCollapseTwo, setopenedCollapseTwo] = React.useState(false)
+  const [openedCollapseThree, setopenedCollapseThree] = React.useState(false)
   // with this function we change the active tab for all the tabs in this page
   const changeActiveTab = (e, tabState, tabName) => {
-    e.preventDefault();
+    e.preventDefault()
     switch (tabState) {
-      case "horizontalTabs":
-        sethorizontalTabs(tabName);
-        break;
-      case "verticalTabsIcons":
-        setverticalTabsIcons(tabName);
-        break;
-      case "pageTabs":
-        setpageTabs(tabName);
-        break;
-      case "verticalTabs":
-        setverticalTabs(tabName);
-        break;
+      case 'horizontalTabs':
+        sethorizontalTabs(tabName)
+        break
+      case 'verticalTabsIcons':
+        setverticalTabsIcons(tabName)
+        break
+      case 'pageTabs':
+        setpageTabs(tabName)
+        break
+      case 'verticalTabs':
+        setverticalTabs(tabName)
+        break
       default:
-        break;
+        break
     }
-  };
+  }
   return (
     <>
       <div className="content">
@@ -76,9 +76,9 @@ const Panels = () => {
                     <NavLink
                       data-toggle="tab"
                       href="#pablo"
-                      className={horizontalTabs === "profile" ? "active" : ""}
+                      className={horizontalTabs === 'profile' ? 'active' : ''}
                       onClick={(e) =>
-                        changeActiveTab(e, "horizontalTabs", "profile")
+                        changeActiveTab(e, 'horizontalTabs', 'profile')
                       }
                     >
                       Profile
@@ -88,9 +88,9 @@ const Panels = () => {
                     <NavLink
                       data-toggle="tab"
                       href="#pablo"
-                      className={horizontalTabs === "settings" ? "active" : ""}
+                      className={horizontalTabs === 'settings' ? 'active' : ''}
                       onClick={(e) =>
-                        changeActiveTab(e, "horizontalTabs", "settings")
+                        changeActiveTab(e, 'horizontalTabs', 'settings')
                       }
                     >
                       Settings
@@ -100,9 +100,9 @@ const Panels = () => {
                     <NavLink
                       data-toggle="tab"
                       href="#pablo"
-                      className={horizontalTabs === "options" ? "active" : ""}
+                      className={horizontalTabs === 'options' ? 'active' : ''}
                       onClick={(e) =>
-                        changeActiveTab(e, "horizontalTabs", "options")
+                        changeActiveTab(e, 'horizontalTabs', 'options')
                       }
                     >
                       Options
@@ -152,9 +152,9 @@ const Panels = () => {
                         <NavLink
                           data-toggle="tab"
                           href="#pablo"
-                          className={verticalTabs === "profile" ? "active" : ""}
+                          className={verticalTabs === 'profile' ? 'active' : ''}
                           onClick={(e) =>
-                            changeActiveTab(e, "verticalTabs", "profile")
+                            changeActiveTab(e, 'verticalTabs', 'profile')
                           }
                         >
                           Profile
@@ -165,10 +165,10 @@ const Panels = () => {
                           data-toggle="tab"
                           href="#pablo"
                           className={
-                            verticalTabs === "settings" ? "active" : ""
+                            verticalTabs === 'settings' ? 'active' : ''
                           }
                           onClick={(e) =>
-                            changeActiveTab(e, "verticalTabs", "settings")
+                            changeActiveTab(e, 'verticalTabs', 'settings')
                           }
                         >
                           Settings
@@ -178,9 +178,9 @@ const Panels = () => {
                         <NavLink
                           data-toggle="tab"
                           href="#pablo"
-                          className={verticalTabs === "options" ? "active" : ""}
+                          className={verticalTabs === 'options' ? 'active' : ''}
                           onClick={(e) =>
-                            changeActiveTab(e, "verticalTabs", "options")
+                            changeActiveTab(e, 'verticalTabs', 'options')
                           }
                         >
                           Options
@@ -229,7 +229,7 @@ const Panels = () => {
                 <CardTitle tag="h3">Collapsible Accordion</CardTitle>
               </CardHeader>
               <div
-                aria-multiselectable={true}
+                aria-multiselectable
                 className="card-collapse"
                 id="accordion"
                 role="tablist"
@@ -242,11 +242,11 @@ const Panels = () => {
                       data-parent="#accordion"
                       data-toggle="collapse"
                       onClick={(e) => {
-                        e.preventDefault();
-                        setopenedCollapseOne(!openedCollapseOne);
+                        e.preventDefault()
+                        setopenedCollapseOne(!openedCollapseOne)
                       }}
                     >
-                      Collapsible Group Item #1{" "}
+                      Collapsible Group Item #1{' '}
                       <i className="tim-icons icon-minimal-down" />
                     </a>
                   </CardHeader>
@@ -274,11 +274,11 @@ const Panels = () => {
                       data-parent="#accordion"
                       data-toggle="collapse"
                       onClick={(e) => {
-                        e.preventDefault();
-                        setopenedCollapseTwo(!openedCollapseTwo);
+                        e.preventDefault()
+                        setopenedCollapseTwo(!openedCollapseTwo)
                       }}
                     >
-                      Collapsible Group Item #2{" "}
+                      Collapsible Group Item #2{' '}
                       <i className="tim-icons icon-minimal-down" />
                     </a>
                   </CardHeader>
@@ -306,11 +306,11 @@ const Panels = () => {
                       data-parent="#accordion"
                       data-toggle="collapse"
                       onClick={(e) => {
-                        e.preventDefault();
-                        setopenedCollapseThree(!openedCollapseThree);
+                        e.preventDefault()
+                        setopenedCollapseThree(!openedCollapseThree)
                       }}
                     >
-                      Collapsible Group Item #3{" "}
+                      Collapsible Group Item #3{' '}
                       <i className="tim-icons icon-minimal-down" />
                     </a>
                   </CardHeader>
@@ -352,10 +352,10 @@ const Panels = () => {
                           data-toggle="tab"
                           href="#pablo"
                           className={
-                            verticalTabsIcons === "home" ? "active" : ""
+                            verticalTabsIcons === 'home' ? 'active' : ''
                           }
                           onClick={(e) =>
-                            changeActiveTab(e, "verticalTabsIcons", "home")
+                            changeActiveTab(e, 'verticalTabsIcons', 'home')
                           }
                         >
                           <i className="tim-icons icon-istanbul" />
@@ -367,10 +367,10 @@ const Panels = () => {
                           data-toggle="tab"
                           href="#pablo"
                           className={
-                            verticalTabsIcons === "settings" ? "active" : ""
+                            verticalTabsIcons === 'settings' ? 'active' : ''
                           }
                           onClick={(e) =>
-                            changeActiveTab(e, "verticalTabsIcons", "settings")
+                            changeActiveTab(e, 'verticalTabsIcons', 'settings')
                           }
                         >
                           <i className="tim-icons icon-settings" />
@@ -423,8 +423,8 @@ const Panels = () => {
                     <NavLink
                       data-toggle="tab"
                       href="#pablo"
-                      className={pageTabs === "home" ? "active" : ""}
-                      onClick={(e) => changeActiveTab(e, "pageTabs", "home")}
+                      className={pageTabs === 'home' ? 'active' : ''}
+                      onClick={(e) => changeActiveTab(e, 'pageTabs', 'home')}
                     >
                       <i className="tim-icons icon-istanbul" />
                       Home
@@ -434,9 +434,9 @@ const Panels = () => {
                     <NavLink
                       data-toggle="tab"
                       href="#pablo"
-                      className={pageTabs === "messages" ? "active" : ""}
+                      className={pageTabs === 'messages' ? 'active' : ''}
                       onClick={(e) =>
-                        changeActiveTab(e, "pageTabs", "messages")
+                        changeActiveTab(e, 'pageTabs', 'messages')
                       }
                     >
                       <i className="tim-icons icon-bag-16" />
@@ -447,9 +447,9 @@ const Panels = () => {
                     <NavLink
                       data-toggle="tab"
                       href="#pablo"
-                      className={pageTabs === "settings" ? "active" : ""}
+                      className={pageTabs === 'settings' ? 'active' : ''}
                       onClick={(e) =>
-                        changeActiveTab(e, "pageTabs", "settings")
+                        changeActiveTab(e, 'pageTabs', 'settings')
                       }
                     >
                       <i className="tim-icons icon-settings" />
@@ -492,7 +492,7 @@ const Panels = () => {
         </Row>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default Panels;
+export default Panels

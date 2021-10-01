@@ -14,7 +14,7 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React from "react";
+import React from 'react'
 
 // reactstrap components
 import {
@@ -30,15 +30,15 @@ import {
   Container,
   Row,
   Col,
-} from "reactstrap";
+} from 'reactstrap'
 
 const Pricing = () => {
   React.useEffect(() => {
-    document.body.classList.toggle("pricing-page");
+    document.body.classList.toggle('pricing-page')
     return function cleanup() {
-      document.body.classList.toggle("pricing-page");
-    };
-  });
+      document.body.classList.toggle('pricing-page')
+    }
+  })
   return (
     <>
       <div className="content">
@@ -59,7 +59,7 @@ const Pricing = () => {
                   <CardTitle tag="h1">pro</CardTitle>
                   <CardImg
                     alt="..."
-                    src={require("assets/img/card-primary.png").default}
+                    src={require('assets/img/card-primary.png').default}
                   />
                   <ListGroup>
                     <ListGroupItem>300 messages</ListGroupItem>
@@ -88,7 +88,7 @@ const Pricing = () => {
                   <CardTitle tag="h1">basic</CardTitle>
                   <CardImg
                     alt="..."
-                    src={require("assets/img/card-success.png").default}
+                    src={require('assets/img/card-success.png').default}
                   />
                   <ListGroup>
                     <ListGroupItem>50 messages</ListGroupItem>
@@ -117,7 +117,7 @@ const Pricing = () => {
                   <CardTitle tag="h1">mid</CardTitle>
                   <CardImg
                     alt="..."
-                    src={require("assets/img/card-warning.png").default}
+                    src={require('assets/img/card-warning.png').default}
                   />
                   <ListGroup>
                     <ListGroupItem>200 messages</ListGroupItem>
@@ -146,7 +146,7 @@ const Pricing = () => {
                   <CardTitle tag="h1">trial</CardTitle>
                   <CardImg
                     alt="..."
-                    src={require("assets/img/card-danger.png").default}
+                    src={require('assets/img/card-danger.png').default}
                   />
                   <ListGroup>
                     <ListGroupItem>50 messages</ListGroupItem>
@@ -195,7 +195,7 @@ const Pricing = () => {
         </Container>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default Pricing;
+export default Pricing

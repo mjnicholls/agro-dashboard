@@ -1,36 +1,37 @@
-import React from "react";
-import ReactBSAlert from "react-bootstrap-sweetalert";
+import React from 'react'
+import ReactBSAlert from 'react-bootstrap-sweetalert'
 
 // reactstrap components
-import { Button, Card, CardBody, CardText, Row, Col } from "reactstrap";
+import { Button, Card, CardBody, CardText, Row, Col } from 'reactstrap'
 
 const SweetAlert = () => {
-  const [alert, setAlert] = React.useState(null);
+  const [alert, setAlert] = React.useState(null)
   // to stop the warning of calling setState of unmounted component
-  React.useEffect(() => {
-    return function cleanup() {
-      var id = window.setTimeout(null, 0);
-      while (id--) {
-        window.clearTimeout(id);
-      }
-    };
-  });
+  React.useEffect(
+    () =>
+      function cleanup() {
+        let id = window.setTimeout(null, 0)
+        while (id--) {
+          window.clearTimeout(id)
+        }
+      },
+  )
   const basicAlert = () => {
     setAlert(
       <ReactBSAlert
-        style={{ display: "block", marginTop: "-100px" }}
+        style={{ display: 'block', marginTop: '-100px' }}
         title="Here's a message!"
         onConfirm={() => hideAlert()}
         onCancel={() => hideAlert()}
         confirmBtnBsStyle="success"
         btnSize=""
-      />
-    );
-  };
+      />,
+    )
+  }
   const titleAndTextAlert = () => {
     setAlert(
       <ReactBSAlert
-        style={{ display: "block", marginTop: "-100px" }}
+        style={{ display: 'block', marginTop: '-100px' }}
         title="Here's a message!"
         onConfirm={() => hideAlert()}
         onCancel={() => hideAlert()}
@@ -38,14 +39,14 @@ const SweetAlert = () => {
         btnSize=""
       >
         It's pretty, isn't it?
-      </ReactBSAlert>
-    );
-  };
+      </ReactBSAlert>,
+    )
+  }
   const successAlert = () => {
     setAlert(
       <ReactBSAlert
         success
-        style={{ display: "block", marginTop: "-100px" }}
+        style={{ display: 'block', marginTop: '-100px' }}
         title="Good job!"
         onConfirm={() => hideAlert()}
         onCancel={() => hideAlert()}
@@ -53,29 +54,29 @@ const SweetAlert = () => {
         btnSize=""
       >
         You clicked the button!
-      </ReactBSAlert>
-    );
-  };
+      </ReactBSAlert>,
+    )
+  }
   const htmlAlert = () => {
     setAlert(
       <ReactBSAlert
-        style={{ display: "block", marginTop: "-100px" }}
+        style={{ display: 'block', marginTop: '-100px' }}
         title="HTML example"
         onConfirm={() => hideAlert()}
         onCancel={() => hideAlert()}
         confirmBtnBsStyle="success"
         btnSize=""
       >
-        You can use <b>bold</b> text,{" "}
+        You can use <b>bold</b> text,{' '}
         <a href="https://www.creative-tim.com/">links</a> and other HTML tags
-      </ReactBSAlert>
-    );
-  };
+      </ReactBSAlert>,
+    )
+  }
   const warningWithConfirmMessage = () => {
     setAlert(
       <ReactBSAlert
         warning
-        style={{ display: "block", marginTop: "-100px" }}
+        style={{ display: 'block', marginTop: '-100px' }}
         title="Are you sure?"
         onConfirm={() => successDelete()}
         onCancel={() => hideAlert()}
@@ -87,14 +88,14 @@ const SweetAlert = () => {
         btnSize=""
       >
         You will not be able to recover this imaginary file!
-      </ReactBSAlert>
-    );
-  };
+      </ReactBSAlert>,
+    )
+  }
   const warningWithConfirmAndCancelMessage = () => {
     setAlert(
       <ReactBSAlert
         warning
-        style={{ display: "block", marginTop: "-100px" }}
+        style={{ display: 'block', marginTop: '-100px' }}
         title="Are you sure?"
         onConfirm={() => successDelete()}
         onCancel={() => cancelDetele()}
@@ -106,44 +107,44 @@ const SweetAlert = () => {
         btnSize=""
       >
         You will not be able to recover this imaginary file!
-      </ReactBSAlert>
-    );
-  };
+      </ReactBSAlert>,
+    )
+  }
   const autoCloseAlert = () => {
     setAlert(
       <ReactBSAlert
-        style={{ display: "block", marginTop: "-100px" }}
+        style={{ display: 'block', marginTop: '-100px' }}
         title="Auto close alert!"
         onConfirm={() => hideAlert()}
         showConfirm={false}
       >
         I will close in 2 seconds.
-      </ReactBSAlert>
-    );
+      </ReactBSAlert>,
+    )
     setTimeout(() => {
-      setAlert(null);
-    }, 2000);
-  };
+      setAlert(null)
+    }, 2000)
+  }
   const inputAlert = () => {
     setAlert(
       <ReactBSAlert
         input
         showCancel
-        style={{ display: "block", marginTop: "-100px" }}
+        style={{ display: 'block', marginTop: '-100px' }}
         title="Input something"
         onConfirm={(e) => inputConfirmAlert(e)}
         onCancel={() => hideAlert()}
         confirmBtnBsStyle="success"
         cancelBtnBsStyle="danger"
         btnSize=""
-      />
-    );
-  };
+      />,
+    )
+  }
   const inputConfirmAlert = (e) => {
     setAlert(
       <ReactBSAlert
         success
-        style={{ display: "block", marginTop: "-100px" }}
+        style={{ display: 'block', marginTop: '-100px' }}
         onConfirm={() => hideAlert()}
         onCancel={() => hideAlert()}
         confirmBtnBsStyle="success"
@@ -151,14 +152,14 @@ const SweetAlert = () => {
         title="You entered: "
       >
         <b>{e}</b>
-      </ReactBSAlert>
-    );
-  };
+      </ReactBSAlert>,
+    )
+  }
   const successDelete = () => {
     setAlert(
       <ReactBSAlert
         success
-        style={{ display: "block", marginTop: "-100px" }}
+        style={{ display: 'block', marginTop: '-100px' }}
         title="Deleted!"
         onConfirm={() => hideAlert()}
         onCancel={() => hideAlert()}
@@ -166,14 +167,14 @@ const SweetAlert = () => {
         btnSize=""
       >
         Your imaginary file has been deleted.
-      </ReactBSAlert>
-    );
-  };
+      </ReactBSAlert>,
+    )
+  }
   const cancelDetele = () => {
     setAlert(
       <ReactBSAlert
         danger
-        style={{ display: "block", marginTop: "-100px" }}
+        style={{ display: 'block', marginTop: '-100px' }}
         title="Cancelled"
         onConfirm={() => hideAlert()}
         onCancel={() => hideAlert()}
@@ -181,12 +182,12 @@ const SweetAlert = () => {
         btnSize=""
       >
         Your imaginary file is safe :)
-      </ReactBSAlert>
-    );
-  };
+      </ReactBSAlert>,
+    )
+  }
   const hideAlert = () => {
-    setAlert(null);
-  };
+    setAlert(null)
+  }
   return (
     <>
       <div className="content">
@@ -195,7 +196,7 @@ const SweetAlert = () => {
           <h2 className="text-center">Sweet Alert</h2>
           <p className="category text-center">
             A beautiful plugin, that replace the classic alert, Handcrafted by
-            our friend{" "}
+            our friend{' '}
             <a
               href="https://twitter.com/t4t5"
               rel="noopener noreferrer"
@@ -203,7 +204,7 @@ const SweetAlert = () => {
             >
               Tristan Edwards
             </a>
-            . Please check out the{" "}
+            . Please check out the{' '}
             <a
               href="https://sweetalert2.github.io/"
               rel="noopener noreferrer"
@@ -335,7 +336,7 @@ const SweetAlert = () => {
         </div>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default SweetAlert;
+export default SweetAlert

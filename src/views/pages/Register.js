@@ -14,8 +14,8 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React from "react";
-import classnames from "classnames";
+import React from 'react'
+import classnames from 'classnames'
 // reactstrap components
 import {
   Button,
@@ -35,16 +35,16 @@ import {
   Container,
   Row,
   Col,
-} from "reactstrap";
+} from 'reactstrap'
 
 const Register = () => {
-  const [state, setState] = React.useState({});
+  const [state, setState] = React.useState({})
   React.useEffect(() => {
-    document.body.classList.toggle("register-page");
+    document.body.classList.toggle('register-page')
     return function cleanup() {
-      document.body.classList.toggle("register-page");
-    };
-  });
+      document.body.classList.toggle('register-page')
+    }
+  })
   return (
     <>
       <div className="content">
@@ -93,7 +93,7 @@ const Register = () => {
                 <CardHeader>
                   <CardImg
                     alt="..."
-                    src={require("assets/img/card-primary.png").default}
+                    src={require('assets/img/card-primary.png').default}
                   />
                   <CardTitle tag="h4">Register</CardTitle>
                 </CardHeader>
@@ -101,7 +101,7 @@ const Register = () => {
                   <Form className="form">
                     <InputGroup
                       className={classnames({
-                        "input-group-focus": state.nameFocus,
+                        'input-group-focus': state.nameFocus,
                       })}
                     >
                       <InputGroupAddon addonType="prepend">
@@ -118,7 +118,7 @@ const Register = () => {
                     </InputGroup>
                     <InputGroup
                       className={classnames({
-                        "input-group-focus": state.emailFocus,
+                        'input-group-focus': state.emailFocus,
                       })}
                     >
                       <InputGroupAddon addonType="prepend">
@@ -139,7 +139,7 @@ const Register = () => {
                     </InputGroup>
                     <InputGroup
                       className={classnames({
-                        "input-group-focus": state.passFocus,
+                        'input-group-focus': state.passFocus,
                       })}
                     >
                       <InputGroupAddon addonType="prepend">
@@ -157,7 +157,7 @@ const Register = () => {
                     <FormGroup check className="text-left">
                       <Label check>
                         <Input type="checkbox" />
-                        <span className="form-check-sign" />I agree to the{" "}
+                        <span className="form-check-sign" />I agree to the{' '}
                         <a href="#pablo" onClick={(e) => e.preventDefault()}>
                           terms and conditions
                         </a>
@@ -183,7 +183,7 @@ const Register = () => {
         </Container>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default Register;
+export default Register

@@ -14,18 +14,18 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React from "react";
+import React from 'react'
 // react plugin used to create DropdownMenu for selecting items
-import Select from "react-select";
+import Select from 'react-select'
 
 // reactstrap components
-import { FormGroup, Input, Row, Col } from "reactstrap";
+import { FormGroup, Input, Row, Col } from 'reactstrap'
 
 const Step3 = React.forwardRef((props, ref) => {
-  const [step3Select, setstep3Select] = React.useState(null);
+  const [step3Select, setstep3Select] = React.useState(null)
   React.useImperativeHandle(ref, () => ({
     isValidated: undefined,
-  }));
+  }))
   return (
     <>
       <form>
@@ -62,19 +62,19 @@ const Step3 = React.forwardRef((props, ref) => {
                 value={step3Select}
                 options={[
                   {
-                    value: "Afghanistan",
-                    label: " Afghanistan ",
+                    value: 'Afghanistan',
+                    label: ' Afghanistan ',
                   },
-                  { value: "Albania", label: " Albania " },
-                  { value: "Algeria", label: " Algeria " },
+                  { value: 'Albania', label: ' Albania ' },
+                  { value: 'Algeria', label: ' Algeria ' },
                   {
-                    value: "American Samoa",
-                    label: " American Samoa ",
+                    value: 'American Samoa',
+                    label: ' American Samoa ',
                   },
-                  { value: "Andorra", label: " Andorra " },
-                  { value: "Angola", label: " Angola " },
-                  { value: "Anguilla", label: " Anguilla " },
-                  { value: "Antarctica", label: " Antarctica " },
+                  { value: 'Andorra', label: ' Andorra ' },
+                  { value: 'Angola', label: ' Angola ' },
+                  { value: 'Anguilla', label: ' Anguilla ' },
+                  { value: 'Antarctica', label: ' Antarctica ' },
                 ]}
                 placeholder="Single Select"
               />
@@ -83,7 +83,7 @@ const Step3 = React.forwardRef((props, ref) => {
         </Row>
       </form>
     </>
-  );
-});
+  )
+})
 
-export default Step3;
+export default Step3

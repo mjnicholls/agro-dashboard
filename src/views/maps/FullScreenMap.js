@@ -14,294 +14,292 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React from "react";
+import React from 'react'
 
 const MapWrapper = () => {
-  const mapRef = React.useRef(null);
+  const mapRef = React.useRef(null)
   React.useEffect(() => {
-    let google = window.google;
-    let map = mapRef.current;
-    let lat = "40.748817";
-    let lng = "-73.985428";
-    const myLatlng = new google.maps.LatLng(lat, lng);
+    const { google } = window
+    let map = mapRef.current
+    const lat = '40.748817'
+    const lng = '-73.985428'
+    const myLatlng = new google.maps.LatLng(lat, lng)
     const mapOptions = {
       zoom: 13,
       center: myLatlng,
       scrollwheel: false,
       styles: [
         {
-          elementType: "geometry",
+          elementType: 'geometry',
           stylers: [
             {
-              color: "#1d2c4d",
+              color: '#1d2c4d',
             },
           ],
         },
         {
-          elementType: "labels.text.fill",
+          elementType: 'labels.text.fill',
           stylers: [
             {
-              color: "#8ec3b9",
+              color: '#8ec3b9',
             },
           ],
         },
         {
-          elementType: "labels.text.stroke",
+          elementType: 'labels.text.stroke',
           stylers: [
             {
-              color: "#1a3646",
+              color: '#1a3646',
             },
           ],
         },
         {
-          featureType: "administrative.country",
-          elementType: "geometry.stroke",
+          featureType: 'administrative.country',
+          elementType: 'geometry.stroke',
           stylers: [
             {
-              color: "#4b6878",
+              color: '#4b6878',
             },
           ],
         },
         {
-          featureType: "administrative.land_parcel",
-          elementType: "labels.text.fill",
+          featureType: 'administrative.land_parcel',
+          elementType: 'labels.text.fill',
           stylers: [
             {
-              color: "#64779e",
+              color: '#64779e',
             },
           ],
         },
         {
-          featureType: "administrative.province",
-          elementType: "geometry.stroke",
+          featureType: 'administrative.province',
+          elementType: 'geometry.stroke',
           stylers: [
             {
-              color: "#4b6878",
+              color: '#4b6878',
             },
           ],
         },
         {
-          featureType: "landscape.man_made",
-          elementType: "geometry.stroke",
+          featureType: 'landscape.man_made',
+          elementType: 'geometry.stroke',
           stylers: [
             {
-              color: "#334e87",
+              color: '#334e87',
             },
           ],
         },
         {
-          featureType: "landscape.natural",
-          elementType: "geometry",
+          featureType: 'landscape.natural',
+          elementType: 'geometry',
           stylers: [
             {
-              color: "#023e58",
+              color: '#023e58',
             },
           ],
         },
         {
-          featureType: "poi",
-          elementType: "geometry",
+          featureType: 'poi',
+          elementType: 'geometry',
           stylers: [
             {
-              color: "#283d6a",
+              color: '#283d6a',
             },
           ],
         },
         {
-          featureType: "poi",
-          elementType: "labels.text.fill",
+          featureType: 'poi',
+          elementType: 'labels.text.fill',
           stylers: [
             {
-              color: "#6f9ba5",
+              color: '#6f9ba5',
             },
           ],
         },
         {
-          featureType: "poi",
-          elementType: "labels.text.stroke",
+          featureType: 'poi',
+          elementType: 'labels.text.stroke',
           stylers: [
             {
-              color: "#1d2c4d",
+              color: '#1d2c4d',
             },
           ],
         },
         {
-          featureType: "poi.park",
-          elementType: "geometry.fill",
+          featureType: 'poi.park',
+          elementType: 'geometry.fill',
           stylers: [
             {
-              color: "#023e58",
+              color: '#023e58',
             },
           ],
         },
         {
-          featureType: "poi.park",
-          elementType: "labels.text.fill",
+          featureType: 'poi.park',
+          elementType: 'labels.text.fill',
           stylers: [
             {
-              color: "#3C7680",
+              color: '#3C7680',
             },
           ],
         },
         {
-          featureType: "road",
-          elementType: "geometry",
+          featureType: 'road',
+          elementType: 'geometry',
           stylers: [
             {
-              color: "#304a7d",
+              color: '#304a7d',
             },
           ],
         },
         {
-          featureType: "road",
-          elementType: "labels.text.fill",
+          featureType: 'road',
+          elementType: 'labels.text.fill',
           stylers: [
             {
-              color: "#98a5be",
+              color: '#98a5be',
             },
           ],
         },
         {
-          featureType: "road",
-          elementType: "labels.text.stroke",
+          featureType: 'road',
+          elementType: 'labels.text.stroke',
           stylers: [
             {
-              color: "#1d2c4d",
+              color: '#1d2c4d',
             },
           ],
         },
         {
-          featureType: "road.highway",
-          elementType: "geometry",
+          featureType: 'road.highway',
+          elementType: 'geometry',
           stylers: [
             {
-              color: "#2c6675",
+              color: '#2c6675',
             },
           ],
         },
         {
-          featureType: "road.highway",
-          elementType: "geometry.fill",
+          featureType: 'road.highway',
+          elementType: 'geometry.fill',
           stylers: [
             {
-              color: "#2c4bd0",
+              color: '#2c4bd0',
             },
           ],
         },
         {
-          featureType: "road.highway",
-          elementType: "geometry.stroke",
+          featureType: 'road.highway',
+          elementType: 'geometry.stroke',
           stylers: [
             {
-              color: "#2c4bd0",
+              color: '#2c4bd0',
             },
           ],
         },
         {
-          featureType: "road.highway",
-          elementType: "labels.text.fill",
+          featureType: 'road.highway',
+          elementType: 'labels.text.fill',
           stylers: [
             {
-              color: "#b0d5ce",
+              color: '#b0d5ce',
             },
           ],
         },
         {
-          featureType: "road.highway",
-          elementType: "labels.text.stroke",
+          featureType: 'road.highway',
+          elementType: 'labels.text.stroke',
           stylers: [
             {
-              color: "#023e58",
+              color: '#023e58',
             },
           ],
         },
         {
-          featureType: "transit",
-          elementType: "labels.text.fill",
+          featureType: 'transit',
+          elementType: 'labels.text.fill',
           stylers: [
             {
-              color: "#98a5be",
+              color: '#98a5be',
             },
           ],
         },
         {
-          featureType: "transit",
-          elementType: "labels.text.stroke",
+          featureType: 'transit',
+          elementType: 'labels.text.stroke',
           stylers: [
             {
-              color: "#1d2c4d",
+              color: '#1d2c4d',
             },
           ],
         },
         {
-          featureType: "transit.line",
-          elementType: "geometry.fill",
+          featureType: 'transit.line',
+          elementType: 'geometry.fill',
           stylers: [
             {
-              color: "#283d6a",
+              color: '#283d6a',
             },
           ],
         },
         {
-          featureType: "transit.station",
-          elementType: "geometry",
+          featureType: 'transit.station',
+          elementType: 'geometry',
           stylers: [
             {
-              color: "#3a4762",
+              color: '#3a4762',
             },
           ],
         },
         {
-          featureType: "water",
-          elementType: "geometry",
+          featureType: 'water',
+          elementType: 'geometry',
           stylers: [
             {
-              color: "#0e1626",
+              color: '#0e1626',
             },
           ],
         },
         {
-          featureType: "water",
-          elementType: "labels.text.fill",
+          featureType: 'water',
+          elementType: 'labels.text.fill',
           stylers: [
             {
-              color: "#4e6d70",
+              color: '#4e6d70',
             },
           ],
         },
       ],
-    };
+    }
 
-    map = new google.maps.Map(map, mapOptions);
+    map = new google.maps.Map(map, mapOptions)
 
     const marker = new google.maps.Marker({
       position: myLatlng,
-      map: map,
+      map,
       animation: google.maps.Animation.DROP,
-      title: "BLK Design System PRO React!",
-    });
+      title: 'BLK Design System PRO React!',
+    })
 
     const contentString =
       '<div class="info-window-content"><h2>BLK Dashboard PRO React</h2>' +
-      "<p>A premium Admin for ReactStrap, Bootstrap, React, and React Hooks.</p></div>";
+      '<p>A premium Admin for ReactStrap, Bootstrap, React, and React Hooks.</p></div>'
 
     const infowindow = new google.maps.InfoWindow({
       content: contentString,
-    });
+    })
 
-    google.maps.event.addListener(marker, "click", function () {
-      infowindow.open(map, marker);
-    });
-  }, []);
-  return <div ref={mapRef} />;
-};
+    google.maps.event.addListener(marker, 'click', function () {
+      infowindow.open(map, marker)
+    })
+  }, [])
+  return <div ref={mapRef} />
+}
 
-const FullScreenMap = () => {
-  return (
-    <div id="map" style={{ position: "relative", overflow: "hidden" }}>
-      <MapWrapper />
-    </div>
-  );
-};
+const FullScreenMap = () => (
+  <div id="map" style={{ position: 'relative', overflow: 'hidden' }}>
+    <MapWrapper />
+  </div>
+)
 
-export default FullScreenMap;
+export default FullScreenMap

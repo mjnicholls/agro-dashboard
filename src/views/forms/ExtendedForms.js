@@ -14,13 +14,13 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React from "react";
+import React from 'react'
 // react plugin used to create datetimepicker
-import ReactDatetime from "react-datetime";
+import ReactDatetime from 'react-datetime'
 // react plugin used to create DropdownMenu for selecting items
-import Select from "react-select";
+import Select from 'react-select'
 // plugin that creates slider
-import Slider from "nouislider";
+import Slider from 'nouislider'
 
 // reactstrap components
 import {
@@ -37,46 +37,46 @@ import {
   CustomInput,
   Row,
   Col,
-} from "reactstrap";
+} from 'reactstrap'
 
 // core components
-import ImageUpload from "components/CustomUpload/ImageUpload.js";
-import TagsInput from "components/TagsInput/TagsInput.js";
+import ImageUpload from 'components/CustomUpload/ImageUpload.js'
+import TagsInput from 'components/TagsInput/TagsInput.js'
 
 const ExtendedForms = () => {
-  const [singleSelect, setsingleSelect] = React.useState(null);
-  const [multipleSelect, setmultipleSelect] = React.useState(null);
+  const [singleSelect, setsingleSelect] = React.useState(null)
+  const [multipleSelect, setmultipleSelect] = React.useState(null)
   const [tagsinput, settagsinput] = React.useState([
-    "Amsterdam",
-    "Washington",
-    "Sydney",
-    "Beijing",
-  ]);
-  const slider1Ref = React.useRef(null);
-  const slider2Ref = React.useRef(null);
+    'Amsterdam',
+    'Washington',
+    'Sydney',
+    'Beijing',
+  ])
+  const slider1Ref = React.useRef(null)
+  const slider2Ref = React.useRef(null)
   React.useEffect(() => {
-    var slider1 = slider1Ref.current;
-    var slider2 = slider2Ref.current;
-    if (slider1.className === "slider") {
+    const slider1 = slider1Ref.current
+    const slider2 = slider2Ref.current
+    if (slider1.className === 'slider') {
       Slider.create(slider1, {
         start: [40],
         connect: [true, false],
         step: 1,
         range: { min: 0, max: 100 },
-      });
+      })
     }
-    if (slider2.className === "slider slider-primary mb-3") {
+    if (slider2.className === 'slider slider-primary mb-3') {
       Slider.create(slider2, {
         start: [20, 60],
         connect: [false, true, false],
         step: 1,
         range: { min: 0, max: 100 },
-      });
+      })
     }
-  }, []);
+  }, [])
   const handleTagsinput = (tagsinput) => {
-    settagsinput(tagsinput);
-  };
+    settagsinput(tagsinput)
+  }
   return (
     <>
       <div className="content">
@@ -90,8 +90,8 @@ const ExtendedForms = () => {
                 <FormGroup>
                   <ReactDatetime
                     inputProps={{
-                      className: "form-control",
-                      placeholder: "Datetime Picker Here",
+                      className: 'form-control',
+                      placeholder: 'Datetime Picker Here',
                     }}
                   />
                 </FormGroup>
@@ -107,8 +107,8 @@ const ExtendedForms = () => {
                 <FormGroup>
                   <ReactDatetime
                     inputProps={{
-                      className: "form-control",
-                      placeholder: "Date Picker Here",
+                      className: 'form-control',
+                      placeholder: 'Date Picker Here',
                     }}
                     timeFormat={false}
                   />
@@ -126,8 +126,8 @@ const ExtendedForms = () => {
                   <ReactDatetime
                     dateFormat={false}
                     inputProps={{
-                      className: "form-control",
-                      placeholder: "Time Picker Here",
+                      className: 'form-control',
+                      placeholder: 'Time Picker Here',
                     }}
                   />
                 </FormGroup>
@@ -205,12 +205,12 @@ const ExtendedForms = () => {
                           onChange={(value) => setsingleSelect(value)}
                           options={[
                             {
-                              value: "",
-                              label: "Single Option",
+                              value: '',
+                              label: 'Single Option',
                               isDisabled: true,
                             },
-                            { value: "2", label: "Foobar" },
-                            { value: "3", label: "Is great" },
+                            { value: '2', label: 'Foobar' },
+                            { value: '3', label: 'Is great' },
                           ]}
                           placeholder="Single Select"
                         />
@@ -227,28 +227,28 @@ const ExtendedForms = () => {
                           onChange={(value) => setmultipleSelect(value)}
                           options={[
                             {
-                              value: "",
-                              label: " Multiple Options",
+                              value: '',
+                              label: ' Multiple Options',
                               isDisabled: true,
                             },
-                            { value: "2", label: "Paris " },
-                            { value: "3", label: "Bucharest" },
-                            { value: "4", label: "Rome" },
-                            { value: "5", label: "New York" },
-                            { value: "6", label: "Miami " },
-                            { value: "7", label: "Piatra Neamt" },
-                            { value: "8", label: "Paris " },
-                            { value: "9", label: "Bucharest" },
-                            { value: "10", label: "Rome" },
-                            { value: "11", label: "New York" },
-                            { value: "12", label: "Miami " },
-                            { value: "13", label: "Piatra Neamt" },
-                            { value: "14", label: "Paris " },
-                            { value: "15", label: "Bucharest" },
-                            { value: "16", label: "Rome" },
-                            { value: "17", label: "New York" },
-                            { value: "18", label: "Miami " },
-                            { value: "19", label: "Piatra Neamt" },
+                            { value: '2', label: 'Paris ' },
+                            { value: '3', label: 'Bucharest' },
+                            { value: '4', label: 'Rome' },
+                            { value: '5', label: 'New York' },
+                            { value: '6', label: 'Miami ' },
+                            { value: '7', label: 'Piatra Neamt' },
+                            { value: '8', label: 'Paris ' },
+                            { value: '9', label: 'Bucharest' },
+                            { value: '10', label: 'Rome' },
+                            { value: '11', label: 'New York' },
+                            { value: '12', label: 'Miami ' },
+                            { value: '13', label: 'Piatra Neamt' },
+                            { value: '14', label: 'Paris ' },
+                            { value: '15', label: 'Bucharest' },
+                            { value: '16', label: 'Rome' },
+                            { value: '17', label: 'New York' },
+                            { value: '18', label: 'Miami ' },
+                            { value: '19', label: 'Piatra Neamt' },
                           ]}
                         />
                       </Col>
@@ -260,7 +260,7 @@ const ExtendedForms = () => {
                     <CardTitle tag="h4">Tags</CardTitle>
                     <TagsInput
                       onChange={handleTagsinput}
-                      tagProps={{ className: "react-tagsinput-tag danger" }}
+                      tagProps={{ className: 'react-tagsinput-tag danger' }}
                       value={tagsinput}
                     />
                   </Col>
@@ -271,7 +271,7 @@ const ExtendedForms = () => {
                         <UncontrolledDropdown>
                           <DropdownToggle
                             aria-expanded={false}
-                            aria-haspopup={true}
+                            aria-haspopup
                             caret
                             className="btn-block"
                             color="primary"
@@ -393,7 +393,7 @@ const ExtendedForms = () => {
         </Row>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default ExtendedForms;
+export default ExtendedForms

@@ -14,8 +14,8 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-/* eslint-disable no-unused-vars*/
-import React from "react";
+/* eslint-disable no-unused-vars */
+import React from 'react'
 
 // reactstrap components
 import {
@@ -31,52 +31,49 @@ import {
   Input,
   Row,
   Col,
-} from "reactstrap";
+} from 'reactstrap'
 
 const ValidationForms = () => {
   // register form
-  const [registerEmail, setregisterEmail] = React.useState("");
-  const [registerPassword, setregisterPassword] = React.useState("");
-  const [registerConfirmPassword, setregisterConfirmPassword] = React.useState(
-    ""
-  );
-  const [registerEmailState, setregisterEmailState] = React.useState("");
-  const [registerPasswordState, setregisterPasswordState] = React.useState("");
-  const [
-    registerConfirmPasswordState,
-    setregisterConfirmPasswordState,
-  ] = React.useState("");
+  const [registerEmail, setregisterEmail] = React.useState('')
+  const [registerPassword, setregisterPassword] = React.useState('')
+  const [registerConfirmPassword, setregisterConfirmPassword] =
+    React.useState('')
+  const [registerEmailState, setregisterEmailState] = React.useState('')
+  const [registerPasswordState, setregisterPasswordState] = React.useState('')
+  const [registerConfirmPasswordState, setregisterConfirmPasswordState] =
+    React.useState('')
   // login form
-  const [loginFullName, setloginFullName] = React.useState("");
-  const [loginEmail, setloginEmail] = React.useState("");
-  const [loginPassword, setloginPassword] = React.useState("");
-  const [loginFullNameState, setloginFullNameState] = React.useState("");
-  const [loginEmailState, setloginEmailState] = React.useState("");
-  const [loginPasswordState, setloginPasswordState] = React.useState("");
+  const [loginFullName, setloginFullName] = React.useState('')
+  const [loginEmail, setloginEmail] = React.useState('')
+  const [loginPassword, setloginPassword] = React.useState('')
+  const [loginFullNameState, setloginFullNameState] = React.useState('')
+  const [loginEmailState, setloginEmailState] = React.useState('')
+  const [loginPasswordState, setloginPasswordState] = React.useState('')
   // type validation form
-  const [required, setrequired] = React.useState("");
-  const [email, setemail] = React.useState("");
-  const [number, setnumber] = React.useState("");
-  const [url, seturl] = React.useState("");
-  const [source, setsource] = React.useState("");
-  const [destination, setdestination] = React.useState("");
-  const [requiredState, setrequiredState] = React.useState("");
-  const [emailState, setemailState] = React.useState("");
-  const [numberState, setnumberState] = React.useState("");
-  const [urlState, seturlState] = React.useState("");
-  const [sourceState, setsourceState] = React.useState("");
-  const [destinationState, setdestinationState] = React.useState("");
+  const [required, setrequired] = React.useState('')
+  const [email, setemail] = React.useState('')
+  const [number, setnumber] = React.useState('')
+  const [url, seturl] = React.useState('')
+  const [source, setsource] = React.useState('')
+  const [destination, setdestination] = React.useState('')
+  const [requiredState, setrequiredState] = React.useState('')
+  const [emailState, setemailState] = React.useState('')
+  const [numberState, setnumberState] = React.useState('')
+  const [urlState, seturlState] = React.useState('')
+  const [sourceState, setsourceState] = React.useState('')
+  const [destinationState, setdestinationState] = React.useState('')
   // range validation form
-  const [minLength, setminLength] = React.useState("");
-  const [maxLength, setmaxLength] = React.useState("");
-  const [range, setrange] = React.useState("");
-  const [min, setmin] = React.useState("");
-  const [max, setmax] = React.useState("");
-  const [minLengthState, setminLengthState] = React.useState("");
-  const [maxLengthState, setmaxLengthState] = React.useState("");
-  const [rangeState, setrangeState] = React.useState("");
-  const [minState, setminState] = React.useState("");
-  const [maxState, setmaxState] = React.useState("");
+  const [minLength, setminLength] = React.useState('')
+  const [maxLength, setmaxLength] = React.useState('')
+  const [range, setrange] = React.useState('')
+  const [min, setmin] = React.useState('')
+  const [max, setmax] = React.useState('')
+  const [minLengthState, setminLengthState] = React.useState('')
+  const [maxLengthState, setmaxLengthState] = React.useState('')
+  const [rangeState, setrangeState] = React.useState('')
+  const [minState, setminState] = React.useState('')
+  const [maxState, setmaxState] = React.useState('')
   const stateFunctions = {
     // register form
     setregisterEmail: (value) => setregisterEmail(value),
@@ -117,194 +114,191 @@ const ValidationForms = () => {
     setrangeState: (value) => setrangeState(value),
     setminState: (value) => setminState(value),
     setmaxState: (value) => setmaxState(value),
-  };
+  }
   // function that returns true if value is email, false otherwise
   const verifyEmail = (value) => {
-    var emailRex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    const emailRex =
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
     if (emailRex.test(value)) {
-      return true;
+      return true
     }
-    return false;
-  };
+    return false
+  }
   // function that verifies if a string has a given length or not
   const verifyLength = (value, length) => {
     if (value.length >= length) {
-      return true;
+      return true
     }
-    return false;
-  };
+    return false
+  }
   // function that verifies if two strings are equal
   const compare = (string1, string2) => {
     if (string1 === string2) {
-      return true;
+      return true
     }
-    return false;
-  };
+    return false
+  }
   // function that verifies if value contains only numbers
   const verifyNumber = (value) => {
-    var numberRex = new RegExp("^[0-9]+$");
+    const numberRex = new RegExp('^[0-9]+$')
     if (numberRex.test(value)) {
-      return true;
+      return true
     }
-    return false;
-  };
+    return false
+  }
   // verifies if value is a valid URL
   const verifyUrl = (value) => {
     try {
-      new URL(value);
-      return true;
+      new URL(value)
+      return true
     } catch (_) {
-      return false;
+      return false
     }
-  };
+  }
   const change = (event, stateName, type, stateNameEqualTo, maxValue) => {
     switch (type) {
-      case "email":
+      case 'email':
         if (verifyEmail(event.target.value)) {
-          stateFunctions["set" + stateName + "State"]("has-success");
+          stateFunctions[`set${stateName}State`]('has-success')
         } else {
-          stateFunctions["set" + stateName + "State"]("has-danger");
+          stateFunctions[`set${stateName}State`]('has-danger')
         }
-        break;
-      case "password":
+        break
+      case 'password':
         if (verifyLength(event.target.value, 1)) {
-          stateFunctions["set" + stateName + "State"]("has-success");
+          stateFunctions[`set${stateName}State`]('has-success')
         } else {
-          stateFunctions["set" + stateName + "State"]("has-danger");
+          stateFunctions[`set${stateName}State`]('has-danger')
         }
-        break;
-      case "equalTo":
+        break
+      case 'equalTo':
         if (compare(event.target.value, stateNameEqualTo.value)) {
-          stateFunctions["set" + stateName + "State"]("has-success");
-          stateFunctions["set" + stateNameEqualTo.stateName + "State"](
-            "has-success"
-          );
+          stateFunctions[`set${stateName}State`]('has-success')
+          stateFunctions[`set${stateNameEqualTo.stateName}State`]('has-success')
         } else {
-          stateFunctions["set" + stateName + "State"]("has-danger");
-          stateFunctions["set" + stateNameEqualTo.stateName + "State"](
-            "has-danger"
-          );
+          stateFunctions[`set${stateName}State`]('has-danger')
+          stateFunctions[`set${stateNameEqualTo.stateName}State`]('has-danger')
         }
-        break;
-      case "number":
+        break
+      case 'number':
         if (verifyNumber(event.target.value)) {
-          stateFunctions["set" + stateName + "State"]("has-success");
+          stateFunctions[`set${stateName}State`]('has-success')
         } else {
-          stateFunctions["set" + stateName + "State"]("has-danger");
+          stateFunctions[`set${stateName}State`]('has-danger')
         }
-        break;
-      case "length":
+        break
+      case 'length':
         if (verifyLength(event.target.value, stateNameEqualTo)) {
-          stateFunctions["set" + stateName + "State"]("has-success");
+          stateFunctions[`set${stateName}State`]('has-success')
         } else {
-          stateFunctions["set" + stateName + "State"]("has-danger");
+          stateFunctions[`set${stateName}State`]('has-danger')
         }
-        break;
-      case "max-length":
+        break
+      case 'max-length':
         if (!verifyLength(event.target.value, stateNameEqualTo + 1)) {
-          stateFunctions["set" + stateName + "State"]("has-success");
+          stateFunctions[`set${stateName}State`]('has-success')
         } else {
-          stateFunctions["set" + stateName + "State"]("has-danger");
+          stateFunctions[`set${stateName}State`]('has-danger')
         }
-        break;
-      case "url":
+        break
+      case 'url':
         if (verifyUrl(event.target.value)) {
-          stateFunctions["set" + stateName + "State"]("has-success");
+          stateFunctions[`set${stateName}State`]('has-success')
         } else {
-          stateFunctions["set" + stateName + "State"]("has-danger");
+          stateFunctions[`set${stateName}State`]('has-danger')
         }
-        break;
-      case "min-value":
+        break
+      case 'min-value':
         if (
           verifyNumber(event.target.value) &&
           event.target.value >= stateNameEqualTo
         ) {
-          stateFunctions["set" + stateName + "State"]("has-success");
+          stateFunctions[`set${stateName}State`]('has-success')
         } else {
-          stateFunctions["set" + stateName + "State"]("has-danger");
+          stateFunctions[`set${stateName}State`]('has-danger')
         }
-        break;
-      case "max-value":
+        break
+      case 'max-value':
         if (
           verifyNumber(event.target.value) &&
           event.target.value <= stateNameEqualTo
         ) {
-          stateFunctions["set" + stateName + "State"]("has-success");
+          stateFunctions[`set${stateName}State`]('has-success')
         } else {
-          stateFunctions["set" + stateName + "State"]("has-danger");
+          stateFunctions[`set${stateName}State`]('has-danger')
         }
-        break;
-      case "range":
+        break
+      case 'range':
         if (
           verifyNumber(event.target.value) &&
           event.target.value >= stateNameEqualTo &&
           event.target.value <= maxValue
         ) {
-          stateFunctions["set" + stateName + "State"]("has-success");
+          stateFunctions[`set${stateName}State`]('has-success')
         } else {
-          stateFunctions["set" + stateName + "State"]("has-danger");
+          stateFunctions[`set${stateName}State`]('has-danger')
         }
-        break;
+        break
       default:
-        break;
+        break
     }
-    stateFunctions["set" + stateName](event.target.value);
-  };
+    stateFunctions[`set${stateName}`](event.target.value)
+  }
   const registerClick = () => {
-    if (registerEmailState === "") {
-      setregisterEmailState("has-danger");
+    if (registerEmailState === '') {
+      setregisterEmailState('has-danger')
     }
-    if (registerPasswordState === "" || registerConfirmPasswordState === "") {
-      setregisterPasswordState("has-danger");
-      setregisterConfirmPasswordState("has-danger");
+    if (registerPasswordState === '' || registerConfirmPasswordState === '') {
+      setregisterPasswordState('has-danger')
+      setregisterConfirmPasswordState('has-danger')
     }
-  };
+  }
   const loginClick = () => {
-    if (loginFullNameState === "") {
-      setloginFullNameState("has-danger");
+    if (loginFullNameState === '') {
+      setloginFullNameState('has-danger')
     }
-    if (loginEmailState === "") {
-      setloginEmailState("has-danger");
+    if (loginEmailState === '') {
+      setloginEmailState('has-danger')
     }
-    if (loginPasswordState === "") {
-      setloginPasswordState("has-danger");
+    if (loginPasswordState === '') {
+      setloginPasswordState('has-danger')
     }
-  };
+  }
   const typeClick = () => {
-    if (requiredState === "") {
-      setrequiredState("has-danger");
+    if (requiredState === '') {
+      setrequiredState('has-danger')
     }
-    if (emailState === "") {
-      setemailState("has-danger");
+    if (emailState === '') {
+      setemailState('has-danger')
     }
-    if (numberState === "") {
-      setnumberState("has-danger");
+    if (numberState === '') {
+      setnumberState('has-danger')
     }
-    if (urlState === "") {
-      seturlState("has-danger");
+    if (urlState === '') {
+      seturlState('has-danger')
     }
-    if (sourceState === "" || destinationState === "") {
-      setsourceState("has-danger");
-      setdestinationState("has-danger");
+    if (sourceState === '' || destinationState === '') {
+      setsourceState('has-danger')
+      setdestinationState('has-danger')
     }
-  };
+  }
   const rangeClick = () => {
-    if (minLengthState === "") {
-      setminLengthState("has-danger");
+    if (minLengthState === '') {
+      setminLengthState('has-danger')
     }
-    if (maxLengthState === "") {
-      setmaxLengthState("has-danger");
+    if (maxLengthState === '') {
+      setmaxLengthState('has-danger')
     }
-    if (rangeState === "") {
-      setrangeState("has-danger");
+    if (rangeState === '') {
+      setrangeState('has-danger')
     }
-    if (minState === "") {
-      setminState("has-danger");
+    if (minState === '') {
+      setminState('has-danger')
     }
-    if (maxState === "") {
-      setmaxState("has-danger");
+    if (maxState === '') {
+      setmaxState('has-danger')
     }
-  };
+  }
   return (
     <>
       <div className="content">
@@ -321,9 +315,9 @@ const ValidationForms = () => {
                     <Input
                       name="email"
                       type="email"
-                      onChange={(e) => change(e, "registerEmail", "email")}
+                      onChange={(e) => change(e, 'registerEmail', 'email')}
                     />
-                    {registerEmailState === "has-danger" ? (
+                    {registerEmailState === 'has-danger' ? (
                       <label className="error">
                         Please enter a valid email address.
                       </label>
@@ -337,10 +331,10 @@ const ValidationForms = () => {
                       type="password"
                       autoComplete="off"
                       onChange={(e) =>
-                        change(e, "registerPassword", "password")
+                        change(e, 'registerPassword', 'password')
                       }
                     />
-                    {registerPasswordState === "has-danger" ? (
+                    {registerPasswordState === 'has-danger' ? (
                       <label className="error">This field is required.</label>
                     ) : null}
                   </FormGroup>
@@ -355,13 +349,13 @@ const ValidationForms = () => {
                       type="password"
                       autoComplete="off"
                       onChange={(e) =>
-                        change(e, "registerConfirmPassword", "equalTo", {
+                        change(e, 'registerConfirmPassword', 'equalTo', {
                           value: registerPassword,
-                          stateName: "registerPassword",
+                          stateName: 'registerPassword',
                         })
                       }
                     />
-                    {registerConfirmPasswordState === "has-danger" ? (
+                    {registerConfirmPasswordState === 'has-danger' ? (
                       <label className="error">This field is required.</label>
                     ) : null}
                   </FormGroup>
@@ -396,9 +390,9 @@ const ValidationForms = () => {
                     <Input
                       name="fullname"
                       type="text"
-                      onChange={(e) => change(e, "loginFullName", "length", 1)}
+                      onChange={(e) => change(e, 'loginFullName', 'length', 1)}
                     />
-                    {loginFullNameState === "has-danger" ? (
+                    {loginFullNameState === 'has-danger' ? (
                       <label className="error">This field is required.</label>
                     ) : null}
                   </FormGroup>
@@ -407,9 +401,9 @@ const ValidationForms = () => {
                     <Input
                       name="email"
                       type="email"
-                      onChange={(e) => change(e, "loginEmail", "email")}
+                      onChange={(e) => change(e, 'loginEmail', 'email')}
                     />
-                    {loginEmailState === "has-danger" ? (
+                    {loginEmailState === 'has-danger' ? (
                       <label className="error">
                         Please enter a valid email address.
                       </label>
@@ -421,9 +415,9 @@ const ValidationForms = () => {
                       name="password"
                       type="password"
                       autoComplete="off"
-                      onChange={(e) => change(e, "loginPassword", "password")}
+                      onChange={(e) => change(e, 'loginPassword', 'password')}
                     />
-                    {loginPasswordState === "has-danger" ? (
+                    {loginPasswordState === 'has-danger' ? (
                       <label className="error">This field is required.</label>
                     ) : null}
                   </FormGroup>
@@ -460,9 +454,9 @@ const ValidationForms = () => {
                         <Input
                           name="required"
                           type="text"
-                          onChange={(e) => change(e, "required", "length", 1)}
+                          onChange={(e) => change(e, 'required', 'length', 1)}
                         />
-                        {requiredState === "has-danger" ? (
+                        {requiredState === 'has-danger' ? (
                           <label className="error">
                             This field is required.
                           </label>
@@ -480,9 +474,9 @@ const ValidationForms = () => {
                         <Input
                           name="email"
                           type="text"
-                          onChange={(e) => change(e, "email", "email")}
+                          onChange={(e) => change(e, 'email', 'email')}
                         />
-                        {emailState === "has-danger" ? (
+                        {emailState === 'has-danger' ? (
                           <label className="error">
                             Please enter a valid email address.
                           </label>
@@ -500,9 +494,9 @@ const ValidationForms = () => {
                         <Input
                           name="number"
                           type="text"
-                          onChange={(e) => change(e, "number", "number")}
+                          onChange={(e) => change(e, 'number', 'number')}
                         />
-                        {numberState === "has-danger" ? (
+                        {numberState === 'has-danger' ? (
                           <label className="error">
                             Please enter a valid number.
                           </label>
@@ -520,9 +514,9 @@ const ValidationForms = () => {
                         <Input
                           name="url"
                           type="text"
-                          onChange={(e) => change(e, "url", "url")}
+                          onChange={(e) => change(e, 'url', 'url')}
                         />
-                        {urlState === "has-danger" ? (
+                        {urlState === 'has-danger' ? (
                           <label className="error">
                             Please enter a valid URL.
                           </label>
@@ -542,9 +536,9 @@ const ValidationForms = () => {
                           placeholder="#idSource"
                           type="text"
                           onChange={(e) =>
-                            change(e, "source", "equalTo", {
+                            change(e, 'source', 'equalTo', {
                               value: destination,
-                              stateName: "destination",
+                              stateName: 'destination',
                             })
                           }
                         />
@@ -557,13 +551,13 @@ const ValidationForms = () => {
                           placeholder="#idDestination"
                           type="text"
                           onChange={(e) =>
-                            change(e, "destination", "equalTo", {
+                            change(e, 'destination', 'equalTo', {
                               value: source,
-                              stateName: "source",
+                              stateName: 'source',
                             })
                           }
                         />
-                        {destinationState === "has-danger" ? (
+                        {destinationState === 'has-danger' ? (
                           <label className="error">
                             Please enter the same value.
                           </label>
@@ -597,9 +591,9 @@ const ValidationForms = () => {
                         <Input
                           name="min_length"
                           type="text"
-                          onChange={(e) => change(e, "minLength", "length", 5)}
+                          onChange={(e) => change(e, 'minLength', 'length', 5)}
                         />
-                        {minLengthState === "has-danger" ? (
+                        {minLengthState === 'has-danger' ? (
                           <label className="error">
                             Please enter at least 5 characters.
                           </label>
@@ -618,10 +612,10 @@ const ValidationForms = () => {
                           name="max_length"
                           type="text"
                           onChange={(e) =>
-                            change(e, "maxLength", "max-length", 5)
+                            change(e, 'maxLength', 'max-length', 5)
                           }
                         />
-                        {maxLengthState === "has-danger" ? (
+                        {maxLengthState === 'has-danger' ? (
                           <label className="error">
                             Please enter 5 or less characters.
                           </label>
@@ -639,9 +633,9 @@ const ValidationForms = () => {
                         <Input
                           name="range"
                           type="text"
-                          onChange={(e) => change(e, "range", "range", 6, 10)}
+                          onChange={(e) => change(e, 'range', 'range', 6, 10)}
                         />
-                        {rangeState === "has-danger" ? (
+                        {rangeState === 'has-danger' ? (
                           <label className="error">
                             Please enter a value between 6 and 10.
                           </label>
@@ -659,9 +653,9 @@ const ValidationForms = () => {
                         <Input
                           name="min"
                           type="text"
-                          onChange={(e) => change(e, "min", "min-value", 6)}
+                          onChange={(e) => change(e, 'min', 'min-value', 6)}
                         />
-                        {minState === "has-danger" ? (
+                        {minState === 'has-danger' ? (
                           <label className="error">
                             Please enter a value greater than or equal to 6.
                           </label>
@@ -679,9 +673,9 @@ const ValidationForms = () => {
                         <Input
                           name="max"
                           type="text"
-                          onChange={(e) => change(e, "max", "max-value", 6)}
+                          onChange={(e) => change(e, 'max', 'max-value', 6)}
                         />
-                        {maxState === "has-danger" ? (
+                        {maxState === 'has-danger' ? (
                           <label className="error">
                             Please enter a value less than or equal to 6.
                           </label>
@@ -704,7 +698,7 @@ const ValidationForms = () => {
         </Row>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default ValidationForms;
+export default ValidationForms

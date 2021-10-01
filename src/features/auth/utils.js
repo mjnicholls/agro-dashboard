@@ -1,15 +1,17 @@
-function b64DecodeUnicode (str) {
+function b64DecodeUnicode(str) {
   return decodeURIComponent(
-    Array.prototype.map.call(atob(str), c =>
-      '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)
-    ).join(''))
+    Array.prototype.map
+      .call(
+        atob(str),
+        (c) => `%${`00${c.charCodeAt(0).toString(16)}`.slice(-2)}`,
+      )
+      .join(''),
+  )
 }
 
-function parseJwt (token) {
+function parseJwt(token) {
   return JSON.parse(
-    b64DecodeUnicode(
-      token.split('.')[1].replace('-', '+').replace('_', '/')
-    )
+    b64DecodeUnicode(token.split('.')[1].replace('-', '+').replace('_', '/')),
   )
 }
 

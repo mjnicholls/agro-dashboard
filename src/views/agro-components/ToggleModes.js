@@ -1,68 +1,63 @@
-import React from 'react';
-import {useDispatch, useSelector} from 'react-redux';
+import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+
+import { Button, ButtonGroup } from 'reactstrap'
+import classNames from 'classnames'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import {
-  Button,
-  ButtonGroup,
-} from "reactstrap";
-import classNames from "classnames";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+  faListUl,
+  faSatellite,
+  faTemperatureLow,
+} from '@fortawesome/free-solid-svg-icons'
+import { setActivePoly, setSatelliteMode } from '../../features/state/actions'
 
-import {setActivePoly, setSatelliteMode} from "../../features/state/actions";
-import { faListUl, faSatellite, faTemperatureLow } from '@fortawesome/free-solid-svg-icons';
-
-
-const selectPolygons = state => state.polygons;
-const selectActivePoly = state => state.state.polygon;
-const selectIsSatelliteMode = state => state.state.isSatelliteMode;
+const selectPolygons = (state) => state.polygons
+const selectActivePoly = (state) => state.state.polygon
+const selectIsSatelliteMode = (state) => state.state.isSatelliteMode
 
 const ToggleModes = () => {
-
-  const dispatch = useDispatch();
-  const polygons = useSelector(selectPolygons);
-  const activePoly = useSelector(selectActivePoly);
-  const isSatelliteMode = useSelector(selectIsSatelliteMode);
+  const dispatch = useDispatch()
+  const polygons = useSelector(selectPolygons)
+  const activePoly = useSelector(selectActivePoly)
+  const isSatelliteMode = useSelector(selectIsSatelliteMode)
 
   const selectAllPolygons = () => {
     if (activePoly) {
-      dispatch(setActivePoly(null));
-      dispatch(setSatelliteMode(true));
+      dispatch(setActivePoly(null))
+      dispatch(setSatelliteMode(true))
     }
   }
 
   const selectSatellite = () => {
     if (activePoly) {
-      dispatch(setSatelliteMode(true));
+      dispatch(setSatelliteMode(true))
     } else {
-      dispatch(setActivePoly(polygons[0]));
-      dispatch(setSatelliteMode(true));
+      dispatch(setActivePoly(polygons[0]))
+      dispatch(setSatelliteMode(true))
     }
   }
 
   const selectWeather = () => {
     if (activePoly) {
-      dispatch(setSatelliteMode(false));
+      dispatch(setSatelliteMode(false))
     } else {
-      dispatch(setActivePoly(polygons[0]));
-      setSatelliteMode(false);
+      dispatch(setActivePoly(polygons[0]))
+      setSatelliteMode(false)
     }
   }
 
-
   return (
-    <ButtonGroup
-      className="btn-group-toggle float-right"
-      data-toggle="buttons"
-    >
+    <ButtonGroup className="btn-group-toggle float-right" data-toggle="buttons">
       <Button
         color="github"
         id="0"
         size="sm"
         tag="label"
-        className={classNames("btn-simple", {
+        className={classNames('btn-simple', {
           active: !activePoly,
         })}
-        style={{padding: "5px 10px"}}
+        style={{ padding: '5px 10px' }}
         onClick={selectAllPolygons}
       >
         <span>
@@ -74,10 +69,10 @@ const ToggleModes = () => {
         id="1"
         size="sm"
         tag="label"
-        className={classNames("btn-simple", {
+        className={classNames('btn-simple', {
           active: activePoly && isSatelliteMode,
         })}
-        style={{padding: "5px 10px"}}
+        style={{ padding: '5px 10px' }}
         onClick={selectSatellite}
       >
         <span>
@@ -89,10 +84,10 @@ const ToggleModes = () => {
         id="2"
         size="sm"
         tag="label"
-        className={classNames("btn-simple", {
+        className={classNames('btn-simple', {
           active: activePoly && !isSatelliteMode,
         })}
-        style={{padding: "5px 10px"}}
+        style={{ padding: '5px 10px' }}
         onClick={selectWeather}
       >
         <span>
@@ -100,6 +95,7 @@ const ToggleModes = () => {
         </span>
       </Button>
     </ButtonGroup>
-)}
+  )
+}
 
-export default ToggleModes;
+export default ToggleModes

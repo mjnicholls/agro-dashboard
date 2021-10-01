@@ -21,7 +21,7 @@ const userEmailSelector = (state) => state.auth.user.email
 const selectActivePoly = (state) => state.state.polygon
 const selectIsSatelliteMode = (state) => state.state.isSatelliteMode
 
-const AdminNavbar = (props) => {
+const AccountNavbar = (props) => {
   const [collapseOpen, setCollapseOpen] = React.useState(false)
   const [color, setColor] = React.useState('navbar-transparent')
   const userEmail = useSelector(userEmailSelector)
@@ -58,6 +58,28 @@ const AdminNavbar = (props) => {
   const logOut = () => {
     dispatch(logoutUser())
   }
+
+  const getActiveRoute = (routes) => {
+    let activeRoute = "Default Brand Text";
+    for (let i = 0; i < routes.length; i++) {
+      if (routes[i].collapse) {
+        let collapseActiveRoute = getActiveRoute(routes[i].views);
+        if (collapseActiveRoute !== activeRoute) {
+          return collapseActiveRoute;
+        }
+      } else {
+        if (
+          window.location.pathname.indexOf(
+            routes[i].layout + routes[i].path
+          ) !== -1
+        ) {
+          return routes[i].name;
+        }
+      }
+    }
+    return activeRoute;
+  };
+
 
   const pageName = () => {
     let activeRoute = 'AgroMonitoring Dashboard'
@@ -176,4 +198,4 @@ const AdminNavbar = (props) => {
   )
 }
 
-export default AdminNavbar
+export default AccountNavbar

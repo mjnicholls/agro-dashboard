@@ -1,5 +1,5 @@
-import React from 'react';
-import {useSelector, useDispatch} from 'react-redux';
+import React from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 
 import {
   Card,
@@ -9,20 +9,19 @@ import {
   Col,
   Row,
   Table,
-} from "reactstrap";
-import classNames from "classnames";
+} from 'reactstrap'
+import classNames from 'classnames'
 
-import ToggleModes from '../agro-components/ToggleModes';
-import {setActivePoly} from "../../features/state/actions";
+import ToggleModes from '../agro-components/ToggleModes'
+import { setActivePoly } from '../../features/state/actions'
 
-const selectActivePoly = state => state.state.polygon;
-const selectPolygons = state => state.polygons;
+const selectActivePoly = (state) => state.state.polygon
+const selectPolygons = (state) => state.polygons
 
 const PolygonTableSmall = () => {
-
-  const activePolygon = useSelector(selectActivePoly);
-  const polygons = useSelector(selectPolygons);
-  const dispatch = useDispatch();
+  const activePolygon = useSelector(selectActivePoly)
+  const polygons = useSelector(selectPolygons)
+  const dispatch = useDispatch()
 
   return (
     <Card className="small-card mb-5 pb-3">
@@ -40,13 +39,16 @@ const PolygonTableSmall = () => {
       <CardBody className="py-2 overflow-auto">
         <Table>
           <tbody>
-            {polygons.map(polygon => (
+            {polygons.map((polygon) => (
               <tr
-                className={classNames("clickable-table-row", {
-                  "highlight-background": polygon.id === activePolygon.id,
+                className={classNames('clickable-table-row', {
+                  'highlight-background': polygon.id === activePolygon.id,
                 })}
-                onClick={() => {dispatch(setActivePoly(polygon))}}
-                key={`polygon_${polygon.id}`} >
+                onClick={() => {
+                  dispatch(setActivePoly(polygon))
+                }}
+                key={`polygon_${polygon.id}`}
+              >
                 <td>{polygon.name}</td>
                 <td className="text-right">{polygon.area.toFixed(1)}ha</td>
               </tr>
@@ -58,4 +60,4 @@ const PolygonTableSmall = () => {
   )
 }
 
-export default PolygonTableSmall;
+export default PolygonTableSmall

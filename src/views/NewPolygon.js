@@ -1,45 +1,42 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react'
 
-import {
-  Col,
-  Row,
-} from "reactstrap";
+import { Col, Row } from 'reactstrap'
 
-import MapBoxDraw from './maps/MapBoxDraw';
-import PolygonCreateCard from './small-cards/PolygonCreateCard';
+import MapBoxDraw from './maps/MapBoxDraw'
+import PolygonCreateCard from './small-cards/PolygonCreateCard'
 
 const PolygonNew = () => {
   /** Draw a new polygon, give it a name */
 
-  const [geoJson, setGeoJson] = React.useState(null);
-  const [area, setArea] = React.useState("");
-  const [intersection, setIntersection] = React.useState(false);
-  const [mode, setMode] = React.useState("draw");
-  const [mapHeight, setMapHeight] = useState(550);
-  const drawRef = React.useRef(null);
+  const [geoJson, setGeoJson] = React.useState(null)
+  const [area, setArea] = React.useState('')
+  const [intersection, setIntersection] = React.useState(false)
+  const [mode, setMode] = React.useState('draw')
+  const [mapHeight, setMapHeight] = useState(550)
+  const drawRef = React.useRef(null)
 
   useEffect(() => {
-    let menuHeight = document.getElementsByClassName('navbar-collapse')[0].clientHeight;
-    let mapHeight = window.innerHeight - menuHeight - 100;
+    const menuHeight =
+      document.getElementsByClassName('navbar-collapse')[0].clientHeight
+    const mapHeight = window.innerHeight - menuHeight - 100
     if (mapHeight > 200) {
-      setMapHeight(mapHeight);
+      setMapHeight(mapHeight)
     }
   }, [])
 
   const resetMap = () => {
-    const data = drawRef.current.getAll();
+    const data = drawRef.current.getAll()
     data.features.forEach((f) => {
       if (f.geometry.type === 'Polygon') {
-        drawRef.current.delete(f.id);
+        drawRef.current.delete(f.id)
       }
     })
-    setArea(null);
-    setGeoJson(null);
+    setArea(null)
+    setGeoJson(null)
   }
 
-  const blockResetMap = () => {
-    return !drawRef.current || !drawRef.current.getAll().features.length
-  }
+  const blockResetMap = () =>
+    !drawRef.current || !drawRef.current.getAll().features.length
 
   return (
     <>

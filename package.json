@@ -51,8 +51,18 @@
     "retry-axios": "^2.4.0"
   },
   "devDependencies": {
+    "@imaginary-cloud/eslint-config-react": "^1.0.1",
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-config-prettier": "^6.15.0",
+    "eslint-plugin-import": "^2.24.2",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-prettier": "^3.4.1",
+    "eslint-plugin-react": "^7.26.1",
+    "eslint-plugin-react-hooks": "^2.5.1",
     "gulp": "4.0.2",
-    "gulp-append-prepend": "1.0.8"
+    "gulp-append-prepend": "1.0.8",
+    "prettier": "^2.4.1"
   },
   "optionalDependencies": {
     "eslint-plugin-flowtype": "5.2.0",
@@ -66,11 +76,12 @@
     "install:clean": "rm -rf node_modules/ && rm -rf package-lock.json && npm install && npm start",
     "compile-sass": "node-sass --importer node_modules/node-sass-package-importer/dist/cli.js src/assets/scss/black-dashboard-pro-react.scss src/assets/css/black-dashboard-pro-react.css",
     "minify-sass": "node-sass --importer node_modules/node-sass-package-importer/dist/cli.js src/assets/scss/black-dashboard-pro-react.scss src/assets/css/black-dashboard-pro-react.min.css --output-style compressed",
-    "map-sass": "node-sass --importer node_modules/node-sass-package-importer/dist/cli.js src/assets/scss/black-dashboard-pro-react.scss src/assets/css/black-dashboard-pro-react.css --source-map true"
+    "map-sass": "node-sass --importer node_modules/node-sass-package-importer/dist/cli.js src/assets/scss/black-dashboard-pro-react.scss src/assets/css/black-dashboard-pro-react.css --source-map true",
+    "lint": "eslint ./ --ignore-path .gitignore",
+    "lint:fix": "npm run lint -- --fix",
+    "format": "prettier --write \"{,!(node_modules)/**/}*.js\""
   },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
+  "prettier": "@imaginary-cloud/prettier-config",
   "browserslist": [
     ">0.2%",
     "not dead",
