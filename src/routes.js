@@ -15,6 +15,8 @@ import Login from './views/pages/Login.js'
 import PolygonNew from './views/NewPolygon'
 import ApiKeys from './views/personal-account/ApiKeys'
 import InvoiceList from './views/personal-account/Payments'
+import RegisterForm from './views/personal-account/Registration'
+
 
 import AccountSettings from './views/personal-account/AccountSettings'
 import AccountSettings2 from './views/personal-account/AccountSettings2'
@@ -122,6 +124,16 @@ const routes = [
         component: Subscription,
         layout: '/dashboard',
       },
+      {
+        path: '/register',
+        name: 'Register',
+        rtlName: '',
+        mini: 'R',
+        rtlMini: '',
+        component: RegisterForm,
+        layout: '/dashboard',
+      }
+      
     ],
   },
 
