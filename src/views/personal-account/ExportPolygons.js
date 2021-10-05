@@ -39,7 +39,7 @@ const ExportPolygon = () => {
           `"${polygons.name}","${polygons.poly_id}","${
             polygons.source
           }","${polygons.created_at.slice(0, 11)}","${
-            polygons.deleted_at || ''
+            polygons.deleted_at? polygons.deleted_at.slice(0, 11) : ''
           }","${polygons.area}"`,
       )
       csv.unshift(header + '')

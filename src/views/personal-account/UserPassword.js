@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { useState } from 'react'
 
 import { useDispatch } from 'react-redux'
@@ -13,6 +14,7 @@ import {
   Input,
 } from 'reactstrap'
 
+
 import {
   notifyError,
   notifySuccess,
@@ -20,22 +22,69 @@ import {
 import { updatePassword } from '../../services/api/personalAccountAPI'
 
 const UserPassword = () => {
+
   const [pass, setPass] = useState('')
   const [confirmPass, setConfirmPass] = useState('')
-  const [error, setError] = useState(null)
+  const [error, setError] = useState({})
 
   const dispatch = useDispatch()
 
   const confirmPassUpdate = () => {
-    setError(null)
 
-    if (!pass.length || !confirmPass.length) {
-      setError(true)
-      dispatch(notifyError('Fields can not be empty'))
+    setError({})
+
+  /*  let newError = {
+      new_password: !pass.length,
+      new_password_confirm: !confirmPass.length
+    }
+
+    */
+   let newError = {}
+
+    if (
+      !pass.length ||
+      !confirmPass.length
+    ) {
+      newError.pass = !pass.length
+      newError.confirmPass = !confirmPass.length
+      dispatch(notifyError('Cannot be empty'))
+      setError(newError)
+      return
+    }
+    
+    if (
+      pass.length < 8 ||
+      confirmPass.length < 8
+    )
+    {
+      newError.pass = pass.length < 8
+      newError.confirmPass = confirmPass.length < 8
+      dispatch(notifyError('Must be eight characters or more'))
+      setError(newError)
+      return
+    }
+    
+    if  (
+      pass !==
+      confirmPass
+    ) {
+      newError.pass = true
+      newError.confirmPass = true
+      dispatch(notifyError('Passwords do not match'))
+      setError(newError)
       return
     }
 
-    updatePassword({
+
+  /*if (Object.values(newError).filter(Boolean).length) {
+    dispatch(notifyError('Please fill in required field'))
+    return
+  }
+   */
+
+
+    updatePassword(
+      {
       new_password: pass,
       new_password_confirm: confirmPass,
     })
@@ -61,7 +110,7 @@ const UserPassword = () => {
               autoComplete="off"
               onChange={(e) => setPass(e.target.value)}
               value={pass}
-              className={error ? 'danger-border' : ''}
+              className={error.pass ? 'danger-border' : ''}
             />
           </FormGroup>
           <FormGroup>
@@ -71,7 +120,7 @@ const UserPassword = () => {
               autoComplete="off"
               onChange={(e) => setConfirmPass(e.target.value)}
               value={confirmPass}
-              className={error ? 'danger-border' : ''}
+              className={error.confirmPass ? 'danger-border' : ''}
             />
           </FormGroup>
         </Form>
