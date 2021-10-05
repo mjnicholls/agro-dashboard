@@ -33,12 +33,6 @@ const UserPassword = () => {
 
     setError({})
 
-  /*  let newError = {
-      new_password: !pass.length,
-      new_password_confirm: !confirmPass.length
-    }
-
-    */
    let newError = {}
 
     if (
@@ -74,13 +68,6 @@ const UserPassword = () => {
       setError(newError)
       return
     }
-
-
-  /*if (Object.values(newError).filter(Boolean).length) {
-    dispatch(notifyError('Please fill in required field'))
-    return
-  }
-   */
 
 
     updatePassword(
