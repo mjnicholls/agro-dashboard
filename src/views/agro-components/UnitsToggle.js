@@ -1,6 +1,8 @@
 import React from 'react'
+
 import { useSelector, useDispatch } from 'react-redux'
 import { CustomInput } from 'reactstrap'
+
 import { setUnits } from '../../features/units/actions'
 
 const selectUnits = (state) => state.units.isMetric

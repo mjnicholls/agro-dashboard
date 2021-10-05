@@ -15,7 +15,6 @@ import {
 
 import ExportPolygons from './ExportPolygons'
 
-
 // import {getPolygons} from '../../services/api/personalAccountAPI.js'
 
 const authSelector = (state) => state.auth

@@ -1,19 +1,18 @@
 import React, { useState } from 'react'
-import { useSelector } from 'react-redux'
 
+import { useSelector } from 'react-redux'
 import { Col, Row } from 'reactstrap'
 
-import MapBox from './maps/MapBox'
 import PolygonTable from './agro-components/PolygonTable'
-import PolygonTableSmall from './small-cards/PolygonList'
-import PolygonsTotalStats from './small-cards/PolygonsTotalStats'
-import PolygonInfo from './small-cards/PolygonInfo'
-
-import ImageStats from './small-cards/LayerStats'
-import SoilCurrent from './small-cards/SoilCurrent'
-import WeatherCurrent from './small-cards/WeatherCurrent'
 import CombinedChart from './charts/CombinedChart'
 import NdviChart from './charts/NdviChart'
+import MapBox from './maps/MapBox'
+import ImageStats from './small-cards/LayerStats'
+import PolygonInfo from './small-cards/PolygonInfo'
+import PolygonTableSmall from './small-cards/PolygonList'
+import PolygonsTotalStats from './small-cards/PolygonsTotalStats'
+import SoilCurrent from './small-cards/SoilCurrent'
+import WeatherCurrent from './small-cards/WeatherCurrent'
 
 const selectPolygons = (state) => state.polygons
 const selectActivePoly = (state) => state.state.polygon

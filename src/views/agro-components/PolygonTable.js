@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
 
 import classnames from 'classnames'
+import ReactBSAlert from 'react-bootstrap-sweetalert'
+import { useDispatch } from 'react-redux'
+import { Link } from 'react-router-dom'
 import {
   Button,
   Card,
@@ -14,13 +15,12 @@ import {
   UncontrolledTooltip,
 } from 'reactstrap'
 
-import ReactBSAlert from 'react-bootstrap-sweetalert'
-import AgroPagination from './AgroPagination'
-import PolygonEdit from './PolygonEdit'
-import PolygonDelete from './PolygonDelete'
-import Shape from './Shape'
-import { toDate } from '../../utils/dateTime'
 import { setActivePoly } from '../../features/state/actions'
+import { toDate } from '../../utils/dateTime'
+import AgroPagination from './AgroPagination'
+import PolygonDelete from './PolygonDelete'
+import PolygonEdit from './PolygonEdit'
+import Shape from './Shape'
 
 // page/setpage
 // input read only

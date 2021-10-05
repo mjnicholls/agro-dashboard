@@ -15,12 +15,15 @@
 
 */
 import React from 'react'
+
 // react plugin used to create datetimepicker
+import ImageUpload from 'components/CustomUpload/ImageUpload.js'
+import TagsInput from 'components/TagsInput/TagsInput.js'
+import Slider from 'nouislider'
 import ReactDatetime from 'react-datetime'
 // react plugin used to create DropdownMenu for selecting items
 import Select from 'react-select'
 // plugin that creates slider
-import Slider from 'nouislider'
 
 // reactstrap components
 import {
@@ -40,8 +43,6 @@ import {
 } from 'reactstrap'
 
 // core components
-import ImageUpload from 'components/CustomUpload/ImageUpload.js'
-import TagsInput from 'components/TagsInput/TagsInput.js'
 
 const ExtendedForms = () => {
   const [singleSelect, setsingleSelect] = React.useState(null)

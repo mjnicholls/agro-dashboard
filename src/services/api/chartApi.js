@@ -1,3 +1,4 @@
+import { axiosInstance } from '../base'
 import {
   historyAccumulatedPrecipitation,
   historyAccumulatedTemperature,
@@ -5,7 +6,6 @@ import {
   historySoil,
   historyWeather,
 } from './index'
-import { axiosInstance } from '../base'
 
 // const parseResponse = (response) => {
 //   if (response) {

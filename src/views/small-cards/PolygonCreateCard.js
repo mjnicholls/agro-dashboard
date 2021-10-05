@@ -1,6 +1,9 @@
-import React, { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+/* eslint-disable */
 
+import React, { useState } from 'react'
+
+import classNames from 'classnames'
+import { useDispatch, useSelector } from 'react-redux'
 import {
   Button,
   Card,
@@ -20,10 +23,10 @@ import {
   TabPane,
   Row,
 } from 'reactstrap'
-import classNames from 'classnames'
-import { addPolygon } from '../../features/polygons/actions'
-import { notifyError } from '../../features/notifications/actions'
+import ImageUpload from '../../components/CustomUpload/ImageUpload.js'
 
+import { notifyError } from '../../features/notifications/actions'
+import { addPolygon } from '../../features/polygons/actions'
 import AllPolygonsButton from '../agro-components/AllPolygonsButton'
 
 const selectMinPolygonArea = (state) =>
@@ -153,6 +156,17 @@ const PolygonCreateCard = ({
               Select
             </NavLink>
           </NavItem>
+          <NavItem>
+            <NavLink
+              data-toggle="tab"
+              className={classNames('agro-tab', {
+                active: mode === 'select',
+              })}
+              onClick={() => setMode('import')}
+            >
+              Import
+            </NavLink>
+          </NavItem>
         </Nav>
         <Form className="form-horizontal">
           <Row>
@@ -224,6 +238,12 @@ const PolygonCreateCard = ({
                 identified crops for your territory at the moment please use the
                 &quot;Draw&quot; mode to create your polygon.
               </span>
+            </ol>
+          </TabPane>
+          <TabPane tabId="import">
+            <ol className="pl-0">
+              <li>Import geo JSON file</li>
+              <ImageUpload />
             </ol>
           </TabPane>
         </TabContent>

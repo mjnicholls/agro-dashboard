@@ -1,6 +1,4 @@
-import { parseJwt } from './utils'
 import { getCookie } from '../../utils/cookies'
-
 import {
   API_KEY_STATUS,
   CLEAR_LOGIN_ERROR,
@@ -12,10 +10,11 @@ import {
   LOGOUT_FRONTEND,
   TOKEN_COOK,
 } from './actions'
+import { parseJwt } from './utils'
 
 let token
 let tokenData
-token = getCookie(TOKEN_COOK)
+token = getCookie(TOKEN_COOK || 'AGRO_TOKEN')
 
 if (token) {
   try {

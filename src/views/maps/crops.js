@@ -1,11 +1,8 @@
 /* eslint-disable */
 
-import {
-  basicBlueColor,
-  removeLayer,
-  removeSource,
-  POLYGON_GROUP_ID,
-} from './base'
+import { basicBlueColor, POLYGON_GROUP_ID } from './base'
+import { removeLayer, removeSource } from './utils'
+
 import { cropColorDict } from '../../config'
 
 export const cropsSourceId = 'crops-agro'

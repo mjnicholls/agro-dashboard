@@ -1,8 +1,9 @@
-import { polygonToLine } from '@turf/turf'
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
 
+import { polygonToLine } from '@turf/turf'
+import { useDispatch } from 'react-redux'
 import { Button, Col, FormGroup, Input, Row } from 'reactstrap'
+
 import { deletePolygon } from '../../features/polygons/actions'
 
 const PolygonDelete = ({ polygon, close }) => {

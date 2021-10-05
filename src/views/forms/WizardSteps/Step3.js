@@ -15,6 +15,7 @@
 
 */
 import React from 'react'
+
 // react plugin used to create DropdownMenu for selecting items
 import Select from 'react-select'
 

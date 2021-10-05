@@ -15,6 +15,7 @@
 
 */
 import React from 'react'
+
 // react plugin used to create a form with multiple steps
 import ReactWizard from 'react-bootstrap-wizard'
 

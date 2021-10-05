@@ -1,5 +1,5 @@
-import { currentSoil, weatherOneCall } from './index'
 import { axiosInstance } from '../base'
+import { currentSoil, weatherOneCall } from './index'
 
 export const getOneCallData = (lat, lon) => {
   const url = `${weatherOneCall}?lat=${lat}&lon=${lon}`

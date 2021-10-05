@@ -1,10 +1,10 @@
+import { startSatelliteImagesSearchDate } from '../../config'
 import { axiosInstance } from '../base'
 import {
   polygonCreate,
   polygonDelete,
   polygonSatelliteImagesList,
 } from './index'
-import { startSatelliteImagesSearchDate } from '../../config'
 
 export const createPolygonApi = async (polygonData) =>
   axiosInstance.post(polygonCreate, polygonData)

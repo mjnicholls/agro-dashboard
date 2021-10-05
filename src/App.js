@@ -1,6 +1,7 @@
 import React from 'react'
-import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom'
+
 import { Provider } from 'react-redux'
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom'
 
 import './assets/css/nucleo-icons.css'
 import '../node_modules/react-notification-alert/dist/animate.css'
@@ -9,14 +10,13 @@ import './assets/demo/demo.css'
 import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css'
 import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css'
 
+import { checkApiKey } from './features/auth/actions'
+import { fetchPolygons } from './features/polygons/actions'
 import AdminLayout from './layouts/Admin/Admin'
 import AuthLayout from './layouts/Auth/Auth'
-import Notifications from './views/agro-components/Notifications'
-
-import store from './store'
-import { fetchPolygons } from './features/polygons/actions'
-import { checkApiKey } from './features/auth/actions'
 import AuthRoute from './services/AuthRoute'
+import store from './store'
+import Notifications from './views/agro-components/Notifications'
 
 const setState = () => {
   if (store.getState().auth.token) {

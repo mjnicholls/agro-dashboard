@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 
+import ReactBSAlert from 'react-bootstrap-sweetalert'
+import { useDispatch, useSelector } from 'react-redux'
 import {
   Button,
   Card,
@@ -10,17 +11,16 @@ import {
   Row,
   Col,
 } from 'reactstrap'
-import ReactBSAlert from 'react-bootstrap-sweetalert'
 
-import OWMWeatherIcon from '../owm-icons'
 import { fetchOneCall } from '../../features/onecall/actions'
-import ChartContainer from '../charts/ui/ChartContainer'
 import { formatDateTime } from '../../utils/dateTime'
 import {
   capitalize,
   convertTemp,
   getPreticipationInfo,
 } from '../../utils/utils'
+import ChartContainer from '../charts/ui/ChartContainer'
+import OWMWeatherIcon from '../owm-icons'
 
 const selectActivePoly = (state) => state.state.polygon
 const selectOneCall = (state) => state.onecall

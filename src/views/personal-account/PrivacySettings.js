@@ -1,6 +1,6 @@
 /* eslint-disable */
-import React from "react";
-import { useDispatch } from "react-redux";
+import React from 'react'
+import { useDispatch } from 'react-redux'
 import {
   Button,
   Card,
@@ -10,35 +10,37 @@ import {
   CardTitle,
   Col,
   Label,
+  Form,
   FormGroup,
   Input,
-} from "reactstrap";
+  Row,
+} from 'reactstrap'
 
-import { updateMailing } from "../../services/api/personalAccountAPI";
+import { updateMailing } from '../../services/api/personalAccountAPI'
 import {
   notifyError,
   notifySuccess,
-} from "../../features/notifications/actions";
+} from '../../features/notifications/actions'
 
 const PrivacySettings = ({ mailSettings, setMailSettings }) => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
   const handleCheckBoxClick = (key, value) => {
     // eslint-disable-next-line
-    let newObj = Object.assign({}, mailSettings);
-    newObj[key] = value;
-    setMailSettings(newObj);
-  };
+    let newObj = Object.assign({}, mailSettings)
+    newObj[key] = value
+    setMailSettings(newObj)
+  }
 
   const confirmMailSettings = () => {
     updateMailing(mailSettings)
       .then(() => {
-        dispatch(notifySuccess("Settings updated"));
+        dispatch(notifySuccess('Settings updated'))
       })
       .catch((error) => {
-        dispatch(notifyError("Error updating settings " + error.message));
-      });
-  };
+        dispatch(notifyError('Error updating settings ' + error.message))
+      })
+  }
 
   return (
     <Card>
@@ -46,52 +48,60 @@ const PrivacySettings = ({ mailSettings, setMailSettings }) => {
         <CardTitle tag="h4">Privacy Settings</CardTitle>
       </CardHeader>
       <CardBody>
-        <Label sm="12">
-          Please indicate what news from our company you would like to receive
-          by email:
-        </Label>
-        <Col className="checkbox-radios" sm="12">
-          <FormGroup check>
-            <Label check>
-              <Input
-                type="checkbox"
-                onChange={(e) => {
-                  handleCheckBoxClick("news", e.target.checked);
-                }}
-                checked={mailSettings.news}
-              />
-              <span className="form-check-sign" />
-              System news (API usage alerts, system updates, temporary system
-              shutdown, etc)
-            </Label>
-          </FormGroup>
-          <FormGroup check>
-            <Label check>
-              <Input
-                type="checkbox"
-                onChange={(e) => {
-                  handleCheckBoxClick("product", e.target.checked);
-                }}
-                checked={mailSettings.product}
-              />
-              <span className="form-check-sign" />
-              Product news (changes to prices, new product features, etc)
-            </Label>
-          </FormGroup>
-          <FormGroup check>
-            <Label check>
-              <Input
-                type="checkbox"
-                onChange={(e) => {
-                  handleCheckBoxClick("system", e.target.checked);
-                }}
-                checked={mailSettings.system}
-              />
-              <span className="form-check-sign" />
-              Corporate news (our life, launch of new services, etc)
-            </Label>
-          </FormGroup>
-        </Col>
+        <Row>
+          <Col>
+            <p>
+              Please indicate what news from our company you would like to
+              receive by email:
+            </p>
+            <Form className="checkbox-radios ml-5">
+              <FormGroup check>
+                <Label check>
+                  <Input
+                    type="checkbox"
+                    onChange={(e) => {
+                      handleCheckBoxClick('news', e.target.checked)
+                    }}
+                    checked={mailSettings.news}
+                  />
+                  <span className="form-check-sign" />
+                  <p>
+                    System news (API usage alerts, system updates, temporary
+                    system shutdown, etc)
+                  </p>
+                </Label>
+              </FormGroup>
+              <FormGroup check>
+                <Label check>
+                  <Input
+                    type="checkbox"
+                    onChange={(e) => {
+                      handleCheckBoxClick('product', e.target.checked)
+                    }}
+                    checked={mailSettings.product}
+                  />
+                  <span className="form-check-sign" />
+                  <p>
+                    Product news (changes to prices, new product features, etc)
+                  </p>
+                </Label>
+              </FormGroup>
+              <FormGroup check>
+                <Label check>
+                  <Input
+                    type="checkbox"
+                    onChange={(e) => {
+                      handleCheckBoxClick('system', e.target.checked)
+                    }}
+                    checked={mailSettings.system}
+                  />
+                  <span className="form-check-sign" />
+                  <p>Corporate news (our life, launch of new services, etc)</p>
+                </Label>
+              </FormGroup>
+            </Form>
+          </Col>
+        </Row>
       </CardBody>
       <CardFooter className="text-right">
         <Button
@@ -99,13 +109,12 @@ const PrivacySettings = ({ mailSettings, setMailSettings }) => {
           color="primary"
           type="button"
           onClick={confirmMailSettings}
-          style={{ marginTop: "28px" }}
         >
           Update
         </Button>
       </CardFooter>
     </Card>
-  );
-};
+  )
+}
 
-export default PrivacySettings;
+export default PrivacySettings

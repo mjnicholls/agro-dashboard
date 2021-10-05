@@ -15,21 +15,20 @@
 
 */
 import React from 'react'
-import { Route, Switch, Redirect, useLocation } from 'react-router-dom'
-// javascript plugin used to create scrollbars on windows
-import PerfectScrollbar from 'perfect-scrollbar'
-// react plugin for creating notifications over the dashboard
-import NotificationAlert from 'react-notification-alert'
-
-// core components
-import RTLNavbar from 'components/Navbars/RTLNavbar.js'
-import Footer from 'components/Footer/Footer.js'
-import Sidebar from 'components/Sidebar/Sidebar.js'
-import FixedPlugin from 'components/FixedPlugin/FixedPlugin.js'
-
-import routes from 'routes.js'
 
 import logo from 'assets/img/react-logo.png'
+import FixedPlugin from 'components/FixedPlugin/FixedPlugin.js'
+import Footer from 'components/Footer/Footer.js'
+import RTLNavbar from 'components/Navbars/RTLNavbar.js'
+import Sidebar from 'components/Sidebar/Sidebar.js'
+import PerfectScrollbar from 'perfect-scrollbar'
+import NotificationAlert from 'react-notification-alert'
+import { Route, Switch, Redirect, useLocation } from 'react-router-dom'
+// javascript plugin used to create scrollbars on windows
+// react plugin for creating notifications over the dashboard
+
+// core components
+import routes from 'routes.js'
 
 let ps
 

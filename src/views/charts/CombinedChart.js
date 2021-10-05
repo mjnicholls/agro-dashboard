@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
 
+import classNames from 'classnames'
+import { useSelector } from 'react-redux'
 import {
   Card,
   CardHeader,
@@ -12,9 +13,7 @@ import {
   Label,
   Row,
 } from 'reactstrap'
-import classNames from 'classnames'
 
-import DatePickerFromTo from './ui/DatePickerFromTo'
 import {
   AccumulatedChart,
   DailyChart,
@@ -22,8 +21,9 @@ import {
   HistoryWeather,
   HistorySoilChart,
 } from '.'
-import { getDateInPast } from '../../utils/dateTime'
 import { defaultStartHistoryWeatherCharts, treshold } from '../../config'
+import { getDateInPast } from '../../utils/dateTime'
+import DatePickerFromTo from './ui/DatePickerFromTo'
 import TabsSelector from './ui/TabsSelector'
 
 const selectOneCall = (state) => state.onecall

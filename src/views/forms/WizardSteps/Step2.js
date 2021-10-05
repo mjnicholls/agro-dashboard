@@ -17,10 +17,10 @@
 import React from 'react'
 
 // reactstrap components
+import ImageUpload from 'components/CustomUpload/ImageUpload.js'
 import { Row, Col } from 'reactstrap'
 
 // core components
-import ImageUpload from 'components/CustomUpload/ImageUpload.js'
 
 const Step2 = React.forwardRef((props, ref) => {
   React.useImperativeHandle(ref, () => ({

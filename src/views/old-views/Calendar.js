@@ -15,16 +15,16 @@
 
 */
 import React from 'react'
+
 // react component used to create a calendar with events on it
+import moment from 'moment'
 import { Calendar as BigCalendar, momentLocalizer } from 'react-big-calendar'
 // dependency plugin for react-big-calendar
-import moment from 'moment'
 // react component used to create alerts
 import SweetAlert from 'react-bootstrap-sweetalert'
 
 // reactstrap components
 import { Card, CardBody, Row, Col } from 'reactstrap'
-
 import { events } from 'variables/general.js'
 
 const localizer = momentLocalizer(moment)

@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
 
 import { Line } from 'react-chartjs-2'
+import { useSelector } from 'react-redux'
 
-import ChartContainer from './ui/ChartContainer'
+import { tariffError } from '../../config'
 import { getAccumulatedData } from '../../services/api/chartApi'
 import { toDate } from '../../utils/dateTime'
 import { chartOptions } from './base'
-import { tariffError } from '../../config'
+import ChartContainer from './ui/ChartContainer'
 
 const selectUnits = (state) => state.units.isMetric
 

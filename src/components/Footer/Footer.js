@@ -1,6 +1,7 @@
 import React from 'react'
-import { Container } from 'reactstrap'
+
 import PropTypes from 'prop-types'
+import { Container } from 'reactstrap'
 
 const Footer = (props) => (
   <footer className={`footer${props.default ? ' footer-default' : ''}`}>

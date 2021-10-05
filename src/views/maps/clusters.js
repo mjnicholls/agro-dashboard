@@ -1,4 +1,4 @@
-import { removeLayer, removeSource } from './base'
+import { removeLayer, removeSource } from './utils'
 
 const CLUSTER_SOURCE_ID = 'polygon_clusters'
 
@@ -158,13 +158,5 @@ export const displayClusters = (map, polygons, onHover) => {
         },
       )
     })
-
-    // map.on('mouseleave', 'unclustered-point', function () {
-    //   onHover(null)
-    // })
-    //
-    // map.on('mouseleave', 'clusters', function () {
-    //   onHover(null)
-    // })
   }
 }

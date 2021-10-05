@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
-import { Col, Row } from 'reactstrap'
 import Select from 'react-select'
+import { Col, Row } from 'reactstrap'
 
 import { availableLayers } from '../../../config'
 

@@ -1,18 +1,17 @@
 /* eslint-disable */
-import React from "react";
-import { Col, Form, Label, FormGroup, Input, Row } from "reactstrap";
-import Select from "react-select";
+import React from 'react'
+import { Col, Form, Label, FormGroup, Input, Row } from 'reactstrap'
+import Select from 'react-select'
 
-import { titles } from "../../../config";
-
+import { titles } from '../../../config'
 
 const Step1 = ({ invoiceSettings, setInvoiceSettings, isNew, error }) => {
   const handleChange = (key, value) => {
     // eslint-disable-next-line
-    let newObj = Object.assign({}, invoiceSettings);
-    newObj[key] = value;
-    setInvoiceSettings(newObj);
-  };
+    let newObj = Object.assign({}, invoiceSettings)
+    newObj[key] = value
+    setInvoiceSettings(newObj)
+  }
 
   return (
     <div>
@@ -24,9 +23,9 @@ const Step1 = ({ invoiceSettings, setInvoiceSettings, isNew, error }) => {
               id="individualRadioButton"
               name="legalForm"
               type="radio"
-              checked={invoiceSettings.type === "individual"}
-              onChange={() => handleChange("type", "individual")}
-              disabled={!isNew && invoiceSettings.type === "organisation"}
+              checked={invoiceSettings.type === 'individual'}
+              onChange={() => handleChange('type', 'individual')}
+              disabled={!isNew && invoiceSettings.type === 'organisation'}
             />
             <span className="form-check-sign" />
             Individual
@@ -36,9 +35,9 @@ const Step1 = ({ invoiceSettings, setInvoiceSettings, isNew, error }) => {
               id="organisationRadioButton"
               name="legalForm"
               type="radio"
-              checked={invoiceSettings.type === "organisation"}
-              onChange={() => handleChange("type", "organisation")}
-              disabled={!isNew && invoiceSettings.type === "individual"}
+              checked={invoiceSettings.type === 'organisation'}
+              onChange={() => handleChange('type', 'organisation')}
+              disabled={!isNew && invoiceSettings.type === 'individual'}
             />
             <span className="form-check-sign" />
             Organisation
@@ -47,10 +46,10 @@ const Step1 = ({ invoiceSettings, setInvoiceSettings, isNew, error }) => {
       </Form>
 
       <Form className="form-horizontal">
-        {invoiceSettings.type === "individual" ? (
+        {invoiceSettings.type === 'individual' ? (
           <>
             <Row>
-              <Col md="12" style={{ marginTop: "20px" }}>
+              <Col md="12" style={{ marginTop: '20px' }}>
                 <Label>Title *</Label>
                 <FormGroup>
                   <Select
@@ -67,9 +66,9 @@ const Step1 = ({ invoiceSettings, setInvoiceSettings, isNew, error }) => {
                 <FormGroup>
                   <Input
                     type="text"
-                    onChange={(e) => handleChange("first_name", e.target.value)}
+                    onChange={(e) => handleChange('first_name', e.target.value)}
                     value={invoiceSettings.first_name}
-                    className={error.first_name ? "danger-border" : ""}
+                    className={error.first_name ? 'danger-border' : ''}
                   />
                 </FormGroup>
               </Col>
@@ -80,9 +79,9 @@ const Step1 = ({ invoiceSettings, setInvoiceSettings, isNew, error }) => {
                 <FormGroup>
                   <Input
                     type="text"
-                    onChange={(e) => handleChange("last_name", e.target.value)}
+                    onChange={(e) => handleChange('last_name', e.target.value)}
                     value={invoiceSettings.last_name}
-                    className={error.last_name ? "danger-border" : ""}
+                    className={error.last_name ? 'danger-border' : ''}
                   />
                 </FormGroup>
               </Col>
@@ -91,16 +90,16 @@ const Step1 = ({ invoiceSettings, setInvoiceSettings, isNew, error }) => {
         ) : (
           <>
             <Row>
-              <Col md="12" style={{ marginTop: "20px" }}>
+              <Col md="12" style={{ marginTop: '20px' }}>
                 <Label>Organisation *</Label>
                 <FormGroup>
                   <Input
                     type="text"
                     onChange={(e) =>
-                      handleChange("organisation", e.target.value)
+                      handleChange('organisation', e.target.value)
                     }
                     value={invoiceSettings.organisation}
-                    className={error.organisation ? "danger-border" : ""}
+                    className={error.organisation ? 'danger-border' : ''}
                   />
                 </FormGroup>
               </Col>
@@ -112,10 +111,10 @@ const Step1 = ({ invoiceSettings, setInvoiceSettings, isNew, error }) => {
                   <Input
                     type="text"
                     onChange={(e) => {
-                      handleChange("vat_id", e.target.value);
+                      handleChange('vat_id', e.target.value)
                     }}
                     value={invoiceSettings.vat_id}
-                    className={error.vat_id ? "danger-border" : ""}
+                    className={error.vat_id ? 'danger-border' : ''}
                   />
                 </FormGroup>
               </Col>
@@ -124,7 +123,7 @@ const Step1 = ({ invoiceSettings, setInvoiceSettings, isNew, error }) => {
         )}
       </Form>
     </div>
-  );
-};
+  )
+}
 
-export default Step1;
+export default Step1

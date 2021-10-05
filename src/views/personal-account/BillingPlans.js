@@ -749,9 +749,9 @@ const BillingPlans = () => {
                       (available for Starter subscription plan and above). In
                       this case, you will be charged according to your
                       subscription plan (please see the &#34;Price for exceeded
-                      area&#34; row in the pricing table). We send you an invoice
-                      for the exceeded amount at the very beginning of the next
-                      month.
+                      area&#34; row in the pricing table). We send you an
+                      invoice for the exceeded amount at the very beginning of
+                      the next month.
                     </h4>
                   </Col>
                 </Row>

@@ -23,7 +23,8 @@ axiosInstance.interceptors.request.use(function (config) {
 
 axiosInstance.interceptors.response.use(
   (response) => response,
-  (error) => { // eslint-disable-line
+  // eslint-disable-next-line
+  (error) => {
     if (error.response && error.response.status === 401) {
       store.dispatch(receiveLogout())
     } else {

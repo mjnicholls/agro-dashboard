@@ -1,7 +1,7 @@
-/* eslint-disable */
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
+
 import classnames from 'classnames'
+import { useDispatch } from 'react-redux'
 import Select from 'react-select'
 import {
   Button,
@@ -18,25 +18,24 @@ import {
   Row,
 } from 'reactstrap'
 
+import { countriesDefault, titles } from '../../config'
+import {
+  notifyError,
+  notifySuccess,
+} from '../../features/notifications/actions'
 import {
   invoiceEdit,
   confirmUserVat,
   getCountries,
   invoiceCreate,
 } from '../../services/api/personalAccountAPI'
-import {
-  notifyError,
-  notifySuccess,
-} from '../../features/notifications/actions'
-
-import { countriesDefault, titles } from '../../config'
-
 
 const InvoiceSettings = ({
   invoiceSettings,
   setInvoiceSettings,
   isNew,
   refreshData,
+  isActiveStripeCustomer,
 }) => {
   const dispatch = useDispatch()
   const [error, setError] = useState({})
@@ -51,31 +50,37 @@ const InvoiceSettings = ({
   }, [invoiceSettings])
 
   const handleChange = (key, value) => {
-    // eslint-disable-next-line
-    let newObj = Object.assign({}, invoiceSettings)
+    let newObj = { ...invoiceSettings }
     newObj[key] = value
     setInvoiceSettings(newObj)
   }
 
-  const billingInfoCreate = () => {
-    invoiceCreate(invoiceSettings)
-      .then(() => {
-        dispatch(notifySuccess('Billing details saved'))
-        refreshData()
-      })
-      .catch((error) => {
-        dispatch(notifyError('Error saving billing details ' + error.message))
-      })
+  const getCountryName = () => {
+    let country = countries.find((obj) => obj.code === invoiceSettings.country)
+    return country ? country.name : ''
   }
 
   const billingInfoUpdate = () => {
-    invoiceEdit(invoiceSettings)
-      .then(() => {
-        dispatch(notifySuccess('Billing details updated'))
-      })
-      .catch((error) => {
-        dispatch(notifyError('Error updating billing details ' + error.message))
-      })
+    if (isNew) {
+      invoiceCreate(invoiceSettings)
+        .then(() => {
+          dispatch(notifySuccess('Billing details saved'))
+          refreshData()
+        })
+        .catch((error) => {
+          dispatch(notifyError('Error saving billing details ' + error.message))
+        })
+    } else {
+      invoiceEdit(invoiceSettings)
+        .then(() => {
+          dispatch(notifySuccess('Billing details updated'))
+        })
+        .catch((error) => {
+          dispatch(
+            notifyError('Error updating billing details ' + error.message),
+          )
+        })
+    }
   }
 
   const confirmInvoice = () => {
@@ -97,11 +102,8 @@ const InvoiceSettings = ({
         newError.first_name = !invoiceSettings.first_name.length
         newError.last_name = !invoiceSettings.last_name.length
       }
-    } else {
-      // eslint-disable-next-line
-      if (!invoiceSettings.organisation.length) {
-        newError.organisation = true
-      }
+    } else if (!invoiceSettings.organisation.length) {
+      newError.organisation = true
     }
     setError(newError)
 
@@ -109,22 +111,19 @@ const InvoiceSettings = ({
       dispatch(notifyError('Please fill in required fields'))
       return
     }
-
     if (
       invoiceSettings.type === 'organisation' &&
       invoiceSettings.vat_id.length
     ) {
       confirmUserVat(invoiceSettings.vat_id)
         .then(() => {
-          // eslint-disable-next-line
-          isNew ? billingInfoCreate() : billingInfoUpdate()
+          billingInfoUpdate()
         })
         .catch(() => {
           dispatch(notifyError('Incorrect VAT number'))
         })
     } else {
-      // eslint-disable-next-line
-      isNew ? billingInfoCreate() : billingInfoUpdate()
+      billingInfoUpdate()
     }
   }
 
@@ -132,266 +131,246 @@ const InvoiceSettings = ({
     <Card>
       <CardHeader>
         <CardTitle tag="h4">Billing Details</CardTitle>
-        <Form>
-          <Label>Legal form: </Label>
-          <FormGroup check className="form-check-radio">
-            <Label check className="mr-3">
-              <Input
-                id="individualRadioButton"
-                name="legalForm"
-                type="radio"
-                checked={invoiceSettings.type === 'individual'}
-                onChange={() => handleChange('type', 'individual')}
-                disabled={!isNew && invoiceSettings.type === 'organisation'}
-              />
-              <span className="form-check-sign" />
-              Individual
-            </Label>
-            <Label check>
-              <Input
-                id="organisationRadioButton"
-                name="legalForm"
-                type="radio"
-                checked={invoiceSettings.type === 'organisation'}
-                onChange={() => handleChange('type', 'organisation')}
-                disabled={!isNew && invoiceSettings.type === 'individual'}
-              />
-              <span className="form-check-sign" />
-              Organisation
-            </Label>
-          </FormGroup>
-        </Form>
       </CardHeader>
       <CardBody>
-        <Form className="form-horizontal">
-          {invoiceSettings.type === 'individual' ? (
-            <>
+        <Form>
+          <Row className="mb-3">
+            <Col>
+              <Label>Legal form: </Label>
+              <FormGroup check className="form-check-radio">
+                <Label check className="mr-3">
+                  <Input
+                    id="individualRadioButton"
+                    name="legalForm"
+                    type="radio"
+                    checked={invoiceSettings.type === 'individual'}
+                    onChange={() => handleChange('type', 'individual')}
+                    disabled={
+                      isActiveStripeCustomer &&
+                      invoiceSettings.type === 'organisation'
+                    }
+                  />
+                  <span className="form-check-sign" />
+                  Individual
+                </Label>
+                <Label check>
+                  <Input
+                    id="organisationRadioButton"
+                    name="legalForm"
+                    type="radio"
+                    checked={invoiceSettings.type === 'organisation'}
+                    onChange={() => handleChange('type', 'organisation')}
+                    disabled={
+                      isActiveStripeCustomer &&
+                      invoiceSettings.type === 'individual'
+                    }
+                  />
+                  <span className="form-check-sign" />
+                  Organisation
+                </Label>
+              </FormGroup>
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              {invoiceSettings.type === 'individual' ? (
+                <>
+                  <Row>
+                    <Col>
+                      <Label>Title</Label>
+                      <FormGroup>
+                        <Select
+                          className="react-select info mb-3"
+                          classNamePrefix="react-select"
+                          options={titles}
+                        />
+                      </FormGroup>
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col>
+                      <Label>First Name *</Label>
+                      <FormGroup>
+                        <Input
+                          type="text"
+                          onChange={(e) =>
+                            handleChange('first_name', e.target.value)
+                          }
+                          value={invoiceSettings.first_name}
+                          className={error.first_name ? 'danger-border' : ''}
+                        />
+                      </FormGroup>
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col>
+                      <Label>Last Name *</Label>
+                      <FormGroup>
+                        <Input
+                          type="text"
+                          onChange={(e) =>
+                            handleChange('last_name', e.target.value)
+                          }
+                          value={invoiceSettings.last_name}
+                          className={error.last_name ? 'danger-border' : ''}
+                        />
+                      </FormGroup>
+                    </Col>
+                  </Row>
+                </>
+              ) : (
+                <>
+                  <Row>
+                    <Col>
+                      <Label>Organisation *</Label>
+                      <FormGroup>
+                        <Input
+                          type="text"
+                          onChange={(e) =>
+                            handleChange('organisation', e.target.value)
+                          }
+                          value={invoiceSettings.organisation}
+                          className={error.organisation ? 'danger-border' : ''}
+                        />
+                      </FormGroup>
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col>
+                      <Label>VAT ID</Label>
+                      <FormGroup>
+                        <Input
+                          type="text"
+                          onChange={(e) => {
+                            handleChange('vat_id', e.target.value)
+                          }}
+                          value={invoiceSettings.vat_id}
+                          className={error.vat_id ? 'danger-border' : ''}
+                        />
+                      </FormGroup>
+                    </Col>
+                  </Row>
+                </>
+              )}
               <Row>
-                <Col md="2">
-                  <Label>Title</Label>
+                <Col>
+                  <Label>Phone *</Label>
+                  <FormGroup>
+                    <Input
+                      type="text"
+                      onChange={(e) => handleChange('phone', e.target.value)}
+                      value={invoiceSettings.phone}
+                      className={error.phone ? 'danger-border' : ''}
+                    />
+                  </FormGroup>
                 </Col>
-                <Col md="10">
+              </Row>
+            </Col>
+            <Col>
+              <Row>
+                <Col>
+                  <Label>Country *</Label>
                   <FormGroup>
                     <Select
-                      className="react-select info mb-3"
+                      className={classnames(
+                        'react-select info mb-3',
+                        error.country ? 'danger-border' : '',
+                      )}
                       classNamePrefix="react-select"
-                      options={titles}
-                    />
-                  </FormGroup>
-                </Col>
-              </Row>
-              <Row>
-                <Col md="2">
-                  <Label>First Name *</Label>
-                </Col>
-                <Col md="10">
-                  <FormGroup>
-                    <Input
-                      type="text"
-                      onChange={(e) =>
-                        handleChange('first_name', e.target.value)
-                      }
-                      value={invoiceSettings.first_name}
-                      className={error.first_name ? 'danger-border' : ''}
-                    />
-                  </FormGroup>
-                </Col>
-              </Row>
-              <Row>
-                <Col md="2">
-                  <Label>Last Name *</Label>
-                </Col>
-                <Col md="10">
-                  <FormGroup>
-                    <Input
-                      type="text"
-                      onChange={(e) =>
-                        handleChange('last_name', e.target.value)
-                      }
-                      value={invoiceSettings.last_name}
-                      className={error.last_name ? 'danger-border' : ''}
-                    />
-                  </FormGroup>
-                </Col>
-              </Row>
-            </>
-          ) : (
-            <>
-              <Row>
-                <Col md="2">
-                  <Label>Organisation *</Label>
-                </Col>
-                <Col md="10">
-                  <FormGroup>
-                    <Input
-                      type="text"
-                      onChange={(e) =>
-                        handleChange('organisation', e.target.value)
-                      }
-                      value={invoiceSettings.organisation}
-                      className={error.organisation ? 'danger-border' : ''}
-                    />
-                  </FormGroup>
-                </Col>
-              </Row>
-              <Row>
-                <Col md="2">
-                  <Label>VAT ID</Label>
-                </Col>
-                <Col md="10">
-                  <FormGroup>
-                    <Input
-                      type="text"
-                      onChange={(e) => {
-                        handleChange('vat_id', e.target.value)
+                      onChange={(country) => {
+                        handleChange('country', country.code)
                       }}
-                      value={invoiceSettings.vat_id}
-                      className={error.vat_id ? 'danger-border' : ''}
+                      options={countries}
+                      getOptionLabel={(option) => option.name}
+                      getOptionValue={(option) => option.code}
+                      placeholder={getCountryName()}
+                      isDisabled={isActiveStripeCustomer}
                     />
                   </FormGroup>
                 </Col>
               </Row>
-            </>
-          )}
-          <Row>
-            <Col md="2">
-              <Label>Country *</Label>
-            </Col>
-            <Col md="10">
-              <FormGroup>
-                <Select
-                  className={classnames(
-                    'react-select info mb-3',
-                    error.country ? 'danger-border' : '',
-                  )}
-                  classNamePrefix="react-select"
-                  onChange={(country) => {
-                    handleChange('country', country.code)
-                  }}
-                  options={countries}
-                  getOptionLabel={(option) => option.name}
-                  getOptionValue={(option) => option.code}
-                  placeholder={
-                    invoiceSettings.country
-                      ? countries.find(
-                          (obj) => obj.code === invoiceSettings.country,
-                        ).name
-                      : ''
-                  }
-                />
-              </FormGroup>
-            </Col>
-          </Row>
-          <Row>
-            <Col md="2">
-              <Label>Address Line 1 *</Label>
-            </Col>
-            <Col md="10">
-              <FormGroup>
-                <Input
-                  type="text"
-                  onChange={(e) =>
-                    handleChange('address_line_1', e.target.value)
-                  }
-                  value={invoiceSettings.address_line_1}
-                  className={error.address_line_1 ? 'danger-border' : ''}
-                />
-              </FormGroup>
-            </Col>
-          </Row>
-          <Row>
-            <Col md="2">
-              <Label>Address Line 2</Label>
-            </Col>
-            <Col md="10">
-              <FormGroup>
-                <Input
-                  type="text"
-                  onChange={(e) =>
-                    handleChange('address_line_2', e.target.value)
-                  }
-                  value={invoiceSettings.address_line_2}
-                />
-              </FormGroup>
-            </Col>
-          </Row>
-          <Row>
-            <Col md="2">
-              <Label>City *</Label>
-            </Col>
-            <Col md="10">
-              <FormGroup>
-                <Input
-                  type="text"
-                  onChange={(e) => handleChange('city', e.target.value)}
-                  value={invoiceSettings.city}
-                  className={error.city ? 'danger-border' : ''}
-                />
-              </FormGroup>
-            </Col>
-          </Row>
-          <Row>
-            <Col md="2">
-              <Label>Postcode *</Label>
-            </Col>
-            <Col md="10">
-              <FormGroup>
-                <Input
-                  type="text"
-                  onChange={(e) => handleChange('postal_code', e.target.value)}
-                  value={invoiceSettings.postal_code}
-                  className={error.postal_code ? 'danger-border' : ''}
-                />
-              </FormGroup>
-            </Col>
-          </Row>
-          <Row>
-            <Col md="2">
-              <Label>State</Label>
-            </Col>
-            <Col md="10">
-              <FormGroup>
-                <Input
-                  type="text"
-                  onChange={(e) => handleChange('state', e.target.value)}
-                  value={invoiceSettings.state}
-                />
-              </FormGroup>
-            </Col>
-          </Row>
-          <Row>
-            <Col md="2">
-              <Label>Phone *</Label>
-            </Col>
-            <Col md="10">
-              <FormGroup>
-                <Input
-                  type="text"
-                  onChange={(e) => handleChange('phone', e.target.value)}
-                  value={invoiceSettings.phone}
-                  className={error.phone ? 'danger-border' : ''}
-                />
-              </FormGroup>
+              <Row>
+                <Col>
+                  <Label>Address Line 1 *</Label>
+                  <FormGroup>
+                    <Input
+                      type="text"
+                      onChange={(e) =>
+                        handleChange('address_line_1', e.target.value)
+                      }
+                      value={invoiceSettings.address_line_1}
+                      className={error.address_line_1 ? 'danger-border' : ''}
+                    />
+                  </FormGroup>
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <Label>Address Line 2</Label>
+                  <FormGroup>
+                    <Input
+                      type="text"
+                      onChange={(e) =>
+                        handleChange('address_line_2', e.target.value)
+                      }
+                      value={invoiceSettings.address_line_2}
+                    />
+                  </FormGroup>
+                </Col>
+                <Col>
+                  <Label>City *</Label>
+                  <FormGroup>
+                    <Input
+                      type="text"
+                      onChange={(e) => handleChange('city', e.target.value)}
+                      value={invoiceSettings.city}
+                      className={error.city ? 'danger-border' : ''}
+                    />
+                  </FormGroup>
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <Label>Postcode *</Label>
+                  <FormGroup>
+                    <Input
+                      type="text"
+                      onChange={(e) =>
+                        handleChange('postal_code', e.target.value)
+                      }
+                      value={invoiceSettings.postal_code}
+                      className={error.postal_code ? 'danger-border' : ''}
+                    />
+                  </FormGroup>
+                </Col>
+                <Col>
+                  <Label>State</Label>
+                  <FormGroup>
+                    <Input
+                      type="text"
+                      onChange={(e) => handleChange('state', e.target.value)}
+                      value={invoiceSettings.state}
+                    />
+                  </FormGroup>
+                </Col>
+              </Row>
             </Col>
           </Row>
         </Form>
       </CardBody>
       <CardFooter>
-        <Form className="form-horizontal">
-          <Row>
-            <Label md="3" />
-            <Col md="9" className="text-right">
-              <Button
-                className="btn-fill"
-                color="primary"
-                type="button"
-                onClick={confirmInvoice}
-              >
-                Save
-              </Button>
-            </Col>
-          </Row>
-        </Form>
+        <Row>
+          <Col className="text-right">
+            <Button
+              className="btn-fill"
+              color="primary"
+              type="button"
+              onClick={confirmInvoice}
+            >
+              Save
+            </Button>
+          </Col>
+        </Row>
       </CardFooter>
     </Card>
   )

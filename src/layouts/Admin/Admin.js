@@ -1,22 +1,21 @@
 import React from 'react'
+
+import PerfectScrollbar from 'perfect-scrollbar'
+import NotificationAlert from 'react-notification-alert'
 import { useSelector } from 'react-redux'
 import { Redirect, Route, Switch, useLocation } from 'react-router-dom'
 // javascript plugin used to create scrollbars on windows
-import PerfectScrollbar from 'perfect-scrollbar'
 // react plugin for creating notifications over the dashboard
-import NotificationAlert from 'react-notification-alert'
+import PropagateLoader from 'react-spinners/PropagateLoader'
 import { Col, Row } from 'reactstrap'
 
-import PropagateLoader from 'react-spinners/PropagateLoader'
 // core components
-import AdminNavbar from '../../components/Navbars/AdminNavbar.js'
+import logo from '../../assets/img/agro-logo.png'
 import Footer from '../../components/Footer/Footer.js'
+import AdminNavbar from '../../components/Navbars/AdminNavbar.js'
 import Sidebar from '../../components/Sidebar/Sidebar2.js'
 // import FixedPlugin from "components/FixedPlugin/FixedPlugin.js";
-
 import routes from '../../routes.js'
-
-import logo from '../../assets/img/agro-logo.png'
 
 let ps
 
@@ -67,7 +66,6 @@ const Admin = (props) => {
             showNavbarButton,
           )
         }
-
       }
       window.removeEventListener('scroll', showNavbarButton)
     }

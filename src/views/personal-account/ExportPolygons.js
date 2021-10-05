@@ -1,5 +1,5 @@
-/* eslint-disable */
 import React, { useEffect, useState } from 'react'
+
 import { Button } from 'reactstrap'
 
 import { getPolygons } from '../../services/api/personalAccountAPI'
@@ -36,15 +36,14 @@ const ExportPolygon = () => {
     if (polygons.length) {
       let csv = polygons.map(
         (polygons) =>
-          `"${polygons.name}", "${polygons.poly_id}", "${
+          `"${polygons.name}","${polygons.poly_id}","${
             polygons.source
-          }", "${polygons.created_at.slice(0, 11)}", "${
+          }","${polygons.created_at.slice(0, 11)}","${
             polygons.deleted_at || ''
-          }", "${polygons.area}"`,
+          }","${polygons.area}"`,
       )
       csv.unshift(header + '')
       res = `${csv.join('\n').replace(/','/g, '","')}`
-      console.log('res', res)
     } else {
       return header
     }

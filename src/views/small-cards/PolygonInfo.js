@@ -1,5 +1,6 @@
 import React from 'react'
 
+import classNames from 'classnames'
 import {
   Card,
   CardBody,
@@ -9,10 +10,10 @@ import {
   Row,
   Table,
 } from 'reactstrap'
-import classNames from 'classnames'
+
 import { toDate } from '../../utils/dateTime'
-import Shape from '../agro-components/Shape'
 import { totalArea } from '../../utils/utils'
+import Shape from '../agro-components/Shape'
 // import {setActivePoly} from "../../features/state/actions";
 
 const PolygonInfo = ({ polygonInFocus }) => (

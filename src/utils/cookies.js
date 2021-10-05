@@ -2,6 +2,7 @@
 
 function getCookie(name) {
   let res
+  console.log('getCookie', name)
   if (name) {
     const matches = document.cookie.match(
       new RegExp(
@@ -38,7 +39,6 @@ function setCookie(name, value, options) {
   let updatedCookie = `${name}=${value}`
   // eslint-disable-next-line
   for (const propName in options) {
-
     updatedCookie += `; ${propName}`
     const propValue = options[propName]
     if (propValue !== true) {

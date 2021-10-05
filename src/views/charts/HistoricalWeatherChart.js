@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
-import axios from 'axios/index'
 
+import axios from 'axios/index'
 import { Line } from 'react-chartjs-2'
+import { useSelector } from 'react-redux'
+
+import { tariffError } from '../../config'
+import { getHistoryWeatherData } from '../../services/api/chartApi'
 import { toDate } from '../../utils/dateTime'
 import { convertTemp } from '../../utils/utils'
-import { tariffError } from '../../config'
-import ChartContainer from './ui/ChartContainer'
 import { chartOptions } from './base'
-import { getHistoryWeatherData } from '../../services/api/chartApi'
+import ChartContainer from './ui/ChartContainer'
 
 const selectUnits = (state) => state.units.isMetric
 

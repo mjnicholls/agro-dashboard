@@ -1,6 +1,7 @@
 import React from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+
 import classNames from 'classnames'
+import { useDispatch, useSelector } from 'react-redux'
 import {
   Button,
   Collapse,
@@ -15,6 +16,7 @@ import {
   Container,
   UncontrolledTooltip,
 } from 'reactstrap'
+
 import { logoutUser } from '../../features/auth/actions'
 
 const userEmailSelector = (state) => state.auth.user.email

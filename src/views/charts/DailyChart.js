@@ -1,9 +1,10 @@
 import React from 'react'
+
 import { Line } from 'react-chartjs-2'
 
+import { formatDateShort } from '../../utils/dateTime'
 import { convertTemp } from '../../utils/utils'
 import { chartOptions } from './base'
-import { formatDateShort } from '../../utils/dateTime'
 import ChartContainer from './ui/ChartContainer'
 import {
   formatClouds,

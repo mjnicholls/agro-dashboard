@@ -1,8 +1,8 @@
-import { axiosInstance } from '../../services/base'
 import { apiKeyStatus, loginURL, logoutURL } from '../../services/api'
+import { axiosInstance } from '../../services/base'
 import { deleteCookie, setCookie } from '../../utils/cookies'
-import { parseJwt } from './utils'
 import { fetchPolygons } from '../polygons/actions'
+import { parseJwt } from './utils'
 
 export const API_KEY_STATUS = 'API_KEY_STATUS'
 export const LOGIN_REQUEST = 'LOGIN_REQUEST'
@@ -71,6 +71,7 @@ export const loginUser = (email, password) => (dispatch) => {
       if (!tokenInfo) {
         dispatch(loginError('Error parsing token')) // TODO
       }
+      console.log('setting cookie', TOKEN_COOK)
       setCookie(TOKEN_COOK, token)
 
       const data = {
@@ -120,7 +121,7 @@ export const checkApiKey = () => {
         dispatch(setApiKeyStatus(true))
         dispatch(fetchPolygons())
       })
-      .catch((err) => {
+      .catch(() => {
         dispatch(setApiKeyStatus(false))
       })
   }

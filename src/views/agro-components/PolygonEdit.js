@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
+
 import { useDispatch } from 'react-redux'
 import { Button, Col, FormGroup, Input, Row } from 'reactstrap'
+
 import { editPolygon } from '../../features/polygons/actions'
 
 const PolygonEdit = ({ polygon, close }) => {

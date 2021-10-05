@@ -1,35 +1,47 @@
-/* eslint-disable */
-import React, { useEffect, useState } from "react";
-import { Card, CardBody, Row, Col, Table } from "reactstrap";
-import { getInvoices } from "../../services/api/personalAccountAPI";
+import React, { useEffect, useState } from 'react'
 
-import AgroPagination from "../agro-components/AgroPagination";
+import {
+  faExternalLinkAlt,
+  faArrowCircleDown,
+} from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {
+  Card,
+  CardBody,
+  Row,
+  Col,
+  Table,
+  UncontrolledTooltip,
+} from 'reactstrap'
+
+import { getInvoices } from '../../services/api/personalAccountAPI'
+import AgroPagination from '../agro-components/AgroPagination'
 
 const InvoiceList = () => {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState([])
 
-  const [page, setPage] = useState(0);
-  const [pageData, setPageData] = useState([]);
-
-  useEffect(() => {
-    refreshData();
-  }, []);
+  const [page, setPage] = useState(0)
+  const [pageData, setPageData] = useState([])
 
   useEffect(() => {
-    setPageData(data.slice(page * itemsPerPage, (page + 1) * itemsPerPage));
-  }, [data, page]);
+    refreshData()
+  }, [])
 
-  const itemsPerPage = 10;
+  useEffect(() => {
+    setPageData(data.slice(page * itemsPerPage, (page + 1) * itemsPerPage))
+  }, [data, page])
+
+  const itemsPerPage = 10
 
   const refreshData = () => {
     getInvoices()
       .then((res) => {
-        setData(res);
+        setData(res)
       })
       .catch((err) => {
-        console.log(err);
-      });
-  };
+        console.log(err)
+      })
+  }
 
   return (
     <>
@@ -66,25 +78,41 @@ const InvoiceList = () => {
                         </td>
                         <td>{item.description}</td>
                         {/* <td>{item.date.substring(0,21)}</td> */}
-                        <td>{item.date.replace(" UTC", "")}</td>
+                        <td>{item.date.replace(' UTC', '')}</td>
                         <td>{item.amount}</td>
                         <td className="text-right">
                           <a
                             role="button"
+                            id="download"
                             href={item.pdf_link}
                             download
                             className="btn-link btn-icon btn-neutral"
                           >
-                            <i className="tim-icons icon-cloud-download-93" />
+                            <FontAwesomeIcon icon={faArrowCircleDown} />
                           </a>
+                          <UncontrolledTooltip
+                            delay={0}
+                            target="download"
+                            placement="top"
+                          >
+                            Download
+                          </UncontrolledTooltip>
                           <a
                             role="button"
+                            id="view"
                             href={item.view_link}
                             target="_blank"
                             className="btn-link btn-icon btn-neutral"
                           >
-                            <i className="tim-icons icon-map-big" />
+                            <FontAwesomeIcon icon={faExternalLinkAlt} />
                           </a>
+                          <UncontrolledTooltip
+                            delay={0}
+                            target="view"
+                            placement="top"
+                          >
+                            View
+                          </UncontrolledTooltip>
                         </td>
                       </tr>
                     ))}
@@ -102,7 +130,7 @@ const InvoiceList = () => {
         </Row>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default InvoiceList;
+export default InvoiceList

@@ -1,6 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react'
+
 import { useDispatch, useSelector } from 'react-redux'
 
+import { getMapBounds } from '../../features/polygons/selectors'
+import { setActivePoly } from '../../features/state/actions'
+import SatelliteImagesList from '../agro-components/SatelliteImagesList'
 import {
   clusterPadding,
   initialiseMap,
@@ -10,9 +14,6 @@ import {
 } from './base'
 import { displayClusters } from './clusters'
 import { displayPolygonGroup } from './polygons'
-import { getMapBounds } from '../../features/polygons/selectors'
-import SatelliteImagesList from '../agro-components/SatelliteImagesList'
-import { setActivePoly } from '../../features/state/actions'
 
 const selectPolygons = (state) => state.polygons
 const selectActivePoly = (state) => state.state.polygon

@@ -1,17 +1,15 @@
 import React, { useEffect, useState } from 'react'
 
-import { useSelector } from 'react-redux'
 import { Line } from 'react-chartjs-2'
-
+import { useSelector } from 'react-redux'
 import { Card, CardHeader, CardBody, CardTitle, Row, Col } from 'reactstrap'
-import DatePickerChart from './ui/DatePickerFromTo'
-import { getHistoryNDVIData } from '../../services/api/chartApi'
 
+import { defaultStartHistoryWeatherCharts, tariffError } from '../../config'
+import { getHistoryNDVIData } from '../../services/api/chartApi'
 import { toDate, getDateInPast } from '../../utils/dateTime'
 import { chartOptions } from './base'
-
 import ChartContainer from './ui/ChartContainer'
-import { defaultStartHistoryWeatherCharts, tariffError } from '../../config'
+import DatePickerChart from './ui/DatePickerFromTo'
 
 const selectLimit = (state) => state.auth.limits.history.ndvi_history
 

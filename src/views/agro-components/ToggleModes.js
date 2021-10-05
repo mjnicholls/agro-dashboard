@@ -1,15 +1,15 @@
 import React from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-
-import { Button, ButtonGroup } from 'reactstrap'
-import classNames from 'classnames'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import {
   faListUl,
   faSatellite,
   faTemperatureLow,
 } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import classNames from 'classnames'
+import { useDispatch, useSelector } from 'react-redux'
+import { Button, ButtonGroup } from 'reactstrap'
+
 import { setActivePoly, setSatelliteMode } from '../../features/state/actions'
 
 const selectPolygons = (state) => state.polygons

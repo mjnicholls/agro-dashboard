@@ -17,10 +17,10 @@
 import React from 'react'
 
 // reactstrap components
+import SortingTable from 'components/SortingTable/SortingTable.js'
 import { Card, CardHeader, CardBody, CardTitle, Row, Col } from 'reactstrap'
 
 // core components
-import SortingTable from 'components/SortingTable/SortingTable.js'
 
 const RegularTables = () => (
   <>

@@ -1,16 +1,18 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { useSelector } from 'react-redux'
-import * as turf from '@turf/turf'
+
 import MapboxDraw from '@mapbox/mapbox-gl-draw'
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder'
-import { axiosInstance } from '../../services/base'
+import * as turf from '@turf/turf'
+import { useSelector } from 'react-redux'
+
 import mapboxgl from '!mapbox-gl' // eslint-disable-line import/no-unresolved
+import { getMapBounds } from '../../features/polygons/selectors'
+import { axiosInstance } from '../../services/base'
 // import mapboxgl from '!mapbox-gl' // eslint-disable-line import/no-webpack-loader-syntax
 import { deletePreviousAreas, initialiseMap } from './base'
 import { displayClusters } from './clusters'
-import { displayPolygonGroup } from './polygons'
 import { removeCropLayer, displayCropLayer } from './crops'
-import { getMapBounds } from '../../features/polygons/selectors'
+import { displayPolygonGroup } from './polygons'
 
 const selectPolygons = (state) => state.polygons
 

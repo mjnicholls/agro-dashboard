@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react'
+
 import { polygonShapeSize } from '../../config'
 
 const Shape = ({ polygon }) => {

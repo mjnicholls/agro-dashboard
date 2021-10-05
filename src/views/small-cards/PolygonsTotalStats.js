@@ -1,5 +1,7 @@
 import React from 'react'
+
 import { Card, CardBody, CardHeader, CardTitle, Col, Row } from 'reactstrap'
+
 import { totalArea } from '../../utils/utils'
 
 const PolygonsTotalStats = ({ polygons }) => (

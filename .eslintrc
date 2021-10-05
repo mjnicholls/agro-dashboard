@@ -23,6 +23,25 @@
     "jsx-a11y/no-static-element-interactions": 0,
     "react/jsx-no-bind": 0,
     "prefer-template": 0,
-    "radix": 0
+    "radix": 0,
+    "import/order": [
+      "error",
+      {
+        "groups": ["builtin", "external", "internal"],
+        "pathGroups": [
+          {
+            "pattern": "react",
+            "group": "external",
+            "position": "before"
+          }
+        ],
+        "pathGroupsExcludedImportTypes": ["react"],
+        "newlines-between": "always",
+        "alphabetize": {
+          "order": "asc",
+          "caseInsensitive": true
+        }
+      }
+    ]
   }
 }

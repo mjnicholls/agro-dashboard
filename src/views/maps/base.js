@@ -8,6 +8,7 @@ import { serverBaseURL } from '../../services/api/index'
 import store from '../../store'
 import { displayClusters } from './clusters'
 import { displayPolygonGroup } from './polygons'
+import { removeLayer, removeSource } from './utils'
 
 mapboxgl.accessToken = mapBoxAccessToken
 
@@ -126,18 +127,6 @@ export const initialiseMap = (
     // Hide those annoying non-error errors
     if (e && e.error.status !== 421) console.error(e)
   })
-}
-
-export const removeLayer = (map, layerId) => {
-  if (map && map.getLayer(layerId)) {
-    map.removeLayer(layerId)
-  }
-}
-
-export const removeSource = (map, sourceId) => {
-  if (map && map.getSource(sourceId)) {
-    map.removeSource(sourceId)
-  }
 }
 
 export const removeSatelliteLayer = (map) => {

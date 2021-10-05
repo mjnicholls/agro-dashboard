@@ -15,7 +15,9 @@
 
 */
 import React from 'react'
+
 import classNames from 'classnames'
+import ReactTable from 'components/ReactTable/ReactTable.js'
 import {
   Card,
   CardBody,
@@ -25,8 +27,6 @@ import {
   Col,
   Button,
 } from 'reactstrap'
-
-import ReactTable from 'components/ReactTable/ReactTable.js'
 
 const dataTable = [
   ['Airi Satou', 'Accountant', 'Tokyo', '33'],

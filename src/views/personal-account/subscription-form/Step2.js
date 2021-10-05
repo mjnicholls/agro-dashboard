@@ -1,20 +1,19 @@
 /* eslint-disable */
-import React, { useState } from "react";
-import Select from "react-select";
-import classnames from "classnames";
-import { Col, Form, Label, FormGroup, Input, Row } from "reactstrap";
-import { countriesDefault } from "../../../config";
-
+import React, { useState } from 'react'
+import Select from 'react-select'
+import classnames from 'classnames'
+import { Col, Form, Label, FormGroup, Input, Row } from 'reactstrap'
+import { countriesDefault } from '../../../config'
 
 const Step2 = ({ invoiceSettings, setInvoiceSettings, error }) => {
-  const [countries, setCountries] = useState(countriesDefault);
+  const [countries, setCountries] = useState(countriesDefault)
 
   const handleChange = (key, value) => {
     // eslint-disable-next-line
-    let newObj = Object.assign({}, invoiceSettings);
-    newObj[key] = value;
-    setInvoiceSettings(newObj);
-  };
+    let newObj = Object.assign({}, invoiceSettings)
+    newObj[key] = value
+    setInvoiceSettings(newObj)
+  }
 
   return (
     <div>
@@ -25,9 +24,9 @@ const Step2 = ({ invoiceSettings, setInvoiceSettings, error }) => {
             <FormGroup>
               <Input
                 type="text"
-                onChange={(e) => handleChange("address_line_1", e.target.value)}
+                onChange={(e) => handleChange('address_line_1', e.target.value)}
                 value={invoiceSettings.address_line_1}
-                className={error.address_line_1 ? "danger-border" : ""}
+                className={error.address_line_1 ? 'danger-border' : ''}
               />
             </FormGroup>
           </Col>
@@ -38,7 +37,7 @@ const Step2 = ({ invoiceSettings, setInvoiceSettings, error }) => {
             <FormGroup>
               <Input
                 type="text"
-                onChange={(e) => handleChange("address_line_2", e.target.value)}
+                onChange={(e) => handleChange('address_line_2', e.target.value)}
                 value={invoiceSettings.address_line_2}
               />
             </FormGroup>
@@ -48,12 +47,12 @@ const Step2 = ({ invoiceSettings, setInvoiceSettings, error }) => {
             <FormGroup>
               <Select
                 className={classnames(
-                  "react-select info mb-3",
-                  error.country ? "danger-border" : ""
+                  'react-select info mb-3',
+                  error.country ? 'danger-border' : '',
                 )}
                 classNamePrefix="react-select"
                 onChange={(country) => {
-                  handleChange("country", country.code);
+                  handleChange('country', country.code)
                 }}
                 options={countries}
                 getOptionLabel={(option) => option.name}
@@ -61,9 +60,9 @@ const Step2 = ({ invoiceSettings, setInvoiceSettings, error }) => {
                 placeholder={
                   invoiceSettings.country
                     ? countries.find(
-                        (obj) => obj.code === invoiceSettings.country
+                        (obj) => obj.code === invoiceSettings.country,
                       ).name
-                    : ""
+                    : ''
                 }
               />
             </FormGroup>
@@ -75,9 +74,9 @@ const Step2 = ({ invoiceSettings, setInvoiceSettings, error }) => {
             <FormGroup>
               <Input
                 type="text"
-                onChange={(e) => handleChange("city", e.target.value)}
+                onChange={(e) => handleChange('city', e.target.value)}
                 value={invoiceSettings.city}
-                className={error.city ? "danger-border" : ""}
+                className={error.city ? 'danger-border' : ''}
               />
             </FormGroup>
           </Col>
@@ -87,9 +86,9 @@ const Step2 = ({ invoiceSettings, setInvoiceSettings, error }) => {
             <FormGroup>
               <Input
                 type="text"
-                onChange={(e) => handleChange("postal_code", e.target.value)}
+                onChange={(e) => handleChange('postal_code', e.target.value)}
                 value={invoiceSettings.postal_code}
-                className={error.postal_code ? "danger-border" : ""}
+                className={error.postal_code ? 'danger-border' : ''}
               />
             </FormGroup>
           </Col>
@@ -100,27 +99,27 @@ const Step2 = ({ invoiceSettings, setInvoiceSettings, error }) => {
             <FormGroup>
               <Input
                 type="text"
-                onChange={(e) => handleChange("state", e.target.value)}
+                onChange={(e) => handleChange('state', e.target.value)}
                 value={invoiceSettings.state}
               />
             </FormGroup>
           </Col>
 
-          <Col md="6" style={{ marginBottom: "20px" }}>
+          <Col md="6" style={{ marginBottom: '20px' }}>
             <Label>Phone *</Label>
             <FormGroup>
               <Input
                 type="text"
-                onChange={(e) => handleChange("phone", e.target.value)}
+                onChange={(e) => handleChange('phone', e.target.value)}
                 value={invoiceSettings.phone}
-                className={error.phone ? "danger-border" : ""}
+                className={error.phone ? 'danger-border' : ''}
               />
             </FormGroup>
           </Col>
         </Row>
       </Form>
     </div>
-  );
-};
+  )
+}
 
-export default Step2;
+export default Step2

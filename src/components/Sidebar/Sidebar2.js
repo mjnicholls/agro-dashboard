@@ -1,9 +1,11 @@
 import React from 'react'
+
+import PerfectScrollbar from 'perfect-scrollbar'
+import PropTypes from 'prop-types'
 import { useSelector, useDispatch } from 'react-redux'
 import { NavLink, useLocation } from 'react-router-dom'
-import PropTypes from 'prop-types'
-import PerfectScrollbar from 'perfect-scrollbar'
 import { Nav, Collapse } from 'reactstrap'
+
 import { setActivePoly, setSatelliteMode } from '../../features/state/actions'
 let ps
 
@@ -224,7 +226,7 @@ const Sidebar = (props) => {
 
   const activeRouteCustom = (prop) => {
     const routeName = prop.layout + prop.path
-    let res;
+    let res
     if (location.pathname !== routeName) {
       res = ''
     }

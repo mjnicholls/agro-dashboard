@@ -3,24 +3,23 @@ import React from 'react'
 // import Register from "views/pages/Register.js";
 // import User from "views/pages/User.js";
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faListUl,
+  faMapMarkerAlt,
   faPlus,
   faSatellite,
   faTemperatureLow,
 } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
 import DashboardMain from './views/Dashboard.js'
-import Login from './views/pages/Login.js'
 import PolygonNew from './views/NewPolygon'
+import Login from './views/pages/Login.js'
+import AccountSettings from './views/personal-account/AccountSettings'
 import ApiKeys from './views/personal-account/ApiKeys'
+import BillingPlans from './views/personal-account/BillingPlans'
 import InvoiceList from './views/personal-account/Payments'
 import RegisterForm from './views/personal-account/Registration'
-
-
-import AccountSettings from './views/personal-account/AccountSettings'
-import AccountSettings2 from './views/personal-account/AccountSettings2'
-import BillingPlans from './views/personal-account/BillingPlans'
 import Subscription from './views/personal-account/Subscription'
 
 const routes = [
@@ -63,6 +62,14 @@ const routes = [
     layout: '/dashboard',
   },
   {
+    path: '/map',
+    name: 'Crop Recognition Map',
+    rtlName: '',
+    icon: <FontAwesomeIcon icon={faMapMarkerAlt} />,
+    component: PolygonNew,
+    layout: '/dashboard',
+  },
+  {
     collapse: true,
     name: 'Personal account',
     rtlName: '',
@@ -98,15 +105,6 @@ const routes = [
         layout: '/dashboard',
       },
       {
-        path: '/account-settings-2',
-        name: 'Account Settings 2',
-        rtlName: '',
-        mini: 'S',
-        rtlMini: '',
-        component: AccountSettings2,
-        layout: '/dashboard',
-      },
-      {
         path: '/billing-plans',
         name: 'Billing Plans',
         rtlName: '',
@@ -132,8 +130,7 @@ const routes = [
         rtlMini: '',
         component: RegisterForm,
         layout: '/dashboard',
-      }
-      
+      },
     ],
   },
 

@@ -1,6 +1,7 @@
 import React, { useRef, useEffect } from 'react'
-import { useSelector } from 'react-redux'
+
 import NotificationAlert from 'react-notification-alert'
+import { useSelector } from 'react-redux'
 
 const notificationsSelector = (state) => state.notifications
 

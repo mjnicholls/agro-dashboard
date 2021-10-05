@@ -1,19 +1,20 @@
 import React from 'react'
+
 import classNames from 'classnames'
-import { Button, ButtonGroup } from 'reactstrap'
 import Select from 'react-select'
+import { Button, ButtonGroup } from 'reactstrap'
 
 const TabsSelector = ({ activeTab, setActiveTab, options }) => {
   const customStyles = {
-    menu: (provided, state) => ({
-      ...provided,
-      minHeight: '230px',
-    }),
-    menuList: (provided, state) => ({
-      ...provided,
-      minHeight: '210px',
-    }),
-    input: (provided, state) => ({
+    // menu: (provided) => ({
+    //   ...provided,
+    //   minHeight: '230px',
+    // }),
+    // menuList: (provided) => ({
+    //   ...provided,
+    //   minHeight: '210px',
+    // }),
+    input: (provided) => ({
       ...provided,
       minWidth: '200px',
       maxWidth: '250px',

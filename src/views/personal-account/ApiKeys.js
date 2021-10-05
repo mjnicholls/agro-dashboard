@@ -1,8 +1,7 @@
-/* eslint-disable */
-import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useEffect, useState } from 'react'
 
-// reactstrap components
+import ReactBSAlert from 'react-bootstrap-sweetalert'
+import { useDispatch } from 'react-redux'
 import {
   Button,
   Card,
@@ -16,76 +15,73 @@ import {
   Col,
   Table,
   UncontrolledTooltip,
-} from "reactstrap";
-import ReactBSAlert from "react-bootstrap-sweetalert";
-import APIKeyEdit from "./APIKeyEdit";
-import ApiKeysDelete from "./APIKeysDelete";
-import { createApiKey, getAPIKeys } from "../../services/api/personalAccountAPI";
+} from 'reactstrap'
+
 import {
   notifyError,
   notifySuccess,
-} from "../../features/notifications/actions";
+} from '../../features/notifications/actions'
+import { createApiKey, getAPIKeys } from '../../services/api/personalAccountAPI'
+import APIKeyEdit from './APIKeyEdit'
+import ApiKeysDelete from './APIKeysDelete'
 
 const ApiKeys = () => {
+  const dispatch = useDispatch()
 
-  const dispatch = useDispatch();
-
-  const [data, setData] = useState([]);
-  const [alert, setAlert] = React.useState(null);
-  const [name, setName] = useState("");
-  const [error, setError] = useState(null);
+  const [data, setData] = useState([])
+  const [alert, setAlert] = React.useState(null)
+  const [name, setName] = useState('')
+  const [error, setError] = useState(null)
 
   useEffect(() => {
-    refreshData();
-  }, []);
+    refreshData()
+  }, [])
 
   const refreshData = () => {
     getAPIKeys()
       .then((res) => {
-        setData(res);
+        setData(res)
       })
       .catch((err) => {
-        console.log(err);
-      });
-  };
+        console.log(err)
+      })
+  }
 
   const hideAlert = () => {
-    setAlert(null);
-  };
+    setAlert(null)
+  }
 
   const confirmCreate = () => {
-    setError(null);
+    setError(null)
 
     if (!name.length) {
-      setError(true);
-      dispatch(notifyError("Name cannot be empty"));
-      return;
+      setError(true)
+      dispatch(notifyError('Name cannot be empty'))
+      return
     }
-
-    setError({});
 
     let data = {
       appid_name: name,
-    };
+    }
 
     createApiKey(data)
       .then(() => {
-        setName("");
-        refreshData();
-        dispatch(notifySuccess("API Key created"));
+        setName('')
+        refreshData()
+        dispatch(notifySuccess('API Key created'))
       })
       .catch((error) => {
-        dispatch(notifyError("Error creating API Key" + error.message));
-      });
-  };
+        dispatch(notifyError('Error creating API Key' + error.message))
+      })
+  }
 
   const htmlAlert = (apiKey, isEdit) => {
     setAlert(
       <ReactBSAlert
         customClass="agro-alert"
-        title={isEdit ? "Edit API Key" : "Delete API key"}
-        onConfirm={() => hideAlert()}
-        onCancel={() => hideAlert()}
+        title={isEdit ? 'Edit API Key' : 'Delete API key'}
+        onConfirm={hideAlert}
+        onCancel={hideAlert}
         showConfirm={false}
       >
         {isEdit ? (
@@ -101,16 +97,18 @@ const ApiKeys = () => {
             refreshData={refreshData}
           />
         )}
-      </ReactBSAlert>
-    );
-  };
+      </ReactBSAlert>,
+    )
+  }
 
   return (
     <>
       <div className="content">
         {alert}
         <Row>
-          <Col><h1>API Keys</h1></Col>
+          <Col>
+            <h1>API Keys</h1>
+          </Col>
         </Row>
         <Row>
           <Col className="mb-0" md="8" mt="20">
@@ -118,7 +116,7 @@ const ApiKeys = () => {
               {/* <CardHeader>
                 <CardTitle tag="h3">API Keys</CardTitle>
               </CardHeader> */}
-              <CardBody> 
+              <CardBody>
                 <Table>
                   <thead>
                     <tr>
@@ -147,8 +145,8 @@ const ApiKeys = () => {
                             title="Edit"
                             type="button"
                             onClick={(e) => {
-                              htmlAlert(item, true);
-                              e.stopPropagation();
+                              htmlAlert(item, true)
+                              e.stopPropagation()
                             }}
                           >
                             <i className="tim-icons icon-pencil" />
@@ -168,8 +166,8 @@ const ApiKeys = () => {
                             type="button"
                             disabled={data.length === 1}
                             onClick={(e) => {
-                              htmlAlert(item, false);
-                              e.stopPropagation();
+                              htmlAlert(item, false)
+                              e.stopPropagation()
                             }}
                           >
                             <i className="tim-icons icon-simple-remove" />
@@ -188,9 +186,9 @@ const ApiKeys = () => {
                             title="Copy"
                             type="button"
                             onClick={(e) => {
-                              navigator.clipboard.writeText(item.appid);
-                              dispatch(notifySuccess("Copied!"));
-                              e.stopPropagation();
+                              navigator.clipboard.writeText(item.appid)
+                              dispatch(notifySuccess('Copied!'))
+                              e.stopPropagation()
                             }}
                           >
                             <i className="tim-icons icon-single-copy-04" />
@@ -219,7 +217,7 @@ const ApiKeys = () => {
                   <FormGroup>
                     <label>Name</label>
                     <Input
-                      className={error ? "danger-border" : ""}
+                      className={error ? 'danger-border' : ''}
                       type="text"
                       onChange={(e) => setName(e.target.value)}
                       value={name}
@@ -243,7 +241,7 @@ const ApiKeys = () => {
         </Row>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default ApiKeys;
+export default ApiKeys

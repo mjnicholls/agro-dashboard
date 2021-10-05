@@ -1,9 +1,9 @@
 import React from 'react'
-import { faListUl } from '@fortawesome/free-solid-svg-icons/index'
-import { NavLink } from 'react-router-dom'
 
-import { Button } from 'reactstrap'
+import { faListUl } from '@fortawesome/free-solid-svg-icons/index'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { NavLink } from 'react-router-dom'
+import { Button } from 'reactstrap'
 
 const AllPolygonsButton = () => (
   <NavLink to="/dashboard/polygons" className="nav-link text-primary p-0">

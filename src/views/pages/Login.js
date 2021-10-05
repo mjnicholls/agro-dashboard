@@ -1,8 +1,10 @@
 import React from 'react'
-import classnames from 'classnames'
-import { css } from '@emotion/react'
-import { Redirect } from 'react-router-dom'
 
+import { css } from '@emotion/react'
+import classnames from 'classnames'
+import { useDispatch, useSelector } from 'react-redux'
+import { Redirect } from 'react-router-dom'
+import DotLoader from 'react-spinners/DotLoader'
 import {
   Button,
   Card,
@@ -19,10 +21,9 @@ import {
   Container,
   Col,
 } from 'reactstrap'
-import { useDispatch, useSelector } from 'react-redux'
-import DotLoader from 'react-spinners/DotLoader'
-import { validateEmail } from '../../utils/validation'
+
 import { loginUser, clearLoginError } from '../../features/auth/actions'
+import { validateEmail } from '../../utils/validation'
 
 const isAuthenticatedSelector = (state) => state.auth.isAuthenticated
 const isFetchingSelector = (state) => state.auth.isFetching
@@ -79,10 +80,7 @@ const Login = (props) => {
             <Form className="form">
               <Card className="card-login card-white">
                 <CardHeader>
-                  <img
-                    alt="..."
-                    src={picture.default}
-                  />
+                  <img alt="..." src={picture.default} />
                   <CardTitle tag="h1">Log in</CardTitle>
                 </CardHeader>
                 <CardBody>

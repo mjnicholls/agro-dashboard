@@ -1,6 +1,7 @@
 import React from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+
 import classNames from 'classnames'
+import { useDispatch, useSelector } from 'react-redux'
 import {
   Button,
   Collapse,
@@ -15,6 +16,7 @@ import {
   Container,
   UncontrolledTooltip,
 } from 'reactstrap'
+
 import { logoutUser } from '../../features/auth/actions'
 
 const userEmailSelector = (state) => state.auth.user.email
@@ -60,26 +62,22 @@ const AccountNavbar = (props) => {
   }
 
   const getActiveRoute = (routes) => {
-    let activeRoute = "Default Brand Text";
+    let activeRoute = 'Default Brand Text'
     for (let i = 0; i < routes.length; i++) {
       if (routes[i].collapse) {
-        let collapseActiveRoute = getActiveRoute(routes[i].views);
+        let collapseActiveRoute = getActiveRoute(routes[i].views)
         if (collapseActiveRoute !== activeRoute) {
-          return collapseActiveRoute;
+          return collapseActiveRoute
         }
-      } else {
-        if (
-          window.location.pathname.indexOf(
-            routes[i].layout + routes[i].path
-          ) !== -1
-        ) {
-          return routes[i].name;
-        }
+      } else if (
+        window.location.pathname.indexOf(routes[i].layout + routes[i].path) !==
+        -1
+      ) {
+        return routes[i].name
       }
     }
-    return activeRoute;
-  };
-
+    return activeRoute
+  }
 
   const pageName = () => {
     let activeRoute = 'AgroMonitoring Dashboard'

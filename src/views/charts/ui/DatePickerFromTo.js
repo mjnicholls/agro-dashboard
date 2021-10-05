@@ -1,7 +1,7 @@
 import React from 'react'
-import DatePicker from 'react-datetime'
-import moment from 'moment/moment'
 
+import moment from 'moment/moment'
+import DatePicker from 'react-datetime'
 import { Col, Row } from 'reactstrap'
 
 const DatePickerChart = ({

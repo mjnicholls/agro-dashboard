@@ -1,21 +1,16 @@
-/* eslint-disable */
-import React, { useState } from "react";
-import { useDispatch } from 'react-redux';
+import React, { useState } from 'react'
+
+import { useDispatch } from 'react-redux'
+import { Button, Col, FormGroup, Input, Row } from 'reactstrap'
 
 import {
-  Button,
-  Col,
-  FormGroup,
-  Input,
-  Row
-} from "reactstrap";
+  notifyError,
+  notifySuccess,
+} from '../../features/notifications/actions'
+import { updateAPIKey } from '../../services/api/personalAccountAPI'
 
-import { updateAPIKey } from '../../services/api/personalAccountAPI';
-import { notifyError, notifySuccess } from "../../features/notifications/actions";
-
-const ApiKeyEdit = ({ apiKey, close, refreshData  }) => {
-
-  const dispatch = useDispatch();
+const ApiKeyEdit = ({ apiKey, close, refreshData }) => {
+  const dispatch = useDispatch()
 
   const [name, setName] = useState(apiKey ? apiKey.name : '')
 
@@ -28,14 +23,15 @@ const ApiKeyEdit = ({ apiKey, close, refreshData  }) => {
       appid: apiKey.appid,
       appid_new_name: name,
     }
-    updateAPIKey(data).then(
-      () => { 
-        refreshData();
-        dispatch(notifySuccess("API Key updated"))
-      }).catch(error => {
-        dispatch(notifyError("Error updating API Key" + error.message))
+    updateAPIKey(data)
+      .then(() => {
+        refreshData()
+        dispatch(notifySuccess('API Key updated'))
       })
-    close();
+      .catch((error) => {
+        dispatch(notifyError('Error updating API Key' + error.message))
+      })
+    close()
   }
 
   return (
@@ -52,10 +48,10 @@ const ApiKeyEdit = ({ apiKey, close, refreshData  }) => {
             <Row>
               <Col>
                 <Input
-                  style={{color: "#222a42"}}
+                  style={{ color: '#222a42' }}
                   name="name"
                   type="text"
-                  onChange={e => setName(e.target.value)}
+                  onChange={(e) => setName(e.target.value)}
                   value={name}
                 />
               </Col>
@@ -87,4 +83,4 @@ const ApiKeyEdit = ({ apiKey, close, refreshData  }) => {
   )
 }
 
-export default ApiKeyEdit;
+export default ApiKeyEdit

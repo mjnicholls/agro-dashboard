@@ -1,15 +1,15 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { useSelector } from 'react-redux'
-import DatePicker from 'react-datetime'
-import moment from 'moment/moment'
+
 import axios from 'axios'
-
-import { Card, CardBody } from 'reactstrap'
 import classNames from 'classnames'
+import moment from 'moment/moment'
+import DatePicker from 'react-datetime'
+import { useSelector } from 'react-redux'
+import { Card, CardBody } from 'reactstrap'
 
-import SatelliteImagePlaceholder from './SatelliteImagePlaceholder'
-import { toDate } from '../../utils/dateTime'
 import { getSatelliteImagesList } from '../../services/api/polygonApi'
+import { toDate } from '../../utils/dateTime'
+import SatelliteImagePlaceholder from './SatelliteImagePlaceholder'
 const selectActivePoly = (state) => state.state.polygon
 
 const SatelliteImagesList = ({

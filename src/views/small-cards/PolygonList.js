@@ -1,6 +1,7 @@
 import React from 'react'
-import { useSelector, useDispatch } from 'react-redux'
 
+import classNames from 'classnames'
+import { useSelector, useDispatch } from 'react-redux'
 import {
   Card,
   CardBody,
@@ -10,10 +11,9 @@ import {
   Row,
   Table,
 } from 'reactstrap'
-import classNames from 'classnames'
 
-import ToggleModes from '../agro-components/ToggleModes'
 import { setActivePoly } from '../../features/state/actions'
+import ToggleModes from '../agro-components/ToggleModes'
 
 const selectActivePoly = (state) => state.state.polygon
 const selectPolygons = (state) => state.polygons

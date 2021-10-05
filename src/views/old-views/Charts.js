@@ -15,6 +15,7 @@
 
 */
 import React from 'react'
+
 // react plugin used to create charts
 import { Line, Bar, Pie } from 'react-chartjs-2'
 // reactstrap components

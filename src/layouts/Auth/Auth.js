@@ -15,11 +15,11 @@
 
 */
 import React from 'react'
+
 import { Route, Switch, Redirect } from 'react-router-dom'
 
-import AuthNavbar from '../../components/Navbars/AuthNavbar.js'
 import Footer from '../../components/Footer/Footer.js'
-
+import AuthNavbar from '../../components/Navbars/AuthNavbar.js'
 import routes from '../../routes.js'
 
 const Pages = (props) => {
