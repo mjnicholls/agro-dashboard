@@ -124,24 +124,6 @@ const routes = [
         component: Subscription,
         layout: '/dashboard',
       },
-      {
-        path: '/register',
-        name: 'Register',
-        rtlName: '',
-        mini: 'R',
-        rtlMini: '',
-        component: RegisterForm,
-        layout: '/dashboard',
-      },
-      {
-        path: '/reset-password',
-        name: 'Reset Password',
-        rtlName: '',
-        mini: 'R',
-        rtlMini: '',
-        component: ResetPass,
-        layout: '/dashboard',
-      },
     ],
   },
 
@@ -169,6 +151,26 @@ const routes = [
         mini: 'L',
         rtlMini: 'هعذا',
         component: Login,
+        layout: '/auth',
+      },
+
+      {
+        path: '/register',
+        name: 'Register',
+        rtlName: '',
+        mini: 'L',
+        rtlMini: 'هعذا',
+        component: RegisterForm,
+        layout: '/auth',
+      },
+
+      {
+        path: '/reset-password',
+        name: 'Reset Password',
+        rtlName: '',
+        mini: 'R',
+        rtlMini: '',
+        component: ResetPass,
         layout: '/auth',
       },
       // {

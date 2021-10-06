@@ -349,7 +349,7 @@ const RegisterForm = () => {
               </FormGroup>
                 </Form>
               </CardBody>
-              <CardFooter>
+              <CardFooter className="text-right">
                 <Button
                   className="btn-round"
                   color="primary"
