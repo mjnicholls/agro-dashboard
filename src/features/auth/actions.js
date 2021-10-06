@@ -52,6 +52,7 @@ export const destroyReduxState = () => ({
   type: 'DESTROY_STATE',
 })
 
+
 export const loginUser = (email, password) => (dispatch) => {
   dispatch(requestLogin(email))
 
@@ -71,8 +72,23 @@ export const loginUser = (email, password) => (dispatch) => {
       if (!tokenInfo) {
         dispatch(loginError('Error parsing token')) // TODO
       }
-      console.log('setting cookie', TOKEN_COOK)
+
       setCookie(TOKEN_COOK, token)
+      // axiosInstance.interceptors.request.use(function (config) {
+      //   console.log("here new token", token)
+      //   config.headers.Authorization = `Bearer ${token}`
+      //   return config
+      // })
+      //
+      // axiosInstance.interceptors.response.use(
+      //   (response) => response,
+      //   // eslint-disable-next-line
+      //   (error) => {
+      //     if (error.response && error.response.status === 401) {
+      //       dispatch(receiveLogout())
+      //     }
+      //   }
+      // )
 
       const data = {
         token: token,

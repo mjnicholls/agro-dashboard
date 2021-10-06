@@ -1,4 +1,4 @@
-import { removeLayer, removeSource } from './utils'
+import { removeLayer, removeSource } from './base'
 
 const CLUSTER_SOURCE_ID = 'polygon_clusters'
 

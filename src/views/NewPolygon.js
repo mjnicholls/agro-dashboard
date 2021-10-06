@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 
 import { Col, Row } from 'reactstrap'
 
+import {getPageHeight} from "../utils/utils"
 import MapBoxDraw from './maps/MapBoxDraw'
 import PolygonCreateCard from './small-cards/PolygonCreateCard'
 
@@ -16,11 +17,9 @@ const PolygonNew = () => {
   const drawRef = React.useRef(null)
 
   useEffect(() => {
-    const menuHeight =
-      document.getElementsByClassName('navbar-collapse')[0].clientHeight
-    const mapHeight = window.innerHeight - menuHeight - 100
-    if (mapHeight > 200) {
-      setMapHeight(mapHeight)
+    const contentHeight = getPageHeight();
+    if (contentHeight > 200) {
+      setMapHeight(contentHeight)
     }
   }, [])
 

@@ -2,7 +2,6 @@
 
 function getCookie(name) {
   let res
-  console.log('getCookie', name)
   if (name) {
     const matches = document.cookie.match(
       new RegExp(

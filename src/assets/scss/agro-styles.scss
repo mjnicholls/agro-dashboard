@@ -518,3 +518,11 @@ $daily-chart-width: 1000px;
       -webkit-box-shadow: 0 0 0 30px white inset !important;
   }
 }
+
+.crop-map-card {
+  z-index: 1;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: 270px;
+}

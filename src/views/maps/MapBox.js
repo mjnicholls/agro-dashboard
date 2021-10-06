@@ -4,17 +4,20 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import { getMapBounds } from '../../features/polygons/selectors'
 import { setActivePoly } from '../../features/state/actions'
+import {serverBaseURL} from "../../services/api"
 import SatelliteImagesList from '../agro-components/SatelliteImagesList'
 import {
   clusterPadding,
   initialiseMap,
   removeSatelliteLayer,
   renderSatelliteImage,
+  addBoundsControl,
   polygonPadding,
 } from './base'
 import { displayClusters } from './clusters'
 import { displayPolygonGroup } from './polygons'
 
+const selectToken = (state) => state.auth.token
 const selectPolygons = (state) => state.polygons
 const selectActivePoly = (state) => state.state.polygon
 const selectIsSatelliteMode = (state) => state.state.isSatelliteMode
@@ -29,6 +32,7 @@ const MapBox = ({
   const activePolygon = useSelector(selectActivePoly)
   const polygons = useSelector(selectPolygons)
   const mapBounds = useSelector(getMapBounds)
+  const token = useSelector(selectToken)
   const mapContainer = useRef(null)
   const map = useRef(null)
 
@@ -44,16 +48,17 @@ const MapBox = ({
   useEffect(() => {
     if (!initialised) {
       // first initialisation of the map
-      initialiseMap(
-        mapContainer.current,
-        map,
-        mapBounds,
-        () => {
-          setInitialised(true)
-        },
-        setPolygonInFocus,
-        onClickPolygon,
-      )
+      initialiseMap(mapContainer.current, map, token)
+      addBoundsControl(map, mapBounds)
+
+      map.current.on('load', function () {
+        if (polygons.length) {
+          displayPolygonGroup(map.current, mapBounds, polygons, setPolygonInFocus, onClickPolygon)
+          displayClusters(map.current, polygons, setPolygonInFocus)
+        }
+        setInitialised(true)
+      })
+
     } else {
       // new polygon has been added or removed
       displayPolygonGroup(

@@ -9,12 +9,13 @@ import mapboxgl from '!mapbox-gl' // eslint-disable-line import/no-unresolved
 import { getMapBounds } from '../../features/polygons/selectors'
 import { axiosInstance } from '../../services/base'
 // import mapboxgl from '!mapbox-gl' // eslint-disable-line import/no-webpack-loader-syntax
-import { deletePreviousAreas, initialiseMap } from './base'
+import {addBoundsControl, deletePreviousAreas, initialiseMap} from './base'
 import { displayClusters } from './clusters'
 import { removeCropLayer, displayCropLayer } from './crops'
 import { displayPolygonGroup } from './polygons'
 
 const selectPolygons = (state) => state.polygons
+const selectToken = (state) => state.auth.token
 
 const MapBoxDraw = ({
   setArea,
@@ -31,6 +32,7 @@ const MapBoxDraw = ({
 
   const [initialised, setInitialised] = useState(false)
   const polygons = useSelector(selectPolygons)
+  const token = useSelector(selectToken)
 
   const deletePreviousAreasLocal = () => {
     deletePreviousAreas(drawRef)
@@ -49,9 +51,17 @@ const MapBoxDraw = ({
   useEffect(() => {
     if (!initialised) {
       // first initialisation of the map
-      initialiseMap(mapContainer.current, map, mapBounds, () =>
-        setInitialised(true),
-      )
+      initialiseMap(mapContainer.current, map, token)
+      addBoundsControl(map, mapBounds)
+
+      map.current.on('load', function () {
+        if (polygons.length) {
+          displayPolygonGroup(map.current, mapBounds, polygons)
+          displayClusters(map.current, polygons)
+        }
+        setInitialised(true)
+      })
+
     } else {
       // new polygon has been added
       displayPolygonGroup(map.current, mapBounds, polygons)

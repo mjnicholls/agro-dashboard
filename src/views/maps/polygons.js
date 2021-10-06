@@ -4,8 +4,9 @@ import {
   clusterPadding,
   POLYGON_GROUP_ID,
   polygonPadding,
+  removeLayer,
+  removeSource
 } from './base'
-import { removeLayer, removeSource } from './utils'
 
 export const displayPolygonGroup = (
   map,

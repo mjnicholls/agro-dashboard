@@ -1568,3 +1568,5 @@ export const titles = [
   { value: 'Ms', label: 'Ms' },
   { value: 'Dr', label: 'Dr' },
 ]
+
+export const cropMapYears = [2019, 2018, 2017]

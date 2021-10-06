@@ -13,6 +13,7 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import DashboardMain from './views/Dashboard.js'
+import CropMap from './views/maps/CropMap'
 import PolygonNew from './views/NewPolygon'
 import Login from './views/pages/Login.js'
 import AccountSettings from './views/personal-account/AccountSettings'
@@ -63,10 +64,10 @@ const routes = [
   },
   {
     path: '/map',
-    name: 'Crop Recognition Map',
+    name: 'Crop Map',
     rtlName: '',
     icon: <FontAwesomeIcon icon={faMapMarkerAlt} />,
-    component: PolygonNew,
+    component: CropMap,
     layout: '/dashboard',
   },
   {

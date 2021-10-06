@@ -48,3 +48,8 @@ export const getPreticipationInfo = (data) => {
   }
   return res
 }
+
+
+export const getPageHeight = () => {
+    return window.innerHeight - document.getElementsByClassName('navbar-collapse')[0].clientHeight - 100
+}

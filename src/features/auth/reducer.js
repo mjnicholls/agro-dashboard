@@ -8,17 +8,31 @@ import {
   LOGOUT_REQUEST,
   LOGOUT_SUCCESS,
   LOGOUT_FRONTEND,
+  logoutUser,
   TOKEN_COOK,
 } from './actions'
 import { parseJwt } from './utils'
 
 let token
 let tokenData
-token = getCookie(TOKEN_COOK || 'AGRO_TOKEN')
+token = getCookie(TOKEN_COOK || 'AGRO_TOKEN') // TODO
 
 if (token) {
   try {
     tokenData = parseJwt(token).passport
+    // axiosInstance.interceptors.request.use(function (config) {
+    //   config.headers.Authorization = `Bearer ${token}`
+    //   return config
+    // })
+    // axiosInstance.interceptors.response.use(
+    //     (response) => response,
+    //     // eslint-disable-next-line
+    //     (error) => {
+    //       if (error.response && error.response.status === 401) {
+    //         logoutUser()
+    //       }
+    //     }
+    //   )
   } catch (err) {
     console.log(err)
   }
