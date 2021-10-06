@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { useState } from 'react'
 
 import { useDispatch } from 'react-redux'
@@ -19,11 +20,11 @@ import {
 } from '../../features/notifications/actions'
 import { updateUserName } from '../../services/api/personalAccountAPI'
 
-const UserSettings = ({ email }) => {
+const UserSettings = ({ email, name, setName, username, setUserName }) => {
   
   const [error, setError] = useState({})
-  const [name, setName] = useState('')
-  const [username, setUserName] = useState('')
+  //const [name, setName] = useState('')
+  //const [username, setUserName] = useState('')
 
   const dispatch = useDispatch()
 
@@ -35,15 +36,26 @@ const UserSettings = ({ email }) => {
    let newError = {}
 
     if (
-      !name.length ||
+      !name.length &&
       !username.length
     ) {
-      newError.name = !name.length
       newError.username = !username.length
-      dispatch(notifyError('Cannot be empty'))
+      dispatch(notifyError('Username cannot be empty'))
       setError(newError)
       return
     }
+
+    else if (
+      name.length &&
+      !username.length
+    ) {
+      newError.username = !username.length
+      dispatch(notifyError('Username cannot be empty'))
+      setError(newError)
+      return
+    }
+
+
 
     let data = {
       new_username: username,
