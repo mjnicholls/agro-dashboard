@@ -1,19 +1,15 @@
-/* eslint-disable */
 
-import React, {useState} from 'react';
+import React from 'react';
 
 import {useSelector} from 'react-redux';
-import classnames from 'classnames'
 import {
   Button,
   Card,
   CardBody,
   CardHeader,
-  CardTitle,
   Col,
-  Collapse,
   Row,
-  Table
+  UncontrolledTooltip
 } from 'reactstrap'
 
 import {getCropName} from './crops'
@@ -25,23 +21,36 @@ const CropMapCard = ({years, year, setYear, info}) => {
 
   const tariff = useSelector(userSubscriptionSelector)
 
+  const calculateArea = () => {
+    let metersPerPx = 156543.03392 * Math.cos(info.lat * Math.PI / 180) / (2 ** 14)
+    return ((info.area * metersPerPx) / 10000).toFixed(2) + 'ha'
+  }
+
+  const isNotActive = (item) => {
+    return tariff === "free" && item === 2019
+  }
+
   return (
     <Card className="crop-map-card">
-          <CardHeader className="pl-3 d-flex align-items-center">
-            {years.map(item =>
-              <Button
-                key={item}
-                onClick={() => setYear(item)}
-                size="sm"
-                color={item === year ? "primary" : "default"}
-                className="mr-1 mb-3"
-                disabled={item === 2019 && tariff === "free"}
-                // className={classnames({
-                //   'primary': item === year,
-                // })}
-              >{item}</Button>)}
-          </CardHeader>
-        {info && <CardBody className="mt-0">
+      <CardHeader className="pl-3 d-flex align-items-center">
+        {years.map(item =>
+          <div className="mr-2 mb-3" key={item} id={"year_" + item}>
+            <Button
+              onClick={() => setYear(item)}
+              size="sm"
+              color={item === year ? "primary" : "default"}
+              disabled={isNotActive(item)}
+            >{item}</Button>
+            {isNotActive(item) && <UncontrolledTooltip
+              delay={0}
+              target={"year_" + item}
+            >
+              Not available with your tarriff
+            </UncontrolledTooltip>}
+          </div>
+        )}
+      </CardHeader>
+        {info && <CardBody className="mt-0 pt-1">
           {
             info.message ?
             <Row>
@@ -50,8 +59,10 @@ const CropMapCard = ({years, year, setYear, info}) => {
             : <>
               <Row>
                 <Col><h4><b>{getCropName(info.cdid)}</b></h4></Col>
-                {/*<Col sm="5"><p className="px-1">Crop:</p></Col>*/}
-                {/*<Col sm="7"><p className="px-1"><b>{getCropName(info.cdid)}</b></p></Col>*/}
+              </Row>
+              <Row>
+                <Col sm="5"><p>Area:</p></Col>
+                <Col sm="7"><p>{calculateArea()}</p></Col>
               </Row>
               <Row>
                 <Col sm="5"><p>NDVI min:</p></Col>

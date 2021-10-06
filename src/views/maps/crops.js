@@ -1,9 +1,7 @@
 /* eslint-disable */
 
-import { basicBlueColor, POLYGON_GROUP_ID } from './base'
-import { removeLayer, removeSource } from './base'
-
 import { cropColorDict } from '../../config'
+import { basicBlueColor, POLYGON_GROUP_ID, removeLayer, removeSource } from './base'
 
 export const cropsSourceId = 'crops-agro'
 const cropsIndexId = 'crops-index'
@@ -77,7 +75,10 @@ export const displayCropLayer2 = (map, year, displayInfo) => {
         { hover: true },
       )
       if (e.features[0].properties) {
-        displayInfo(e.features[0].properties)
+        displayInfo({
+          ...e.features[0].properties,
+          lat: e.lngLat.lat,
+        })
       }
     }
   })
@@ -247,5 +248,5 @@ const getCropColorCase = () => {
 }
 
 export const getCropName = (cid) => {
-    return cid && cropColorDict[cid] ? cropColorDict[cid]['name'] : "";
+    return cid && cropColorDict[cid] ? cropColorDict[cid].name : "";
 }

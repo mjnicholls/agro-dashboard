@@ -1,14 +1,12 @@
-/* eslint-disable */
 import React, { useEffect, useRef, useState } from 'react'
 
 import {useSelector} from 'react-redux';
-import { Button, Col, Container, Row } from 'reactstrap';
 
+import {cropMapYears} from '../../config'
 import {getPageHeight} from '../../utils/utils'
 import {initialiseMap} from './base'
 import CropMapCard from './CropMapCard'
 import {displayCropLayer2} from './crops'
-import {cropMapYears} from '../../config'
 
 const userSubscriptionSelector = (state) => state.auth.user.tariff
 
@@ -18,16 +16,13 @@ const CropMap = () => {
   const map = useRef(null)
   const [mapHeight, setMapHeight] = useState(550)
   const tariff = useSelector(userSubscriptionSelector)
-  const [year, setYear] = useState(tariff === "free" ? 2018: 2019)
+  const [year, setYear] = useState(tariff === "free" ? 2018 : 2019)
   const [initialised, setInitialised] = useState(false)
   const [info, setInfo] = useState(null)
 
 
-
   useEffect(() => {
-
     const contentHeight = getPageHeight()
-
     if (contentHeight > 200) {
       setMapHeight(contentHeight)
     }
