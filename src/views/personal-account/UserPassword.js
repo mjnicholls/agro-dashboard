@@ -33,8 +33,6 @@ const UserPassword = () => {
 
     setError({})
 
-   let newError = {}
-
     if (
       !pass.length ||
       !confirmPass.length
@@ -45,6 +43,8 @@ const UserPassword = () => {
       setError(newError)
       return
     }
+
+    let newError = {}
     
     if (
       pass.length < 8 ||

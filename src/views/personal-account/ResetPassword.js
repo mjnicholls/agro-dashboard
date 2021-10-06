@@ -19,13 +19,20 @@ import {
   Container,
   Col,
 } from 'reactstrap'
-// import validateEmail from '../../utils/validation'
+
+import {
+  notifyError,
+  notifySuccess,
+} from '../../features/notifications/actions'
+
+import { validateEmail } from '../../utils/validation'
+
 
 const ResetPass = () => {
   
 const [state, setState] = React.useState({})
 
-const [pass, setPass] = useState('')
+const [email, setEmail] = useState('')
 const [error, setError] = useState({})
 
 const dispatch = useDispatch()
@@ -37,25 +44,13 @@ const confirmPassReset = () => {
    let newError = {}
 
     if (
-      !pass.length
+      !email.length || validateEmail(!email.length)
     ) {
-      newError.pass = !pass.length
-      dispatch(notifyError('Cannot be empty'))
-      setError(newError)
+      newError.email = !email.length
+      dispatch(notifyError('Please enter your email address'))
+      setError({ email: true })
       return
     }
-
-    updatePassword(
-        {
-        new_password: pass,
-      })
-        .then(() => {
-          dispatch(notifySuccess('Password reset'))
-        })
-        .catch((error) => {
-          dispatch(notifyError('Error resetting password ' + error.message))
-        })
-
 
 }
 
@@ -74,17 +69,18 @@ const confirmPassReset = () => {
                 <InputGroup
                   className={classnames({
                     'input-group-focus': state.passFocus,
+                    'has-danger': error.email
                   })}
                 >
                   <InputGroupAddon addonType="prepend">
                     <InputGroupText>
-                      <i className="tim-icons icon-key-25" />
+                      <i className="tim-icons icon-email-85" />
                     </InputGroupText>
                   </InputGroupAddon>
                   <Input
-                    placeholder="Password"
+                    placeholder="Enter email"
                     type="text"
-                    onChange={(e) => setPass(e.target.value)}
+                   
                     onFocus={(e) => setState({ ...state, passFocus: true })}
                     onBlur={(e) => setState({ ...state, passFocus: false })}
                   />
