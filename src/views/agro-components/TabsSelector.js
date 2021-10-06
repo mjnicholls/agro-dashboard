@@ -40,7 +40,7 @@ const TabsSelector = ({ activeTab, setActiveTab, options }) => {
             onClick={() => setActiveTab(option)}
             style={{ padding: '5px 10px' }}
           >
-            <span>{option.id}</span>
+            <span>{option.label}</span>
           </Button>
         ))}
       </ButtonGroup>
@@ -52,7 +52,7 @@ const TabsSelector = ({ activeTab, setActiveTab, options }) => {
         value={activeTab.label}
         onChange={(tab) => setActiveTab(tab)}
         options={options}
-        placeholder={activeTab.id}
+        placeholder={activeTab.label}
         styles={customStyles}
       />
     </>

@@ -17,7 +17,7 @@ import PrivacySettings from './PrivacySettings'
 import InvoiceSettings from './InvoiceInfo'
 import DeleteAcctCard from './DeleteAccountCard'
 import UnitsRadioButtons from '../agro-components/UnitsRadioButtons'
-import TabsSelector from '../charts/ui/TabsSelector'
+import TabsSelector from '../agro-components/TabsSelector'
 const AccountSettings = () => {
 
   const [invoiceSettings, setInvoiceSettings] = useState({
@@ -43,11 +43,11 @@ const AccountSettings = () => {
 
   const [isNew, setIsNew] = useState(true)
   const [isActiveStripeCustomer, setIsActiveStripeCustomer] = useState(false)
-  const options = [
+  const tabsOptions = [
     { id: 'User Settings', label: 'User Settings' },
     { id: 'Billing information', label: 'Billing information' },
   ]
-  const [activeTab, setActiveTab] = useState(options[0])
+  const [activeTab, setActiveTab] = useState(tabsOptions[0])
   const [name, setName] = useState('')
   const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
@@ -55,8 +55,6 @@ const AccountSettings = () => {
   useEffect(() => {
     refreshData()
   }, [])
-
- 
 
   const refreshData = () => {
     getAccountInfo().then((res) => {
@@ -66,7 +64,10 @@ const AccountSettings = () => {
       setMailSettings(res.mailing)
       setIsActiveStripeCustomer(res.user.active_stripe_customer)
       if (Object.keys(res.invoice_info).length) {
-        setInvoiceSettings(res.invoice_info)
+        setInvoiceSettings({
+          ...invoiceSettings,
+          ...res.invoice_info
+        })
         setIsNew(false)
       }
     })
@@ -85,11 +86,11 @@ const AccountSettings = () => {
             <TabsSelector
               activeTab={activeTab}
               setActiveTab={setActiveTab}
-              options={options}
+              options={tabsOptions}
             />
           </Col>
         </Row>
-        {activeTab.id === options[0].id ? (
+        {activeTab.id === tabsOptions[0].id ? (
           <>
             <Row>
               <Col>

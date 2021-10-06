@@ -43,9 +43,8 @@ const confirmPassReset = () => {
 
    let newError = {}
 
-    if (
-      !email.length
-    ) {
+
+    if ( ! email.length ) {
       newError.email = !email.length
       dispatch(notifyError('Please enter your email address'))
       setError({newError})
@@ -113,7 +112,7 @@ const confirmPassReset = () => {
                   className="btn-round"
                   color="primary"
                   size="lg"
-              onClick={confirmPassReset}
+                  onClick={confirmPassReset}
                 >
                   Reset
                 </Button>

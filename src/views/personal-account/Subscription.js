@@ -1,5 +1,5 @@
 /* eslint-disable */
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
@@ -13,54 +13,87 @@ import {
   Row,
 } from 'reactstrap'
 
+import TabsSelector from '../agro-components/TabsSelector'
 import ExportPolygons from './ExportPolygons'
-
+import {api, subscriptions} from './utils'
+import {getPolygons} from "../../services/api/personalAccountAPI";
+import {toDate} from "../../utils/dateTime";
 // import {getPolygons} from '../../services/api/personalAccountAPI.js'
 
 const authSelector = (state) => state.auth
 
+ const tabsOptions = [
+    { id: 'api', label: 'API' },
+    { id: 'dashboard', label: 'Dashboard' },
+  ]
+
 const Subscription = () => {
+
+  const [activeTab, setActiveTab] = useState(tabsOptions[0])
   const [polygonsData, setPolygonsData] = useState({})
   const auth = useSelector(authSelector)
+  const tariff = auth.user.tariff;
+  const data = subscriptions[tariff];
 
-  // useEffect(() => {
-  //   getPolygons()
-  //     .then(res => {
-  //       setPolygonsData(res)
-  //     })
-  //     .catch(err => {console.log(err)})
-  // }, [])
+  useEffect(() => {
+    getPolygons()
+      .then(res => {
+        setPolygonsData(res)
+      })
+      .catch(err => {console.log(err)})
+  }, [])
 
-  const [isIndividual, setIsIndividual] = useState(true)
-  console.log('isIndividual', isIndividual)
+  const numberWithCommas = (x) => {
+    let res = 0
+    if (x) {
+      res = x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+    return res
+  }
+
+  const depthInYears = (year) => {
+    return year > 0 ? year + ' year' : year === 0 ? '0 years' : 'Unlimited'
+  }
+
+
   return (
     <div className="content">
-      <Row>
+      <Row className="mb-5">
         <Col>
-          <h1>{auth.user.tariff}</h1>
-          <p className="sub">Subscription plan start</p>
+          <h1 className="mb-0">{data.name}</h1>
+          <span>Subscription plan start</span>
         </Col>
       </Row>
 
       <Row>
-        <Col lg="8">
+        <Col lg="7">
           <Card>
             <CardHeader>
               <CardTitle>
-                <h2>Section: Information about limits</h2>
+                <Row>
+                  <Col>
+                    <h2>Limits: {activeTab.id === "api" ? 'API' : 'Dashboard'}</h2>
+                  </Col>
+                  <Col>
+                    <TabsSelector
+                      activeTab={activeTab}
+                      setActiveTab={setActiveTab}
+                      options={tabsOptions}
+                    />
+                  </Col>
+                </Row>
               </CardTitle>
             </CardHeader>
             <CardBody>
-              <div className="text-right mb-5">
-                <b>Toggle API / Dashboard</b>
-              </div>
-              <Table>
+              {activeTab.id === "api" ?
+                <Table>
                 <thead>
                   <tr>
                     <th>
                       <p>
-                        Satellite data (imageries and statistics by polygon)
+                        Satellite data:
                       </p>
+                      <span style={{textTransform: "none"}}>(imagery and statistics by polygon)</span>
                     </th>
                     <th>
                       <p>Limits</p>
@@ -69,24 +102,14 @@ const Subscription = () => {
                 </thead>
                 <tbody>
                   <tr>
-                    <td>Total area of created polygons</td>
-                    <td>{polygonsData.permissible_area}</td>
-                  </tr>
-                  <tr>
-                    <td>API calls per minute to satellite data</td>
+                    <td className="pl-5">API calls per minute</td>
                     <td>
-                      <p className="text-danger">&#60;60</p>
+                      <p>{data.api_calls_per_min}</p>
                     </td>
                   </tr>
                   <tr>
-                    <td>Number of created polygons per month</td>
-                    <td>
-                      <p className="text-danger">&#60;10</p>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      Satellite imagery (NDVI, EVI, True color, False color)
+                    <td className="pl-5">
+                      Satellite imagery<br/>(NDVI, EVI, EVI2, NRI, DSWI, NDWI, True color, False color)
                     </td>
                     <td>
                       All{' '}
@@ -99,159 +122,161 @@ const Subscription = () => {
                     </td>
                   </tr>
                   <tr>
+                    <td className="pl-5">Total area of created polygons</td>
+                    <td>{numberWithCommas(polygonsData.permissible_area)} ha</td>
+                  </tr>
+
+                  <tr>
+                    <td className="pl-5">Number of created polygons per month</td>
                     <td>
+                      <p>?</p>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td className="pl-5">
                       Price for exceeded area{' '}
-                      <a href="https://home.agromonitoring.com/subscriptions#description">
+                      <a href="#">
                         Learn more
                       </a>
                     </td>
                     <td>
-                      <p className="text-danger">Unavailable</p>
+                      <p>?</p>
                     </td>
                   </tr>
-                  <tr>
-                    <th colSpan={2}>
-                      <p>Weather data</p>
-                    </th>
-                  </tr>
+                </tbody>
+                <thead>
                   <tr>
                     <th colSpan={2}>
                       <p>Current and forecast weather data:</p>
                     </th>
                   </tr>
+                </thead>
+                <tbody>
                   <tr>
-                    <td>
-                      <p className="ml-5">API calls per day</p>
+                    <td className="pl-5">
+                      <p>API calls per day</p>
                     </td>
                     <td>
-                      <p className="text-danger">&#60; 500</p>
+                      <p>?</p>
+                    </td>
+                  </tr>
+                  {data.api.filter(key => api[key].isCurrent).map(key => (<tr key={"current_"+key} className="pl-5">
+                    <td className="pl-5"><a href={api[key].link} target="_blank">{api[key].name}</a></td>
+                    <td><FontAwesomeIcon icon={faCheckCircle} /></td>
+                  </tr>))}
+                </tbody>
+                <thead>
+                  <tr>
+                    <th colSpan={2}>
+                      <p>Historical weather data:</p>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td className="pl-5">API calls per day</td>
+                    <td>
+                      <p>?</p>
                     </td>
                   </tr>
                   <tr>
+                    <td className="pl-5">Historical weather data depth</td>
                     <td>
-                      <p className="ml-5">APIs included: </p>
-                      <ul>
-                        <li>
-                          <a
-                            href="https://agromonitoring.com/api/current-weather"
-                            target="_blank"
-                          >
-                            Current weather data
-                          </a>
-                        </li>
-                      </ul>
-                    </td>
-                    <td>
-                      <p className="text-danger"></p>
+                      <p>?</p>
                     </td>
                   </tr>
-                  <tr>
-                    <td>
-                      <a
-                        href="https://agromonitoring.com/api/current-weather"
-                        target="_blank"
-                      >
-                        Current weather data
-                      </a>
-                    </td>
-                    <td>
-                      <FontAwesomeIcon icon={faCheckCircle} />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <a href="https://agromonitoring.com/api/forecast-weather">
-                        5 day/3 hour weather forecast
-                      </a>
-                    </td>
-                    <td>
-                      <FontAwesomeIcon icon={faCheckCircle} />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>API calls per day to historical weather data</td>
-                    <td>
-                      <p className="text-danger">—</p>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Historical weather data depth</td>
-                    <td>{auth.limits.history.weather_history.depth} years</td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <a
-                        href="https://agromonitoring.com/api/current-weather"
-                        target="_blank"
-                      >
-                        Current weather data
-                      </a>
-                    </td>
-                    <td>
-                      <FontAwesomeIcon icon={faCheckCircle} />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <a href="https://agromonitoring.com/api/forecast-weather">
-                        5 day/3 hour weather forecast
-                      </a>
-                    </td>
-                    <td>
-                      <FontAwesomeIcon icon={faCheckCircle} />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Historical weather data</td>
-                    <td>{auth.limits.calls.weather_history}</td>
-                  </tr>
-                  <tr>
-                    <td>Accumulated precipitation</td>
-                    <td>
-                      {
-                        auth.limits.calls
-                          .weather_history_accumulated_precipitation
-                      }
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Accumulated temperature</td>
-                    <td>
-                      {
-                        auth.limits.calls
-                          .weather_history_accumulated_temperature
-                      }
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Current UV index</td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <td>Forecast UV index</td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <td>Historical UV index</td>
-                    <td></td>
-                  </tr>
+                  {data.api.filter(key => api[key].isCurrent).map(key => (<tr key={"history_" + key} className="pl-5">
+                    <td className="pl-5"><a href={api[key].link} target="_blank">{api[key].name}</a></td>
+                    <td><FontAwesomeIcon icon={faCheckCircle} /></td>
+                  </tr>))}
                 </tbody>
               </Table>
+                :
+                <>
+                  <div>Dashboard</div>
+                  <p>Available parts of dashboard + limits</p>
+                  <Table>
+                    <thead>
+                      <tr>
+                        <th>API</th>
+                        <th>Calls</th>
+                        <th>Depth</th>
+                        {tariff === "corp" && <th>Start date</th>}
+                      </tr>
+                    </thead>
+                    <tbody>
+                    {Object.keys(auth.limits.calls).map((key) => (
+                        <tr key={"dashboard_"+key}>
+                          <td><a href={api[key].link} target="_blank">{api[key].name}</a></td>
+                          <td>{auth.limits.calls[key] >= 0 ? numberWithCommas(auth.limits.calls[key]) : "Unlimited"}</td>
+                          <td>{auth.limits.history[key] ? depthInYears(auth.limits.history[key].depth) : null}</td>
+                          {(tariff === "corp" && auth.limits.history[key]) && <td>{toDate(auth.limits.history[key].start)}</td>}
+                        </tr>
+                      )
+                    )}
+                    </tbody>
+                    <thead>
+                      <tr><th colSpan={tariff === "corp" ? 3 : 4}>Polygons</th></tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Min polygon area</td>
+                        <td colSpan={tariff === "corp" ? 2 : 3}>{auth.limits.polygon_area.min_polygon_area} ha</td>
+                      </tr>
+                    <tr>
+                        <td>Max polygon area</td>
+                        <td colSpan={tariff === "corp" ? 2 : 3}>{numberWithCommas(auth.limits.polygon_area.max_polygon_area)} ha</td>
+                      </tr>
+                    </tbody>
+                  </Table>
+                </>
+              }
             </CardBody>
           </Card>
         </Col>
-        <Col lg="4">
+        <Col lg="5">
           <Card>
             <CardHeader>
               <CardTitle>
-                <h2>Section: information about money</h2>
+                <h2>Charge this month</h2>
               </CardTitle>
             </CardHeader>
             <CardBody>
+              <Table>
+                <thead>
+                  <tr>
+                    <th colSpan={2}>Polygons</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Created polygons, total area:</td>
+                    <td>{numberWithCommas(polygonsData.full_area)} ha</td>
+                  </tr>
+                  <tr>
+                    <td>Total area polygons by tarriff:</td>
+                    <td>{numberWithCommas(polygonsData.permissible_area)} ha</td>
+                  </tr>
+                  <tr>
+                    <td>Exceeding area polygons:</td>
+                    <td>{numberWithCommas(polygonsData.exceeding_area_limit)} ha</td>
+                  </tr>
+                  <tr>
+                    <td>Charge for exceeding area:</td>
+                    <td>{numberWithCommas(polygonsData.payment_for_exceeding_area_limit)}</td>
+                  </tr>
+                </tbody>
+              </Table>
+              <p>Total area</p>
               <p>Charge this month:</p>
               <p>- Fixed fee</p>
               <p>- Over limit use charge</p>
-              <ExportPolygons />
+
+              <h4>Export polygons</h4>
+              <div className="text-right">
+                <ExportPolygons />
+              </div>
             </CardBody>
           </Card>
         </Col>

@@ -93,7 +93,6 @@ const InvoiceSettings = ({
       postal_code: !invoiceSettings.postal_code.length,
       phone: !invoiceSettings.phone.length,
     }
-
     if (invoiceSettings.type === 'individual') {
       if (
         !invoiceSettings.first_name.length ||

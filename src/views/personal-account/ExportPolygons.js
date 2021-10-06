@@ -70,7 +70,7 @@ const ExportPolygon = () => {
       type="button"
       onClick={downLoad}
     >
-      Download
+      Export
     </Button>
   )
 }

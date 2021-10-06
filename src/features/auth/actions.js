@@ -71,7 +71,6 @@ export const loginUser = (email, password) => (dispatch) => {
       if (!tokenInfo) {
         dispatch(loginError('Error parsing token')) // TODO
       }
-      console.log('setting cookie', TOKEN_COOK)
       setCookie(TOKEN_COOK, token)
 
       const data = {

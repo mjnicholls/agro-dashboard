@@ -1288,7 +1288,7 @@ export const cropColorDict = {
     visible: 1,
   },
 }
-export const treshold = {
+export const threshold = {
   celsius: {
     min: 0,
     max: 50,

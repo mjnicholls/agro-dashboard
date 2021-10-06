@@ -65,7 +65,7 @@ const routes = [
   },
   {
     path: '/map',
-    name: 'Crop Recognition Map',
+    name: 'Crop Map',
     rtlName: '',
     icon: <FontAwesomeIcon icon={faMapMarkerAlt} />,
     component: PolygonNew,
@@ -147,7 +147,7 @@ const routes = [
       {
         path: '/login',
         name: 'Login',
-        rtlName: 'هعذاتسجيل الدخول',
+        rtlName: '',
         mini: 'L',
         rtlMini: 'هعذا',
         component: Login,
