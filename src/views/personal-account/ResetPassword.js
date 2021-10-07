@@ -44,33 +44,33 @@ const confirmPassReset = () => {
    let newError = {}
 
 
-    if ( ! email.length ) {
+    if ( !email.length ) {
       newError.email = !email.length
       dispatch(notifyError('Please enter your email address'))
       setError({newError})
       return
     }
 
+    let reset = {
+      email: email,
+    }
+
     if (
-      !validateEmail(email)
+      !validateEmail(reset)
     ) {
-      newError.email = validateEmail(email)
+      newError.email = validateEmail(reset)
       dispatch(notifyError('Email does not exist'))
       setError({newError})
       return
     }
-    
-
-    let reset = {
-      email: email,
-    }
+  
 
     updatePass(reset)
       .then(() => {
         dispatch(notifySuccess('Email sent!'))
       })
       .catch((error) => {
-        dispatch(notifyError('Error updating name ' + error.message))
+        dispatch(notifyError('Error sending email ' + error.message))
       })
 
 }

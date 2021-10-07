@@ -4,13 +4,19 @@ import { useSelector } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import {
+    Button,
   Card,
   CardBody,
   CardHeader,
   CardTitle,
   Col,
+  NavItem,
+  NavLink,
+  Nav,
   Table,
   Row,
+  TabContent,
+  TabPane,
 } from 'reactstrap'
 
 import TabsSelector from '../agro-components/TabsSelector'
@@ -27,14 +33,35 @@ const authSelector = (state) => state.auth
     { id: 'dashboard', label: 'Dashboard' },
   ]
 
-const Subscription = () => {
+const Subscription2 = () => {
 
   const [activeTab, setActiveTab] = useState(tabsOptions[0])
   const [polygonsData, setPolygonsData] = useState({})
+  const [pageTabs, setpageTabs] = React.useState('home')
   const auth = useSelector(authSelector)
   const tariff = auth.user.tariff;
   const data = subscriptions[tariff];
 
+  const changeActiveTab = (e, tabState, tabName) => {
+    e.preventDefault()
+    switch (tabState) {
+      case 'horizontalTabs':
+        sethorizontalTabs(tabName)
+        break
+      case 'verticalTabsIcons':
+        setverticalTabsIcons(tabName)
+        break
+      case 'pageTabs':
+        setpageTabs(tabName)
+        break
+      case 'verticalTabs':
+        setverticalTabs(tabName)
+        break
+      default:
+        break
+    }
+  }
+  
   useEffect(() => {
     getPolygons()
       .then(res => {
@@ -66,7 +93,128 @@ const Subscription = () => {
       </Row>
 
       <Row>
-        <Col lg="7">
+          <Col className="ml-auto mr-auto" md="8">
+            <Card className="card-plain card-subcategories">
+              <CardBody>
+                {/* color-classes: "nav-pills-primary", "nav-pills-info", "nav-pills-success", "nav-pills-warning","nav-pills-danger" */}
+                <Nav
+                  className="nav-pills-info nav-pills-icons justify-content-center"
+                  pills
+                >
+                  <NavItem>
+                    <NavLink
+                      data-toggle="tab"
+                      href="#pablo"
+                      className={pageTabs === 'home' ? 'active' : ''}
+                      onClick={(e) => changeActiveTab(e, 'pageTabs', 'home')}
+                    >
+                      <i className="tim-icons icon-coins" />
+                      Your Charges
+                    </NavLink>
+                  </NavItem>
+                  <NavItem>
+                    <NavLink
+                      data-toggle="tab"
+                      href="#pablo"
+                      className={pageTabs === 'messages' ? 'active' : ''}
+                      onClick={(e) =>
+                        changeActiveTab(e, 'pageTabs', 'messages')
+                      }
+                    >
+                      <i className="tim-icons icon-alert-circle-exc" />
+                      Your Limits
+                    </NavLink>
+                  </NavItem>
+                  <NavItem>
+                    <NavLink
+                      data-toggle="tab"
+                      href="#pablo"
+                      className={pageTabs === 'settings' ? 'active' : ''}
+                      onClick={(e) =>
+                        changeActiveTab(e, 'pageTabs', 'settings')
+                      }
+                    >
+                      <i className="tim-icons icon-settings" />
+                    Options
+                    </NavLink>
+                  </NavItem>
+                </Nav>
+                <TabContent
+                  className="tab-space tab-subcategories"
+                  activeTab={pageTabs}
+                >
+                  <TabPane tabId="home">
+                  <Row>
+        <Col lg="12">
+          <Card>
+            <CardHeader>
+              <CardTitle>
+                <h2>Your Charges</h2>
+              </CardTitle>
+            </CardHeader>
+            <CardBody>
+              <Table>
+                <thead>
+                  <tr>
+                    <th colSpan={2}>Polygons</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Created polygons, total area:</td>
+                    <td>{numberWithCommas(polygonsData.full_area)} ha</td>
+                  </tr>
+                  <tr>
+                    <td>Total area polygons by tarriff:</td>
+                    <td>{numberWithCommas(polygonsData.permissible_area)} ha</td>
+                  </tr>
+                  <tr>
+                    <td>Exceeding area polygons:</td>
+                    <td>{numberWithCommas(polygonsData.exceeding_area_limit)} ha</td>
+                  </tr>
+                  <tr>
+                    <td>Charge for exceeding area:</td>
+                    <td>{numberWithCommas(polygonsData.payment_for_exceeding_area_limit)}</td>
+                  </tr>
+                </tbody>
+
+                <thead>
+                  <tr>
+                    <th colSpan={2}>Total Area</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Charge this month:</td>
+                    <td>?</td>
+                  </tr>
+                  <tr>
+                    <td>Fixed fee:</td>
+                    <td>?</td>
+                  </tr>
+                  <tr>
+                    <td>Exceeding area polygons:</td>
+                    <td>?</td>
+                  </tr>
+                  <tr>
+                    <td>Over limit use charge:</td>
+                    <td>?</td>
+                  </tr>
+                </tbody>
+
+              </Table>
+
+            </CardBody>
+          </Card>
+
+    
+        </Col>
+      
+      </Row>
+                  </TabPane>
+                  <TabPane tabId="messages">
+                  <Row>
+        <Col lg="12">
           <Card>
             <CardHeader>
               <CardTitle>
@@ -287,69 +435,13 @@ const Subscription = () => {
             </CardBody>
           </Card>
         </Col>
-        <Col lg="5">
-          <Card>
-            <CardHeader>
-              <CardTitle>
-                <h2>Charge this month</h2>
-              </CardTitle>
-            </CardHeader>
-            <CardBody>
-              <Table>
-                <thead>
-                  <tr>
-                    <th colSpan={2}>Polygons</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>Created polygons, total area:</td>
-                    <td>{numberWithCommas(polygonsData.full_area)} ha</td>
-                  </tr>
-                  <tr>
-                    <td>Total area polygons by tarriff:</td>
-                    <td>{numberWithCommas(polygonsData.permissible_area)} ha</td>
-                  </tr>
-                  <tr>
-                    <td>Exceeding area polygons:</td>
-                    <td>{numberWithCommas(polygonsData.exceeding_area_limit)} ha</td>
-                  </tr>
-                  <tr>
-                    <td>Charge for exceeding area:</td>
-                    <td>{numberWithCommas(polygonsData.payment_for_exceeding_area_limit)}</td>
-                  </tr>
-                </tbody>
+        </Row>
+                  </TabPane>
 
-                <thead>
-                  <tr>
-                    <th colSpan={2}>Total Area</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>Charge this month:</td>
-                    <td>?</td>
-                  </tr>
-                  <tr>
-                    <td>Fixed fee:</td>
-                    <td>?</td>
-                  </tr>
-                  <tr>
-                    <td>Exceeding area polygons:</td>
-                    <td>?</td>
-                  </tr>
-                  <tr>
-                    <td>Over limit use charge:</td>
-                    <td>?</td>
-                  </tr>
-                </tbody>
-
-              </Table>
-
-            </CardBody>
-          </Card>
-
-          <Card>
+                  <TabPane tabId="settings">
+                  <Row>
+                      <Col>
+                      <Card>
             <CardHeader>
               <CardTitle>
               <h2>Export Polygons to CSV File</h2>
@@ -358,12 +450,38 @@ const Subscription = () => {
             <CardBody className="text-right">
             <ExportPolygons />
               </CardBody>
+
+              <CardHeader>
+              <CardTitle>
+              <h2>Unsubscribe</h2>
+              </CardTitle>
+            </CardHeader>
+            <CardBody className="text-right">
+            <Button
+          className="btn-fill"
+          color="primary"
+          type="submit"
+          //onClick={}
+        >
+          Unsubscribe
+        </Button>
+              </CardBody>
               </Card>
-        </Col>
+                      </Col>
+                  </Row>
+                  </TabPane>
+                </TabContent>
+              </CardBody>
+            </Card>
+          </Col>
+        </Row>
+
+    
+
+     
       
-      </Row>
     </div>
   )
 }
 
-export default Subscription
+export default Subscription2
