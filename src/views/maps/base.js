@@ -76,11 +76,13 @@ export const initialiseMap = (mapContainer, map, token) => {
     // zoom: 9,
     accessToken: mapBoxAccessToken,
     transformRequest: (url) => {
-      return url.indexOf(serverBaseURL) > -1 ? {
-          url,
-          headers: { Authorization: `Bearer ${token}` },
-        } : {url}
-    }
+      return url.indexOf(serverBaseURL) > -1
+        ? {
+            url,
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        : { url }
+    },
   })
   map.current.addControl(
     new mapboxgl.NavigationControl({
@@ -90,7 +92,9 @@ export const initialiseMap = (mapContainer, map, token) => {
   )
   map.current.on('error', (e) => {
     // Hide those annoying non-error errors
-    if (e && e.error.status !== 421) console.error(e)
+    if (e && e.error.status !== 421) {
+      console.error(e)
+    }
   })
 }
 

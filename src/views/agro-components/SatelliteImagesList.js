@@ -61,7 +61,7 @@ const SatelliteImagesList = ({
     }
   }, [activePolygon])
 
-  const isDateAvailable = function (current) {
+  const isDateAvailable = (current) => {
     if (availableDates) {
       return availableDates.includes(current.format('L'))
     }

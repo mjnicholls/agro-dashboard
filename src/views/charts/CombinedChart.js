@@ -21,7 +21,10 @@ import {
   HistoryWeather,
   HistorySoilChart,
 } from '.'
-import { defaultStartHistoryWeatherCharts, threshold } from '../../config'
+import {
+  defaultStartHistoryWeatherCharts,
+  thresholdSettings,
+} from '../../config'
 import { getDateInPast } from '../../utils/dateTime'
 import TabsSelector from '../agro-components/TabsSelector'
 import DatePickerFromTo from './ui/DatePickerFromTo'
@@ -42,17 +45,17 @@ const weatherTabs = [
   },
   {
     id: 'Historical Weather',
-    label: 'Historical Weather Data',
+    label: 'Historical Weather',
     calendar: true,
   },
   {
     id: 'Historical Soil',
-    label: 'Historical Soil Data',
+    label: 'Historical Soil',
     calendar: true,
   },
   {
     id: 'Accumulated',
-    label: 'Accumulated Parameters',
+    label: 'Accumulated',
     calendar: true,
   },
 ]
@@ -80,11 +83,11 @@ const CombinedChart = ({ polyId }) => {
   const limitHistoryWeather = useSelector(selectLimitHistoryWeather)
 
   const [threshold, setThreshold] = useState(
-    threshold[isMetric ? 'celsius' : 'fahrenheit'].min,
+    thresholdSettings[isMetric ? 'celsius' : 'fahrenheit'].min,
   )
 
   useEffect(() => {
-    setThreshold(threshold[isMetric ? 'celsius' : 'fahrenheit'].min)
+    setThreshold(thresholdSettings[isMetric ? 'celsius' : 'fahrenheit'].min)
   }, [isMetric])
 
   useEffect(() => {
@@ -99,7 +102,6 @@ const CombinedChart = ({ polyId }) => {
      * 0: not available for this tariff
      * int - number in years
      *  */
-
     let depth
     let startDate
     let earliestAvailableDate
@@ -182,8 +184,14 @@ const CombinedChart = ({ polyId }) => {
                       type="number"
                       value={threshold}
                       onChange={(e) => setThreshold(e.target.value)}
-                      min={threshold[isMetric ? 'celsius' : 'fahrenheit'].min}
-                      max={threshold[isMetric ? 'celsius' : 'fahrenheit'].max}
+                      min={
+                        thresholdSettings[isMetric ? 'celsius' : 'fahrenheit']
+                          .min
+                      }
+                      max={
+                        thresholdSettings[isMetric ? 'celsius' : 'fahrenheit']
+                          .max
+                      }
                     />
                   </FormGroup>
                 </Col>

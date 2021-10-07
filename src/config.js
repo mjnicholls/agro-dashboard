@@ -1,3 +1,4 @@
+/* eslint-disable */
 /** Start looking satellite images from the 1st of January, 2010
  * Realistically the first satellite image is available in the year 2013
  * */
@@ -1288,7 +1289,7 @@ export const cropColorDict = {
     visible: 1,
   },
 }
-export const threshold = {
+export const thresholdSettings = {
   celsius: {
     min: 0,
     max: 50,
@@ -1573,8 +1574,8 @@ export const deleteAcctOptions = [
   { value: 'Bad service', label: 'Bad service' },
   { value: 'I found another company', label: 'I found another company' },
   { value: 'Price', label: 'Price' },
-  { value: 'I don\'t use this service', label: 'I don\'t use this service' },
+  { value: "I don't use this service", label: "I don't use this service" },
   { value: 'Wrong email', label: 'Wrong email' },
- ]
+]
 
 export const cropMapYears = [2019, 2018, 2017]

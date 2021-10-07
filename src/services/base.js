@@ -15,7 +15,7 @@ axiosInstance.defaults.raxConfig = {
 }
 rax.attach(axiosInstance)
 
-axiosInstance.interceptors.request.use(function (config) {
+axiosInstance.interceptors.request.use((config) => {
   const { token } = store.getState().auth
   config.headers.Authorization = token ? `Bearer ${token}` : ''
   return config

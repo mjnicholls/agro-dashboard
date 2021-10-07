@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import { getMapBounds } from '../../features/polygons/selectors'
 import { setActivePoly } from '../../features/state/actions'
-import {serverBaseURL} from "../../services/api"
 import SatelliteImagesList from '../agro-components/SatelliteImagesList'
 import {
   clusterPadding,
@@ -51,14 +50,19 @@ const MapBox = ({
       initialiseMap(mapContainer.current, map, token)
       addBoundsControl(map, mapBounds)
 
-      map.current.on('load', function () {
+      map.current.on('load', () => {
         if (polygons.length) {
-          displayPolygonGroup(map.current, mapBounds, polygons, setPolygonInFocus, onClickPolygon)
+          displayPolygonGroup(
+            map.current,
+            mapBounds,
+            polygons,
+            setPolygonInFocus,
+            onClickPolygon,
+          )
           displayClusters(map.current, polygons, setPolygonInFocus)
         }
         setInitialised(true)
       })
-
     } else {
       // new polygon has been added or removed
       displayPolygonGroup(

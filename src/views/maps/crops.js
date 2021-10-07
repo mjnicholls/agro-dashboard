@@ -1,11 +1,16 @@
 /* eslint-disable */
 
 import { cropColorDict } from '../../config'
-import { basicBlueColor, POLYGON_GROUP_ID, removeLayer, removeSource } from './base'
+import {
+  basicBlueColor,
+  POLYGON_GROUP_ID,
+  removeLayer,
+  removeSource,
+} from './base'
 
 export const cropsSourceId = 'crops-agro'
 const cropsIndexId = 'crops-index'
-const maxPolygonsZoom = 10;
+const maxPolygonsZoom = 10
 
 export const displayCropLayer2 = (map, year, displayInfo) => {
   removeLayer(map, cropsIndexId)
@@ -14,7 +19,9 @@ export const displayCropLayer2 = (map, year, displayInfo) => {
 
   map.addSource(cropsSourceId, {
     type: 'vector',
-    tiles: [`https://api.agromonitoring.com/cropmap/prod/{z}/{x}/{y}.pbf?year=${year}`],
+    tiles: [
+      `https://api.agromonitoring.com/cropmap/prod/{z}/{x}/{y}.pbf?year=${year}`,
+    ],
     minzoom: 2,
     maxzoom: 15,
     promoteId: { valid: 'id' },
@@ -29,16 +36,17 @@ export const displayCropLayer2 = (map, year, displayInfo) => {
       minzoom: maxPolygonsZoom,
       maxzoom: 15,
       layout: {},
-      filter: ["all", [">", ["*", 2, ["get", "cdpr"]], ["get", "cdsm"] ]],
+      filter: ['all', ['>', ['*', 2, ['get', 'cdpr']], ['get', 'cdsm']]],
       paint: {
-          'fill-color': getCropColorCase(),
-          'fill-opacity': [
+        'fill-color': getCropColorCase(),
+        'fill-opacity': [
           'case',
           ['boolean', ['feature-state', 'hover'], false],
-          0.3, 0.9
-          ]
-      }
-    }
+          0.3,
+          0.9,
+        ],
+      },
+    },
     // onTopOfLayer ? onTopOfLayer : "", TODO
   )
 
@@ -48,13 +56,13 @@ export const displayCropLayer2 = (map, year, displayInfo) => {
     source: cropsSourceId,
     'source-layer': 'valid',
     minzoom: 2,
-    maxzoom : maxPolygonsZoom,
+    maxzoom: maxPolygonsZoom,
     layout: {},
     paint: {
       'fill-color': '#AA00FF',
-      'fill-opacity': 0.3
+      'fill-opacity': 0.3,
     },
-  });
+  })
 
   let hoveredStateId = null
 
@@ -96,16 +104,14 @@ export const displayCropLayer2 = (map, year, displayInfo) => {
 
   map.on('mousemove', cropsIndexId, function (e) {
     if (e.features.length) {
-      displayInfo({message: "Please zoom in for details"})
+      displayInfo({ message: 'Please zoom in for details' })
     }
   })
 
   map.on('mouseleave', cropsIndexId, function (e) {
-    displayInfo({message: "No detected fields in this area"})
+    displayInfo({ message: 'No detected fields in this area' })
   })
-
 }
-
 
 export const displayCropLayer = (map, drawRef, setMode, updateArea) => {
   removeLayer(map, cropsSourceId)
@@ -248,5 +254,5 @@ const getCropColorCase = () => {
 }
 
 export const getCropName = (cid) => {
-    return cid && cropColorDict[cid] ? cropColorDict[cid].name : "";
+  return cid && cropColorDict[cid] ? cropColorDict[cid].name : ''
 }

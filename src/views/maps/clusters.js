@@ -130,7 +130,7 @@ export const displayClusters = (map, polygons, onHover) => {
   })
 
   if (onHover) {
-    map.on('mouseenter', 'unclustered-point', function (e) {
+    map.on('mouseenter', 'unclustered-point', (e) => {
       map.getCanvas().style.cursor = 'pointer'
       const features = map.queryRenderedFeatures(e.point, {
         layers: ['unclustered-point'],
@@ -138,7 +138,7 @@ export const displayClusters = (map, polygons, onHover) => {
       onHover(features[0].properties)
     })
 
-    map.on('mouseenter', 'clusters', function (e) {
+    map.on('mouseenter', 'clusters', (e) => {
       map.getCanvas().style.cursor = 'pointer'
       const features = map.queryRenderedFeatures(e.point, {
         layers: ['clusters'],
@@ -150,7 +150,7 @@ export const displayClusters = (map, polygons, onHover) => {
         clusterId,
         pointCount,
         0,
-        function (err, aFeatures) {
+        (err, aFeatures) => {
           if (aFeatures) {
             const res = aFeatures.map((leaf) => leaf.properties)
             onHover(res)

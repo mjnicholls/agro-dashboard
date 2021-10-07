@@ -122,7 +122,7 @@ export const fetchPolygons = () => (dispatch) => {
 }
 
 export const addPolygon = (data) =>
-  async function addPolygonThunk(dispatch, getState) {
+  async function addPolygonThunk(dispatch) {
     createPolygonApi(data)
       .then((response) => {
         const newPolygon = enrichPolygon(response.data)
@@ -141,7 +141,7 @@ export const addPolygon = (data) =>
   }
 
 export const editPolygon = (data) =>
-  async function deletePolygonThunk(dispatch, getState) {
+  async function deletePolygonThunk(dispatch) {
     editPolygonApi(data)
       .then((response) => {
         dispatch(polygonUpdated(response.data))
@@ -153,7 +153,7 @@ export const editPolygon = (data) =>
   }
 
 export const deletePolygon = (polygonId) =>
-  async function deletePolygonThunk(dispatch, getState) {
+  async function deletePolygonThunk(dispatch) {
     deletePolygonApi(polygonId)
       .then(() => {
         dispatch(polygonDeleted(polygonId))

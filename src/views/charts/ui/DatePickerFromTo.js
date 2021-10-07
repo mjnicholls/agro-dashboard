@@ -19,7 +19,7 @@ const DatePickerChart = ({
     setEndDate(moment.valueOf())
   }
 
-  const validateStartDate = function (current) {
+  const validateStartDate = (current) => {
     let res = current.isBefore(endDate) && current.isBefore(moment())
     if (earliestAvailableDate) {
       res = res && current.isAfter(earliestAvailableDate)
@@ -27,7 +27,7 @@ const DatePickerChart = ({
     return res
   }
 
-  const validateEndDate = function (current) {
+  const validateEndDate = (current) => {
     return (
       current.isAfter(earliestAvailableDate) &&
       current.isAfter(startDate) &&

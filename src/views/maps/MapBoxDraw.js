@@ -9,7 +9,7 @@ import mapboxgl from '!mapbox-gl' // eslint-disable-line import/no-unresolved
 import { getMapBounds } from '../../features/polygons/selectors'
 import { axiosInstance } from '../../services/base'
 // import mapboxgl from '!mapbox-gl' // eslint-disable-line import/no-webpack-loader-syntax
-import {addBoundsControl, deletePreviousAreas, initialiseMap} from './base'
+import { addBoundsControl, deletePreviousAreas, initialiseMap } from './base'
 import { displayClusters } from './clusters'
 import { removeCropLayer, displayCropLayer } from './crops'
 import { displayPolygonGroup } from './polygons'
@@ -54,14 +54,13 @@ const MapBoxDraw = ({
       initialiseMap(mapContainer.current, map, token)
       addBoundsControl(map, mapBounds)
 
-      map.current.on('load', function () {
+      map.current.on('load', () => {
         if (polygons.length) {
           displayPolygonGroup(map.current, mapBounds, polygons)
           displayClusters(map.current, polygons)
         }
         setInitialised(true)
       })
-
     } else {
       // new polygon has been added
       displayPolygonGroup(map.current, mapBounds, polygons)
@@ -117,7 +116,7 @@ const MapBoxDraw = ({
         }
         return features
       })
-      .catch((err) => [])
+      .catch(() => [])
 
   const dummyLocalSearch = () =>
     /** Dummy function to be able to set localGeocoderOnly to true to avoid using mapbox geocoder * */

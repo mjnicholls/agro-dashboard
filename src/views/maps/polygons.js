@@ -5,7 +5,7 @@ import {
   POLYGON_GROUP_ID,
   polygonPadding,
   removeLayer,
-  removeSource
+  removeSource,
 } from './base'
 
 export const displayPolygonGroup = (
@@ -54,7 +54,7 @@ export const displayPolygonGroup = (
   })
 
   if (onHover) {
-    map.on('mouseenter', POLYGON_GROUP_ID, function (e) {
+    map.on('mouseenter', POLYGON_GROUP_ID, (e) => {
       map.getCanvas().style.cursor = 'pointer'
       const features = map.queryRenderedFeatures(e.point, {
         layers: [POLYGON_GROUP_ID, OUTLINE_LAYER_ID],
@@ -63,12 +63,12 @@ export const displayPolygonGroup = (
         onHover(features[0].properties)
       }
     })
-    map.on('mouseleave', POLYGON_GROUP_ID, function () {
+    map.on('mouseleave', POLYGON_GROUP_ID, () => {
       onHover(null)
     })
   }
 
-  map.on('click', POLYGON_GROUP_ID, function (e) {
+  map.on('click', POLYGON_GROUP_ID, (e) => {
     const features = map.queryRenderedFeatures(e.point, {
       layers: [POLYGON_GROUP_ID, OUTLINE_LAYER_ID],
     })
