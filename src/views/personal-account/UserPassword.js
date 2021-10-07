@@ -14,7 +14,6 @@ import {
   Input,
 } from 'reactstrap'
 
-
 import {
   notifyError,
   notifySuccess,
@@ -22,7 +21,6 @@ import {
 import { updatePassword } from '../../services/api/personalAccountAPI'
 
 const UserPassword = () => {
-
   const [pass, setPass] = useState('')
   const [confirmPass, setConfirmPass] = useState('')
   const [error, setError] = useState({})
@@ -30,13 +28,9 @@ const UserPassword = () => {
   const dispatch = useDispatch()
 
   const confirmPassUpdate = () => {
-
     setError({})
 
-    if (
-      !pass.length ||
-      !confirmPass.length
-    ) {
+    if (!pass.length || !confirmPass.length) {
       newError.pass = !pass.length
       newError.confirmPass = !confirmPass.length
       dispatch(notifyError('Cannot be empty'))
@@ -45,23 +39,16 @@ const UserPassword = () => {
     }
 
     let newError = {}
-    
-    if (
-      pass.length < 8 ||
-      confirmPass.length < 8
-    )
-    {
+
+    if (pass.length < 8 || confirmPass.length < 8) {
       newError.pass = pass.length < 8
       newError.confirmPass = confirmPass.length < 8
       dispatch(notifyError('Must be eight characters or more'))
       setError(newError)
       return
     }
-    
-    if  (
-      pass !==
-      confirmPass
-    ) {
+
+    if (pass !== confirmPass) {
       newError.pass = true
       newError.confirmPass = true
       dispatch(notifyError('Passwords do not match'))
@@ -69,9 +56,7 @@ const UserPassword = () => {
       return
     }
 
-
-    updatePassword(
-      {
+    updatePassword({
       new_password: pass,
       new_password_confirm: confirmPass,
     })

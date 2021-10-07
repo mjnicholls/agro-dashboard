@@ -1578,4 +1578,9 @@ export const deleteAcctOptions = [
   { value: 'Wrong email', label: 'Wrong email' },
 ]
 
-export const cropMapYears = [2019, 2018, 2017]
+export const cropMapYears = [
+  {year: 2021, status: 2, label: 2021, id: 2021},
+  {year: 2020, status: 2, label: 2020, id: 2020},
+  {year: 2019, status: 1, label: 2019, id: 2019},
+  {year: 2018, status: 3, label: 2018, id: 2018},
+  {year: 2017, status: 3, label: 2017, id: 2017}]

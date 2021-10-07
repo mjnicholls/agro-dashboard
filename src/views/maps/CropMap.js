@@ -1,21 +1,19 @@
+/* eslint-disable */
 import React, { useEffect, useRef, useState } from 'react'
 
-import { useSelector } from 'react-redux'
+import {Card} from 'reactstrap'
 
-import { cropMapYears } from '../../config'
+import { cropMapYears, tariffError } from '../../config'
 import { getPageHeight } from '../../utils/utils'
 import { initialiseMap } from './base'
 import CropMapCard from './CropMapCard'
 import { displayCropLayer2 } from './crops'
 
-const userSubscriptionSelector = (state) => state.auth.user.tariff
-
 const CropMap = () => {
   const mapContainer = useRef(null)
   const map = useRef(null)
   const [mapHeight, setMapHeight] = useState(550)
-  const tariff = useSelector(userSubscriptionSelector)
-  const [year, setYear] = useState(tariff === 'free' ? 2018 : 2019)
+  const [activeYear, setActiveYear] = useState(cropMapYears.find(year => year.status === 3))
   const [initialised, setInitialised] = useState(false)
   const [info, setInfo] = useState(null)
 
@@ -40,10 +38,13 @@ const CropMap = () => {
   }, [])
 
   useEffect(() => {
-    if (initialised) {
-      displayCropLayer2(map.current, year, setInfo)
+    // if (year.status < 3) {
+    //   setInfo(null)
+    // }
+    if (initialised && activeYear.status === 3) {
+      displayCropLayer2(map.current, activeYear.year, setInfo)
     }
-  }, [map, initialised, year])
+  }, [map, initialised, activeYear])
 
   return (
     <div
@@ -51,10 +52,24 @@ const CropMap = () => {
       className="map-container map-box-container"
       style={{ height: `${mapHeight}px` }}
     >
+      {(activeYear.status < 3) &&
+        <Card
+          className="map-placeholder d-flex justify-content-center align-items-center rounded-0 position-absolute"
+        >
+          <div className="text-center" style={{maxWidth: '340px'}}>
+          <h4>{activeYear === 1 ? tariffError : `If you'd like to request data for the year ${activeYear.year}, please contact our sales department`}</h4>
+          <a
+            role="button"
+            href={activeYear === 1 ? "https://home.agromonitoring.com/subscriptions" : "mailto:info@openweathermap.org"}
+            className="btn btn-primary"
+          >{activeYear === 1 ? 'To subscription plans' : 'Contact'}</a>
+          </div>
+        </Card>
+      }
       <CropMapCard
         years={cropMapYears}
-        year={year}
-        setYear={setYear}
+        activeYear={activeYear}
+        setActiveYear={setActiveYear}
         info={info}
       />
     </div>

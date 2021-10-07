@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 
 import { Col, Row } from 'reactstrap'
 
-import {getPageHeight} from "../utils/utils"
+import { getPageHeight } from '../utils/utils'
 import MapBoxDraw from './maps/MapBoxDraw'
 import PolygonCreateCard from './small-cards/PolygonCreateCard'
 
@@ -17,7 +17,7 @@ const PolygonNew = () => {
   const drawRef = React.useRef(null)
 
   useEffect(() => {
-    const contentHeight = getPageHeight();
+    const contentHeight = getPageHeight()
     if (contentHeight > 200) {
       setMapHeight(contentHeight)
     }

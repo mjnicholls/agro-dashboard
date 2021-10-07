@@ -21,7 +21,6 @@ import {
 import { updateUserName } from '../../services/api/personalAccountAPI'
 
 const UserSettings = ({ email, name, setName, username, setUserName }) => {
-  
   const [error, setError] = useState({})
   //const [name, setName] = useState('')
   //const [username, setUserName] = useState('')
@@ -29,36 +28,20 @@ const UserSettings = ({ email, name, setName, username, setUserName }) => {
   const dispatch = useDispatch()
 
   const confirmUpdate = () => {
+    setError({})
 
+    let newError = {}
 
-  setError({})
-
-   let newError = {}
-
-    if (
-      !name.length &&
-      !username.length
-    ) {
+    if (!name.length && !username.length) {
       newError.username = !username.length
-      dispatch(notifyError('Username cannot be empty'))
+      dispatch(notifyError('Both fields cannot be blank'))
       setError(newError)
       return
     }
-
-    else if (
-      name.length &&
-      !username.length
-    ) {
-      newError.username = !username.length
-      dispatch(notifyError('Username cannot be empty'))
-      setError(newError)
-      return
-    }
-
-
 
     let data = {
-      new_username: username,
+      // cannot send an empty string to back-end
+      new_username: username.length ? username : null,
       new_full_name: name,
     }
 

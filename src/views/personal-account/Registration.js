@@ -32,9 +32,7 @@ import {
 
 // import { createNewUser } from '../../services/api/personalAccountAPI'
 
-
 const RegisterForm = () => {
-
   const [state, setState] = React.useState({})
   const [error, setError] = useState({})
   const [username, setUsername] = useState('')
@@ -45,7 +43,6 @@ const RegisterForm = () => {
   const dispatch = useDispatch()
 
   const createUser = () => {
-   
     setError({})
 
     // username & email
@@ -67,24 +64,17 @@ const RegisterForm = () => {
       return
     }
 
-    // password conditions 
+    // password conditions
 
-    if (
-      pass.length < 8 ||
-      confirmPass.length < 8
-    )
-    {
+    if (pass.length < 8 || confirmPass.length < 8) {
       newError.pass = pass.length < 8
       newError.confirmPass = confirmPass.length < 8
       dispatch(notifyError('Must be eight characters or more'))
       setError(newError)
       return
     }
-    
-    if  (
-      pass !==
-      confirmPass
-    ) {
+
+    if (pass !== confirmPass) {
       newError.pass = true
       newError.confirmPass = true
       dispatch(notifyError('Passwords do not match'))
@@ -112,9 +102,10 @@ const RegisterForm = () => {
         dispatch(notifySuccess('Registration complete'))
       })
       .catch((error) => {
-        dispatch(notifyError('Error registering ... please try again' + error.message))
+        dispatch(
+          notifyError('Error registering ... please try again' + error.message),
+        )
       })
-
   }
 
   const handleCheckBoxClick = (key, value) => {
@@ -140,8 +131,8 @@ const RegisterForm = () => {
               <div className="description">
                 <h3 className="info-title">Marketing</h3>
                 <p className="description">
-                  We&#39;ve created the marketing campaign of the website. It was a
-                  very interesting collaboration.
+                  We&#39;ve created the marketing campaign of the website. It
+                  was a very interesting collaboration.
                 </p>
               </div>
             </div>
@@ -152,8 +143,8 @@ const RegisterForm = () => {
               <div className="description">
                 <h3 className="info-title">Fully Coded in HTML5</h3>
                 <p className="description">
-                  We&#39;ve developed the website with HTML5 and CSS3. The client
-                  has access to the code using GitHub.
+                  We&#39;ve developed the website with HTML5 and CSS3. The
+                  client has access to the code using GitHub.
                 </p>
               </div>
             </div>
@@ -176,17 +167,18 @@ const RegisterForm = () => {
                 <CardImg
                   alt="..."
                   src={require('assets/img/card-primary.png').default}
+                  style={{top: '-70px'}}
                 />
                 <CardTitle tag="h4">Register</CardTitle>
               </CardHeader>
               <CardBody>
                 <Form className="form">
-                <InputGroup
-                      className={classnames({
-                        'input-group-focus': state.nameFocus,
-                        'has-danger': error.email
-                      })}
-                    >
+                  <InputGroup
+                    className={classnames({
+                      'input-group-focus': state.nameFocus,
+                      'has-danger': error.email,
+                    })}
+                  >
                     <InputGroupAddon addonType="prepend">
                       <InputGroupText>
                         <i className="tim-icons icon-email-85" />
@@ -201,11 +193,11 @@ const RegisterForm = () => {
                     />
                   </InputGroup>
                   <InputGroup
-                      className={classnames({
-                        'input-group-focus': state.nameFocus,
-                        'has-danger': error.username
-                      })}
-                    >
+                    className={classnames({
+                      'input-group-focus': state.nameFocus,
+                      'has-danger': error.username,
+                    })}
+                  >
                     <InputGroupAddon addonType="prepend">
                       <InputGroupText>
                         <i className="tim-icons icon-single-02" />
@@ -220,36 +212,36 @@ const RegisterForm = () => {
                     />
                   </InputGroup>
                   <InputGroup
-                      className={classnames({
-                        'input-group-focus': state.nameFocus,
-                        'has-danger': error.pass
-                      })}
-                    >
+                    className={classnames({
+                      'input-group-focus': state.nameFocus,
+                      'has-danger': error.pass,
+                    })}
+                  >
                     <InputGroupAddon addonType="prepend">
                       <InputGroupText>
                         <i className="tim-icons icon-lock-circle" />
                       </InputGroupText>
                     </InputGroupAddon>
                     <Input
-                    placeholder="Password"
+                      placeholder="Password"
                       type="password"
                       autoComplete="off"
                       onChange={(e) => setPass(e.target.value)}
                     />
                   </InputGroup>
                   <InputGroup
-                      className={classnames({
-                        'input-group-focus': state.nameFocus,
-                        'has-danger': error.confirmPass
-                      })}
-                    >
+                    className={classnames({
+                      'input-group-focus': state.nameFocus,
+                      'has-danger': error.confirmPass,
+                    })}
+                  >
                     <InputGroupAddon addonType="prepend">
                       <InputGroupText>
                         <i className="tim-icons icon-lock-circle" />
                       </InputGroupText>
                     </InputGroupAddon>
                     <Input
-                       placeholder="Confirm Password"
+                      placeholder="Confirm Password"
                       type="password"
                       autoComplete="off"
                       onChange={(e) => setConfirmPass(e.target.value)}
@@ -257,18 +249,13 @@ const RegisterForm = () => {
                   </InputGroup>
                   <FormGroup check className="text-left">
                     <Label check>
-                    <Input 
-                    type="checkbox"
-                     />
-                        <span className="form-check-sign" />I am 16 years or over
-                        
+                      <Input type="checkbox" />
+                      <span className="form-check-sign" />I am 16 years or over
                     </Label>
                   </FormGroup>
                   <FormGroup check className="text-left">
                     <Label check>
-                    <Input 
-                    type="checkbox"
-                    />
+                      <Input type="checkbox" />
                       <span className="form-check-sign" />I agree with{' '}
                       <a
                         href="https://agromonitoring.com/privacy-policy"
@@ -296,12 +283,12 @@ const RegisterForm = () => {
                     </Label>
                   </FormGroup>
                 </Form>
-                <hr/>
+                <hr />
                 <Form className="form">
                   <FormGroup check className="text-left">
                     <Label check className="mr-3">
                       <Input
-                       type="checkbox"
+                        type="checkbox"
                         onChange={(e) => {
                           handleCheckBoxClick('news', e.target.checked)
                         }}
@@ -314,7 +301,7 @@ const RegisterForm = () => {
                   <FormGroup check className="text-left">
                     <Label check>
                       <Input
-                     type="checkbox"
+                        type="checkbox"
                         onChange={(e) => {
                           handleCheckBoxClick('system', e.target.checked)
                         }}
@@ -326,27 +313,27 @@ const RegisterForm = () => {
                   <FormGroup check className="text-left">
                     <Label check>
                       <Input
-                     type="checkbox"
+                        type="checkbox"
                         onChange={(e) => {
                           handleCheckBoxClick('product', e.target.checked)
                         }}
                       />
-                      <span className="form-check-sign" />Corporate news (our life, the launch of a new service,
+                      <span className="form-check-sign" />
+                      Corporate news (our life, the launch of a new service,
                       etc)
                     </Label>
                   </FormGroup>
-                 
+
                   <FormGroup className="text-left">
-                  <Label>
-                 
-                  <ReCAPTCHA
-                  style={{marginLeft: "15px", marginTop: "35px"}}
-                sitekey="6Ler3aocAAAAADwkBRcUEZYnjE7KEJChWn1P_Hu4"
-                onChange={onChange}
-              />
-           </Label>
-                 {/* Secret Key: 6Ler3aocAAAAABa_3uUTRkSIfyiJrxd9MYiXshEU */}
-              </FormGroup>
+                    <Label>
+                      <ReCAPTCHA
+                        style={{ marginLeft: '15px', marginTop: '35px' }}
+                        sitekey="6Ler3aocAAAAADwkBRcUEZYnjE7KEJChWn1P_Hu4"
+                        onChange={onChange}
+                      />
+                    </Label>
+                    {/* Secret Key: 6Ler3aocAAAAABa_3uUTRkSIfyiJrxd9MYiXshEU */}
+                  </FormGroup>
                 </Form>
               </CardBody>
               <CardFooter className="text-right">
@@ -360,7 +347,6 @@ const RegisterForm = () => {
                 </Button>
               </CardFooter>
             </Card>
-
           </Col>
         </Row>
       </Container>

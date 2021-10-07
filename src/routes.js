@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import React from 'react'
 // import Pricing from "views/pages/Pricing.js";
 // import Register from "views/pages/Register.js";
@@ -23,7 +25,6 @@ import InvoiceList from './views/personal-account/Payments'
 import RegisterForm from './views/personal-account/Registration'
 import ResetPass from './views/personal-account/ResetPassword'
 import Subscription from './views/personal-account/Subscription'
-
 
 const routes = [
   {
