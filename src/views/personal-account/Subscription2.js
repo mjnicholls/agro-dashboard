@@ -153,6 +153,17 @@ const Subscription2 = () => {
               </CardTitle>
             </CardHeader>
             <CardBody>
+                <Row>
+                <Col lg="6">
+                <h1>Your charges this month:</h1>
+                </Col>
+                <Col lg="3">
+                
+                </Col>
+                <Col lg="3">
+                <h1>£??</h1>
+                </Col>
+                </Row>
               <Table>
                 <thead>
                   <tr>
