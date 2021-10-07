@@ -1,10 +1,8 @@
 /* eslint-disable */
-import React, { useEffect, useState } from 'react'
-import {
-  updatePassword,
-  updateUserName,
-  updateMailing,
-} from '../../services/api/personalAccountAPI'
+import React, { useState } from 'react'
+
+import classnames from 'classnames'
+import ReCAPTCHA from 'react-google-recaptcha'
 import { useDispatch } from 'react-redux'
 // reactstrap components
 import {
@@ -26,14 +24,19 @@ import {
   Row,
   Col,
 } from 'reactstrap'
+
 import {
   notifyError,
   notifySuccess,
 } from '../../features/notifications/actions'
-import ReCAPTCHA from 'react-google-recaptcha'
+
+// import { createNewUser } from '../../services/api/personalAccountAPI'
+
 
 const RegisterForm = () => {
-  const [error, setError] = useState(null)
+
+  const [state, setState] = React.useState({})
+  const [error, setError] = useState({})
   const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
   const [mailSettings, setMailSettings] = useState('')
@@ -42,20 +45,54 @@ const RegisterForm = () => {
   const dispatch = useDispatch()
 
   const createUser = () => {
-    setError(null)
+   
+    setError({})
 
     // username & email
 
+    let newError = {}
+
     if (
-      !username.length &&
-      !email.length &&
-      pass.length &&
-      confirmPass.length
+      !username.length ||
+      !email.length ||
+      !pass.length ||
+      !confirmPass.length
     ) {
-      setError(true)
+      newError.username = !username.length
+      newError.email = !email.length
+      newError.pass = !pass.length
+      newError.confirmPass = !confirmPass.length
       dispatch(notifyError('Cannot be empty'))
+      setError(newError)
       return
     }
+
+    // password conditions 
+
+    if (
+      pass.length < 8 ||
+      confirmPass.length < 8
+    )
+    {
+      newError.pass = pass.length < 8
+      newError.confirmPass = confirmPass.length < 8
+      dispatch(notifyError('Must be eight characters or more'))
+      setError(newError)
+      return
+    }
+    
+    if  (
+      pass !==
+      confirmPass
+    ) {
+      newError.pass = true
+      newError.confirmPass = true
+      dispatch(notifyError('Passwords do not match'))
+      setError(newError)
+      return
+    }
+
+    // create user
 
     let data = {
       user: {
@@ -72,18 +109,19 @@ const RegisterForm = () => {
 
     createNewUser(data)
       .then(() => {
-        dispatch(console.log('User cretated'))
+        dispatch(notifySuccess('Registration complete'))
       })
       .catch((error) => {
-        dispatch(notifyError('Error updating name ' + error.message))
+        dispatch(notifyError('Error registering ... please try again' + error.message))
       })
 
-    handleCheckBoxClick = (key, value) => {
-      // eslint-disable-next-line
-      let newObj = Object.assign({}, mailSettings)
-      newObj[key] = value
-      setMailSettings(newObj)
-    }
+  }
+
+  const handleCheckBoxClick = (key, value) => {
+    // eslint-disable-next-line
+    let newObj = Object.assign({}, mailSettings)
+    newObj[key] = value
+    setMailSettings(newObj)
   }
 
   const onChange = (value) => {
@@ -102,7 +140,7 @@ const RegisterForm = () => {
               <div className="description">
                 <h3 className="info-title">Marketing</h3>
                 <p className="description">
-                  We've created the marketing campaign of the website. It was a
+                  We&#39;ve created the marketing campaign of the website. It was a
                   very interesting collaboration.
                 </p>
               </div>
@@ -114,7 +152,7 @@ const RegisterForm = () => {
               <div className="description">
                 <h3 className="info-title">Fully Coded in HTML5</h3>
                 <p className="description">
-                  We've developed the website with HTML5 and CSS3. The client
+                  We&#39;ve developed the website with HTML5 and CSS3. The client
                   has access to the code using GitHub.
                 </p>
               </div>
@@ -143,97 +181,94 @@ const RegisterForm = () => {
               </CardHeader>
               <CardBody>
                 <Form className="form">
-                  <InputGroup
-                  //</Form> className={classnames({
-                  //     'input-group-focus': state.nameFocus,
-                  // })}
-                  >
-                    <InputGroupAddon addonType="prepend">
-                      <InputGroupText>
-                        <i className="tim-icons icon-single-02" />
-                      </InputGroupText>
-                    </InputGroupAddon>
-                    <Input
-                      placeholder="Full Name"
-                      type="text"
-                      className={error ? 'danger-border' : ''}
-                      onChange={(e) => setEmail(e.target.value)}
-                      // onBlur={(e) => setState({ ...state, nameFocus: false })}
-                    />
-                  </InputGroup>
-                  <InputGroup
-                  //</Form> className={classnames({
-                  //     'input-group-focus': state.nameFocus,
-                  // })}
-                  >
-                    <InputGroupAddon addonType="prepend">
-                      <InputGroupText>
-                        <i className="tim-icons icon-single-02" />
-                      </InputGroupText>
-                    </InputGroupAddon>
-                    <Input
-                      placeholder="Full Name"
-                      type="text"
-                      className={error ? 'danger-border' : ''}
-                      onChange={(e) => setUsername(e.target.value)}
-                      // onBlur={(e) => setState({ ...state, nameFocus: false })}
-                    />
-                  </InputGroup>
-                  <InputGroup
-                  //</Form> className={classnames({
-                  //  'input-group-focus': state.emailFocus,
-                  // })}
-                  >
+                <InputGroup
+                      className={classnames({
+                        'input-group-focus': state.nameFocus,
+                        'has-danger': error.email
+                      })}
+                    >
                     <InputGroupAddon addonType="prepend">
                       <InputGroupText>
                         <i className="tim-icons icon-email-85" />
                       </InputGroupText>
                     </InputGroupAddon>
                     <Input
-                      type="password"
-                      autoComplete="off"
-                      onChange={(e) => setPass(e.target.value)}
-                      className={error ? 'danger-border' : ''}
+                      placeholder="Email Address"
+                      type="text"
+                      onChange={(e) => setEmail(e.target.value)}
+                      onFocus={(e) => setState({ ...state, nameFocus: true })}
+                      onBlur={(e) => setState({ ...state, nameFocus: false })}
                     />
                   </InputGroup>
                   <InputGroup
-                  //</Form>   className={classnames({
-                  //    'input-group-focus': state.passFocus,
-                  //  })}
-                  >
+                      className={classnames({
+                        'input-group-focus': state.nameFocus,
+                        'has-danger': error.username
+                      })}
+                    >
+                    <InputGroupAddon addonType="prepend">
+                      <InputGroupText>
+                        <i className="tim-icons icon-single-02" />
+                      </InputGroupText>
+                    </InputGroupAddon>
+                    <Input
+                      placeholder="Full Name"
+                      type="text"
+                      onChange={(e) => setUsername(e.target.value)}
+                      onFocus={(e) => setState({ ...state, nameFocus: true })}
+                      onBlur={(e) => setState({ ...state, nameFocus: false })}
+                    />
+                  </InputGroup>
+                  <InputGroup
+                      className={classnames({
+                        'input-group-focus': state.nameFocus,
+                        'has-danger': error.pass
+                      })}
+                    >
                     <InputGroupAddon addonType="prepend">
                       <InputGroupText>
                         <i className="tim-icons icon-lock-circle" />
                       </InputGroupText>
                     </InputGroupAddon>
                     <Input
+                    placeholder="Password"
+                      type="password"
+                      autoComplete="off"
+                      onChange={(e) => setPass(e.target.value)}
+                    />
+                  </InputGroup>
+                  <InputGroup
+                      className={classnames({
+                        'input-group-focus': state.nameFocus,
+                        'has-danger': error.confirmPass
+                      })}
+                    >
+                    <InputGroupAddon addonType="prepend">
+                      <InputGroupText>
+                        <i className="tim-icons icon-lock-circle" />
+                      </InputGroupText>
+                    </InputGroupAddon>
+                    <Input
+                       placeholder="Confirm Password"
                       type="password"
                       autoComplete="off"
                       onChange={(e) => setConfirmPass(e.target.value)}
-                      className={error ? 'danger-border' : ''}
-                      style={{ marginBottom: '22px' }}
                     />
                   </InputGroup>
                   <FormGroup check className="text-left">
-                    <Label check className="mr-3">
-                      <Input
-                        id="individualRadioButton"
-                        name="legalForm"
-                        type="radio"
-                        checked="true"
-                      />
-                      <span className="form-check-sign" />I am 16 years old and
-                      over
+                    <Label check>
+                    <Input 
+                    type="checkbox"
+                     />
+                        <span className="form-check-sign" />I am 16 years or over
+                        
                     </Label>
                   </FormGroup>
                   <FormGroup check className="text-left">
                     <Label check>
-                      <Input
-                        id="organisationRadioButton"
-                        name="legalForm"
-                        type="radio"
-                        checked="true"
-                      />
+                    <Input 
+                    type="checkbox"
+                    />
                       <span className="form-check-sign" />I agree with{' '}
                       <a
                         href="https://agromonitoring.com/privacy-policy"
@@ -261,14 +296,12 @@ const RegisterForm = () => {
                     </Label>
                   </FormGroup>
                 </Form>
-
+                <hr/>
                 <Form className="form">
                   <FormGroup check className="text-left">
                     <Label check className="mr-3">
                       <Input
-                        id="individualRadioButton"
-                        name="legalForm"
-                        type="radio"
+                       type="checkbox"
                         onChange={(e) => {
                           handleCheckBoxClick('news', e.target.checked)
                         }}
@@ -281,9 +314,7 @@ const RegisterForm = () => {
                   <FormGroup check className="text-left">
                     <Label check>
                       <Input
-                        id="organisationRadioButton"
-                        name="legalForm"
-                        type="radio"
+                     type="checkbox"
                         onChange={(e) => {
                           handleCheckBoxClick('system', e.target.checked)
                         }}
@@ -293,27 +324,35 @@ const RegisterForm = () => {
                     </Label>
                   </FormGroup>
                   <FormGroup check className="text-left">
-                    <Label>
+                    <Label check>
                       <Input
-                        id="organisationRadioButton"
-                        name="legalForm"
-                        type="radio"
+                     type="checkbox"
                         onChange={(e) => {
                           handleCheckBoxClick('product', e.target.checked)
                         }}
                       />
-                      <span className="form-check-sign" />
-                      Corporate news (our life, the launch of a new service,
+                      <span className="form-check-sign" />Corporate news (our life, the launch of a new service,
                       etc)
                     </Label>
                   </FormGroup>
+                 
+                  <FormGroup className="text-left">
+                  <Label>
+                 
+                  <ReCAPTCHA
+                  style={{marginLeft: "15px", marginTop: "35px"}}
+                sitekey="6Ler3aocAAAAADwkBRcUEZYnjE7KEJChWn1P_Hu4"
+                onChange={onChange}
+              />
+           </Label>
+                 {/* Secret Key: 6Ler3aocAAAAABa_3uUTRkSIfyiJrxd9MYiXshEU */}
+              </FormGroup>
                 </Form>
               </CardBody>
-              <CardFooter>
+              <CardFooter className="text-right">
                 <Button
                   className="btn-round"
                   color="primary"
-                  href="#pablo"
                   onClick={createUser}
                   size="lg"
                 >
@@ -322,13 +361,6 @@ const RegisterForm = () => {
               </CardFooter>
             </Card>
 
-            <Form>
-              <ReCAPTCHA
-                sitekey="6Ler3aocAAAAADwkBRcUEZYnjE7KEJChWn1P_Hu4"
-                onChange={onChange}
-              />
-            </Form>
-            {/* Secret Key: 6Ler3aocAAAAABa_3uUTRkSIfyiJrxd9MYiXshEU */}
           </Col>
         </Row>
       </Container>

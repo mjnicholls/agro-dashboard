@@ -21,10 +21,10 @@ import {
   HistoryWeather,
   HistorySoilChart,
 } from '.'
-import { defaultStartHistoryWeatherCharts, treshold } from '../../config'
+import { defaultStartHistoryWeatherCharts, threshold } from '../../config'
 import { getDateInPast } from '../../utils/dateTime'
+import TabsSelector from '../agro-components/TabsSelector'
 import DatePickerFromTo from './ui/DatePickerFromTo'
-import TabsSelector from './ui/TabsSelector'
 
 const selectOneCall = (state) => state.onecall
 const selectUnits = (state) => state.units.isMetric
@@ -80,11 +80,11 @@ const CombinedChart = ({ polyId }) => {
   const limitHistoryWeather = useSelector(selectLimitHistoryWeather)
 
   const [threshold, setThreshold] = useState(
-    treshold[isMetric ? 'celsius' : 'fahrenheit'].min,
+    threshold[isMetric ? 'celsius' : 'fahrenheit'].min,
   )
 
   useEffect(() => {
-    setThreshold(treshold[isMetric ? 'celsius' : 'fahrenheit'].min)
+    setThreshold(threshold[isMetric ? 'celsius' : 'fahrenheit'].min)
   }, [isMetric])
 
   useEffect(() => {
@@ -182,8 +182,8 @@ const CombinedChart = ({ polyId }) => {
                       type="number"
                       value={threshold}
                       onChange={(e) => setThreshold(e.target.value)}
-                      min={treshold[isMetric ? 'celsius' : 'fahrenheit'].min}
-                      max={treshold[isMetric ? 'celsius' : 'fahrenheit'].max}
+                      min={threshold[isMetric ? 'celsius' : 'fahrenheit'].min}
+                      max={threshold[isMetric ? 'celsius' : 'fahrenheit'].max}
                     />
                   </FormGroup>
                 </Col>

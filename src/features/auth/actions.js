@@ -52,7 +52,6 @@ export const destroyReduxState = () => ({
   type: 'DESTROY_STATE',
 })
 
-
 export const loginUser = (email, password) => (dispatch) => {
   dispatch(requestLogin(email))
 

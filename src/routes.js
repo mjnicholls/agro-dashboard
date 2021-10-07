@@ -21,7 +21,9 @@ import ApiKeys from './views/personal-account/ApiKeys'
 import BillingPlans from './views/personal-account/BillingPlans'
 import InvoiceList from './views/personal-account/Payments'
 import RegisterForm from './views/personal-account/Registration'
+import ResetPass from './views/personal-account/ResetPassword'
 import Subscription from './views/personal-account/Subscription'
+
 
 const routes = [
   {
@@ -123,15 +125,6 @@ const routes = [
         component: Subscription,
         layout: '/dashboard',
       },
-      {
-        path: '/register',
-        name: 'Register',
-        rtlName: '',
-        mini: 'R',
-        rtlMini: '',
-        component: RegisterForm,
-        layout: '/dashboard',
-      },
     ],
   },
 
@@ -155,10 +148,30 @@ const routes = [
       {
         path: '/login',
         name: 'Login',
-        rtlName: 'هعذاتسجيل الدخول',
+        rtlName: '',
         mini: 'L',
         rtlMini: 'هعذا',
         component: Login,
+        layout: '/auth',
+      },
+
+      {
+        path: '/register',
+        name: 'Register',
+        rtlName: '',
+        mini: 'L',
+        rtlMini: 'هعذا',
+        component: RegisterForm,
+        layout: '/auth',
+      },
+
+      {
+        path: '/reset-password',
+        name: 'Reset Password',
+        rtlName: '',
+        mini: 'R',
+        rtlMini: '',
+        component: ResetPass,
         layout: '/auth',
       },
       // {

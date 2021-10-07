@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { useState } from 'react'
 
 import { useDispatch } from 'react-redux'
@@ -19,18 +20,42 @@ import {
 } from '../../features/notifications/actions'
 import { updateUserName } from '../../services/api/personalAccountAPI'
 
-const UserSettings = ({ name, setName, username, setUserName, email }) => {
-  const [error, setError] = useState(null)
+const UserSettings = ({ email, name, setName, username, setUserName }) => {
+  
+  const [error, setError] = useState({})
+  //const [name, setName] = useState('')
+  //const [username, setUserName] = useState('')
 
   const dispatch = useDispatch()
 
   const confirmUpdate = () => {
-    setError(null)
-    if (!username.length && !name.length) {
-      setError(true)
-      dispatch(notifyError('Cannot be empty'))
+
+
+  setError({})
+
+   let newError = {}
+
+    if (
+      !name.length &&
+      !username.length
+    ) {
+      newError.username = !username.length
+      dispatch(notifyError('Username cannot be empty'))
+      setError(newError)
       return
     }
+
+    else if (
+      name.length &&
+      !username.length
+    ) {
+      newError.username = !username.length
+      dispatch(notifyError('Username cannot be empty'))
+      setError(newError)
+      return
+    }
+
+
 
     let data = {
       new_username: username,
@@ -59,7 +84,7 @@ const UserSettings = ({ name, setName, username, setUserName, email }) => {
               type="text"
               onChange={(e) => setUserName(e.target.value)}
               value={username}
-              className={error ? 'danger-border' : ''}
+              className={error.username ? 'danger-border' : ''}
             />
           </FormGroup>
 
@@ -69,7 +94,7 @@ const UserSettings = ({ name, setName, username, setUserName, email }) => {
               type="text"
               onChange={(e) => setName(e.target.value)}
               value={name}
-              className={error ? 'danger-border' : ''}
+              className={error.name ? 'danger-border' : ''}
             />
           </FormGroup>
 

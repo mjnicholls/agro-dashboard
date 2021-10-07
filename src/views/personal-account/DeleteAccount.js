@@ -1,6 +1,7 @@
 /* eslint-disable */
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import Select from 'react-select'
 import { Button, Col, FormGroup, Input, Label, Row } from 'reactstrap'
 import { NavLink } from 'react-router-dom'
 import { deleteAcct } from '../../services/api/personalAccountAPI'
@@ -8,11 +9,13 @@ import {
   notifyError,
   notifySuccess,
 } from '../../features/notifications/actions'
+import { deleteAcctOptions } from '../../config'
 
 const userSubscriptionSelector = (state) => state.auth.user.tariff
 
 const DeleteAccount = ({ close, refreshData }) => {
   const dispatch = useDispatch()
+  
 
   const subscription = useSelector(userSubscriptionSelector)
 
@@ -45,19 +48,14 @@ const DeleteAccount = ({ close, refreshData }) => {
           <Row className="text-right">
             <Col md="9">
               <FormGroup>
-                <Input
-                  type="select"
-                  name="select"
-                  id="exampleSelect"
-                  style={{ color: 'black', marginBottom: '25px' }}
-                >
-                  <option selected value="blank"></option>
-                  <option value="bad">Bad service</option>
-                  <option value="another">I found another company</option>
-                  <option value="price">Price</option>
-                  <option value="service">I don&#39;t use this service</option>
-                  <option value="email">Wrong email</option>
-                </Input>
+                <Select
+                className='react-select info mb-3'
+                classNamePrefix="react-select"
+                  options={deleteAcctOptions}
+                  menuPortalTarget={document.body} 
+                  styles={{ menuPortal: base => ({ ...base, zIndex: 9999 }) }}
+                  >
+                  </Select>
               </FormGroup>
             </Col>
           </Row>

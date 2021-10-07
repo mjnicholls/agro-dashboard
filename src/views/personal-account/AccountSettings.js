@@ -9,18 +9,17 @@ import {
   Col,
   Row,
 } from 'reactstrap'
-import ReactBSAlert from 'react-bootstrap-sweetalert'
 import { getAccountInfo } from '../../services/api/personalAccountAPI'
 // reactstrap components
 import UserSettings from './UserSettings'
 import UserPassword from './UserPassword'
 import PrivacySettings from './PrivacySettings'
 import InvoiceSettings from './InvoiceInfo'
-import DeleteAccount from './DeleteAccount'
+import DeleteAcctCard from './DeleteAccountCard'
 import UnitsRadioButtons from '../agro-components/UnitsRadioButtons'
-import TabsSelector from '../charts/ui/TabsSelector'
+import TabsSelector from '../agro-components/TabsSelector'
 const AccountSettings = () => {
-  const [alert, setAlert] = React.useState(null)
+
   const [invoiceSettings, setInvoiceSettings] = useState({
     type: 'individual',
     organisation: '',
@@ -44,11 +43,11 @@ const AccountSettings = () => {
 
   const [isNew, setIsNew] = useState(true)
   const [isActiveStripeCustomer, setIsActiveStripeCustomer] = useState(false)
-  const options = [
+  const tabsOptions = [
     { id: 'User Settings', label: 'User Settings' },
     { id: 'Billing information', label: 'Billing information' },
   ]
-  const [activeTab, setActiveTab] = useState(options[0])
+  const [activeTab, setActiveTab] = useState(tabsOptions[0])
   const [name, setName] = useState('')
   const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
@@ -56,10 +55,6 @@ const AccountSettings = () => {
   useEffect(() => {
     refreshData()
   }, [])
-
-  const hideAlert = () => {
-    setAlert(null)
-  }
 
   const refreshData = () => {
     getAccountInfo().then((res) => {
@@ -69,29 +64,19 @@ const AccountSettings = () => {
       setMailSettings(res.mailing)
       setIsActiveStripeCustomer(res.user.active_stripe_customer)
       if (Object.keys(res.invoice_info).length) {
-        setInvoiceSettings(res.invoice_info)
+        setInvoiceSettings({
+          ...invoiceSettings,
+          ...res.invoice_info
+        })
         setIsNew(false)
       }
     })
   }
 
-  const htmlAlert = () => {
-    setAlert(
-      <ReactBSAlert
-        customClass="agro-alert"
-        title="Delete your account?"
-        onConfirm={() => hideAlert()}
-        onCancel={() => hideAlert()}
-        showConfirm={false}
-      >
-        <DeleteAccount close={hideAlert} />
-      </ReactBSAlert>,
-    )
-  }
 
   return (
     <>
-      {alert}
+  
       <div className="content no-card-header">
         <Row>
           <Col>
@@ -101,11 +86,11 @@ const AccountSettings = () => {
             <TabsSelector
               activeTab={activeTab}
               setActiveTab={setActiveTab}
-              options={options}
+              options={tabsOptions}
             />
           </Col>
         </Row>
-        {activeTab.id === options[0].id ? (
+        {activeTab.id === tabsOptions[0].id ? (
           <>
             <Row>
               <Col>
@@ -152,43 +137,7 @@ const AccountSettings = () => {
                   setMailSettings={setMailSettings}
                 />
               </Col>
-              <Col>
-                <h4>Delete your account</h4>
-                <Card>
-                  <CardHeader>
-                    <CardTitle tag="h4">Delete Your Account</CardTitle>
-                  </CardHeader>
-                  <CardBody>
-                    <p className="mb-3">
-                      If you delete your account all your API keys will be
-                      blocked.
-                    </p>
-                    <p>
-                      If you have any questions, please reach out to our
-                      friendly support team by emailing us at{' '}
-                      <a href="mailto:info@openweathermap.org" target="_blank">
-                        info@openweathermap.org
-                      </a>
-                      .
-                    </p>
-
-                    <div className="text-right">
-                      <Button
-                        className="btn-fill"
-                        color="danger"
-                        type="button"
-                        title="Delete"
-                        onClick={(e) => {
-                          htmlAlert()
-                          e.stopPropagation()
-                        }}
-                      >
-                        Delete
-                      </Button>
-                    </div>
-                  </CardBody>
-                </Card>
-              </Col>
+          <DeleteAcctCard />
             </Row>
           </>
         ) : (

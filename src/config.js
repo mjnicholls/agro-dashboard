@@ -1288,7 +1288,7 @@ export const cropColorDict = {
     visible: 1,
   },
 }
-export const treshold = {
+export const threshold = {
   celsius: {
     min: 0,
     max: 50,
@@ -1568,5 +1568,13 @@ export const titles = [
   { value: 'Ms', label: 'Ms' },
   { value: 'Dr', label: 'Dr' },
 ]
+
+export const deleteAcctOptions = [
+  { value: 'Bad service', label: 'Bad service' },
+  { value: 'I found another company', label: 'I found another company' },
+  { value: 'Price', label: 'Price' },
+  { value: 'I don\'t use this service', label: 'I don\'t use this service' },
+  { value: 'Wrong email', label: 'Wrong email' },
+ ]
 
 export const cropMapYears = [2019, 2018, 2017]
