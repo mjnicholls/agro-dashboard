@@ -46,7 +46,6 @@ $mapHeight: 400px;
   min-height: $mapHeight;
   position: relative;
   overflow: visible;
-
 }
 
 .small-card {
@@ -528,7 +527,7 @@ $daily-chart-width: 1000px;
 .map-placeholder {
   z-index: 3;
   top: 0;
-  bottom: 0;
+  bottom: -50px;
   left: 0;
   right: 0;
 }
@@ -539,8 +538,3 @@ $daily-chart-width: 1000px;
 .disabled-year {
   color: $card-stats-gray !important; // $github-color
 }
-
-//$dark-gray:                  #9A9A9A !default;
-//$card-stats-gray:            #808080 !default;
-//$active-gray:                #777777 !default;
-//$nav-gray:

@@ -24,16 +24,10 @@ const CropMapCard = ({ years, activeYear, setActiveYear, info }) => {
   }
 
   return (
-    <Card className="crop-map-card"
-          style={ activeYear.status < 3 ? {boxShadow: 'none'} : {}}
+    <Card className="crop-map-card" style={ activeYear.status < 3 ? {boxShadow: 'none'} : {}}
     >
       <CardHeader className="d-flex align-items-center ">
-        <div className='mb-3'>
-          <TabsSelector options={years} activeTab={activeYear} setActiveTab={setActiveYear} />
-        </div>
         <ButtonGroup>
-        {/*<Row className="justify-content-start">*/}
-        {/*<Col sm="2" key={"year_" + yearInArray.activeYear} className="mr-2"></Col></Row>*/}
         {years.map((yearInArray) => (
             <Button
             color="github"
@@ -46,26 +40,9 @@ const CropMapCard = ({ years, activeYear, setActiveYear, info }) => {
               'active-year': yearInArray.id === activeYear.id
             })}
             onClick={() => setActiveYear(yearInArray)}
-            style={{ padding: '5px 10px' }}
           >
             <span>{yearInArray.label}</span>
           </Button>
-
-
-            // <Button
-            //   id={"year_" + yearInArray.year}
-            //   key={"year_" + yearInArray.year}
-            //   onClick={() => setActiveYear(yearInArray)}
-            //   // color={yearInArray.activeYear === activeYear.activeYear ? 'primary' : yearInArray.status === 3 ? 'github' : 'default'}
-            //   className='mr-2 mb-3 btn-link btn-simple'
-            //   style={{color: yearInArray.year === activeYear.year ? 'pink': 'white'}}
-            //   // className={classNames('mb-3 btn default primary', {
-            //   //   // 'primary': yearInArray.activeYear === activeYear.activeYear,
-            //   //   // 'github': yearInArray.status < 3
-            //   // })}
-            // >
-            //   {yearInArray.year}
-            // </Button>
         ))}
         </ButtonGroup>
       </CardHeader>
