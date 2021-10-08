@@ -1,7 +1,6 @@
-/* eslint-disable */
 import React, { useEffect, useRef, useState } from 'react'
 
-import {Card} from 'reactstrap'
+import { Card } from 'reactstrap'
 
 import { cropMapYears, tariffError } from '../../config'
 import { getPageHeight } from '../../utils/utils'
@@ -13,7 +12,9 @@ const CropMap = () => {
   const mapContainer = useRef(null)
   const map = useRef(null)
   const [mapHeight, setMapHeight] = useState(550)
-  const [activeYear, setActiveYear] = useState(cropMapYears.find(year => year.status === 3))
+  const [activeYear, setActiveYear] = useState(
+    cropMapYears.find((year) => year.status === 3),
+  )
   const [initialised, setInitialised] = useState(false)
   const [info, setInfo] = useState(null)
 
@@ -38,9 +39,6 @@ const CropMap = () => {
   }, [])
 
   useEffect(() => {
-    // if (year.status < 3) {
-    //   setInfo(null)
-    // }
     if (initialised && activeYear.status === 3) {
       displayCropLayer2(map.current, activeYear.year, setInfo)
     }
@@ -52,20 +50,31 @@ const CropMap = () => {
       className="map-container map-box-container"
       style={{ height: `${mapHeight}px` }}
     >
-      {(activeYear.status < 3) &&
+      {activeYear.status < 3 && (
         <Card
           className="map-placeholder d-flex justify-content-center align-items-center rounded-0 position-absolute"
+          style={{ height: `${mapHeight}px` }}
         >
-          <div className="text-center" style={{maxWidth: '340px'}}>
-          <h4>{activeYear === 1 ? tariffError : `If you'd like to request data for the year ${activeYear.year}, please contact our sales department`}</h4>
-          <a
-            role="button"
-            href={activeYear === 1 ? "https://home.agromonitoring.com/subscriptions" : "mailto:info@openweathermap.org"}
-            className="btn btn-primary"
-          >{activeYear === 1 ? 'To subscription plans' : 'Contact'}</a>
+          <div className="text-center" style={{ maxWidth: '340px' }}>
+            <h4>
+              {activeYear.status === 1
+                ? tariffError
+                : `If you'd like to request data for the year ${activeYear.year}, please contact our sales department`}
+            </h4>
+            <a
+              role="button"
+              href={
+                activeYear.status === 1
+                  ? 'https://home.agromonitoring.com/subscriptions'
+                  : 'mailto:info@openweathermap.org'
+              }
+              className="btn btn-primary"
+            >
+              {activeYear.status === 1 ? 'Subscription plans' : 'Contact'}
+            </a>
           </div>
         </Card>
-      }
+      )}
       <CropMapCard
         years={cropMapYears}
         activeYear={activeYear}

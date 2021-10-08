@@ -521,20 +521,29 @@ $daily-chart-width: 1000px;
   position: absolute;
   top: 10px;
   left: 10px;
-  width: 300px;
+  width: 270px;
+  @media screen and (min-width: 768px) {
+    width: 300px;
+  }
 }
 
 .map-placeholder {
   z-index: 3;
   top: 0;
-  bottom: -50px;
+  bottom: 0;
   left: 0;
   right: 0;
 }
 
 .active-year {
   color: $primary !important; // $github-color
+  h4 {
+    color: $primary !important; // $github-color
+  }
 }
 .disabled-year {
   color: $card-stats-gray !important; // $github-color
+  h4 {
+    color: $card-stats-gray !important; // $github-color
+  }
 }
