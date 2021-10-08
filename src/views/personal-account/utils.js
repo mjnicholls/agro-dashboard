@@ -2,63 +2,87 @@ export const api = {
   one_call: {
     name: "One Call API",
     link: "https://openweathermap.org/api/one-call-api",
-    isCurrent: true
+    isCurrent: true,
+    tool_id: "tool1",
+    tooltip: 'Make just one API call and get all your essential weather data for a specific location.',
   },
   ndvi_history: {
     name: 'Historical NDVI by polygon',
     link: 'https://agromonitoring.com/api/history-ndvi',
-    isCurrent: false
+    tooltip: 'Detailed historical data for analysis and comparison vegetation of one season to another.',
+    isCurrent: false,
+    tool_id: "tool2"
   },
   weather_history: {
     name: 'Historical weather data',
     link: 'https://agromonitoring.com/api/history-weather',
-    isCurrent: false
+    isCurrent: false,
+    tooltip: 'Historical weather data archive has a 1-hour step.',
+    tool_id: "tool3"
   },
   weather_history_accumulated_precipitation: {
     name: 'Accumulated precipitation',
-    link: '',
-    isCurrent: false
+    link: 'https://agromonitoring.com/api/accumulated-precipitation',
+    isCurrent: false,
+    tooltip: 'Call accumulated precipitation data by geo coordinates.',
+    tool_id: "tool4"
   },
   weather_history_accumulated_temperature: {
-    name: 'Accumulated precipitation',
-    link: '',
-    isCurrent: false
+    name: 'Accumulated temperature',
+    link: 'https://agromonitoring.com/api/accumulated-temperature',
+    isCurrent: false,
+    tooltip: 'Call accumulated temperature data by geo coordinates.',
+    tool_id: "tool5"
   },
   'Historical UV index': {
     name: 'Accumulated precipitation',
     link: '',
-    isCurrent: false
+    isCurrent: false,
+    tooltip: '',
+    tool_id: "tool6",
   },
   soil_history: {
     name: 'Historical soil data by polygon',
     link: 'https://agromonitoring.com/api/history-soil',
-    isCurrent: false
+    isCurrent: false,
+    tooltip: 'Soil data collection is two times a day with a 12-hour period.',
+    tool_id: "tool7"
   },
   'API calls per day' : {
     name: 'API calls per day',
     link: '',
-    isCurrent: true
+    isCurrent: true,
+    tooltip: '',
+    tool_id: "tool8",
   },
   'Current weather data': {
     name: 'Current weather data',
     link: 'https://agromonitoring.com/api/current-weather',
-    isCurrent: true
+    isCurrent: true,
+    tooltip: 'Current weather data by geo coordinates.',
+    tool_id: "tool9",
   },
   '5 day/3 hour weather forecast': {
     name: '5 day/3 hour weather forecast',
     link: 'https://agromonitoring.com/api/forecast-weather',
-    isCurrent: true
+    isCurrent: true,
+    tooltip: 'Forecast weather data by geo coordinates.',
+    tool_id: "tool10",
   },
   'Current UV index': {
     name: 'Current UV index',
-    link: '',
-    isCurrent: true
+    link: 'https://agromonitoring.com/api/current-uvi',
+    isCurrent: true,
+    tooltip: 'Current UVI data by polygon.',
+    tool_id: "tool11",
   },
 
   'Forecast UV index': {
     name: 'Forecast UV index',
-    link: '',
-    isCurrent: true
+    link: 'https://agromonitoring.com/api/forecast-uvi',
+    isCurrent: true,
+    tooltip: 'Forecast UVI data by polygon',
+    tool_id: "tool12",
   },
 }
 
@@ -71,8 +95,6 @@ export const subscriptions = {
    polygons_per_month: '< 10',
    price_exceeded_area: 'Unavailable',
    api_calls_per_day: '< 500',
-   api_calls_historical: '—',
-   historical_data_depths: '—',
    satelitte_imagery_service: 'Near real-time (operative) satellite data',
    current_soil: '2 times/day',
    weather_api_update: '< 2 hours',
