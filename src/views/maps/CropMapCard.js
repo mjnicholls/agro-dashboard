@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 
 import classNames from 'classnames'
+import ReactBSAlert from 'react-bootstrap-sweetalert'
 import Select from 'react-select'
 import {
   Button,
@@ -12,9 +13,10 @@ import {
   Row,
 } from 'reactstrap'
 
+import { tariffError } from '../../config'
 import { getCropName } from './crops'
 
-const CropMapCard = ({ years, activeYear, setActiveYear, info }) => {
+const CropMapCard = ({ years, activeYear, setActiveYear, info, setAlert }) => {
   const [options, setOptions] = useState(years)
 
   useEffect(() => {
@@ -39,6 +41,46 @@ const CropMapCard = ({ years, activeYear, setActiveYear, info }) => {
     }),
   }
 
+  const hideAlert = () => {
+    setAlert(null)
+  }
+
+  const buttonOnClick = (year) => {
+    if (year.status === 3) {
+      setActiveYear(year)
+    } else {
+      setAlert(
+        <ReactBSAlert
+          customClass="agro-alert"
+          confirmBtnText={year.status === 1 ? 'Subscription plans' : 'Contact'}
+          title={
+            year.status === 1
+              ? tariffError
+              : `If you'd like to request data for the year ${year.year}, please contact our sales department`
+          }
+          onConfirm={() => hideAlert()}
+          onCancel={() => hideAlert()}
+          showConfirm={false}
+        >
+          <div className="mt-3 text-center">
+            <a
+              role="button"
+              target="_blank"
+              href={
+                year.status === 1
+                  ? 'https://home.agromonitoring.com/subscriptions'
+                  : 'mailto:info@openweathermap.org'
+              }
+              className="btn btn-primary"
+            >
+              {year.status === 1 ? 'Subscription plans' : 'Contact'}
+            </a>
+          </div>
+        </ReactBSAlert>,
+      )
+    }
+  }
+
   return (
     <Card
       className="crop-map-card"
@@ -49,18 +91,19 @@ const CropMapCard = ({ years, activeYear, setActiveYear, info }) => {
           {options.map((yearInArray) => (
             <Button
               color="github"
-              id={yearInArray.id}
+              id={yearInArray.year}
               size="sm"
               tag="label"
-              key={yearInArray.id}
+              key={yearInArray.year}
               className={classNames('btn-simple btn-link pl-0 pb-0', {
                 'disabled-year':
-                  yearInArray.id !== activeYear.id && yearInArray.status < 3,
-                'active-year': yearInArray.id === activeYear.id,
+                  yearInArray.year !== activeYear.year &&
+                  yearInArray.status < 3,
+                'active-year': yearInArray.year === activeYear.year,
               })}
-              onClick={() => setActiveYear(yearInArray)}
+              onClick={() => buttonOnClick(yearInArray)}
             >
-              <h4 className="mb-1">{yearInArray.label}</h4>
+              <span style={{ fontSize: '14px' }}>{yearInArray.label}</span>
             </Button>
           ))}
         </ButtonGroup>
@@ -69,7 +112,7 @@ const CropMapCard = ({ years, activeYear, setActiveYear, info }) => {
           classNamePrefix="react-select"
           name="singleSelect"
           value={activeYear.year}
-          onChange={(tab) => setActiveYear(tab)}
+          onChange={(tab) => buttonOnClick(tab)}
           options={options}
           placeholder={activeYear.year}
           styles={customStyles}

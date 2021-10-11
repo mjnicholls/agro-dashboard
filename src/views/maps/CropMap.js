@@ -1,8 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 
-import { Card } from 'reactstrap'
-
-import { cropMapYears, tariffError } from '../../config'
+import { cropMapYears } from '../../config'
 import { getPageHeight } from '../../utils/utils'
 import { initialiseMap } from './base'
 import CropMapCard from './CropMapCard'
@@ -17,6 +15,7 @@ const CropMap = () => {
   )
   const [initialised, setInitialised] = useState(false)
   const [info, setInfo] = useState(null)
+  const [alert, setAlert] = useState(null)
 
   useEffect(() => {
     const contentHeight = getPageHeight()
@@ -50,35 +49,12 @@ const CropMap = () => {
       className="map-container map-box-container"
       style={{ height: `${mapHeight}px` }}
     >
-      {activeYear.status < 3 && (
-        <Card
-          className="map-placeholder d-flex justify-content-center align-items-center rounded-0 position-absolute"
-          style={{ height: `${mapHeight}px` }}
-        >
-          <div className="text-center" style={{ maxWidth: '340px' }}>
-            <h4>
-              {activeYear.status === 1
-                ? tariffError
-                : `If you'd like to request data for the year ${activeYear.year}, please contact our sales department`}
-            </h4>
-            <a
-              role="button"
-              href={
-                activeYear.status === 1
-                  ? 'https://home.agromonitoring.com/subscriptions'
-                  : 'mailto:info@openweathermap.org'
-              }
-              className="btn btn-primary"
-            >
-              {activeYear.status === 1 ? 'Subscription plans' : 'Contact'}
-            </a>
-          </div>
-        </Card>
-      )}
+      {alert}
       <CropMapCard
         years={cropMapYears}
         activeYear={activeYear}
         setActiveYear={setActiveYear}
+        setAlert={setAlert}
         info={info}
       />
     </div>

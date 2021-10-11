@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { useEffect, useState } from 'react'
 
 import { Line } from 'react-chartjs-2'
@@ -20,9 +21,7 @@ const AccumulatedChart = ({
 }) => {
   const [error, setError] = useState(startDate ? null : tariffError)
   const [isLoading, setIsLoading] = useState(startDate)
-
   const isMetric = useSelector(selectUnits)
-
   const [rainData, setRainData] = useState([])
   const [tempData, setTempData] = useState([])
   const [convertedTempData, setConvertedTempData] = useState([])
@@ -58,11 +57,15 @@ const AccumulatedChart = ({
   }, [startDate, endDate, polyId, earliestAvailableDate, threshold, isMetric])
 
   useEffect(() => {
-    let convertedTemp = tempData.map((el) =>
-      el.temp ? el.temp - 273.15 * el.count : 0,
-    )
-    if (!isMetric) {
-      convertedTemp = convertedTemp.map((el) => (el ? (el * 9) / 5 + 32 : 32))
+    let convertedTemp
+    if (isMetric) {
+      convertedTemp = tempData.map((el) =>
+        el.temp ? el.temp - 273.15 * el.count : 0,
+      )
+    } else {
+      convertedTemp = tempData.map(
+        (el) => el.temp * 1.8 - 273.15 * 1.8 * el.count + 32 * el.count,
+      )
     }
     setConvertedTempData(convertedTemp)
   }, [tempData, isMetric])
@@ -111,9 +114,9 @@ const AccumulatedChart = ({
     ...options.tooltips,
     callbacks: {
       label(tooltipItem, data) {
-        return `${data.datasets[tooltipItem.datasetIndex].label}: ${
-          tooltipItem.value
-        }${tooltipItem.datasetIndex ? 'mm' : '°'}`
+        return `${data.datasets[tooltipItem.datasetIndex].label}: ${parseFloat(
+          tooltipItem.value,
+        ).toFixed(2)}${tooltipItem.datasetIndex ? 'mm' : '°'}`
       },
     },
   }

@@ -167,7 +167,7 @@ const RegisterForm = () => {
                 <CardImg
                   alt="..."
                   src={require('assets/img/card-primary.png').default}
-                  style={{top: '-70px'}}
+                  style={{ top: '-70px' }}
                 />
                 <CardTitle tag="h4">Register</CardTitle>
               </CardHeader>
