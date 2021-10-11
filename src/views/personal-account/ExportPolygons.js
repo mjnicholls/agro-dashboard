@@ -64,11 +64,12 @@ const ExportPolygon = () => {
 
   return (
     <Button
-      className="btn-neutral"
+      className="btn-primary"
       color="default"
       data-dismiss="modal"
       type="button"
       onClick={downLoad}
+      style={{marginTop:"15px"}}
     >
       Export
     </Button>

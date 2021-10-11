@@ -19,6 +19,7 @@ import {
   TabPane,
   UncontrolledTooltip,
 } from 'reactstrap'
+import { Link } from 'react-router-dom'
 
 import TabsSelector from '../agro-components/TabsSelector'
 import ExportPolygons from './ExportPolygons'
@@ -89,7 +90,7 @@ const Subscription2 = () => {
       <Row className="mb-5">
         <Col>
           <h1 className="mb-0">{data.name}</h1>
-          <span>Subscription plan start</span>
+          <span>Your Subscription Plan</span>
         </Col>
       </Row>
 
@@ -124,7 +125,7 @@ const Subscription2 = () => {
                     Your Limits
                   </NavLink>
                 </NavItem>
-                <NavItem>
+              {/*  <NavItem>
                   <NavLink
                     data-toggle="tab"
                     href="#pablo"
@@ -134,7 +135,7 @@ const Subscription2 = () => {
                     <i className="tim-icons icon-settings" />
                     
                   </NavLink>
-                </NavItem>
+              </NavItem> */}
               </Nav>
               <TabContent
                 className="tab-space tab-subcategories"
@@ -164,16 +165,18 @@ const Subscription2 = () => {
                             <NavItem>
                               <NavLink>
                                 <p style={{ fontSize: '40px' }}>£40</p>
-
+                                <Link to="/dashboard/payments">
                                 <Button
                                   className="btn-fill"
                                   color="primary"
                                   type="submit"
-                                  // onClick={}
+                             
                                   style={{marginTop: "17px"}}
                                 >
+                               
                                   Invoice
                                 </Button>
+                                </Link>
                               </NavLink>
                             </NavItem>
                           <NavItem>
@@ -181,7 +184,7 @@ const Subscription2 = () => {
                                 <h4>Next Payment: <b>Sep 30, 2022</b></h4>
                                
                                 
-                                <h4>Your Tariff: <b>{tariff}</b></h4>
+                                <h4>Your Tariff: <b>{tariff.toUpperCase()}</b></h4>
                                 
                                 {tariff === 'corp' ? 
                                 
@@ -245,6 +248,20 @@ const Subscription2 = () => {
 
                             <thead>
                               <tr>
+                                <th colSpan={2}>Export Polygons to CSV File</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>
+                                <ExportPolygons  />
+
+                                  </td>
+                              </tr>
+                              </tbody>
+
+                          {/*  <thead>
+                              <tr>
                                 <th colSpan={2}>Total Area</th>
                               </tr>
                             </thead>
@@ -266,6 +283,7 @@ const Subscription2 = () => {
                                 <td>?</td>
                               </tr>
                             </tbody>
+                          */}
                           </Table>
                         </CardBody>
                       </Card>
@@ -480,7 +498,7 @@ const Subscription2 = () => {
                                   </td>
                                 </tr>
                                 {data.api
-                                  .filter((key) => api[key].isCurrent)
+                                  .filter((key) => !api[key].isCurrent)
                                   .map((key) => (
                                     <tr key={'history_' + key} className="pl-5">
                                       <td className="pl-5">
@@ -606,7 +624,7 @@ const Subscription2 = () => {
                               <Table>
                                 <thead>
                                   <tr>
-                                    <th>API</th>
+                                    <th>Sections</th>
                                     <th>Calls</th>
                                     <th>Depth</th>
                                     <th>Info</th>
@@ -706,7 +724,7 @@ const Subscription2 = () => {
                   </Row>
                 </TabPane>
 
-                <TabPane tabId="settings">
+             {/*   <TabPane tabId="settings">
                   <Row>
                     <Col>
                       <Card>
@@ -738,6 +756,7 @@ const Subscription2 = () => {
                     </Col>
                   </Row>
                 </TabPane>
+                                      */}
               </TabContent>
             </CardBody>
           </Card>
