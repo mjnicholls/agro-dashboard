@@ -198,6 +198,7 @@ const Subscription2 = () => {
                                     </a>
                                   </h4>
                                 ) : (
+                                  <Link to="/dashboard/billing-plans">
                                   <Button
                                     className="btn-fill"
                                     color="primary"
@@ -206,6 +207,7 @@ const Subscription2 = () => {
                                   >
                                     Upgrade
                                   </Button>
+                                  </Link>
                                 )}
                               </NavLink>
                             </NavItem>
