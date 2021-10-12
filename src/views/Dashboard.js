@@ -1,8 +1,10 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Col, Row } from 'reactstrap'
 
+import { fetchPolygons } from '../features/polygons/actions'
+import { getOneCallData } from '../services/api/weatherApi'
 import PolygonTable from './agro-components/PolygonTable'
 import CombinedChart from './charts/CombinedChart'
 import NdviChart from './charts/NdviChart'
@@ -23,9 +25,64 @@ const Dashboard = () => {
   // const [satelliteLayer, setSatelliteLayer] = useState({value: "ndvi", label: "NDVI"});
   const [satelliteLayer, setSatelliteLayer] = useState('ndvi')
   const [polygonInFocus, setPolygonInFocus] = useState(null)
+  const [weatherData, setWeatherData] = useState({
+    data: null,
+    isLoading: true,
+    error: null,
+  })
+  const dispatch = useDispatch()
   const activePolygon = useSelector(selectActivePoly)
   const polygons = useSelector(selectPolygons)
   const isSatelliteMode = useSelector(selectIsSatelliteMode)
+
+  useEffect(() => {
+    if (!isSatelliteMode) {
+      setWeatherData({
+        isLoading: true,
+      })
+      getOneCallData(activePolygon.center[1], activePolygon.center[0])
+        .then((res) => {
+          setWeatherData({
+            isLoading: false,
+            data: res,
+          })
+        })
+        .catch((err) => {
+          setWeatherData({
+            isLoading: false,
+            data: null,
+            error: err,
+          })
+        })
+    }
+  }, [isSatelliteMode, activePolygon])
+
+  useEffect(() => {
+    if (!polygons.length) {
+      dispatch(fetchPolygons())
+    }
+  }, [polygons])
+
+  const activeTopSection = () =>
+    isSatelliteMode ? (
+      <ImageStats
+        satelliteImage={satelliteImage}
+        satelliteLayer={satelliteLayer}
+        setSatelliteLayer={setSatelliteLayer}
+      />
+    ) : (
+      <>
+        <WeatherCurrent onecall={weatherData} />
+        <SoilCurrent polyId={activePolygon.id} />
+      </>
+    )
+
+  const activeChart = () =>
+    isSatelliteMode ? (
+      <NdviChart polyId={activePolygon.id} />
+    ) : (
+      <CombinedChart polyId={activePolygon.id} onecall={weatherData} />
+    )
 
   return (
     <>
@@ -43,18 +100,7 @@ const Dashboard = () => {
 
         <Col lg="3" sm="6">
           {activePolygon ? (
-            isSatelliteMode ? (
-              <ImageStats
-                satelliteImage={satelliteImage}
-                satelliteLayer={satelliteLayer}
-                setSatelliteLayer={setSatelliteLayer}
-              />
-            ) : (
-              <>
-                <WeatherCurrent />
-                <SoilCurrent polyId={activePolygon.id} />
-              </>
-            )
+            activeTopSection()
           ) : (
             <PolygonInfo polygonInFocus={polygonInFocus} />
           )}
@@ -74,11 +120,7 @@ const Dashboard = () => {
       <Row>
         <Col>
           {activePolygon ? (
-            isSatelliteMode ? (
-              <NdviChart polyId={activePolygon.id} />
-            ) : (
-              <CombinedChart polyId={activePolygon.id} />
-            )
+            activeChart()
           ) : (
             <PolygonTable
               data={polygons}

@@ -1,33 +1,18 @@
-/*!
-
-=========================================================
-* Black Dashboard PRO React - v1.2.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/black-dashboard-pro-react
-* Copyright 2020 Creative Tim (https://www.creative-tim.com)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
 import React from 'react'
 
 import { Route, Switch, Redirect } from 'react-router-dom'
 
-import Footer from '../../components/Footer/Footer.js'
-import AuthNavbar from '../../components/Navbars/AuthNavbar.js'
-import routes from '../../routes.js'
+import Footer from '../../components/Footer/Footer'
+import AuthNavbar from '../../components/Navbars/AuthNavbar'
+import routes from '../../routes'
 
 const Pages = (props) => {
   // React.useEffect(() => {
   //   document.documentElement.classList.remove("nav-open");
   // });
-  const getRoutes = (routes) =>
-    routes.map((prop, key) => {
+
+  const getRoutes = (routesInstance) =>
+    routesInstance.map((prop, key) => {
       if (prop.collapse) {
         return getRoutes(prop.views)
       }
@@ -43,25 +28,26 @@ const Pages = (props) => {
       return null
     })
 
-  const getActiveRoute = (routes) => {
+  const getActiveRoute = (routesInstance) => {
     const activeRoute = 'AgroMonitoring'
-    for (let i = 0; i < routes.length; i++) {
-      if (routes[i].collapse) {
-        const collapseActiveRoute = getActiveRoute(routes[i].views)
+    for (let i = 0; i < routesInstance.length; i += 1) {
+      if (routesInstance[i].collapse) {
+        const collapseActiveRoute = getActiveRoute(routesInstance[i].views)
         if (collapseActiveRoute !== activeRoute) {
           return collapseActiveRoute
         }
       } else if (
-        window.location.pathname.indexOf(routes[i].layout + routes[i].path) !==
-        -1
+        window.location.pathname.indexOf(
+          routesInstance[i].layout + routesInstance[i].path,
+        ) !== -1
       ) {
-        return routes[i].name
+        return routesInstance[i].name
       }
     }
     return activeRoute
   }
-  const getFullPageName = (routes) => {
-    const pageName = getActiveRoute(routes)
+  const getFullPageName = (routesInstance) => {
+    const pageName = getActiveRoute(routesInstance)
     switch (pageName) {
       case 'Pricing':
         return 'pricing-page'

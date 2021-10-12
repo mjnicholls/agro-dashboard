@@ -10,26 +10,26 @@ import './assets/demo/demo.css'
 import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css'
 import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css'
 
-import { checkApiKey } from './features/auth/actions'
 import { fetchPolygons } from './features/polygons/actions'
 import AdminLayout from './layouts/Admin/Admin'
 import AuthLayout from './layouts/Auth/Auth'
+// import { checkApiKey } from './services/api/authApi'
 import AuthRoute from './services/AuthRoute'
 import store from './store'
 import Notifications from './views/agro-components/Notifications'
 
-const setState = () => {
-  if (store.getState().auth.token) {
-    store.dispatch(checkApiKey())
-    if (store.getState().auth.isApiKeyValid) {
-      store.dispatch(fetchPolygons())
-    } else {
-      setTimeout(setState, 20000)
-    }
-  }
-}
+// const setState = () => {
+//   if (store.getState().auth.token) {
+//     store.dispatch(checkApiKey())
+//     if (store.getState().auth.isApiKeyValid) {
+//       store.dispatch(fetchPolygons())
+//     } else {
+//       setTimeout(setState, 20000)
+//     }
+//   }
+// }
 
-setState()
+// setState()
 
 const App = () => (
   <Provider store={store}>

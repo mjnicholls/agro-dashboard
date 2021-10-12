@@ -1,5 +1,3 @@
-// eslint-disable
-
 import axios from 'axios'
 import * as rax from 'retry-axios'
 
@@ -15,10 +13,15 @@ axiosInstance.defaults.raxConfig = {
 }
 rax.attach(axiosInstance)
 
-axiosInstance.interceptors.request.use(function (config) {
+axiosInstance.interceptors.request.use((config) => {
   const { token } = store.getState().auth
-  config.headers.Authorization = token ? `Bearer ${token}` : ''
-  return config
+  return {
+    ...config,
+    headers: {
+      ...config.headers,
+      Authorization: token ? `Bearer ${token}` : '',
+    },
+  }
 })
 
 axiosInstance.interceptors.response.use(

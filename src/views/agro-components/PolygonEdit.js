@@ -52,7 +52,6 @@ const PolygonEdit = ({ polygon, close }) => {
         <Button
           className="btn-neutral"
           color="default"
-          // color="link"
           type="button"
           onClick={close}
         >

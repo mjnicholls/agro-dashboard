@@ -1,3 +1,4 @@
+/* eslint no-underscore-dangle: 0 */
 import Chart from 'chart.js'
 
 const chartOptions = {
@@ -61,7 +62,6 @@ chartInstance.controllers.LineWithLine = Chart.controllers.line.extend({
       const { ctx } = this.chart
       const { x } = activePoint.tooltipPosition()
       const topY = this.chart.legend.bottom
-      // bottomY = this.chart.chartArea.bottom;
       const bottomY = 450
       const barChartIndex = this.chart.data.datasets.findIndex(
         (el) => el.type === 'bar',

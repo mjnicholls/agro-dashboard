@@ -43,6 +43,7 @@ const ApiKeys = () => {
         setData(res)
       })
       .catch((err) => {
+        // eslint-disable-next-line
         console.log(err)
       })
   }
@@ -60,18 +61,16 @@ const ApiKeys = () => {
       return
     }
 
-    let data = {
+    createApiKey({
       appid_name: name,
-    }
-
-    createApiKey(data)
+    })
       .then(() => {
         setName('')
         refreshData()
         dispatch(notifySuccess('API Key created'))
       })
-      .catch((error) => {
-        dispatch(notifyError('Error creating API Key' + error.message))
+      .catch((err) => {
+        dispatch(notifyError(`Error creating API Key ${err.message}`))
       })
   }
 

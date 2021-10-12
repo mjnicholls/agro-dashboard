@@ -1,4 +1,4 @@
-const getCoverage = () => ({
+export const coverage = {
   type: 'FeatureCollection',
   crs: {
     type: 'name',
@@ -1800,4 +1800,4 @@ const getCoverage = () => ({
       },
     },
   ],
-})
+}

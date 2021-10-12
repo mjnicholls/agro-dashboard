@@ -8,13 +8,13 @@ import { useSelector } from 'react-redux'
 import mapboxgl from '!mapbox-gl' // eslint-disable-line import/no-unresolved
 import { getMapBounds } from '../../features/polygons/selectors'
 import { axiosInstance } from '../../services/base'
-// import mapboxgl from '!mapbox-gl' // eslint-disable-line import/no-webpack-loader-syntax
-import { deletePreviousAreas, initialiseMap } from './base'
+import { addBoundsControl, deletePreviousAreas, initialiseMap } from './base'
 import { displayClusters } from './clusters'
 import { removeCropLayer, displayCropLayer } from './crops'
 import { displayPolygonGroup } from './polygons'
 
 const selectPolygons = (state) => state.polygons
+const selectToken = (state) => state.auth.token
 
 const MapBoxDraw = ({
   setArea,
@@ -31,6 +31,7 @@ const MapBoxDraw = ({
 
   const [initialised, setInitialised] = useState(false)
   const polygons = useSelector(selectPolygons)
+  const token = useSelector(selectToken)
 
   const deletePreviousAreasLocal = () => {
     deletePreviousAreas(drawRef)
@@ -49,9 +50,16 @@ const MapBoxDraw = ({
   useEffect(() => {
     if (!initialised) {
       // first initialisation of the map
-      initialiseMap(mapContainer.current, map, mapBounds, () =>
-        setInitialised(true),
-      )
+      initialiseMap(mapContainer.current, map, token)
+      addBoundsControl(map, mapBounds)
+
+      map.current.on('load', () => {
+        if (polygons.length) {
+          displayPolygonGroup(map.current, mapBounds, polygons)
+          displayClusters(map.current, polygons)
+        }
+        setInitialised(true)
+      })
     } else {
       // new polygon has been added
       displayPolygonGroup(map.current, mapBounds, polygons)
@@ -98,7 +106,7 @@ const MapBoxDraw = ({
       )
       .then((response) => {
         const features = []
-        for (let i = 0; i < response.data.length; i++) {
+        for (let i = 0; i < response.data.length; i += 1) {
           const feature = response.data[i]
           feature.place_name = feature.display_name
           feature.center = [feature.lon, feature.lat]
@@ -107,7 +115,7 @@ const MapBoxDraw = ({
         }
         return features
       })
-      .catch((err) => [])
+      .catch(() => [])
 
   const dummyLocalSearch = () =>
     /** Dummy function to be able to set localGeocoderOnly to true to avoid using mapbox geocoder * */
@@ -137,7 +145,7 @@ const MapBoxDraw = ({
     setGeoJson(null)
   }
 
-  const addDrawFunctionality = (map) => {
+  const addDrawFunctionality = (mapInstance) => {
     drawRef.current = new MapboxDraw({
       displayControlsDefault: false,
       controls: {
@@ -145,10 +153,10 @@ const MapBoxDraw = ({
         trash: true,
       },
     })
-    map.addControl(drawRef.current, 'top-right')
-    map.on('draw.create', createArea)
-    map.on('draw.update', updateArea)
-    map.on('draw.delete', deleteArea)
+    mapInstance.addControl(drawRef.current, 'top-right')
+    mapInstance.on('draw.create', createArea)
+    mapInstance.on('draw.update', updateArea)
+    mapInstance.on('draw.delete', deleteArea)
     // map.on('draw.modechange', deletePreviousAreas);
   }
 

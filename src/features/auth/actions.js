@@ -1,7 +1,7 @@
-import { apiKeyStatus, loginURL, logoutURL } from '../../services/api'
-import { axiosInstance } from '../../services/base'
+import axios from 'axios'
+
+import { loginURL, logoutURL } from '../../services/api'
 import { deleteCookie, setCookie } from '../../utils/cookies'
-import { fetchPolygons } from '../polygons/actions'
 import { parseJwt } from './utils'
 
 export const API_KEY_STATUS = 'API_KEY_STATUS'
@@ -55,13 +55,14 @@ export const destroyReduxState = () => ({
 export const loginUser = (email, password) => (dispatch) => {
   dispatch(requestLogin(email))
 
-  axiosInstance
+  axios
     .post(loginURL, {
       email,
       password,
     })
     .then((response) => {
-      const token = response.data.token
+      const { token } = response.data
+      axios.defaults.headers.common.Authorization = `Bearer ${token}`
       let tokenInfo
       try {
         tokenInfo = parseJwt(response.data.token).passport
@@ -71,15 +72,16 @@ export const loginUser = (email, password) => (dispatch) => {
       if (!tokenInfo) {
         dispatch(loginError('Error parsing token')) // TODO
       }
+
       setCookie(TOKEN_COOK, token)
 
       const data = {
-        token: token,
+        token,
         user: tokenInfo.data,
         limits: tokenInfo.limits,
       }
       dispatch(receiveLogin(data))
-      dispatch(checkApiKey())
+      // dispatch(checkApiKey())
     })
     .catch((err) => {
       let message
@@ -96,32 +98,16 @@ export const loginUser = (email, password) => (dispatch) => {
     })
 }
 
-export const logoutUser = () => {
-  return async function logoutThunk(dispatch) {
-    dispatch(requestLogout())
-    axiosInstance
-      .delete(logoutURL)
-      .then(() => {
-        deleteCookie(TOKEN_COOK, '/')
-        dispatch(destroyReduxState())
-        dispatch(receiveLogout())
-      })
-      .catch((err) => {
-        console.log(err)
-      })
-  }
-}
-
-export const checkApiKey = () => {
-  return (dispatch) => {
-    axiosInstance
-      .get(apiKeyStatus)
-      .then(() => {
-        dispatch(setApiKeyStatus(true))
-        dispatch(fetchPolygons())
-      })
-      .catch(() => {
-        dispatch(setApiKeyStatus(false))
-      })
-  }
+export const logoutUser = () => async (dispatch) => {
+  dispatch(requestLogout())
+  return axios
+    .delete(logoutURL)
+    .then(() => {
+      deleteCookie(TOKEN_COOK, '/')
+      dispatch(destroyReduxState())
+      dispatch(receiveLogout())
+    })
+    .catch((err) => {
+      console.log(err)
+    })
 }

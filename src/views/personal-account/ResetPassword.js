@@ -44,26 +44,23 @@ const confirmPassReset = () => {
    let newError = {}
 
 
-    if ( !email.length ) {
+    if ( ! email.length ) {
       newError.email = !email.length
       dispatch(notifyError('Please enter your email address'))
-      setError({newError})
+      setError(newError)
+      return
+    }
+
+    if (!validateEmail(email)) {
+      newError.email = validateEmail(email)
+      dispatch(notifyError('Email does not exist'))
+      setError(newError)
       return
     }
 
     let reset = {
       email: email,
     }
-
-    if (
-      !validateEmail(reset)
-    ) {
-      newError.email = validateEmail(reset)
-      dispatch(notifyError('Email does not exist'))
-      setError({newError})
-      return
-    }
-  
 
     updatePass(reset)
       .then(() => {
@@ -72,9 +69,7 @@ const confirmPassReset = () => {
       .catch((error) => {
         dispatch(notifyError('Error sending email ' + error.message))
       })
-
-}
-
+  }
 
   return (
     <>
@@ -82,15 +77,13 @@ const confirmPassReset = () => {
         <Container>
           <Col className="ml-auto mr-auto" lg="4" md="6">
             <Card className="card-lock card-white text-center">
-              <CardHeader>
-          
-              </CardHeader>
+
               <CardBody>
                 <CardTitle tag="h4">Reset Password</CardTitle>
                 <InputGroup
                   className={classnames({
                     'input-group-focus': state.passFocus,
-                    'has-danger': error.email
+                    'has-danger': error.email,
                   })}
                 >
                   <InputGroupAddon addonType="prepend">
@@ -102,8 +95,8 @@ const confirmPassReset = () => {
                     placeholder="Enter email"
                     type="text"
                     onChange={(e) => setEmail(e.target.value)}
-                    onFocus={(e) => setState({ ...state, passFocus: true })}
-                    onBlur={(e) => setState({ ...state, passFocus: false })}
+                    onFocus={() => setState({ ...state, passFocus: true })}
+                    onBlur={() => setState({ ...state, passFocus: false })}
                   />
                 </InputGroup>
               </CardBody>

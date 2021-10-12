@@ -9,7 +9,7 @@ const AgroPagination = ({ count, itemsPerPage, page, setPage }) => {
   const pages = () => {
     const arr = []
     if (maxPageNumber < 5) {
-      for (let i = 0; i <= maxPageNumber; i++) {
+      for (let i = 0; i <= maxPageNumber; i += 1) {
         arr.push(i + 1)
       }
     } else {
@@ -20,7 +20,7 @@ const AgroPagination = ({ count, itemsPerPage, page, setPage }) => {
         startPage = page >= 2 ? page - 2 : 0
       }
       const endPage = Math.min(startPage + 5, maxPageNumber)
-      for (let i = startPage; i <= endPage; i++) {
+      for (let i = startPage; i <= endPage; i += 1) {
         arr.push(i + 1)
       }
     }

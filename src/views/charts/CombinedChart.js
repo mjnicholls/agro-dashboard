@@ -21,12 +21,14 @@ import {
   HistoryWeather,
   HistorySoilChart,
 } from '.'
-import { defaultStartHistoryWeatherCharts, thresholdConfig } from '../../config'
+import {
+  defaultStartHistoryWeatherCharts,
+  thresholdSettings,
+} from '../../config'
 import { getDateInPast } from '../../utils/dateTime'
 import TabsSelector from '../agro-components/TabsSelector'
 import DatePickerFromTo from './ui/DatePickerFromTo'
 
-const selectOneCall = (state) => state.onecall
 const selectUnits = (state) => state.units.isMetric
 
 const weatherTabs = [
@@ -42,17 +44,17 @@ const weatherTabs = [
   },
   {
     id: 'Historical Weather',
-    label: 'Historical Weather Data',
+    label: 'Historical Weather',
     calendar: true,
   },
   {
     id: 'Historical Soil',
-    label: 'Historical Soil Data',
+    label: 'Historical Soil',
     calendar: true,
   },
   {
     id: 'Accumulated',
-    label: 'Accumulated Parameters',
+    label: 'Accumulated',
     calendar: true,
   },
 ]
@@ -65,10 +67,9 @@ const selectLimitSoil = (state) => state.auth.limits.history.soil_history
 const selectLimitHistoryWeather = (state) =>
   state.auth.limits.history.weather_history
 
-const CombinedChart = ({ polyId }) => {
+const CombinedChart = ({ polyId, onecall }) => {
   const [activeTab, setActiveTab] = useState(weatherTabs[0])
   const isMetric = useSelector(selectUnits)
-  const onecall = useSelector(selectOneCall)
 
   const [startDate, setStartDate] = useState(null)
   const [endDate, setEndDate] = useState(null)
@@ -80,11 +81,11 @@ const CombinedChart = ({ polyId }) => {
   const limitHistoryWeather = useSelector(selectLimitHistoryWeather)
 
   const [threshold, setThreshold] = useState(
-    thresholdConfig[isMetric ? 'celsius' : 'fahrenheit'].min,
+    thresholdSettings[isMetric ? 'celsius' : 'fahrenheit'].min,
   )
 
   useEffect(() => {
-    setThreshold(thresholdConfig[isMetric ? 'celsius' : 'fahrenheit'].min)
+    setThreshold(thresholdSettings[isMetric ? 'celsius' : 'fahrenheit'].min)
   }, [isMetric])
 
   useEffect(() => {
@@ -99,10 +100,9 @@ const CombinedChart = ({ polyId }) => {
      * 0: not available for this tariff
      * int - number in years
      *  */
-
     let depth
-    let startDate
-    let earliestAvailableDate
+    let newStartDate
+    let newEarliestAvailableDate
     const depths = [
       limitAccPrec.depth,
       limitAccTemp.depth,
@@ -117,16 +117,16 @@ const CombinedChart = ({ polyId }) => {
     }
     if (depth && depth > 0) {
       // limited data is available
-      earliestAvailableDate = new Date()
-      earliestAvailableDate.setMonth(
-        earliestAvailableDate.getMonth() - depth * 12,
+      newEarliestAvailableDate = new Date()
+      newEarliestAvailableDate.setMonth(
+        newEarliestAvailableDate.getMonth() - depth * 12,
       )
       // set default start date from config unless earliestAvailableDate is later
-      startDate = getDateInPast(
+      newStartDate = getDateInPast(
         Math.min(depth * 12, defaultStartHistoryWeatherCharts),
       )
     } else if (depth < 0) {
-      earliestAvailableDate = new Date(
+      newEarliestAvailableDate = new Date(
         Math.min(
           limitAccPrec.start,
           limitAccTemp.start,
@@ -134,12 +134,12 @@ const CombinedChart = ({ polyId }) => {
           limitHistoryWeather.start,
         ) * 1000,
       )
-      startDate = getDateInPast(defaultStartHistoryWeatherCharts) // один месяц назад
+      newStartDate = getDateInPast(defaultStartHistoryWeatherCharts) // один месяц назад
     }
-    if (earliestAvailableDate) {
-      setEarliestAvailableDate(earliestAvailableDate)
-      if (startDate) {
-        setStartDate(startDate.getTime())
+    if (newEarliestAvailableDate) {
+      setEarliestAvailableDate(newEarliestAvailableDate)
+      if (newStartDate) {
+        setStartDate(newStartDate.getTime())
         setEndDate(new Date().getTime())
       }
     }
@@ -182,8 +182,14 @@ const CombinedChart = ({ polyId }) => {
                       type="number"
                       value={threshold}
                       onChange={(e) => setThreshold(e.target.value)}
-                      min={thresholdConfig[isMetric ? 'celsius' : 'fahrenheit'].min}
-                      max={thresholdConfig[isMetric ? 'celsius' : 'fahrenheit'].max}
+                      min={
+                        thresholdSettings[isMetric ? 'celsius' : 'fahrenheit']
+                          .min
+                      }
+                      max={
+                        thresholdSettings[isMetric ? 'celsius' : 'fahrenheit']
+                          .max
+                      }
                     />
                   </FormGroup>
                 </Col>

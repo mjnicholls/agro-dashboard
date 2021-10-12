@@ -24,7 +24,7 @@ export const getPreticipationInfo = (data) => {
   let rainEnds = null
   let res = 'No precipitation within the hour'
 
-  for (let i = 0; i < data.length; i++) {
+  for (let i = 0; i < data.length; i += 1) {
     if (rainStarts === null && data[i].precipitation > 0) {
       rainStarts = i
     }
@@ -48,3 +48,8 @@ export const getPreticipationInfo = (data) => {
   }
   return res
 }
+
+export const getPageHeight = () =>
+  window.innerHeight -
+  document.getElementsByClassName('navbar-collapse')[0].clientHeight -
+  100

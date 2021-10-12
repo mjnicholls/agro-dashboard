@@ -19,7 +19,6 @@ import DeleteAcctCard from './DeleteAccountCard'
 import UnitsRadioButtons from '../agro-components/UnitsRadioButtons'
 import TabsSelector from '../agro-components/TabsSelector'
 const AccountSettings = () => {
-
   const [invoiceSettings, setInvoiceSettings] = useState({
     type: 'individual',
     organisation: '',
@@ -66,17 +65,15 @@ const AccountSettings = () => {
       if (Object.keys(res.invoice_info).length) {
         setInvoiceSettings({
           ...invoiceSettings,
-          ...res.invoice_info
+          ...res.invoice_info,
         })
         setIsNew(false)
       }
     })
   }
 
-
   return (
     <>
-  
       <div className="content no-card-header">
         <Row>
           <Col>
@@ -137,7 +134,7 @@ const AccountSettings = () => {
                   setMailSettings={setMailSettings}
                 />
               </Col>
-          <DeleteAcctCard />
+              <DeleteAcctCard />
             </Row>
           </>
         ) : (

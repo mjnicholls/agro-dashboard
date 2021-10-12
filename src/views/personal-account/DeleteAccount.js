@@ -15,7 +15,6 @@ const userSubscriptionSelector = (state) => state.auth.user.tariff
 
 const DeleteAccount = ({ close, refreshData }) => {
   const dispatch = useDispatch()
-  
 
   const subscription = useSelector(userSubscriptionSelector)
 
@@ -49,13 +48,12 @@ const DeleteAccount = ({ close, refreshData }) => {
             <Col md="9">
               <FormGroup>
                 <Select
-                className='react-select info mb-3'
-                classNamePrefix="react-select"
+                  className="react-select info mb-3"
+                  classNamePrefix="react-select"
                   options={deleteAcctOptions}
-                  menuPortalTarget={document.body} 
-                  styles={{ menuPortal: base => ({ ...base, zIndex: 9999 }) }}
-                  >
-                  </Select>
+                  menuPortalTarget={document.body}
+                  styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
+                ></Select>
               </FormGroup>
             </Col>
           </Row>

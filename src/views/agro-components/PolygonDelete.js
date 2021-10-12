@@ -1,16 +1,12 @@
-import React, { useState } from 'react'
+import React from 'react'
 
-import { polygonToLine } from '@turf/turf'
 import { useDispatch } from 'react-redux'
-import { Button, Col, FormGroup, Input, Row } from 'reactstrap'
+import { Button, Col, Row } from 'reactstrap'
 
 import { deletePolygon } from '../../features/polygons/actions'
 
 const PolygonDelete = ({ polygon, close }) => {
   const dispatch = useDispatch()
-  const [name, setName] = useState('')
-
-  const deletionDisabled = () => polygon && name !== polygon.name
 
   const confirmDelete = () => {
     dispatch(deletePolygon(polygon.id))
@@ -50,7 +46,6 @@ const PolygonDelete = ({ polygon, close }) => {
         <Button
           className="btn-danger"
           color="danger"
-          // disabled={deletionDisabled()}
           data-dismiss="modal"
           type="button"
           onClick={confirmDelete}

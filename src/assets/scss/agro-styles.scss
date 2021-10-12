@@ -6,8 +6,6 @@ $fontColorGrey: rgba(255, 255, 255, 0.5);
 $activeWhite: rgba(255, 255, 255, 0.1);
 $mapHeight: 400px;
 
-//#e14eca primary pink
-
 .justify {
   justify-content: space-between;
 }
@@ -48,7 +46,6 @@ $mapHeight: 400px;
   min-height: $mapHeight;
   position: relative;
   overflow: visible;
-
 }
 
 .small-card {
@@ -395,7 +392,7 @@ $daily-chart-width: 1000px;
     text-align: left !important;
   }
   div {
-    text-align: left !important;
+    text-align: left;
   }
   p, span {
     color: $fontColorBlack;
@@ -516,5 +513,37 @@ $daily-chart-width: 1000px;
   input:-webkit-autofill:focus,
   input:-webkit-autofill:active{
       -webkit-box-shadow: 0 0 0 30px white inset !important;
+  }
+}
+
+.crop-map-card {
+  z-index: 3;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: 270px;
+  @media screen and (min-width: 768px) {
+    width: 300px;
+  }
+}
+
+.map-placeholder {
+  z-index: 3;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.active-year {
+  color: $primary !important; // $github-color
+  h4 {
+    color: $primary !important; // $github-color
+  }
+}
+.disabled-year {
+  color: $card-stats-gray !important; // $github-color
+  h4 {
+    color: $card-stats-gray !important; // $github-color
   }
 }

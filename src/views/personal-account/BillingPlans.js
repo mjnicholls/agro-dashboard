@@ -52,8 +52,8 @@ const BillingPlans = () => {
             <Card>
               <CardBody>
                 <Table
-                  className="mb-2"
-                  style={{ tableLayout: 'fixed', textAlign: 'center' }}
+                  className="mb-2 text-center"
+                  style={{ tableLayout: 'fixed' }}
                 >
                   <thead>
                     <tr>

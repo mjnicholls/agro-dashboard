@@ -45,7 +45,7 @@ const Sidebar = (props) => {
   // that it gets through props.routes
   const getCollapseStates = (routes) => {
     let initialState = {}
-    routes.map((prop, key) => {
+    routes.map((prop) => {
       if (prop.collapse) {
         initialState = {
           [prop.state]: getCollapseInitialState(prop.views),
@@ -61,7 +61,7 @@ const Sidebar = (props) => {
   // for example, on the refresh of the page,
   // while on the src/views/forms/RegularForms.js - route /admin/regular-forms
   const getCollapseInitialState = (routes) => {
-    for (let i = 0; i < routes.length; i++) {
+    for (let i = 0; i < routes.length; i += 1) {
       if (routes[i].collapse && getCollapseInitialState(routes[i].views)) {
         return true
       }
@@ -111,7 +111,7 @@ const Sidebar = (props) => {
       }
     }
 
-    return routes.map((prop, key) => {
+    return routes.map((prop) => {
       if (prop.redirect || prop.hidden) {
         return null
       }
@@ -223,24 +223,22 @@ const Sidebar = (props) => {
   // const activeRoute = (routeName) => {
   //   return location.pathname === routeName ? "active" : "";
   // };
-
   const activeRouteCustom = (prop) => {
     const routeName = prop.layout + prop.path
-    let res
-    if (location.pathname !== routeName) {
-      res = ''
-    }
-    if (location.pathname === routeName && !prop.onclick) {
-      res = 'active'
-    }
-    if (prop.onclick === 'all') {
-      res = activePolygon ? '' : 'active'
-    }
-    if (prop.onclick === 'satellite') {
-      res = activePolygon && isSatelliteMode ? 'active' : ''
-    }
-    if (prop.onclick === 'weather') {
-      res = activePolygon && !isSatelliteMode ? 'active' : ''
+    let res = ''
+    if (location.pathname === routeName) {
+      if (!prop.onclick) {
+        res = 'active'
+      } else if (activePolygon) {
+        if (
+          (prop.onclick === 'satellite' && isSatelliteMode) ||
+          (prop.onclick === 'weather' && !isSatelliteMode)
+        ) {
+          res = 'active'
+        }
+      } else if (prop.onclick === 'all') {
+        res = 'active'
+      }
     }
     return res
   }
@@ -306,35 +304,7 @@ const Sidebar = (props) => {
             {logoText}
           </div>
         ) : null}
-        <Nav>
-          {createLinks(props.routes)}
-          {/* <li> */}
-          {/* <a */}
-          {/* onClick={() => { */}
-          {/* props.closeSidebar(); */}
-          {/* dispatch(setActivePoly(polygons[0])) */}
-          {/* } } */}
-          {/* > */}
-          {/* <> */}
-          {/* <i className="tim-icons icon-image-02"/> */}
-          {/* <p>Satellite data & Statistics</p> */}
-          {/* </> */}
-          {/* </a> */}
-          {/* </li> */}
-          {/* <li> */}
-          {/* <a */}
-          {/* onClick={() => { */}
-          {/* props.closeSidebar(); */}
-          {/* dispatch(setActivePoly(polygons[0])) */}
-          {/* } } */}
-          {/* > */}
-          {/* <> */}
-          {/* <i className="tim-icons icon-chart-pie-36"/> */}
-          {/* <p>Weather data</p> */}
-          {/* </> */}
-          {/* </a> */}
-          {/* </li> */}
-        </Nav>
+        <Nav>{createLinks(props.routes)}</Nav>
       </div>
     </div>
   )

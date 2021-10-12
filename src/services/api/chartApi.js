@@ -7,18 +7,6 @@ import {
   historyWeather,
 } from './index'
 
-// const parseResponse = (response) => {
-//   if (response) {
-//     if (response.length) {
-//       return response;
-//     } else {
-//       throw new Error("No data for selected period");
-//     }
-//   } else {
-//     throw new Error("Failed to fetch data");
-//   }
-// }
-
 export const getHistoryNDVIData = (polygonId, start, end) => {
   /** Get history NDVI chart data by polygon  */
   const url = `${historyNDVI}?polyid=${polygonId}&start=${Math.ceil(
@@ -68,9 +56,9 @@ const getAccumulatedTemperature = (polygonId, start, end, threshold) => {
     })
 }
 
-const getAccumulatedPrecipitation = (polygonId, start, end, threshold) => {
+const getAccumulatedPrecipitation = (polygonId, start, end) => {
   /** Get accumulated temperature data by polygon */
-  const url = `${historyAccumulatedPrecipitation}?polyid=${polygonId}&start=${start}&end=${end}&threshold=${threshold}`
+  const url = `${historyAccumulatedPrecipitation}?polyid=${polygonId}&start=${start}&end=${end}`
   return axiosInstance
     .get(url)
     .then((response) => {
@@ -90,12 +78,18 @@ const getAccumulatedPrecipitation = (polygonId, start, end, threshold) => {
 
 export const getAccumulatedData = async (polygonId, start, end, threshold) => {
   /** Get accumulated data */
-  start = Math.ceil(start / 1000)
-  end = Math.floor(end / 1000)
-
   let [tempData, rainData] = await Promise.all([
-    getAccumulatedTemperature(polygonId, start, end, threshold),
-    getAccumulatedPrecipitation(polygonId, start, end),
+    getAccumulatedTemperature(
+      polygonId,
+      Math.ceil(start / 1000),
+      Math.floor(end / 1000),
+      threshold,
+    ),
+    getAccumulatedPrecipitation(
+      polygonId,
+      Math.ceil(start / 1000),
+      Math.floor(end / 1000),
+    ),
   ])
 
   if (tempData.length !== rainData.length) {

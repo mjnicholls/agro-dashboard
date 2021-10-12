@@ -1,3 +1,5 @@
+import axios from 'axios'
+
 import { getCookie } from '../../utils/cookies'
 import {
   API_KEY_STATUS,
@@ -12,13 +14,13 @@ import {
 } from './actions'
 import { parseJwt } from './utils'
 
-let token
 let tokenData
-token = getCookie(TOKEN_COOK || 'AGRO_TOKEN')
+const token = getCookie(TOKEN_COOK || 'AGRO_TOKEN') // TODO
 
 if (token) {
   try {
     tokenData = parseJwt(token).passport
+    axios.defaults.headers.common.Authorization = `Bearer ${token}`
   } catch (err) {
     console.log(err)
   }
@@ -29,11 +31,15 @@ const initialState = {
   isAuthenticated: !!tokenData,
   token: tokenData ? token : null,
   user: tokenData
-    ? tokenData.data
+    ? {
+        ...tokenData.data,
+        isEmailConfirmed: false,
+      }
     : {
         email: null,
         appid: null,
         tariff: null,
+        isEmailConfirmed: false,
       },
   limits: tokenData ? tokenData.limits : null,
   isApiKeyValid: null,
@@ -62,6 +68,7 @@ export default function authReducer(state = initialState, action) {
           email: action.data.user.email || null,
           appid: action.data.user.appid || null,
           tariff: action.data.user.tariff || null,
+          isEmailConfirmed: false,
         },
         limits: action.data.limits,
       }

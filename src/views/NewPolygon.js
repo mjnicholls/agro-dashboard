@@ -1,13 +1,26 @@
 import React, { useEffect, useState } from 'react'
 
+import { useDispatch, useSelector } from 'react-redux'
+import { PropagateLoader } from 'react-spinners'
 import { Col, Row } from 'reactstrap'
 
+import { setApiKeyStatus } from '../features/auth/actions'
+import { fetchPolygons } from '../features/polygons/actions'
+import { apiKeyStatus } from '../services/api'
+import { axiosInstance } from '../services/base'
+import { getPageHeight } from '../utils/utils'
 import MapBoxDraw from './maps/MapBoxDraw'
 import PolygonCreateCard from './small-cards/PolygonCreateCard'
+
+const selectIsApiKeyValid = (state) => state.auth.isApiKeyValid
+const selectPolygons = (state) => state.polygons
 
 const PolygonNew = () => {
   /** Draw a new polygon, give it a name */
 
+  const isApiKeyValid = useSelector(selectIsApiKeyValid)
+  const polygons = useSelector(selectPolygons)
+  const dispatch = useDispatch()
   const [geoJson, setGeoJson] = React.useState(null)
   const [area, setArea] = React.useState('')
   const [intersection, setIntersection] = React.useState(false)
@@ -16,13 +29,35 @@ const PolygonNew = () => {
   const drawRef = React.useRef(null)
 
   useEffect(() => {
-    const menuHeight =
-      document.getElementsByClassName('navbar-collapse')[0].clientHeight
-    const mapHeight = window.innerHeight - menuHeight - 100
-    if (mapHeight > 200) {
-      setMapHeight(mapHeight)
+    const contentHeight = getPageHeight()
+    if (contentHeight > 200) {
+      setMapHeight(contentHeight)
     }
   }, [])
+
+  useEffect(() => {
+    if (!polygons.length) {
+      dispatch(fetchPolygons())
+    }
+  }, [polygons])
+
+  const checkAPIKeyStatus = () => {
+    axiosInstance
+      .get(apiKeyStatus)
+      .then(() => {
+        dispatch(setApiKeyStatus(true))
+      })
+      .catch(() => {
+        dispatch(setApiKeyStatus(false))
+        setTimeout(checkAPIKeyStatus, 20000)
+      })
+  }
+
+  useEffect(() => {
+    if (isApiKeyValid === null) {
+      checkAPIKeyStatus()
+    }
+  }, [isApiKeyValid])
 
   const resetMap = () => {
     const data = drawRef.current.getAll()
@@ -38,7 +73,7 @@ const PolygonNew = () => {
   const blockResetMap = () =>
     !drawRef.current || !drawRef.current.getAll().features.length
 
-  return (
+  return isApiKeyValid ? (
     <>
       <Row>
         <Col md="8">
@@ -66,6 +101,20 @@ const PolygonNew = () => {
         </Col>
       </Row>
     </>
+  ) : (
+    <Row>
+      <Col className="text-center my-5 align-self-center">
+        <div className="my-5">
+          <div>
+            <PropagateLoader color="#f2f2f2" size={15} />
+            <br />
+          </div>
+          <p className="my-3">
+            Synchronizing API key... It might take a few minutes
+          </p>
+        </div>
+      </Col>
+    </Row>
   )
 }
 

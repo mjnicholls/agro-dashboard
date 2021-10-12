@@ -18,7 +18,7 @@ export const toggleUnits = (payload) => ({
 // }
 
 export const setUnits = (isMetric) =>
-  function setUnitsThunk(dispatch, getState) {
+  function setUnitsThunk(dispatch) {
     setCookie(TOKEN_COOK, isMetric ? 'metric' : 'imperial')
     dispatch(toggleUnits(isMetric))
   }

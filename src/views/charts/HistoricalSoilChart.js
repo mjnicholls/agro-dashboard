@@ -101,8 +101,8 @@ const HistoricalSoilChart = ({
   options.tooltips = {
     ...options.tooltips,
     callbacks: {
-      label(tooltipItem, data) {
-        return `${data.datasets[tooltipItem.datasetIndex].label}: ${
+      label(tooltipItem, chartData) {
+        return `${chartData.datasets[tooltipItem.datasetIndex].label}: ${
           tooltipItem.value
         }${tooltipItem.datasetIndex === 2 ? '' : '°'}`
       },

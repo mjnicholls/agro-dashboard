@@ -22,11 +22,7 @@ import PolygonDelete from './PolygonDelete'
 import PolygonEdit from './PolygonEdit'
 import Shape from './Shape'
 
-// page/setpage
-// input read only
-// dashboard settings
-
-const PolygonTable = ({ data, setActivePolygon }) => {
+const PolygonTable = ({ data }) => {
   const dispatch = useDispatch()
 
   const [tableData, setTableData] = useState(data)
@@ -48,11 +44,7 @@ const PolygonTable = ({ data, setActivePolygon }) => {
 
   useEffect(() => {
     setPageData(tableData.slice(page * itemsPerPage, (page + 1) * itemsPerPage))
-  }, [tableData, page])
-
-  // useEffect(() => {
-  //   setPageData(tableData.slice(page * itemsPerPage, (page + 1) * itemsPerPage));
-  // }, [tableData, page, column])
+  }, [tableData, page, column])
 
   const filterTable = (keyword) => {
     if (keyword) {

@@ -1,14 +1,6 @@
-/* eslint-disable */
-
-// import mapboxgl from '!mapbox-gl' // eslint-disable-line import/no-webpack-loader-syntax
 import mapboxgl from '!mapbox-gl' // eslint-disable-line import/no-unresolved
-
 import { mapBoxAccessToken } from '../../config'
 import { serverBaseURL } from '../../services/api/index'
-import store from '../../store'
-import { displayClusters } from './clusters'
-import { displayPolygonGroup } from './polygons'
-import { removeLayer, removeSource } from './utils'
 
 mapboxgl.accessToken = mapBoxAccessToken
 
@@ -35,7 +27,7 @@ export const activeColor = red
 export const basicOpacity = 0.4
 export const activeOpacity = 0.8
 
-class AllPolygonsControl {
+class BoundsControl {
   constructor(mapBounds) {
     this.mapBounds = mapBounds
   }
@@ -45,7 +37,7 @@ class AllPolygonsControl {
     this.container = document.createElement('div')
     this.container.className = 'mapboxgl-ctrl mapboxgl-ctrl-group'
     this.container.id = 'all-polygons-control'
-    const button = this._createButton()
+    const button = this.createButton()
     this.container.appendChild(button)
     return this.container
   }
@@ -56,7 +48,7 @@ class AllPolygonsControl {
     }
   }
 
-  _createButton() {
+  createButton() {
     const el = window.document.createElement('button')
     el.className = 'all-polygons-control'
     el.innerHTML = '<i class="fa fa-list-ul" aria-hidden="true"/>'
@@ -74,37 +66,22 @@ class AllPolygonsControl {
   }
 }
 
-export const initialiseMap = (
-  mapContainer,
-  map,
-  mapBounds,
-  onLoad,
-  onHover,
-  onClick,
-) => {
-  // if (map.current) return;
-  const { token } = store.getState().auth
+export const initialiseMap = (mapContainer, map, token) => {
   map.current = new mapboxgl.Map({
     container: mapContainer,
     style: 'mapbox://styles/mapbox/satellite-streets-v11?optimize=true',
-    bounds: mapBounds || defaultBBox,
-    zoom: 9,
+    bounds: defaultBBox,
+    // zoom: 12,
+    // center: [-93.3977, 41.9780],
+    // zoom: 9,
     accessToken: mapBoxAccessToken,
-    fitBoundsOptions: { duration: 0, ...clusterPadding },
-
-    transformRequest: (url) => {
-      // eslint-disable-line
-      if (
-        url.indexOf(serverBaseURL) > -1 ||
-        url.indexOf('http://k8s-eu4.owm.io') > -1
-      ) {
-        return {
-          // eslint-disable-line
-          url,
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      }
-    },
+    transformRequest: (url) =>
+      url.indexOf(serverBaseURL) > -1
+        ? {
+            url,
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        : { url },
   })
   map.current.addControl(
     new mapboxgl.NavigationControl({
@@ -112,21 +89,29 @@ export const initialiseMap = (
     }),
     'top-right',
   )
-  const allPolygons = new AllPolygonsControl(mapBounds)
-  map.current.addControl(allPolygons, 'top-right')
-
-  map.current.on('load', function () {
-    const { polygons } = store.getState()
-    if (polygons.length) {
-      displayPolygonGroup(map.current, mapBounds, polygons, onHover, onClick)
-      displayClusters(map.current, polygons, onHover)
-    }
-    onLoad()
-  })
   map.current.on('error', (e) => {
     // Hide those annoying non-error errors
-    if (e && e.error.status !== 421) console.error(e)
+    if (e && e.error.status !== 421) {
+      console.error(e)
+    }
   })
+}
+
+export const addBoundsControl = (map, mapBounds) => {
+  const allPolygons = new BoundsControl(mapBounds)
+  map.current.addControl(allPolygons, 'top-right')
+}
+
+export const removeLayer = (map, layerId) => {
+  if (map && map.getLayer(layerId)) {
+    map.removeLayer(layerId)
+  }
+}
+
+export const removeSource = (map, sourceId) => {
+  if (map && map.getSource(sourceId)) {
+    map.removeSource(sourceId)
+  }
 }
 
 export const removeSatelliteLayer = (map) => {
