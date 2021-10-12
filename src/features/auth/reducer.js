@@ -20,7 +20,7 @@ const token = getCookie(TOKEN_COOK || 'AGRO_TOKEN') // TODO
 if (token) {
   try {
     tokenData = parseJwt(token).passport
-    axios.defaults.headers.common.Authorization = `Bearer ${token}`;
+    axios.defaults.headers.common.Authorization = `Bearer ${token}`
   } catch (err) {
     console.log(err)
   }
@@ -38,7 +38,7 @@ const initialState = {
         tariff: null,
       },
   limits: tokenData ? tokenData.limits : null,
-  isApiKeyValid: null
+  isApiKeyValid: null,
 }
 
 export default function authReducer(state = initialState, action) {

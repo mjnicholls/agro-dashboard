@@ -9,4 +9,3 @@ axiosInstance.defaults.raxConfig = {
   instance: axiosInstance,
 }
 rax.attach(axiosInstance)
-

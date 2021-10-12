@@ -62,7 +62,7 @@ export const loginUser = (email, password) => (dispatch) => {
     })
     .then((response) => {
       const { token } = response.data
-      axios.defaults.headers.common.Authorization = `Bearer ${token}`;
+      axios.defaults.headers.common.Authorization = `Bearer ${token}`
       let tokenInfo
       try {
         tokenInfo = parseJwt(response.data.token).passport
@@ -111,4 +111,3 @@ export const logoutUser = () => async (dispatch) => {
       console.log(err)
     })
 }
-
