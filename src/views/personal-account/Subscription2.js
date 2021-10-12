@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import {
-    Button,
+  Button,
   Card,
   CardBody,
   CardHeader,
@@ -23,26 +23,25 @@ import { Link } from 'react-router-dom'
 
 import TabsSelector from '../agro-components/TabsSelector'
 import ExportPolygons from './ExportPolygons'
-import {api, subscriptions} from './utils'
-import {getPolygons} from "../../services/api/personalAccountAPI";
-import {toDate} from "../../utils/dateTime";
+import { api, subscriptions } from './utils'
+import { getPolygons } from '../../services/api/personalAccountAPI'
+import { toDate } from '../../utils/dateTime'
 // import {getPolygons} from '../../services/api/personalAccountAPI.js'
 
 const authSelector = (state) => state.auth
 
- const tabsOptions = [
-    { id: 'api', label: 'API' },
-    { id: 'dashboard', label: 'Dashboard' },
-  ]
+const tabsOptions = [
+  { id: 'api', label: 'API' },
+  { id: 'dashboard', label: 'Dashboard' },
+]
 
 const Subscription2 = () => {
-
   const [activeTab, setActiveTab] = useState(tabsOptions[0])
   const [polygonsData, setPolygonsData] = useState({})
   const [pageTabs, setpageTabs] = React.useState('home')
   const auth = useSelector(authSelector)
-  const tariff = auth.user.tariff;
-  const data = subscriptions[tariff];
+  const tariff = auth.user.tariff
+  const data = subscriptions[tariff]
 
   const changeActiveTab = (e, tabState, tabName) => {
     e.preventDefault()
@@ -63,19 +62,21 @@ const Subscription2 = () => {
         break
     }
   }
-  
+
   useEffect(() => {
     getPolygons()
-      .then(res => {
+      .then((res) => {
         setPolygonsData(res)
       })
-      .catch(err => {console.log(err)})
+      .catch((err) => {
+        console.log(err)
+      })
   }, [])
 
   const numberWithCommas = (x) => {
     let res = 0
     if (x) {
-      res = x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      res = x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
     }
     return res
   }
@@ -83,7 +84,6 @@ const Subscription2 = () => {
   const depthInYears = (year) => {
     return year > 0 ? year + ' year' : year === 0 ? '0 years' : 'Unlimited'
   }
-
 
   return (
     <div className="content">
@@ -125,7 +125,7 @@ const Subscription2 = () => {
                     Your Limits
                   </NavLink>
                 </NavItem>
-              {/*  <NavItem>
+                {/*  <NavItem>
                   <NavLink
                     data-toggle="tab"
                     href="#pablo"
@@ -144,21 +144,24 @@ const Subscription2 = () => {
                 <TabPane tabId="home">
                   <Row>
                     <Col lg="12">
-                      <Card >
+                      <Card>
                         <CardHeader>
                           <CardTitle>
                             <h2>Your Charges</h2>
                           </CardTitle>
                         </CardHeader>
                         <CardBody>
-                          <Nav className="nav-pills-info nav-pills-icons justify-content-center"
-                         
-                           pills>
+                          <Nav
+                            className="nav-pills-info nav-pills-icons justify-content-center"
+                            pills
+                          >
                             <NavItem>
                               <NavLink>
-                                <i className="tim-icons icon-paper"
-                                   style={{marginTop: "15px"}} />
-                                <p>Your Charges</p> 
+                                <i
+                                  className="tim-icons icon-paper"
+                                  style={{ marginTop: '15px' }}
+                                />
+                                <p>Your Charges</p>
                                 <p>This Month</p>
                               </NavLink>
                             </NavItem>
@@ -166,45 +169,48 @@ const Subscription2 = () => {
                               <NavLink>
                                 <p style={{ fontSize: '40px' }}>£40</p>
                                 <Link to="/dashboard/payments">
-                                <Button
-                                  className="btn-fill"
-                                  color="primary"
-                                  type="submit"
-                             
-                                  style={{marginTop: "17px"}}
-                                >
-                               
-                                  Invoice
-                                </Button>
+                                  <Button
+                                    className="btn-fill"
+                                    color="primary"
+                                    type="submit"
+                                    style={{ marginTop: '17px' }}
+                                  >
+                                    Invoice
+                                  </Button>
                                 </Link>
                               </NavLink>
                             </NavItem>
-                          <NavItem>
+                            <NavItem>
                               <NavLink>
-                                <h4>Next Payment: <b>Sep 30, 2022</b></h4>
-                               
-                                
-                                <h4>Your Tariff: <b>{tariff.toUpperCase()}</b></h4>
-                                
-                                {tariff === 'corp' ? 
-                                
-                                <h4 style={{marginTop: "25px"}}>Problems? <a href="https://openweathermap.force.com/s/contactsupport">Contact us.</a></h4>
-                               
-                                : 
-                              
-                                
-                                <Button
-                                  className="btn-fill"
-                                  color="primary"
-                                  type="submit"
-                                  // onClick={}
-                                >
-                                  Upgrade
-                                </Button>}
+                                <h4>
+                                  Next Payment: <b>Sep 30, 2022</b>
+                                </h4>
+
+                                <h4>
+                                  Your Tariff: <b>{data.name.toUpperCase()}</b>
+                                </h4>
+
+                                {tariff === 'corp' ? (
+                                  <h4 style={{ marginTop: '25px' }}>
+                                    Problems?{' '}
+                                    <a href="https://openweathermap.force.com/s/contactsupport">
+                                      Contact us.
+                                    </a>
+                                  </h4>
+                                ) : (
+                                  <Button
+                                    className="btn-fill"
+                                    color="primary"
+                                    type="submit"
+                                    // onClick={}
+                                  >
+                                    Upgrade
+                                  </Button>
+                                )}
                               </NavLink>
                             </NavItem>
                           </Nav>
-                          <Table style={{marginTop: "15px"}}>
+                          <Table style={{ marginTop: '15px' }}>
                             <thead>
                               <tr>
                                 <th colSpan={2}>Polygons</th>
@@ -244,7 +250,7 @@ const Subscription2 = () => {
                                 </td>
                               </tr>
                             </tbody>
-                            <br/>
+                            <br />
 
                             <thead>
                               <tr>
@@ -254,13 +260,12 @@ const Subscription2 = () => {
                             <tbody>
                               <tr>
                                 <td>
-                                <ExportPolygons  />
-
-                                  </td>
+                                  <ExportPolygons />
+                                </td>
                               </tr>
-                              </tbody>
+                            </tbody>
 
-                          {/*  <thead>
+                            {/*  <thead>
                               <tr>
                                 <th colSpan={2}>Total Area</th>
                               </tr>
@@ -343,7 +348,7 @@ const Subscription2 = () => {
                                   </td>
                                 </tr>
                                 <tr>
-                                  <td >
+                                  <td>
                                     Satellite imagery
                                     <br />
                                     (NDVI, EVI, EVI2, NRI, DSWI, NDWI, True
@@ -378,9 +383,7 @@ const Subscription2 = () => {
                                   </td>
                                 </tr>
                                 <tr>
-                                  <td >
-                                    Total area of created polygons
-                                  </td>
+                                  <td>Total area of created polygons</td>
                                   <td>
                                     {numberWithCommas(
                                       polygonsData.permissible_area,
@@ -393,9 +396,7 @@ const Subscription2 = () => {
                                 </tr>
 
                                 <tr>
-                                  <td >
-                                    Number of created polygons per month
-                                  </td>
+                                  <td>Number of created polygons per month</td>
                                   <td>
                                     <p>{data.polygons_per_month}</p>
                                   </td>
@@ -405,7 +406,7 @@ const Subscription2 = () => {
                                 </tr>
 
                                 <tr>
-                                  <td >
+                                  <td>
                                     Price for exceeded area{' '}
                                     <a href="#">Learn more</a>
                                   </td>
@@ -418,7 +419,7 @@ const Subscription2 = () => {
                                 </tr>
                               </tbody>
                               <thead>
-                                <br/>
+                                <br />
                                 <tr>
                                   <th colSpan={2}>
                                     <p>Current and forecast weather data:</p>
@@ -430,7 +431,7 @@ const Subscription2 = () => {
                               </thead>
                               <tbody>
                                 <tr>
-                                  <td >
+                                  <td>
                                     <p>API calls per day</p>
                                   </td>
                                   <td>
@@ -443,8 +444,8 @@ const Subscription2 = () => {
                                 {data.api
                                   .filter((key) => api[key].isCurrent)
                                   .map((key) => (
-                                    <tr key={'current_' + key} >
-                                      <td >
+                                    <tr key={'current_' + key}>
+                                      <td>
                                         <a href={api[key].link} target="_blank">
                                           {api[key].name}
                                         </a>
@@ -468,7 +469,7 @@ const Subscription2 = () => {
                                   ))}
                               </tbody>
                               <thead>
-                              <br/>
+                                <br />
                                 <tr>
                                   <th colSpan={2}>
                                     <p>Historical weather data:</p>
@@ -478,7 +479,7 @@ const Subscription2 = () => {
                               </thead>
                               <tbody>
                                 <tr>
-                                  <td >API calls per day</td>
+                                  <td>API calls per day</td>
                                   <td>
                                     <p>{data.api_calls_historical}</p>
                                   </td>
@@ -487,9 +488,7 @@ const Subscription2 = () => {
                                   </td>
                                 </tr>
                                 <tr>
-                                  <td >
-                                    Historical weather data depth
-                                  </td>
+                                  <td>Historical weather data depth</td>
                                   <td>
                                     <p>{data.historical_data_depths}</p>
                                   </td>
@@ -500,8 +499,8 @@ const Subscription2 = () => {
                                 {data.api
                                   .filter((key) => !api[key].isCurrent)
                                   .map((key) => (
-                                    <tr key={'history_' + key} >
-                                      <td >
+                                    <tr key={'history_' + key}>
+                                      <td>
                                         <a href={api[key].link} target="_blank">
                                           {api[key].name}
                                         </a>
@@ -515,9 +514,9 @@ const Subscription2 = () => {
                                     </tr>
                                   ))}
                               </tbody>
-                            
+
                               <thead>
-                              <br/>
+                                <br />
                                 <tr>
                                   <th colSpan={2}>
                                     <p>Service:</p>
@@ -527,7 +526,7 @@ const Subscription2 = () => {
                               </thead>
                               <tbody>
                                 <tr>
-                                  <td >
+                                  <td>
                                     Satellite imagery (NDVI, EVI, True color,
                                     False color) data update
                                   </td>
@@ -539,7 +538,7 @@ const Subscription2 = () => {
                                   </td>
                                 </tr>
                                 <tr>
-                                  <td >
+                                  <td>
                                     Current soil temperature and moisture data
                                     update
                                   </td>
@@ -551,9 +550,7 @@ const Subscription2 = () => {
                                   </td>
                                 </tr>
                                 <tr>
-                                  <td >
-                                    Weather API data update
-                                  </td>
+                                  <td>Weather API data update</td>
                                   <td>
                                     <p>{data.weather_api_update}</p>
                                   </td>
@@ -562,7 +559,7 @@ const Subscription2 = () => {
                                   </td>
                                 </tr>
                                 <tr>
-                                  <td >SSL</td>
+                                  <td>SSL</td>
 
                                   <td>
                                     <FontAwesomeIcon
@@ -575,7 +572,7 @@ const Subscription2 = () => {
                                   </td>
                                 </tr>
                                 <tr>
-                                  <td >
+                                  <td>
                                     License for maps, APIs, and other products
                                   </td>
                                   <td>
@@ -591,9 +588,7 @@ const Subscription2 = () => {
                                   </td>
                                 </tr>
                                 <tr>
-                                  <td >
-                                    License for data and database
-                                  </td>
+                                  <td>License for data and database</td>
                                   <td>
                                     <p>
                                       {' '}
@@ -607,7 +602,7 @@ const Subscription2 = () => {
                                   </td>
                                 </tr>
                                 <tr>
-                                  <td >Support</td>
+                                  <td>Support</td>
                                   <td>
                                     <p>{data.support}</p>
                                   </td>
@@ -630,54 +625,64 @@ const Subscription2 = () => {
                                   </tr>
                                 </thead>
                                 <tbody>
-                                  {Object.keys(auth.limits.calls).map((key) => (
-                                    (!api[key].dashboardHidden && <tr key={'dashboard_' + key}>
-                                      <td>
-                                        <a href={api[key].link} target="_blank">
-                                          {api[key].dashboardName || api[key].name}
-                                        </a>
-                                      </td>
-                                      {/*<td>*/}
-                                        {/*{auth.limits.calls[key] >= 0*/}
-                                          {/*? numberWithCommas(*/}
-                                              {/*auth.limits.calls[key],*/}
-                                            {/*)*/}
-                                          {/*: 'Unlimited'}*/}
-                                      {/*</td>*/}
-                                      <td>
-                                        {auth.limits.history[key]
-                                          ? depthInYears(
-                                              auth.limits.history[key].depth,
-                                            )
-                                          : ''}
-                                      </td>
-                                      {tariff === 'corp' &&
+                                  {Object.keys(auth.limits.calls).map(
+                                    (key) =>
+                                      !api[key].dashboardHidden && (
+                                        <tr key={'dashboard_' + key}>
                                           <td>
-                                            {auth.limits.history[key] ?  toDate(
-                                              auth.limits.history[key].start,
-                                            ) : ""}
+                                            <a
+                                              href={api[key].link}
+                                              target="_blank"
+                                            >
+                                              {api[key].dashboardName ||
+                                                api[key].name}
+                                            </a>
                                           </td>
-                                      }
-                                      <td>
-                                        <i
-                                          className="tim-icons icon-alert-circle-exc"
-                                          id={api[key].tool_id}
-                                        />
-                                        <UncontrolledTooltip
-                                          delay={0}
-                                          target={api[key].tool_id}
-                                        >
-                                          {api[key].tooltip}
-                                        </UncontrolledTooltip>
-                                      </td>
-
-                                    </tr>)
-                                  ))}
+                                          {/*<td>*/}
+                                          {/*{auth.limits.calls[key] >= 0*/}
+                                          {/*? numberWithCommas(*/}
+                                          {/*auth.limits.calls[key],*/}
+                                          {/*)*/}
+                                          {/*: 'Unlimited'}*/}
+                                          {/*</td>*/}
+                                          <td>
+                                            {auth.limits.history[key]
+                                              ? depthInYears(
+                                                  auth.limits.history[key]
+                                                    .depth,
+                                                )
+                                              : ''}
+                                          </td>
+                                          {tariff === 'corp' && (
+                                            <td>
+                                              {auth.limits.history[key]
+                                                ? toDate(
+                                                    auth.limits.history[key]
+                                                      .start,
+                                                  )
+                                                : ''}
+                                            </td>
+                                          )}
+                                          <td>
+                                            <i
+                                              className="tim-icons icon-alert-circle-exc"
+                                              id={api[key].tool_id}
+                                            />
+                                            <UncontrolledTooltip
+                                              delay={0}
+                                              target={api[key].tool_id}
+                                            >
+                                              {api[key].tooltip}
+                                            </UncontrolledTooltip>
+                                          </td>
+                                        </tr>
+                                      ),
+                                  )}
                                 </tbody>
                                 <thead>
-                                <br/>
+                                  <br />
                                   <tr>
-                                    <th colSpan={tariff === 'corp' ? 4 : 3 }>
+                                    <th colSpan={tariff === 'corp' ? 4 : 3}>
                                       Polygons
                                     </th>
                                   </tr>
@@ -685,7 +690,7 @@ const Subscription2 = () => {
                                 <tbody>
                                   <tr>
                                     <td>Min polygon area</td>
-                                    <td colSpan={tariff === 'corp' ? 2 : 1 }>
+                                    <td colSpan={tariff === 'corp' ? 2 : 1}>
                                       {
                                         auth.limits.polygon_area
                                           .min_polygon_area
@@ -719,7 +724,7 @@ const Subscription2 = () => {
                   </Row>
                 </TabPane>
 
-             {/*   <TabPane tabId="settings">
+                {/*   <TabPane tabId="settings">
                   <Row>
                     <Col>
                       <Card>
