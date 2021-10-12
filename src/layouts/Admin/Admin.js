@@ -7,7 +7,7 @@ import { Redirect, Route, Switch, useLocation } from 'react-router-dom'
 // javascript plugin used to create scrollbars on windows
 // react plugin for creating notifications over the dashboard
 import PropagateLoader from 'react-spinners/PropagateLoader'
-import { Col, Row } from 'reactstrap'
+import { Col, Row, UncontrolledAlert } from 'reactstrap'
 
 // core components
 import logo from '../../assets/img/agro-logo.png'
@@ -193,6 +193,7 @@ const Admin = (props) => {
             <Switch>
               {getRoutes(routes)}
               <Redirect from="*" to="/dashboard/polygons" />
+
             </Switch>
           ) : (
             <Row>
