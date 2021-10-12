@@ -38,8 +38,7 @@ const initialState = {
         tariff: null,
       },
   limits: tokenData ? tokenData.limits : null,
-  isApiKeyValid: true,
-  // isApiKeyValid: null, // TODO
+  isApiKeyValid: null
 }
 
 export default function authReducer(state = initialState, action) {

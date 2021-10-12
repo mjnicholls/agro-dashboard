@@ -8,7 +8,6 @@ import { useSelector } from 'react-redux'
 import mapboxgl from '!mapbox-gl' // eslint-disable-line import/no-unresolved
 import { getMapBounds } from '../../features/polygons/selectors'
 import { axiosInstance } from '../../services/base'
-// import mapboxgl from '!mapbox-gl' // eslint-disable-line import/no-webpack-loader-syntax
 import { addBoundsControl, deletePreviousAreas, initialiseMap } from './base'
 import { displayClusters } from './clusters'
 import { removeCropLayer, displayCropLayer } from './crops'
@@ -98,6 +97,7 @@ const MapBoxDraw = ({
       addDrawFunctionality(map.current)
     }
   }, [initialised])
+
 
   const nominatimGeocoder = (query) =>
     /** Load custom data to supplement the search results */

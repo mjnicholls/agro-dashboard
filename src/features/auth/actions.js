@@ -3,7 +3,6 @@ import axios from 'axios'
 import { loginURL, logoutURL } from '../../services/api'
 import { deleteCookie, setCookie } from '../../utils/cookies'
 import { parseJwt } from './utils'
-// import {checkApiKey} from "../../services/api/authApi";
 
 export const API_KEY_STATUS = 'API_KEY_STATUS'
 export const LOGIN_REQUEST = 'LOGIN_REQUEST'
@@ -99,16 +98,7 @@ export const loginUser = (email, password) => (dispatch) => {
     })
 }
 
-export const logoutUser = () => async (dispatch, getState) => {
-  // const {token} = getState().auth
-  // axios.interceptors.request.use((config) => ({
-  //   ...config,
-  //   headers: {
-  //     ...config.headers,
-  //     Authorization: `Bearer ${token}`
-  //   }
-  // }))
-
+export const logoutUser = () => async (dispatch) => {
   dispatch(requestLogout())
   return axios
     .delete(logoutURL)
@@ -122,23 +112,3 @@ export const logoutUser = () => async (dispatch, getState) => {
     })
 }
 
-// TODO - does not belong here
-// export const checkApiKey = () => (dispatch, getState) => {
-//   const {token} = getState().auth
-//   axios.interceptors.request.use((config) => ({
-//     ...config,
-//     headers: {
-//       ...config.headers,
-//       Authorization: `Bearer ${token}`
-//     }
-//   }))
-//   axios
-//     .get(apiKeyStatus)
-//     .then(() => {
-//       dispatch(setApiKeyStatus(true))
-//       dispatch(fetchPolygons())
-//     })
-//     .catch(() => {
-//       dispatch(setApiKeyStatus(false))
-//     })
-// }
