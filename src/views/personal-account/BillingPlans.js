@@ -1,8 +1,8 @@
 /* eslint-disable */
-import React from 'react'
+import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 
-import { Button, Card, CardHeader, CardBody, Row, Col, Table } from 'reactstrap'
+import { Button, Card, CardHeader, CardBody, Row, Col, Table, NavItem, NavLink, Nav, } from 'reactstrap'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
@@ -11,11 +11,13 @@ import ReactBSAlert from 'react-bootstrap-sweetalert'
 import SubscriptionPop2 from './SubscriptionPop'
 import VectorMapView from './VectorMapPersonal'
 
+
 const userSubscriptionSelector = (state) => state.auth.user.tariff
 
 const BillingPlans = () => {
   const subscription = useSelector(userSubscriptionSelector)
   const [alert, setAlert] = React.useState(null)
+
 
   const hideAlert = () => {
     setAlert(null)
@@ -66,61 +68,97 @@ const BillingPlans = () => {
                         <h4>Fixed price per month</h4>
                         <h5>(excl. VAT)</h5>
                       </td>
+
                       <td>
-                        <h3>Free</h3>
-                        <h3>£0</h3>
-                        <Link to="/dashboard/api-keys">
-                          <Button
-                            className="btn-primary"
-                            color="primary"
-                            data-dismiss="modal"
-                            type="button"
-                          >
-                            Get API Key
-                          </Button>
-                        </Link>
+                        <Nav
+                          className="nav-pills-info nav-pills-icons justify-content-center"
+                          pills
+                        >
+                          <NavItem>
+                            <NavLink>
+                              <h3>Free</h3>
+                              <h3>£0</h3>
+                              <Link to="/dashboard/api-keys">
+                                <Button
+                                  className="btn-primary"
+                                  color="primary"
+                                  data-dismiss="modal"
+                                  type="button"
+                                >
+                                  API Key
+                                </Button>
+                              </Link>
+                            </NavLink>
+                          </NavItem>
+                        </Nav>
                       </td>
 
                       {subscription === 'starter' ? (
                         <td>
-                          <h3>Starter</h3>
-                          <h3>£20</h3>
+                          <Nav
+                            className="nav-pills-info nav-pills-icons justify-content-center"
+                            pills
+                          >
+                            <NavItem>
+                              <NavLink>
+                                <h3>Starter</h3>
+                                <h3>£20</h3>
 
-                          <Button
-                            className="btn-primary"
-                            color="primary"
-                            data-dismiss="modal"
-                            type="button"
-                            /* onClick={(e) => {
+                                <Button
+                                  className="btn-primary"
+                                  color="primary"
+                                  data-dismiss="modal"
+                                  type="button"
+                                  /* onClick={(e) => {
                                 htmlAlert(false);
                                 e.stopPropagation();
                               }} */
-                          >
-                            Unsubscribe
-                          </Button>
+                                >
+                                  Unsubscribe
+                                </Button>
+                              </NavLink>
+                            </NavItem>
+                          </Nav>
                         </td>
                       ) : (
                         <td>
-                          <h3>Starter</h3>
-                          <h3>£20</h3>
-                          <Button
-                            className="btn-primary"
-                            color="primary"
-                            data-dismiss="modal"
-                            type="button"
-                            onClick={(e) => {
-                              htmlAlert(false)
-                              e.stopPropagation()
-                            }}
+                          <Nav
+                            className="nav-pills-info nav-pills-icons justify-content-center"
+                            pills
                           >
-                            Subscribe
-                          </Button>
+                            <NavItem>
+                              <NavLink>
+                                <h3>Starter</h3>
+                                <h3>£20</h3>
+
+                                <Button
+                                  className="btn-primary"
+                                  color="primary"
+                                  data-dismiss="modal"
+                                  type="button"
+                                  onClick={(e) => {
+                                    htmlAlert(false)
+                                    e.stopPropagation()
+                                  }}
+                                >
+                                  Subscribe
+                                </Button>
+                              </NavLink>
+                            </NavItem>
+                          </Nav>
                         </td>
                       )}
 
                       {subscription === 'small' ? (
                         <td>
-                          <h3>Small Kit</h3>
+
+<Nav
+                            className="nav-pills-info nav-pills-icons justify-content-center"
+                            pills
+                          >
+                            <NavItem>
+                              <NavLink>
+                              <h3>Small Kit</h3>
                           <h3>£200</h3>
 
                           <Button
@@ -136,28 +174,50 @@ const BillingPlans = () => {
                           >
                             Unsubscribe
                           </Button>
+                              </NavLink>
+                            </NavItem>
+                          </Nav>
+
+                        
                         </td>
                       ) : (
                         <td>
-                          <h3>Small Kit</h3>
-                          <h3>£200</h3>
-
-                          <Button
-                            className="btn-primary"
-                            color="primary"
-                            data-dismiss="modal"
-                            type="button"
-                            onClick={(e) => {
-                              htmlAlert(false)
-                              e.stopPropagation()
-                            }}
+                           <Nav
+                            className="nav-pills-info nav-pills-icons justify-content-center"
+                            pills
                           >
-                            Subscribe
-                          </Button>
+                            <NavItem>
+                              <NavLink>
+                                <h3>Small Kit</h3>
+                                <h3>£200</h3>
+
+                                <Button
+                                  className="btn-primary"
+                                  color="primary"
+                                  data-dismiss="modal"
+                                  type="button"
+                                  onClick={(e) => {
+                                    htmlAlert(false)
+                                    e.stopPropagation()
+                                  }}
+                                >
+                                  Subscribe
+                                </Button>
+                              </NavLink>
+                            </NavItem>
+                          </Nav>
                         </td>
                       )}
                       <td>
-                        <h3>Corporate</h3>
+
+
+                          <Nav
+                            className="nav-pills-info nav-pills-icons justify-content-center"
+                            pills
+                          >
+                            <NavItem>
+                              <NavLink>
+                              <h3>Corporate</h3>
                         <h3>£</h3>
                         <a
                           href="https://openweathermap.force.com/s/contactsupport"
@@ -168,9 +228,14 @@ const BillingPlans = () => {
                             color="primary"
                             type="button"
                           >
-                            Contact Us
+                            Contact
                           </Button>
                         </a>
+                              </NavLink>
+                            </NavItem>
+                          </Nav>
+
+                    
                       </td>
                     </tr>
                   </tbody>

@@ -1,5 +1,3 @@
-/* eslint-disable */
-
 import React from 'react'
 // import Pricing from "views/pages/Pricing.js";
 // import Register from "views/pages/Register.js";
@@ -25,6 +23,7 @@ import InvoiceList from './views/personal-account/Payments'
 import RegisterForm from './views/personal-account/Registration'
 import ResetPass from './views/personal-account/ResetPassword'
 import Subscription from './views/personal-account/Subscription'
+import Subscription2 from './views/personal-account/Subscription2'
 
 const routes = [
   {
@@ -123,6 +122,15 @@ const routes = [
         mini: 'A',
         rtlMini: '',
         component: Subscription,
+        layout: '/dashboard',
+      },
+      {
+        path: '/subscription2',
+        name: 'Subscription2',
+        rtlName: '',
+        mini: 'A',
+        rtlMini: '',
+        component: Subscription2,
         layout: '/dashboard',
       },
     ],

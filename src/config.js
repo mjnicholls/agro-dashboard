@@ -1,4 +1,3 @@
-/* eslint-disable */
 /** Start looking satellite images from the 1st of January, 2010
  * Realistically the first satellite image is available in the year 2013
  * */

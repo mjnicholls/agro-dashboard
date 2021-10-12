@@ -29,29 +29,32 @@ import { validateEmail } from '../../utils/validation'
 // import { updatePass } from ''
 
 const ResetPass = () => {
-  const [state, setState] = React.useState({})
+  
+const [state, setState] = React.useState({})
 
-  const [email, setEmail] = useState('')
-  const [error, setError] = useState({})
+const [email, setEmail] = useState('')
+const [error, setError] = useState({})
 
-  const dispatch = useDispatch()
+const dispatch = useDispatch()
 
-  const confirmPassReset = () => {
+const confirmPassReset = () => {
+
     setError({})
 
-    let newError = {}
+   let newError = {}
 
-    if (!email.length) {
+
+    if ( ! email.length ) {
       newError.email = !email.length
       dispatch(notifyError('Please enter your email address'))
-      setError({ newError })
+      setError(newError)
       return
     }
 
     if (!validateEmail(email)) {
       newError.email = validateEmail(email)
       dispatch(notifyError('Email does not exist'))
-      setError({ newError })
+      setError(newError)
       return
     }
 
@@ -64,7 +67,7 @@ const ResetPass = () => {
         dispatch(notifySuccess('Email sent!'))
       })
       .catch((error) => {
-        dispatch(notifyError('Error updating name ' + error.message))
+        dispatch(notifyError('Error sending email ' + error.message))
       })
   }
 
@@ -74,7 +77,7 @@ const ResetPass = () => {
         <Container>
           <Col className="ml-auto mr-auto" lg="4" md="6">
             <Card className="card-lock card-white text-center">
-              <CardHeader></CardHeader>
+
               <CardBody>
                 <CardTitle tag="h4">Reset Password</CardTitle>
                 <InputGroup
@@ -92,8 +95,8 @@ const ResetPass = () => {
                     placeholder="Enter email"
                     type="text"
                     onChange={(e) => setEmail(e.target.value)}
-                    onFocus={(e) => setState({ ...state, passFocus: true })}
-                    onBlur={(e) => setState({ ...state, passFocus: false })}
+                    onFocus={() => setState({ ...state, passFocus: true })}
+                    onBlur={() => setState({ ...state, passFocus: false })}
                   />
                 </InputGroup>
               </CardBody>
