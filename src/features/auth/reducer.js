@@ -36,6 +36,7 @@ const initialState = {
         email: null,
         appid: null,
         tariff: null,
+        isEmailConfirmed: false,
       },
   limits: tokenData ? tokenData.limits : null,
   isApiKeyValid: null,
@@ -64,6 +65,7 @@ export default function authReducer(state = initialState, action) {
           email: action.data.user.email || null,
           appid: action.data.user.appid || null,
           tariff: action.data.user.tariff || null,
+          isEmailConfirmed: false,
         },
         limits: action.data.limits,
       }

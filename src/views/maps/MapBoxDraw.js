@@ -98,7 +98,6 @@ const MapBoxDraw = ({
     }
   }, [initialised])
 
-
   const nominatimGeocoder = (query) =>
     /** Load custom data to supplement the search results */
     axiosInstance

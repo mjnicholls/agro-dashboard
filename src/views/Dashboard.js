@@ -3,8 +3,8 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Col, Row } from 'reactstrap'
 
-import {fetchPolygons} from "../features/polygons/actions";
-import {getOneCallData} from "../services/api/weatherApi";
+import { fetchPolygons } from '../features/polygons/actions'
+import { getOneCallData } from '../services/api/weatherApi'
 import PolygonTable from './agro-components/PolygonTable'
 import CombinedChart from './charts/CombinedChart'
 import NdviChart from './charts/NdviChart'
@@ -28,7 +28,8 @@ const Dashboard = () => {
   const [weatherData, setWeatherData] = useState({
     data: null,
     isLoading: true,
-    error: null});
+    error: null,
+  })
   const dispatch = useDispatch()
   const activePolygon = useSelector(selectActivePoly)
   const polygons = useSelector(selectPolygons)
@@ -37,20 +38,20 @@ const Dashboard = () => {
   useEffect(() => {
     if (!isSatelliteMode) {
       setWeatherData({
-        isLoading: true
+        isLoading: true,
       })
       getOneCallData(activePolygon.center[1], activePolygon.center[0])
         .then((res) => {
           setWeatherData({
             isLoading: false,
-            data: res
+            data: res,
           })
         })
-        .catch(err => {
+        .catch((err) => {
           setWeatherData({
             isLoading: false,
             data: null,
-            error: err
+            error: err,
           })
         })
     }
@@ -80,9 +81,8 @@ const Dashboard = () => {
     isSatelliteMode ? (
       <NdviChart polyId={activePolygon.id} />
     ) : (
-      <CombinedChart polyId={activePolygon.id} onecall={weatherData}/>
+      <CombinedChart polyId={activePolygon.id} onecall={weatherData} />
     )
-
 
   return (
     <>
