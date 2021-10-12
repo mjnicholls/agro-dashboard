@@ -334,7 +334,7 @@ const Subscription2 = () => {
                               </thead>
                               <tbody>
                                 <tr>
-                                  <td className="pl-5">API calls per minute</td>
+                                  <td>API calls per minute</td>
                                   <td>
                                     <p>{data.api_calls_per_min}</p>
                                   </td>
@@ -343,7 +343,7 @@ const Subscription2 = () => {
                                   </td>
                                 </tr>
                                 <tr>
-                                  <td className="pl-5">
+                                  <td >
                                     Satellite imagery
                                     <br />
                                     (NDVI, EVI, EVI2, NRI, DSWI, NDWI, True
@@ -378,7 +378,7 @@ const Subscription2 = () => {
                                   </td>
                                 </tr>
                                 <tr>
-                                  <td className="pl-5">
+                                  <td >
                                     Total area of created polygons
                                   </td>
                                   <td>
@@ -393,7 +393,7 @@ const Subscription2 = () => {
                                 </tr>
 
                                 <tr>
-                                  <td className="pl-5">
+                                  <td >
                                     Number of created polygons per month
                                   </td>
                                   <td>
@@ -405,7 +405,7 @@ const Subscription2 = () => {
                                 </tr>
 
                                 <tr>
-                                  <td className="pl-5">
+                                  <td >
                                     Price for exceeded area{' '}
                                     <a href="#">Learn more</a>
                                   </td>
@@ -430,7 +430,7 @@ const Subscription2 = () => {
                               </thead>
                               <tbody>
                                 <tr>
-                                  <td className="pl-5">
+                                  <td >
                                     <p>API calls per day</p>
                                   </td>
                                   <td>
@@ -443,8 +443,8 @@ const Subscription2 = () => {
                                 {data.api
                                   .filter((key) => api[key].isCurrent)
                                   .map((key) => (
-                                    <tr key={'current_' + key} className="pl-5">
-                                      <td className="pl-5">
+                                    <tr key={'current_' + key} >
+                                      <td >
                                         <a href={api[key].link} target="_blank">
                                           {api[key].name}
                                         </a>
@@ -478,7 +478,7 @@ const Subscription2 = () => {
                               </thead>
                               <tbody>
                                 <tr>
-                                  <td className="pl-5">API calls per day</td>
+                                  <td >API calls per day</td>
                                   <td>
                                     <p>{data.api_calls_historical}</p>
                                   </td>
@@ -487,7 +487,7 @@ const Subscription2 = () => {
                                   </td>
                                 </tr>
                                 <tr>
-                                  <td className="pl-5">
+                                  <td >
                                     Historical weather data depth
                                   </td>
                                   <td>
@@ -500,8 +500,8 @@ const Subscription2 = () => {
                                 {data.api
                                   .filter((key) => !api[key].isCurrent)
                                   .map((key) => (
-                                    <tr key={'history_' + key} className="pl-5">
-                                      <td className="pl-5">
+                                    <tr key={'history_' + key} >
+                                      <td >
                                         <a href={api[key].link} target="_blank">
                                           {api[key].name}
                                         </a>
@@ -527,7 +527,7 @@ const Subscription2 = () => {
                               </thead>
                               <tbody>
                                 <tr>
-                                  <td className="pl-5">
+                                  <td >
                                     Satellite imagery (NDVI, EVI, True color,
                                     False color) data update
                                   </td>
@@ -539,7 +539,7 @@ const Subscription2 = () => {
                                   </td>
                                 </tr>
                                 <tr>
-                                  <td className="pl-5">
+                                  <td >
                                     Current soil temperature and moisture data
                                     update
                                   </td>
@@ -551,7 +551,7 @@ const Subscription2 = () => {
                                   </td>
                                 </tr>
                                 <tr>
-                                  <td className="pl-5">
+                                  <td >
                                     Weather API data update
                                   </td>
                                   <td>
@@ -562,7 +562,7 @@ const Subscription2 = () => {
                                   </td>
                                 </tr>
                                 <tr>
-                                  <td className="pl-5">SSL</td>
+                                  <td >SSL</td>
 
                                   <td>
                                     <FontAwesomeIcon
@@ -575,7 +575,7 @@ const Subscription2 = () => {
                                   </td>
                                 </tr>
                                 <tr>
-                                  <td className="pl-5">
+                                  <td >
                                     License for maps, APIs, and other products
                                   </td>
                                   <td>
@@ -591,7 +591,7 @@ const Subscription2 = () => {
                                   </td>
                                 </tr>
                                 <tr>
-                                  <td className="pl-5">
+                                  <td >
                                     License for data and database
                                   </td>
                                   <td>
@@ -607,7 +607,7 @@ const Subscription2 = () => {
                                   </td>
                                 </tr>
                                 <tr>
-                                  <td className="pl-5">Support</td>
+                                  <td >Support</td>
                                   <td>
                                     <p>{data.support}</p>
                                   </td>
@@ -619,41 +619,45 @@ const Subscription2 = () => {
                             </Table>
                           ) : (
                             <>
-                              <div>Dashboard</div>
-                              <p>Available parts of dashboard + limits</p>
                               <Table>
                                 <thead>
                                   <tr>
                                     <th>Sections</th>
-                                    <th>Calls</th>
+                                    {/*<th>Calls</th>*/}
                                     <th>Depth</th>
-                                    <th>Info</th>
                                     {tariff === 'corp' && <th>Start date</th>}
-                                  
+                                    <th>Info</th>
                                   </tr>
                                 </thead>
                                 <tbody>
                                   {Object.keys(auth.limits.calls).map((key) => (
-                                    <tr key={'dashboard_' + key}>
+                                    (!api[key].dashboardHidden && <tr key={'dashboard_' + key}>
                                       <td>
                                         <a href={api[key].link} target="_blank">
-                                          {api[key].name}
+                                          {api[key].dashboardName || api[key].name}
                                         </a>
                                       </td>
-                                      <td>
-                                        {auth.limits.calls[key] >= 0
-                                          ? numberWithCommas(
-                                              auth.limits.calls[key],
-                                            )
-                                          : 'Unlimited'}
-                                      </td>
+                                      {/*<td>*/}
+                                        {/*{auth.limits.calls[key] >= 0*/}
+                                          {/*? numberWithCommas(*/}
+                                              {/*auth.limits.calls[key],*/}
+                                            {/*)*/}
+                                          {/*: 'Unlimited'}*/}
+                                      {/*</td>*/}
                                       <td>
                                         {auth.limits.history[key]
                                           ? depthInYears(
                                               auth.limits.history[key].depth,
                                             )
-                                          : null}
+                                          : ''}
                                       </td>
+                                      {tariff === 'corp' &&
+                                          <td>
+                                            {auth.limits.history[key] ?  toDate(
+                                              auth.limits.history[key].start,
+                                            ) : ""}
+                                          </td>
+                                      }
                                       <td>
                                         <i
                                           className="tim-icons icon-alert-circle-exc"
@@ -666,21 +670,14 @@ const Subscription2 = () => {
                                           {api[key].tooltip}
                                         </UncontrolledTooltip>
                                       </td>
-                                      {tariff === 'corp' &&
-                                        auth.limits.history[key] && (
-                                          <td>
-                                            {toDate(
-                                              auth.limits.history[key].start,
-                                            )}
-                                          </td>
-                                        )}
-                                    </tr>
+
+                                    </tr>)
                                   ))}
                                 </tbody>
                                 <thead>
                                 <br/>
                                   <tr>
-                                    <th colSpan={tariff === 'corp' ? 3 : 4}>
+                                    <th colSpan={tariff === 'corp' ? 4 : 3 }>
                                       Polygons
                                     </th>
                                   </tr>
@@ -688,7 +685,7 @@ const Subscription2 = () => {
                                 <tbody>
                                   <tr>
                                     <td>Min polygon area</td>
-                                    <td colSpan={tariff === 'corp' ? 2 : 3}>
+                                    <td colSpan={tariff === 'corp' ? 2 : 1 }>
                                       {
                                         auth.limits.polygon_area
                                           .min_polygon_area
@@ -698,11 +695,10 @@ const Subscription2 = () => {
                                     <td>
                                       <i className="tim-icons icon-alert-circle-exc" />
                                     </td>
-                                    <td></td>
                                   </tr>
                                   <tr>
                                     <td>Max polygon area</td>
-                                    <td colSpan={tariff === 'corp' ? 2 : 3}>
+                                    <td colSpan={tariff === 'corp' ? 2 : 1}>
                                       {numberWithCommas(
                                         auth.limits.polygon_area
                                           .max_polygon_area,
@@ -712,7 +708,6 @@ const Subscription2 = () => {
                                     <td>
                                       <i className="tim-icons icon-alert-circle-exc" />
                                     </td>
-                                    <td></td>
                                   </tr>
                                 </tbody>
                               </Table>

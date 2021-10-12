@@ -26,13 +26,15 @@ export const api = {
     isCurrent: false,
     tooltip: 'Call accumulated precipitation data by geo coordinates.',
     tool_id: "tool4",
+    dashboardHidden: true
   },
   weather_history_accumulated_temperature: {
     name: 'Accumulated Temperature',
     link: 'https://agromonitoring.com/api/accumulated-temperature',
     isCurrent: false,
     tooltip: 'Call accumulated temperature data by geo coordinates.',
-    tool_id: "tool5"
+    tool_id: "tool5",
+    dashboardName: 'Accumulated Parameters'
   },
 
   'Historical UV index': {
