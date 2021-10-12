@@ -133,128 +133,166 @@ const Subscription = () => {
                       </td>
                     </tr>
 
-                  <tr>
-                    <td className="pl-5">Number of created polygons per month</td>
-                    <td>
-                    <p>{data.polygons_per_month}</p>
-                    </td>
-                  </tr>
+                    <tr>
+                      <td className="pl-5">
+                        Number of created polygons per month
+                      </td>
+                      <td>
+                        <p>{data.polygons_per_month}</p>
+                      </td>
+                    </tr>
 
-                  <tr>
-                    <td className="pl-5">
-                      Price for exceeded area{' '}
-                      <a href="#">
-                        Learn more
-                      </a>
-                    </td>
-                    <td>
-                    <p>{data.price_exceeded_area}</p>
-                    </td>
-                  </tr>
-                </tbody>
-                <thead>
-                  <tr>
-                    <th colSpan={2}>
-                      <p>Current and forecast weather data:</p>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td className="pl-5">
-                      <p>API calls per day</p>
-                    </td>
-                    <td>
-                      <p>{data.api_calls_per_min}</p>
-                    </td>
-                  </tr>
-                  {data.api.filter(key => api[key].isCurrent).map(key => (<tr key={"current_"+key} className="pl-5">
-                    <td className="pl-5"><a href={api[key].link} target="_blank">{api[key].name}</a></td>
-                    <td><FontAwesomeIcon icon={faCheckCircle} /></td>
-                  </tr>))}
-                </tbody>
-                <thead>
-                  <tr>
-                    <th colSpan={2}>
-                      <p>Historical weather data:</p>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td className="pl-5">API calls per day</td>
-                    <td>
-                    <p>{data.api_calls_historical}</p>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="pl-5">Historical weather data depth</td>
-                    <td>
-                    <p>{data.historical_data_depths}</p>
-                    </td>
-                  </tr>
-                  {data.api.filter(key => api[key].isCurrent).map(key => (<tr key={"history_" + key} className="pl-5">
-                    <td className="pl-5"><a href={api[key].link} target="_blank">{api[key].name}</a></td>
-                    <td><FontAwesomeIcon icon={faCheckCircle} /></td>
-                  </tr>))}
-                </tbody>
+                    <tr>
+                      <td className="pl-5">
+                        Price for exceeded area <a href="#">Learn more</a>
+                      </td>
+                      <td>
+                        <p>{data.price_exceeded_area}</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                  <thead>
+                    <tr>
+                      <th colSpan={2}>
+                        <p>Current and forecast weather data:</p>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td className="pl-5">
+                        <p>API calls per day</p>
+                      </td>
+                      <td>
+                        <p>{data.api_calls_per_min}</p>
+                      </td>
+                    </tr>
+                    {data.api
+                      .filter((key) => api[key].isCurrent)
+                      .map((key) => (
+                        <tr key={'current_' + key} className="pl-5">
+                          <td className="pl-5">
+                            <a href={api[key].link} target="_blank">
+                              {api[key].name}
+                            </a>
+                          </td>
+                          <td>
+                            <FontAwesomeIcon icon={faCheckCircle} />
+                          </td>
+                        </tr>
+                      ))}
+                  </tbody>
+                  <thead>
+                    <tr>
+                      <th colSpan={2}>
+                        <p>Historical weather data:</p>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td className="pl-5">API calls per day</td>
+                      <td>
+                        <p>{data.api_calls_historical}</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="pl-5">Historical weather data depth</td>
+                      <td>
+                        <p>{data.historical_data_depths}</p>
+                      </td>
+                    </tr>
+                    {data.api
+                      .filter((key) => api[key].isCurrent)
+                      .map((key) => (
+                        <tr key={'history_' + key} className="pl-5">
+                          <td className="pl-5">
+                            <a href={api[key].link} target="_blank">
+                              {api[key].name}
+                            </a>
+                          </td>
+                          <td>
+                            <FontAwesomeIcon icon={faCheckCircle} />
+                          </td>
+                        </tr>
+                      ))}
+                  </tbody>
 
-                <thead>
-                  <tr>
-                    <th colSpan={2}>
-                      <p>Service:</p>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td className="pl-5">Satellite imagery (NDVI, EVI, True color, False color) data update</td>
-                    <td>
-                    <p>{data.satelitte_imagery_service}</p>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="pl-5">Current soil temperature and moisture data update</td>
-                    <td>
-                    <p>{data.current_soil}</p>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="pl-5">Weather API data update</td>
-                    <td>
-                    <p>{data.weather_api_update}</p>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="pl-5">SSL</td>
-
-                    <td><FontAwesomeIcon icon={faCheckCircle} value={data.ssl}/></td>
-
-                  </tr>
-                  <tr>
-                    <td className="pl-5">License for maps, APIs, and other products</td>
-                    <td>
-                    <a href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">{data.license_maps}</a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="pl-5">License for data and database</td>
-                    <td>
-                    <p> <a href="http://opendatacommons.org/licenses/odbl/">{data.license_data}</a></p>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="pl-5">Support</td>
-                    <td>
-                    <p>{data.support}</p>
-                    </td>
-                  </tr>
-                </tbody>
-              </Table>
-                :
-                <>
+                  <thead>
+                    <tr>
+                      <th colSpan={2}>
+                        <p>Service:</p>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td className="pl-5">
+                        Satellite imagery (NDVI, EVI, True color, False color)
+                        data update
+                      </td>
+                      <td>
+                        <p>{data.satelitte_imagery_service}</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="pl-5">
+                        Current soil temperature and moisture data update
+                      </td>
+                      <td>
+                        <p>{data.current_soil}</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="pl-5">Weather API data update</td>
+                      <td>
+                        <p>{data.weather_api_update}</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="pl-5">SSL</td>
+                      <td>
+                        <FontAwesomeIcon
+                          icon={faCheckCircle}
+                          value={data.ssl}
+                        />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="pl-5">
+                        License for maps, APIs, and other products
+                      </td>
+                      <td>
+                        <a
+                          href="http://creativecommons.org/licenses/by-sa/4.0/"
+                          target="_blank"
+                        >
+                          {data.license_maps}
+                        </a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="pl-5">License for data and database</td>
+                      <td>
+                        <p>
+                          {' '}
+                          <a href="http://opendatacommons.org/licenses/odbl/">
+                            {data.license_data}
+                          </a>
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="pl-5">Support</td>
+                      <td>
+                        <p>{data.support}</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </Table>
+              ) : (
+                <div>
                   <div>Dashboard</div>
-                  <p>Available parts of dashboard + limits</p>
                   <Table>
                     <thead>
                       <tr>
@@ -265,12 +303,26 @@ const Subscription = () => {
                       </tr>
                     </thead>
                     <tbody>
-                    {Object.keys(auth.limits.calls).map((key) => (
-                        <tr key={"dashboard_"+key}>
-                          <td><a href={api[key].link} target="_blank">{api[key].name}</a></td>
-                          <td>{auth.limits.calls[key] >= 0 ? numberWithCommas(auth.limits.calls[key]) : "Unlimited"}</td>
-                          <td>{auth.limits.history[key] ? depthInYears(auth.limits.history[key].depth) : null}</td>
-                          {(tariff === "corp" && auth.limits.history[key]) && <td>{toDate(auth.limits.history[key].start)}</td>}
+                      {Object.keys(auth.limits.calls).map((key) => (
+                        <tr key={'dashboard_' + key}>
+                          <td>
+                            <a href={api[key].link} target="_blank">
+                              {api[key].name}
+                            </a>
+                          </td>
+                          <td>
+                            {auth.limits.calls[key] >= 0
+                              ? numberWithCommas(auth.limits.calls[key])
+                              : 'Unlimited'}
+                          </td>
+                          <td>
+                            {auth.limits.history[key]
+                              ? depthInYears(auth.limits.history[key].depth)
+                              : null}
+                          </td>
+                          {tariff === 'corp' && auth.limits.history[key] && (
+                            <td>{toDate(auth.limits.history[key].start)}</td>
+                          )}
                         </tr>
                       ))}
                     </tbody>
@@ -297,8 +349,8 @@ const Subscription = () => {
                       </tr>
                     </tbody>
                   </Table>
-                </>
-              }
+                </div>
+              )}
             </CardBody>
           </Card>
         </Col>
@@ -366,24 +418,21 @@ const Subscription = () => {
                     <td>?</td>
                   </tr>
                 </tbody>
-
               </Table>
-
             </CardBody>
           </Card>
 
           <Card>
             <CardHeader>
               <CardTitle>
-              <h2>Export Polygons to CSV File</h2>
+                <h2>Export Polygons to CSV File</h2>
               </CardTitle>
             </CardHeader>
             <CardBody className="text-right">
-            <ExportPolygons />
-              </CardBody>
-              </Card>
+              <ExportPolygons />
+            </CardBody>
+          </Card>
         </Col>
-
       </Row>
     </div>
   )

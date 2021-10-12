@@ -31,7 +31,10 @@ const initialState = {
   isAuthenticated: !!tokenData,
   token: tokenData ? token : null,
   user: tokenData
-    ? tokenData.data
+    ? {
+        ...tokenData.data,
+        isEmailConfirmed: false,
+      }
     : {
         email: null,
         appid: null,

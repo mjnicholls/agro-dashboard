@@ -12,10 +12,10 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-import DashboardMain from './views/Dashboard.js'
 import CropMap from './views/CropMap'
+import DashboardMain from './views/Dashboard'
 import PolygonNew from './views/NewPolygon'
-import Login from './views/pages/Login.js'
+import Login from './views/pages/Login'
 import AccountSettings from './views/personal-account/AccountSettings'
 import ApiKeys from './views/personal-account/ApiKeys'
 import BillingPlans from './views/personal-account/BillingPlans'
