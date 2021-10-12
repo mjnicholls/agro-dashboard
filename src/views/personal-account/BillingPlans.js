@@ -10,6 +10,8 @@ import { Link } from 'react-router-dom'
 import ReactBSAlert from 'react-bootstrap-sweetalert'
 import SubscriptionPop2 from './SubscriptionPop'
 import VectorMapView from './VectorMapPersonal'
+import Mapp from './ReactMap'
+import { VectorMap } from 'devextreme-react'
 
 
 const userSubscriptionSelector = (state) => state.auth.user.tariff
@@ -850,7 +852,7 @@ const BillingPlans = () => {
                 <Row>
                   <Col>
                     <h4>
-                      This map shows areas for which satellite imagery data is
+                      This map shows areas in blue for which satellite imagery data is
                       available in our system.
                     </h4>
                   </Col>
@@ -894,8 +896,8 @@ const BillingPlans = () => {
             </Card>
           </Col>
         </Row>
-
-        <VectorMapView />
+ 
+        <Mapp />
       </div>
     </>
   )
