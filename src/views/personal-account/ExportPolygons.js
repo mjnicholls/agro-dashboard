@@ -8,10 +8,6 @@ const ExportPolygon = () => {
   const [polygons, setPolygons] = useState([])
 
   useEffect(() => {
-    getData()
-  }, [])
-
-  const getData = () => {
     getPolygons()
       .then((res) => {
         setPolygons(res.polygons)
@@ -20,12 +16,10 @@ const ExportPolygon = () => {
         // eslint-disable-next-line
         console.log(err)
       })
-  }
+  }, [])
 
-  const arrayToCSV = (polygons) => {
-    let res = ''
-
-    let header = [
+  const arrayToCSV = (data) => {
+    const header = [
       'Name',
       'Polygon ID',
       'Source',
@@ -34,22 +28,19 @@ const ExportPolygon = () => {
       'Area',
     ]
 
-    if (polygons.length) {
-      let csv = polygons.map(
-        (polygons) =>
-          `"${polygons.name}","${polygons.poly_id}","${
-            polygons.source
-          }","${polygons.created_at.slice(0, 11)}","${
-            polygons.deleted_at ? polygons.deleted_at.slice(0, 11) : ''
-          }","${polygons.area}"`,
+    if (data.length) {
+      const csv = data.map(
+        (polygon) =>
+          `"${polygon.name}","${polygon.poly_id}","${
+            polygon.source
+          }","${polygon.created_at.slice(0, 11)}","${
+            polygon.deleted_at ? polygon.deleted_at.slice(0, 11) : ''
+          }","${polygon.area}"`,
       )
-      csv.unshift(header + '')
-      res = `${csv.join('\n').replace(/','/g, '","')}`
-    } else {
-      return header
+      csv.unshift(`${header}`)
+      return `${csv.join('\n').replace(/','/g, '","')}`
     }
-
-    return res
+    return header
   }
 
   const downLoad = () => {

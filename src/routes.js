@@ -15,7 +15,7 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import DashboardMain from './views/Dashboard.js'
-import CropMap from './views/maps/CropMap'
+import CropMap from './views/CropMap'
 import PolygonNew from './views/NewPolygon'
 import Login from './views/pages/Login.js'
 import AccountSettings from './views/personal-account/AccountSettings'
@@ -40,7 +40,6 @@ const routes = [
   {
     path: '/polygons',
     name: 'Satellite data & statistics',
-    rtlName: '',
     icon: <FontAwesomeIcon icon={faSatellite} />,
     component: DashboardMain,
     layout: '/dashboard',

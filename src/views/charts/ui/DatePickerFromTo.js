@@ -11,12 +11,12 @@ const DatePickerChart = ({
   setEndDate,
   earliestAvailableDate,
 }) => {
-  const onStartDateChange = (moment) => {
-    setStartDate(moment.valueOf())
+  const onStartDateChange = (momentVal) => {
+    setStartDate(momentVal.valueOf())
   }
 
-  const onEndDateChange = (moment) => {
-    setEndDate(moment.valueOf())
+  const onEndDateChange = (momentVal) => {
+    setEndDate(momentVal.valueOf())
   }
 
   const validateStartDate = (current) => {
@@ -27,13 +27,10 @@ const DatePickerChart = ({
     return res
   }
 
-  const validateEndDate = (current) => {
-    return (
-      current.isAfter(earliestAvailableDate) &&
-      current.isAfter(startDate) &&
-      current.isBefore(moment())
-    )
-  }
+  const validateEndDate = (current) =>
+    current.isAfter(earliestAvailableDate) &&
+    current.isAfter(startDate) &&
+    current.isBefore(moment())
 
   return (
     <Row>

@@ -1,7 +1,7 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import ReactBSAlert from 'react-bootstrap-sweetalert'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import {
   Button,
   Card,
@@ -12,7 +12,6 @@ import {
   Col,
 } from 'reactstrap'
 
-import { fetchOneCall } from '../../features/onecall/actions'
 import { formatDateTime } from '../../utils/dateTime'
 import {
   capitalize,
@@ -22,28 +21,13 @@ import {
 import ChartContainer from '../charts/ui/ChartContainer'
 import OWMWeatherIcon from '../owm-icons'
 
-const selectActivePoly = (state) => state.state.polygon
-const selectOneCall = (state) => state.onecall
 const selectUnits = (state) => state.units.isMetric
 
-const WeatherCurrent = () => {
+const WeatherCurrent = ({onecall}) => {
+
   const isMetric = useSelector(selectUnits)
-  const onecall = useSelector(selectOneCall)
-  const dispatch = useDispatch()
-  const stableDispatch = useCallback(dispatch, []) // eslint-disable-line react-hooks/exhaustive-deps
-
-  const activePolygon = useSelector(selectActivePoly)
   const [alert, setAlert] = useState(null)
-
   const [precipitation, setPrecipitation] = useState('')
-
-  useEffect(() => {
-    if (activePolygon) {
-      stableDispatch(
-        fetchOneCall(activePolygon.center[1], activePolygon.center[0]),
-      )
-    }
-  }, [activePolygon, stableDispatch])
 
   useEffect(() => {
     if (onecall.data) {
@@ -70,20 +54,19 @@ const WeatherCurrent = () => {
       >
         <div>
           {alerts && alerts.length
-            ? alerts.map((alert) => (
+            ? alerts.map((item) => (
                 <>
                   <p>
-                    <b>{capitalize(alert.event)}</b>
+                    <b>{capitalize(item.event)}</b>
                   </p>
                   <p>
                     <small>
-                      {formatDateTime(alert.start)} -{' '}
-                      {formatDateTime(alert.end)}
+                      {formatDateTime(item.start)} - {formatDateTime(item.end)}
                     </small>
                   </p>
-                  <p>{alert.description}</p>
+                  <p>{item.description}</p>
                   <p>
-                    <small>{alert.sender_name}</small>
+                    <small>{item.sender_name}</small>
                   </p>
                   <hr />
                 </>
@@ -159,20 +142,6 @@ const WeatherCurrent = () => {
               </>
             ) : null}
           </ChartContainer>
-          {/* <div className="stats"> */}
-          {/* <i className="tim-icons icon-alert-circle-exc" /> Weather alert */}
-          {/* </div> */}
-          {/* {(alerts && alerts.length) ? */}
-          {/* alerts.map((alert, index) => */}
-          {/* <div key={'alert_' + index}> */}
-          {/* <p><i className="tim-icons icon-alert-circle-exc" style={{marginRight: "10px"}} />{capitalize(alert.event)}</p> */}
-          {/* <span>{formatDateTime(alert.start)} - {formatDateTime(alert.end)}</span> */}
-          {/* <p className="stats">{alert.description}</p> */}
-          {/* <span>{alert.sender_name}</span> */}
-          {/* <hr /> */}
-          {/* </div> */}
-          {/* ) : <div>No alerts</div> } */}
-          {/* <hr /> */}
         </CardBody>
       </Card>
     </>

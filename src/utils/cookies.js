@@ -1,6 +1,4 @@
-/* eslint-disable */
-
-function getCookie(name) {
+const getCookie = (name) => {
   let res
   if (name) {
     const matches = document.cookie.match(
@@ -18,36 +16,19 @@ function getCookie(name) {
   return res
 }
 
-function setCookie(name, value, options) {
-  options = options || { path: '/', expires: 86400 }
-
-  let { expires } = options
-
-  if (typeof expires === 'number' && expires) {
-    const d = new Date()
-    d.setTime(d.getTime() + expires * 1000)
-    expires = d
-    options.expires = d
-  }
-  if (expires && expires.toUTCString) {
-    options.expires = expires.toUTCString()
-  }
-
-  value = encodeURIComponent(value)
-
-  let updatedCookie = `${name}=${value}`
-  // eslint-disable-next-line
-  for (const propName in options) {
-    updatedCookie += `; ${propName}`
-    const propValue = options[propName]
-    if (propValue !== true) {
-      updatedCookie += `=${propValue}`
-    }
+const setCookie = (name, value) => {
+  const date = new Date()
+  date.setTime(date.getTime() + 86400000)
+  const options = { path: '/', expires: date.toUTCString() }
+  let updatedCookie = `${name}=${encodeURIComponent(value)}`
+  const optionsArray = Object.keys(options)
+  for (let i = 0; i < optionsArray.length; i += 1) {
+    updatedCookie += `;${optionsArray[i]}=${options[optionsArray[i]]}`
   }
   document.cookie = updatedCookie
 }
 
-function deleteCookie(name, path, domain) {
+const deleteCookie = (name, path, domain) => {
   if (getCookie(name)) {
     document.cookie = `${name}=${path ? `;path=${path}` : ''}${
       domain ? `;domain=${domain}` : ''

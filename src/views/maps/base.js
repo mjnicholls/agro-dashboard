@@ -37,7 +37,7 @@ class BoundsControl {
     this.container = document.createElement('div')
     this.container.className = 'mapboxgl-ctrl mapboxgl-ctrl-group'
     this.container.id = 'all-polygons-control'
-    const button = this._createButton()
+    const button = this.createButton()
     this.container.appendChild(button)
     return this.container
   }
@@ -48,7 +48,7 @@ class BoundsControl {
     }
   }
 
-  _createButton() {
+  createButton() {
     const el = window.document.createElement('button')
     el.className = 'all-polygons-control'
     el.innerHTML = '<i class="fa fa-list-ul" aria-hidden="true"/>'
@@ -75,14 +75,13 @@ export const initialiseMap = (mapContainer, map, token) => {
     // center: [-93.3977, 41.9780],
     // zoom: 9,
     accessToken: mapBoxAccessToken,
-    transformRequest: (url) => {
-      return url.indexOf(serverBaseURL) > -1
+    transformRequest: (url) =>
+      url.indexOf(serverBaseURL) > -1
         ? {
             url,
             headers: { Authorization: `Bearer ${token}` },
           }
-        : { url }
-    },
+        : { url },
   })
   map.current.addControl(
     new mapboxgl.NavigationControl({

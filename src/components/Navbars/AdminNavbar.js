@@ -62,11 +62,9 @@ const AdminNavbar = (props) => {
   }
 
   const pageName = () => {
-    let activeRoute = 'AgroMonitoring Dashboard'
-    if (props.location.pathname.indexOf('/new-polygon') !== -1) {
-      activeRoute = 'New polygon'
-    } else if (activePolygon) {
-      activeRoute = `${activePolygon.name}: ${
+    let activeRoute = props.brandText
+    if (props.location.pathname.indexOf('/polygons') !== -1 && activePolygon) {
+      activeRoute = `${props.brandText}: ${activePolygon.name} - ${
         isSatelliteMode ? 'Satellite data' : 'Weather data'
       }`
     }

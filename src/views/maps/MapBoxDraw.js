@@ -107,7 +107,7 @@ const MapBoxDraw = ({
       )
       .then((response) => {
         const features = []
-        for (let i = 0; i < response.data.length; i++) {
+        for (let i = 0; i < response.data.length; i += 1) {
           const feature = response.data[i]
           feature.place_name = feature.display_name
           feature.center = [feature.lon, feature.lat]
@@ -146,7 +146,7 @@ const MapBoxDraw = ({
     setGeoJson(null)
   }
 
-  const addDrawFunctionality = (map) => {
+  const addDrawFunctionality = (mapInstance) => {
     drawRef.current = new MapboxDraw({
       displayControlsDefault: false,
       controls: {
@@ -154,10 +154,10 @@ const MapBoxDraw = ({
         trash: true,
       },
     })
-    map.addControl(drawRef.current, 'top-right')
-    map.on('draw.create', createArea)
-    map.on('draw.update', updateArea)
-    map.on('draw.delete', deleteArea)
+    mapInstance.addControl(drawRef.current, 'top-right')
+    mapInstance.on('draw.create', createArea)
+    mapInstance.on('draw.update', updateArea)
+    mapInstance.on('draw.delete', deleteArea)
     // map.on('draw.modechange', deletePreviousAreas);
   }
 

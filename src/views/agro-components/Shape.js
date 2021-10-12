@@ -16,7 +16,7 @@ const Shape = ({ polygon }) => {
     const region = new Path2D()
     region.strokeWidth = 1
     region.moveTo(coordinates[0].x, coordinates[0].y)
-    for (let i = 1; i < coordinates.length; i++) {
+    for (let i = 1; i < coordinates.length; i += 1) {
       const coordinate = coordinates[i]
       region.lineTo(coordinate.x, coordinate.y)
     }

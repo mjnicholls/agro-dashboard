@@ -103,8 +103,8 @@ const HistoricalWeather = ({
   options.tooltips = {
     ...options.tooltips,
     callbacks: {
-      label(tooltipItem, data) {
-        return `${data.datasets[tooltipItem.datasetIndex].label}: ${
+      label(tooltipItem, chartData) {
+        return `${chartData.datasets[tooltipItem.datasetIndex].label}: ${
           tooltipItem.value
         }${tooltipItem.datasetIndex === 2 ? 'mm' : '°'}`
       },
@@ -128,7 +128,7 @@ const HistoricalWeather = ({
 
     const labels = []
     const rainData = []
-    for (let i = 0; i < data.length; i++) {
+    for (let i = 0; i < data.length; i += 1) {
       const el = data[i]
       labels.push(toDate(el.dt)) // TODO local date
       const prec =

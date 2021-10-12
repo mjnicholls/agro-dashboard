@@ -78,12 +78,18 @@ const getAccumulatedPrecipitation = (polygonId, start, end) => {
 
 export const getAccumulatedData = async (polygonId, start, end, threshold) => {
   /** Get accumulated data */
-  start = Math.ceil(start / 1000)
-  end = Math.floor(end / 1000)
-
   let [tempData, rainData] = await Promise.all([
-    getAccumulatedTemperature(polygonId, start, end, threshold),
-    getAccumulatedPrecipitation(polygonId, start, end),
+    getAccumulatedTemperature(
+      polygonId,
+      Math.ceil(start / 1000),
+      Math.floor(end / 1000),
+      threshold,
+    ),
+    getAccumulatedPrecipitation(
+      polygonId,
+      Math.ceil(start / 1000),
+      Math.floor(end / 1000),
+    ),
   ])
 
   if (tempData.length !== rainData.length) {

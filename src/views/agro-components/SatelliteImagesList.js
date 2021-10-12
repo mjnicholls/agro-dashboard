@@ -145,8 +145,9 @@ const SatelliteImagesList = ({
                         : ''
                       : ''
                   }`}
+                  // eslint-disable-next-line
                   ref={(el) => (imagesRefs.current[index] = el)}
-                  key={`satellite_image_${image.dt + ' ' + image.type}`}
+                  key={`satellite_image_${image.dt} ${image.type}`}
                   onClick={() => {
                     setSatelliteImage(image)
                   }}

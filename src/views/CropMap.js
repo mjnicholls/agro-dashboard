@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react'
 
-import { cropMapYears } from '../../config'
-import { getPageHeight } from '../../utils/utils'
-import { initialiseMap } from './base'
-import CropMapCard from './CropMapCard'
-import { displayCropLayer2 } from './crops'
+import { cropMapYears } from '../config'
+import { getPageHeight } from '../utils/utils'
+import CropMapCard from './agro-components/CropMapCard'
+import { initialiseMap } from './maps/base'
+import { displayCropLayer2 } from './maps/crops'
 
 const CropMap = () => {
   const mapContainer = useRef(null)

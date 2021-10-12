@@ -50,7 +50,7 @@ const calculateBbox = (polygon) => {
   const { coordinates } = polygon.geo_json.geometry
   const lats = []
   const lngs = []
-  for (let i = 0; i < coordinates[0].length; i++) {
+  for (let i = 0; i < coordinates[0].length; i += 1) {
     lats.push(coordinates[0][i][1])
     lngs.push(coordinates[0][i][0])
   }
@@ -92,12 +92,11 @@ const calculatePixels = (coordinates, bbox) => {
 const enrichPolygon = (polygon) => {
   /** Calculate polygon's bounding box and shape in pixels * */
   const bbox = calculateBbox(polygon)
-  polygon.pixels = calculatePixels(
-    polygon.geo_json.geometry.coordinates[0],
+  return {
+    ...polygon,
+    pixels: calculatePixels(polygon.geo_json.geometry.coordinates[0], bbox),
     bbox,
-  )
-  polygon.bbox = bbox
-  return polygon
+  }
 }
 
 export const fetchPolygons = () => (dispatch) => {
@@ -107,7 +106,7 @@ export const fetchPolygons = () => (dispatch) => {
     .then((response) => {
       const polygons = response.data
       polygons.reverse()
-      for (let i = 0; i < polygons.length; i++) {
+      for (let i = 0; i < polygons.length; i += 1) {
         polygons[i] = enrichPolygon(polygons[i])
       }
       dispatch(receivePolygons(polygons))

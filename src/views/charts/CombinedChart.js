@@ -29,7 +29,6 @@ import { getDateInPast } from '../../utils/dateTime'
 import TabsSelector from '../agro-components/TabsSelector'
 import DatePickerFromTo from './ui/DatePickerFromTo'
 
-const selectOneCall = (state) => state.onecall
 const selectUnits = (state) => state.units.isMetric
 
 const weatherTabs = [
@@ -68,10 +67,9 @@ const selectLimitSoil = (state) => state.auth.limits.history.soil_history
 const selectLimitHistoryWeather = (state) =>
   state.auth.limits.history.weather_history
 
-const CombinedChart = ({ polyId }) => {
+const CombinedChart = ({ polyId, onecall }) => {
   const [activeTab, setActiveTab] = useState(weatherTabs[0])
   const isMetric = useSelector(selectUnits)
-  const onecall = useSelector(selectOneCall)
 
   const [startDate, setStartDate] = useState(null)
   const [endDate, setEndDate] = useState(null)
@@ -103,8 +101,8 @@ const CombinedChart = ({ polyId }) => {
      * int - number in years
      *  */
     let depth
-    let startDate
-    let earliestAvailableDate
+    let newStartDate
+    let newEarliestAvailableDate
     const depths = [
       limitAccPrec.depth,
       limitAccTemp.depth,
@@ -119,16 +117,16 @@ const CombinedChart = ({ polyId }) => {
     }
     if (depth && depth > 0) {
       // limited data is available
-      earliestAvailableDate = new Date()
-      earliestAvailableDate.setMonth(
-        earliestAvailableDate.getMonth() - depth * 12,
+      newEarliestAvailableDate = new Date()
+      newEarliestAvailableDate.setMonth(
+        newEarliestAvailableDate.getMonth() - depth * 12,
       )
       // set default start date from config unless earliestAvailableDate is later
-      startDate = getDateInPast(
+      newStartDate = getDateInPast(
         Math.min(depth * 12, defaultStartHistoryWeatherCharts),
       )
     } else if (depth < 0) {
-      earliestAvailableDate = new Date(
+      newEarliestAvailableDate = new Date(
         Math.min(
           limitAccPrec.start,
           limitAccTemp.start,
@@ -136,12 +134,12 @@ const CombinedChart = ({ polyId }) => {
           limitHistoryWeather.start,
         ) * 1000,
       )
-      startDate = getDateInPast(defaultStartHistoryWeatherCharts) // один месяц назад
+      newStartDate = getDateInPast(defaultStartHistoryWeatherCharts) // один месяц назад
     }
-    if (earliestAvailableDate) {
-      setEarliestAvailableDate(earliestAvailableDate)
-      if (startDate) {
-        setStartDate(startDate.getTime())
+    if (newEarliestAvailableDate) {
+      setEarliestAvailableDate(newEarliestAvailableDate)
+      if (newStartDate) {
+        setStartDate(newStartDate.getTime())
         setEndDate(new Date().getTime())
       }
     }

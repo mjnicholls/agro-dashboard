@@ -14,22 +14,19 @@ const ApiKeyEdit = ({ apiKey, close, refreshData }) => {
 
   const [name, setName] = useState(apiKey ? apiKey.name : '')
 
-  const editingDisabled = () => {
-    return apiKey && !name.length
-  }
+  const editingDisabled = () => apiKey && !name.length
 
   const confirmEdit = () => {
-    let data = {
+    updateAPIKey({
       appid: apiKey.appid,
       appid_new_name: name,
-    }
-    updateAPIKey(data)
+    })
       .then(() => {
         refreshData()
         dispatch(notifySuccess('API Key updated'))
       })
       .catch((error) => {
-        dispatch(notifyError('Error updating API Key' + error.message))
+        dispatch(notifyError(`Error updating API Key ${error.message}`))
       })
     close()
   }

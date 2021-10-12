@@ -2,24 +2,17 @@ import React from 'react'
 
 import PerfectScrollbar from 'perfect-scrollbar'
 import NotificationAlert from 'react-notification-alert'
-import { useSelector } from 'react-redux'
 import { Redirect, Route, Switch, useLocation } from 'react-router-dom'
-// javascript plugin used to create scrollbars on windows
-// react plugin for creating notifications over the dashboard
-import PropagateLoader from 'react-spinners/PropagateLoader'
-import { Col, Row } from 'reactstrap'
 
 // core components
 import logo from '../../assets/img/agro-logo.png'
-import Footer from '../../components/Footer/Footer.js'
-import AdminNavbar from '../../components/Navbars/AdminNavbar.js'
-import Sidebar from '../../components/Sidebar/Sidebar2.js'
-// import FixedPlugin from "components/FixedPlugin/FixedPlugin.js";
-import routes from '../../routes.js'
+import Footer from '../../components/Footer/Footer'
+import AdminNavbar from '../../components/Navbars/AdminNavbar'
+import Sidebar from '../../components/Sidebar/Sidebar2'
+// import FixedPlugin from "components/FixedPlugin/FixedPlugin";
+import routes from '../../routes'
 
 let ps
-
-const selectIsApiKeyValid = (state) => state.auth.isApiKeyValid
 
 const Admin = (props) => {
   const activeColor = 'blue'
@@ -30,7 +23,6 @@ const Admin = (props) => {
   const mainPanelRef = React.useRef(null)
   const notificationAlertRef = React.useRef(null)
   const location = useLocation()
-  const isApiKeyValid = useSelector(selectIsApiKeyValid)
 
   React.useEffect(() => {
     document.documentElement.scrollTop = 0
@@ -50,7 +42,7 @@ const Admin = (props) => {
         mainPanelRef.current.addEventListener('ps-scroll-y', showNavbarButton)
       }
       const tables = document.querySelectorAll('.table-responsive')
-      for (let i = 0; i < tables.length; i++) {
+      for (let i = 0; i < tables.length; i += 1) {
         ps = new PerfectScrollbar(tables[i])
       }
     }
@@ -87,8 +79,8 @@ const Admin = (props) => {
     }
   }
 
-  const getRoutes = (routes) =>
-    routes.map((prop, key) => {
+  const getRoutes = (routesInstance) =>
+    routesInstance.map((prop) => {
       if (prop.collapse) {
         return getRoutes(prop.views)
       }
@@ -104,19 +96,20 @@ const Admin = (props) => {
       return null
     })
 
-  const getActiveRoute = (routes) => {
+  const getActiveRoute = (routesInstance) => {
     const activeRoute = 'AgroMonitoring Dashboard'
-    for (let i = 0; i < routes.length; i++) {
-      if (routes[i].collapse) {
-        const collapseActiveRoute = getActiveRoute(routes[i].views)
+    for (let i = 0; i < routesInstance.length; i += 1) {
+      if (routesInstance[i].collapse) {
+        const collapseActiveRoute = getActiveRoute(routesInstance[i].views)
         if (collapseActiveRoute !== activeRoute) {
           return collapseActiveRoute
         }
       } else if (
-        window.location.pathname.indexOf(routes[i].layout + routes[i].path) !==
-        -1
+        window.location.pathname.indexOf(
+          routesInstance[i].layout + routesInstance[i].path,
+        ) !== -1
       ) {
-        return routes[i].name
+        return routesInstance[i].name
       }
     }
     return activeRoute
@@ -189,28 +182,10 @@ const Admin = (props) => {
         />
 
         <div className="content">
-          {isApiKeyValid ? (
-            <Switch>
-              {getRoutes(routes)}
-              <Redirect from="*" to="/dashboard/polygons" />
-            </Switch>
-          ) : (
-            <Row>
-              <Col className="text-center my-5 align-self-center">
-                <div className="my-5">
-                  <div>
-                    <PropagateLoader color="#f2f2f2" size={15} />
-                    <br />
-                  </div>
-                  {isApiKeyValid === false && (
-                    <p className="my-3">
-                      Synchronizing API key... It might take a few minutes
-                    </p>
-                  )}
-                </div>
-              </Col>
-            </Row>
-          )}
+          <Switch>
+            {getRoutes(routes)}
+            <Redirect from="*" to="/dashboard/polygons" />
+          </Switch>
         </div>
         {
           // we don't want the Footer to be rendered on full screen maps page

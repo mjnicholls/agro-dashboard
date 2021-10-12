@@ -156,17 +156,17 @@ const PolygonCreateCard = ({
               Select
             </NavLink>
           </NavItem>
-          <NavItem>
-            <NavLink
-              data-toggle="tab"
-              className={classNames('agro-tab', {
-                active: mode === 'select',
-              })}
-              onClick={() => setMode('import')}
-            >
-              Import
-            </NavLink>
-          </NavItem>
+          {/*<NavItem>*/}
+          {/*<NavLink*/}
+          {/*data-toggle="tab"*/}
+          {/*className={classNames('agro-tab', {*/}
+          {/*active: mode === 'import',*/}
+          {/*})}*/}
+          {/*onClick={() => setMode('import')}*/}
+          {/*>*/}
+          {/*Import*/}
+          {/*</NavLink>*/}
+          {/*</NavItem>*/}
         </Nav>
         <Form className="form-horizontal">
           <Row>
@@ -240,12 +240,12 @@ const PolygonCreateCard = ({
               </span>
             </ol>
           </TabPane>
-          <TabPane tabId="import">
-            <ol className="pl-0">
-              <li>Import geo JSON file</li>
-              <ImageUpload />
-            </ol>
-          </TabPane>
+          {/*<TabPane tabId="import">*/}
+          {/*<ol className="pl-0">*/}
+          {/*<li>Import geo JSON file</li>*/}
+          {/*<ImageUpload />*/}
+          {/*</ol>*/}
+          {/*</TabPane>*/}
         </TabContent>
       </CardBody>
       <CardFooter className="justify-content-end pr-0 w-100">

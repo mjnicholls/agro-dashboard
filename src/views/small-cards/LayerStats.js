@@ -33,12 +33,12 @@ const ImageStats = ({ satelliteImage, satelliteLayer, setSatelliteLayer }) => {
           .then((res) => {
             setStats(res)
           })
-          .catch((error) => {
-            if (typeof error === 'object') {
-              error = error.message || 'Something went wrong'
+          .catch((err) => {
+            if (typeof err === 'object') {
+              err = err.message || 'Something went wrong'
             }
             setStats(null)
-            setError(error)
+            setError(err)
           })
           .finally(() => {
             setIsLoading(false)

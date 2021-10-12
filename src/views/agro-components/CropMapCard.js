@@ -14,13 +14,13 @@ import {
 } from 'reactstrap'
 
 import { tariffError } from '../../config'
-import { getCropName } from './crops'
+import { getCropName } from '../maps/crops'
 
 const CropMapCard = ({ years, activeYear, setActiveYear, info, setAlert }) => {
   const [options, setOptions] = useState(years)
 
   useEffect(() => {
-    let newOptions = options.map((option) => ({
+    const newOptions = options.map((option) => ({
       ...option,
       id: option.year,
       label: option.year,
@@ -29,9 +29,9 @@ const CropMapCard = ({ years, activeYear, setActiveYear, info, setAlert }) => {
   }, [])
 
   const calculateArea = () => {
-    let metersPerPx =
+    const metersPerPx =
       (156543.03392 * Math.cos((info.lat * Math.PI) / 180)) / 2 ** 14
-    return ((info.area * metersPerPx) / 10000).toFixed(2) + 'ha'
+    return `${((info.area * metersPerPx) / 10000).toFixed(2)}ha`
   }
 
   const customStyles = {

@@ -15,9 +15,9 @@ const Notifications = () => {
     }
   }, [notification])
 
-  const notify = (notification) => {
+  const notify = (val) => {
     let type
-    switch (notification.isSuccess) {
+    switch (val.isSuccess) {
       case true:
         type = 'success'
         break
@@ -32,7 +32,7 @@ const Notifications = () => {
       place: 'br',
       message: (
         <div>
-          <div>{notification.message}</div>
+          <div>{val.message}</div>
         </div>
       ),
       type,

@@ -1,13 +1,19 @@
 import React, { useEffect, useState } from 'react'
 
+import {useSelector} from 'react-redux'
+import {PropagateLoader} from "react-spinners";
 import { Col, Row } from 'reactstrap'
 
 import { getPageHeight } from '../utils/utils'
 import MapBoxDraw from './maps/MapBoxDraw'
 import PolygonCreateCard from './small-cards/PolygonCreateCard'
 
+const selectIsApiKeyValid = (state) => state.auth.isApiKeyValid
+
 const PolygonNew = () => {
   /** Draw a new polygon, give it a name */
+
+  const isApiKeyValid = useSelector(selectIsApiKeyValid)
 
   const [geoJson, setGeoJson] = React.useState(null)
   const [area, setArea] = React.useState('')
@@ -15,6 +21,7 @@ const PolygonNew = () => {
   const [mode, setMode] = React.useState('draw')
   const [mapHeight, setMapHeight] = useState(550)
   const drawRef = React.useRef(null)
+
 
   useEffect(() => {
     const contentHeight = getPageHeight()
@@ -38,6 +45,7 @@ const PolygonNew = () => {
     !drawRef.current || !drawRef.current.getAll().features.length
 
   return (
+    isApiKeyValid ?
     <>
       <Row>
         <Col md="8">
@@ -64,7 +72,19 @@ const PolygonNew = () => {
           />
         </Col>
       </Row>
-    </>
+    </> :  <Row>
+              <Col className="text-center my-5 align-self-center">
+                <div className="my-5">
+                  <div>
+                    <PropagateLoader color="#f2f2f2" size={15} />
+                    <br />
+                  </div>
+                    <p className="my-3">
+                      Synchronizing API key... It might take a few minutes
+                    </p>
+                </div>
+              </Col>
+            </Row>
   )
 }
 

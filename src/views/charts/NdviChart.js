@@ -25,24 +25,24 @@ const NdviChart = ({ polyId }) => {
 
   useEffect(() => {
     if (limit) {
-      let earliestAvailableDate
-      let startDate
+      let newEarliestAvailableDate
+      let newStartDate
       if (limit.depth > 0) {
-        earliestAvailableDate = new Date()
-        earliestAvailableDate.setMonth(
-          earliestAvailableDate.getMonth() - limit.depth * 12,
+        newEarliestAvailableDate = new Date()
+        newEarliestAvailableDate.setMonth(
+          newEarliestAvailableDate.getMonth() - limit.depth * 12,
         )
-        startDate = getDateInPast(
+        newStartDate = getDateInPast(
           Math.min(limit.depth * 12, defaultStartHistoryWeatherCharts),
         )
       } else if (limit.depth < 0) {
-        earliestAvailableDate = limit.start
-        startDate = getDateInPast(defaultStartHistoryWeatherCharts)
+        newEarliestAvailableDate = limit.start
+        newStartDate = getDateInPast(defaultStartHistoryWeatherCharts)
       }
-      if (earliestAvailableDate) {
-        setEarliestAvailableDate(earliestAvailableDate)
-        setEarliestAvailableDate(earliestAvailableDate)
-        setStartDate(startDate)
+      if (newEarliestAvailableDate) {
+        setEarliestAvailableDate(newEarliestAvailableDate)
+        setEarliestAvailableDate(newEarliestAvailableDate)
+        setStartDate(newStartDate)
         setEndDate(new Date().getTime())
       } else {
         setIsLoading(false)

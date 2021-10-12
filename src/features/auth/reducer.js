@@ -1,3 +1,5 @@
+import axios from 'axios'
+
 import { getCookie } from '../../utils/cookies'
 import {
   API_KEY_STATUS,
@@ -8,31 +10,17 @@ import {
   LOGOUT_REQUEST,
   LOGOUT_SUCCESS,
   LOGOUT_FRONTEND,
-  logoutUser,
   TOKEN_COOK,
 } from './actions'
 import { parseJwt } from './utils'
 
-let token
 let tokenData
-token = getCookie(TOKEN_COOK || 'AGRO_TOKEN') // TODO
+const token = getCookie(TOKEN_COOK || 'AGRO_TOKEN') // TODO
 
 if (token) {
   try {
     tokenData = parseJwt(token).passport
-    // axiosInstance.interceptors.request.use(function (config) {
-    //   config.headers.Authorization = `Bearer ${token}`
-    //   return config
-    // })
-    // axiosInstance.interceptors.response.use(
-    //     (response) => response,
-    //     // eslint-disable-next-line
-    //     (error) => {
-    //       if (error.response && error.response.status === 401) {
-    //         logoutUser()
-    //       }
-    //     }
-    //   )
+    axios.defaults.headers.common.Authorization = `Bearer ${token}`;
   } catch (err) {
     console.log(err)
   }
@@ -50,7 +38,8 @@ const initialState = {
         tariff: null,
       },
   limits: tokenData ? tokenData.limits : null,
-  isApiKeyValid: null,
+  isApiKeyValid: true,
+  // isApiKeyValid: null, // TODO
 }
 
 export default function authReducer(state = initialState, action) {

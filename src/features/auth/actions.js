@@ -1,8 +1,9 @@
-import { apiKeyStatus, loginURL, logoutURL } from '../../services/api'
-import { axiosInstance } from '../../services/base'
+import axios from 'axios'
+
+import { loginURL, logoutURL } from '../../services/api'
 import { deleteCookie, setCookie } from '../../utils/cookies'
-import { fetchPolygons } from '../polygons/actions'
 import { parseJwt } from './utils'
+// import {checkApiKey} from "../../services/api/authApi";
 
 export const API_KEY_STATUS = 'API_KEY_STATUS'
 export const LOGIN_REQUEST = 'LOGIN_REQUEST'
@@ -55,13 +56,14 @@ export const destroyReduxState = () => ({
 export const loginUser = (email, password) => (dispatch) => {
   dispatch(requestLogin(email))
 
-  axiosInstance
+  axios
     .post(loginURL, {
       email,
       password,
     })
     .then((response) => {
-      const token = response.data.token
+      const { token } = response.data
+      axios.defaults.headers.common.Authorization = `Bearer ${token}`;
       let tokenInfo
       try {
         tokenInfo = parseJwt(response.data.token).passport
@@ -73,29 +75,14 @@ export const loginUser = (email, password) => (dispatch) => {
       }
 
       setCookie(TOKEN_COOK, token)
-      // axiosInstance.interceptors.request.use(function (config) {
-      //   console.log("here new token", token)
-      //   config.headers.Authorization = `Bearer ${token}`
-      //   return config
-      // })
-      //
-      // axiosInstance.interceptors.response.use(
-      //   (response) => response,
-      //   // eslint-disable-next-line
-      //   (error) => {
-      //     if (error.response && error.response.status === 401) {
-      //       dispatch(receiveLogout())
-      //     }
-      //   }
-      // )
 
       const data = {
-        token: token,
+        token,
         user: tokenInfo.data,
         limits: tokenInfo.limits,
       }
       dispatch(receiveLogin(data))
-      dispatch(checkApiKey())
+      // dispatch(checkApiKey())
     })
     .catch((err) => {
       let message
@@ -112,32 +99,46 @@ export const loginUser = (email, password) => (dispatch) => {
     })
 }
 
-export const logoutUser = () => {
-  return async function logoutThunk(dispatch) {
-    dispatch(requestLogout())
-    axiosInstance
-      .delete(logoutURL)
-      .then(() => {
-        deleteCookie(TOKEN_COOK, '/')
-        dispatch(destroyReduxState())
-        dispatch(receiveLogout())
-      })
-      .catch((err) => {
-        console.log(err)
-      })
-  }
+export const logoutUser = () => async (dispatch, getState) => {
+  // const {token} = getState().auth
+  // axios.interceptors.request.use((config) => ({
+  //   ...config,
+  //   headers: {
+  //     ...config.headers,
+  //     Authorization: `Bearer ${token}`
+  //   }
+  // }))
+
+  dispatch(requestLogout())
+  return axios
+    .delete(logoutURL)
+    .then(() => {
+      deleteCookie(TOKEN_COOK, '/')
+      dispatch(destroyReduxState())
+      dispatch(receiveLogout())
+    })
+    .catch((err) => {
+      console.log(err)
+    })
 }
 
-export const checkApiKey = () => {
-  return (dispatch) => {
-    axiosInstance
-      .get(apiKeyStatus)
-      .then(() => {
-        dispatch(setApiKeyStatus(true))
-        dispatch(fetchPolygons())
-      })
-      .catch(() => {
-        dispatch(setApiKeyStatus(false))
-      })
-  }
-}
+// TODO - does not belong here
+// export const checkApiKey = () => (dispatch, getState) => {
+//   const {token} = getState().auth
+//   axios.interceptors.request.use((config) => ({
+//     ...config,
+//     headers: {
+//       ...config.headers,
+//       Authorization: `Bearer ${token}`
+//     }
+//   }))
+//   axios
+//     .get(apiKeyStatus)
+//     .then(() => {
+//       dispatch(setApiKeyStatus(true))
+//       dispatch(fetchPolygons())
+//     })
+//     .catch(() => {
+//       dispatch(setApiKeyStatus(false))
+//     })
+// }

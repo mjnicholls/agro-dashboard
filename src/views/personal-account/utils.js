@@ -25,7 +25,7 @@ export const api = {
     isCurrent: false,
   },
   'Historical UV index': {
-    name: 'Accumulated precipitation',
+    name: 'Historical UV index',
     link: '',
     isCurrent: false,
   },
