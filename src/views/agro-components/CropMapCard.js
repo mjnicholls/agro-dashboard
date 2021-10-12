@@ -136,26 +136,26 @@ const CropMapCard = ({ years, activeYear, setActiveYear, info, setAlert }) => {
                 </Col>
               </Row>
               <Row>
-                <Col sm="5">
+                <Col xs="5">
                   <p>Area:</p>
                 </Col>
-                <Col sm="7">
+                <Col xs="7">
                   <p>{calculateArea()}</p>
                 </Col>
               </Row>
               <Row>
-                <Col sm="5">
+                <Col xs="5">
                   <p>NDVI min:</p>
                 </Col>
-                <Col sm="7">
+                <Col xs="7">
                   <p>{info.ndvi_low.toFixed(2)}</p>
                 </Col>
               </Row>
               <Row>
-                <Col sm="5">
+                <Col xs="5">
                   <p>NDVI max:</p>
                 </Col>
-                <Col sm="7">
+                <Col xs="7">
                   <p>{info.ndvi_high.toFixed(2)}</p>
                 </Col>
               </Row>

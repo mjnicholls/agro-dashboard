@@ -23,8 +23,7 @@ import OWMWeatherIcon from '../owm-icons'
 
 const selectUnits = (state) => state.units.isMetric
 
-const WeatherCurrent = ({onecall}) => {
-
+const WeatherCurrent = ({ onecall }) => {
   const isMetric = useSelector(selectUnits)
   const [alert, setAlert] = useState(null)
   const [precipitation, setPrecipitation] = useState('')
