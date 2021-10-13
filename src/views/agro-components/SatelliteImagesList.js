@@ -89,6 +89,59 @@ const SatelliteImagesList = ({
     }
   }
 
+  const Content = () => {
+    let res = null
+    if (isLoading) {
+      res = (
+        <div className="satellite-pagination horizontal-container">
+          {[0, 1, 2, 3, 4, 5, 6, 7, 8].map((val) => (
+            <div key={val} className="satellite-image">
+              <SatelliteImagePlaceholder />
+            </div>
+          ))}{' '}
+        </div>
+      )
+    } else if (error) {
+      res = <div>{error}</div>
+    } else {
+      res = images.map((image, index) => (
+        <div
+          className={classNames('satellite-image ', {
+            'active': satelliteImage && image.dt === satelliteImage.dt && image.type === satelliteImage.type,
+          })}
+          // eslint-disable-next-line
+          ref={(el) => (imagesRefs.current[index] = el)}
+          key={`satellite_image_${image.dt} ${image.type}`}
+          onClick={() => {
+            setSatelliteImage(image)
+          }}
+        >
+          <div>
+            <p
+              className="card-category"
+              style={{ textAlign: 'left', margin: 0 }}
+            >
+              {toDate(image.dt)}
+            </p>
+          </div>
+          <div className="horizontal-container" style={{ margin: 0 }}>
+            <i className="fas fa-cloud satellite-icon" />
+            <div className="satellite-text">{Math.round(image.cl)}%</div>
+            <i className="far fa-image satellite-icon" />
+            <div className="satellite-text">{Math.round(image.dc)}%</div>
+          </div>
+          <hr style={{ marginTop: '0.3rem', marginBottom: '0.3rem' }} />
+          <div className="card-category">
+            <i className="tim-icons icon-sound-wave satellite-icon" />
+            {image.type}
+          </div>
+        </div>
+      ))
+    }
+
+    return res
+  }
+
   return (
     <Card
       className={classNames('satellite-images-container mb-0 ', {
@@ -124,60 +177,61 @@ const SatelliteImagesList = ({
           </label>
 
           <div ref={scrollRef} className="satellite-image-list">
-            {isLoading ? (
-              <div className="satellite-pagination horizontal-container">
-                {[0, 1, 2, 3, 4, 5, 6, 7, 8].map((val) => (
-                  <div key={val} className="satellite-image">
-                    <SatelliteImagePlaceholder />
-                  </div>
-                ))}{' '}
-              </div>
-            ) : error ? (
-              <div>{error}</div>
-            ) : (
-              images.map((image, index) => (
-                <div
-                  className={`satellite-image ${
-                    satelliteImage
-                      ? image.dt === satelliteImage.dt &&
-                        image.type === satelliteImage.type
-                        ? 'active'
-                        : ''
-                      : ''
-                  }`}
-                  // eslint-disable-next-line
-                  ref={(el) => (imagesRefs.current[index] = el)}
-                  key={`satellite_image_${image.dt} ${image.type}`}
-                  onClick={() => {
-                    setSatelliteImage(image)
-                  }}
-                >
-                  <div>
-                    <p
-                      className="card-category"
-                      style={{ textAlign: 'left', margin: 0 }}
-                    >
-                      {toDate(image.dt)}
-                    </p>
-                  </div>
-                  <div className="horizontal-container" style={{ margin: 0 }}>
-                    <i className="fas fa-cloud satellite-icon" />
-                    <div className="satellite-text">
-                      {Math.round(image.cl)}%
-                    </div>
-                    <i className="far fa-image satellite-icon" />
-                    <div className="satellite-text">
-                      {Math.round(image.dc)}%
-                    </div>
-                  </div>
-                  <hr style={{ marginTop: '0.3rem', marginBottom: '0.3rem' }} />
-                  <div className="card-category">
-                    <i className="tim-icons icon-sound-wave satellite-icon" />
-                    {image.type}
-                  </div>
-                </div>
-              ))
-            )}
+            <Content />
+            {/*{isLoading ? (*/}
+            {/*<div className="satellite-pagination horizontal-container">*/}
+            {/*{[0, 1, 2, 3, 4, 5, 6, 7, 8].map((val) => (*/}
+            {/*<div key={val} className="satellite-image">*/}
+            {/*<SatelliteImagePlaceholder />*/}
+            {/*</div>*/}
+            {/*))}{' '}*/}
+            {/*</div>*/}
+            {/*) : error ? (*/}
+            {/*<div>{error}</div>*/}
+            {/*) : (*/}
+            {/*images.map((image, index) => (*/}
+            {/*<div*/}
+            {/*className={`satellite-image ${*/}
+            {/*satelliteImage*/}
+            {/*? image.dt === satelliteImage.dt &&*/}
+            {/*image.type === satelliteImage.type*/}
+            {/*? 'active'*/}
+            {/*: ''*/}
+            {/*: ''*/}
+            {/*}`}*/}
+            {/*// eslint-disable-next-line*/}
+            {/*ref={(el) => (imagesRefs.current[index] = el)}*/}
+            {/*key={`satellite_image_${image.dt} ${image.type}`}*/}
+            {/*onClick={() => {*/}
+            {/*setSatelliteImage(image)*/}
+            {/*}}*/}
+            {/*>*/}
+            {/*<div>*/}
+            {/*<p*/}
+            {/*className="card-category"*/}
+            {/*style={{ textAlign: 'left', margin: 0 }}*/}
+            {/*>*/}
+            {/*{toDate(image.dt)}*/}
+            {/*</p>*/}
+            {/*</div>*/}
+            {/*<div className="horizontal-container" style={{ margin: 0 }}>*/}
+            {/*<i className="fas fa-cloud satellite-icon" />*/}
+            {/*<div className="satellite-text">*/}
+            {/*{Math.round(image.cl)}%*/}
+            {/*</div>*/}
+            {/*<i className="far fa-image satellite-icon" />*/}
+            {/*<div className="satellite-text">*/}
+            {/*{Math.round(image.dc)}%*/}
+            {/*</div>*/}
+            {/*</div>*/}
+            {/*<hr style={{ marginTop: '0.3rem', marginBottom: '0.3rem' }} />*/}
+            {/*<div className="card-category">*/}
+            {/*<i className="tim-icons icon-sound-wave satellite-icon" />*/}
+            {/*{image.type}*/}
+            {/*</div>*/}
+            {/*</div>*/}
+            {/*))*/}
+            {/*)}*/}
           </div>
           <div
             className="satellite-arrow right"

@@ -16,8 +16,22 @@ import {
   formatTemp,
 } from './utils'
 
+const whiteColor = '#ffffff'
+
 const HourlyChart = ({ isMetric, onecall }) => {
   const options = JSON.parse(JSON.stringify(chartOptions))
+
+  const countPrecipitation = (el) => {
+    let res = 0
+    if (el.rain && el.rain['1h']) {
+      res += el.rain['1h']
+    }
+    if (el.snow && el.snow['1h']) {
+      res += el.snow['1h']
+    }
+    return res
+  }
+
   options.scales.yAxes = [
     {
       id: 'temperature',
@@ -46,7 +60,6 @@ const HourlyChart = ({ isMetric, onecall }) => {
       },
     },
   ]
-  const whiteColor = '#ffffff'
 
   options.scales.xAxes = [
     {
@@ -76,7 +89,7 @@ const HourlyChart = ({ isMetric, onecall }) => {
       ticks: {
         autoSkip: false,
         fontStyle: 'bold',
-        fontColor: '#ffffff',
+        fontColor: whiteColor,
         callback: (el) => timeInHours(el.dt, onecall.data.timezone_offset),
       },
     },
@@ -85,13 +98,7 @@ const HourlyChart = ({ isMetric, onecall }) => {
       offset: true,
       ticks: {
         autoSkip: false,
-        callback: (el) =>
-          `${(0 + (el.rain && el.rain['1h'])
-            ? el.rain['1h']
-            : 0 + (el.snow && el.snow['1h'])
-            ? el.snow['1h']
-            : 0
-          ).toFixed(2)}mm`,
+        callback: (el) => `${countPrecipitation(el).toFixed(2)}mm`,
         fontColor: '#1f8ef1',
       },
     },
@@ -232,13 +239,7 @@ const HourlyChart = ({ isMetric, onecall }) => {
           pointHoverBorderWidth: 15,
           pointRadius: 1,
           type: 'bar',
-          data: onecall.data.hourly.map((el) =>
-            0 + (el.rain && el.rain['1h'])
-              ? el.rain['1h']
-              : 0 + (el.snow && el.snow['1h'])
-              ? el.snow['1h']
-              : 0,
-          ),
+          data: onecall.data.hourly.map((el) => countPrecipitation(el)),
         },
       ],
     }

@@ -62,10 +62,10 @@ const AccountNavbar = (props) => {
   }
 
   const getActiveRoute = (routes) => {
-    let activeRoute = 'Default Brand Text'
+    const activeRoute = 'Default Brand Text'
     for (let i = 0; i < routes.length; i++) {
       if (routes[i].collapse) {
-        let collapseActiveRoute = getActiveRoute(routes[i].views)
+        const collapseActiveRoute = getActiveRoute(routes[i].views)
         if (collapseActiveRoute !== activeRoute) {
           return collapseActiveRoute
         }

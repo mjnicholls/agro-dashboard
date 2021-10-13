@@ -199,14 +199,14 @@ const Subscription2 = () => {
                                   </h4>
                                 ) : (
                                   <Link to="/dashboard/billing-plans">
-                                  <Button
-                                    className="btn-fill"
-                                    color="primary"
-                                    type="submit"
-                                    // onClick={}
-                                  >
-                                    Upgrade
-                                  </Button>
+                                    <Button
+                                      className="btn-fill"
+                                      color="primary"
+                                      type="submit"
+                                      // onClick={}
+                                    >
+                                      Upgrade
+                                    </Button>
                                   </Link>
                                 )}
                               </NavLink>

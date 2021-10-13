@@ -71,45 +71,67 @@ const Sidebar = (props) => {
     }
     return false
   }
-  // this function creates the links and collapses that appear in the sidebar (left menu)
-  const createLinks = (routes) => {
-    const { rtlActive } = props
 
-    const onClickAction = (prop) => {
-      /** Define actions for menu items without a page */
-      if (prop.onclick) {
-        if (prop.onclick === 'all') {
-          dispatch(setActivePoly(null))
+  const returnFakeRoute = (val) =>
+    !polygons.length &&
+    (val.onclick === 'weather' || val.onclick === 'satellite') ? null : (
+      <a
+        onClick={() => {
+          onClickAction(val)
+          props.closeSidebar()
+        }}
+      >
+        {returnIcon(val)}
+        <p>{val.name}</p>
+      </a>
+    )
+
+  const onClickAction = (prop) => {
+    /** Define actions for menu items without a page */
+    if (prop.onclick) {
+      if (prop.onclick === 'all') {
+        dispatch(setActivePoly(null))
+        dispatch(setSatelliteMode(true))
+        // document.getElementById('all-polygons-control').style.display = "flex";
+        if (location.pathname !== prop.layout + prop.path) {
+          props.history.push(prop.layout + prop.path)
+        }
+      } else if (prop.onclick === 'satellite') {
+        // document.getElementById('all-polygons-control').style.display = "none";
+        if (location.pathname !== prop.layout + prop.path) {
+          props.history.push(prop.layout + prop.path)
+        }
+        if (!activePolygon && polygons.length) {
+          dispatch(setActivePoly(polygons[0]))
+        }
+        if (!isSatelliteMode && polygons.length) {
           dispatch(setSatelliteMode(true))
-          // document.getElementById('all-polygons-control').style.display = "flex";
-          if (location.pathname !== prop.layout + prop.path) {
-            props.history.push(prop.layout + prop.path)
-          }
-        } else if (prop.onclick === 'satellite') {
-          // document.getElementById('all-polygons-control').style.display = "none";
-          if (location.pathname !== prop.layout + prop.path) {
-            props.history.push(prop.layout + prop.path)
-          }
-          if (!activePolygon && polygons.length) {
-            dispatch(setActivePoly(polygons[0]))
-          }
-          if (!isSatelliteMode && polygons.length) {
-            dispatch(setSatelliteMode(true))
-          }
-        } else if (prop.onclick === 'weather') {
-          // document.getElementById('all-polygons-control').style.display = "none";
-          if (location.pathname !== prop.layout + prop.path) {
-            props.history.push(prop.layout + prop.path)
-          }
-          if (!activePolygon && polygons.length) {
-            dispatch(setActivePoly(polygons[0]))
-          }
-          if (isSatelliteMode) {
-            dispatch(setSatelliteMode(false))
-          }
+        }
+      } else if (prop.onclick === 'weather') {
+        // document.getElementById('all-polygons-control').style.display = "none";
+        if (location.pathname !== prop.layout + prop.path) {
+          props.history.push(prop.layout + prop.path)
+        }
+        if (!activePolygon && polygons.length) {
+          dispatch(setActivePoly(polygons[0]))
+        }
+        if (isSatelliteMode) {
+          dispatch(setSatelliteMode(false))
         }
       }
     }
+  }
+
+  const returnIcon = (prop) =>
+    typeof prop.icon === 'string' ? (
+      <i className={prop.icon} />
+    ) : (
+      <i>{prop.icon}</i>
+    )
+
+  // this function creates the links and collapses that appear in the sidebar (left menu)
+  const createLinks = (routes) => {
+    const { rtlActive } = props
 
     return routes.map((prop) => {
       if (prop.redirect || prop.hidden) {
@@ -135,11 +157,7 @@ const Sidebar = (props) => {
             >
               {prop.icon !== undefined ? (
                 <>
-                  {typeof prop.icon === 'string' ? (
-                    <i className={prop.icon} />
-                  ) : (
-                    <i>{prop.icon}</i>
-                  )}
+                  {returnIcon(prop)}
                   <p>
                     {rtlActive ? prop.rtlName : prop.name}
                     <b className="caret" />
@@ -171,23 +189,7 @@ const Sidebar = (props) => {
           key={prop.layout + prop.name}
         >
           {prop.isFake ? (
-            !polygons.length &&
-            (prop.onclick === 'weather' ||
-              prop.onclick === 'satellite') ? null : (
-              <a
-                onClick={() => {
-                  onClickAction(prop)
-                  props.closeSidebar()
-                }}
-              >
-                {typeof prop.icon === 'string' ? (
-                  <i className={prop.icon} />
-                ) : (
-                  <i>{prop.icon}</i>
-                )}
-                <p>{rtlActive ? prop.rtlName : prop.name}</p>
-              </a>
-            )
+            returnFakeRoute(prop)
           ) : (
             <NavLink
               to={prop.layout + prop.path}
@@ -196,11 +198,7 @@ const Sidebar = (props) => {
             >
               {prop.icon !== undefined ? (
                 <>
-                  {typeof prop.icon === 'string' ? (
-                    <i className={prop.icon} />
-                  ) : (
-                    <i>{prop.icon}</i>
-                  )}
+                  {returnIcon(prop)}
                   <p>{rtlActive ? prop.rtlName : prop.name}</p>
                 </>
               ) : (
@@ -223,6 +221,7 @@ const Sidebar = (props) => {
   // const activeRoute = (routeName) => {
   //   return location.pathname === routeName ? "active" : "";
   // };
+
   const activeRouteCustom = (prop) => {
     const routeName = prop.layout + prop.path
     let res = ''

@@ -65,9 +65,11 @@ const PolygonTable = ({ data }) => {
       column.name !== key
     ) {
       order = 'asc'
+      // eslint-disable-next-line no-nested-ternary
       tableData.sort((a, b) => (a[key] > b[key] ? 1 : a[key] < b[key] ? -1 : 0))
     } else if (column.name === key && column.order === 'asc') {
       order = 'desc'
+      // eslint-disable-next-line no-nested-ternary
       tableData.sort((a, b) => (a[key] > b[key] ? -1 : a[key] < b[key] ? 1 : 0))
     }
     setTableData(tableData)

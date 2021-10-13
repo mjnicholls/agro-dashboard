@@ -145,6 +145,45 @@ const CombinedChart = ({ polyId, onecall }) => {
     }
   }, [limitAccPrec, limitAccTemp, limitSoil, limitHistoryWeather, polyId])
 
+  const returnTabContent = (tabId) => {
+    switch (tabId) {
+      case 'Hourly':
+        return <HourlyChart isMetric={isMetric} onecall={onecall} />
+      case 'Daily':
+        return <DailyChart isMetric={isMetric} onecall={onecall} />
+      case 'Historical Weather':
+        return (
+          <HistoryWeather
+            polyId={polyId}
+            startDate={startDate}
+            endDate={endDate}
+            earliestAvailableDate={limitHistoryWeather.start * 1000}
+          />
+        )
+      case 'Historical Soil':
+        return (
+          <HistorySoilChart
+            polyId={polyId}
+            startDate={startDate}
+            endDate={endDate}
+            earliestAvailableDate={limitSoil.start * 1000}
+          />
+        )
+      default:
+        return (
+          <AccumulatedChart
+            polyId={polyId}
+            startDate={startDate}
+            endDate={endDate}
+            threshold={threshold}
+            earliestAvailableDate={
+              Math.min(limitAccPrec.start, limitAccTemp.start) * 1000
+            }
+          />
+        )
+    }
+  }
+
   return (
     <Card
       className={classNames('card-chart agro-chart ', {
@@ -206,35 +245,7 @@ const CombinedChart = ({ polyId, onecall }) => {
             </Col>
           </Row>
         )}
-        {activeTab.id === 'Hourly' ? (
-          <HourlyChart isMetric={isMetric} onecall={onecall} />
-        ) : activeTab.id === 'Daily' ? (
-          <DailyChart isMetric={isMetric} onecall={onecall} />
-        ) : activeTab.id === 'Historical Weather' ? (
-          <HistoryWeather
-            polyId={polyId}
-            startDate={startDate}
-            endDate={endDate}
-            earliestAvailableDate={limitHistoryWeather.start * 1000}
-          />
-        ) : activeTab.id === 'Historical Soil' ? (
-          <HistorySoilChart
-            polyId={polyId}
-            startDate={startDate}
-            endDate={endDate}
-            earliestAvailableDate={limitSoil.start * 1000}
-          />
-        ) : (
-          <AccumulatedChart
-            polyId={polyId}
-            startDate={startDate}
-            endDate={endDate}
-            threshold={threshold}
-            earliestAvailableDate={
-              Math.min(limitAccPrec.start, limitAccTemp.start) * 1000
-            }
-          />
-        )}
+        {returnTabContent(activeTab.id)}
       </CardBody>
     </Card>
   )

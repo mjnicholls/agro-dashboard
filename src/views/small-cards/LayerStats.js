@@ -54,6 +54,46 @@ const ImageStats = ({ satelliteImage, satelliteLayer, setSatelliteLayer }) => {
     }
   }, [satelliteImage, satelliteLayer, activePolygon])
 
+  const Stats = () =>
+    typeof stats === 'string' ? (
+      <p className="my-3">{stats}</p>
+    ) : (
+      <Table>
+        <thead>
+          <tr>
+            <th>{satelliteImage ? toDate(satelliteImage.dt) : ''}</th>
+            <th>{satelliteLayer.label}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>max</td>
+            <td>{stats.max.toFixed(2)}</td>
+          </tr>
+          <tr>
+            <td>mean</td>
+            <td>{stats.mean.toFixed(2)}</td>
+          </tr>
+          <tr>
+            <td>median</td>
+            <td>{stats.median.toFixed(2)}</td>
+          </tr>
+          <tr>
+            <td>min</td>
+            <td>{stats.min.toFixed(2)}</td>
+          </tr>
+          <tr>
+            <td>deviation</td>
+            <td>{stats.std.toFixed(2)}</td>
+          </tr>
+          <tr>
+            <td>num</td>
+            <td>{stats.num}</td>
+          </tr>
+        </tbody>
+      </Table>
+    )
+
   return (
     <Card className="small-card mb-5">
       <CardHeader>
@@ -70,50 +110,7 @@ const ImageStats = ({ satelliteImage, satelliteLayer, setSatelliteLayer }) => {
       <CardBody className="py-2">
         <ChartContainer isLoading={isLoading} error={error}>
           <Row>
-            <Col>
-              {stats ? (
-                typeof stats === 'string' ? (
-                  <p className="my-3">{stats}</p>
-                ) : (
-                  <Table>
-                    <thead>
-                      <tr>
-                        <th>
-                          {satelliteImage ? toDate(satelliteImage.dt) : ''}
-                        </th>
-                        <th>{satelliteLayer.label}</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>max</td>
-                        <td>{stats.max.toFixed(2)}</td>
-                      </tr>
-                      <tr>
-                        <td>mean</td>
-                        <td>{stats.mean.toFixed(2)}</td>
-                      </tr>
-                      <tr>
-                        <td>median</td>
-                        <td>{stats.median.toFixed(2)}</td>
-                      </tr>
-                      <tr>
-                        <td>min</td>
-                        <td>{stats.min.toFixed(2)}</td>
-                      </tr>
-                      <tr>
-                        <td>deviation</td>
-                        <td>{stats.std.toFixed(2)}</td>
-                      </tr>
-                      <tr>
-                        <td>num</td>
-                        <td>{stats.num}</td>
-                      </tr>
-                    </tbody>
-                  </Table>
-                )
-              ) : null}
-            </Col>
+            <Col>{stats ? <Stats /> : null}</Col>
           </Row>
         </ChartContainer>
       </CardBody>
