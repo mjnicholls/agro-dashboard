@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { useEffect, useState } from 'react'
 
 import ReactBSAlert from 'react-bootstrap-sweetalert'
@@ -77,11 +78,12 @@ const ApiKeys = () => {
   const htmlAlert = (apiKey, isEdit) => {
     setAlert(
       <ReactBSAlert
-        customClass="agro-alert"
+        customClass="agro-alert-dark"
         title={isEdit ? 'Edit API Key' : 'Delete API key'}
         onConfirm={hideAlert}
         onCancel={hideAlert}
         showConfirm={false}
+        showCloseButton={true}
       >
         {isEdit ? (
           <APIKeyEdit
@@ -154,7 +156,7 @@ const ApiKeys = () => {
                             delay={0}
                             target="tooltip618296632"
                           >
-                            Edit key
+                            
                           </UncontrolledTooltip>
                           <Button
                             className="btn-link btn-icon btn-neutral"

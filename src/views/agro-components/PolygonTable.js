@@ -84,11 +84,12 @@ const PolygonTable = ({ data }) => {
   const htmlAlert = (polygon, isEdit) => {
     setAlert(
       <ReactBSAlert
-        customClass="agro-alert"
+        customClass="agro-alert-dark"
         title={isEdit ? 'Edit polygon' : 'Delete polygon'}
         onConfirm={() => hideAlert()}
         onCancel={() => hideAlert()}
         showConfirm={false}
+        showCloseButton={true}
       >
         {isEdit ? (
           <PolygonEdit polygon={polygon} close={hideAlert} />

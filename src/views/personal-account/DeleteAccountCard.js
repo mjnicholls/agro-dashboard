@@ -22,11 +22,12 @@ const DeleteAcctCard = () => {
   const htmlAlert = () => {
     setAlert(
       <ReactBSAlert
-        customClass="agro-alert"
+        customClass="agro-alert-dark"
         title="Delete your account?"
         onConfirm={() => hideAlert()}
         onCancel={() => hideAlert()}
         showConfirm={false}
+        showCloseButton={true}
       >
         <DeleteAccount close={hideAlert} />
       </ReactBSAlert>,

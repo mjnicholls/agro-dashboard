@@ -49,7 +49,7 @@ const PolygonEdit = ({ polygon, close }) => {
         </Col>
       </Row>
       <div className="agro-pop-up-footer">
-        <Button
+      {/* <Button
           className="btn-neutral"
           color="default"
           type="button"
@@ -57,6 +57,7 @@ const PolygonEdit = ({ polygon, close }) => {
         >
           Cancel
         </Button>
+       */}
         <Button
           className="btn-neutral"
           color="default"
