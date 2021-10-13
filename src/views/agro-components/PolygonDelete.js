@@ -35,7 +35,7 @@ const PolygonDelete = ({ polygon, close }) => {
       </Row>
 
       <div className="agro-pop-up-footer">
-        <Button
+        {/* <Button
           className="btn-neutral"
           color="default"
           type="button"
@@ -43,6 +43,7 @@ const PolygonDelete = ({ polygon, close }) => {
         >
           Cancel
         </Button>
+       */}
         <Button
           className="btn-danger"
           color="danger"

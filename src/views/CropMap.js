@@ -1,10 +1,14 @@
 import React, { useEffect, useRef, useState } from 'react'
 
+import { useSelector } from 'react-redux'
+import {  UncontrolledAlert } from 'reactstrap'
 import { cropMapYears } from '../config'
 import { getPageHeight } from '../utils/utils'
 import CropMapCard from './agro-components/CropMapCard'
 import { initialiseMap } from './maps/base'
 import { displayCropLayer2 } from './maps/crops'
+
+const authSelector = (state) => state.auth
 
 const CropMap = () => {
   const mapContainer = useRef(null)
@@ -16,6 +20,8 @@ const CropMap = () => {
   const [initialised, setInitialised] = useState(false)
   const [info, setInfo] = useState(null)
   const [alert, setAlert] = useState(null)
+  const auth = useSelector(authSelector)
+  const isConfirmed = auth.user.isEmailConfirmed
 
   useEffect(() => {
     const contentHeight = getPageHeight()
@@ -44,6 +50,19 @@ const CropMap = () => {
   }, [map, initialised, activeYear])
 
   return (
+    <>
+    {isConfirmed === false ? (
+      <UncontrolledAlert
+        className="alert-with-icon"
+        color="danger"
+        fade={false}
+      >
+        <span data-notify="icon" className="tim-icons icon-bell-55" />
+        <span data-notify="message">
+        You have to verify your email to use Agro services. Please <a href="" target="_blank">click here</a> to get an email with the confirmation link.
+        </span>
+      </UncontrolledAlert>
+    ) : <p></p> }
     <div
       ref={mapContainer}
       className="map-container map-box-container"
@@ -58,6 +77,7 @@ const CropMap = () => {
         info={info}
       />
     </div>
+    </>
   )
 }
 
