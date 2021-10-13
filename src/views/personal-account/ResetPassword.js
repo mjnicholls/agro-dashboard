@@ -29,22 +29,19 @@ import { validateEmail } from '../../utils/validation'
 // import { updatePass } from ''
 
 const ResetPass = () => {
-  
-const [state, setState] = React.useState({})
+  const [state, setState] = React.useState({})
 
-const [email, setEmail] = useState('')
-const [error, setError] = useState({})
+  const [email, setEmail] = useState('')
+  const [error, setError] = useState({})
 
-const dispatch = useDispatch()
+  const dispatch = useDispatch()
 
-const confirmPassReset = () => {
-
+  const confirmPassReset = () => {
     setError({})
 
-   let newError = {}
+    let newError = {}
 
-
-    if ( ! email.length ) {
+    if (!email.length) {
       newError.email = !email.length
       dispatch(notifyError('Please enter your email address'))
       setError(newError)
@@ -77,7 +74,6 @@ const confirmPassReset = () => {
         <Container>
           <Col className="ml-auto mr-auto" lg="4" md="6">
             <Card className="card-lock card-white text-center">
-
               <CardBody>
                 <CardTitle tag="h4">Reset Password</CardTitle>
                 <InputGroup

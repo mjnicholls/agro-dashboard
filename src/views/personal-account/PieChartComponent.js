@@ -1,42 +1,34 @@
 /* eslint-disable */
-import React from 'react';
+import React from 'react'
 import PieChart, {
   Series,
   Label,
   Legend,
-  Connector
-} from 'devextreme-react/pie-chart';
+  Connector,
+} from 'devextreme-react/pie-chart'
 
 function customizeText(pointInfo) {
-  return `${pointInfo.argument[0].toUpperCase()}${
-    pointInfo.argument.slice(1)
-  }: $${pointInfo.value}M`;
+  return `${pointInfo.argument[0].toUpperCase()}${pointInfo.argument.slice(
+    1,
+  )}: $${pointInfo.value}M`
 }
 
 function PieChartComponent(props) {
   return (
-    <PieChart id="gdp-sectors"
+    <PieChart
+      id="gdp-sectors"
       dataSource={props.data}
       animation={false}
-      style={{width: "400px",
-        height: "200px"}}
+      style={{ width: '400px', height: '200px' }}
     >
-      <Series
-        argumentField="name"
-        valueField="value">
-        <Label
-          visible={true}
-          customizeText={customizeText}
-        >
-          <Connector
-            visible={true}
-            width={1}
-          ></Connector>
+      <Series argumentField="name" valueField="value">
+        <Label visible={true} customizeText={customizeText}>
+          <Connector visible={true} width={1}></Connector>
         </Label>
       </Series>
       <Legend visible={false}></Legend>
     </PieChart>
-  );
+  )
 }
 
-export default PieChartComponent;
+export default PieChartComponent

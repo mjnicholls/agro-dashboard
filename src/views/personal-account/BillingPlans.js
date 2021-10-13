@@ -2,7 +2,18 @@
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 
-import { Button, Card, CardHeader, CardBody, Row, Col, Table, NavItem, NavLink, Nav, } from 'reactstrap'
+import {
+  Button,
+  Card,
+  CardHeader,
+  CardBody,
+  Row,
+  Col,
+  Table,
+  NavItem,
+  NavLink,
+  Nav,
+} from 'reactstrap'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
@@ -13,13 +24,11 @@ import VectorMapView from './VectorMapPersonal'
 import Mapp from './ReactMap'
 import { VectorMap } from 'devextreme-react'
 
-
 const userSubscriptionSelector = (state) => state.auth.user.tariff
 
 const BillingPlans = () => {
   const subscription = useSelector(userSubscriptionSelector)
   const [alert, setAlert] = React.useState(null)
-
 
   const hideAlert = () => {
     setAlert(null)
@@ -153,38 +162,35 @@ const BillingPlans = () => {
 
                       {subscription === 'small' ? (
                         <td>
-
-<Nav
+                          <Nav
                             className="nav-pills-info nav-pills-icons justify-content-center"
                             pills
                           >
                             <NavItem>
                               <NavLink>
-                              <h3>Small Kit</h3>
-                          <h3>£200</h3>
+                                <h3>Small Kit</h3>
+                                <h3>£200</h3>
 
-                          <Button
-                            className="btn-primary"
-                            color="primary"
-                            data-dismiss="modal"
-                            type="button"
-                            /* onClick={(e) => {
+                                <Button
+                                  className="btn-primary"
+                                  color="primary"
+                                  data-dismiss="modal"
+                                  type="button"
+                                  /* onClick={(e) => {
                                 htmlAlert(false);
                                 e.stopPropagation();
                               }}
                               */
-                          >
-                            Unsubscribe
-                          </Button>
+                                >
+                                  Unsubscribe
+                                </Button>
                               </NavLink>
                             </NavItem>
                           </Nav>
-
-                        
                         </td>
                       ) : (
                         <td>
-                           <Nav
+                          <Nav
                             className="nav-pills-info nav-pills-icons justify-content-center"
                             pills
                           >
@@ -211,33 +217,29 @@ const BillingPlans = () => {
                         </td>
                       )}
                       <td>
-
-
-                          <Nav
-                            className="nav-pills-info nav-pills-icons justify-content-center"
-                            pills
-                          >
-                            <NavItem>
-                              <NavLink>
-                              <h3>Corporate</h3>
-                        <h3>£</h3>
-                        <a
-                          href="https://openweathermap.force.com/s/contactsupport"
-                          target="_blank"
+                        <Nav
+                          className="nav-pills-info nav-pills-icons justify-content-center"
+                          pills
                         >
-                          <Button
-                            className="btn-primary"
-                            color="primary"
-                            type="button"
-                          >
-                            Contact
-                          </Button>
-                        </a>
-                              </NavLink>
-                            </NavItem>
-                          </Nav>
-
-                    
+                          <NavItem>
+                            <NavLink>
+                              <h3>Corporate</h3>
+                              <h3>£</h3>
+                              <a
+                                href="https://openweathermap.force.com/s/contactsupport"
+                                target="_blank"
+                              >
+                                <Button
+                                  className="btn-primary"
+                                  color="primary"
+                                  type="button"
+                                >
+                                  Contact
+                                </Button>
+                              </a>
+                            </NavLink>
+                          </NavItem>
+                        </Nav>
                       </td>
                     </tr>
                   </tbody>
@@ -852,8 +854,8 @@ const BillingPlans = () => {
                 <Row>
                   <Col>
                     <h4>
-                      This map shows areas in blue for which satellite imagery data is
-                      available in our system.
+                      This map shows areas in blue for which satellite imagery
+                      data is available in our system.
                     </h4>
                   </Col>
                 </Row>
@@ -896,7 +898,7 @@ const BillingPlans = () => {
             </Card>
           </Col>
         </Row>
- 
+
         <Mapp />
       </div>
     </>
