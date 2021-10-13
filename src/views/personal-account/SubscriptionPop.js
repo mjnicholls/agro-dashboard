@@ -5,10 +5,10 @@ import { Button, Col, Form, Label, Row } from 'reactstrap'
 
 import {
   getAccountInfo,
-  invoiceEdit,
-  confirmUserVat,
-  invoiceCreate,
-} from '../../services/api/personalAccountAPI'
+  updateBillingDetails,
+  confirmVatNumber,
+  createBillingDetails,
+} from '../../api/personalAccountAPI'
 import {
   notifyError,
   notifySuccess,
@@ -55,7 +55,7 @@ const InvoiceSettings = () => {
   }
 
   const billingInfoCreate = () => {
-    invoiceCreate(invoiceSettings)
+    createBillingDetails(invoiceSettings)
       .then(() => {
         dispatch(notifySuccess('Billing details saved'))
         refreshData()
@@ -66,7 +66,7 @@ const InvoiceSettings = () => {
   }
 
   const billingInfoUpdate = () => {
-    invoiceEdit(invoiceSettings)
+    updateBillingDetails(invoiceSettings)
       .then(() => {
         dispatch(notifySuccess('Billing details updated'))
       })
@@ -97,7 +97,7 @@ const InvoiceSettings = () => {
       invoiceSettings.type === 'organisation' &&
       invoiceSettings.vat_id.length
     ) {
-      confirmUserVat(invoiceSettings.vat_id)
+      confirmVatNumber(invoiceSettings.vat_id)
         .then(() => {
           // eslint-disable-next-line
           isNew ? billingInfoCreate() : billingInfoUpdate()

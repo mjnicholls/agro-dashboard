@@ -18,7 +18,7 @@ import {
   notifyError,
   notifySuccess,
 } from '../../features/notifications/actions'
-import { updatePassword } from '../../services/api/personalAccountAPI'
+import { updatePassword } from '../../api/personalAccountAPI'
 
 const UserPassword = () => {
   const [pass, setPass] = useState('')

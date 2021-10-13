@@ -1,6 +1,6 @@
 import mapboxgl from '!mapbox-gl' // eslint-disable-line import/no-unresolved
+import { serverBaseURL } from '../../api/index'
 import { mapBoxAccessToken } from '../../config'
-import { serverBaseURL } from '../../services/api/index'
 
 mapboxgl.accessToken = mapBoxAccessToken
 

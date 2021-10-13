@@ -26,11 +26,11 @@ import {
   notifySuccess,
 } from '../../features/notifications/actions'
 import {
-  invoiceEdit,
-  confirmUserVat,
+  updateBillingDetails,
+  confirmVatNumber,
   getCountries,
-  invoiceCreate,
-} from '../../services/api/personalAccountAPI'
+  createBillingDetails,
+} from '../../api/personalAccountAPI'
 
 const InvoiceSettings = ({
   invoiceSettings,
@@ -64,7 +64,7 @@ const InvoiceSettings = ({
 
   const billingInfoUpdate = () => {
     if (isNew) {
-      invoiceCreate(invoiceSettings)
+      createBillingDetails(invoiceSettings)
         .then(() => {
           dispatch(notifySuccess('Billing details saved'))
           refreshData()
@@ -73,7 +73,7 @@ const InvoiceSettings = ({
           dispatch(notifyError('Error saving billing details ' + error.message))
         })
     } else {
-      invoiceEdit(invoiceSettings)
+      updateBillingDetails(invoiceSettings)
         .then(() => {
           dispatch(notifySuccess('Billing details updated'))
         })
@@ -116,7 +116,7 @@ const InvoiceSettings = ({
       invoiceSettings.type === 'organisation' &&
       invoiceSettings.vat_id.length
     ) {
-      confirmUserVat(invoiceSettings.vat_id)
+      confirmVatNumber(invoiceSettings.vat_id)
         .then(() => {
           billingInfoUpdate()
         })

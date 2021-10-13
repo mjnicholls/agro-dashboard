@@ -14,7 +14,7 @@ import {
   UncontrolledTooltip,
 } from 'reactstrap'
 
-import { getInvoices } from '../../services/api/personalAccountAPI'
+import { getInvoices } from '../../api/personalAccountAPI'
 import AgroPagination from '../agro-components/AgroPagination'
 
 const InvoiceList = () => {
@@ -66,8 +66,8 @@ const InvoiceList = () => {
                       <th>Service</th>
                       <th>Date</th>
                       <th>Amount</th>
-                      <th></th>
-                      <th></th>
+                      <th aria-label="Download"></th>
+                      <th aria-label="View"></th>
                     </tr>
                   </thead>
 

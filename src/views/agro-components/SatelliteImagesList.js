@@ -5,9 +5,9 @@ import classNames from 'classnames'
 import moment from 'moment/moment'
 import DatePicker from 'react-datetime'
 import { useSelector } from 'react-redux'
-import { Card, CardBody } from 'reactstrap'
+import { Card, CardBody, Label } from 'reactstrap'
 
-import { getSatelliteImagesList } from '../../services/api/polygonApi'
+import { getSatelliteImagesList } from '../../api/polygonApi'
 import { toDate } from '../../utils/dateTime'
 import SatelliteImagePlaceholder from './SatelliteImagePlaceholder'
 const selectActivePoly = (state) => state.state.polygon
@@ -105,9 +105,13 @@ const SatelliteImagesList = ({
       res = <div>{error}</div>
     } else {
       res = images.map((image, index) => (
-        <div
-          className={classNames('satellite-image ', {
-            'active': satelliteImage && image.dt === satelliteImage.dt && image.type === satelliteImage.type,
+        <button
+          type="button"
+          className={classNames('satellite-image py-1 px-3', {
+            active:
+              satelliteImage &&
+              image.dt === satelliteImage.dt &&
+              image.type === satelliteImage.type,
           })}
           // eslint-disable-next-line
           ref={(el) => (imagesRefs.current[index] = el)}
@@ -116,26 +120,19 @@ const SatelliteImagesList = ({
             setSatelliteImage(image)
           }}
         >
-          <div>
-            <p
-              className="card-category"
-              style={{ textAlign: 'left', margin: 0 }}
-            >
-              {toDate(image.dt)}
-            </p>
-          </div>
-          <div className="horizontal-container" style={{ margin: 0 }}>
+          <p className="card-category text-left m-0">{toDate(image.dt)}</p>
+          <div className="card-category horizontal-container m-0">
             <i className="fas fa-cloud satellite-icon" />
             <div className="satellite-text">{Math.round(image.cl)}%</div>
             <i className="far fa-image satellite-icon" />
             <div className="satellite-text">{Math.round(image.dc)}%</div>
           </div>
-          <hr style={{ marginTop: '0.3rem', marginBottom: '0.3rem' }} />
-          <div className="card-category">
+          <hr className="my-1" />
+          <p className="card-category text-left">
             <i className="tim-icons icon-sound-wave satellite-icon" />
             {image.type}
-          </div>
-        </div>
+          </p>
+        </button>
       ))
     }
 
@@ -148,18 +145,18 @@ const SatelliteImagesList = ({
         'd-none': !isSatellitePage,
       })}
     >
-      <CardBody style={{ padding: '5px' }}>
+      <CardBody className="p-1">
         <div className="satellite-images-list">
-          <div
-            className="satellite-arrow left"
-            style={{ backgroundColor: 'none' }}
+          <button
+            type="button"
+            className="satellite-arrow-button left"
             onClick={() => {
               onClickArrow('left')
             }}
           >
             <i className="tim-icons icon-double-left" />
-          </div>
-          <label>
+          </button>
+          <Label>
             <div className="info-icon text-center calendar-icon">
               <i className="tim-icons icon-calendar-60" />
             </div>
@@ -174,73 +171,19 @@ const SatelliteImagesList = ({
                 closeOnClickOutside
               />
             </div>
-          </label>
-
+          </Label>
           <div ref={scrollRef} className="satellite-image-list">
             <Content />
-            {/*{isLoading ? (*/}
-            {/*<div className="satellite-pagination horizontal-container">*/}
-            {/*{[0, 1, 2, 3, 4, 5, 6, 7, 8].map((val) => (*/}
-            {/*<div key={val} className="satellite-image">*/}
-            {/*<SatelliteImagePlaceholder />*/}
-            {/*</div>*/}
-            {/*))}{' '}*/}
-            {/*</div>*/}
-            {/*) : error ? (*/}
-            {/*<div>{error}</div>*/}
-            {/*) : (*/}
-            {/*images.map((image, index) => (*/}
-            {/*<div*/}
-            {/*className={`satellite-image ${*/}
-            {/*satelliteImage*/}
-            {/*? image.dt === satelliteImage.dt &&*/}
-            {/*image.type === satelliteImage.type*/}
-            {/*? 'active'*/}
-            {/*: ''*/}
-            {/*: ''*/}
-            {/*}`}*/}
-            {/*// eslint-disable-next-line*/}
-            {/*ref={(el) => (imagesRefs.current[index] = el)}*/}
-            {/*key={`satellite_image_${image.dt} ${image.type}`}*/}
-            {/*onClick={() => {*/}
-            {/*setSatelliteImage(image)*/}
-            {/*}}*/}
-            {/*>*/}
-            {/*<div>*/}
-            {/*<p*/}
-            {/*className="card-category"*/}
-            {/*style={{ textAlign: 'left', margin: 0 }}*/}
-            {/*>*/}
-            {/*{toDate(image.dt)}*/}
-            {/*</p>*/}
-            {/*</div>*/}
-            {/*<div className="horizontal-container" style={{ margin: 0 }}>*/}
-            {/*<i className="fas fa-cloud satellite-icon" />*/}
-            {/*<div className="satellite-text">*/}
-            {/*{Math.round(image.cl)}%*/}
-            {/*</div>*/}
-            {/*<i className="far fa-image satellite-icon" />*/}
-            {/*<div className="satellite-text">*/}
-            {/*{Math.round(image.dc)}%*/}
-            {/*</div>*/}
-            {/*</div>*/}
-            {/*<hr style={{ marginTop: '0.3rem', marginBottom: '0.3rem' }} />*/}
-            {/*<div className="card-category">*/}
-            {/*<i className="tim-icons icon-sound-wave satellite-icon" />*/}
-            {/*{image.type}*/}
-            {/*</div>*/}
-            {/*</div>*/}
-            {/*))*/}
-            {/*)}*/}
           </div>
-          <div
-            className="satellite-arrow right"
+          <button
+            type="button"
+            className="satellite-arrow-button right"
             onClick={() => {
               onClickArrow('right')
             }}
           >
             <i className="tim-icons icon-double-right" />
-          </div>
+          </button>
         </div>
       </CardBody>
     </Card>

@@ -4,10 +4,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import { PropagateLoader } from 'react-spinners'
 import { Col, Row } from 'reactstrap'
 
+import { getAPIKeyStatus } from '../api/personalAccountAPI'
 import { setApiKeyStatus } from '../features/auth/actions'
 import { fetchPolygons } from '../features/polygons/actions'
-import { apiKeyStatus } from '../services/api'
-import { axiosInstance } from '../services/base'
 import { getPageHeight } from '../utils/utils'
 import MapBoxDraw from './maps/MapBoxDraw'
 import PolygonCreateCard from './small-cards/PolygonCreateCard'
@@ -42,8 +41,7 @@ const PolygonNew = () => {
   }, [polygons])
 
   const checkAPIKeyStatus = () => {
-    axiosInstance
-      .get(apiKeyStatus)
+    getAPIKeyStatus()
       .then(() => {
         dispatch(setApiKeyStatus(true))
       })
@@ -72,6 +70,24 @@ const PolygonNew = () => {
 
   const blockResetMap = () =>
     !drawRef.current || !drawRef.current.getAll().features.length
+
+  const PlaceHolder = () => (
+    <Row>
+      <Col className="text-center my-5 align-self-center">
+        <div className="my-5">
+          <div>
+            <PropagateLoader color="#f2f2f2" size={15} />
+            <br />
+          </div>
+          {isApiKeyValid === false && (
+            <p className="my-3">
+              Synchronizing API key... It might take a few minutes
+            </p>
+          )}
+        </div>
+      </Col>
+    </Row>
+  )
 
   return isApiKeyValid ? (
     <>
@@ -102,19 +118,7 @@ const PolygonNew = () => {
       </Row>
     </>
   ) : (
-    <Row>
-      <Col className="text-center my-5 align-self-center">
-        <div className="my-5">
-          <div>
-            <PropagateLoader color="#f2f2f2" size={15} />
-            <br />
-          </div>
-          <p className="my-3">
-            Synchronizing API key... It might take a few minutes
-          </p>
-        </div>
-      </Col>
-    </Row>
+    <PlaceHolder />
   )
 }
 

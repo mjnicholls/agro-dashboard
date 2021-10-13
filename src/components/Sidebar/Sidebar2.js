@@ -75,7 +75,10 @@ const Sidebar = (props) => {
   const returnFakeRoute = (val) =>
     !polygons.length &&
     (val.onclick === 'weather' || val.onclick === 'satellite') ? null : (
-      <a
+      <button
+        type="button"
+        className="remove-button-style"
+        tabIndex={0}
         onClick={() => {
           onClickAction(val)
           props.closeSidebar()
@@ -83,7 +86,7 @@ const Sidebar = (props) => {
       >
         {returnIcon(val)}
         <p>{val.name}</p>
-      </a>
+      </button>
     )
 
   const onClickAction = (prop) => {

@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import Select from 'react-select'
 import { Button, Col, FormGroup, Input, Label, Row } from 'reactstrap'
 import { NavLink } from 'react-router-dom'
-import { deleteAcct } from '../../services/api/personalAccountAPI'
+import { deleteAcct } from '../../api/personalAccountAPI'
 import {
   notifyError,
   notifySuccess,

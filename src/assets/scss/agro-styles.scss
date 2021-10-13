@@ -15,6 +15,20 @@ $mapHeight: 400px;
   flex-direction: row;
   align-items: center;
 }
+
+@mixin no-button-style {
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  outline: inherit;
+}
+
+.remove-button-style {
+  @include no-button-style;
+}
+
 .horizontal-container {
   @include horizontal-container;
 }
@@ -90,10 +104,11 @@ $mapHeight: 400px;
       display: flex;
       flex-direction: row;
       overflow-x: auto;
+
       .satellite-image {
-        padding: 5px 10px;
+        @include no-button-style;
         border-right: 1px solid rgba(255, 255, 255, 0.1);
-        cursor: pointer;
+
         &:hover {
           background-color: rgba(255, 255, 255, 0.1);
           border-right-color: transparent;
@@ -104,8 +119,8 @@ $mapHeight: 400px;
         border-right-color: transparent;
       }
     }
-    .satellite-arrow {
-      cursor: pointer;
+    .satellite-arrow-button {
+      @include no-button-style;
       color: rgba(255, 255, 255, 0.2);
       &.left {
         padding-right: 5px;
@@ -113,10 +128,12 @@ $mapHeight: 400px;
       &.right {
         padding-left: 5px;
       }
+
       &:hover {
         color: rgba(255, 255, 255, 0.7);
       }
     }
+
     .calendar-icon {
       position: relative;
       cursor: pointer;
@@ -546,4 +563,33 @@ $daily-chart-width: 1000px;
   h4 {
     color: $card-stats-gray !important; // $github-color
   }
+}
+
+.sidebar .nav li > button {
+    margin: 10px 15px 0;
+    border-radius: 30px;
+    color: #ffffff;
+    display: block;
+    text-decoration: none;
+    position: relative;
+    text-transform: uppercase;
+    cursor: pointer;
+    font-size: 0.62475rem;
+    padding: 10px 8px;
+    line-height: 1.625rem;
+    &:focus {
+      outline: none;
+      box-shadow: none;
+    }
+}
+
+.sidebar .nav li.active > button:before {
+    content: " ";
+    position: absolute;
+    height: 6px;
+    width: 6px;
+    top: 22px;
+    left: -4px;
+    background: #ffffff;
+    border-radius: 50%;
 }

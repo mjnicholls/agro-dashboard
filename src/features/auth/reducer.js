@@ -15,7 +15,7 @@ import {
 import { parseJwt } from './utils'
 
 let tokenData
-const token = getCookie(TOKEN_COOK || 'AGRO_TOKEN') // TODO
+const token = getCookie(TOKEN_COOK)
 
 if (token) {
   try {

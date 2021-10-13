@@ -8,20 +8,21 @@ import {
   CardHeader,
   CardBody,
   CardTitle,
+  Col,
   Form,
   FormGroup,
   Input,
+  Label,
   Row,
-  Col,
   Table,
   UncontrolledTooltip,
 } from 'reactstrap'
 
+import { createApiKey, getAPIKeys } from '../../api/personalAccountAPI'
 import {
   notifyError,
   notifySuccess,
 } from '../../features/notifications/actions'
-import { createApiKey, getAPIKeys } from '../../services/api/personalAccountAPI'
 import APIKeyEdit from './APIKeyEdit'
 import ApiKeysDelete from './APIKeysDelete'
 
@@ -112,9 +113,6 @@ const ApiKeys = () => {
         <Row>
           <Col className="mb-0" md="8" mt="20">
             <Card>
-              {/* <CardHeader>
-                <CardTitle tag="h3">API Keys</CardTitle>
-              </CardHeader> */}
               <CardBody>
                 <Table>
                   <thead>
@@ -122,8 +120,8 @@ const ApiKeys = () => {
                       <th>Key</th>
                       <th>Name</th>
                       {/*  <th>Status</th>  */}
-                      <th></th>
-                      <th></th>
+                      <th aria-label="Edit"></th>
+                      <th aria-label="Delete"></th>
                     </tr>
                   </thead>
 
@@ -214,7 +212,7 @@ const ApiKeys = () => {
 
                 <Form>
                   <FormGroup>
-                    <label>Name</label>
+                    <Label>Name</Label>
                     <Input
                       className={error ? 'danger-border' : ''}
                       type="text"

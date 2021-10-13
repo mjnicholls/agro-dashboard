@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
 
 import { useDispatch } from 'react-redux'
-import { Button, Col, FormGroup, Input, Row } from 'reactstrap'
+import { Button, Col, FormGroup, Input, Label, Row } from 'reactstrap'
 
+import { updateAPIKey } from '../../api/personalAccountAPI'
 import {
   notifyError,
   notifySuccess,
 } from '../../features/notifications/actions'
-import { updateAPIKey } from '../../services/api/personalAccountAPI'
 
 const ApiKeyEdit = ({ apiKey, close, refreshData }) => {
   const dispatch = useDispatch()
@@ -41,7 +41,7 @@ const ApiKeyEdit = ({ apiKey, close, refreshData }) => {
       <Row>
         <Col>
           <FormGroup>
-            <label>New name:</label>
+            <Label>New name:</Label>
             <Row>
               <Col>
                 <Input

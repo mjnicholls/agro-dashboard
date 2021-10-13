@@ -1,17 +1,9 @@
 import React, { useEffect, useState } from 'react'
 
 import { useSelector } from 'react-redux'
-import {
-  Card,
-  CardHeader,
-  CardBody,
-  CardTitle,
-  Col,
-  Row,
-  // Table,
-} from 'reactstrap'
+import { Card, CardHeader, CardBody, CardTitle, Col, Row } from 'reactstrap'
 
-import { getCurrentSoil } from '../../services/api/weatherApi'
+import { getCurrentSoil } from '../../api/weatherApi'
 import { convertTemp } from '../../utils/utils'
 import ChartContainer from '../charts/ui/ChartContainer'
 
@@ -33,10 +25,7 @@ const CurrentSoil = ({ polyId }) => {
         setData(res)
       })
       .catch((err) => {
-        if (typeof err === 'object') {
-          err = err.message || 'Something went wrong'
-        }
-        setError(err)
+        setError(err.message)
       })
       .finally(() => {
         setIsLoading(false)

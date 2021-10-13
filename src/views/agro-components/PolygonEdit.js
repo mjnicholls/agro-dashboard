@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
 import { useDispatch } from 'react-redux'
-import { Button, Col, FormGroup, Input, Row } from 'reactstrap'
+import { Button, Col, Form, FormGroup, Input, Label, Row } from 'reactstrap'
 
 import { editPolygon } from '../../features/polygons/actions'
 
@@ -32,20 +32,22 @@ const PolygonEdit = ({ polygon, close }) => {
       </Row>
       <Row>
         <Col>
-          <FormGroup>
-            <label>New name:</label>
-            <Row>
-              <Col>
-                <Input
-                  style={{ color: '#222a42' }}
-                  name="name"
-                  type="text"
-                  onChange={(e) => setName(e.target.value)}
-                  value={name}
-                />
-              </Col>
-            </Row>
-          </FormGroup>
+          <Form>
+            <FormGroup>
+              <Label>New name:</Label>
+              <Row>
+                <Col>
+                  <Input
+                    style={{ color: '#222a42' }}
+                    name="name"
+                    type="text"
+                    onChange={(e) => setName(e.target.value)}
+                    value={name}
+                  />
+                </Col>
+              </Row>
+            </FormGroup>
+          </Form>
         </Col>
       </Row>
       <div className="agro-pop-up-footer">

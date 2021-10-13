@@ -6,13 +6,13 @@ import Footer from '../../components/Footer/Footer'
 import AuthNavbar from '../../components/Navbars/AuthNavbar'
 import routes from '../../routes'
 
-const Pages = (props) => {
+const Pages = () => {
   // React.useEffect(() => {
   //   document.documentElement.classList.remove("nav-open");
   // });
 
   const getRoutes = (routesInstance) =>
-    routesInstance.map((prop, key) => {
+    routesInstance.map((prop) => {
       if (prop.collapse) {
         return getRoutes(prop.views)
       }

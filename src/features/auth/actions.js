@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-import { loginURL, logoutURL } from '../../services/api'
+import { login, logout } from '../../api/authAPI'
 import { deleteCookie, setCookie } from '../../utils/cookies'
 import { parseJwt } from './utils'
 
@@ -55,53 +55,36 @@ export const destroyReduxState = () => ({
 export const loginUser = (email, password) => (dispatch) => {
   dispatch(requestLogin(email))
 
-  axios
-    .post(loginURL, {
-      email,
-      password,
-    })
-    .then((response) => {
-      const { token } = response.data
+  login(email, password)
+    .then((data) => {
+      const { token } = data
       axios.defaults.headers.common.Authorization = `Bearer ${token}`
       let tokenInfo
       try {
-        tokenInfo = parseJwt(response.data.token).passport
+        tokenInfo = parseJwt(token).passport
       } catch {
         dispatch(loginError('Error parsing token')) // TODO
       }
       if (!tokenInfo) {
         dispatch(loginError('Error parsing token')) // TODO
       }
-
       setCookie(TOKEN_COOK, token)
-
-      const data = {
-        token,
-        user: tokenInfo.data,
-        limits: tokenInfo.limits,
-      }
-      dispatch(receiveLogin(data))
-      // dispatch(checkApiKey())
+      dispatch(
+        receiveLogin({
+          token,
+          user: tokenInfo.data,
+          limits: tokenInfo.limits,
+        }),
+      )
     })
     .catch((err) => {
-      let message
-      if (typeof err === 'string') {
-        message = err
-      } else if (
-        err.response &&
-        err.response.data &&
-        err.response.data.message
-      ) {
-        message = err.response.data.message
-      }
-      dispatch(loginError(message || 'Something went wrong'))
+      dispatch(loginError(err.message))
     })
 }
 
 export const logoutUser = () => async (dispatch) => {
   dispatch(requestLogout())
-  return axios
-    .delete(logoutURL)
+  logout()
     .then(() => {
       deleteCookie(TOKEN_COOK, '/')
       dispatch(destroyReduxState())

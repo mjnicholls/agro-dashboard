@@ -2,7 +2,7 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import { Button, Col, Row } from 'reactstrap'
-import { deleteAPIKey } from '../../services/api/personalAccountAPI'
+import { deleteAPIKey } from '../../api/personalAccountAPI'
 import {
   notifyError,
   notifySuccess,

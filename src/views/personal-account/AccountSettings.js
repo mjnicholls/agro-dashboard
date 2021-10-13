@@ -9,7 +9,7 @@ import {
   Col,
   Row,
 } from 'reactstrap'
-import { getAccountInfo } from '../../services/api/personalAccountAPI'
+import { getAccountInfo } from '../../api/personalAccountAPI'
 // reactstrap components
 import UserSettings from './UserSettings'
 import UserPassword from './UserPassword'

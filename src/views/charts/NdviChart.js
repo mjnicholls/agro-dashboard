@@ -4,8 +4,8 @@ import { Line } from 'react-chartjs-2'
 import { useSelector } from 'react-redux'
 import { Card, CardHeader, CardBody, CardTitle, Row, Col } from 'reactstrap'
 
+import { getHistoryNDVIData } from '../../api/chartApi'
 import { defaultStartHistoryWeatherCharts, tariffError } from '../../config'
-import { getHistoryNDVIData } from '../../services/api/chartApi'
 import { toDate, getDateInPast } from '../../utils/dateTime'
 import { chartOptions } from './base'
 import ChartContainer from './ui/ChartContainer'
@@ -69,10 +69,7 @@ const NdviChart = ({ polyId }) => {
           }
         })
         .catch((err) => {
-          if (typeof err === 'object') {
-            err = err.message || 'Something went wrong'
-          }
-          setError(err)
+          setError(err.message)
         })
         .finally(() => {
           setIsLoading(false)

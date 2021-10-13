@@ -128,7 +128,6 @@ const PolygonTable = ({ data }) => {
           <Table className="polygon-table tablesorter">
             <thead>
               <tr>
-                <th></th>
                 <th
                   className={classnames(
                     'header',
@@ -143,6 +142,7 @@ const PolygonTable = ({ data }) => {
                   )}
                   key="name"
                   onClick={() => sortTable('name')}
+                  colSpan={2}
                 >
                   Name
                 </th>
@@ -180,7 +180,7 @@ const PolygonTable = ({ data }) => {
                 >
                   Area
                 </th>
-                <th></th>
+                <th aria-label="Edit and delete"></th>
               </tr>
             </thead>
             <tbody>

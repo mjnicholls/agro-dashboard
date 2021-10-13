@@ -6,8 +6,8 @@ import * as turf from '@turf/turf'
 import { useSelector } from 'react-redux'
 
 import mapboxgl from '!mapbox-gl' // eslint-disable-line import/no-unresolved
+import { searchCity } from '../../api/otherApi'
 import { getMapBounds } from '../../features/polygons/selectors'
-import { axiosInstance } from '../../services/base'
 import { addBoundsControl, deletePreviousAreas, initialiseMap } from './base'
 import { displayClusters } from './clusters'
 import { removeCropLayer, displayCropLayer } from './crops'
@@ -100,20 +100,16 @@ const MapBoxDraw = ({
 
   const nominatimGeocoder = (query) =>
     /** Load custom data to supplement the search results */
-    axiosInstance
-      .get(
-        `https://nominatim.openstreetmap.org/search?format=json&q=${query}&limit=5`,
-      )
-      .then((response) => {
+    searchCity(query)
+      .then((res) => {
         const features = []
-        for (let i = 0; i < response.data.length; i += 1) {
-          const feature = response.data[i]
+        for (let i = 0; i < res.length; i += 1) {
+          const feature = res[i]
           feature.place_name = feature.display_name
           feature.center = [feature.lon, feature.lat]
           feature.place_type = feature.type
           features.push(feature)
         }
-        return features
       })
       .catch(() => [])
 

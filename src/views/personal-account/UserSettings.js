@@ -18,7 +18,7 @@ import {
   notifyError,
   notifySuccess,
 } from '../../features/notifications/actions'
-import { updateUserName } from '../../services/api/personalAccountAPI'
+import { updateUserName } from '../../api/personalAccountAPI'
 
 const UserSettings = ({ email, name, setName, username, setUserName }) => {
   const [error, setError] = useState({})

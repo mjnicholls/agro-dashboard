@@ -56,7 +56,7 @@ const CropMapCard = ({ years, activeYear, setActiveYear, info, setAlert }) => {
           title={
             year.status === 1
               ? tariffError
-              : `If you'd like to request data for the year ${year.year}, please contact our sales department`
+              : `If you'd like to request data for the year ${year.year}, please contact our Sales department`
           }
           onConfirm={() => hideAlert()}
           onCancel={() => hideAlert()}
@@ -73,7 +73,7 @@ const CropMapCard = ({ years, activeYear, setActiveYear, info, setAlert }) => {
               }
               className="btn btn-primary"
             >
-              {year.status === 1 ? 'Subscription plans' : 'Contact'}
+              {year.status === 1 ? 'Subscription plans' : 'Contact us'}
             </a>
           </div>
         </ReactBSAlert>,

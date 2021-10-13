@@ -4,7 +4,7 @@ import axios from 'axios/index'
 import { useSelector } from 'react-redux'
 import { Card, CardBody, CardHeader, Col, Row, Table } from 'reactstrap'
 
-import { getImageStats } from '../../services/api/polygonApi'
+import { getImageStats } from '../../api/polygonApi'
 import { toDate } from '../../utils/dateTime'
 import ChartContainer from '../charts/ui/ChartContainer'
 import SatelliteLayerDropdown from './ui/SatelliteLayers'
@@ -34,11 +34,8 @@ const ImageStats = ({ satelliteImage, satelliteLayer, setSatelliteLayer }) => {
             setStats(res)
           })
           .catch((err) => {
-            if (typeof err === 'object') {
-              err = err.message || 'Something went wrong'
-            }
+            setError(err.message)
             setStats(null)
-            setError(err)
           })
           .finally(() => {
             setIsLoading(false)

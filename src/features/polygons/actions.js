@@ -1,11 +1,12 @@
-import { polygonShapeSize } from '../../config'
-import { polygonsEndpoint } from '../../services/api'
+import axios from 'axios'
+
+import { polygonsEndpoint } from '../../api'
 import {
   createPolygonApi,
   deletePolygonApi,
   editPolygonApi,
-} from '../../services/api/polygonApi'
-import { axiosInstance } from '../../services/base'
+} from '../../api/polygonApi'
+import { polygonShapeSize } from '../../config'
 import { notifySuccess, notifyError } from '../notifications/actions'
 
 export const POLYGONS_FETCH = 'polygons/fetch'
@@ -101,10 +102,10 @@ const enrichPolygon = (polygon) => {
 
 export const fetchPolygons = () => (dispatch) => {
   dispatch(polygonsFetched())
-  axiosInstance
+  axios
     .get(polygonsEndpoint)
-    .then((response) => {
-      const polygons = response.data
+    .then((data) => {
+      const polygons = data
       polygons.reverse()
       for (let i = 0; i < polygons.length; i += 1) {
         polygons[i] = enrichPolygon(polygons[i])
@@ -112,11 +113,7 @@ export const fetchPolygons = () => (dispatch) => {
       dispatch(receivePolygons(polygons))
     })
     .catch((err) => {
-      let message = 'Something went wrong'
-      if (err.response && err.response.data && err.response.data.message) {
-        message = err.response.data.message
-      }
-      dispatch(polygonsError(message))
+      dispatch(polygonsError(err.message))
     })
 }
 

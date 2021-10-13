@@ -4,8 +4,8 @@ import axios from 'axios'
 import { Line } from 'react-chartjs-2'
 import { useSelector } from 'react-redux'
 
+import { getHistorySoilData } from '../../api/chartApi'
 import { tariffError } from '../../config'
-import { getHistorySoilData } from '../../services/api/chartApi'
 import { toDate } from '../../utils/dateTime'
 import { convertTemp } from '../../utils/utils'
 import { chartOptions } from './base'
@@ -48,10 +48,7 @@ const HistoricalSoilChart = ({
           }
         })
         .catch((err) => {
-          if (typeof err === 'object') {
-            err = err.message || 'Something went wrong'
-          }
-          setError(err)
+          setError(err.message)
         })
         .finally(() => {
           setIsLoading(false)
