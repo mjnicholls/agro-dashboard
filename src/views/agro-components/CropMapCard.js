@@ -16,7 +16,9 @@ import {
 import { tariffError } from '../../config'
 import { getCropName } from '../maps/crops'
 
+
 const CropMapCard = ({ years, activeYear, setActiveYear, info, setAlert }) => {
+
   const [options, setOptions] = useState(years)
 
   useEffect(() => {

@@ -33,13 +33,12 @@ const initialState = {
   user: tokenData
     ? {
         ...tokenData.data,
-        isEmailConfirmed: false,
       }
     : {
         email: null,
         appid: null,
         tariff: null,
-        isEmailConfirmed: false,
+        confirmed_email: false,
       },
   limits: tokenData ? tokenData.limits : null,
   isApiKeyValid: null,
@@ -56,6 +55,7 @@ export default function authReducer(state = initialState, action) {
           email: action.payload,
           appid: null,
           tariff: null,
+          confirmed_email: null,
         },
       }
     case LOGIN_SUCCESS:
@@ -64,12 +64,7 @@ export default function authReducer(state = initialState, action) {
         isAuthenticated: true,
         errorMessage: null,
         token: action.data.token,
-        user: {
-          email: action.data.user.email || null,
-          appid: action.data.user.appid || null,
-          tariff: action.data.user.tariff || null,
-          isEmailConfirmed: false,
-        },
+        user: action.data.user,
         limits: action.data.limits,
       }
     case LOGIN_FAILURE:
@@ -94,6 +89,7 @@ export default function authReducer(state = initialState, action) {
           email: null,
           appid: null,
           tariff: null,
+          confirmed_email: null,
         },
         limits: null,
         isApiKeyValid: null,
@@ -107,6 +103,7 @@ export default function authReducer(state = initialState, action) {
           email: null,
           appid: null,
           tariff: null,
+          confirmed_email: null,
         },
         limits: null,
       }

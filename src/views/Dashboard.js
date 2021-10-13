@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react'
 
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { Col, Row } from 'reactstrap'
 
 import { getOneCallData } from '../api/weatherApi'
-import { fetchPolygons } from '../features/polygons/actions'
 import PolygonTable from './agro-components/PolygonTable'
 import CombinedChart from './charts/CombinedChart'
 import NdviChart from './charts/NdviChart'
@@ -30,7 +29,6 @@ const Dashboard = () => {
     isLoading: true,
     error: null,
   })
-  const dispatch = useDispatch()
   const activePolygon = useSelector(selectActivePoly)
   const polygons = useSelector(selectPolygons)
   const isSatelliteMode = useSelector(selectIsSatelliteMode)
@@ -56,12 +54,6 @@ const Dashboard = () => {
         })
     }
   }, [isSatelliteMode, activePolygon])
-
-  useEffect(() => {
-    if (!polygons.length) {
-      dispatch(fetchPolygons())
-    }
-  }, [polygons])
 
   const activeTopSection = () =>
     isSatelliteMode ? (

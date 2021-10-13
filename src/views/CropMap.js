@@ -1,17 +1,21 @@
 import React, { useEffect, useRef, useState } from 'react'
 
-import { cropMapYears } from '../config'
+import {useSelector} from 'react-redux'
+
 import { getPageHeight } from '../utils/utils'
 import CropMapCard from './agro-components/CropMapCard'
 import { initialiseMap } from './maps/base'
 import { displayCropLayer2 } from './maps/crops'
 
+const selectYears = (state) => state.auth.limits.maps.crop
+
 const CropMap = () => {
   const mapContainer = useRef(null)
   const map = useRef(null)
   const [mapHeight, setMapHeight] = useState(550)
+  const years = useSelector(selectYears)
   const [activeYear, setActiveYear] = useState(
-    cropMapYears.find((year) => year.status === 3),
+    years.find((year) => year.status === 3),
   )
   const [initialised, setInitialised] = useState(false)
   const [info, setInfo] = useState(null)
@@ -51,7 +55,7 @@ const CropMap = () => {
     >
       {alert}
       <CropMapCard
-        years={cropMapYears}
+        years={years}
         activeYear={activeYear}
         setActiveYear={setActiveYear}
         setAlert={setAlert}

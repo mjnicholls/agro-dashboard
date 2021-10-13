@@ -6,19 +6,16 @@ import { Col, Row } from 'reactstrap'
 
 import { getAPIKeyStatus } from '../api/personalAccountAPI'
 import { setApiKeyStatus } from '../features/auth/actions'
-import { fetchPolygons } from '../features/polygons/actions'
 import { getPageHeight } from '../utils/utils'
 import MapBoxDraw from './maps/MapBoxDraw'
 import PolygonCreateCard from './small-cards/PolygonCreateCard'
 
 const selectIsApiKeyValid = (state) => state.auth.isApiKeyValid
-const selectPolygons = (state) => state.polygons
 
 const PolygonNew = () => {
   /** Draw a new polygon, give it a name */
 
   const isApiKeyValid = useSelector(selectIsApiKeyValid)
-  const polygons = useSelector(selectPolygons)
   const dispatch = useDispatch()
   const [geoJson, setGeoJson] = React.useState(null)
   const [area, setArea] = React.useState('')
@@ -33,12 +30,6 @@ const PolygonNew = () => {
       setMapHeight(contentHeight)
     }
   }, [])
-
-  useEffect(() => {
-    if (!polygons.length) {
-      dispatch(fetchPolygons())
-    }
-  }, [polygons])
 
   const checkAPIKeyStatus = () => {
     getAPIKeyStatus()

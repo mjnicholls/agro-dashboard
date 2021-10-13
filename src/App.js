@@ -13,6 +13,7 @@ import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css'
 
 import AuthRoute from './api/AuthRoute'
 import { receiveLogout } from './features/auth/actions'
+import { fetchPolygons } from './features/polygons/actions'
 import AdminLayout from './layouts/Admin/Admin'
 import AuthLayout from './layouts/Auth/Auth'
 import store from './store'
@@ -26,7 +27,6 @@ axios.interceptors.response.use(
   (response) => (response && response.data ? response.data : response),
   // eslint-disable-next-line
   (error) => {
-    console.log('axios error', error)
     if (error.response && error.response.status === 401) {
       store.dispatch(receiveLogout())
     } else {
@@ -42,6 +42,10 @@ axios.interceptors.response.use(
     }
   },
 )
+
+if (!store.getState().polygons.length) {
+  store.dispatch(fetchPolygons())
+}
 
 const App = () => (
   <Provider store={store}>

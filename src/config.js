@@ -1576,11 +1576,3 @@ export const deleteAcctOptions = [
   { value: "I don't use this service", label: "I don't use this service" },
   { value: 'Wrong email', label: 'Wrong email' },
 ]
-
-export const cropMapYears = [
-  { year: 2021, status: 2 },
-  { year: 2020, status: 2 },
-  { year: 2019, status: 1 },
-  { year: 2018, status: 3 },
-  { year: 2017, status: 3 },
-]
