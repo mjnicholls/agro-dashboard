@@ -1,678 +1,120 @@
-export const countriesGDP = {
-    'Afghanistan': {
-      'agriculture': 34.9, 'industry': 25, 'services': 40, 'total': 10000000020312
-    },
-    'Albania': {
-      'agriculture': 20.7, 'industry': 19.7, 'services': 59.6, 'total': 10000000013262
-    },
-    'Algeria': {
-      'agriculture': 12, 'industry': 56.5, 'services': 31.5, 'total': 100000000214080
-    },
-    'Angola': {
-      'agriculture': 9.6, 'industry': 65.8, 'services': 24.6, 'total': 100000000128564
-    },
-    'Anguilla': {
-      'agriculture': 2.2, 'industry': 28.5, 'services': 69.3
-    },
-    'Antigua and Barbuda': {
-      'agriculture': 3.8, 'industry': 32.9, 'services': 63.4, 'total': 1000000001242
-    },
-    'Argentina': {
-      'agriculture': 10, 'industry': 30.7, 'services': 59.2, 'total': 100000000540164
-    },
-    'Armenia': {
-      'agriculture': 19.1, 'industry': 40.5, 'services': 40.3, 'total': 10000000010279
-    },
-    'Aruba': {
-      'agriculture': 0.4, 'industry': 33.3, 'services': 66.3
-    },
-    'Australia': {
-      'agriculture': 4, 'industry': 24.6, 'services': 71.4, 'total': 5
-    },
-    'Austria': {
-      'agriculture': 1.5, 'industry': 29.4, 'services': 69.1, 'total': 100000000437123
-    },
-    'Azerbaijan': {
-      'agriculture': 5.5, 'industry': 62.1, 'services': 32.4, 'total': 10000000074145
-    },
-    'Bahamas, The': {
-      'agriculture': 2.2, 'industry': 6.5, 'services': 91.3, 'total': 1000000008657
-    },
-    'Bahrain': {
-      'agriculture': 0.4, 'industry': 63.6, 'services': 36, 'total': 10000000033862
-    },
-    'Bangladesh': {
-      'agriculture': 18.4, 'industry': 28.6, 'services': 53, 'total': 100000000185415
-    },
-    'Barbados': {
-      'agriculture': 3.2, 'industry': 13.9, 'services': 82.9, 'total': 1000000004348
-    },
-    'Belarus': {
-      'agriculture': 9.4, 'industry': 45.9, 'services': 44.7, 'total': 10000000076139
-    },
-    'Belgium': {
-      'agriculture': 0.7, 'industry': 21.7, 'services': 77.6, 'total': 100000000534672
-    },
-    'Belize': {
-      'agriculture': 9.7, 'industry': 19.8, 'services': 70.5, 'total': 1000000001693
-    },
-    'Benin': {
-      'agriculture': 36, 'industry': 6.4, 'services': 57.6, 'total': 1000000008701
-    },
-    'Bermuda': {
-      'agriculture': 0.7, 'industry': 7, 'services': 92.2
-    },
-    'Bhutan': {
-      'agriculture': 16.7, 'industry': 45.4, 'services': 37.9, 'total': 1000000002092
-    },
-    'Bolivia': {
-      'agriculture': 10, 'industry': 40, 'services': 50, 'total': 10000000034425
-    },
-    'Bosnia and Herz.': {
-      'agriculture': 8.3, 'industry': 26.3, 'services': 65.4, 'total': 10000000017977
-    },
-    'Botswana': {
-      'agriculture': 2.1, 'industry': 45, 'services': 52.9, 'total': 10000000015789
-    },
-    'Brazil': {
-      'agriculture': 5.5, 'industry': 27.5, 'services': 67, 'total': 5
-    },
-    'British Virgin Islands': {
-      'agriculture': 1, 'industry': 11.9, 'services': 87.2
-    },
-    'Brunei': {
-      'agriculture': 0.8, 'industry': 66.7, 'services': 32.5, 'total': 10000000015102
-    },
-    'Bulgaria': {
-      'agriculture': 5.2, 'industry': 30.6, 'services': 64.2, 'total': 10000000055837
-    },
-    'Burkina Faso': {
-      'agriculture': 34.7, 'industry': 23.3, 'services': 42, 'total': 10000000012503
-    },
-    'Burundi': {
-      'agriculture': 31, 'industry': 21.4, 'services': 47.7, 'total': 1000000003094
-    },
-    'Cambodia': {
-      'agriculture': 30, 'industry': 30, 'services': 40, 'total': 10000000016551
-    },
-    'Cameroon': {
-      'agriculture': 19.5, 'industry': 31, 'services': 49.5, 'total': 10000000031669
-    },
-    'Canada': {
-      'agriculture': 1.9, 'industry': 27.1, 'services': 71, 'total': 5
-    },
-    'Cape Verde': {
-      'agriculture': 8.4, 'industry': 15.7, 'services': 75.9, 'total': 1000000001899
-    },
-    'Cayman Islands': {
-      'agriculture': 0.5, 'industry': 50.4, 'services': 49.1
-    },
-    'Central African Rep.': {
-      'agriculture': 53.1, 'industry': 14.5, 'services': 32.4, 'total': 1000000001786
-    },
-    'Chad': {
-      'agriculture': 52.7, 'industry': 6.7, 'services': 40.6, 'total': 10000000013947
-    },
-    'Chile': {
-      'agriculture': 5.1, 'industry': 41.8, 'services': 53.1, 'total': 100000000257968
-    },
-    'China': {
-      'agriculture': 10.1, 'industry': 46.8, 'services': 43.1, 'total': 10000000010380380
-    },
-    'Colombia': {
-      'agriculture': 7, 'industry': 37.6, 'services': 55.5, 'total': 100000000384901
-    },
-    'Comoros': {
-      'agriculture': 51.6, 'industry': 13.6, 'services': 47, 'total': 100000000717
-    },
-    'C&‌Ocircte d\'Ivoire': {
-        'agriculture': 51.6, 'industry': 13.6, 'services': 47, 'total': 100000000717
-      },
-    'Dem. Rep. Congo': {
-      'agriculture': 37.5, 'industry': 27.6, 'services': 35, 'total': 10000000034677
-    },
-    'Congo': {
-      'agriculture': 4.2, 'industry': 70.7, 'services': 25.1, 'total': 10000000013502
-    },
-    'Cook Islands': {
-      'agriculture': 11.7, 'industry': 9.9, 'services': 78.5
-    },
-    'Costa Rica': {
-      'agriculture': 6.3, 'industry': 21.7, 'services': 72, 'total': 10000000048144
-    },
-    'Ivory Coast': {
-      'agriculture': 30, 'industry': 21, 'services': 49, 'total': 1000000000032000
-    },
-    'Croatia': {
-      'agriculture': 5.4, 'industry': 25.5, 'services': 69.1, 'total': 10000000057159
-    },
-    'Cuba': {
-      'agriculture': 4, 'industry': 20.8, 'services': 75.2
-    },
-    'Curacao': {
-      'agriculture': 0.7, 'industry': 15.5, 'services': 83.8
-    },
-    'Cyprus': {
-      'agriculture': 2.4, 'industry': 16.5, 'services': 81.1, 'total': 10000000023269
-    },
-    'Czech Rep.': {
-      'agriculture': 1.6, 'industry': 38.1, 'services': 60.3, 'total': 100000000205658
-    },
-    'Denmark': {
-      'agriculture': 4.5, 'industry': 19.1, 'services': 76.4, 'total': 100000000340806
-    },
-    'Djibouti': {
-      'agriculture': 3, 'industry': 17, 'services': 79.9, 'total': 1000000001589
-    },
-    'Dominica': {
-      'agriculture': 21.4, 'industry': 22.4, 'services': 56.3, 'total': 100000000526
-    },
-    'Dominican Rep.': {
-      'agriculture': 6.7, 'industry': 26.1, 'services': 67.2, 'total': 10000000064077
-    },
-    'Ecuador': {
-      'agriculture': 6.5, 'industry': 34.6, 'services': 58.9, 'total': 100000000100755
-    },
-    'Egypt': {
-      'agriculture': 14.5, 'industry': 37.6, 'services': 47.6, 'total': 100000000286435
-    },
-    'El Salvador': {
-      'agriculture': 10.6, 'industry': 30, 'services': 59.3, 'total': 10000000025329
-    },
-    'Equatorial Guinea': {
-      'agriculture': 3.6, 'industry': 89.7, 'services': 4.3, 'total': 10000000014308
-    },
-    'Eq. Guinea': {
-        'agriculture': 3.6, 'industry': 89.7, 'services': 4.3, 'total': 10000000014308
-      },
-    'Eritrea': {
-      'agriculture': 11, 'industry': 34, 'services': 55, 'total': 1000000003858
-    },
-    'Estonia': {
-      'agriculture': 3.5, 'industry': 28.5, 'services': 61, 'total': 10000000025953
-    },
-    'Ethiopia': {
-      'agriculture': 41, 'industry': 13, 'services': 46, 'total': 10000000052335
-    },
-    'European Union': {
-      'agriculture': 1.8, 'industry': 24.9, 'services': 73.2
-    },
-    'Falkland Islands': {
-      'agriculture': 95, 'industry': 0, 'services': 0
-    },
-    'Faroe Islands': {
-      'agriculture': 16, 'industry': 29, 'services': 55
-    },
-    'Fiji': {
-      'agriculture': 12, 'industry': 20.2, 'services': 67.7, 'total': 1000000004212
-    },
-    'Finland': {
-      'agriculture': 3, 'industry': 29.2, 'services': 67.8, 'total': 100000000271165
-    },
-    'France': {
-      'agriculture': 1.8, 'industry': 18.8, 'services': 79.4, 'total': 5
-    },
-    'French Polynesia': {
-      'agriculture': 3.5, 'industry': 20.4, 'services': 76.1
-    },
-    'Gabon': {
-      'agriculture': 5.2, 'industry': 54.4, 'services': 40.4, 'total': 10000000017182
-    },
-    'Gambia, The': {
-      'agriculture': 26.7, 'industry': 17.4, 'services': 55.9, 'total': 100000000825
-    },
-    'Georgia': {
-      'agriculture': 8.8, 'industry': 22.7, 'services': 68.5, 'total': 10000000016535
-    },
-    'Germany': {
-      'agriculture': 0.8, 'industry': 28.6, 'services': 70.6, 'total': 5
-    },
-    'Ghana': {
-      'agriculture': 28.3, 'industry': 21, 'services': 50.7, 'total': 10000000038648
-    },
-    'Gibraltar': {
-      'agriculture': 0, 'industry': 0, 'services': 100
-    },
-    'Greece': {
-      'agriculture': 3.3, 'industry': 17.9, 'services': 78.9, 'total': 100000000238023
-    },
-    'Greenland': {
-      'agriculture': 4, 'industry': 29, 'services': 67, 'total': 1000000002160
-    },
-    'Grenada': {
-      'agriculture': 5.3, 'industry': 14.2, 'services': 80.5, 'total': 100000000862
-    },
-    'Guatemala': {
-      'agriculture': 13.3, 'industry': 24, 'services': 62.7, 'total': 10000000060422
-    },
-    'Guernsey': {
-      'agriculture': 3, 'industry': 10, 'services': 87
-    },
-    'Guinea': {
-      'agriculture': 16.9, 'industry': 53.6, 'services': 29.5, 'total': 1000000006529
-    },
-    'Guinea-Bissau': {
-      'agriculture': 55.8, 'industry': 13, 'services': 31.2, 'total': 1000000001024
-    },
-    'Guyana': {
-      'agriculture': 18.5, 'industry': 30.6, 'services': 50.9, 'total': 1000000002997
-    },
-    'Haiti': {
-      'agriculture': 25, 'industry': 16, 'services': 59, 'total': 1000000008711
-    },
-    'Honduras': {
-      'agriculture': 12.6, 'industry': 26.3, 'services': 61.1, 'total': 10000000019511
-    },
-    'Hong Kong': {
-      'agriculture': 0.1, 'industry': 6.8, 'services': 93.2, 'total': 100000000289628
-    },
-    'Hungary': {
-      'agriculture': 3.7, 'industry': 31.3, 'services': 65, 'total': 100000000137104
-    },
-    'Iceland': {
-      'agriculture': 5.4, 'industry': 24.7, 'services': 69.9, 'total': 10000000016693
-    },
-    'India': {
-      'agriculture': 17.2, 'industry': 26.4, 'services': 56.4, 'total': 5
-    },
-    'Indonesia': {
-      'agriculture': 14.7, 'industry': 47.2, 'services': 38.1, 'total': 100000000888648
-    },
-    'Iran': {
-      'agriculture': 10.4, 'industry': 37.7, 'services': 51.8, 'total': 100000000404132
-    },
-    'Iraq': {
-      'agriculture': 9.7, 'industry': 60.5, 'services': 29.8, 'total': 100000000221130
-    },
-    'Ireland': {
-      'agriculture': 2, 'industry': 29, 'services': 69, 'total': 100000000246438
-    },
-    'Isle of Man': {
-      'agriculture': 1, 'industry': 11, 'services': 88
-    },
-    'Israel': {
-      'agriculture': 2.5, 'industry': 31.1, 'services': 64.9, 'total': 100000000303771
-    },
-    'Italy': {
-      'agriculture': 2, 'industry': 24.7, 'services': 73.4, 'total': 1000000002147952
-    },
-    'Jamaica': {
-      'agriculture': 5.8, 'industry': 29.5, 'services': 64.7, 'total': 10000000013787
-    },
-    'Japan': {
-      'agriculture': 1.2, 'industry': 27.3, 'services': 71.6, 'total': 1000000004616335
-    },
-    'Jersey': {
-      'agriculture': 1, 'industry': 2, 'services': 97
-    },
-    'Jordan': {
-      'agriculture': 4.5, 'industry': 30.8, 'services': 64.7, 'total': 10000000035765
-    },
-    'Kazakhstan': {
-      'agriculture': 5.2, 'industry': 37.9, 'services': 56.9, 'total': 100000000212260
-    },
-    'Kenya': {
-      'agriculture': 19, 'industry': 16.4, 'services': 64.6, 'total': 10000000060770
-    },
-    'Kiribati': {
-      'agriculture': 8.9, 'industry': 24.2, 'services': 66.8, 'total': 100000000181
-    },
-    'Dem. Rep. Korea': {
-      'agriculture': 23, 'industry': 43.4, 'services': 33.6, 'total': 10000000028000
-    },
-    'Korea': {
-      'agriculture': 2.6, 'industry': 39.2, 'services': 58.2, 'total': 1000000001416949
-    },
-    'Kosovo': {
-      'agriculture': 12.9, 'industry': 22.6, 'services': 64.5, 'total': 1000000007318
-    },
-    'Kuwait': {
-      'agriculture': 0.3, 'industry': 47.4, 'services': 52.3, 'total': 100000000172350
-    },
-    'Kyrgyzstan': {
-      'agriculture': 20.1, 'industry': 28.8, 'services': 51.1, 'total': 1000000007402
-    },
-    'Lao PDR': {
-      'agriculture': 27.8, 'industry': 34.8, 'services': 37.4, 'total': 10000000011676
-    },
-    'Latvia': {
-      'agriculture': 4, 'industry': 21.7, 'services': 74.3, 'total': 10000000031970
-    },
-    'Lebanon': {
-      'agriculture': 4.6, 'industry': 19.7, 'services': 75.7, 'total': 10000000049919
-    },
-    'Lesotho': {
-      'agriculture': 7.5, 'industry': 33.1, 'services': 59.4, 'total': 1000000002159
-    },
-    'Liberia': {
-      'agriculture': 76.9, 'industry': 5.4, 'services': 17.7, 'total': 1000000002028
-    },
-    'Libya': {
-      'agriculture': 3.2, 'industry': 49.5, 'services': 47.3, 'total': 10000000041148
-    },
-    'Liechtenstein': {
-      'agriculture': 8, 'industry': 37, 'services': 55
-    },
-    'Lithuania': {
-      'agriculture': 3.3, 'industry': 28.2, 'services': 68.6, 'total': 10000000048232
-    },
-    'Luxembourg': {
-      'agriculture': 0.4, 'industry': 13.6, 'services': 86, 'total': 10000000062395
-    },
-    'Macau': {
-      'agriculture': 0.1, 'industry': 9.4, 'services': 90.6
-    },
-    'Macedonia': {
-      'agriculture': 9.5, 'industry': 27.1, 'services': 63.4, 'total': 10000000011342
-    },
-    'Madagascar': {
-      'agriculture': 28.3, 'industry': 16.4, 'services': 55.2, 'total': 10000000010595
-    },
-    'Malawi': {
-      'agriculture': 30.3, 'industry': 16.7, 'services': 53, 'total': 1000000004263
-    },
-    'Malaysia': {
-      'agriculture': 12, 'industry': 40, 'services': 48, 'total': 100000000326933
-    },
-    'Maldives': {
-      'agriculture': 5.6, 'industry': 16.9, 'services': 77.5, 'total': 1000000002854
-    },
-    'Mali': {
-      'agriculture': 38.8, 'industry': 21.9, 'services': 39.3, 'total': 10000000011915
-    },
-    'Malta': {
-      'agriculture': 1.9, 'industry': 17.2, 'services': 80.9, 'total': 10000000010582
-    },
-    'Marshall Islands': {
-      'agriculture': 31.7, 'industry': 14.9, 'services': 53.4, 'total': 100000000193
-    },
-    'Mauritania': {
-      'agriculture': 17.8, 'industry': 37.6, 'services': 44.7, 'total': 1000000005079
-    },
-    'Mauritius': {
-      'agriculture': 4.5, 'industry': 24, 'services': 71.4, 'total': 10000000013240
-    },
-    'Mexico': {
-      'agriculture': 3.8, 'industry': 34.2, 'services': 62, 'total': 1000000001282725
-    },
-    'Micronesia, Federated States of': {
-      'agriculture': 28.9, 'industry': 15.2, 'services': 55.9
-    },
-    'Moldova': {
-      'agriculture': 16.2, 'industry': 20.3, 'services': 63.5, 'total': 1000000007944
-    },
-    'Monaco': {
-      'agriculture': 0, 'industry': 4.9, 'services': 95.1
-    },
-    'Mongolia': {
-      'agriculture': 15.8, 'industry': 32.6, 'services': 51.6, 'total': 10000000011981
-    },
-    'Montenegro': {
-      'agriculture': 0.8, 'industry': 11.3, 'services': 87.9, 'total': 1000000004462
-    },
-    'Montserrat': {
-      'agriculture': 1.6, 'industry': 23, 'services': 75.3
-    },
-    'Morocco': {
-      'agriculture': 16.6, 'industry': 32.2, 'services': 51.2, 'total': 100000000109201
-    },
-    'Mozambique': {
-      'agriculture': 31.5, 'industry': 23.8, 'services': 44.7, 'total': 10000000016684
-    },
-    'Myanmar': {
-      'agriculture': 38.2, 'industry': 18.2, 'services': 43.6, 'total': 10000000062802
-    },
-    'Namibia': {
-      'agriculture': 7.2, 'industry': 33.3, 'services': 59.5, 'total': 10000000013353
-    },
-    'Nepal': {
-      'agriculture': 34.9, 'industry': 15, 'services': 50.1, 'total': 10000000019637
-    },
-    'Netherlands': {
-      'agriculture': 2.7, 'industry': 24.2, 'services': 73.1, 'total': 100000000866354
-    },
-    'New Caledonia': {
-      'agriculture': 2, 'industry': 27.1, 'services': 70.9
-    },
-    'New Zealand': {
-      'agriculture': 4.8, 'industry': 24.5, 'services': 70.7, 'total': 100000000198118
-    },
-    'Nicaragua': {
-      'agriculture': 17.4, 'industry': 25.7, 'services': 56.8, 'total': 10000000011707
-    },
-    'Niger': {
-      'agriculture': 39, 'industry': 16, 'services': 45, 'total': 1000000008025
-    },
-    'Nigeria': {
-      'agriculture': 35.4, 'industry': 33.6, 'services': 31, 'total': 100000000573652
-    },
-    'Niue': {
-      'agriculture': 23.5, 'industry': 26.9, 'services': 49.5
-    },
-    'Norway': {
-      'agriculture': 2.6, 'industry': 39.7, 'services': 57.7, 'total': 100000000500244
-    },
-    'Oman': {
-      'agriculture': 1.5, 'industry': 49.5, 'services': 48.9, 'total': 10000000077755
-    },
-    'Pakistan': {
-      'agriculture': 20.9, 'industry': 25.8, 'services': 53.3, 'total': 100000000250136
-    },
-    'Palau': {
-      'agriculture': 6.2, 'industry': 12, 'services': 81.8, 'total': 100000000269
-    },
-    'Panama': {
-      'agriculture': 4.1, 'industry': 16.7, 'services': 79.2, 'total': 10000000043784
-    },
-    'Papua New Guinea': {
-      'agriculture': 29.9, 'industry': 37.6, 'services': 32.4, 'total': 10000000016060
-    },
-    'Paraguay': {
-      'agriculture': 23.1, 'industry': 18.6, 'services': 58.3, 'total': 10000000029704
-    },
-    'Peru': {
-      'agriculture': 8, 'industry': 38, 'services': 54, 'total': 100000000202948
-    },
-    'Philippines': {
-      'agriculture': 12.8, 'industry': 31.5, 'services': 55.7, 'total': 100000000284927
-    },
-    'Poland': {
-      'agriculture': 3.4, 'industry': 33.6, 'services': 63, 'total': 100000000546644
-    },
-    'Portugal': {
-      'agriculture': 2.5, 'industry': 22.8, 'services': 74.7, 'total': 100000000230012
-    },
-    'Puerto Rico': {
-      'agriculture': 1, 'industry': 45, 'services': 54, 'total': 100000000103500
-    },
-    'Qatar': {
-      'agriculture': 0.1, 'industry': 73, 'services': 26.9, 'total': 100000000210002
-    },
-    'Romania': {
-      'agriculture': 7.9, 'industry': 32.9, 'services': 59.2, 'total': 5
-    },
-    'Russia': {
-      'agriculture': 4.5, 'industry': 36.9, 'services': 58.6, 'total': 5
-    },
-    'Rwanda': {
-      'agriculture': 33, 'industry': 13.9, 'services': 53.1, 'total': 1000000008012
-    },
-    'Saint Kitts and Nevis': {
-      'agriculture': 2.4, 'industry': 22.8, 'services': 74.7, 'total': 100000000841
-    },
-    'Saint Lucia': {
-      'agriculture': 4.1, 'industry': 18.4, 'services': 77.5, 'total': 1000000001356
-    },
-    'Saint Martin': {
-      'agriculture': 1, 'industry': 15, 'services': 84
-    },
-    'Saint Vincent and the Grenadines': {
-      'agriculture': 7.8, 'industry': 25.9, 'services': 66.3, 'total': 100000000736
-    },
-    'Samoa': {
-      'agriculture': 9.9, 'industry': 28.8, 'services': 61.4, 'total': 100000000826
-    },
-    'San Marino': {
-      'agriculture': 0.1, 'industry': 39.2, 'services': 60.7, 'total': 1000000001786
-    },
-    'Sao Tome and Principe': {
-      'agriculture': 15, 'industry': 24.4, 'services': 60.6
-    },
-    'Saudi Arabia': {
-      'agriculture': 2, 'industry': 69.1, 'services': 28.9, 'total': 100000000752459
-    },
-    'Senegal': {
-      'agriculture': 15, 'industry': 22.8, 'services': 62.2, 'total': 10000000015584
-    },
-    'Serbia': {
-      'agriculture': 11.2, 'industry': 18.7, 'services': 70, 'total': 10000000043866
-    },
-    'Seychelles': {
-      'agriculture': 2, 'industry': 18.5, 'services': 79.5, 'total': 1000000001420
-    },
-    'Sierra Leone': {
-      'agriculture': 51.5, 'industry': 22, 'services': 26.5, 'total': 1000000005033
-    },
-    'Singapore': {
-      'agriculture': 0, 'industry': 26.6, 'services': 73.4, 'total': 100000000308051
-    },
-    'Sint Maarten': {
-      'agriculture': 0.4, 'industry': 18.3, 'services': 81.3
-    },
-    'Slovakia': {
-      'agriculture': 3.8, 'industry': 35.5, 'services': 60.7, 'total': 10000000099971
-    },
-    'Slovenia': {
-      'agriculture': 2.5, 'industry': 6.9, 'services': 90.5, 'total': 10000000049506
-    },
-    'Solomon Islands': {
-      'agriculture': 37.7, 'industry': 6.4, 'services': 55.9, 'total': 1000000001155
-    },
-    'Somalia': {
-      'agriculture': 60.2, 'industry': 7.4, 'services': 32.5, 'total': 1000000001071
-    },
-    'Somaliland': {
-        'agriculture': 60.2, 'industry': 7.4, 'services': 32.5, 'total': 1000000001071
-      },
-    'South Africa': {
-      'agriculture': 2.5, 'industry': 31.6, 'services': 65.9, 'total': 100000000350082
-    },
-    'Spain': {
-      'agriculture': 3.2, 'industry': 25.8, 'services': 71, 'total': 1000000001406855
-    },
-    'Sri Lanka': {
-      'agriculture': 13, 'industry': 29.6, 'services': 57.4, 'total': 10000000074588
-    },
-    'Sudan': {
-      'agriculture': 25, 'industry': 29.3, 'services': 45.7, 'total': 10000000073816
-    },
-    'S. Sudan': {
-      'total': 10000000012833
-    },
-    'Suriname': {
-      'agriculture': 10.8, 'industry': 24.4, 'services': 64.8, 'total': 1000000005297
-    },
-    'Swaziland': {
-      'agriculture': 8.2, 'industry': 46.9, 'services': 44.9, 'total': 1000000003676
-    },
-    'Sweden': {
-      'agriculture': 1.8, 'industry': 27.3, 'services': 70.9, 'total': 100000000570137
-    },
-    'Switzerland': {
-      'agriculture': 1.3, 'industry': 27.5, 'services': 71.3, 'total': 100000000712050
-    },
-    'Syria': {
-      'agriculture': 16.9, 'industry': 27.4, 'services': 55.7, 'total': 10000000071998
-    },
-    'Taiwan': {
-      'agriculture': 1.3, 'industry': 32, 'services': 66.9, 'total': 100000000529550
-    },
-    'Tajikistan': {
-      'agriculture': 21.4, 'industry': 21.7, 'services': 56.8, 'total': 1000000009242
-    },
-    'Tanzania': {
-      'agriculture': 27.8, 'industry': 24.2, 'services': 48, 'total': 10000000047932
-    },
-    'Thailand': {
-      'agriculture': 13.3, 'industry': 34, 'services': 52.7, 'total': 100000000373804
-    },
-    'Timor-Leste': {
-      'agriculture': 26.5, 'industry': 17.8, 'services': 55.6, 'total': 1000000004478
-    },
-    'Togo': {
-      'agriculture': 46, 'industry': 23, 'services': 31, 'total': 1000000004604
-    },
-    'Tonga': {
-      'agriculture': 20.8, 'industry': 18.1, 'services': 61.1, 'total': 100000000454
-    },
-    'Trinidad and Tobago': {
-      'agriculture': 0.3, 'industry': 58.4, 'services': 41.3, 'total': 10000000028788
-    },
-    'Tunisia': {
-      'agriculture': 10.6, 'industry': 34.6, 'services': 54.8, 'total': 10000000048553
-    },
-    'Turkey': {
-      'agriculture': 9.3, 'industry': 28.1, 'services': 62.6, 'total': 100000000806108
-    },
-    'Turkmenistan': {
-      'agriculture': 7.9, 'industry': 24.5, 'services': 67.6, 'total': 10000000047932
-    },
-    'Turks and Caicos Islands': {
-      'agriculture': 1, 'industry': 24.2, 'services': 74.8
-    },
-    'Tuvalu': {
-      'agriculture': 16.6, 'industry': 27.2, 'services': 56.2, 'total': 10000000038
-    },
-    'Uganda': {
-      'agriculture': 22, 'industry': 25.4, 'services': 52.6, 'total': 10000000027616
-    },
-    'Ukraine': {
-      'agriculture': 9.4, 'industry': 34.4, 'services': 56.2, 'total': 100000000130660
-    },
-    'United Arab Emirates': {
-      'agriculture': 0.8, 'industry': 53.9, 'services': 45.3, 'total': 100000000401647
-    },
-    'United Kingdom': {
-      'agriculture': 0.7, 'industry': 21.4, 'services': 77.8, 'total': 5
-    },
-    'United States': {
-      'agriculture': 1.2, 'industry': 19.2, 'services': 79.6, 'total': 5
-    },
-    'Uruguay': {
-      'agriculture': 9.4, 'industry': 21.7, 'services': 68.9, 'total': 10000000055143
-    },
-    'Uzbekistan': {
-      'agriculture': 21.9, 'industry': 37.7, 'services': 40.3, 'total': 10000000062619
-    },
-    'Vanuatu': {
-      'agriculture': 21.2, 'industry': 10.4, 'services': 68.4, 'total': 100000000812
-    },
-    'Venezuela': {
-      'agriculture': 3.8, 'industry': 35.8, 'services': 60.4, 'total': 100000000205787
-    },
-    'Vietnam': {
-      'agriculture': 22, 'industry': 40.3, 'services': 37.7, 'total': 100000000186049
-    },
-    'U.S. Virgin Islands': {
-      'agriculture': 1, 'industry': 19, 'services': 80
-    },
-    'West Bank and Gaza': {
-      'agriculture': 3.7, 'industry': 13.6, 'services': 82.7
-    },
-    'W. Sahara': {
-        'agriculture': 0, 'industry': 0, 'services': 40
-      },
-    'Western Sahara': {
-      'agriculture': 0, 'industry': 0, 'services': 40
-    },
-    'Yemen': {
-      'agriculture': 7.9, 'industry': 42.2, 'services': 49.9, 'total': 10000000043229
-    },
-    'Zambia': {
-      'agriculture': 21.4, 'industry': 35.1, 'services': 43.5, 'total': 10000000026758
-    },
-    'Zimbabwe': {
-      'agriculture': 20.4, 'industry': 24.6, 'services': 54.9, 'total': 10000000013672
+export const pangaeaBorders = {
+  type: 'FeatureCollection',
+  'features': [{
+    type: 'Feature',
+    properties: {
+      name: 'Pangaea'
+    },
+    geometry: {
+      type: 'Polygon',
+      coordinates: [
+        [
+          [-28, 86.33], [-28, 88], [-27.33, 89.67], [-25.67, 91.67], [-21.33, 93.67], [-15, 95.67], [-7.67, 98.67], [-4.67, 99.33], [-1, 99.33], [4.67, 99], [9.33, 97.33], [13.33, 96], [19, 96], [25.33, 95], [29.33, 93], [34.67, 91.67], [41.67, 89.33], [45.33, 88.67], [48.67, 85.67], [52, 82.33], [55.67, 79.67], [60.67, 75.67], [64, 71.67], [64.67, 70.67], [65.67, 68.33], [66.33, 67.33], [67, 66.33], [69, 65], [72, 63.33], [75.33, 61], [78.33, 58.33], [80.33, 56], [81.67, 53], [84, 50], [84.67, 48], [84.67, 46.67], [82.33, 47.67], [81, 48.33], [80.33, 48.33], [79.67, 47.67], [80.33, 45], [82.33, 43.33], [85, 40.67], [87.33, 38.67], [90, 36.67], [92, 35.67], [92, 36.33], [91, 38], [90, 39.67], [93.33, 40], [96.67, 39.67], [97.67, 39], [98.67, 37.67], [99.33, 36.33], [102, 25], [101.67, 23], [99.33, 22], [96.33, 22.67], [93.33, 25], [92, 27], [90.33, 28], [89.33, 30.33], [89.33, 32], [90.33, 32.67], [91.33, 33.33], [89, 35], [84.33, 38], [81.67, 40], [79.33, 41.67], [77.67, 43.33], [75.67, 45], [74, 46.67], [72.67, 49], [70.67, 50], [67.67, 50.67], [64.67, 50.67], [62, 50.33], [59.67, 49.33], [56.67, 46.33], [54.33, 44], [54.33, 41.33], [51.67, 38], [50, 35.67], [48.33, 33.67], [48.33, 32.33], [42.33, 31.33], [37.67, 31.67], [35.67, 32], [30.33, 31], [26.33, 30.33], [22, 31.67], [17, 33.33], [13, 32.67], [11.67, 32], [10, 30], [8, 26.67], [8, 23], [8, 20], [8.67, 19.33], [9.33, 18], [9.33, 15.33], [11.33, 12.67], [12.67, 10.67], [15.33, 8.67], [19, 6], [24, 4.67], [26, 4.67], [37.67, 4.33], [40.67, 1.67], [40.67, 0.33], [40.33, -1.33], [40.67, -3], [41.67, -4.33], [41.67, -5.33], [40.33, -6.67], [39, -9.33], [38, -10.67], [37.33, -14], [38.67, -17], [42.33, -18.67], [44.33, -19], [47, -19], [48.67, -18.67], [50.33, -19.67], [50.33, -21], [48, -21.33], [47, -22.67], [46, -24.33], [45, -26.33], [46.33, -26.67], [49, -27.67], [51, -28], [53.33, -30.33], [54.33, -33.67], [55, -34.67], [53.67, -36.33], [52, -40.33], [51.33, -42.33], [52, -43.67], [54, -45.33], [54.33, -46], [54.67, -47.33], [55, -48.67], [57.33, -50], [60, -51.33], [62, -52.33], [64.33, -53.67], [64.67, -54], [65.33, -55.67], [66.67, -57.33], [68, -58.33], [69.33, -58], [71, -57.67], [71.67, -59.67], [72.67, -62], [73, -64.33], [73, -66.33], [72.33, -68.67], [71.67, -70], [71, -71.33], [71.67, -73.67], [72.67, -75], [72.67, -77], [71.33, -80], [68.67, -81.67], [65.67, -84.67], [64.33, -85.67], [60.67, -88], [58, -89.67], [55.67, -91], [52.33, -92], [49, -92.67], [47.67, -93.67], [46, -94.67], [44, -96], [39, -96.67], [37.33, -96.67], [34.67, -97], [32, -97.67], [32.33, -98.67], [28.67, -99.67], [23.67, -99.33], [21.67, -99.33], [22.33, -97.33], [22, -96.33], [21, -95.67], [19.67, -95.33], [18.67, -94.67], [17.67, -94], [18.67, -92.67], [19.67, -91], [19.67, -89.67], [19.67, -87.67], [15, -89.33], [12.33, -89.33], [9, -88.67], [4.33, -86.67], [-0.67, -85], [-4, -83.67], [-3.67, -82], [-2, -78.33], [-4.33, -78.33], [-7.33, -75.33], [-8.67, -74], [-11, -73], [-13, -73.33], [-15, -73.33], [-17.33, -74.67], [-15.67, -76.67], [-14.67, -77.33], [-14.67, -78.33], [-16.33, -79], [-18.67, -80], [-20.33, -79.67], [-26, -73], [-33, -66.67], [-33.33, -61.67], [-33.33, -57.33], [-33.33, -55], [-33.67, -52.67], [-35, -50.67], [-37.33, -48.33], [-39.67, -46.67], [-42.33, -45], [-43, -44.67], [-45, -44], [-46.33, -42.33], [-46.67, -41.67], [-49, -41], [-50.33, -41], [-51.67, -40.67], [-52, -39], [-52.33, -38], [-52.67, -37.33], [-53.33, -36.67], [-54.67, -36], [-56.33, -36], [-57, -35.67], [-57.67, -34.67], [-57.67, -33.33], [-57, -31.67], [-56.67, -29.67], [-56.33, -29.33], [-56.67, -27.33], [-57.33, -25.67], [-57.67, -24.33], [-56.33, -23.67], [-55.33, -23], [-55, -21.67], [-55.67, -19.33], [-57, -18.33], [-60.33, -18.33], [-62.33, -17], [-63.33, -16.33], [-62, -15], [-58.67, -15.33], [-56.33, -15], [-53.33, -13.67], [-51.67, -11.33], [-51.33, -10.67], [-52, -8.33], [-53.33, -5.33], [-55.67, -3.67], [-58.33, -2.67], [-59.67, -2.67], [-60.67, -1.67], [-61, 0], [-60.33, 0.67], [-59.33, 3], [-59.33, 4.33], [-59.33, 6.33], [-60.33, 10], [-62, 12], [-63.67, 14], [-64, 15], [-63, 18.67], [-61.67, 21.67], [-60, 25.67], [-57.33, 32], [-55.67, 35.67], [-55, 38.33], [-54, 42], [-54.33, 44], [-54.33, 45], [-54, 46.33], [-53.67, 47.67], [-55, 48.67], [-57, 49.67], [-59.33, 50], [-61.33, 51], [-62.67, 51.33], [-63.33, 52.33], [-61.67, 54], [-61.67, 56.67], [-60, 58], [-57.33, 60], [-55.67, 61.67], [-52, 61.67], [-50.33, 63.67], [-45.67, 63], [-42.67, 62.67], [-40.67, 62.33], [-39.33, 64], [-37.67, 66], [-36.67, 67], [-35, 67.33], [-32, 67], [-30.33, 66], [-27.67, 64], [-25.33, 63.33], [-23.33, 63.67], [-21.33, 64], [-19.33, 64.33], [-17, 63.67], [-14.67, 62.33], [-12.33, 61], [-9.33, 61], [-8.33, 63.67], [-9, 67], [-10.33, 70.33], [-14, 73], [-15.33, 73], [-16.67, 74], [-17, 76], [-18.67, 78.33], [-20.67, 79], [-22.67, 79], [-25.67, 79], [-28.67, 78], [-30.33, 77], [-31.67, 76], [-33.33, 77], [-34.67, 79.67], [-34, 81], [-32.67, 82], [-32, 83.67], [-32.67, 85.67], [-32.67, 86.67], [-31, 87], [-28.33, 86.67]
+        ]
+      ]
     }
-  };
-  
+  }]
+};
+
+export const pangaeaContinents = {
+  type: 'FeatureCollection',
+  'features': [{
+    type: 'Feature',
+    properties: {
+      name: 'Eurasia',
+      color: '#70b3a1'
+    },
+    geometry: {
+      type: 'Polygon',
+      coordinates: [
+        [
+          [-28.33, 86.67], [-27.33, 85], [-26.33, 84.33], [-24.33, 83.67], [-22.67, 84], [-21.33, 85], [-20.33, 86.33], [-18.33, 86.33], [-15.67, 86.33], [-13, 86.67], [-10.33, 86.67], [-7, 86.33], [-3.67, 86.67], [-2, 87.67], [-0.67, 88.67], [-2, 88.67], [-3.33, 89], [-5.67, 90.33], [-7, 91.33], [-5.67, 92.33], [-2, 93.33], [2, 93.33], [7.67, 92.67], [10.67, 92.67], [16.33, 92], [20.33, 92], [24.67, 92], [26.67, 92], [27.67, 91.33], [28, 90.33], [27, 89.33], [26.67, 88], [27.33, 86.67], [29, 85.67], [37.33, 85.67], [38.67, 84.33], [41.33, 83], [42, 84.33], [43.33, 84.33], [47.33, 82], [50.67, 80.33], [55.67, 79.67], [60.67, 75.67], [64, 71.67], [64.67, 70.67], [65.67, 68.33], [66.33, 67.33], [67, 66.33], [69, 65], [72, 63.33], [75.33, 61], [78.33, 58.33], [80.33, 56], [81.67, 53], [84, 50], [84.67, 48], [84.67, 46.67], [82.33, 47.67], [81, 48.33], [80.33, 48.33], [79.67, 47.67], [80.33, 45], [82.33, 43.33], [85, 40.67], [87.33, 38.67], [90, 36.67], [92, 35.67], [92, 36.33], [91, 38], [90, 39.67], [93.33, 40], [96.67, 39.67], [97.67, 39], [98.67, 37.67], [99.33, 36.33], [102, 25], [101.67, 23], [99.33, 22], [96.33, 22.67], [93.33, 25], [92, 27], [90.33, 28], [89.33, 30.33], [89.33, 32], [90.33, 32.67], [91.33, 33.33], [89, 35], [84.33, 38], [81.67, 40], [79.33, 41.67], [77.67, 43.33], [75.67, 45], [74, 46.67], [72.67, 49], [70.67, 50], [67.67, 50.67], [64.67, 50.67], [62, 50.33], [59.67, 49.33], [56.67, 46.33], [54.33, 44], [54.33, 41.33], [51.67, 38], [50, 35.67], [48.33, 33.67], [48.33, 32.33], [42.33, 31.33], [37.67, 31.67], [35.67, 32], [30.33, 31], [26.33, 30.33], [22, 31.67], [17, 33.33], [13, 33], [13.67, 34.67], [15, 37.67], [15.33, 40], [14.33, 41.33], [11.67, 41.67], [8.67, 43.33], [8, 45], [6, 44.67], [6.67, 41.67], [7.67, 39.33], [8.33, 35.67], [9, 32.33], [9.33, 29.67], [7.67, 32.67], [6, 34.67], [3.67, 36], [2.33, 36.33], [1.67, 37.33], [1.67, 39], [2.33, 40.33], [2.33, 42.67], [2, 44.67], [2, 46.33], [2, 47.33], [3, 48.33], [4, 49.33], [6.33, 49.33], [7.67, 49.67], [9, 50], [8.67, 49], [8.67, 47.67], [10.67, 47.67], [13, 47.67], [15.33, 48.33], [17, 49.33], [14, 50.67], [12.33, 51.67], [12, 52.33], [12, 54], [12, 55.33], [9, 55.33], [6.33, 56], [4, 56.67], [2.33, 57.67], [3, 58.67], [2.67, 60.67], [4.67, 59.33], [6, 58.33], [7.67, 57.33], [9.67, 56.33], [11.67, 56.33], [12, 57.33], [11.67, 58.67], [11.67, 59.67], [12.67, 60], [14.33, 61], [13.33, 62.67], [11.67, 63.33], [10.33, 63.33], [7.67, 63.67], [7.67, 65], [6, 66], [3, 67], [-0.33, 67.67], [-2.33, 67.67], [-5, 68.67], [-3.67, 69.67], [-0.67, 71.33], [-0.67, 73], [-2.33, 74], [-4.67, 75], [-5.33, 75.33], [-5.67, 77], [-6.33, 78], [-8.67, 78], [-11.33, 77.33], [-17, 76], [-18.67, 78.33], [-20.67, 79], [-22.67, 79], [-25.67, 79], [-28.67, 78], [-30.33, 77], [-31.67, 76], [-33.33, 77], [-34.67, 79.67], [-34, 81], [-32.67, 82], [-32, 83.67], [-32.67, 85.67], [-32.67, 86.67], [-31, 87], [-28.33, 86.67]
+        ]
+      ]
+    }
+  }, {
+    type: 'Feature',
+    properties: {
+      name: 'Australia',
+      color: '#bb626a'
+    },
+    geometry: {
+      type: 'Polygon',
+      coordinates: [
+        [
+          [64.67, -54], [65.33, -55.67], [66.67, -57.33], [68, -58.33], [69.33, -58], [71, -57.67], [71.67, -59.67], [72.67, -62], [73, -64.33], [73, -66.33], [72.33, -68.67], [71.67, -70], [71, -71.33], [72, -74], [70, -74.33], [67.33, -76], [64, -79.67], [61, -82.67], [64.67, -85.33], [64.67, -85.67], [60.67, -88], [58, -89.67], [55.67, -91], [52.33, -92], [49, -92.67], [47.67, -93.67], [46, -94.67], [44, -96], [39, -96.67], [37.33, -96.67], [34.67, -97], [32, -97.67], [31.33, -96], [31, -95], [31.33, -93.67], [32.33, -91.67], [33.33, -91], [33.33, -90], [36, -87.33], [39, -85], [42, -81.67], [45.33, -79.33], [47.67, -78], [49.67, -75], [50.33, -72.33], [50.33, -68.67], [50.33, -66], [51, -63.67], [55.33, -60.33], [58.67, -57.33], [61.33, -55]
+        ]
+      ]
+    }
+  }, {
+    type: 'Feature',
+    properties: {
+      name: 'Antarctica',
+      color: '#057d85'
+    },
+    geometry: {
+      type: 'Polygon',
+      coordinates: [
+        [
+          [50.33, -66], [50.33, -68.67], [50.33, -72.33], [49.67, -75], [47.67, -78], [45.33, -79.33], [42, -81.67], [39, -85], [36, -87.33], [33.33, -90], [32.67, -89.33], [30.33, -87.67], [28.67, -86.67], [27, -84.67], [23.67, -84.33], [19.33, -87.33], [19.67, -87.67], [15, -89.33], [12.33, -89.33], [9, -88.67], [4.33, -86.67], [-0.67, -85], [-4, -83.67], [-3.67, -82], [-2, -78.33], [-4.33, -78.33], [-7.33, -75.33], [-8.67, -74], [-10.33, -71.67], [-7.67, -71.67], [-4.33, -71.67], [-0.67, -72.33], [1.67, -73], [3.67, -73.33], [5.33, -73.33], [6.33, -72.67], [7, -70.33], [7.33, -66.67], [8, -63.33], [9, -61], [10.67, -58.67], [14.33, -57], [19.33, -54.67], [24.33, -53.67], [29.67, -52.33], [34.33, -51], [35.33, -51], [36.67, -51], [38, -51.67], [39.33, -53.67], [39.67, -55.33], [39.67, -56.67], [40.33, -58.33], [42, -58.33], [44.33, -58], [47, -58.33], [49.33, -59.33], [50.67, -61.33], [51, -62]
+        ]
+      ]
+    }
+  }, {
+    type: 'Feature',
+    properties: {
+      name: 'Africa',
+      color: '#ab394b'
+    },
+    geometry: {
+      type: 'Polygon',
+      coordinates: [
+        [
+          [7.67, -61.67], [3.33, -61.67], [0.67, -63.67], [-2, -65], [-5.33, -65.67], [-9.33, -66], [-12, -65.33], [-13.33, -64.33], [-13.67, -63.33], [-13.67, -62.33], [-12.33, -61.33], [-11, -58.67], [-10.33, -56.67], [-10, -54.67], [-10, -53], [-10.33, -50], [-11, -48], [-11.33, -47], [-11.33, -46.33], [-11.33, -45.33], [-9.33, -43.67], [-7, -41], [-5, -38.67], [-4.33, -37], [-3.67, -35.33], [-3.67, -33.33], [-4, -31.67], [-4.33, -30], [-3.67, -28.33], [-3.33, -26.33], [-3, -25.33], [-3.67, -23.67], [-5, -22.67], [-7, -21], [-8, -19.33], [-9.33, -17], [-9.67, -15.67], [-11, -14.33], [-14, -13.67], [-16.67, -14], [-20.33, -12.67], [-21.33, -11.33], [-22.33, -7.33], [-24.33, -3.33], [-24.67, -0.67], [-23.33, 2], [-21, 5.33], [-18.33, 6.33], [-15.33, 8], [-11.67, 10.33], [-8.67, 12.33], [-5.33, 13], [-2, 13], [0, 12.67], [2.67, 11.33], [5, 10.33], [8, 9.33], [9.67, 8.67], [10.33, 7.67], [10, 6.67], [8.67, 5.67], [9.67, 4.33], [11.33, 2.33], [13, 0.67], [15.33, 0], [16.67, 0], [16.67, 1.67], [17.67, 1.33], [19, 0.33], [21, -1], [23.33, -1.67], [25.67, -1.67], [28.33, -2], [27.67, -3.67], [27.33, -5.67], [27, -8.33], [28, -11], [29, -14.33], [30.67, -19], [33, -25.67], [33, -26.33], [33.67, -27.33], [34.67, -28.33], [35.67, -28.33], [36.67, -28.33], [38.67, -28], [40, -28], [41, -28.33], [40.67, -30], [39, -32.67], [36.67, -34.67], [34.67, -36], [31.67, -38], [27.67, -39.33], [24.67, -42], [23.33, -43.33], [22.33, -45.33], [21.67, -47.33], [22, -48.67], [21.67, -50.67], [19.33, -52.33], [16, -55], [14.33, -57], [10.67, -58.67], [9, -61], [8, -63.33]
+        ]
+      ]
+    }
+  }, {
+    type: 'Feature',
+    properties: {
+      name: 'South America',
+      color: '#dac599'
+    },
+    geometry: {
+      type: 'Polygon',
+      coordinates: [
+        [
+          [-51.33, -10.67], [-46.67, -10.67], [-43, -11.33], [-35.33, -12.67], [-35.33, -14.33], [-34.67, -15], [-32.67, -15], [-29, -15.67], [-27, -17.33], [-25.33, -19], [-24.33, -19.67], [-21.67, -20], [-17.67, -20.33], [-13.33, -20.33], [-11, -22], [-9.33, -24.33], [-8.67, -27], [-9, -29.33], [-10, -31.33], [-10.33, -33.67], [-10.33, -36.33], [-11, -39], [-13.33, -42.67], [-15.33, -45], [-16.33, -47.33], [-16.67, -50.33], [-17.33, -53], [-17, -54], [-17.67, -55], [-19.33, -56], [-20.33, -57], [-20.67, -57.67], [-20, -60], [-19, -61.33], [-20.33, -62.67], [-22, -64], [-22, -65.67], [-21.67, -67], [-21.33, -67.33], [-22.33, -68], [-22.67, -69], [-21.67, -70], [-20, -72], [-19.33, -74], [-17.33, -74.67], [-15.67, -76.67], [-14.67, -77.33], [-14.67, -78.33], [-16.33, -79], [-18.67, -80], [-20.33, -79.67], [-26, -73], [-33, -66.67], [-33.33, -61.67], [-33.33, -57.33], [-33.33, -55], [-33.67, -52.67], [-35, -50.67], [-37.33, -48.33], [-39.67, -46.67], [-42.33, -45], [-43, -44.67], [-45, -44], [-46.33, -42.33], [-46.67, -41.67], [-49, -41], [-50.33, -41], [-51.67, -40.67], [-52, -39], [-52.33, -38], [-52.67, -37.33], [-53.33, -36.67], [-54.67, -36], [-56.33, -36], [-57, -35.67], [-57.67, -34.67], [-57.67, -33.33], [-57, -31.67], [-56.67, -29.67], [-56.33, -29.33], [-56.67, -27.33], [-57.33, -25.67], [-57.67, -24.33], [-56.33, -23.67], [-55.33, -23], [-55, -21.67], [-55.67, -19.33], [-57, -18.33], [-60.33, -18.33], [-62.33, -17], [-63.33, -16.33], [-62, -15], [-58.67, -15.33], [-56.33, -15], [-53.33, -13.67], [-51.67, -11.33]
+        ]
+      ]
+    }
+  }, {
+    type: 'Feature',
+    properties: {
+      name: 'North America',
+      color: '#153459'
+    },
+    geometry: {
+      type: 'Polygon',
+      coordinates: [
+        [
+          [-57.67, 50], [-57, 52], [-56.67, 53], [-57, 54.67], [-56.67, 55.33], [-55.33, 55.67], [-53.67, 56], [-52, 56.33], [-50.67, 57.33], [-49.67, 58.67], [-48.33, 59], [-46.67, 59], [-45.33, 59.67], [-43.67, 60], [-42.33, 59], [-41.67, 57.33], [-42.33, 55.33], [-43, 53.67], [-41.33, 52.67], [-42, 51.67], [-41.33, 50], [-40, 48.67], [-39, 48], [-37.33, 47.67], [-35.33, 50.33], [-34, 47], [-32, 45], [-32.67, 43.33], [-32, 42.67], [-28, 41.67], [-25, 38], [-30.67, 34.33], [-31.67, 33.33], [-32.33, 32], [-32, 30], [-31, 27.67], [-29, 25.67], [-27.67, 24.33], [-26.67, 22.67], [-25, 22.67], [-23, 23.67], [-22, 25.33], [-21.67, 27], [-21.67, 28.67], [-21.33, 30.33], [-20.33, 31.33], [-19.33, 31.67], [-17.33, 31.67], [-15.67, 31], [-14, 29.67], [-12, 27.67], [-10.33, 25], [-9.67, 22.67], [-12.33, 22.33], [-13.33, 21.67], [-14.33, 20.33], [-14.67, 19], [-14, 17], [-17.33, 15.33], [-19, 13.67], [-20, 11], [-22, 10.33], [-24.67, 7.33], [-26.33, 5], [-29, 2.33], [-30.33, 1], [-31, 0], [-29.33, -2], [-29, -3.67], [-31.67, -4], [-32.33, -2.33], [-33.33, -1], [-35, -0.33], [-36.33, -0.33], [-38.67, -3], [-40.67, -3.33], [-43, -3.33], [-44.67, -3.33], [-46, -4.67], [-46.33, -6.33], [-46.67, -8], [-46.33, -10], [-46.67, -10.67], [-51.33, -10.67], [-52, -8.33], [-53.33, -5.33], [-55.67, -3.67], [-58.33, -2.67], [-59.67, -2.67], [-60.67, -1.67], [-61, 0], [-60.33, 0.67], [-59.33, 3], [-59.33, 4.33], [-59.33, 6.33], [-60.33, 10], [-62, 12], [-63.67, 14], [-64, 15], [-63, 18.67], [-61.67, 21.67], [-60, 25.67], [-57.33, 32], [-55.67, 35.67], [-55, 38.33], [-54, 42], [-54.33, 44], [-54.33, 45], [-54, 46.33], [-53.67, 47.67], [-55, 48.67], [-57, 49.67]
+        ]
+      ]
+    }
+  }, {
+    type: 'Feature',
+    properties: {
+      name: 'India',
+      color: '#b1d2c6'
+    },
+    geometry: {
+      type: 'Polygon',
+      coordinates: [
+        [
+          [44.67, -26.33], [45, -26.33], [46.33, -26.67], [49, -27.67], [51, -28], [53.33, -30.33], [54.33, -33.67], [55, -34.67], [53.67, -36.33], [52, -40.33], [51.33, -42.33], [52, -43.67], [54, -45.33], [54.33, -46], [54.67, -47.33], [55, -48.67], [57.33, -50], [60, -51.33], [62, -52.33], [64, -53.33], [61.33, -55], [58.67, -57.33], [55.33, -60.33], [51, -63.67], [51.33, -62.33], [51, -62], [50.67, -61.33], [49.33, -59.33], [47, -58.33], [47.33, -57.67], [47.67, -57.33], [49, -56], [50.67, -55], [51.67, -54], [49, -53.33], [46.33, -52.67], [42.67, -52.33], [39.67, -53.33], [39.67, -53.67], [38, -51.67], [36.67, -51], [35.33, -51], [34.33, -51], [29.67, -52.33], [28.67, -52.33], [30, -51.33], [31.33, -49], [33.33, -46.33], [35, -43], [37.33, -41], [40, -39.67], [40.67, -39], [41, -38], [40.33, -36.33], [36.67, -34.67], [39, -32.67], [40.67, -30], [41, -28.33], [41.33, -28]
+        ]
+      ]
+    }
+  }]
+};

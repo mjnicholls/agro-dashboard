@@ -1,54 +1,57 @@
 /* eslint-disable */
 import React from 'react';
 
-import Map, {
-  Export,
-  Label,
+import VectorMap, {
   Layer,
-  Legend,
-  Source,
-  Subtitle,
+  Export,
   Title,
-  Tooltip,
-  Size
+  Label,
 } from 'devextreme-react/vector-map';
 
+import { coverage } from '../../utils/coverage';
 import * as mapsData from 'devextreme/dist/js/vectormap-data/world.js';
-import { countriesGDP } from './data';
-import TooltipTemplate from './tooltip';
 
-const colorGroups = [0, 10000, 50000, 100000, 500000, 1000000, 10000000, 50000000, 10000000000];
-const mapBounds = [-180, 85, 180, -60];
+const projection = {
+  to: ([l, lt]) => [l / 100, lt / 100],
+  from: ([x, y]) => [x * 100, y * 100]
+};
+
+export default function Mapp() {
+  return (
+    <VectorMap
+      id="vector-map"
+      maxZoomFactor={2}
+      projection={projection}
+      style={{height: "570px"}}
+    >
+      <Title text="Openweather map" subtitle="with polygons"></Title>
+
+        <Layer
+        dataSource={mapsData.world}
+        hoverEnabled={false}
+        name="45UXA">
+      </Layer>
+      <Layer
+        dataSource={coverage}
+        hoverEnabled={false}
+        name="coordinates"
+        color="#bb7862">
+   </Layer> 
+      <Layer
+        dataSource={coverage}
+        customize={customizeLayer}>
+        <Label enabled={true} dataField="coordinates"></Label>
+      </Layer>
+      <Export enabled={true}></Export>
+    </VectorMap>
+  );
+}
+
 function customizeLayer(elements) {
   elements.forEach((element) => {
-    const countryGDPData = countriesGDP[element.attribute('name')];
-    element.attribute('total', countryGDPData && countryGDPData.total || 0);
+    element.applySettings({
+      //color: element.attribute('color')
+    });
   });
 }
 
-
-function Mapp() {
-  return (
-    <Map bounds={mapBounds}>
-      <Size height={500} />
-      <Layer
-        name="areas"
-        dataSource={mapsData.world}
-        colorGroups={colorGroups}
-        colorGroupingField="total"
-        customize={customizeLayer}
-      >
-        <Label dataField="name" enabled={true} />
-      </Layer>
-
-      <Title text="Nominal GDP">
-        <Subtitle text="(in millions of US dollars)" />
-      </Title>
-
-      <Tooltip enabled={true}
-        contentRender={TooltipTemplate} />
-      <Export enabled={true} />
-    </Map>
-  );
-}
-export default Mapp;
