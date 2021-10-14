@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 
-import {useSelector} from 'react-redux'
+import { useSelector } from 'react-redux'
 
 import { getPageHeight } from '../utils/utils'
 import CropMapCard from './agro-components/CropMapCard'

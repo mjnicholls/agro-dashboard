@@ -153,9 +153,7 @@ const ApiKeys = () => {
                           <UncontrolledTooltip
                             delay={0}
                             target="tooltip618296632"
-                          >
-                            
-                          </UncontrolledTooltip>
+                          ></UncontrolledTooltip>
                           <Button
                             className="btn-link btn-icon btn-neutral"
                             color="danger"

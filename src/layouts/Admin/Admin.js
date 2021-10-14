@@ -1,5 +1,5 @@
 /* eslint-disable */
-import React, { useState }from 'react'
+import React, { useState } from 'react'
 
 import PerfectScrollbar from 'perfect-scrollbar'
 import NotificationAlert from 'react-notification-alert'
@@ -33,7 +33,7 @@ const Admin = (props) => {
   const dispatch = useDispatch()
   const authSelector = (state) => state.auth
   const auth = useSelector(authSelector)
-  const confirmed = auth.user.isEmailConfirmed;
+  const confirmed = auth.user.confirmed_email
 
   React.useEffect(() => {
     document.documentElement.scrollTop = 0
@@ -90,7 +90,7 @@ const Admin = (props) => {
     }
   }
 
-/*
+  /*
   const acctNotifyAlert = () => {
 
     if (confirmed === false) {
@@ -195,7 +195,7 @@ const Admin = (props) => {
         }}
         closeSidebar={closeSidebar}
       />
-      <div className="main-panel" ref={mainPanelRef} data={activeColor} >
+      <div className="main-panel" ref={mainPanelRef} data={activeColor}>
         <AdminNavbar
           {...props}
           handleMiniClick={handleMiniClick}
@@ -205,6 +205,7 @@ const Admin = (props) => {
         />
 
         <div className="content">
+          <div>Notification goes here</div>
           <Switch>
             {getRoutes(routes)}
             <Redirect from="*" to="/dashboard/polygons" />

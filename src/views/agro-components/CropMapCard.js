@@ -16,9 +16,7 @@ import {
 import { tariffError } from '../../config'
 import { getCropName } from '../maps/crops'
 
-
 const CropMapCard = ({ years, activeYear, setActiveYear, info, setAlert }) => {
-
   const [options, setOptions] = useState(years)
 
   useEffect(() => {
@@ -64,7 +62,8 @@ const CropMapCard = ({ years, activeYear, setActiveYear, info, setAlert }) => {
           onCancel={() => hideAlert()}
           showConfirm={false}
           showCloseButton={true}
-          style={{fontSize: "10px"}}
+          style={{ fontSize: '10px' }}
+          closeBtnStyle={{ backgroundColor: 'none', background: 'none' }}
         >
           <div className="mt-3 text-center">
             <a

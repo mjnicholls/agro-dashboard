@@ -5,6 +5,7 @@
     "prettier/prettier": "warn",
     "spaced-comment": "warn",
     "no-param-reassign": "warn",
+    "react/jsx-boolean-value": "warn",
     "react/prop-types": 0,
     "import/order": [
       "warn",

@@ -4,6 +4,7 @@ import { getCookie } from '../../utils/cookies'
 import {
   API_KEY_STATUS,
   CLEAR_LOGIN_ERROR,
+  CLOSE_NOTIFICATION,
   LOGIN_REQUEST,
   LOGIN_SUCCESS,
   LOGIN_FAILURE,
@@ -110,6 +111,15 @@ export default function authReducer(state = initialState, action) {
     }
     case API_KEY_STATUS: {
       return { ...state, isApiKeyValid: action.payload }
+    }
+    case CLOSE_NOTIFICATION: {
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          confirmed_email: true,
+        },
+      }
     }
     default:
       return state

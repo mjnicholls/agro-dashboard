@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 
+import PropTypes from 'prop-types'
 import { useDispatch } from 'react-redux'
 import { Button, Col, FormGroup, Input, Label, Row } from 'reactstrap'
 
@@ -57,7 +58,7 @@ const ApiKeyEdit = ({ apiKey, close, refreshData }) => {
         </Col>
       </Row>
       <div className="agro-pop-up-footer">
-       {/* <Button
+        {/* <Button
           className="btn-neutral"
           color="default"
           type="button"
@@ -79,6 +80,12 @@ const ApiKeyEdit = ({ apiKey, close, refreshData }) => {
       </div>
     </div>
   )
+}
+
+ApiKeyEdit.propTypes = {
+  apiKey: PropTypes.string,
+  close: PropTypes.func,
+  refreshData: PropTypes.func,
 }
 
 export default ApiKeyEdit

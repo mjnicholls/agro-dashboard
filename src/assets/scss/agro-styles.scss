@@ -5,6 +5,17 @@ $fontColorBlue: #525f7f;
 $fontColorGrey: rgba(255, 255, 255, 0.5);
 $activeWhite: rgba(255, 255, 255, 0.1);
 $mapHeight: 400px;
+$font-family-base: 'Poppins', sans-serif;
+$white:    #ffffff;
+$gray-100: #f6f9fc;
+$gray-200: #e9ecef;
+$gray-300: #e3e3e3;
+$gray-400: #ced4da;
+$gray-500: #adb5bd;
+$gray-600: #6c757d;
+$gray-700: #525f7f;
+$gray-800: #32325d;
+$gray-900: #212529;
 
 .justify {
   justify-content: space-between;
@@ -621,26 +632,39 @@ $daily-chart-width: 1000px;
 
 .agro-alert-dark-crop {
   text-align: left;
+  font-family: $font-family-base;
   background-color: #1e1e2e!important;
-  color: white!important;
+  color: $gray-100!important;
   width: 42em !important;
   h2 {
     margin-top: 25px!important;
     text-align: left !important;
-    color: white!important;
+    color: $gray-100!important;
   }
   div {
     text-align: left;
   }
   p, span {
-    color: white;
+    color: $gray-100;
   }
   input {
-    color: white!important;
+    color: $gray-400!important;
   }
   .agro-pop-up-footer {
     @include horizontal-container;
     justify-content: flex-end;
     flex-wrap: wrap
+  }
+  span.btn {
+    @include no-button-style;
+    margin-top: 10px;
+    margin-right: 10px;
+    &:hover {
+      background: none !important;
+      //background-image: none !important;
+      //background-color: none !important;
+      color: $gray-100 !important;
+      box-shadow: none;
+    }
   }
 }
