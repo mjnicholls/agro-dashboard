@@ -1,4 +1,3 @@
-/* eslint-disable */
 import React, { useState } from 'react'
 
 import { useDispatch } from 'react-redux'
@@ -39,7 +38,7 @@ const ResetPass = () => {
   const confirmPassReset = () => {
     setError({})
 
-    let newError = {}
+    const newError = {}
 
     if (!email.length) {
       newError.email = !email.length
@@ -55,16 +54,18 @@ const ResetPass = () => {
       return
     }
 
-    let reset = {
-      email: email,
+    const reset = {
+      email
     }
 
+    // eslint-disable-next-line
     updatePass(reset)
       .then(() => {
         dispatch(notifySuccess('Email sent!'))
       })
+      // eslint-disable-next-line
       .catch((error) => {
-        dispatch(notifyError('Error sending email ' + error.message))
+        dispatch(notifyError(`Error sending email + ${error.message}`))
       })
   }
 

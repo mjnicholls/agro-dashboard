@@ -1,4 +1,3 @@
-/* eslint-disable */
 import React from 'react'
 
 import VectorMap, {
@@ -9,7 +8,7 @@ import VectorMap, {
 } from 'devextreme-react/vector-map'
 
 import { coverage } from '../../utils/coverage'
-import * as mapsData from 'devextreme/dist/js/vectormap-data/world.js'
+import * as mapsData from 'devextreme/dist/js/vectormap-data/world'
 
 const projection = {
   to: ([l, lt]) => [l / 100, lt / 100],

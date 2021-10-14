@@ -5,10 +5,7 @@ import PerfectScrollbar from 'perfect-scrollbar'
 import NotificationAlert from 'react-notification-alert'
 import { Redirect, Route, Switch, useLocation } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import {
-  notifyError,
-  notifySuccess,
-} from '../../features/notifications/actions'
+import { UncontrolledAlert } from 'reactstrap'
 // core components
 import logo from '../../assets/img/agro-logo.png'
 import Footer from '../../components/Footer/Footer'
@@ -33,7 +30,7 @@ const Admin = (props) => {
   const dispatch = useDispatch()
   const authSelector = (state) => state.auth
   const auth = useSelector(authSelector)
-  const confirmed = auth.user.confirmed_email
+  const isConfirmed = auth.user.confirmed_email
 
   React.useEffect(() => {
     document.documentElement.scrollTop = 0
@@ -205,7 +202,25 @@ const Admin = (props) => {
         />
 
         <div className="content">
-          <div>Notification goes here</div>
+        {isConfirmed === false ? (
+        <UncontrolledAlert
+          className="alert-with-icon"
+          color="danger"
+          fade={false}
+        >
+          <span data-notify="icon" className="tim-icons icon-bell-55" />
+          <span data-notify="message">
+            You have to verify your email to use Agro services. Please{' '}
+            {/* eslint-disable-next-line */}
+            <a href="#" target="_blank">
+              click here
+            </a>{' '}
+            to get an email with the confirmation link.
+          </span>
+        </UncontrolledAlert>
+      ) : (
+        <p></p>
+      )}
           <Switch>
             {getRoutes(routes)}
             <Redirect from="*" to="/dashboard/polygons" />

@@ -54,9 +54,9 @@ export const updateMailing = (params) =>
   /** Update mailing settings */
   axios.put(mailing, params)
 
-export const deleteAcct = () =>
+export const deleteAcct = (delParams) =>
   /** Delete account */
-  axios.delete(deleteAccount)
+  axios.delete(deleteAccount, {data: delParams})
 
 export const createBillingDetails = (params) =>
   /** Create billing details */

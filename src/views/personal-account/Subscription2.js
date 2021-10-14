@@ -501,7 +501,7 @@ const Subscription2 = () => {
                                 {data.api
                                   .filter((key) => !api[key].isCurrent)
                                   .map((key) => (
-                                    <tr key={'history_' + key}>
+                                    <tr key={`history_ + ${key}`}>
                                       <td>
                                         <a href={api[key].link} target="_blank">
                                           {api[key].name}
@@ -523,6 +523,7 @@ const Subscription2 = () => {
                                   <th colSpan={2}>
                                     <p>Service:</p>
                                   </th>
+                                  {/* eslint-disable-next-line */}
                                   <th></th>
                                 </tr>
                               </thead>
@@ -630,7 +631,7 @@ const Subscription2 = () => {
                                   {Object.keys(auth.limits.calls).map(
                                     (key) =>
                                       !api[key].dashboardHidden && (
-                                        <tr key={'dashboard_' + key}>
+                                        <tr key={`dashboard_ + ${key}`}>
                                           <td>
                                             <a
                                               href={api[key].link}

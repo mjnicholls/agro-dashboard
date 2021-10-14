@@ -1,4 +1,3 @@
-/* eslint-disable */
 import React, { useState } from 'react'
 
 import { useDispatch } from 'react-redux'
@@ -12,6 +11,7 @@ import {
   Form,
   FormGroup,
   Input,
+  Label
 } from 'reactstrap'
 
 import {
@@ -19,6 +19,7 @@ import {
   notifySuccess,
 } from '../../features/notifications/actions'
 import { updateUserName } from '../../api/personalAccountAPI'
+import PropTypes from 'prop-types'
 
 const UserSettings = ({ email, name, setName, username, setUserName }) => {
   const [error, setError] = useState({})
@@ -30,7 +31,7 @@ const UserSettings = ({ email, name, setName, username, setUserName }) => {
   const confirmUpdate = () => {
     setError({})
 
-    let newError = {}
+    const newError = {}
 
     if (!name.length && !username.length) {
       newError.username = !username.length
@@ -39,7 +40,7 @@ const UserSettings = ({ email, name, setName, username, setUserName }) => {
       return
     }
 
-    let data = {
+    const data = {
       // cannot send an empty string to back-end
       new_username: username.length ? username : null,
       new_full_name: name,
@@ -49,8 +50,9 @@ const UserSettings = ({ email, name, setName, username, setUserName }) => {
       .then(() => {
         dispatch(notifySuccess('Username updated'))
       })
+      // eslint-disable-next-line
       .catch((error) => {
-        dispatch(notifyError('Error updating name ' + error.message))
+        dispatch(notifyError(`Error updating name ' + ${error.message}`))
       })
   }
 
@@ -61,7 +63,7 @@ const UserSettings = ({ email, name, setName, username, setUserName }) => {
       </CardHeader>
       <CardBody>
         <Form>
-          <label>Username</label>
+          <Label>Username</Label>
           <FormGroup>
             <Input
               type="text"
@@ -71,7 +73,7 @@ const UserSettings = ({ email, name, setName, username, setUserName }) => {
             />
           </FormGroup>
 
-          <label>Full Name</label>
+          <Label>Full Name</Label>
           <FormGroup>
             <Input
               type="text"
@@ -81,7 +83,7 @@ const UserSettings = ({ email, name, setName, username, setUserName }) => {
             />
           </FormGroup>
 
-          <label>Email address</label>
+          <Label>Email address</Label>
           <FormGroup>
             <Input type="email" value={email} disabled />
           </FormGroup>
@@ -99,6 +101,14 @@ const UserSettings = ({ email, name, setName, username, setUserName }) => {
       </CardFooter>
     </Card>
   )
+}
+
+UserSettings.propTypes = {
+  email: PropTypes.string,
+  name: PropTypes.string,
+  setName: PropTypes.func,
+  username: PropTypes.string,
+  setUserName: PropTypes.func,
 }
 
 export default UserSettings

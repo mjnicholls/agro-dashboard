@@ -1,4 +1,3 @@
-/* eslint-disable */
 import React, { useState } from 'react'
 
 import classnames from 'classnames'
@@ -47,7 +46,7 @@ const RegisterForm = () => {
 
     // username & email
 
-    let newError = {}
+    const newError = {}
 
     if (
       !username.length ||
@@ -84,11 +83,11 @@ const RegisterForm = () => {
 
     // create user
 
-    let data = {
+    const data = {
       user: {
-        email: email,
-        password: pass,
-        username: username,
+        email,
+        pass,
+        username,
       },
       mailing: {
         news: true,
@@ -97,13 +96,15 @@ const RegisterForm = () => {
       },
     }
 
+    // eslint-disable-next-line
     createNewUser(data)
       .then(() => {
         dispatch(notifySuccess('Registration complete'))
       })
+      // eslint-disable-next-line
       .catch((error) => {
         dispatch(
-          notifyError('Error registering ... please try again' + error.message),
+          notifyError(`Error registering ... please try again + ${error.message}`),
         )
       })
   }
@@ -166,6 +167,7 @@ const RegisterForm = () => {
               <CardHeader>
                 <CardImg
                   alt="..."
+                  // eslint-disable-next-line
                   src={require('assets/img/card-primary.png').default}
                   style={{ top: '-70px' }}
                 />
