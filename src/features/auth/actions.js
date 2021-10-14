@@ -1,6 +1,7 @@
 import axios from 'axios'
 
 import { login, logout } from '../../api/authAPI'
+import {fetchPolygons} from "../polygons/actions";
 import { deleteCookie, setCookie } from '../../utils/cookies'
 import { parseJwt } from './utils'
 
@@ -60,6 +61,25 @@ export const loginUser = (email, password) => (dispatch) => {
     .then((data) => {
       const { token } = data
       axios.defaults.headers.common.Authorization = `Bearer ${token}`
+      axios.interceptors.response.use(
+        (response) => (response && response.data ? response.data : response),
+        // eslint-disable-next-line
+        (error) => {
+          if (error.response && error.response.status === 401) {
+            dispatch(receiveLogout())
+          } else {
+            let message = 'Something went wrong'
+            if (
+              error.response &&
+              error.response.data &&
+              error.response.data.message
+            ) {
+              message = error.response.data.message
+            }
+            return Promise.reject(message)
+          }
+        },
+      )
       let tokenInfo
       try {
         tokenInfo = parseJwt(token).passport
@@ -77,6 +97,7 @@ export const loginUser = (email, password) => (dispatch) => {
           limits: tokenInfo.limits,
         }),
       )
+      dispatch(fetchPolygons())
     })
     .catch((err) => {
       dispatch(loginError(err.message))

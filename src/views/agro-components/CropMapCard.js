@@ -62,8 +62,6 @@ const CropMapCard = ({ years, activeYear, setActiveYear, info, setAlert }) => {
           onCancel={() => hideAlert()}
           showConfirm={false}
           showCloseButton={true}
-          style={{ fontSize: '10px' }}
-          closeBtnStyle={{ backgroundColor: 'none', background: 'none' }}
         >
           <div className="mt-3 text-center">
             <a

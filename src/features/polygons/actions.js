@@ -121,7 +121,7 @@ export const addPolygon = (data) =>
   async function addPolygonThunk(dispatch) {
     createPolygonApi(data)
       .then((response) => {
-        const newPolygon = enrichPolygon(response.data)
+        const newPolygon = enrichPolygon(response)
         dispatch(polygonAdded(newPolygon))
         dispatch(
           notifySuccess(
@@ -140,7 +140,7 @@ export const editPolygon = (data) =>
   async function deletePolygonThunk(dispatch) {
     editPolygonApi(data)
       .then((response) => {
-        dispatch(polygonUpdated(response.data))
+        dispatch(polygonUpdated(response))
         dispatch(notifySuccess('Polygon has been renamed successfully'))
       })
       .catch((error) => {

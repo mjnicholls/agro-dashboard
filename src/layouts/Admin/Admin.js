@@ -205,7 +205,6 @@ const Admin = (props) => {
         />
 
         <div className="content">
-          <div>Notification goes here</div>
           <Switch>
             {getRoutes(routes)}
             <Redirect from="*" to="/dashboard/polygons" />

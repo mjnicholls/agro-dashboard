@@ -51,7 +51,7 @@ const PolygonEdit = ({ polygon, close }) => {
         </Col>
       </Row>
       <div className="agro-pop-up-footer">
-      {/* <Button
+        {/* <Button
           className="btn-neutral"
           color="default"
           type="button"

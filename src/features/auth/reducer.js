@@ -39,7 +39,7 @@ const initialState = {
         email: null,
         appid: null,
         tariff: null,
-        confirmed_email: false,
+        confirmed_email: null,
       },
   limits: tokenData ? tokenData.limits : null,
   isApiKeyValid: null,

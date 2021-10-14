@@ -628,6 +628,17 @@ $daily-chart-width: 1000px;
     justify-content: flex-end;
     flex-wrap: wrap
   }
+  span.btn {
+    @include no-button-style;
+    margin-top: 10px;
+    margin-right: 10px;
+    border-radius: 0;
+    &:hover {
+      background: none !important;
+      color: $gray-100 !important;
+      box-shadow: none;
+    }
+  }
 }
 
 .agro-alert-dark-crop {
@@ -636,6 +647,7 @@ $daily-chart-width: 1000px;
   background-color: #1e1e2e!important;
   color: $gray-100!important;
   width: 42em !important;
+  font-size: 10px;
   h2 {
     margin-top: 25px!important;
     text-align: left !important;
@@ -659,10 +671,9 @@ $daily-chart-width: 1000px;
     @include no-button-style;
     margin-top: 10px;
     margin-right: 10px;
+    border-radius: 0;
     &:hover {
       background: none !important;
-      //background-image: none !important;
-      //background-color: none !important;
       color: $gray-100 !important;
       box-shadow: none;
     }
