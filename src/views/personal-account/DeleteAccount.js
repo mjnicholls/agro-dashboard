@@ -60,7 +60,7 @@ const DeleteAccount = ({ close, refreshData }) => {
         </Col>
       </Row>
       <div className="agro-pop-up-footer">
-        <Button
+           {/* <Button
           className="btn-neutral"
           color="default"
           type="button"
@@ -68,6 +68,7 @@ const DeleteAccount = ({ close, refreshData }) => {
         >
           Cancel
         </Button>
+       */}
         <Button
           className="btn-danger"
           color="danger"
@@ -104,7 +105,7 @@ const DeleteAccount = ({ close, refreshData }) => {
           </Col>
         </Row> */}
       <div className="agro-pop-up-footer">
-        <Button
+           {/* <Button
           className="btn-neutral"
           color="default"
           type="button"
@@ -112,6 +113,7 @@ const DeleteAccount = ({ close, refreshData }) => {
         >
           Cancel
         </Button>
+       */}
         {/* <Button
       className="btn-danger"
       color="danger"

@@ -53,7 +53,7 @@ const CropMapCard = ({ years, activeYear, setActiveYear, info, setAlert }) => {
     } else {
       setAlert(
         <ReactBSAlert
-          customClass="agro-alert"
+          customClass="agro-alert-dark-crop"
           confirmBtnText={year.status === 1 ? 'Subscription plans' : 'Contact'}
           title={
             year.status === 1
@@ -63,6 +63,8 @@ const CropMapCard = ({ years, activeYear, setActiveYear, info, setAlert }) => {
           onConfirm={() => hideAlert()}
           onCancel={() => hideAlert()}
           showConfirm={false}
+          showCloseButton={true}
+          style={{fontSize: "10px"}}
         >
           <div className="mt-3 text-center">
             <a

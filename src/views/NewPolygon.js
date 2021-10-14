@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 
 import { useDispatch, useSelector } from 'react-redux'
 import { PropagateLoader } from 'react-spinners'
-import { Col, Row } from 'reactstrap'
+import { Col, Row, UncontrolledAlert } from 'reactstrap'
 
 import { getAPIKeyStatus } from '../api/personalAccountAPI'
 import { setApiKeyStatus } from '../features/auth/actions'
@@ -11,6 +11,8 @@ import MapBoxDraw from './maps/MapBoxDraw'
 import PolygonCreateCard from './small-cards/PolygonCreateCard'
 
 const selectIsApiKeyValid = (state) => state.auth.isApiKeyValid
+const selectPolygons = (state) => state.polygons
+const authSelector = (state) => state.auth
 
 const PolygonNew = () => {
   /** Draw a new polygon, give it a name */
@@ -23,6 +25,8 @@ const PolygonNew = () => {
   const [mode, setMode] = React.useState('draw')
   const [mapHeight, setMapHeight] = useState(550)
   const drawRef = React.useRef(null)
+  const auth = useSelector(authSelector)
+  const isConfirmed = auth.user.isEmailConfirmed
 
   useEffect(() => {
     const contentHeight = getPageHeight()
@@ -82,6 +86,18 @@ const PolygonNew = () => {
 
   return isApiKeyValid ? (
     <>
+        {isConfirmed === false ? (
+      <UncontrolledAlert
+        className="alert-with-icon"
+        color="danger"
+        fade={false}
+      >
+        <span data-notify="icon" className="tim-icons icon-bell-55" />
+        <span data-notify="message">
+        You have to verify your email to use Agro services. Please <a href="" target="_blank">click here</a> to get an email with the confirmation link.
+        </span>
+      </UncontrolledAlert>
+    ) : <p></p> }
       <Row>
         <Col md="8">
           <MapBoxDraw

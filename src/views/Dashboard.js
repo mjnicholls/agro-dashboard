@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 
 import { useSelector } from 'react-redux'
 import { Col, Row } from 'reactstrap'
+import { useDispatch, useSelector } from 'react-redux'
+import { Col, Row, UncontrolledAlert } from 'reactstrap'
 
 import { getOneCallData } from '../api/weatherApi'
 import PolygonTable from './agro-components/PolygonTable'
@@ -18,6 +20,7 @@ import WeatherCurrent from './small-cards/WeatherCurrent'
 const selectPolygons = (state) => state.polygons
 const selectActivePoly = (state) => state.state.polygon
 const selectIsSatelliteMode = (state) => state.state.isSatelliteMode
+const authSelector = (state) => state.auth
 
 const Dashboard = () => {
   const [satelliteImage, setSatelliteImage] = useState(null)
@@ -32,6 +35,8 @@ const Dashboard = () => {
   const activePolygon = useSelector(selectActivePoly)
   const polygons = useSelector(selectPolygons)
   const isSatelliteMode = useSelector(selectIsSatelliteMode)
+  const auth = useSelector(authSelector)
+  const isConfirmed = auth.user.isEmailConfirmed
 
   useEffect(() => {
     if (!isSatelliteMode) {
@@ -78,6 +83,18 @@ const Dashboard = () => {
 
   return (
     <>
+    {isConfirmed === false ? (
+      <UncontrolledAlert
+        className="alert-with-icon"
+        color="danger"
+        fade={false}
+      >
+        <span data-notify="icon" className="tim-icons icon-bell-55" />
+        <span data-notify="message">
+        You have to verify your email to use Agro services. Please <a href="" target="_blank">click here</a> to get an email with the confirmation link.
+        </span>
+      </UncontrolledAlert>
+    ) : <p></p> }
       <Row>
         <Col lg="6">
           <MapBox

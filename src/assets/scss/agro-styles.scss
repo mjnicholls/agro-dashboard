@@ -128,12 +128,10 @@ $mapHeight: 400px;
       &.right {
         padding-left: 5px;
       }
-
       &:hover {
         color: rgba(255, 255, 255, 0.7);
       }
     }
-
     .calendar-icon {
       position: relative;
       cursor: pointer;
@@ -592,4 +590,57 @@ $daily-chart-width: 1000px;
     left: -4px;
     background: #ffffff;
     border-radius: 50%;
+}
+
+
+
+.agro-alert-dark {
+  text-align: left;
+  background-color: #1e1e2e!important;
+  color: white!important;
+  width: 42em !important;
+  h2 {
+    text-align: left !important;
+    color: white!important;
+  }
+  div {
+    text-align: left;
+  }
+  p, span {
+    color: white;
+  }
+  input {
+    color: white!important;
+  }
+  .agro-pop-up-footer {
+    @include horizontal-container;
+    justify-content: flex-end;
+    flex-wrap: wrap
+  }
+}
+
+.agro-alert-dark-crop {
+  text-align: left;
+  background-color: #1e1e2e!important;
+  color: white!important;
+  width: 42em !important;
+  h2 {
+    margin-top: 25px!important;
+    text-align: left !important;
+    color: white!important;
+  }
+  div {
+    text-align: left;
+  }
+  p, span {
+    color: white;
+  }
+  input {
+    color: white!important;
+  }
+  .agro-pop-up-footer {
+    @include horizontal-container;
+    justify-content: flex-end;
+    flex-wrap: wrap
+  }
 }

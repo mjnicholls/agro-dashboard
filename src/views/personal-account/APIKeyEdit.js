@@ -57,7 +57,7 @@ const ApiKeyEdit = ({ apiKey, close, refreshData }) => {
         </Col>
       </Row>
       <div className="agro-pop-up-footer">
-        <Button
+       {/* <Button
           className="btn-neutral"
           color="default"
           type="button"
@@ -65,6 +65,7 @@ const ApiKeyEdit = ({ apiKey, close, refreshData }) => {
         >
           Cancel
         </Button>
+       */}
         <Button
           className="btn-neutral"
           color="default"
@@ -73,7 +74,7 @@ const ApiKeyEdit = ({ apiKey, close, refreshData }) => {
           type="button"
           onClick={confirmEdit}
         >
-          Create
+          Confirm
         </Button>
       </div>
     </div>

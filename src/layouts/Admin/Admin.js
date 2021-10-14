@@ -1,9 +1,14 @@
-import React from 'react'
+/* eslint-disable */
+import React, { useState }from 'react'
 
 import PerfectScrollbar from 'perfect-scrollbar'
 import NotificationAlert from 'react-notification-alert'
 import { Redirect, Route, Switch, useLocation } from 'react-router-dom'
-
+import { useSelector, useDispatch } from 'react-redux'
+import {
+  notifyError,
+  notifySuccess,
+} from '../../features/notifications/actions'
 // core components
 import logo from '../../assets/img/agro-logo.png'
 import Footer from '../../components/Footer/Footer'
@@ -11,6 +16,7 @@ import AdminNavbar from '../../components/Navbars/AdminNavbar'
 import Sidebar from '../../components/Sidebar/Sidebar2'
 // import FixedPlugin from "components/FixedPlugin/FixedPlugin";
 import routes from '../../routes'
+import { bool } from 'prop-types'
 
 let ps
 
@@ -19,10 +25,15 @@ const Admin = (props) => {
   // const [activeColor, setActiveColor] = React.useState("blue");
   // const [sidebarMini, setSidebarMini] = React.useState(true);
   const [opacity, setOpacity] = React.useState(0)
+  const [error, setError] = useState(null)
   const [sidebarOpened, setSidebarOpened] = React.useState(false)
   const mainPanelRef = React.useRef(null)
   const notificationAlertRef = React.useRef(null)
   const location = useLocation()
+  const dispatch = useDispatch()
+  const authSelector = (state) => state.auth
+  const auth = useSelector(authSelector)
+  const confirmed = auth.user.isEmailConfirmed;
 
   React.useEffect(() => {
     document.documentElement.scrollTop = 0
@@ -78,6 +89,18 @@ const Admin = (props) => {
       setOpacity(0)
     }
   }
+
+/*
+  const acctNotifyAlert = () => {
+
+    if (confirmed === false) {
+      newError.confirmed = true
+      setError(newError)
+      dispatch(notifyError("You have to verify your email to use Agro services. Please click here to get an email with the confirmation link."))
+      return
+    }
+  }
+*/
 
   const getRoutes = (routesInstance) =>
     routesInstance.map((prop) => {
@@ -172,7 +195,7 @@ const Admin = (props) => {
         }}
         closeSidebar={closeSidebar}
       />
-      <div className="main-panel" ref={mainPanelRef} data={activeColor}>
+      <div className="main-panel" ref={mainPanelRef} data={activeColor} >
         <AdminNavbar
           {...props}
           handleMiniClick={handleMiniClick}
