@@ -1,5 +1,3 @@
-import axios from 'axios'
-
 import { getCookie } from '../../utils/cookies'
 import {
   API_KEY_STATUS,
@@ -21,7 +19,6 @@ const token = getCookie(TOKEN_COOK)
 if (token) {
   try {
     tokenData = parseJwt(token).passport
-    axios.defaults.headers.common.Authorization = `Bearer ${token}`
   } catch (err) {
     console.log(err)
   }

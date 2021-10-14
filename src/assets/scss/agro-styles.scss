@@ -590,6 +590,9 @@ $daily-chart-width: 1000px;
       outline: none;
       box-shadow: none;
     }
+    //p {
+    //  opacity: 100;
+    //}
 }
 
 .sidebar .nav li.active > button:before {
@@ -603,7 +606,13 @@ $daily-chart-width: 1000px;
     border-radius: 50%;
 }
 
+.sidebar-mini .sidebar .sidebar-wrapper > .nav > li > button p {
+    opacity: 0;
+}
 
+.sidebar-mini .sidebar:hover .sidebar-wrapper > .nav > li > button p {
+    opacity: 100;
+}
 
 .agro-alert-dark {
   text-align: left;
