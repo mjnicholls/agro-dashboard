@@ -20,6 +20,7 @@ if (token) {
   try {
     tokenData = parseJwt(token).passport
   } catch (err) {
+    // eslint-disable-next-line
     console.log(err)
   }
 }
@@ -55,6 +56,7 @@ export default function authReducer(state = initialState, action) {
           tariff: null,
           confirmed_email: null,
         },
+        isApiKeyValid: null,
       }
     case LOGIN_SUCCESS:
       return {
@@ -64,6 +66,7 @@ export default function authReducer(state = initialState, action) {
         token: action.data.token,
         user: action.data.user,
         limits: action.data.limits,
+        isApiKeyValid: null,
       }
     case LOGIN_FAILURE:
       return {

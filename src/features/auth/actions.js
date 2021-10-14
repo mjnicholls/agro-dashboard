@@ -1,8 +1,8 @@
 import axios from 'axios'
 
 import { login, logout } from '../../api/authAPI'
-import {fetchPolygons} from "../polygons/actions";
 import { deleteCookie, setCookie } from '../../utils/cookies'
+import { fetchPolygons } from '../polygons/actions'
 import { parseJwt } from './utils'
 
 export const API_KEY_STATUS = 'API_KEY_STATUS'
@@ -60,6 +60,16 @@ export const loginUser = (email, password) => (dispatch) => {
   login(email, password)
     .then((data) => {
       const { token } = data
+
+      let tokenInfo
+      try {
+        tokenInfo = parseJwt(token).passport
+      } catch {
+        dispatch(loginError('Error parsing token')) // TODO
+      }
+      if (!tokenInfo) {
+        dispatch(loginError('Error parsing token')) // TODO
+      }
       axios.defaults.headers.common.Authorization = `Bearer ${token}`
       axios.interceptors.response.use(
         (response) => (response && response.data ? response.data : response),
@@ -80,15 +90,7 @@ export const loginUser = (email, password) => (dispatch) => {
           }
         },
       )
-      let tokenInfo
-      try {
-        tokenInfo = parseJwt(token).passport
-      } catch {
-        dispatch(loginError('Error parsing token')) // TODO
-      }
-      if (!tokenInfo) {
-        dispatch(loginError('Error parsing token')) // TODO
-      }
+
       setCookie(TOKEN_COOK, token)
       dispatch(
         receiveLogin({
@@ -108,11 +110,13 @@ export const logoutUser = () => async (dispatch) => {
   dispatch(requestLogout())
   logout()
     .then(() => {
-      deleteCookie(TOKEN_COOK, '/')
+      deleteCookie(TOKEN_COOK, '/', '')
+      delete axios.defaults.headers.common.Authorization
       dispatch(destroyReduxState())
       dispatch(receiveLogout())
     })
     .catch((err) => {
+      // eslint-disable-next-line
       console.log(err)
     })
 }
