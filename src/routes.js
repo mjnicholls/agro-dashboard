@@ -15,13 +15,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import CropMap from './views/CropMap'
 import DashboardMain from './views/Dashboard'
 import PolygonNew from './views/NewPolygon'
-import Login from './views/pages/Login'
+import Login from './views/auth/Login'
 import AccountSettings from './views/personal-account/AccountSettings'
 import ApiKeys from './views/personal-account/ApiKeys'
 import BillingPlans from './views/personal-account/BillingPlans'
 import InvoiceList from './views/personal-account/Payments'
-import RegisterForm from './views/personal-account/Registration'
-import ResetPass from './views/personal-account/ResetPassword'
+import RegisterForm from './views/auth/Registration'
+import ResetPass from './views/auth/ResetPassword'
 import Subscription from './views/personal-account/Subscription'
 import Subscription2 from './views/personal-account/Subscription2'
 
@@ -144,15 +144,6 @@ const routes = [
     state: 'pagesCollapse',
     hidden: true,
     views: [
-      // {
-      //   path: "/pricing",
-      //   name: "Pricing",
-      //   rtlName: "عالتسعير",
-      //   mini: "P",
-      //   rtlMini: "ع",
-      //   component: Pricing,
-      //   layout: "/auth",
-      // },
       {
         path: '/login',
         name: 'Login',
@@ -182,24 +173,6 @@ const routes = [
         component: ResetPass,
         layout: '/auth',
       },
-      // {
-      //   path: "/register",
-      //   name: "Register",
-      //   rtlName: "تسجيل",
-      //   mini: "R",
-      //   rtlMini: "صع",
-      //   component: Register,
-      //   layout: "/auth",
-      // },
-      // {
-      //   path: "/user-profile",
-      //   name: "User Profile",
-      //   rtlName: "ملف تعريفي للمستخدم",
-      //   mini: "UP",
-      //   rtlMini: "شع",
-      //   component: User,
-      //   layout: "/admin",
-      // },
     ],
   },
 ]

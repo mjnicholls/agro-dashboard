@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Select from 'react-select'
 import { Button, Col, FormGroup, Input, Label, Row } from 'reactstrap'
@@ -17,6 +17,7 @@ const DeleteAccount = ({ close }) => {
 const dispatch = useDispatch()
 
   const subscription = useSelector(userSubscriptionSelector)
+  const [reason, setReason] = useState()
 
   const confirmDeleteAcct = () => {
     

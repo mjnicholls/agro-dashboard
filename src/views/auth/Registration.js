@@ -32,6 +32,7 @@ import {
 // import { createNewUser } from '../../services/api/personalAccountAPI'
 
 const RegisterForm = () => {
+
   const [state, setState] = React.useState({})
   const [error, setError] = useState({})
   const [username, setUsername] = useState('')
@@ -81,14 +82,21 @@ const RegisterForm = () => {
       return
     }
 
-    // create user
+    /** TODO need to make sure that "I am 16 years or over.."
+     * and "I agree with Privacy Policy."
+     were checked, otherwise return an error
+     see PrivacySettings as an example
+     */
 
+
+    // create user
     const data = {
       user: {
         email,
         pass,
         username,
       },
+      // TODO Send real mailing preferences
       mailing: {
         news: true,
         product: false,
@@ -97,21 +105,20 @@ const RegisterForm = () => {
     }
 
     // eslint-disable-next-line
-    createNewUser(data)
-      .then(() => {
-        dispatch(notifySuccess('Registration complete'))
-      })
-      // eslint-disable-next-line
-      .catch((error) => {
-        dispatch(
-          notifyError(`Error registering ... please try again + ${error.message}`),
-        )
-      })
+    // createNewUser(data)
+    //   .then(() => {
+    //     dispatch(notifySuccess('Registration complete'))
+    //   })
+    //   // eslint-disable-next-line
+    //   .catch((error) => {
+    //     dispatch(
+    //       notifyError(`Error registering ... please try again ${error.message}`),
+    //     )
+    //   })
   }
 
   const handleCheckBoxClick = (key, value) => {
-    // eslint-disable-next-line
-    let newObj = Object.assign({}, mailSettings)
+    const newObj = {...mailSettings}
     newObj[key] = value
     setMailSettings(newObj)
   }

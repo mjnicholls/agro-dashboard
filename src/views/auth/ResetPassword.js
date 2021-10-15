@@ -7,7 +7,6 @@ import classnames from 'classnames'
 import {
   Button,
   Card,
-  CardHeader,
   CardBody,
   CardFooter,
   CardTitle,
@@ -25,47 +24,39 @@ import {
 } from '../../features/notifications/actions'
 
 import { validateEmail } from '../../utils/validation'
-// import { updatePass } from ''
 
 const ResetPass = () => {
-  const [state, setState] = React.useState({})
+
+  const [emailFocus, setEmailFocus] = React.useState(false)
 
   const [email, setEmail] = useState('')
-  const [error, setError] = useState({})
+  const [error, setError] = useState(false)
 
   const dispatch = useDispatch()
 
   const confirmPassReset = () => {
-    setError({})
-
-    const newError = {}
+    setError(false)
 
     if (!email.length) {
-      newError.email = !email.length
       dispatch(notifyError('Please enter your email address'))
-      setError(newError)
+      setError(true)
       return
     }
 
     if (!validateEmail(email)) {
-      newError.email = validateEmail(email)
-      dispatch(notifyError('Email does not exist'))
-      setError(newError)
+      setError(true)
+      dispatch(notifyError('Email address is incorrect'))
       return
     }
 
-    const reset = {
-      email
-    }
-
     // eslint-disable-next-line
-    updatePass(reset)
+    updatePass({email: email})
       .then(() => {
         dispatch(notifySuccess('Email sent!'))
       })
-      // eslint-disable-next-line
-      .catch((error) => {
-        dispatch(notifyError(`Error sending email + ${error.message}`))
+      .catch((err) => {
+        // eslint-disable-next-line
+        dispatch(notifyError(`Error resetting password: ${err.message}`))
       })
   }
 
@@ -79,7 +70,7 @@ const ResetPass = () => {
                 <CardTitle tag="h4">Reset Password</CardTitle>
                 <InputGroup
                   className={classnames({
-                    'input-group-focus': state.passFocus,
+                    'input-group-focus': emailFocus,
                     'has-danger': error.email,
                   })}
                 >
@@ -92,8 +83,8 @@ const ResetPass = () => {
                     placeholder="Enter email"
                     type="text"
                     onChange={(e) => setEmail(e.target.value)}
-                    onFocus={() => setState({ ...state, passFocus: true })}
-                    onBlur={() => setState({ ...state, passFocus: false })}
+                    onFocus={() => setEmailFocus(true)}
+                    onBlur={() => setEmailFocus(false)}
                   />
                 </InputGroup>
               </CardBody>

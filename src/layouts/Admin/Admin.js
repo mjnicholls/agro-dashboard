@@ -87,18 +87,6 @@ const Admin = (props) => {
     }
   }
 
-  /*
-  const acctNotifyAlert = () => {
-
-    if (confirmed === false) {
-      newError.confirmed = true
-      setError(newError)
-      dispatch(notifyError("You have to verify your email to use Agro services. Please click here to get an email with the confirmation link."))
-      return
-    }
-  }
-*/
-
   const getRoutes = (routesInstance) =>
     routesInstance.map((prop) => {
       if (prop.collapse) {

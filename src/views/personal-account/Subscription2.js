@@ -36,32 +36,17 @@ const tabsOptions = [
 ]
 
 const Subscription2 = () => {
-  const [activeTab, setActiveTab] = useState(tabsOptions[0])
+
+  const [activeTab, setActiveTab] = useState(tabsOptions[0]) // api or dashboard
+  const [activePage, setActivePage] = useState('charge') // Charges or Limits
+
   const [polygonsData, setPolygonsData] = useState({})
-  const [pageTabs, setpageTabs] = React.useState('home')
   const auth = useSelector(authSelector)
   const tariff = auth.user.tariff
   const data = subscriptions[tariff]
 
-  const changeActiveTab = (e, tabState, tabName) => {
-    e.preventDefault()
-    switch (tabState) {
-      case 'horizontalTabs':
-        sethorizontalTabs(tabName)
-        break
-      case 'verticalTabsIcons':
-        setverticalTabsIcons(tabName)
-        break
-      case 'pageTabs':
-        setpageTabs(tabName)
-        break
-      case 'verticalTabs':
-        setverticalTabs(tabName)
-        break
-      default:
-        break
-    }
-  }
+  // const [activeTab, setActiveTab] = useState('charge')
+
 
   useEffect(() => {
     getPolygons()
@@ -106,9 +91,10 @@ const Subscription2 = () => {
                 <NavItem>
                   <NavLink
                     data-toggle="tab"
-                    href="#pablo"
-                    className={pageTabs === 'home' ? 'active' : ''}
-                    onClick={(e) => changeActiveTab(e, 'pageTabs', 'home')}
+                    // href="#pablo"
+                    className={activePage === 'charge' ? 'active' : ''}
+                    // onClick={(e) => changeActiveTab(e, 'pageTabs', 'charge')}
+                    onClick={() => setActivePage('charge')}
                   >
                     <i className="tim-icons icon-coins" />
                     Your Charges
@@ -117,9 +103,10 @@ const Subscription2 = () => {
                 <NavItem>
                   <NavLink
                     data-toggle="tab"
-                    href="#pablo"
-                    className={pageTabs === 'messages' ? 'active' : ''}
-                    onClick={(e) => changeActiveTab(e, 'pageTabs', 'messages')}
+                    // href="#pablo"
+                    className={activePage === 'limits' ? 'active' : ''}
+                    // onClick={(e) => changeActiveTab(e, 'pageTabs', 'limits')}
+                    onClick={() => setActivePage('limits')}
                   >
                     <i className="tim-icons icon-alert-circle-exc" />
                     Your Limits
@@ -139,9 +126,9 @@ const Subscription2 = () => {
               </Nav>
               <TabContent
                 className="tab-space tab-subcategories"
-                activeTab={pageTabs}
+                activeTab={activePage}
               >
-                <TabPane tabId="home">
+                <TabPane tabId="charge">
                   <Row>
                     <Col lg="12">
                       <Card>
@@ -297,7 +284,7 @@ const Subscription2 = () => {
                     </Col>
                   </Row>
                 </TabPane>
-                <TabPane tabId="messages">
+                <TabPane tabId="limits">
                   <Row>
                     <Col lg="12">
                       <Card>

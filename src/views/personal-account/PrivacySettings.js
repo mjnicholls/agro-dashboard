@@ -26,8 +26,7 @@ const PrivacySettings = ({ mailSettings, setMailSettings }) => {
   const dispatch = useDispatch()
 
   const handleCheckBoxClick = (key, value) => {
-    // eslint-disable-next-line
-    let newObj = Object.assign({}, mailSettings)
+    const newObj = {...mailSettings}
     newObj[key] = value
     setMailSettings(newObj)
   }
@@ -39,7 +38,7 @@ const PrivacySettings = ({ mailSettings, setMailSettings }) => {
       })
       // eslint-disable-next-line
       .catch((error) => {
-        dispatch(notifyError(`Error updating settings + ${error.message}`))
+        dispatch(notifyError(`Error updating settings: ${error.message}`))
       })
   }
 
