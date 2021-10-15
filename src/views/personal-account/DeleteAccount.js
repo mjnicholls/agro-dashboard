@@ -17,15 +17,22 @@ const DeleteAccount = ({ close }) => {
 const dispatch = useDispatch()
 
   const subscription = useSelector(userSubscriptionSelector)
-  const [reason, setReason] = useState()
+  const [reason, setReason] = useState(deleteAcctOptions)
+
+  const handleChange = (key, value) => {
+    const newObj = {}
+    newObj[key] = value
+    setReason(newObj)
+  }
 
   const confirmDeleteAcct = () => {
-    
+
     const data = {
-      reason: deleteAcctOptions
+      reason
     }
 
     deleteAcct(data)
+    
       .then(() => {
         dispatch(notifySuccess('Account deleted'))
       })
@@ -53,7 +60,13 @@ const dispatch = useDispatch()
                 <Select
                   className="react-select info mb-3"
                   classNamePrefix="react-select"
+                  // eslint-disable-next-line 
+                      onChange={(reason) => {
+                        handleChange('reason', reason.label)
+                      }}
                   options={deleteAcctOptions}
+                  getOptionLabel={(option) => option.value}
+                  getOptionValue={(option) => option.label}
                   menuPortalTarget={document.body}
                   styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
                 ></Select>

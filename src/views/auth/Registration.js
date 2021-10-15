@@ -28,6 +28,7 @@ import {
   notifyError,
   notifySuccess,
 } from '../../features/notifications/actions'
+import { updateMailing } from '../../api/personalAccountAPI'
 
 // import { createNewUser } from '../../services/api/personalAccountAPI'
 
@@ -37,10 +38,17 @@ const RegisterForm = () => {
   const [error, setError] = useState({})
   const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
-  const [mailSettings, setMailSettings] = useState('')
   const [pass, setPass] = useState('')
   const [confirmPass, setConfirmPass] = useState('')
+  const [checkAge, setCheckAge] = useState('')
+  const [checkTerms, setCheckTerms] = useState('')
   const dispatch = useDispatch()
+    const [mailSettings, setMailSettings] = useState({
+    news: false,
+    product: false,
+    system: false,
+  })
+  
 
   const createUser = () => {
     setError({})
@@ -82,12 +90,19 @@ const RegisterForm = () => {
       return
     }
 
-    /** TODO need to make sure that "I am 16 years or over.."
-     * and "I agree with Privacy Policy."
-     were checked, otherwise return an error
-     see PrivacySettings as an example
-     */
+    if (checkAge === false) {
+      newError.checkAge = true
+      dispatch(notifyError('Please confirm you are 16 years or over'))
+      setError(newError)
+      return
+    }
 
+    if (checkTerms === false) {
+      newError.checkTerms = true
+      dispatch(notifyError('Please agree to the privacy policy'))
+      setError(newError)
+      return
+    }
 
     // create user
     const data = {
@@ -96,12 +111,11 @@ const RegisterForm = () => {
         pass,
         username,
       },
-      // TODO Send real mailing preferences
       mailing: {
-        news: true,
-        product: false,
-        system: false,
-      },
+        news: "news",
+        product: "product",
+        system: "system"
+      }
     }
 
     // eslint-disable-next-line
@@ -122,6 +136,16 @@ const RegisterForm = () => {
     newObj[key] = value
     setMailSettings(newObj)
   }
+
+  updateMailing(mailSettings)
+  .then(() => {
+   // dispatch(notifySuccess("Mail settings saved"))
+  })
+  // eslint-disable-next-line
+  .catch((error) => {
+    dispatch(notifyError(`Error updating settings: ${error.message}`))
+  })
+
 
   const onChange = (value) => {
     console.log('Captcha value:', value)
@@ -258,13 +282,22 @@ const RegisterForm = () => {
                   </InputGroup>
                   <FormGroup check className="text-left">
                     <Label check>
-                      <Input type="checkbox" />
+                      <Input 
+                      type="checkbox" 
+                      onChange={(e) => setCheckAge(!checkAge)}
+                      checked={checkAge}
+                      />
                       <span className="form-check-sign" />I am 16 years or over
                     </Label>
                   </FormGroup>
                   <FormGroup check className="text-left">
                     <Label check>
-                      <Input type="checkbox" />
+                      <Input
+                      type="checkbox" 
+                       //className={error.checkTerms ? 'danger-border' : ''}
+                       onChange={(e) => setCheckTerms(!checkTerms)}
+                       checked={checkTerms}
+                       />
                       <span className="form-check-sign" />I agree with{' '}
                       <a
                         href="https://agromonitoring.com/privacy-policy"
@@ -287,7 +320,7 @@ const RegisterForm = () => {
                         target="_blank"
                       >
                         {' '}
-                        Websites terms and conditions of use
+                        Website&#39;s terms and conditions of use
                       </a>
                     </Label>
                   </FormGroup>

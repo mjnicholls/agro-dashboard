@@ -80,7 +80,7 @@ const Subscription2 = () => {
       </Row>
 
       <Row>
-        <Col className="ml-auto mr-auto" md="8">
+        <Col className="ml-auto mr-auto" md="12">
           <Card className="card-plain card-subcategories">
             <CardBody>
               {/* color-classes: "nav-pills-primary", "nav-pills-info", "nav-pills-success", "nav-pills-warning","nav-pills-danger" */}
@@ -91,9 +91,7 @@ const Subscription2 = () => {
                 <NavItem>
                   <NavLink
                     data-toggle="tab"
-                    // href="#pablo"
                     className={activePage === 'charge' ? 'active' : ''}
-                    // onClick={(e) => changeActiveTab(e, 'pageTabs', 'charge')}
                     onClick={() => setActivePage('charge')}
                   >
                     <i className="tim-icons icon-coins" />
@@ -103,9 +101,7 @@ const Subscription2 = () => {
                 <NavItem>
                   <NavLink
                     data-toggle="tab"
-                    // href="#pablo"
                     className={activePage === 'limits' ? 'active' : ''}
-                    // onClick={(e) => changeActiveTab(e, 'pageTabs', 'limits')}
                     onClick={() => setActivePage('limits')}
                   >
                     <i className="tim-icons icon-alert-circle-exc" />
