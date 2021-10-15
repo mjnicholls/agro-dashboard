@@ -384,9 +384,9 @@ const InvoiceSettings = ({
 InvoiceSettings.propTypes = {
   invoiceSettings: PropTypes.object,
   setInvoiceSettings: PropTypes.func,
-  isNew: PropTypes.func,
+  isNew: PropTypes.bool,
   refreshData: PropTypes.func,
-  isActiveStripeCustomer: PropTypes.func,
+  isActiveStripeCustomer: PropTypes.bool,
 }
 
 export default InvoiceSettings

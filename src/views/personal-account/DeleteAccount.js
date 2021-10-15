@@ -17,13 +17,8 @@ const DeleteAccount = ({ close }) => {
 const dispatch = useDispatch()
 
   const subscription = useSelector(userSubscriptionSelector)
-  const [reason, setReason] = useState(deleteAcctOptions)
+  const [reason, setReason] = useState('')
 
-  const handleChange = (key, value) => {
-    const newObj = {}
-    newObj[key] = value
-    setReason(newObj)
-  }
 
   const confirmDeleteAcct = () => {
 
@@ -62,7 +57,7 @@ const dispatch = useDispatch()
                   classNamePrefix="react-select"
                   // eslint-disable-next-line 
                       onChange={(reason) => {
-                        handleChange('reason', reason.label)
+                        setReason(reason.label)
                       }}
                   options={deleteAcctOptions}
                   getOptionLabel={(option) => option.value}

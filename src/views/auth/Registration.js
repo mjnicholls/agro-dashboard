@@ -40,8 +40,8 @@ const RegisterForm = () => {
   const [email, setEmail] = useState('')
   const [pass, setPass] = useState('')
   const [confirmPass, setConfirmPass] = useState('')
-  const [checkAge, setCheckAge] = useState('')
-  const [checkTerms, setCheckTerms] = useState('')
+  const [checkAge, setCheckAge] = useState(false)
+  const [checkTerms, setCheckTerms] = useState(false)
   const dispatch = useDispatch()
     const [mailSettings, setMailSettings] = useState({
     news: false,
@@ -280,6 +280,9 @@ const RegisterForm = () => {
                       onChange={(e) => setConfirmPass(e.target.value)}
                     />
                   </InputGroup>
+                  <Label>
+                    <p style={{font:"black", marginTop: "20px"}}>We will use information you provided for management and administration purposes, and for keeping you informed by mail, telephone, email and SMS of other products and services from us and our partners. You can proactively manage your preferences or opt-out of communications with us at any time using Privacy Centre. You have the right to access your data held by us or to request your data to be deleted. For full details please see <a href="https://agromonitoring.com/privacy-policy" target="_blank">Privacy Policy.</a></p>
+                    </Label>
                   <FormGroup check className="text-left">
                     <Label check>
                       <Input 
@@ -291,6 +294,7 @@ const RegisterForm = () => {
                     </Label>
                   </FormGroup>
                   <FormGroup check className="text-left">
+               
                     <Label check>
                       <Input
                       type="checkbox" 
