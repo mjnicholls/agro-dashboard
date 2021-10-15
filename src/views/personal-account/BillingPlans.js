@@ -66,13 +66,6 @@ const BillingPlans = () => {
                   className="mb-2 text-center"
                   style={{ tableLayout: 'fixed' }}
                 >
-                  <thead>
-                    <tr>
-                      <th colSpan="5">
-                        <h4>Plans</h4>
-                      </th>
-                    </tr>
-                  </thead>
                   <tbody>
                     <tr>
                       <td>
