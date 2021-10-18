@@ -111,11 +111,7 @@ const RegisterForm = () => {
         pass,
         username,
       },
-      mailing: {
-        news: "news",
-        product: "product",
-        system: "system"
-      }
+      mailing: mailSettings
     }
 
     // eslint-disable-next-line
@@ -280,8 +276,8 @@ const RegisterForm = () => {
                       onChange={(e) => setConfirmPass(e.target.value)}
                     />
                   </InputGroup>
-                  <Label>
-                    <p style={{font:"black", marginTop: "20px"}}>We will use information you provided for management and administration purposes, and for keeping you informed by mail, telephone, email and SMS of other products and services from us and our partners. You can proactively manage your preferences or opt-out of communications with us at any time using Privacy Centre. You have the right to access your data held by us or to request your data to be deleted. For full details please see <a href="https://agromonitoring.com/privacy-policy" target="_blank">Privacy Policy.</a></p>
+                  <Label style={{margin: "20px 5px 20px 20px"}}>
+                    <span className="form-check-sign">We will use information you provided for management and administration purposes, and for keeping you informed by mail, telephone, email and SMS of other products and services from us and our partners. You can proactively manage your preferences or opt-out of communications with us at any time using Privacy Centre. You have the right to access your data held by us or to request your data to be deleted. For full details please see <a href="https://agromonitoring.com/privacy-policy" target="_blank">Privacy Policy.</a></span>
                     </Label>
                   <FormGroup check className="text-left">
                     <Label check>
@@ -331,6 +327,9 @@ const RegisterForm = () => {
                 </Form>
                 <hr />
                 <Form className="form">
+                <Label style={{margin: "10px 5px 10px 20px"}}>
+                    <span className="form-check-sign">I consent to receive communications from Extreme Electronics Ltd. and their partners:</span>
+                    </Label>
                   <FormGroup check className="text-left">
                     <Label check className="mr-3">
                       <Input
@@ -340,24 +339,12 @@ const RegisterForm = () => {
                         }}
                       />
                       <span className="form-check-sign" />
-                      System news (API usage alert, system update, temporary
-                      system shutdown, etc)
+                      Corporate news (our life, the launch of a new service,
+                      etc)
                     </Label>
                   </FormGroup>
                   <FormGroup check className="text-left">
-                    <Label check>
-                      <Input
-                        type="checkbox"
-                        onChange={(e) => {
-                          handleCheckBoxClick('system', e.target.checked)
-                        }}
-                      />
-                      <span className="form-check-sign" />
-                      Product news (change to price, new product features, etc)
-                    </Label>
-                  </FormGroup>
-                  <FormGroup check className="text-left">
-                    <Label check>
+                  <Label check>
                       <Input
                         type="checkbox"
                         onChange={(e) => {
@@ -365,9 +352,22 @@ const RegisterForm = () => {
                         }}
                       />
                       <span className="form-check-sign" />
-                      Corporate news (our life, the launch of a new service,
-                      etc)
+                      Product news (change to price, new product features, etc)
                     </Label>
+                  </FormGroup>
+                  <FormGroup check className="text-left">
+                  <Label check>
+                      <Input
+                        type="checkbox"
+                        onChange={(e) => {
+                          handleCheckBoxClick('system', e.target.checked)
+                        }}
+                      />
+                      <span className="form-check-sign" />
+                      System news (API usage alert, system update, temporary
+                      system shutdown, etc)
+                    </Label>
+                
                   </FormGroup>
 
                   <FormGroup className="text-left">
