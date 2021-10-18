@@ -4,9 +4,9 @@
     "no-unused-vars": "warn",
     "prettier/prettier": "warn",
     "spaced-comment": "warn",
-    "no-param-reassign": 0,
-    "react/jsx-boolean-value": 0,
-    "react/prop-types": 0,
+    "no-param-reassign": "warn",
+    "react/jsx-boolean-value": "warn",
+    "react/prop-types": "warn",
     "import/order": [
       "warn",
       {

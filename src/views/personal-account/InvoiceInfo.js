@@ -1,4 +1,3 @@
-/* eslint-disable */
 
 import React, { useState } from 'react'
 
@@ -31,6 +30,7 @@ import {
   getCountries,
   createBillingDetails,
 } from '../../api/personalAccountAPI'
+import PropTypes from 'prop-types'
 
 const InvoiceSettings = ({
   invoiceSettings,
@@ -52,13 +52,13 @@ const InvoiceSettings = ({
   }, [invoiceSettings])
 
   const handleChange = (key, value) => {
-    let newObj = { ...invoiceSettings }
+    const newObj = { ...invoiceSettings }
     newObj[key] = value
     setInvoiceSettings(newObj)
   }
 
   const getCountryName = () => {
-    let country = countries.find((obj) => obj.code === invoiceSettings.country)
+    const country = countries.find((obj) => obj.code === invoiceSettings.country)
     return country ? country.name : ''
   }
 
@@ -69,7 +69,9 @@ const InvoiceSettings = ({
           dispatch(notifySuccess('Billing details saved'))
           refreshData()
         })
+        // eslint-disable-next-line
         .catch((error) => {
+          // eslint-disable-next-line
           dispatch(notifyError('Error saving billing details ' + error.message))
         })
     } else {
@@ -77,8 +79,10 @@ const InvoiceSettings = ({
         .then(() => {
           dispatch(notifySuccess('Billing details updated'))
         })
+        // eslint-disable-next-line
         .catch((error) => {
           dispatch(
+            // eslint-disable-next-line
             notifyError('Error updating billing details ' + error.message),
           )
         })
@@ -87,7 +91,7 @@ const InvoiceSettings = ({
 
   const confirmInvoice = () => {
     setError({})
-    let newError = {
+    const newError = {
       country: !invoiceSettings.country.length,
       address_line_1: !invoiceSettings.address_line_1.length,
       address_line_2: !invoiceSettings.address_line_2.length,
@@ -375,6 +379,14 @@ const InvoiceSettings = ({
       </CardFooter>
     </Card>
   )
+}
+
+InvoiceSettings.propTypes = {
+  invoiceSettings: PropTypes.object,
+  setInvoiceSettings: PropTypes.func,
+  isNew: PropTypes.bool,
+  refreshData: PropTypes.func,
+  isActiveStripeCustomer: PropTypes.bool,
 }
 
 export default InvoiceSettings

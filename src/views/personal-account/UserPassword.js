@@ -1,4 +1,3 @@
-/* eslint-disable */
 import React, { useState } from 'react'
 
 import { useDispatch } from 'react-redux'
@@ -12,6 +11,7 @@ import {
   Form,
   FormGroup,
   Input,
+  Label
 } from 'reactstrap'
 
 import {
@@ -63,8 +63,9 @@ const UserPassword = () => {
       .then(() => {
         dispatch(notifySuccess('Password updated'))
       })
+       // eslint-disable-next-line
       .catch((error) => {
-        dispatch(notifyError('Error updating password ' + error.message))
+        dispatch(notifyError(`Error updating password + ${error.message}`))
       })
   }
 
@@ -76,7 +77,7 @@ const UserPassword = () => {
       <CardBody>
         <Form>
           <FormGroup>
-            <label>New password</label>
+            <Label>New password</Label>
             <Input
               type="password"
               autoComplete="off"
@@ -86,7 +87,7 @@ const UserPassword = () => {
             />
           </FormGroup>
           <FormGroup>
-            <label>Confirm new password</label>
+            <Label>Confirm new password</Label>
             <Input
               type="password"
               autoComplete="off"

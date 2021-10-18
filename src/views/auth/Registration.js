@@ -1,4 +1,3 @@
-/* eslint-disable */
 import React, { useState } from 'react'
 
 import classnames from 'classnames'
@@ -29,25 +28,34 @@ import {
   notifyError,
   notifySuccess,
 } from '../../features/notifications/actions'
+import { updateMailing } from '../../api/personalAccountAPI'
 
 // import { createNewUser } from '../../services/api/personalAccountAPI'
 
 const RegisterForm = () => {
+
   const [state, setState] = React.useState({})
   const [error, setError] = useState({})
   const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
-  const [mailSettings, setMailSettings] = useState('')
   const [pass, setPass] = useState('')
   const [confirmPass, setConfirmPass] = useState('')
+  const [checkAge, setCheckAge] = useState(false)
+  const [checkTerms, setCheckTerms] = useState(false)
   const dispatch = useDispatch()
+    const [mailSettings, setMailSettings] = useState({
+    news: false,
+    product: false,
+    system: false,
+  })
+  
 
   const createUser = () => {
     setError({})
 
     // username & email
 
-    let newError = {}
+    const newError = {}
 
     if (
       !username.length ||
@@ -82,38 +90,58 @@ const RegisterForm = () => {
       return
     }
 
-    // create user
-
-    let data = {
-      user: {
-        email: email,
-        password: pass,
-        username: username,
-      },
-      mailing: {
-        news: true,
-        product: false,
-        system: false,
-      },
+    if (checkAge === false) {
+      newError.checkAge = true
+      dispatch(notifyError('Please confirm you are 16 years or over'))
+      setError(newError)
+      return
     }
 
-    createNewUser(data)
-      .then(() => {
-        dispatch(notifySuccess('Registration complete'))
-      })
-      .catch((error) => {
-        dispatch(
-          notifyError('Error registering ... please try again' + error.message),
-        )
-      })
+    if (checkTerms === false) {
+      newError.checkTerms = true
+      dispatch(notifyError('Please agree to the privacy policy'))
+      setError(newError)
+      return
+    }
+
+    // create user
+    const data = {
+      user: {
+        email,
+        pass,
+        username,
+      },
+      mailing: mailSettings
+    }
+
+    // eslint-disable-next-line
+    // createNewUser(data)
+    //   .then(() => {
+    //     dispatch(notifySuccess('Registration complete'))
+    //   })
+    //   // eslint-disable-next-line
+    //   .catch((error) => {
+    //     dispatch(
+    //       notifyError(`Error registering ... please try again ${error.message}`),
+    //     )
+    //   })
   }
 
   const handleCheckBoxClick = (key, value) => {
-    // eslint-disable-next-line
-    let newObj = Object.assign({}, mailSettings)
+    const newObj = {...mailSettings}
     newObj[key] = value
     setMailSettings(newObj)
   }
+
+  updateMailing(mailSettings)
+  .then(() => {
+   // dispatch(notifySuccess("Mail settings saved"))
+  })
+  // eslint-disable-next-line
+  .catch((error) => {
+    dispatch(notifyError(`Error updating settings: ${error.message}`))
+  })
+
 
   const onChange = (value) => {
     console.log('Captcha value:', value)
@@ -166,6 +194,7 @@ const RegisterForm = () => {
               <CardHeader>
                 <CardImg
                   alt="..."
+                  // eslint-disable-next-line
                   src={require('assets/img/card-primary.png').default}
                   style={{ top: '-70px' }}
                 />
@@ -247,15 +276,28 @@ const RegisterForm = () => {
                       onChange={(e) => setConfirmPass(e.target.value)}
                     />
                   </InputGroup>
+                  <Label style={{margin: "20px 5px 20px 20px"}}>
+                    <span className="form-check-sign">We will use information you provided for management and administration purposes, and for keeping you informed by mail, telephone, email and SMS of other products and services from us and our partners. You can proactively manage your preferences or opt-out of communications with us at any time using Privacy Centre. You have the right to access your data held by us or to request your data to be deleted. For full details please see <a href="https://agromonitoring.com/privacy-policy" target="_blank">Privacy Policy.</a></span>
+                    </Label>
                   <FormGroup check className="text-left">
                     <Label check>
-                      <Input type="checkbox" />
+                      <Input 
+                      type="checkbox" 
+                      onChange={(e) => setCheckAge(!checkAge)}
+                      checked={checkAge}
+                      />
                       <span className="form-check-sign" />I am 16 years or over
                     </Label>
                   </FormGroup>
                   <FormGroup check className="text-left">
+               
                     <Label check>
-                      <Input type="checkbox" />
+                      <Input
+                      type="checkbox" 
+                       //className={error.checkTerms ? 'danger-border' : ''}
+                       onChange={(e) => setCheckTerms(!checkTerms)}
+                       checked={checkTerms}
+                       />
                       <span className="form-check-sign" />I agree with{' '}
                       <a
                         href="https://agromonitoring.com/privacy-policy"
@@ -278,13 +320,16 @@ const RegisterForm = () => {
                         target="_blank"
                       >
                         {' '}
-                        Websites terms and conditions of use
+                        Website&#39;s terms and conditions of use
                       </a>
                     </Label>
                   </FormGroup>
                 </Form>
                 <hr />
                 <Form className="form">
+                <Label style={{margin: "10px 5px 10px 20px"}}>
+                    <span className="form-check-sign">I consent to receive communications from Extreme Electronics Ltd. and their partners:</span>
+                    </Label>
                   <FormGroup check className="text-left">
                     <Label check className="mr-3">
                       <Input
@@ -294,24 +339,12 @@ const RegisterForm = () => {
                         }}
                       />
                       <span className="form-check-sign" />
-                      System news (API usage alert, system update, temporary
-                      system shutdown, etc)
+                      Corporate news (our life, the launch of a new service,
+                      etc)
                     </Label>
                   </FormGroup>
                   <FormGroup check className="text-left">
-                    <Label check>
-                      <Input
-                        type="checkbox"
-                        onChange={(e) => {
-                          handleCheckBoxClick('system', e.target.checked)
-                        }}
-                      />
-                      <span className="form-check-sign" />
-                      Product news (change to price, new product features, etc)
-                    </Label>
-                  </FormGroup>
-                  <FormGroup check className="text-left">
-                    <Label check>
+                  <Label check>
                       <Input
                         type="checkbox"
                         onChange={(e) => {
@@ -319,9 +352,22 @@ const RegisterForm = () => {
                         }}
                       />
                       <span className="form-check-sign" />
-                      Corporate news (our life, the launch of a new service,
-                      etc)
+                      Product news (change to price, new product features, etc)
                     </Label>
+                  </FormGroup>
+                  <FormGroup check className="text-left">
+                  <Label check>
+                      <Input
+                        type="checkbox"
+                        onChange={(e) => {
+                          handleCheckBoxClick('system', e.target.checked)
+                        }}
+                      />
+                      <span className="form-check-sign" />
+                      System news (API usage alert, system update, temporary
+                      system shutdown, etc)
+                    </Label>
+                
                   </FormGroup>
 
                   <FormGroup className="text-left">

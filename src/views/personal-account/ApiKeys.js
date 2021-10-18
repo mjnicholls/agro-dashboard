@@ -1,4 +1,4 @@
-/* eslint-disable */
+import { ItemDragging } from 'devextreme-react/list'
 import React, { useEffect, useState } from 'react'
 
 import ReactBSAlert from 'react-bootstrap-sweetalert'
@@ -40,7 +40,21 @@ const ApiKeys = () => {
   }, [])
 
   const refreshData = () => {
-    getAPIKeys()
+    getAPIKeys(
+      [
+        {
+            "appid": "appid_1",
+            "name": "appid_name_1",
+            "status": true
+        }, 
+        {
+            "appid": "appid_2", 
+            "name": "appid_name_2",
+            "status": false
+        }
+      ]
+      
+    )
       .then((res) => {
         setData(res)
       })
@@ -121,7 +135,7 @@ const ApiKeys = () => {
                     <tr>
                       <th>Key</th>
                       <th>Name</th>
-                      {/*  <th>Status</th>  */}
+                     <th>Status</th> 
                       <th aria-label="Edit"></th>
                       <th aria-label="Delete"></th>
                     </tr>
@@ -134,7 +148,9 @@ const ApiKeys = () => {
                           <code>{item.appid}</code>
                         </td>
                         <td>{item.name}</td>
-                        {/* <td></td> */}
+                        {item.status === true ? (
+                         <td>Active</td> )  : ( 
+                         <td><p style={{color: "red"}}>Blocked</p></td>)}
                         <td className="text-right">
                           <Button
                             className="btn-link btn-icon btn-neutral"

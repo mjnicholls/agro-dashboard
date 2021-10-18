@@ -1,4 +1,3 @@
-/* eslint-disable */
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import { Button, Col, Row } from 'reactstrap'
@@ -7,6 +6,7 @@ import {
   notifyError,
   notifySuccess,
 } from '../../features/notifications/actions'
+import PropTypes from 'prop-types'
 
 const ApiKeyDelete = ({ apiKey, close, refreshData }) => {
   const dispatch = useDispatch()
@@ -58,6 +58,12 @@ const ApiKeyDelete = ({ apiKey, close, refreshData }) => {
       </div>
     </div>
   )
+}
+
+ApiKeyDelete.propTypes = {
+  apiKey: PropTypes.string,
+  close: PropTypes.func,
+  refreshData: PropTypes.func,
 }
 
 export default ApiKeyDelete

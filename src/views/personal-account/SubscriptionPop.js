@@ -1,4 +1,3 @@
-/* eslint-disable */
 import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { Button, Col, Form, Label, Row } from 'reactstrap'
@@ -60,8 +59,9 @@ const InvoiceSettings = () => {
         dispatch(notifySuccess('Billing details saved'))
         refreshData()
       })
+      // eslint-disable-next-line
       .catch((error) => {
-        dispatch(notifyError('Error saving billing details ' + error.message))
+        dispatch(notifyError(`Error saving billing details + ${error.message}`))
       })
   }
 
@@ -70,14 +70,15 @@ const InvoiceSettings = () => {
       .then(() => {
         dispatch(notifySuccess('Billing details updated'))
       })
+      // eslint-disable-next-line
       .catch((error) => {
-        dispatch(notifyError('Error updating billing details ' + error.message))
+        dispatch(notifyError(`Error saving billing details + ${error.message}`))
       })
   }
 
   const confirmInvoice = () => {
     setError({})
-    let newError = {
+    const newError = {
       country: !invoiceSettings.country.length,
       address_line_1: !invoiceSettings.address_line_1.length,
       address_line_2: !invoiceSettings.address_line_2.length,
@@ -120,7 +121,7 @@ const InvoiceSettings = () => {
   const incrementStep = () => {
     setError({})
     if (step === 1) {
-      let newError = {}
+      const newError = {}
       if (invoiceSettings.type === 'individual') {
         if (
           !invoiceSettings.first_name.length ||

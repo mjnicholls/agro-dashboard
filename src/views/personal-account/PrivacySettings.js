@@ -1,4 +1,3 @@
-/* eslint-disable */
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import {
@@ -21,13 +20,13 @@ import {
   notifyError,
   notifySuccess,
 } from '../../features/notifications/actions'
+import PropTypes from 'prop-types'
 
 const PrivacySettings = ({ mailSettings, setMailSettings }) => {
   const dispatch = useDispatch()
 
   const handleCheckBoxClick = (key, value) => {
-    // eslint-disable-next-line
-    let newObj = Object.assign({}, mailSettings)
+    const newObj = {...mailSettings}
     newObj[key] = value
     setMailSettings(newObj)
   }
@@ -37,8 +36,9 @@ const PrivacySettings = ({ mailSettings, setMailSettings }) => {
       .then(() => {
         dispatch(notifySuccess('Settings updated'))
       })
+      // eslint-disable-next-line
       .catch((error) => {
-        dispatch(notifyError('Error updating settings ' + error.message))
+        dispatch(notifyError(`Error updating settings: ${error.message}`))
       })
   }
 
@@ -115,6 +115,11 @@ const PrivacySettings = ({ mailSettings, setMailSettings }) => {
       </CardFooter>
     </Card>
   )
+}
+
+PrivacySettings.propTypes = {
+  mailSettings: PropTypes.object,
+  setMailSettings: PropTypes.func,
 }
 
 export default PrivacySettings

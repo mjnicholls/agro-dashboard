@@ -92,6 +92,7 @@ export const initialiseMap = (mapContainer, map, token) => {
   map.current.on('error', (e) => {
     // Hide those annoying non-error errors
     if (e && e.error.status !== 421) {
+      // eslint-disable-next-line
       console.error(e)
     }
   })

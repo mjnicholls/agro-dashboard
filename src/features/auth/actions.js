@@ -13,7 +13,6 @@ export const CLEAR_LOGIN_ERROR = 'CLEAR_LOGIN_ERROR'
 export const LOGOUT_REQUEST = 'LOGOUT_REQUEST'
 export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS'
 export const LOGOUT_FRONTEND = 'LOGOUT_FRONTEND'
-export const CLOSE_NOTIFICATION = 'AUTH_NOTIFICATION'
 export const TOKEN_COOK = 'AGRO_TOKEN'
 
 const requestLogin = (email) => ({
@@ -121,6 +120,3 @@ export const logoutUser = () => async (dispatch) => {
     })
 }
 
-export const closeNotification = () => ({
-  type: CLOSE_NOTIFICATION,
-})

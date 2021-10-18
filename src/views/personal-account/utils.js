@@ -67,7 +67,7 @@ export const api = {
     tooltip: 'Current weather data by geo coordinates.',
     tool_id: 'tool9',
   },
-  '5 day/3 hour weather forecast': {
+  '5_day_forecast': {
     name: '5 day/3-hour Weather Forecast',
     link: 'https://agromonitoring.com/api/forecast-weather',
     isCurrent: true,
@@ -108,7 +108,7 @@ export const subscriptions = {
     support: 'Helpdesk',
     api: [
       'Current weather data',
-      '5 day/3-hour weather forecast',
+      '5_day_forecast',
       'Current UV index',
     ],
   },
@@ -130,7 +130,7 @@ export const subscriptions = {
     support: 'Helpdesk',
     api: [
       'Current weather data',
-      '5 day/3 hour weather forecast',
+      '5_day_forecast',
       'weather_history',
       'weather_history_accumulated_precipitation',
       'weather_history_accumulated_temperature',
@@ -157,7 +157,7 @@ export const subscriptions = {
     support: 'Helpdesk',
     api: [
       'Current weather data',
-      '5 day/3 hour weather forecast',
+      '5_day_forecast',
       'weather_history',
       'weather_history_accumulated_precipitation',
       'weather_history_accumulated_temperature',
@@ -184,7 +184,7 @@ export const subscriptions = {
     support: 'Direct 24x7',
     api: [
       'Current weather data',
-      '5 day/3 hour weather forecast',
+      '5_day_forecast',
       'weather_history',
       'weather_history_accumulated_precipitation',
       'weather_history_accumulated_temperature',

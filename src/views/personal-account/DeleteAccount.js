@@ -1,5 +1,4 @@
-/* eslint-disable */
-import React from 'react'
+import React, {useState} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Select from 'react-select'
 import { Button, Col, FormGroup, Input, Label, Row } from 'reactstrap'
@@ -10,24 +9,30 @@ import {
   notifySuccess,
 } from '../../features/notifications/actions'
 import { deleteAcctOptions } from '../../config'
+import PropTypes from 'prop-types'
 
 const userSubscriptionSelector = (state) => state.auth.user.tariff
 
-const DeleteAccount = ({ close, refreshData }) => {
-  const dispatch = useDispatch()
+const DeleteAccount = ({ close }) => {
+const dispatch = useDispatch()
 
   const subscription = useSelector(userSubscriptionSelector)
+  const [reason, setReason] = useState('')
+
 
   const confirmDeleteAcct = () => {
-    let data = {}
+
+    const data = {
+      reason
+    }
 
     deleteAcct(data)
+    
       .then(() => {
-        refreshData()
         dispatch(notifySuccess('Account deleted'))
       })
       .catch((error) => {
-        dispatch(notifyError('Error deleting account' + error.message))
+        dispatch(notifyError(`Error deleting account + ${error.message}`))
       })
     close()
   }
@@ -50,7 +55,13 @@ const DeleteAccount = ({ close, refreshData }) => {
                 <Select
                   className="react-select info mb-3"
                   classNamePrefix="react-select"
+                  // eslint-disable-next-line 
+                      onChange={(reason) => {
+                        setReason(reason.label)
+                      }}
                   options={deleteAcctOptions}
+                  getOptionLabel={(option) => option.value}
+                  getOptionValue={(option) => option.label}
                   menuPortalTarget={document.body}
                   styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
                 ></Select>
@@ -126,6 +137,10 @@ const DeleteAccount = ({ close, refreshData }) => {
       </div>
     </div>
   )
+}
+
+DeleteAccount.propTypes = {
+  close: PropTypes.func
 }
 
 export default DeleteAccount
