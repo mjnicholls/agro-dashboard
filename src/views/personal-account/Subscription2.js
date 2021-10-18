@@ -140,27 +140,29 @@ const Subscription2 = () => {
                           >
                             <NavItem>
                               <NavLink>
-                                <i
-                                  className="tim-icons icon-paper"
-                                  style={{ marginTop: '15px' }}
-                                />
-                                <p>Your Charges</p>
-                                <p>This Month</p>
-                              </NavLink>
-                            </NavItem>
-                            <NavItem>
-                              <NavLink>
-                                <p style={{ fontSize: '40px' }}>£40</p>
-                                <Link to="/dashboard/payments">
-                                  <Button
-                                    className="btn-fill"
-                                    color="primary"
-                                    type="submit"
-                                    style={{ marginTop: '17px' }}
-                                  >
-                                    Invoice
-                                  </Button>
-                                </Link>
+                                <Row>
+                                  <Col className="col">
+                                    <i
+                                      className="tim-icons icon-paper"
+                                      style={{ marginTop: '15px' }}
+                                    />
+                                    <p>Your Charges</p>
+                                    <p>This Month</p>
+                                  </Col>
+                                  <Col className="col">
+                                    <p style={{ fontSize: '40px' }}>£40</p>
+                                    <Link to="/dashboard/payments">
+                                      <Button
+                                        className="btn-fill"
+                                        color="primary"
+                                        type="submit"
+                                        style={{ marginTop: '17px' }}
+                                      >
+                                        Invoice
+                                      </Button>
+                                    </Link>
+                                  </Col>
+                                </Row>
                               </NavLink>
                             </NavItem>
                             <NavItem>
@@ -175,7 +177,7 @@ const Subscription2 = () => {
 
                                 {tariff === 'corp' ? (
                                   <h4 style={{ marginTop: '25px' }}>
-                                    Problems?{' '}
+                                    Need help?{' '}
                                     <a href="https://openweathermap.force.com/s/contactsupport">
                                       Contact us.
                                     </a>
@@ -250,6 +252,29 @@ const Subscription2 = () => {
                               </tr>
                             </tbody>
 
+                            <br />
+
+                            <thead>
+                              <tr>
+                                <th colSpan={2}>Unsubscribe</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>
+                                  <Button
+                                    className="btn-fill"
+                                    color="primary"
+                                    type="submit"
+                                    style={{ marginTop: '15px' }}
+                                    //onClick={}
+                                  >
+                                    Unsubscribe
+                                  </Button>
+                                </td>
+                              </tr>
+                            </tbody>
+
                             {/*  <thead>
                               <tr>
                                 <th colSpan={2}>Total Area</th>
@@ -317,9 +342,6 @@ const Subscription2 = () => {
                                   <th>
                                     <p>Limits</p>
                                   </th>
-                                  <th>
-                                    <p>Info</p>
-                                  </th>
                                 </tr>
                               </thead>
                               <tbody>
@@ -329,7 +351,6 @@ const Subscription2 = () => {
                                     <p>{data.api_calls_per_min}</p>
                                   </td>
                                   <td>
-                                    <i className="tim-icons icon-alert-circle-exc" />
                                   </td>
                                 </tr>
                                 <tr>
@@ -337,25 +358,15 @@ const Subscription2 = () => {
                                     Satellite imagery
                                     <br />
                                     (NDVI, EVI, EVI2, NRI, DSWI, NDWI, True
-                                    color, False color)
-                                  </td>
-                                  <td>
-                                    All{' '}
-                                    <a
-                                      href="https://home.agromonitoring.com/subscriptions#map"
-                                      target="_blank"
-                                    >
-                                      available data
-                                    </a>{' '}
-                                  </td>
-                                  <td>
+                                    color, False color){' '}
+                                    
                                     <i
                                       className="tim-icons icon-alert-circle-exc"
-                                      id="tool13"
+                                      id="tool16"
                                     />
                                     <UncontrolledTooltip
                                       delay={0}
-                                      target="tool13"
+                                      target="tool16"
                                     >
                                       If have the FREE plan and create a polygon
                                       outside these areas, you will start to
@@ -365,6 +376,18 @@ const Subscription2 = () => {
                                       polygons will be downloaded for any
                                       territories.
                                     </UncontrolledTooltip>
+                                  
+                                  </td>
+                                  <td>
+                                    {' '}
+                                    <a
+                                      href="https://home.agromonitoring.com/subscriptions#map"
+                                      target="_blank"
+                                    >
+                                      All available data
+                                    </a>{' '}
+                                  </td>
+                                  <td>
                                   </td>
                                 </tr>
                                 <tr>
@@ -376,7 +399,7 @@ const Subscription2 = () => {
                                     ha
                                   </td>
                                   <td>
-                                    <i className="tim-icons icon-alert-circle-exc" />
+                                   
                                   </td>
                                 </tr>
 
@@ -386,20 +409,18 @@ const Subscription2 = () => {
                                     <p>{data.polygons_per_month}</p>
                                   </td>
                                   <td>
-                                    <i className="tim-icons icon-alert-circle-exc" />
                                   </td>
                                 </tr>
 
                                 <tr>
                                   <td>
                                     Price for exceeded area{' '}
-                                    <a href="#">Learn more</a>
+                                    <a href="#"> — Learn more</a>
                                   </td>
                                   <td>
                                     <p>{data.price_exceeded_area}</p>
                                   </td>
                                   <td>
-                                    <i className="tim-icons icon-alert-circle-exc" />
                                   </td>
                                 </tr>
                               </tbody>
@@ -423,7 +444,6 @@ const Subscription2 = () => {
                                     <p>{data.api_calls_per_min}</p>
                                   </td>
                                   <td>
-                                    <i className="tim-icons icon-alert-circle-exc" />
                                   </td>
                                 </tr>
                                 {data.api
@@ -432,13 +452,8 @@ const Subscription2 = () => {
                                     <tr key={'current_' + key}>
                                       <td>
                                         <a href={api[key].link} target="_blank">
-                                          {api[key].name}
+                                          {api[key].name}{' '}
                                         </a>
-                                      </td>
-                                      <td>
-                                        <FontAwesomeIcon icon={faCheckCircle} />
-                                      </td>{' '}
-                                      <td>
                                         <i
                                           className="tim-icons icon-alert-circle-exc"
                                           id={api[key].tool_id}
@@ -450,11 +465,23 @@ const Subscription2 = () => {
                                           {api[key].tooltip}
                                         </UncontrolledTooltip>
                                       </td>
+                                      <td>
+                                        <FontAwesomeIcon icon={faCheckCircle} />
+                                      </td>{' '}
+                                      <td>
+                                       
+                                      </td>
                                     </tr>
                                   ))}
                               </tbody>
-                              <thead>
+                              {tariff === 'free' ? ( 
+                             
                                 <br />
+                                
+                               ) : (
+                                 <>
+                                  <br />
+                                  <thead>
                                 <tr>
                                   <th colSpan={2}>
                                     <p>Historical weather data:</p>
@@ -462,6 +489,7 @@ const Subscription2 = () => {
                                   <th></th>
                                 </tr>
                               </thead>
+                          
                               <tbody>
                                 <tr>
                                   <td>API calls per day</td>
@@ -469,7 +497,6 @@ const Subscription2 = () => {
                                     <p>{data.api_calls_historical}</p>
                                   </td>
                                   <td>
-                                    <i className="tim-icons icon-alert-circle-exc" />
                                   </td>
                                 </tr>
                                 <tr>
@@ -478,7 +505,6 @@ const Subscription2 = () => {
                                     <p>{data.historical_data_depths}</p>
                                   </td>
                                   <td>
-                                    <i className="tim-icons icon-alert-circle-exc" />
                                   </td>
                                 </tr>
                                 {data.api
@@ -494,12 +520,12 @@ const Subscription2 = () => {
                                         <FontAwesomeIcon icon={faCheckCircle} />
                                       </td>{' '}
                                       <td>
-                                        <i className="tim-icons icon-alert-circle-exc" />
                                       </td>
                                     </tr>
                                   ))}
                               </tbody>
-
+                              </>
+    )}
                               <thead>
                                 <br />
                                 <tr>
@@ -520,7 +546,6 @@ const Subscription2 = () => {
                                     <p>{data.satelitte_imagery_service}</p>
                                   </td>
                                   <td>
-                                    <i className="tim-icons icon-alert-circle-exc" />
                                   </td>
                                 </tr>
                                 <tr>
@@ -532,7 +557,6 @@ const Subscription2 = () => {
                                     <p>{data.current_soil}</p>
                                   </td>
                                   <td>
-                                    <i className="tim-icons icon-alert-circle-exc" />
                                   </td>
                                 </tr>
                                 <tr>
@@ -541,7 +565,6 @@ const Subscription2 = () => {
                                     <p>{data.weather_api_update}</p>
                                   </td>
                                   <td>
-                                    <i className="tim-icons icon-alert-circle-exc" />
                                   </td>
                                 </tr>
                                 <tr>
@@ -554,7 +577,6 @@ const Subscription2 = () => {
                                     />
                                   </td>
                                   <td>
-                                    <i className="tim-icons icon-alert-circle-exc" />
                                   </td>
                                 </tr>
                                 <tr>
@@ -570,7 +592,6 @@ const Subscription2 = () => {
                                     </a>
                                   </td>
                                   <td>
-                                    <i className="tim-icons icon-alert-circle-exc" />
                                   </td>
                                 </tr>
                                 <tr>
@@ -584,7 +605,6 @@ const Subscription2 = () => {
                                     </p>
                                   </td>
                                   <td>
-                                    <i className="tim-icons icon-alert-circle-exc" />
                                   </td>
                                 </tr>
                                 <tr>
@@ -593,7 +613,6 @@ const Subscription2 = () => {
                                     <p>{data.support}</p>
                                   </td>
                                   <td>
-                                    <i className="tim-icons icon-alert-circle-exc" />
                                   </td>
                                 </tr>
                               </tbody>
@@ -607,7 +626,7 @@ const Subscription2 = () => {
                                     {/*<th>Calls</th>*/}
                                     <th>Depth</th>
                                     {tariff === 'corp' && <th>Start date</th>}
-                                    <th>Info</th>
+                                  
                                   </tr>
                                 </thead>
                                 <tbody>
@@ -622,7 +641,17 @@ const Subscription2 = () => {
                                             >
                                               {api[key].dashboardName ||
                                                 api[key].name}
-                                            </a>
+                                            </a>{' '}
+                                            {' '}<i
+                                              className="tim-icons icon-alert-circle-exc"
+                                              id={api[key].tool_id}
+                                            />
+                                            <UncontrolledTooltip
+                                              delay={0}
+                                              target={api[key].tool_id}
+                                            >
+                                              {api[key].tooltip}
+                                            </UncontrolledTooltip>
                                           </td>
                                           {/*<td>*/}
                                           {/*{auth.limits.calls[key] >= 0*/}
@@ -649,21 +678,33 @@ const Subscription2 = () => {
                                                 : ''}
                                             </td>
                                           )}
-                                          <td>
-                                            <i
-                                              className="tim-icons icon-alert-circle-exc"
-                                              id={api[key].tool_id}
-                                            />
-                                            <UncontrolledTooltip
-                                              delay={0}
-                                              target={api[key].tool_id}
-                                            >
-                                              {api[key].tooltip}
-                                            </UncontrolledTooltip>
-                                          </td>
+                                         
                                         </tr>
                                       ),
                                   )}
+                                  <tr>
+                                    <td><a href={api.crop_recognition.link}>{api.crop_recognition.name}</a>{' '}
+                                    <i
+                                      className="tim-icons icon-alert-circle-exc"
+                                      id="tool15"
+                                    />
+                                    <UncontrolledTooltip
+                                      delay={0}
+                                      target="tool15"
+                                    >
+                                     Available only in the dashboard.
+                                    </UncontrolledTooltip>
+                                    </td>
+                                    {tariff === 'free' ? (
+
+                                    <td>2017, 2018 - available</td>
+
+                                     ) : (
+
+                                      <td>2017, 2018, 2019 - available 2020, 2021 - on request</td>
+                                    )}
+                                    <td></td>
+                                  </tr>
                                 </tbody>
                                 <thead>
                                   <br />
@@ -684,7 +725,6 @@ const Subscription2 = () => {
                                       ha
                                     </td>
                                     <td>
-                                      <i className="tim-icons icon-alert-circle-exc" />
                                     </td>
                                   </tr>
                                   <tr>
@@ -697,7 +737,7 @@ const Subscription2 = () => {
                                       ha
                                     </td>
                                     <td>
-                                      <i className="tim-icons icon-alert-circle-exc" />
+                                     
                                     </td>
                                   </tr>
                                 </tbody>
