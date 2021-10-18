@@ -239,31 +239,28 @@ const BillingPlans = () => {
                         Satellite imagery (NDVI, EVI, EVI2, NDWI, NRI,  True color, False color)
                       </td>
                       <td>
-                        All available data{' '}
                         <a
-                          href="https://home.agromonitoring.com/subscriptions#map"
+                          href="#map"
                           target="_blank"
                         >
-                          (check)
+                          All available data
                         </a>
                       </td>
                       <td>
-                        All available data{' '}
-                        <a
-                          href="https://home.agromonitoring.com/subscriptions#map"
+                       <a
+                          href="#map"
                           target="_blank"
                         >
-                          (check)
+                          All available data
                         </a>{' '}
                         + total archive on request
                       </td>
                       <td>
-                        All available data{' '}
                         <a
-                          href="https://home.agromonitoring.com/subscriptions#map"
+                          href="#map"
                           target="_blank"
                         >
-                          (check)
+                          All available data
                         </a>{' '}
                         + total archive on request
                       </td>

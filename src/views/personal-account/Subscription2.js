@@ -158,7 +158,7 @@ const Subscription2 = () => {
                                     type="submit"
                                     style={{ marginTop: '17px' }}
                                   >
-                                    Invoice
+                                    Invoices
                                   </Button>
                                 </Link>
                               </NavLink>
@@ -209,7 +209,7 @@ const Subscription2 = () => {
                                 </td>
                               </tr>
                               <tr>
-                                <td>Total area polygons by tarriff:</td>
+                                <td>Total area polygons by tariff:</td>
                                 <td>
                                   {numberWithCommas(
                                     polygonsData.permissible_area,

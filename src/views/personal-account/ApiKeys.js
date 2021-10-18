@@ -150,7 +150,7 @@ const ApiKeys = () => {
                         <td>{item.name}</td>
                         {item.status === true ? (
                          <td>Active</td> )  : ( 
-                         <td><p style={{color: "red"}}>Blocked</p></td>)}
+                         <td><p style={{color: "red"}}>Not active</p></td>)}
                         <td className="text-right">
                           <Button
                             className="btn-link btn-icon btn-neutral"
