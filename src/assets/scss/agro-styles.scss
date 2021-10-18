@@ -17,6 +17,8 @@ $gray-700: #525f7f;
 $gray-800: #32325d;
 $gray-900: #212529;
 
+$card-color: #27293d;
+
 .justify {
   justify-content: space-between;
 }
@@ -230,7 +232,7 @@ $gray-900: #212529;
       text-transform: none;
       height: auto ;
       min-width: 110px;
-      background-color: #27293d;
+      background-color: $card-color;
 
       button {
         padding: 0;
@@ -341,12 +343,6 @@ $gray-900: #212529;
   white-space: nowrap;
 }
 
-.headcol {
-  position: sticky;
-  background-color: #27293d; // TODO card color
-  left: 0px;
-  padding-right: 5px !important;
-}
 
 $hourly-chart-width: 3000px;
 $daily-chart-width: 1000px;
@@ -693,6 +689,22 @@ $daily-chart-width: 1000px;
       background: none !important;
       color: $gray-100 !important;
       box-shadow: none;
+    }
+  }
+}
+
+.billing-plans-table {
+  tr {
+    td:first-child {
+      text-align: left;
+    }
+  }
+  tr.sticky-row {
+    th {
+      position: sticky;
+      top: 0;
+      background-color: $card-color;
+      z-index: 1;
     }
   }
 }

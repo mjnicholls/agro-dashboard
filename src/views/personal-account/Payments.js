@@ -18,22 +18,12 @@ import { getInvoices } from '../../api/personalAccountAPI'
 import AgroPagination from '../agro-components/AgroPagination'
 
 const InvoiceList = () => {
-  const [data, setData] = useState([])
 
+  const [data, setData] = useState([])
   const [page, setPage] = useState(0)
   const [pageData, setPageData] = useState([])
 
   useEffect(() => {
-    refreshData()
-  }, [])
-
-  useEffect(() => {
-    setPageData(data.slice(page * itemsPerPage, (page + 1) * itemsPerPage))
-  }, [data, page])
-
-  const itemsPerPage = 10
-
-  const refreshData = () => {
     getInvoices()
       .then((res) => {
         setData(res)
@@ -42,7 +32,13 @@ const InvoiceList = () => {
         // eslint-disable-next-line
         console.log(err)
       })
-  }
+  }, [])
+
+  useEffect(() => {
+    setPageData(data.slice(page * itemsPerPage, (page + 1) * itemsPerPage))
+  }, [data, page])
+
+  const itemsPerPage = 10
 
   return (
     <>
@@ -55,9 +51,6 @@ const InvoiceList = () => {
         <Row>
           <Col className="mb-0" md="12" mt="20">
             <Card>
-              {/* <CardHeader>
-              <CardTitle tag="h3">Invoices</CardTitle>
-              </CardHeader> */}
               <CardBody>
                 <Table className="mb-0">
                   <thead>
@@ -78,13 +71,12 @@ const InvoiceList = () => {
                           <code>{item.invoice_number}</code>
                         </td>
                         <td>{item.description}</td>
-                        {/* <td>{item.date.substring(0,21)}</td> */}
                         <td>{item.date.replace(' UTC', '')}</td>
                         <td>{item.amount}</td>
                         <td className="text-right">
                           <a
                             role="button"
-                            id="download"
+                            id={`${item.id}_download`}
                             href={item.pdf_link}
                             download
                             className="btn-link btn-icon btn-neutral"
@@ -93,14 +85,14 @@ const InvoiceList = () => {
                           </a>
                           <UncontrolledTooltip
                             delay={0}
-                            target="download"
+                            target={`${item.id}_download`}
                             placement="top"
                           >
                             Download
                           </UncontrolledTooltip>
                           <a
                             role="button"
-                            id="view"
+                            id={`${item.id}_view`}
                             href={item.view_link}
                             target="_blank"
                             className="btn-link btn-icon btn-neutral"
@@ -109,7 +101,7 @@ const InvoiceList = () => {
                           </a>
                           <UncontrolledTooltip
                             delay={0}
-                            target="view"
+                            target={`${item.id}_view`}
                             placement="top"
                           >
                             View

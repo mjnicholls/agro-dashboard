@@ -27,7 +27,7 @@ const ApiKeyEdit = ({ apiKey, close, refreshData }) => {
         dispatch(notifySuccess('API Key updated'))
       })
       .catch((error) => {
-        dispatch(notifyError(`Error updating API Key ${error.message}`))
+        dispatch(notifyError(`Error updating API Key: ${error.message}`))
       })
     close()
   }
@@ -58,15 +58,6 @@ const ApiKeyEdit = ({ apiKey, close, refreshData }) => {
         </Col>
       </Row>
       <div className="agro-pop-up-footer">
-        {/* <Button
-          className="btn-neutral"
-          color="default"
-          type="button"
-          onClick={close}
-        >
-          Cancel
-        </Button>
-       */}
         <Button
           className="btn-neutral"
           color="default"

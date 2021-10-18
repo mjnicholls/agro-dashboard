@@ -200,9 +200,8 @@ const PolygonTable = ({ data }) => {
                     <Button
                       className="btn-link btn-icon btn-neutral"
                       color="success"
-                      id="tooltip618296632"
+                      id={`edit_${polygon.id}`}
                       size="sm"
-                      title="Refresh"
                       type="button"
                       onClick={(e) => {
                         htmlAlert(polygon, true)
@@ -211,15 +210,14 @@ const PolygonTable = ({ data }) => {
                     >
                       <i className="tim-icons icon-pencil" />
                     </Button>
-                    <UncontrolledTooltip delay={0} target="tooltip618296632">
+                    <UncontrolledTooltip delay={0} target={`edit_${polygon.id}`}>
                       Edit polygon
                     </UncontrolledTooltip>
                     <Button
                       className="btn-link btn-icon btn-neutral"
                       color="danger"
-                      id="tooltip707467505"
+                      id={`delete_${polygon.id}`}
                       size="sm"
-                      title="Delete"
                       type="button"
                       onClick={(e) => {
                         htmlAlert(polygon, false)
@@ -228,7 +226,7 @@ const PolygonTable = ({ data }) => {
                     >
                       <i className="tim-icons icon-simple-remove" />
                     </Button>
-                    <UncontrolledTooltip delay={0} target="tooltip707467505">
+                    <UncontrolledTooltip delay={0} target={`delete_${polygon.id}`}>
                       Delete polygon
                     </UncontrolledTooltip>
                   </td>

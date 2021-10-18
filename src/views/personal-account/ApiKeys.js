@@ -1,4 +1,3 @@
-import { ItemDragging } from 'devextreme-react/list'
 import React, { useEffect, useState } from 'react'
 
 import ReactBSAlert from 'react-bootstrap-sweetalert'
@@ -28,6 +27,7 @@ import APIKeyEdit from './APIKeyEdit'
 import ApiKeysDelete from './APIKeysDelete'
 
 const ApiKeys = () => {
+
   const dispatch = useDispatch()
 
   const [data, setData] = useState([])
@@ -135,7 +135,7 @@ const ApiKeys = () => {
                     <tr>
                       <th>Key</th>
                       <th>Name</th>
-                     <th>Status</th> 
+                      <th>Status</th>
                       <th aria-label="Edit"></th>
                       <th aria-label="Delete"></th>
                     </tr>
@@ -155,9 +155,8 @@ const ApiKeys = () => {
                           <Button
                             className="btn-link btn-icon btn-neutral"
                             color="success"
-                            id="tooltip618296632"
+                            id={`edit_${item.appid}`}
                             size="sm"
-                            title="Edit"
                             type="button"
                             onClick={(e) => {
                               htmlAlert(item, true)
@@ -168,14 +167,13 @@ const ApiKeys = () => {
                           </Button>
                           <UncontrolledTooltip
                             delay={0}
-                            target="tooltip618296632"
-                          ></UncontrolledTooltip>
+                            target={`edit_${item.appid}`}
+                          >Edit key</UncontrolledTooltip>
                           <Button
                             className="btn-link btn-icon btn-neutral"
                             color="danger"
-                            id="tooltip707467505"
+                            id={`delete_${item.appid}`}
                             size="sm"
-                            title="Delete"
                             type="button"
                             disabled={data.length === 1}
                             onClick={(e) => {
@@ -187,16 +185,15 @@ const ApiKeys = () => {
                           </Button>
                           <UncontrolledTooltip
                             delay={0}
-                            target="tooltip707467505"
+                            target={`delete_${item.appid}`}
                           >
                             Delete key
                           </UncontrolledTooltip>
                           <Button
                             className="btn-link btn-icon btn-neutral"
                             color="danger"
-                            id="tooltip707467506"
+                            id={`copy_${item.appid}`}
                             size="sm"
-                            title="Copy"
                             type="button"
                             onClick={(e) => {
                               navigator.clipboard.writeText(item.appid)
@@ -208,7 +205,7 @@ const ApiKeys = () => {
                           </Button>
                           <UncontrolledTooltip
                             delay={0}
-                            target="tooltip707467506"
+                            target={`copy_${item.appid}`}
                           >
                             Click to copy
                           </UncontrolledTooltip>

@@ -18,7 +18,6 @@ import {
 } from 'reactstrap'
 
 import { logoutUser } from '../../features/auth/actions'
-import UnitsToggle from '../../views/agro-components/UnitsToggle'
 
 const userEmailSelector = (state) => state.auth.user.email
 const selectActivePoly = (state) => state.state.polygon
@@ -133,7 +132,6 @@ const AdminNavbar = (props) => {
           <span className="navbar-toggler-bar navbar-kebab" />
         </button>
         <Collapse navbar isOpen={collapseOpen} className="justify-content-end">
-          <UnitsToggle />
           <Nav navbar>
             <UncontrolledDropdown nav>
               <DropdownToggle
