@@ -1,9 +1,9 @@
-/* eslint-disable */
 import React, { useState } from 'react'
 import Select from 'react-select'
 import classnames from 'classnames'
 import { Col, Form, Label, FormGroup, Input, Row } from 'reactstrap'
 import { countriesDefault } from '../../../config'
+import PropTypes from 'prop-types'
 
 const Step2 = ({ invoiceSettings, setInvoiceSettings, error }) => {
   const [countries, setCountries] = useState(countriesDefault)
@@ -120,6 +120,12 @@ const Step2 = ({ invoiceSettings, setInvoiceSettings, error }) => {
       </Form>
     </div>
   )
+}
+
+Step2.propTypes = {
+  error: PropTypes.func,
+  invoiceSettings: PropTypes.object,
+  setInvoiceSettings: PropTypes.func
 }
 
 export default Step2

@@ -1,9 +1,9 @@
-/* eslint-disable */
 import React from 'react'
 import { Col, Form, Label, FormGroup, Input, Row } from 'reactstrap'
 import Select from 'react-select'
 
 import { titles } from '../../../config'
+import PropTypes from 'prop-types'
 
 const Step1 = ({ invoiceSettings, setInvoiceSettings, isNew, error }) => {
   const handleChange = (key, value) => {
@@ -124,6 +124,13 @@ const Step1 = ({ invoiceSettings, setInvoiceSettings, isNew, error }) => {
       </Form>
     </div>
   )
+}
+
+Step1.propTypes = {
+  error: PropTypes.func,
+  isNew: PropTypes.bool,
+  invoiceSettings: PropTypes.object,
+  setInvoiceSettings: PropTypes.func
 }
 
 export default Step1
