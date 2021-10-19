@@ -16,6 +16,7 @@ import {
   countriesList,
   PolygonGet,
   apiKeyStatus,
+  signupURL
 } from './index'
 
 export const getAPIKeys = () =>
@@ -81,3 +82,7 @@ export const getPolygons = () =>
 export const getAPIKeyStatus = () =>
   /** Check whether API key has been synced and is ready to use */
   axios.get(apiKeyStatus)
+
+export const createNewUser = (data) =>
+  /** Sign up method */
+  axios.post(signupURL, data)

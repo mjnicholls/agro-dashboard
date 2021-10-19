@@ -44,37 +44,32 @@ const MapBox = ({
     dispatch(setActivePoly(poly))
   }
 
+  const displayPolygonsClusters = () => {
+    displayPolygonGroup(
+      map.current,
+      mapBounds,
+      polygons,
+      setPolygonInFocus,
+      onClickPolygon,
+    )
+    displayClusters(map.current, polygons, setPolygonInFocus)
+  }
+
   useEffect(() => {
     if (!initialised) {
       // first initialisation of the map
-      initialiseMap(mapContainer.current, map, token)
+      initialiseMap(mapContainer.current, map, {token, bounds: mapBounds},
+        () => {
+          displayPolygonsClusters();
+          setInitialised(true)
+        })
       addBoundsControl(map, mapBounds)
 
-      map.current.on('load', () => {
-        if (polygons.length) {
-          displayPolygonGroup(
-            map.current,
-            mapBounds,
-            polygons,
-            setPolygonInFocus,
-            onClickPolygon,
-          )
-          displayClusters(map.current, polygons, setPolygonInFocus)
-        }
-        setInitialised(true)
-      })
     } else {
       // new polygon has been added or removed
-      displayPolygonGroup(
-        map.current,
-        mapBounds,
-        polygons,
-        setPolygonInFocus,
-        onClickPolygon,
-      )
-      displayClusters(map.current, polygons, setPolygonInFocus)
+      displayPolygonsClusters();
     }
-  }, [initialised, polygons, mapBounds])
+  }, [map.current, polygons, mapBounds])
 
   useEffect(
     () => () => {

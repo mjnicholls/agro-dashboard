@@ -4,18 +4,23 @@ import { useDispatch } from 'react-redux'
 
 import classnames from 'classnames'
 // reactstrap components
+
+import { NavLink } from 'react-router-dom'
 import {
   Button,
   Card,
   CardBody,
   CardFooter,
+  CardHeader,
   CardTitle,
+  Col,
+  Container,
   Input,
   InputGroupAddon,
   InputGroupText,
   InputGroup,
-  Container,
-  Col,
+  Label,
+  Row
 } from 'reactstrap'
 
 import {
@@ -63,10 +68,17 @@ const ResetPass = () => {
     <>
       <div className="content">
         <Container>
-          <Col className="ml-auto mr-auto" lg="4" md="6">
-            <Card className="card-lock card-white text-center">
+          <Col className="ml-auto mr-auto" lg="5" md="8">
+            <Card className="card-lock card-white">
+              <CardHeader>
+                <CardTitle className="text-left" tag="h3">
+
+                  <b>Lost your password?</b>
+
+                </CardTitle>
+              </CardHeader>
               <CardBody>
-                <CardTitle tag="h4">Reset Password</CardTitle>
+                <Label>Email:</Label>
                 <InputGroup
                   className={classnames({
                     'input-group-focus': emailFocus,
@@ -87,16 +99,25 @@ const ResetPass = () => {
                   />
                 </InputGroup>
               </CardBody>
-              <CardFooter>
-                <Button
+              <CardFooter className="d-flex justify-content-between align-items-center">
+                  <h6>
+                    <NavLink
+                      to="/auth/login"
+                      className="link footer-link"
+                    >
+                      Back to sign in
+                    </NavLink>
+                  </h6>
+                  <Button
                   className="btn-round"
                   color="primary"
                   size="lg"
                   onClick={confirmPassReset}
                 >
-                  Reset
+                  Get instructions
                 </Button>
               </CardFooter>
+
             </Card>
           </Col>
         </Container>

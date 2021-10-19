@@ -16,14 +16,10 @@ export const clusterPadding = { padding: 40 }
 export const polygonPadding = {
   padding: { left: 20, right: 20, top: 20, bottom: 100 },
 }
-const purple = '#8965e0'
-// const pink = "#f3a4b5";
-const red = '#f5365c'
-// const orange = "#fb6340";
+
 export const basicBlueColor = '#0080ff'
 
-export const basicColor = purple
-export const activeColor = red
+export const basicColor = "#ba54f5"
 export const basicOpacity = 0.4
 export const activeOpacity = 0.8
 
@@ -66,29 +62,38 @@ class BoundsControl {
   }
 }
 
-export const initialiseMap = (mapContainer, map, token) => {
-  map.current = new mapboxgl.Map({
+export const initialiseMap = (mapContainer, map, params, onLoadCallBack) => {
+
+  const {bounds, token, zoom} = params;
+
+  const mapConfig = {
     container: mapContainer,
     style: 'mapbox://styles/mapbox/satellite-streets-v11?optimize=true',
-    bounds: defaultBBox,
-    // zoom: 12,
-    // center: [-93.3977, 41.9780],
-    // zoom: 9,
     accessToken: mapBoxAccessToken,
-    transformRequest: (url) =>
+    bounds: bounds || defaultBBox
+  }
+  if (token) {
+    mapConfig.transformRequest =  (url) =>
       url.indexOf(serverBaseURL) > -1
         ? {
             url,
             headers: { Authorization: `Bearer ${token}` },
           }
-        : { url },
-  })
+        : { url }
+  }
+  if (zoom) {
+    mapConfig.zoom = zoom
+  }
+  map.current = new mapboxgl.Map(mapConfig)
   map.current.addControl(
     new mapboxgl.NavigationControl({
       showCompass: false,
     }),
     'top-right',
   )
+  if (onLoadCallBack) {
+    map.current.on('load', () => {onLoadCallBack()})
+  }
   map.current.on('error', (e) => {
     // Hide those annoying non-error errors
     if (e && e.error.status !== 421) {

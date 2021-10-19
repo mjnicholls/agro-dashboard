@@ -1,24 +1,9 @@
-/*!
-
-=========================================================
-* Black Dashboard PRO React - v1.2.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/black-dashboard-pro-react
-* Copyright 2020 Creative Tim (https://www.creative-tim.com)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
 import React from 'react'
 
 import classnames from 'classnames'
 import { NavLink } from 'react-router-dom'
-// reactstrap components
+
+import PropTypes from 'prop-types'
 import {
   Collapse,
   NavbarBrand,
@@ -77,12 +62,12 @@ const AuthNavbar = (props) => {
               </NavLink>
             </NavItem>
             <NavItem>
-              <a
-                className="nav-link"
-                href="https://wp.agromonitoring.com/users/sign_up"
+              <NavLink
+                to="/auth/sign-up/"
+                className="nav-link text-primary"
               >
                 <i className="tim-icons icon-single-02" /> Register
-              </a>
+              </NavLink>
             </NavItem>
             {/* <NavItem> */}
             {/* <NavLink to="/auth/login" className="nav-link"> */}
@@ -104,6 +89,10 @@ const AuthNavbar = (props) => {
       </Container>
     </Navbar>
   )
+}
+
+AuthNavbar.propTypes = {
+ brandText: PropTypes.string
 }
 
 export default AuthNavbar

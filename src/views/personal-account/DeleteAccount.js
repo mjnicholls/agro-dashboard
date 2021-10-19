@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Select from 'react-select'
-import { Button, Col, FormGroup, Input, Label, Row } from 'reactstrap'
+import { Button, Col, FormGroup, Row } from 'reactstrap'
 import { NavLink } from 'react-router-dom'
 import { deleteAcct } from '../../api/personalAccountAPI'
 import {
@@ -52,9 +52,8 @@ const DeleteAccount = ({ close }) => {
                 <Select
                   className="react-select info mb-3"
                   classNamePrefix="react-select"
-                  // eslint-disable-next-line
-                  onChange={(reason) => {
-                    setReason(reason.label)
+                  onChange={(option) => {
+                    setReason(option.label)
                   }}
                   options={deleteAcctOptions}
                   getOptionLabel={(option) => option.value}
@@ -68,15 +67,6 @@ const DeleteAccount = ({ close }) => {
         </Col>
       </Row>
       <div className="agro-pop-up-footer">
-        {/* <Button
-          className="btn-neutral"
-          color="default"
-          type="button"
-          onClick={close}
-        >
-          Cancel
-        </Button>
-       */}
         <Button
           className="btn-danger"
           color="danger"
@@ -105,33 +95,7 @@ const DeleteAccount = ({ close }) => {
           </p>
         </Col>
       </Row>
-      {/* <Row>
-          </Row>
-          <Row>
-          <Col className="mb-3">
-              <li>If you have a subscription Agriculture API, please unsubscribe <a href = "">here.</a></li>
-          </Col>
-        </Row> */}
-      <div className="agro-pop-up-footer">
-        {/* <Button
-          className="btn-neutral"
-          color="default"
-          type="button"
-          onClick={close}
-        >
-          Cancel
-        </Button>
-       */}
-        {/* <Button
-      className="btn-danger"
-      color="danger"
-      data-dismiss="modal"
-      type="button"
-      onClick={confirmDeleteAcct}
-    >
-      Delete
-    </Button> */}
-      </div>
+      <div className="agro-pop-up-footer"></div>
     </div>
   )
 }

@@ -47,24 +47,27 @@ const MapBoxDraw = ({
     [],
   )
 
+  const displayPolygonsClusters = () => {
+    displayPolygonGroup(
+      map.current,
+      mapBounds,
+      polygons
+    )
+    displayClusters(map.current, polygons)
+  }
+
   useEffect(() => {
     if (!initialised) {
       // first initialisation of the map
-      initialiseMap(mapContainer.current, map, token)
+      initialiseMap(mapContainer.current, map, {token, bounds: mapBounds}, () => {
+          displayPolygonsClusters();
+          setInitialised(true)
+        })
       addBoundsControl(map, mapBounds)
 
-      map.current.on('load', () => {
-        if (polygons.length) {
-          displayPolygonGroup(map.current, mapBounds, polygons)
-          displayClusters(map.current, polygons)
-        }
-        setInitialised(true)
-      })
     } else {
       // new polygon has been added
-      displayPolygonGroup(map.current, mapBounds, polygons)
-      // displayPolygons(map.current, mapBounds, polygons);
-      displayClusters(map.current, polygons)
+     displayPolygonsClusters()
     }
   }, [initialised, polygons, mapBounds])
 

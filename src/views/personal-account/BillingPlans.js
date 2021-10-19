@@ -15,17 +15,16 @@ import {
 } from 'reactstrap'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
+import { faCheckCircle, faInfoCircle } from '@fortawesome/free-solid-svg-icons'
 import { Link } from 'react-router-dom'
 import ReactBSAlert from 'react-bootstrap-sweetalert'
 import SubscriptionPop2 from './SubscriptionPop'
-import VectorMapView from './VectorMapPersonal'
-import Mapp from './ReactMap'
-import { VectorMap } from 'devextreme-react'
+import Map from '../maps/MapCovereage'
 
 const userSubscriptionSelector = (state) => state.auth.user.tariff
 
 const BillingPlans = () => {
+
   const subscription = useSelector(userSubscriptionSelector)
   const [alert, setAlert] = React.useState(null)
 
@@ -33,18 +32,65 @@ const BillingPlans = () => {
     setAlert(null)
   }
 
-  const htmlAlert = () => {
+  const subScriptionAlert = () => {
     setAlert(
       <ReactBSAlert
-        customClass="agro-alert"
+        title="Subscribe"
+        customClass="agro-alert-dark"
         onConfirm={() => hideAlert()}
         onCancel={() => hideAlert()}
         showConfirm={false}
+        // eslint-disable-next-line
+        showCloseButton={true}
       >
         <SubscriptionPop2 close={hideAlert} />
       </ReactBSAlert>,
     )
   }
+
+  const priceInfoAlert = () => {
+    setAlert(
+      <ReactBSAlert
+        title="Price for exceeding area limit"
+        customClass="agro-alert-dark"
+        onConfirm={() => hideAlert()}
+        onCancel={() => hideAlert()}
+        showConfirm={false}
+        // eslint-disable-next-line
+        showCloseButton={true}
+      >
+        <div className="text-left">
+          <p>
+            If you need a broader territory that exceeds your plan
+            threshold, you can still call data without limitation
+            with Starter subscription plan and above. In
+            this case, you will be charged according to your
+            subscription plan. We send you an
+            invoice for the exceeded amount at the very beginning of
+            the next month.
+          </p>
+
+          <p>
+            Please note that if a polygon was created and then deleted
+            in the same payment month, it <b>will be included</b> in
+            the total area of used polygons for that particular month,
+            but it <b>will not be included</b> in your next payment
+            month. The total area of used polygons will also include
+            those polygons, which have been created before the current
+            payment month and that still exist now or have been
+            deleted during the current payment month.
+          </p>
+        </div>
+      </ReactBSAlert>,
+    )
+  }
+
+  const CorporateText = () => (
+    <>
+      <p>We provide a customised service and extended data range under this plan. You can receive data for broader areas, get access to more in-depth archives, ask for an almost unlimited number of requests per minute, historical data depth, etc.</p>
+      <p>Send us your requirements, and we will prepare a relevant offer for you.</p>
+    </>
+  )
 
   return (
     <>
@@ -79,7 +125,7 @@ const BillingPlans = () => {
                           <NavItem>
                             <NavLink>
                               <h3 className="mb-0">Free</h3>
-                              <h3>£0</h3>
+                              <h3><b>£0</b></h3>
                               <Link to="/dashboard/api-keys">
                                 <Button
                                   className="btn-primary text-nowrap"
@@ -102,7 +148,7 @@ const BillingPlans = () => {
                           <NavItem>
                             <NavLink>
                               <h3 className="mb-0">Starter</h3>
-                              <h3>£20</h3>
+                              <h3><b>£20</b></h3>
 
                               {subscription === 'starter' ? (
                                 <Button
@@ -124,7 +170,7 @@ const BillingPlans = () => {
                                   data-dismiss="modal"
                                   type="button"
                                   onClick={(e) => {
-                                    htmlAlert(false)
+                                    subScriptionAlert(false)
                                     e.stopPropagation()
                                   }}
                                 >
@@ -143,7 +189,7 @@ const BillingPlans = () => {
                           <NavItem>
                             <NavLink>
                               <h3 className="mb-0">Small Kit</h3>
-                              <h3>£200</h3>
+                              <h3><b>£200</b></h3>
 
                               {subscription === 'small' ? (
                                 <Button
@@ -166,7 +212,7 @@ const BillingPlans = () => {
                                   data-dismiss="modal"
                                   type="button"
                                   onClick={(e) => {
-                                    htmlAlert(false)
+                                    subScriptionAlert(false)
                                     e.stopPropagation()
                                   }}
                                 >
@@ -191,11 +237,11 @@ const BillingPlans = () => {
                                 target="_blank"
                               >
                                 <Button
-                                  className="btn-primary"
+                                  className="btn-primary text-nowrap"
                                   color="primary"
                                   type="button"
                                 >
-                                  Contact
+                                  Contact us
                                 </Button>
                               </a>
                             </NavLink>
@@ -262,16 +308,29 @@ const BillingPlans = () => {
                       </td>
                       <td>Total archive</td>
                     </tr>
-
+                    <tr className="mb-2">
+                      <td>
+                        Satellite imagery data update
+                      </td>
+                      <td>
+                        Near real-time (operative)
+                      </td>
+                      <td>
+                        Near real-time (operative)
+                      </td>
+                      <td>
+                        Near real-time (operative)
+                      </td>
+                      <td>
+                        Near real-time (operative)
+                      </td>
+                    </tr>
                     <tr>
                       <td>
-                        Price for exceeded area{' '}
-                        <a
-                          href="https://home.agromonitoring.com/subscriptions#description"
-                          target="_blank"
-                        >
-                          (learn more)
-                        </a>
+                        Price for exceeding area limit{' '}
+
+                          <FontAwesomeIcon icon={faInfoCircle} onClick={priceInfoAlert}/>
+
                       </td>
                       <td>Unavailable</td>
                       <td>£0.02 per each 1 ha</td>
@@ -298,18 +357,7 @@ const BillingPlans = () => {
                         <FontAwesomeIcon icon={faCheckCircle} />
                       </td>
                       <td rowSpan="4">
-                        <p>
-                          We provide a customised service and extended data
-                          range under this plan. You can receive data for
-                          broader areas, get access to more in-depth archives,
-                          ask for an almost unlimited number of requests per
-                          minute, etc.
-                        </p>
-
-                        <p>
-                          Write to us with your requirements, and we will
-                          prepare a relevant offer for you.
-                        </p>
+                        <CorporateText />
                       </td>
                     </tr>
 
@@ -372,6 +420,13 @@ const BillingPlans = () => {
                         <FontAwesomeIcon icon={faCheckCircle} />
                       </td>
                     </tr>
+                  <tr>
+                      <td>Current soil temperature and moisture data update</td>
+                      <td>2 times per day</td>
+                      <td>2 times per day</td>
+                      <td>2 times per day</td>
+                      <td>2 times per day</td>
+                    </tr>
                   </tbody>
                   <thead>
                     <tr>
@@ -391,7 +446,6 @@ const BillingPlans = () => {
                       <td>&#60; 10,000</td>
                       <td>Unlimited</td>
                     </tr>
-
                     <tr>
                       <td>
                         API calls <b>per day</b> to historical weather data
@@ -429,18 +483,7 @@ const BillingPlans = () => {
                         <FontAwesomeIcon icon={faCheckCircle} />
                       </td>
                       <td rowSpan="8">
-                        <p>
-                          We provide a customised service and extended data
-                          range under this plan. You can receive data for
-                          broader areas, get access to more in-depth archives,
-                          ask for an almost unlimited number of requests per
-                          minute, historical data depth, etc.
-                        </p>
-
-                        <p>
-                          Write to us with your requirements, and we will
-                          prepare a relevant offer for you.
-                        </p>
+                        <CorporateText />
                       </td>
                     </tr>
 
@@ -573,6 +616,13 @@ const BillingPlans = () => {
                         <FontAwesomeIcon icon={faCheckCircle} />
                       </td>
                     </tr>
+                  <tr>
+                      <td>Weather API data update</td>
+                      <td>&#60; 2 hours</td>
+                      <td>&#60; 1 hour</td>
+                      <td>&#60; 1 hour</td>
+                      <td>&#60; 10 mins</td>
+                    </tr>
                   </tbody>
                   <thead>
                     <tr>
@@ -582,31 +632,6 @@ const BillingPlans = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    <tr className="mb-2">
-                      <td>
-                        Satellite imagery (NDVI, EVI, EVI2, NDWI, NRI, True
-                        color, False color) data update
-                      </td>
-                      <td colSpan="4">
-                        Near real-time (operative) satellite data
-                      </td>
-                    </tr>
-
-                    <tr>
-                      <td>Current soil temperature and moisture data update</td>
-                      <td>2 times per day</td>
-                      <td>2 times per day</td>
-                      <td>2 times per day</td>
-                      <td>2 times per day</td>
-                    </tr>
-
-                    <tr>
-                      <td>Weather API data update</td>
-                      <td>&#60; 2 hours</td>
-                      <td>&#60; 1 hour</td>
-                      <td>&#60; 1 hour</td>
-                      <td>&#60; 10 mins</td>
-                    </tr>
 
                     <tr>
                       <td>SSL</td>
@@ -713,81 +738,44 @@ const BillingPlans = () => {
         </Row>
 
         <Row>
-          <Col className="mb-0" md="12" mt="20">
-            <Card>
-              <CardBody>
-                <Row>
-                  <Col>
-                    <h4>
-                      If you need a broader territory that exceeds your plan
-                      threshold, you can still call data without limitation
-                      (available for Starter subscription plan and above). In
-                      this case, you will be charged according to your
-                      subscription plan (please see the &#34;Price for exceeded
-                      area&#34; row in the pricing table). We send you an
-                      invoice for the exceeded amount at the very beginning of
-                      the next month.
-                    </h4>
-                  </Col>
-                </Row>
-
-                <Row>
-                  <Col>
-                    <h4>
-                      Please note that if a polygon was created and then deleted
-                      in the same payment month, it <b>will be included</b> in
-                      the total area of used polygons for that particular month,
-                      but it <b>will not be included</b> in your next payment
-                      month. The total area of used polygons will also include
-                      those polygons, which have been created before the current
-                      payment month and that still exist now or have been
-                      deleted during the current payment month.
-                    </h4>
-                  </Col>
-                </Row>
-              </CardBody>
-            </Card>
+          <Col>
+            <h1>Where you can get satellite imagery data right now</h1>
           </Col>
         </Row>
+
 
         <Row>
           <Col className="mb-0" md="12" mt="20">
             <Card>
-              <CardHeader>
-                <h3>Where you can get satellite imagery data right now</h3>
-              </CardHeader>
+              {/*<CardHeader>*/}
+                {/*<h3>Where you can get satellite imagery data right now</h3>*/}
+              {/*</CardHeader>*/}
               <CardBody>
                 <Row>
                   <Col>
-                    <h4>
+                    <p>
                       This map shows areas in blue for which satellite imagery
                       data is available in our system.
-                    </h4>
-                  </Col>
-                </Row>
-
-                <Row>
-                  <Col>
-                    <h4>
+                    </p>
+                    <ul>
                       <li>
                         <b>If you have a paid plan</b>, the satellite data
                         archive for your polygons can be downloaded for any
                         territories.
                       </li>
-                    </h4>
-                    <h4>
                       <li>
                         <b>If you have the FREE plan</b> and create a polygon
                         outside these areas, you will receive satellite imagery
                         for the polygon in a few days.
                       </li>
-                    </h4>
+                    </ul>
                   </Col>
                 </Row>
 
+
                 <Row>
                   <Col>
-                    <h4>
+                    <p>
                       Please{' '}
                       <a
                         href="https://openweathermap.force.com/s/contactsupport"
@@ -797,7 +785,7 @@ const BillingPlans = () => {
                       </a>{' '}
                       with any questions. We will do our best to prepare a
                       proper solution for you.
-                    </h4>
+                    </p>
                   </Col>
                 </Row>
               </CardBody>
@@ -805,7 +793,7 @@ const BillingPlans = () => {
           </Col>
         </Row>
 
-        <Mapp />
+        <Map />
       </div>
     </>
   )

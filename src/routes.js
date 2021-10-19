@@ -145,13 +145,13 @@ const routes = [
         name: 'Login',
         rtlName: '',
         mini: 'L',
-        rtlMini: 'هعذا',
+        rtlMini: '',
         component: Login,
         layout: '/auth',
       },
 
       {
-        path: '/register',
+        path: '/sign-up',
         name: 'Register',
         rtlName: '',
         mini: 'L',

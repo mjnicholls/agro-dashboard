@@ -138,27 +138,29 @@ const Subscription2 = () => {
                           >
                             <NavItem>
                               <NavLink>
-                                <i
-                                  className="tim-icons icon-paper"
-                                  style={{ marginTop: '15px' }}
-                                />
-                                <p>Your Charges</p>
-                                <p>This Month</p>
-                              </NavLink>
-                            </NavItem>
-                            <NavItem>
-                              <NavLink>
-                                <p style={{ fontSize: '40px' }}>£40</p>
-                                <Link to="/dashboard/payments">
-                                  <Button
-                                    className="btn-fill"
-                                    color="primary"
-                                    type="submit"
-                                    style={{ marginTop: '17px' }}
-                                  >
-                                    Invoices
-                                  </Button>
-                                </Link>
+                                <Row>
+                                  <Col className="col">
+                                    <i
+                                      className="tim-icons icon-paper"
+                                      style={{ marginTop: '15px' }}
+                                    />
+                                    <p>Your Charges</p>
+                                    <p>This Month</p>
+                                  </Col>
+                                  <Col className="col">
+                                    <p style={{ fontSize: '40px' }}>£40</p>
+                                    <Link to="/dashboard/payments">
+                                      <Button
+                                        className="btn-fill"
+                                        color="primary"
+                                        type="submit"
+                                        style={{ marginTop: '17px' }}
+                                      >
+                                        Invoice
+                                      </Button>
+                                    </Link>
+                                  </Col>
+                                </Row>
                               </NavLink>
                             </NavItem>
                             <NavItem>

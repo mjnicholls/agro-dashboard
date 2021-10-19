@@ -27,12 +27,7 @@ const CropMap = () => {
       setMapHeight(contentHeight)
     }
 
-    initialiseMap(mapContainer.current, map)
-    map.current.on('load', () => {
-      map.current.setCenter([-93.3977, 41.978])
-      map.current.setZoom(12)
-      setInitialised(true)
-    })
+    initialiseMap(mapContainer.current, map, {bounds: [[-93.39, 41.5], [-93.35, 41.6]]}, () => setInitialised(true))
 
     return () => {
       if (map.current) {

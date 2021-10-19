@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 
 import classNames from 'classnames'
+import PropTypes from 'prop-types'
 import ReactBSAlert from 'react-bootstrap-sweetalert'
 import Select from 'react-select'
 import {
@@ -167,5 +168,10 @@ const CropMapCard = ({ years, activeYear, setActiveYear, info, setAlert }) => {
     </Card>
   )
 }
+
+CropMapCard.propTypes = {
+  years: PropTypes.arrayOf()
+}
+
 
 export default CropMapCard

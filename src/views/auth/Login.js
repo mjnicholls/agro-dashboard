@@ -3,7 +3,7 @@ import React from 'react'
 import { css } from '@emotion/react'
 import classnames from 'classnames'
 import { useDispatch, useSelector } from 'react-redux'
-import { Redirect } from 'react-router-dom'
+import { NavLink, Redirect } from 'react-router-dom'
 import DotLoader from 'react-spinners/DotLoader'
 import {
   Button,
@@ -87,10 +87,8 @@ const Login = (props) => {
                   <div style={{ minHeight: '125px' }}>
                     {isFetching ? (
                       <div
+                        className="d-flex justify-content-center align-items-center"
                         style={{
-                          display: 'flex',
-                          justifyContent: 'center',
-                          alignItems: 'center',
                           height: '125px',
                         }}
                       >
@@ -163,33 +161,29 @@ const Login = (props) => {
                     block
                     className="mb-3"
                     color="primary"
-                    // href="#pablo"
                     onClick={onSubmitLogin}
                     size="lg"
                   >
                     Sign in
                   </Button>
-                  <div className="pull-left">
+                  <div className="d-flex justify-content-between align-items-center">
                     <h6>
-                      <a
+                      <NavLink
+                        to="/auth/sign-up"
                         className="link footer-link"
-                        href="https://wp.agromonitoring.com/users/sign_up"
                       >
                         Create Account
-                      </a>
+                      </NavLink>
                     </h6>
-                  </div>
-                  {/* <div className="pull-right"> */}
-                  {/* <h6> */}
-                  {/* <a */}
-                  {/* className="link footer-link" */}
-                  {/* href="#pablo" */}
-                  {/* onClick={(e) => e.preventDefault()} */}
-                  {/* > */}
-                  {/* Need Help? */}
-                  {/* </a> */}
-                  {/* </h6> */}
-                  {/* </div> */}
+                     <h6>
+                     <NavLink
+                       to="/auth/reset-password"
+                       className="link footer-link"
+                     >
+                     Lost password?
+                     </NavLink>
+                     </h6>
+                   </div>
                 </CardFooter>
               </Card>
             </Form>

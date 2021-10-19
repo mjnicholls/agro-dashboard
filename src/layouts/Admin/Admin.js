@@ -14,8 +14,13 @@ import Sidebar from '../../components/Sidebar/Sidebar2'
 // import FixedPlugin from "components/FixedPlugin/FixedPlugin";
 import routes from '../../routes'
 import { bool } from 'prop-types'
+import store from "../../store";
+
+import {fetchPolygons} from "../../features/polygons/actions";
 
 let ps
+const isConfirmedEmailSelector = (state) => state.auth.user.confirmed_email
+const polygonsSelector = (state) => state.polygons
 
 const Admin = (props) => {
   const activeColor = 'blue'
@@ -28,9 +33,9 @@ const Admin = (props) => {
   const notificationAlertRef = React.useRef(null)
   const location = useLocation()
   const dispatch = useDispatch()
-  const authSelector = (state) => state.auth
-  const auth = useSelector(authSelector)
-  const isConfirmed = auth.user.confirmed_email
+
+  const isConfirmed = useSelector(isConfirmedEmailSelector)
+  const polygons = useSelector(polygonsSelector)
 
   React.useEffect(() => {
     document.documentElement.scrollTop = 0
@@ -68,6 +73,11 @@ const Admin = (props) => {
         }
       }
       window.removeEventListener('scroll', showNavbarButton)
+
+      // fetch polygons inside dashboard, if we don't have any
+      if (!polygons.length) {
+          dispatch(fetchPolygons())
+        }
     }
   }, [])
 

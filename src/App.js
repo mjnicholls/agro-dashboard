@@ -43,15 +43,13 @@ axios.interceptors.response.use(
   },
 )
 
-if (!store.getState().polygons.length) {
-  store.dispatch(fetchPolygons())
-}
 
 const App = () => (
   <Provider store={store}>
     <BrowserRouter>
       <Switch>
         <Route path="/auth" render={(props) => <AuthLayout {...props} />} />
+        <Route path="/auth" />
         <AuthRoute
           path="/dashboard"
           render={(props) => <AdminLayout {...props} />}

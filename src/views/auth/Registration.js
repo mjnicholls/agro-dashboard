@@ -3,7 +3,6 @@ import React, { useState } from 'react'
 import classnames from 'classnames'
 import ReCAPTCHA from 'react-google-recaptcha'
 import { useDispatch } from 'react-redux'
-// reactstrap components
 import {
   Button,
   Card,
@@ -23,21 +22,21 @@ import {
   Row,
   Col,
 } from 'reactstrap'
+import { NavLink } from 'react-router-dom'
 
 import {
   notifyError,
   notifySuccess,
 } from '../../features/notifications/actions'
-import { updateMailing } from '../../api/personalAccountAPI'
 
-// import { createNewUser } from '../../services/api/personalAccountAPI'
+import { createNewUser } from '../../api/personalAccountAPI'
 
 const RegisterForm = () => {
   const [state, setState] = React.useState({})
   const [error, setError] = useState({})
   const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
-  const [pass, setPass] = useState('')
+  const [password, setPassword] = useState('')
   const [confirmPass, setConfirmPass] = useState('')
   const [checkAge, setCheckAge] = useState(false)
   const [checkTerms, setCheckTerms] = useState(false)
@@ -49,21 +48,20 @@ const RegisterForm = () => {
   })
 
   const createUser = () => {
-    setError({})
 
-    // username & email
+    setError({})
 
     const newError = {}
 
     if (
       !username.length ||
       !email.length ||
-      !pass.length ||
+      !password.length ||
       !confirmPass.length
     ) {
       newError.username = !username.length
       newError.email = !email.length
-      newError.pass = !pass.length
+      newError.pass = !password.length
       newError.confirmPass = !confirmPass.length
       dispatch(notifyError('Cannot be empty'))
       setError(newError)
@@ -72,15 +70,15 @@ const RegisterForm = () => {
 
     // password conditions
 
-    if (pass.length < 8 || confirmPass.length < 8) {
-      newError.pass = pass.length < 8
+    if (password.length < 8 || confirmPass.length < 8) {
+      newError.pass = password.length < 8
       newError.confirmPass = confirmPass.length < 8
       dispatch(notifyError('Must be eight characters or more'))
       setError(newError)
       return
     }
 
-    if (pass !== confirmPass) {
+    if (password !== confirmPass) {
       newError.pass = true
       newError.confirmPass = true
       dispatch(notifyError('Passwords do not match'))
@@ -102,27 +100,39 @@ const RegisterForm = () => {
       return
     }
 
-    // create user
     const data = {
       user: {
-        email,
-        pass,
         username,
+        email,
+        password,
+        password_confirmation: confirmPass
       },
-      mailing: mailSettings,
+      agreement: {
+        is_age_confirmed: checkAge ? "1" : "0",
+        is_accepted: checkTerms ? "1" : "0",
+      },
+      mailing: {
+        system: mailSettings.system ? "1" : "0",
+        product: mailSettings.product ? "1" : "0",
+        news: mailSettings.news ? "1" : "0"
+      },
+      advertising: {
+        campaign_id: null,
+        entrance_date: null
+      }
     }
 
-    // eslint-disable-next-line
-    // createNewUser(data)
-    //   .then(() => {
-    //     dispatch(notifySuccess('Registration complete'))
-    //   })
-    //   // eslint-disable-next-line
-    //   .catch((error) => {
-    //     dispatch(
-    //       notifyError(`Error registering ... please try again ${error.message}`),
-    //     )
-    //   })
+    createNewUser(data)
+      .then(() => {
+        dispatch(notifySuccess('Registration complete'))
+      })
+      .catch((err) => {
+        dispatch(
+          notifyError(`Error registering ... please try again ${err.message}`), // TODO get errors
+        )
+      })
+
+
   }
 
   const handleCheckBoxClick = (key, value) => {
@@ -130,15 +140,6 @@ const RegisterForm = () => {
     newObj[key] = value
     setMailSettings(newObj)
   }
-
-  updateMailing(mailSettings)
-    .then(() => {
-      // dispatch(notifySuccess("Mail settings saved"))
-    })
-    // eslint-disable-next-line
-    .catch((error) => {
-      dispatch(notifyError(`Error updating settings: ${error.message}`))
-    })
 
   const onChange = (value) => {
     console.log('Captcha value:', value)
@@ -214,9 +215,10 @@ const RegisterForm = () => {
                       placeholder="Email Address"
                       type="text"
                       onChange={(e) => setEmail(e.target.value)}
-                      onFocus={(e) => setState({ ...state, nameFocus: true })}
-                      onBlur={(e) => setState({ ...state, nameFocus: false })}
+                      onFocus={() => setState({ ...state, nameFocus: true })}
+                      onBlur={() => setState({ ...state, nameFocus: false })}
                     />
+
                   </InputGroup>
                   <InputGroup
                     className={classnames({
@@ -233,8 +235,8 @@ const RegisterForm = () => {
                       placeholder="Full Name"
                       type="text"
                       onChange={(e) => setUsername(e.target.value)}
-                      onFocus={(e) => setState({ ...state, nameFocus: true })}
-                      onBlur={(e) => setState({ ...state, nameFocus: false })}
+                      onFocus={() => setState({ ...state, nameFocus: true })}
+                      onBlur={() => setState({ ...state, nameFocus: false })}
                     />
                   </InputGroup>
                   <InputGroup
@@ -252,7 +254,7 @@ const RegisterForm = () => {
                       placeholder="Password"
                       type="password"
                       autoComplete="off"
-                      onChange={(e) => setPass(e.target.value)}
+                      onChange={(e) => setPassword(e.target.value)}
                     />
                   </InputGroup>
                   <InputGroup
@@ -345,16 +347,16 @@ const RegisterForm = () => {
                     </span>
                   </Label>
                   <FormGroup check className="text-left">
-                    <Label check className="mr-3">
+                    <Label check>
                       <Input
                         type="checkbox"
                         onChange={(e) => {
-                          handleCheckBoxClick('news', e.target.checked)
+                          handleCheckBoxClick('system', e.target.checked)
                         }}
                       />
                       <span className="form-check-sign" />
-                      Corporate news (our life, the launch of a new service,
-                      etc)
+                      System news (API usage alert, system update, temporary
+                      system shutdown, etc)
                     </Label>
                   </FormGroup>
                   <FormGroup check className="text-left">
@@ -370,19 +372,18 @@ const RegisterForm = () => {
                     </Label>
                   </FormGroup>
                   <FormGroup check className="text-left">
-                    <Label check>
+                    <Label check className="mr-3">
                       <Input
                         type="checkbox"
                         onChange={(e) => {
-                          handleCheckBoxClick('system', e.target.checked)
+                          handleCheckBoxClick('news', e.target.checked)
                         }}
                       />
                       <span className="form-check-sign" />
-                      System news (API usage alert, system update, temporary
-                      system shutdown, etc)
+                      Corporate news (our life, the launch of a new service,
+                      etc)
                     </Label>
                   </FormGroup>
-
                   <FormGroup className="text-left">
                     <Label>
                       <ReCAPTCHA
@@ -395,15 +396,23 @@ const RegisterForm = () => {
                   </FormGroup>
                 </Form>
               </CardBody>
-              <CardFooter className="text-right">
-                <Button
-                  className="btn-round"
-                  color="primary"
-                  onClick={createUser}
-                  size="lg"
-                >
-                  Get Started
-                </Button>
+              <CardFooter className="d-flex justify-content-between align-items-center">
+                  <h6>
+                    <NavLink
+                      to="/auth/login"
+                      className="link footer-link"
+                    >
+                      Sign in
+                    </NavLink>
+                  </h6>
+                  <Button
+                    className="btn-round"
+                    color="primary"
+                    onClick={createUser}
+                    size="lg"
+                  >
+                    Sign up
+                  </Button>
               </CardFooter>
             </Card>
           </Col>
