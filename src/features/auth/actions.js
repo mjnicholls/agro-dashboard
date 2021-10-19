@@ -119,4 +119,3 @@ export const logoutUser = () => async (dispatch) => {
       console.log(err)
     })
 }
-

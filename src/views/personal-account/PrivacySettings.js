@@ -26,7 +26,7 @@ const PrivacySettings = ({ mailSettings, setMailSettings }) => {
   const dispatch = useDispatch()
 
   const handleCheckBoxClick = (key, value) => {
-    const newObj = {...mailSettings}
+    const newObj = { ...mailSettings }
     newObj[key] = value
     setMailSettings(newObj)
   }

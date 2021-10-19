@@ -27,7 +27,6 @@ import APIKeyEdit from './APIKeyEdit'
 import ApiKeysDelete from './APIKeysDelete'
 
 const ApiKeys = () => {
-
   const dispatch = useDispatch()
 
   const [data, setData] = useState([])
@@ -40,21 +39,18 @@ const ApiKeys = () => {
   }, [])
 
   const refreshData = () => {
-    getAPIKeys(
-      [
-        {
-            "appid": "appid_1",
-            "name": "appid_name_1",
-            "status": true
-        }, 
-        {
-            "appid": "appid_2", 
-            "name": "appid_name_2",
-            "status": false
-        }
-      ]
-      
-    )
+    getAPIKeys([
+      {
+        appid: 'appid_1',
+        name: 'appid_name_1',
+        status: true,
+      },
+      {
+        appid: 'appid_2',
+        name: 'appid_name_2',
+        status: false,
+      },
+    ])
       .then((res) => {
         setData(res)
       })
@@ -149,8 +145,12 @@ const ApiKeys = () => {
                         </td>
                         <td>{item.name}</td>
                         {item.status === true ? (
-                         <td>Active</td> )  : ( 
-                         <td><p style={{color: "red"}}>Not active</p></td>)}
+                          <td>Active</td>
+                        ) : (
+                          <td>
+                            <p style={{ color: 'red' }}>Not active</p>
+                          </td>
+                        )}
                         <td className="text-right">
                           <Button
                             className="btn-link btn-icon btn-neutral"
@@ -168,7 +168,9 @@ const ApiKeys = () => {
                           <UncontrolledTooltip
                             delay={0}
                             target={`edit_${item.appid}`}
-                          >Edit key</UncontrolledTooltip>
+                          >
+                            Edit key
+                          </UncontrolledTooltip>
                           <Button
                             className="btn-link btn-icon btn-neutral"
                             color="danger"

@@ -53,7 +53,7 @@ export const api = {
     tooltip: 'Soil data collection is two times a day with a 12-hour period.',
     tool_id: 'tool7',
   },
-  crop_recognition:{
+  crop_recognition: {
     name: 'Crop Recognition Map',
     link: 'https://agromonitoring.com/api/history-soil',
     isCurrent: false,
@@ -114,11 +114,7 @@ export const subscriptions = {
     license_data: 'ODbL',
     support: 'Helpdesk',
     crop_recognition: '2017, 2018 - available',
-    api: [
-      'Current weather data',
-      '5_day_forecast',
-      'Current UV index',
-    ],
+    api: ['Current weather data', '5_day_forecast', 'Current UV index'],
   },
   starter: {
     name: 'Starter',

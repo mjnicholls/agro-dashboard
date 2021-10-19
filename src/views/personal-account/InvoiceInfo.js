@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react'
 
 import classnames from 'classnames'
@@ -58,7 +57,9 @@ const InvoiceSettings = ({
   }
 
   const getCountryName = () => {
-    const country = countries.find((obj) => obj.code === invoiceSettings.country)
+    const country = countries.find(
+      (obj) => obj.code === invoiceSettings.country,
+    )
     return country ? country.name : ''
   }
 

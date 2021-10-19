@@ -210,7 +210,10 @@ const PolygonTable = ({ data }) => {
                     >
                       <i className="tim-icons icon-pencil" />
                     </Button>
-                    <UncontrolledTooltip delay={0} target={`edit_${polygon.id}`}>
+                    <UncontrolledTooltip
+                      delay={0}
+                      target={`edit_${polygon.id}`}
+                    >
                       Edit polygon
                     </UncontrolledTooltip>
                     <Button
@@ -226,7 +229,10 @@ const PolygonTable = ({ data }) => {
                     >
                       <i className="tim-icons icon-simple-remove" />
                     </Button>
-                    <UncontrolledTooltip delay={0} target={`delete_${polygon.id}`}>
+                    <UncontrolledTooltip
+                      delay={0}
+                      target={`delete_${polygon.id}`}
+                    >
                       Delete polygon
                     </UncontrolledTooltip>
                   </td>

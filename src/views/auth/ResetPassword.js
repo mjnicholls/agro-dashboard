@@ -26,7 +26,6 @@ import {
 import { validateEmail } from '../../utils/validation'
 
 const ResetPass = () => {
-
   const [emailFocus, setEmailFocus] = React.useState(false)
 
   const [email, setEmail] = useState('')
@@ -50,7 +49,7 @@ const ResetPass = () => {
     }
 
     // eslint-disable-next-line
-    updatePass({email: email})
+    updatePass({ email: email })
       .then(() => {
         dispatch(notifySuccess('Email sent!'))
       })

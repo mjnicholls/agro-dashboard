@@ -18,7 +18,6 @@ import { getInvoices } from '../../api/personalAccountAPI'
 import AgroPagination from '../agro-components/AgroPagination'
 
 const InvoiceList = () => {
-
   const [data, setData] = useState([])
   const [page, setPage] = useState(0)
   const [pageData, setPageData] = useState([])

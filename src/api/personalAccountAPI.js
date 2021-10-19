@@ -56,7 +56,7 @@ export const updateMailing = (params) =>
 
 export const deleteAcct = (delParams) =>
   /** Delete account */
-  axios.delete(deleteAccount, {data: delParams})
+  axios.delete(deleteAccount, { data: delParams })
 
 export const createBillingDetails = (params) =>
   /** Create billing details */

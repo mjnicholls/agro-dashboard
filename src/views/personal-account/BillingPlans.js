@@ -26,7 +26,6 @@ import { VectorMap } from 'devextreme-react'
 const userSubscriptionSelector = (state) => state.auth.user.tariff
 
 const BillingPlans = () => {
-
   const subscription = useSelector(userSubscriptionSelector)
   const [alert, setAlert] = React.useState(null)
 
@@ -68,138 +67,143 @@ const BillingPlans = () => {
                 >
                   <thead>
                     <tr className="sticky-row">
-                      <th >
+                      <th>
                         <p>Fixed price per month</p>
                         <p>(excl. VAT)</p>
                       </th>
                       <th>
                         <Nav
-                            className="nav-pills-info nav-pills-icons justify-content-center"
-                            pills
-                          >
-                            <NavItem>
-                              <NavLink>
-                                <h3 className="mb-0">Free</h3>
-                                <h3>£0</h3>
-                                <Link to="/dashboard/api-keys">
-                                  <Button
-                                    className="btn-primary text-nowrap"
-                                    color="primary"
-                                    data-dismiss="modal"
-                                    type="button"
-                                  >
-                                    API Key
-                                  </Button>
-                                </Link>
-                              </NavLink>
-                            </NavItem>
-                          </Nav>
+                          className="nav-pills-info nav-pills-icons justify-content-center"
+                          pills
+                        >
+                          <NavItem>
+                            <NavLink>
+                              <h3 className="mb-0">Free</h3>
+                              <h3>£0</h3>
+                              <Link to="/dashboard/api-keys">
+                                <Button
+                                  className="btn-primary text-nowrap"
+                                  color="primary"
+                                  data-dismiss="modal"
+                                  type="button"
+                                >
+                                  API Key
+                                </Button>
+                              </Link>
+                            </NavLink>
+                          </NavItem>
+                        </Nav>
                       </th>
                       <th>
                         <Nav
-                              className="nav-pills-info nav-pills-icons justify-content-center"
-                              pills
-                            >
-                              <NavItem>
-                                <NavLink>
-                                  <h3 className="mb-0">Starter</h3>
-                                  <h3>£20</h3>
+                          className="nav-pills-info nav-pills-icons justify-content-center"
+                          pills
+                        >
+                          <NavItem>
+                            <NavLink>
+                              <h3 className="mb-0">Starter</h3>
+                              <h3>£20</h3>
 
-                                  {subscription === 'starter' ? <Button
-                                      className="btn-primary btn-simple"
-                                      color="primary"
-                                      data-dismiss="modal"
-                                      type="button"
-                                      /* onClick={(e) => {
+                              {subscription === 'starter' ? (
+                                <Button
+                                  className="btn-primary btn-simple"
+                                  color="primary"
+                                  data-dismiss="modal"
+                                  type="button"
+                                  /* onClick={(e) => {
                                     htmlAlert(false);
                                     e.stopPropagation();
                                   }} */
-                                    >
-                                      Unsubscribe
-                                    </Button> :
-                                    <Button
-                                      className="btn-primary"
-                                      color="primary"
-                                      data-dismiss="modal"
-                                      type="button"
-                                      onClick={(e) => {
-                                        htmlAlert(false)
-                                        e.stopPropagation()
-                                      }}
-                                    >
-                                      Subscribe
-                                    </Button>
-                                  }
-                                </NavLink>
-                              </NavItem>
-                            </Nav>
+                                >
+                                  Unsubscribe
+                                </Button>
+                              ) : (
+                                <Button
+                                  className="btn-primary"
+                                  color="primary"
+                                  data-dismiss="modal"
+                                  type="button"
+                                  onClick={(e) => {
+                                    htmlAlert(false)
+                                    e.stopPropagation()
+                                  }}
+                                >
+                                  Subscribe
+                                </Button>
+                              )}
+                            </NavLink>
+                          </NavItem>
+                        </Nav>
                       </th>
                       <th>
                         <Nav
-                              className="nav-pills-info nav-pills-icons justify-content-center"
-                              pills
-                            >
-                              <NavItem>
-                                <NavLink>
-                                  <h3 className="mb-0">Small Kit</h3>
-                                  <h3>£200</h3>
+                          className="nav-pills-info nav-pills-icons justify-content-center"
+                          pills
+                        >
+                          <NavItem>
+                            <NavLink>
+                              <h3 className="mb-0">Small Kit</h3>
+                              <h3>£200</h3>
 
-                                  {subscription === 'small' ?
-                                  <Button
-                                    className="btn-primary btn-simple"
-                                    color="primary"
-                                    data-dismiss="modal"
-                                    type="button"
-                                    /* onClick={(e) => {
+                              {subscription === 'small' ? (
+                                <Button
+                                  className="btn-primary btn-simple"
+                                  color="primary"
+                                  data-dismiss="modal"
+                                  type="button"
+                                  /* onClick={(e) => {
                                   htmlAlert(false);
                                   e.stopPropagation();
                                 }}
                                 */
-                                  >
-                                    Unsubscribe
-                                  </Button> :  <Button
-                                    className="btn-primary"
-                                    color="primary"
-                                    data-dismiss="modal"
-                                    type="button"
-                                    onClick={(e) => {
-                                      htmlAlert(false)
-                                      e.stopPropagation()
-                                    }}
-                                  >
-                                    Subscribe
-                                  </Button>}
-                                </NavLink>
-                              </NavItem>
-                            </Nav>
+                                >
+                                  Unsubscribe
+                                </Button>
+                              ) : (
+                                <Button
+                                  className="btn-primary"
+                                  color="primary"
+                                  data-dismiss="modal"
+                                  type="button"
+                                  onClick={(e) => {
+                                    htmlAlert(false)
+                                    e.stopPropagation()
+                                  }}
+                                >
+                                  Subscribe
+                                </Button>
+                              )}
+                            </NavLink>
+                          </NavItem>
+                        </Nav>
                       </th>
                       <th>
                         <Nav
-                            className="nav-pills-info nav-pills-icons justify-content-center"
-                            pills
-                          >
-                            <NavItem>
-                              <NavLink>
-                                <h3 className="mb-0">Corporate</h3>
-                                <h3>&nbsp;</h3>
-                                <a
-                                  href="https://openweathermap.force.com/s/contactsupport"
-                                  target="_blank"
+                          className="nav-pills-info nav-pills-icons justify-content-center"
+                          pills
+                        >
+                          <NavItem>
+                            <NavLink>
+                              <h3 className="mb-0">Corporate</h3>
+                              <h3>&nbsp;</h3>
+                              <a
+                                href="https://openweathermap.force.com/s/contactsupport"
+                                target="_blank"
+                              >
+                                <Button
+                                  className="btn-primary"
+                                  color="primary"
+                                  type="button"
                                 >
-                                  <Button
-                                    className="btn-primary"
-                                    color="primary"
-                                    type="button"
-                                  >
-                                    Contact
-                                  </Button>
-                                </a>
-                              </NavLink>
-                            </NavItem>
-                          </Nav>
+                                  Contact
+                                </Button>
+                              </a>
+                            </NavLink>
+                          </NavItem>
+                        </Nav>
                       </th>
                     </tr>
-                  <tr>
+                    <tr>
                       <th colSpan="5">
                         <h4>
                           Satellite data (imagery and statistics by polygon)
@@ -236,30 +240,22 @@ const BillingPlans = () => {
 
                     <tr>
                       <td>
-                        Satellite imagery (NDVI, EVI, EVI2, NDWI, NRI,  True color, False color)
+                        Satellite imagery (NDVI, EVI, EVI2, NDWI, NRI, True
+                        color, False color)
                       </td>
                       <td>
-                        <a
-                          href="#map"
-                          target="_blank"
-                        >
+                        <a href="#map" target="_blank">
                           All available data
                         </a>
                       </td>
                       <td>
-                       <a
-                          href="#map"
-                          target="_blank"
-                        >
+                        <a href="#map" target="_blank">
                           All available data
                         </a>{' '}
                         + total archive on request
                       </td>
                       <td>
-                        <a
-                          href="#map"
-                          target="_blank"
-                        >
+                        <a href="#map" target="_blank">
                           All available data
                         </a>{' '}
                         + total archive on request
@@ -578,7 +574,7 @@ const BillingPlans = () => {
                       </td>
                     </tr>
                   </tbody>
-                   <thead>
+                  <thead>
                     <tr>
                       <th colSpan="5">
                         <h4>Service</h4>
@@ -588,8 +584,8 @@ const BillingPlans = () => {
                   <tbody>
                     <tr className="mb-2">
                       <td>
-                        Satellite imagery (NDVI, EVI, EVI2, NDWI, NRI, True color, False color)
-                        data update
+                        Satellite imagery (NDVI, EVI, EVI2, NDWI, NRI, True
+                        color, False color) data update
                       </td>
                       <td colSpan="4">
                         Near real-time (operative) satellite data

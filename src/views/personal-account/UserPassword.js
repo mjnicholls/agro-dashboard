@@ -11,7 +11,7 @@ import {
   Form,
   FormGroup,
   Input,
-  Label
+  Label,
 } from 'reactstrap'
 
 import {
@@ -63,7 +63,7 @@ const UserPassword = () => {
       .then(() => {
         dispatch(notifySuccess('Password updated'))
       })
-       // eslint-disable-next-line
+      // eslint-disable-next-line
       .catch((error) => {
         dispatch(notifyError(`Error updating password + ${error.message}`))
       })

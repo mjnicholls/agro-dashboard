@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Select from 'react-select'
 import { Button, Col, FormGroup, Input, Label, Row } from 'reactstrap'
@@ -14,20 +14,17 @@ import PropTypes from 'prop-types'
 const userSubscriptionSelector = (state) => state.auth.user.tariff
 
 const DeleteAccount = ({ close }) => {
-const dispatch = useDispatch()
+  const dispatch = useDispatch()
 
   const subscription = useSelector(userSubscriptionSelector)
   const [reason, setReason] = useState('')
 
-
   const confirmDeleteAcct = () => {
-
     const data = {
-      reason
+      reason,
     }
 
     deleteAcct(data)
-    
       .then(() => {
         dispatch(notifySuccess('Account deleted'))
       })
@@ -55,10 +52,10 @@ const dispatch = useDispatch()
                 <Select
                   className="react-select info mb-3"
                   classNamePrefix="react-select"
-                  // eslint-disable-next-line 
-                      onChange={(reason) => {
-                        setReason(reason.label)
-                      }}
+                  // eslint-disable-next-line
+                  onChange={(reason) => {
+                    setReason(reason.label)
+                  }}
                   options={deleteAcctOptions}
                   getOptionLabel={(option) => option.value}
                   getOptionValue={(option) => option.label}
@@ -140,7 +137,7 @@ const dispatch = useDispatch()
 }
 
 DeleteAccount.propTypes = {
-  close: PropTypes.func
+  close: PropTypes.func,
 }
 
 export default DeleteAccount

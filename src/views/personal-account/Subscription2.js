@@ -36,7 +36,6 @@ const tabsOptions = [
 ]
 
 const Subscription2 = () => {
-
   const [activeTab, setActiveTab] = useState(tabsOptions[0]) // api or dashboard
   const [activePage, setActivePage] = useState('charge') // Charges or Limits
 
@@ -46,7 +45,6 @@ const Subscription2 = () => {
   const data = subscriptions[tariff]
 
   // const [activeTab, setActiveTab] = useState('charge')
-
 
   useEffect(() => {
     getPolygons()
@@ -348,8 +346,7 @@ const Subscription2 = () => {
                                   <td>
                                     <p>{data.api_calls_per_min}</p>
                                   </td>
-                                  <td>
-                                  </td>
+                                  <td></td>
                                 </tr>
                                 <tr>
                                   <td>
@@ -357,7 +354,6 @@ const Subscription2 = () => {
                                     <br />
                                     (NDVI, EVI, EVI2, NRI, DSWI, NDWI, True
                                     color, False color){' '}
-
                                     <i
                                       className="tim-icons icon-alert-circle-exc"
                                       id="tool16"
@@ -374,7 +370,6 @@ const Subscription2 = () => {
                                       polygons will be downloaded for any
                                       territories.
                                     </UncontrolledTooltip>
-
                                   </td>
                                   <td>
                                     {' '}
@@ -385,8 +380,7 @@ const Subscription2 = () => {
                                       All available data
                                     </a>{' '}
                                   </td>
-                                  <td>
-                                  </td>
+                                  <td></td>
                                 </tr>
                                 <tr>
                                   <td>Total area of created polygons</td>
@@ -396,9 +390,7 @@ const Subscription2 = () => {
                                     )}{' '}
                                     ha
                                   </td>
-                                  <td>
-
-                                  </td>
+                                  <td></td>
                                 </tr>
 
                                 <tr>
@@ -406,8 +398,7 @@ const Subscription2 = () => {
                                   <td>
                                     <p>{data.polygons_per_month}</p>
                                   </td>
-                                  <td>
-                                  </td>
+                                  <td></td>
                                 </tr>
 
                                 <tr>
@@ -418,8 +409,7 @@ const Subscription2 = () => {
                                   <td>
                                     <p>{data.price_exceeded_area}</p>
                                   </td>
-                                  <td>
-                                  </td>
+                                  <td></td>
                                 </tr>
                               </tbody>
                               <thead>
@@ -441,8 +431,7 @@ const Subscription2 = () => {
                                   <td>
                                     <p>{data.api_calls_per_min}</p>
                                   </td>
-                                  <td>
-                                  </td>
+                                  <td></td>
                                 </tr>
                                 {data.api
                                   .filter((key) => api[key].isCurrent)
@@ -466,64 +455,62 @@ const Subscription2 = () => {
                                       <td>
                                         <FontAwesomeIcon icon={faCheckCircle} />
                                       </td>{' '}
-                                      <td>
-
-                                      </td>
+                                      <td></td>
                                     </tr>
                                   ))}
                               </tbody>
                               {tariff === 'free' ? (
-
                                 <br />
-
-                               ) : (
-                                 <>
+                              ) : (
+                                <>
                                   <br />
                                   <thead>
-                                <tr>
-                                  <th colSpan={2}>
-                                    <p>Historical weather data:</p>
-                                  </th>
-                                  <th></th>
-                                </tr>
-                              </thead>
-
-                              <tbody>
-                                <tr>
-                                  <td>API calls per day</td>
-                                  <td>
-                                    <p>{data.api_calls_historical}</p>
-                                  </td>
-                                  <td>
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td>Historical weather data depth</td>
-                                  <td>
-                                    <p>{data.historical_data_depths}</p>
-                                  </td>
-                                  <td>
-                                  </td>
-                                </tr>
-                                {data.api
-                                  .filter((key) => !api[key].isCurrent)
-                                  .map((key) => (
-                                    <tr key={`history_ + ${key}`}>
-                                      <td>
-                                        <a href={api[key].link} target="_blank">
-                                          {api[key].name}
-                                        </a>
-                                      </td>
-                                      <td>
-                                        <FontAwesomeIcon icon={faCheckCircle} />
-                                      </td>{' '}
-                                      <td>
-                                      </td>
+                                    <tr>
+                                      <th colSpan={2}>
+                                        <p>Historical weather data:</p>
+                                      </th>
+                                      <th></th>
                                     </tr>
-                                  ))}
-                              </tbody>
-                              </>
-    )}
+                                  </thead>
+
+                                  <tbody>
+                                    <tr>
+                                      <td>API calls per day</td>
+                                      <td>
+                                        <p>{data.api_calls_historical}</p>
+                                      </td>
+                                      <td></td>
+                                    </tr>
+                                    <tr>
+                                      <td>Historical weather data depth</td>
+                                      <td>
+                                        <p>{data.historical_data_depths}</p>
+                                      </td>
+                                      <td></td>
+                                    </tr>
+                                    {data.api
+                                      .filter((key) => !api[key].isCurrent)
+                                      .map((key) => (
+                                        <tr key={`history_ + ${key}`}>
+                                          <td>
+                                            <a
+                                              href={api[key].link}
+                                              target="_blank"
+                                            >
+                                              {api[key].name}
+                                            </a>
+                                          </td>
+                                          <td>
+                                            <FontAwesomeIcon
+                                              icon={faCheckCircle}
+                                            />
+                                          </td>{' '}
+                                          <td></td>
+                                        </tr>
+                                      ))}
+                                  </tbody>
+                                </>
+                              )}
                               <thead>
                                 <br />
                                 <tr>
@@ -543,8 +530,7 @@ const Subscription2 = () => {
                                   <td>
                                     <p>{data.satelitte_imagery_service}</p>
                                   </td>
-                                  <td>
-                                  </td>
+                                  <td></td>
                                 </tr>
                                 <tr>
                                   <td>
@@ -554,16 +540,14 @@ const Subscription2 = () => {
                                   <td>
                                     <p>{data.current_soil}</p>
                                   </td>
-                                  <td>
-                                  </td>
+                                  <td></td>
                                 </tr>
                                 <tr>
                                   <td>Weather API data update</td>
                                   <td>
                                     <p>{data.weather_api_update}</p>
                                   </td>
-                                  <td>
-                                  </td>
+                                  <td></td>
                                 </tr>
                                 <tr>
                                   <td>SSL</td>
@@ -574,8 +558,7 @@ const Subscription2 = () => {
                                       value={data.ssl}
                                     />
                                   </td>
-                                  <td>
-                                  </td>
+                                  <td></td>
                                 </tr>
                                 <tr>
                                   <td>
@@ -589,8 +572,7 @@ const Subscription2 = () => {
                                       {data.license_maps}
                                     </a>
                                   </td>
-                                  <td>
-                                  </td>
+                                  <td></td>
                                 </tr>
                                 <tr>
                                   <td>License for data and database</td>
@@ -602,16 +584,14 @@ const Subscription2 = () => {
                                       </a>
                                     </p>
                                   </td>
-                                  <td>
-                                  </td>
+                                  <td></td>
                                 </tr>
                                 <tr>
                                   <td>Support</td>
                                   <td>
                                     <p>{data.support}</p>
                                   </td>
-                                  <td>
-                                  </td>
+                                  <td></td>
                                 </tr>
                               </tbody>
                             </Table>
@@ -624,7 +604,6 @@ const Subscription2 = () => {
                                     {/*<th>Calls</th>*/}
                                     <th>Depth</th>
                                     {tariff === 'corp' && <th>Start date</th>}
-
                                   </tr>
                                 </thead>
                                 <tbody>
@@ -640,7 +619,7 @@ const Subscription2 = () => {
                                               {api[key].dashboardName ||
                                                 api[key].name}
                                             </a>{' '}
-                                            {' '}<i
+                                            <i
                                               className="tim-icons icon-alert-circle-exc"
                                               id={api[key].tool_id}
                                             />
@@ -676,30 +655,32 @@ const Subscription2 = () => {
                                                 : ''}
                                             </td>
                                           )}
-
                                         </tr>
                                       ),
                                   )}
                                   <tr>
-                                    <td><a href={api.crop_recognition.link}>{api.crop_recognition.name}</a>{' '}
-                                    <i
-                                      className="tim-icons icon-alert-circle-exc"
-                                      id="tool15"
-                                    />
-                                    <UncontrolledTooltip
-                                      delay={0}
-                                      target="tool15"
-                                    >
-                                     Available only in the dashboard.
-                                    </UncontrolledTooltip>
+                                    <td>
+                                      <a href={api.crop_recognition.link}>
+                                        {api.crop_recognition.name}
+                                      </a>{' '}
+                                      <i
+                                        className="tim-icons icon-alert-circle-exc"
+                                        id="tool15"
+                                      />
+                                      <UncontrolledTooltip
+                                        delay={0}
+                                        target="tool15"
+                                      >
+                                        Available only in the dashboard.
+                                      </UncontrolledTooltip>
                                     </td>
                                     {tariff === 'free' ? (
-
-                                    <td>2017, 2018 - available</td>
-
-                                     ) : (
-
-                                      <td>2017, 2018, 2019 - available 2020, 2021 - on request</td>
+                                      <td>2017, 2018 - available</td>
+                                    ) : (
+                                      <td>
+                                        2017, 2018, 2019 - available 2020, 2021
+                                        - on request
+                                      </td>
                                     )}
                                     <td></td>
                                   </tr>
@@ -722,8 +703,7 @@ const Subscription2 = () => {
                                       }{' '}
                                       ha
                                     </td>
-                                    <td>
-                                    </td>
+                                    <td></td>
                                   </tr>
                                   <tr>
                                     <td>Max polygon area</td>
@@ -734,9 +714,7 @@ const Subscription2 = () => {
                                       )}{' '}
                                       ha
                                     </td>
-                                    <td>
-
-                                    </td>
+                                    <td></td>
                                   </tr>
                                 </tbody>
                               </Table>

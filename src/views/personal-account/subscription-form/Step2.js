@@ -125,7 +125,7 @@ const Step2 = ({ invoiceSettings, setInvoiceSettings, error }) => {
 Step2.propTypes = {
   error: PropTypes.func,
   invoiceSettings: PropTypes.object,
-  setInvoiceSettings: PropTypes.func
+  setInvoiceSettings: PropTypes.func,
 }
 
 export default Step2

@@ -33,7 +33,6 @@ import { updateMailing } from '../../api/personalAccountAPI'
 // import { createNewUser } from '../../services/api/personalAccountAPI'
 
 const RegisterForm = () => {
-
   const [state, setState] = React.useState({})
   const [error, setError] = useState({})
   const [username, setUsername] = useState('')
@@ -43,12 +42,11 @@ const RegisterForm = () => {
   const [checkAge, setCheckAge] = useState(false)
   const [checkTerms, setCheckTerms] = useState(false)
   const dispatch = useDispatch()
-    const [mailSettings, setMailSettings] = useState({
+  const [mailSettings, setMailSettings] = useState({
     news: false,
     product: false,
     system: false,
   })
-  
 
   const createUser = () => {
     setError({})
@@ -111,7 +109,7 @@ const RegisterForm = () => {
         pass,
         username,
       },
-      mailing: mailSettings
+      mailing: mailSettings,
     }
 
     // eslint-disable-next-line
@@ -128,20 +126,19 @@ const RegisterForm = () => {
   }
 
   const handleCheckBoxClick = (key, value) => {
-    const newObj = {...mailSettings}
+    const newObj = { ...mailSettings }
     newObj[key] = value
     setMailSettings(newObj)
   }
 
   updateMailing(mailSettings)
-  .then(() => {
-   // dispatch(notifySuccess("Mail settings saved"))
-  })
-  // eslint-disable-next-line
-  .catch((error) => {
-    dispatch(notifyError(`Error updating settings: ${error.message}`))
-  })
-
+    .then(() => {
+      // dispatch(notifySuccess("Mail settings saved"))
+    })
+    // eslint-disable-next-line
+    .catch((error) => {
+      dispatch(notifyError(`Error updating settings: ${error.message}`))
+    })
 
   const onChange = (value) => {
     console.log('Captcha value:', value)
@@ -276,28 +273,42 @@ const RegisterForm = () => {
                       onChange={(e) => setConfirmPass(e.target.value)}
                     />
                   </InputGroup>
-                  <Label style={{margin: "20px 5px 20px 20px"}}>
-                    <span className="form-check-sign">We will use information you provided for management and administration purposes, and for keeping you informed by mail, telephone, email and SMS of other products and services from us and our partners. You can proactively manage your preferences or opt-out of communications with us at any time using Privacy Centre. You have the right to access your data held by us or to request your data to be deleted. For full details please see <a href="https://agromonitoring.com/privacy-policy" target="_blank">Privacy Policy.</a></span>
-                    </Label>
+                  <Label style={{ margin: '20px 5px 20px 20px' }}>
+                    <span className="form-check-sign">
+                      We will use information you provided for management and
+                      administration purposes, and for keeping you informed by
+                      mail, telephone, email and SMS of other products and
+                      services from us and our partners. You can proactively
+                      manage your preferences or opt-out of communications with
+                      us at any time using Privacy Centre. You have the right to
+                      access your data held by us or to request your data to be
+                      deleted. For full details please see{' '}
+                      <a
+                        href="https://agromonitoring.com/privacy-policy"
+                        target="_blank"
+                      >
+                        Privacy Policy.
+                      </a>
+                    </span>
+                  </Label>
                   <FormGroup check className="text-left">
                     <Label check>
-                      <Input 
-                      type="checkbox" 
-                      onChange={(e) => setCheckAge(!checkAge)}
-                      checked={checkAge}
+                      <Input
+                        type="checkbox"
+                        onChange={(e) => setCheckAge(!checkAge)}
+                        checked={checkAge}
                       />
                       <span className="form-check-sign" />I am 16 years or over
                     </Label>
                   </FormGroup>
                   <FormGroup check className="text-left">
-               
                     <Label check>
                       <Input
-                      type="checkbox" 
-                       //className={error.checkTerms ? 'danger-border' : ''}
-                       onChange={(e) => setCheckTerms(!checkTerms)}
-                       checked={checkTerms}
-                       />
+                        type="checkbox"
+                        //className={error.checkTerms ? 'danger-border' : ''}
+                        onChange={(e) => setCheckTerms(!checkTerms)}
+                        checked={checkTerms}
+                      />
                       <span className="form-check-sign" />I agree with{' '}
                       <a
                         href="https://agromonitoring.com/privacy-policy"
@@ -327,9 +338,12 @@ const RegisterForm = () => {
                 </Form>
                 <hr />
                 <Form className="form">
-                <Label style={{margin: "10px 5px 10px 20px"}}>
-                    <span className="form-check-sign">I consent to receive communications from Extreme Electronics Ltd. and their partners:</span>
-                    </Label>
+                  <Label style={{ margin: '10px 5px 10px 20px' }}>
+                    <span className="form-check-sign">
+                      I consent to receive communications from Extreme
+                      Electronics Ltd. and their partners:
+                    </span>
+                  </Label>
                   <FormGroup check className="text-left">
                     <Label check className="mr-3">
                       <Input
@@ -344,7 +358,7 @@ const RegisterForm = () => {
                     </Label>
                   </FormGroup>
                   <FormGroup check className="text-left">
-                  <Label check>
+                    <Label check>
                       <Input
                         type="checkbox"
                         onChange={(e) => {
@@ -356,7 +370,7 @@ const RegisterForm = () => {
                     </Label>
                   </FormGroup>
                   <FormGroup check className="text-left">
-                  <Label check>
+                    <Label check>
                       <Input
                         type="checkbox"
                         onChange={(e) => {
@@ -367,7 +381,6 @@ const RegisterForm = () => {
                       System news (API usage alert, system update, temporary
                       system shutdown, etc)
                     </Label>
-                
                   </FormGroup>
 
                   <FormGroup className="text-left">

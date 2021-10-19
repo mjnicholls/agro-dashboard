@@ -19,7 +19,6 @@ const selectPolygons = (state) => state.polygons
 const selectActivePoly = (state) => state.state.polygon
 const selectIsSatelliteMode = (state) => state.state.isSatelliteMode
 
-
 const Dashboard = () => {
   const [satelliteImage, setSatelliteImage] = useState(null)
   // const [satelliteLayer, setSatelliteLayer] = useState({value: "ndvi", label: "NDVI"});
@@ -33,7 +32,6 @@ const Dashboard = () => {
   const activePolygon = useSelector(selectActivePoly)
   const polygons = useSelector(selectPolygons)
   const isSatelliteMode = useSelector(selectIsSatelliteMode)
-
 
   useEffect(() => {
     if (!isSatelliteMode) {

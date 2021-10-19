@@ -190,25 +190,25 @@ const Admin = (props) => {
         />
 
         <div className="content">
-        {isConfirmed === false ? (
-        <UncontrolledAlert
-          className="alert-with-icon"
-          color="danger"
-          fade={false}
-        >
-          <span data-notify="icon" className="tim-icons icon-bell-55" />
-          <span data-notify="message">
-            You have to verify your email to use Agro services. Please{' '}
-            {/* eslint-disable-next-line */}
-            <a href="#" target="_blank">
-              click here
-            </a>{' '}
-            to get an email with the confirmation link.
-          </span>
-        </UncontrolledAlert>
-      ) : (
-        <p></p>
-      )}
+          {isConfirmed === false ? (
+            <UncontrolledAlert
+              className="alert-with-icon"
+              color="danger"
+              fade={false}
+            >
+              <span data-notify="icon" className="tim-icons icon-bell-55" />
+              <span data-notify="message">
+                You have to verify your email to use Agro services. Please{' '}
+                {/* eslint-disable-next-line */}
+                <a href="#" target="_blank">
+                  click here
+                </a>{' '}
+                to get an email with the confirmation link.
+              </span>
+            </UncontrolledAlert>
+          ) : (
+            <p></p>
+          )}
           <Switch>
             {getRoutes(routes)}
             <Redirect from="*" to="/dashboard/polygons" />

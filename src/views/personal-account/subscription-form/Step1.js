@@ -130,7 +130,7 @@ Step1.propTypes = {
   error: PropTypes.func,
   isNew: PropTypes.bool,
   invoiceSettings: PropTypes.object,
-  setInvoiceSettings: PropTypes.func
+  setInvoiceSettings: PropTypes.func,
 }
 
 export default Step1
