@@ -155,7 +155,7 @@ const routes = [
         name: 'Register',
         rtlName: '',
         mini: 'L',
-        rtlMini: 'هعذا',
+        rtlMini: '',
         component: RegisterForm,
         layout: '/auth',
       },
