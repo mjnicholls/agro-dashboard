@@ -1,9 +1,10 @@
 import React from 'react'
 
+import classNames from 'classnames'
 import PerfectScrollbar from 'perfect-scrollbar'
 import NotificationAlert from 'react-notification-alert'
 import { NavLink, Redirect, Route, Switch, useLocation } from 'react-router-dom'
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { UncontrolledAlert } from 'reactstrap'
 // core components
 import logo from '../../assets/img/agro-logo.png'
@@ -12,16 +13,13 @@ import AdminNavbar from '../../components/Navbars/AdminNavbar'
 import Sidebar from '../../components/Sidebar/Sidebar2'
 // import FixedPlugin from "components/FixedPlugin/FixedPlugin";
 import routes from '../../routes'
+import AuthRoute from "../../api/AuthRoute";
 
-import { fetchPolygons } from '../../features/polygons/actions'
-import classNames from "classnames";
-import EmailConfirmationNotification from '../../views/agro-components/EmailConfirmationNotification'
 
 let ps
 const isConfirmedEmailSelector = (state) => state.auth.user.confirmed_email
-const polygonsSelector = (state) => state.polygons
 
-const Admin = (props) => {
+const PersonalAccount = (props) => {
   const activeColor = 'blue'
   // const [activeColor, setActiveColor] = React.useState("blue");
   // const [sidebarMini, setSidebarMini] = React.useState(true);
@@ -30,10 +28,8 @@ const Admin = (props) => {
   const mainPanelRef = React.useRef(null)
   const notificationAlertRef = React.useRef(null)
   const location = useLocation()
-  const dispatch = useDispatch()
 
   const isConfirmed = useSelector(isConfirmedEmailSelector)
-  const polygons = useSelector(polygonsSelector)
 
   React.useEffect(() => {
     document.documentElement.scrollTop = 0
@@ -71,11 +67,6 @@ const Admin = (props) => {
         }
       }
       window.removeEventListener('scroll', showNavbarButton)
-
-      // fetch polygons inside dashboard, if we don't have any
-      if (!polygons.length) {
-        dispatch(fetchPolygons())
-      }
     }
   }, [])
 
@@ -100,13 +91,34 @@ const Admin = (props) => {
       if (prop.collapse) {
         return getRoutes(prop.views)
       }
-      if (prop.layout === '/dashboard' || prop.layout === '/users') {
+      if (prop.layout === '/users') {
         return (
-          <Route
+          <AuthRoute
             path={prop.layout + prop.path}
             component={prop.component}
             key={prop.layout + prop.name}
           />
+        )
+      }
+      return null
+    })
+
+  const getRoutesInnerNavigation = (routesInstance) =>
+    routesInstance.map((prop) => {
+      if (prop.collapse) {
+        return getRoutesInnerNavigation(prop.views)
+      }
+      if (prop.layout === '/users') {
+        return (
+          <NavLink
+            className={classNames('innerMenu', {
+              active: window.location.pathname.indexOf(
+                prop.layout + prop.path,
+              ) !== -1,
+            })}
+            to={prop.layout + prop.path}
+            key={prop.layout + prop.name}
+          >{prop.name}</NavLink>
         )
       }
       return null
@@ -130,27 +142,6 @@ const Admin = (props) => {
     }
     return activeRoute
   }
-
-  const getRoutesInnerNavigation = (routesInstance) =>
-    routesInstance.map((prop) => {
-      if (prop.collapse) {
-        return getRoutesInnerNavigation(prop.views)
-      }
-      if (prop.layout === '/users') {
-        return (
-          <NavLink
-            className={classNames('innerMenu', {
-              active: window.location.pathname.indexOf(
-                prop.layout + prop.path,
-              ) !== -1,
-            })}
-            to={prop.layout + prop.path}
-            key={prop.layout + prop.name}
-          >{prop.name}</NavLink>
-        )
-      }
-      return null
-    })
 
   const handleMiniClick = () => {
     const notifyMessage = 'Sidebar mini '
@@ -222,10 +213,33 @@ const Admin = (props) => {
           <div className="d-flex justify-content-end text-uppercase">
             {getRoutesInnerNavigation(routes)}
           </div>
-          {isConfirmed === false && <EmailConfirmationNotification />}
+          {/*<ul className="d-flex justify-content-end text-uppercase">*/}
+            {/*<li>Subscription</li>*/}
+            {/*<li>API Keys</li>*/}
+            {/*<li>Billing Plans</li>*/}
+            {/*<li>Invoices</li>*/}
+            {/*<li>Settings</li>*/}
+          {/*</ul>*/}
+          {isConfirmed === false && (
+            <UncontrolledAlert
+              className="alert-with-icon"
+              color="danger"
+              fade={false}
+            >
+              <span data-notify="icon" className="tim-icons icon-bell-55" />
+              <span data-notify="message">
+                You have to verify your email to use Agro services. Please{' '}
+                {/* eslint-disable-next-line */}
+                <a href="#" target="_blank">
+                  click here
+                </a>{' '}
+                to get an email with the confirmation link.
+              </span>
+            </UncontrolledAlert>
+          )}
           <Switch>
             {getRoutes(routes)}
-            <Redirect from="*" to="/dashboard/polygons" />
+            <Redirect from="*" to="/users/home" />
           </Switch>
         </div>
         {
@@ -235,14 +249,8 @@ const Admin = (props) => {
           )
         }
       </div>
-      {/* <FixedPlugin */}
-      {/* activeColor={activeColor} */}
-      {/* sidebarMini={sidebarMini} */}
-      {/* handleActiveClick={handleActiveClick} */}
-      {/* handleMiniClick={handleMiniClick} */}
-      {/* /> */}
     </div>
   )
 }
 
-export default Admin
+export default PersonalAccount

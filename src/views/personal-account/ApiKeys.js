@@ -39,19 +39,9 @@ const ApiKeys = () => {
   }, [])
 
   const refreshData = () => {
-    getAPIKeys([
-      {
-        appid: 'appid_1',
-        name: 'appid_name_1',
-        status: true,
-      },
-      {
-        appid: 'appid_2',
-        name: 'appid_name_2',
-        status: false,
-      },
-    ])
+    getAPIKeys()
       .then((res) => {
+        console.log("res", res)
         setData(res)
       })
       .catch((err) => {

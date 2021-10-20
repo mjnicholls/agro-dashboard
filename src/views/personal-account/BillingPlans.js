@@ -24,7 +24,6 @@ import Map from '../maps/MapCovereage'
 const userSubscriptionSelector = (state) => state.auth.user.tariff
 
 const BillingPlans = () => {
-
   const subscription = useSelector(userSubscriptionSelector)
   const [alert, setAlert] = React.useState(null)
 
@@ -61,24 +60,21 @@ const BillingPlans = () => {
       >
         <div className="text-left">
           <p>
-            If you need a broader territory that exceeds your plan
-            threshold, you can still call data without limitation
-            with Starter subscription plan and above. In
-            this case, you will be charged according to your
-            subscription plan. We send you an
-            invoice for the exceeded amount at the very beginning of
-            the next month.
+            If you need a broader territory that exceeds your plan threshold,
+            you can still call data without limitation with Starter subscription
+            plan and above. In this case, you will be charged according to your
+            subscription plan. We send you an invoice for the exceeded amount at
+            the very beginning of the next month.
           </p>
 
           <p>
-            Please note that if a polygon was created and then deleted
-            in the same payment month, it <b>will be included</b> in
-            the total area of used polygons for that particular month,
-            but it <b>will not be included</b> in your next payment
-            month. The total area of used polygons will also include
-            those polygons, which have been created before the current
-            payment month and that still exist now or have been
-            deleted during the current payment month.
+            Please note that if a polygon was created and then deleted in the
+            same payment month, it <b>will be included</b> in the total area of
+            used polygons for that particular month, but it{' '}
+            <b>will not be included</b> in your next payment month. The total
+            area of used polygons will also include those polygons, which have
+            been created before the current payment month and that still exist
+            now or have been deleted during the current payment month.
           </p>
         </div>
       </ReactBSAlert>,
@@ -87,8 +83,15 @@ const BillingPlans = () => {
 
   const CorporateText = () => (
     <>
-      <p>We provide a customised service and extended data range under this plan. You can receive data for broader areas, get access to more in-depth archives, ask for an almost unlimited number of requests per minute, historical data depth, etc.</p>
-      <p>Send us your requirements, and we will prepare a relevant offer for you.</p>
+      <p>
+        We provide a customised service and extended data range under this plan.
+        You can receive data for broader areas, get access to more in-depth
+        archives, ask for an almost unlimited number of requests per minute,
+        historical data depth, etc.
+      </p>
+      <p>
+        Send us your requirements, and we will prepare a relevant offer for you.
+      </p>
     </>
   )
 
@@ -125,7 +128,9 @@ const BillingPlans = () => {
                           <NavItem>
                             <NavLink>
                               <h3 className="mb-0">Free</h3>
-                              <h3><b>£0</b></h3>
+                              <h3>
+                                <b>£0</b>
+                              </h3>
                               <Link to="/dashboard/api-keys">
                                 <Button
                                   className="btn-primary text-nowrap"
@@ -148,7 +153,9 @@ const BillingPlans = () => {
                           <NavItem>
                             <NavLink>
                               <h3 className="mb-0">Starter</h3>
-                              <h3><b>£20</b></h3>
+                              <h3>
+                                <b>£20</b>
+                              </h3>
 
                               {subscription === 'starter' ? (
                                 <Button
@@ -189,7 +196,9 @@ const BillingPlans = () => {
                           <NavItem>
                             <NavLink>
                               <h3 className="mb-0">Small Kit</h3>
-                              <h3><b>£200</b></h3>
+                              <h3>
+                                <b>£200</b>
+                              </h3>
 
                               {subscription === 'small' ? (
                                 <Button
@@ -309,28 +318,19 @@ const BillingPlans = () => {
                       <td>Total archive</td>
                     </tr>
                     <tr className="mb-2">
-                      <td>
-                        Satellite imagery data update
-                      </td>
-                      <td>
-                        Near real-time (operative)
-                      </td>
-                      <td>
-                        Near real-time (operative)
-                      </td>
-                      <td>
-                        Near real-time (operative)
-                      </td>
-                      <td>
-                        Near real-time (operative)
-                      </td>
+                      <td>Satellite imagery data update</td>
+                      <td>Near real-time (operative)</td>
+                      <td>Near real-time (operative)</td>
+                      <td>Near real-time (operative)</td>
+                      <td>Near real-time (operative)</td>
                     </tr>
                     <tr>
                       <td>
                         Price for exceeding area limit{' '}
-
-                          <FontAwesomeIcon icon={faInfoCircle} onClick={priceInfoAlert}/>
-
+                        <FontAwesomeIcon
+                          icon={faInfoCircle}
+                          onClick={priceInfoAlert}
+                        />
                       </td>
                       <td>Unavailable</td>
                       <td>£0.02 per each 1 ha</td>
@@ -420,7 +420,7 @@ const BillingPlans = () => {
                         <FontAwesomeIcon icon={faCheckCircle} />
                       </td>
                     </tr>
-                  <tr>
+                    <tr>
                       <td>Current soil temperature and moisture data update</td>
                       <td>2 times per day</td>
                       <td>2 times per day</td>
@@ -616,7 +616,7 @@ const BillingPlans = () => {
                         <FontAwesomeIcon icon={faCheckCircle} />
                       </td>
                     </tr>
-                  <tr>
+                    <tr>
                       <td>Weather API data update</td>
                       <td>&#60; 2 hours</td>
                       <td>&#60; 1 hour</td>
@@ -632,7 +632,6 @@ const BillingPlans = () => {
                     </tr>
                   </thead>
                   <tbody>
-
                     <tr>
                       <td>SSL</td>
                       <td>
@@ -743,18 +742,17 @@ const BillingPlans = () => {
           </Col>
         </Row>
 
-
         <Row>
           <Col className="mb-0" md="12" mt="20">
             <Card>
               {/*<CardHeader>*/}
-                {/*<h3>Where you can get satellite imagery data right now</h3>*/}
+              {/*<h3>Where you can get satellite imagery data right now</h3>*/}
               {/*</CardHeader>*/}
               <CardBody>
                 <Row>
                   <Col>
                     <p>
-                      This map shows areas in blue for which satellite imagery
+                      This map shows areas in purple for which satellite imagery
                       data is available in our system.
                     </p>
                     <ul>
@@ -771,7 +769,6 @@ const BillingPlans = () => {
                     </ul>
                   </Col>
                 </Row>
-
 
                 <Row>
                   <Col>

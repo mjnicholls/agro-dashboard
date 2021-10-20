@@ -58,16 +58,19 @@ const MapBox = ({
   useEffect(() => {
     if (!initialised) {
       // first initialisation of the map
-      initialiseMap(mapContainer.current, map, {token, bounds: mapBounds},
+      initialiseMap(
+        mapContainer.current,
+        map,
+        { token, bounds: mapBounds },
         () => {
-          displayPolygonsClusters();
+          displayPolygonsClusters()
           setInitialised(true)
-        })
+        },
+      )
       addBoundsControl(map, mapBounds)
-
     } else {
       // new polygon has been added or removed
-      displayPolygonsClusters();
+      displayPolygonsClusters()
     }
   }, [map.current, polygons, mapBounds])
 

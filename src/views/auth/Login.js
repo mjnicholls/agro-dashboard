@@ -168,22 +168,19 @@ const Login = (props) => {
                   </Button>
                   <div className="d-flex justify-content-between align-items-center">
                     <h6>
-                      <NavLink
-                        to="/auth/sign-up"
-                        className="link footer-link"
-                      >
+                      <NavLink to="/auth/sign-up" className="link footer-link">
                         Create Account
                       </NavLink>
                     </h6>
-                     <h6>
-                     <NavLink
-                       to="/auth/reset-password"
-                       className="link footer-link"
-                     >
-                     Lost password?
-                     </NavLink>
-                     </h6>
-                   </div>
+                    <h6>
+                      <NavLink
+                        to="/auth/reset-password"
+                        className="link footer-link"
+                      >
+                        Lost password?
+                      </NavLink>
+                    </h6>
+                  </div>
                 </CardFooter>
               </Card>
             </Form>

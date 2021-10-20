@@ -16,7 +16,7 @@ import {
   countriesList,
   PolygonGet,
   apiKeyStatus,
-  signupURL
+  signupURL,
 } from './index'
 
 export const getAPIKeys = () =>

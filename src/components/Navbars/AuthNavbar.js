@@ -62,10 +62,7 @@ const AuthNavbar = (props) => {
               </NavLink>
             </NavItem>
             <NavItem>
-              <NavLink
-                to="/auth/sign-up/"
-                className="nav-link text-primary"
-              >
+              <NavLink to="/auth/sign-up/" className="nav-link text-primary">
                 <i className="tim-icons icon-single-02" /> Register
               </NavLink>
             </NavItem>
@@ -92,7 +89,7 @@ const AuthNavbar = (props) => {
 }
 
 AuthNavbar.propTypes = {
- brandText: PropTypes.string
+  brandText: PropTypes.string,
 }
 
 export default AuthNavbar

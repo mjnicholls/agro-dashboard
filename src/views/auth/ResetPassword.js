@@ -20,7 +20,7 @@ import {
   InputGroupText,
   InputGroup,
   Label,
-  Row
+  Row,
 } from 'reactstrap'
 
 import {
@@ -72,9 +72,7 @@ const ResetPass = () => {
             <Card className="card-lock card-white">
               <CardHeader>
                 <CardTitle className="text-left" tag="h3">
-
                   <b>Lost your password?</b>
-
                 </CardTitle>
               </CardHeader>
               <CardBody>
@@ -100,15 +98,12 @@ const ResetPass = () => {
                 </InputGroup>
               </CardBody>
               <CardFooter className="d-flex justify-content-between align-items-center">
-                  <h6>
-                    <NavLink
-                      to="/auth/login"
-                      className="link footer-link"
-                    >
-                      Back to sign in
-                    </NavLink>
-                  </h6>
-                  <Button
+                <h6>
+                  <NavLink to="/auth/login" className="link footer-link">
+                    Back to sign in
+                  </NavLink>
+                </h6>
+                <Button
                   className="btn-round"
                   color="primary"
                   size="lg"
@@ -117,7 +112,6 @@ const ResetPass = () => {
                   Get instructions
                 </Button>
               </CardFooter>
-
             </Card>
           </Col>
         </Container>

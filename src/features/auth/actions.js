@@ -14,6 +14,7 @@ export const LOGOUT_REQUEST = 'LOGOUT_REQUEST'
 export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS'
 export const LOGOUT_FRONTEND = 'LOGOUT_FRONTEND'
 export const TOKEN_COOK = 'AGRO_TOKEN'
+export const HIDE_NOTIFICATION = 'HIDE_NOTIFICATION'
 
 const requestLogin = (email) => ({
   type: LOGIN_REQUEST,
@@ -49,8 +50,9 @@ export const receiveLogout = () => ({
   type: LOGOUT_SUCCESS,
 })
 
-export const destroyReduxState = () => ({
-  type: 'DESTROY_STATE',
+
+export const hideNotification = () => ({
+  type: HIDE_NOTIFICATION,
 })
 
 export const loginUser = (email, password) => (dispatch) => {
@@ -111,7 +113,6 @@ export const logoutUser = () => async (dispatch) => {
     .then(() => {
       deleteCookie(TOKEN_COOK, '/', '')
       delete axios.defaults.headers.common.Authorization
-      dispatch(destroyReduxState())
       dispatch(receiveLogout())
     })
     .catch((err) => {

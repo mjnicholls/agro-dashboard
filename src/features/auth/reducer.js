@@ -2,6 +2,7 @@ import { getCookie } from '../../utils/cookies'
 import {
   API_KEY_STATUS,
   CLEAR_LOGIN_ERROR,
+  HIDE_NOTIFICATION,
   LOGIN_REQUEST,
   LOGIN_SUCCESS,
   LOGIN_FAILURE,
@@ -106,6 +107,15 @@ export default function authReducer(state = initialState, action) {
           confirmed_email: null,
         },
         limits: null,
+      }
+    }
+    case HIDE_NOTIFICATION: {
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          confirmed_email: true
+        }
       }
     }
     case API_KEY_STATUS: {

@@ -6,6 +6,7 @@ import {
   faPlus,
   faSatellite,
   faTemperatureLow,
+  faUser
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
@@ -70,21 +71,12 @@ const routes = [
   },
   {
     collapse: true,
-    name: 'Personal account',
+    name: 'My account',
     rtlName: '',
-    icon: 'tim-icons icon-image-02',
+    icon: <FontAwesomeIcon icon={faUser}/>,
     state: 'pagesCollapse',
     // hidden: true,
     views: [
-      {
-        path: '/home',
-        name: 'Subscription',
-        rtlName: '',
-        mini: 'S',
-        rtlMini: '',
-        component: Subscription2,
-        layout: '/dashboard',
-      },
       {
         path: '/api-keys',
         name: 'Api Keys',
@@ -92,8 +84,18 @@ const routes = [
         mini: 'A',
         rtlMini: '',
         component: ApiKeys,
-        layout: '/dashboard',
+        layout: '/users',
       },
+      {
+        path: '/home',
+        name: 'Subscription',
+        rtlName: '',
+        mini: 'S',
+        rtlMini: '',
+        component: Subscription2,
+        layout: '/users',
+      },
+
       {
         path: '/billing-plans',
         name: 'Billing Plans',
@@ -101,7 +103,7 @@ const routes = [
         mini: 'B',
         rtlMini: '',
         component: BillingPlans,
-        layout: '/dashboard',
+        layout: '/users',
       },
       {
         path: '/payments',
@@ -110,7 +112,7 @@ const routes = [
         mini: 'I',
         rtlMini: '',
         component: InvoiceList,
-        layout: '/dashboard',
+        layout: '/users',
       },
       {
         path: '/account-settings',
@@ -119,17 +121,17 @@ const routes = [
         mini: 'S',
         rtlMini: '',
         component: AccountSettings,
-        layout: '/dashboard',
+        layout: '/users',
       },
-      {
-        path: '/subscription2',
-        name: 'Subscription2',
-        rtlName: '',
-        mini: 'A',
-        rtlMini: '',
-        component: Subscription,
-        layout: '/dashboard',
-      },
+      // {
+      //   path: '/subscription2',
+      //   name: 'Subscription2',
+      //   rtlName: '',
+      //   mini: 'A',
+      //   rtlMini: '',
+      //   component: Subscription,
+      //   layout: '/users',
+      // },
     ],
   },
   {

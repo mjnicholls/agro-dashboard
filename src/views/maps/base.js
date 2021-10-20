@@ -19,7 +19,7 @@ export const polygonPadding = {
 
 export const basicBlueColor = '#0080ff'
 
-export const basicColor = "#ba54f5"
+export const basicColor = '#ba54f5'
 export const basicOpacity = 0.4
 export const activeOpacity = 0.8
 
@@ -63,17 +63,16 @@ class BoundsControl {
 }
 
 export const initialiseMap = (mapContainer, map, params, onLoadCallBack) => {
-
-  const {bounds, token, zoom} = params;
+  const { bounds, token, zoom } = params
 
   const mapConfig = {
     container: mapContainer,
     style: 'mapbox://styles/mapbox/satellite-streets-v11?optimize=true',
     accessToken: mapBoxAccessToken,
-    bounds: bounds || defaultBBox
+    bounds: bounds || defaultBBox,
   }
   if (token) {
-    mapConfig.transformRequest =  (url) =>
+    mapConfig.transformRequest = (url) =>
       url.indexOf(serverBaseURL) > -1
         ? {
             url,
@@ -92,7 +91,9 @@ export const initialiseMap = (mapContainer, map, params, onLoadCallBack) => {
     'top-right',
   )
   if (onLoadCallBack) {
-    map.current.on('load', () => {onLoadCallBack()})
+    map.current.on('load', () => {
+      onLoadCallBack()
+    })
   }
   map.current.on('error', (e) => {
     // Hide those annoying non-error errors

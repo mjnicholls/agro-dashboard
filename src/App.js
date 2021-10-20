@@ -13,9 +13,9 @@ import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css'
 
 import AuthRoute from './api/AuthRoute'
 import { receiveLogout } from './features/auth/actions'
-import { fetchPolygons } from './features/polygons/actions'
 import AdminLayout from './layouts/Admin/Admin'
 import AuthLayout from './layouts/Auth/Auth'
+import PersonalAccountLayout from './layouts/PersonalAccount/PersonalAccount'
 import store from './store'
 import Notifications from './views/agro-components/Notifications'
 
@@ -43,17 +43,16 @@ axios.interceptors.response.use(
   },
 )
 
-
 const App = () => (
   <Provider store={store}>
     <BrowserRouter>
       <Switch>
         <Route path="/auth" render={(props) => <AuthLayout {...props} />} />
-        <Route path="/auth" />
         <AuthRoute
           path="/dashboard"
           render={(props) => <AdminLayout {...props} />}
         />
+        <Route path="/users" render={(props) => <AdminLayout {...props} />} />
         <Redirect from="/" to="/dashboard/polygons" />
       </Switch>
     </BrowserRouter>

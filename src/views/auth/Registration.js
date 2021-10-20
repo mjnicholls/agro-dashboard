@@ -48,7 +48,6 @@ const RegisterForm = () => {
   })
 
   const createUser = () => {
-
     setError({})
 
     const newError = {}
@@ -105,21 +104,21 @@ const RegisterForm = () => {
         username,
         email,
         password,
-        password_confirmation: confirmPass
+        password_confirmation: confirmPass,
       },
       agreement: {
-        is_age_confirmed: checkAge ? "1" : "0",
-        is_accepted: checkTerms ? "1" : "0",
+        is_age_confirmed: checkAge ? '1' : '0',
+        is_accepted: checkTerms ? '1' : '0',
       },
       mailing: {
-        system: mailSettings.system ? "1" : "0",
-        product: mailSettings.product ? "1" : "0",
-        news: mailSettings.news ? "1" : "0"
+        system: mailSettings.system ? '1' : '0',
+        product: mailSettings.product ? '1' : '0',
+        news: mailSettings.news ? '1' : '0',
       },
       advertising: {
         campaign_id: null,
-        entrance_date: null
-      }
+        entrance_date: null,
+      },
     }
 
     createNewUser(data)
@@ -131,8 +130,6 @@ const RegisterForm = () => {
           notifyError(`Error registering ... please try again ${err.message}`), // TODO get errors
         )
       })
-
-
   }
 
   const handleCheckBoxClick = (key, value) => {
@@ -218,7 +215,6 @@ const RegisterForm = () => {
                       onFocus={() => setState({ ...state, nameFocus: true })}
                       onBlur={() => setState({ ...state, nameFocus: false })}
                     />
-
                   </InputGroup>
                   <InputGroup
                     className={classnames({
@@ -397,22 +393,19 @@ const RegisterForm = () => {
                 </Form>
               </CardBody>
               <CardFooter className="d-flex justify-content-between align-items-center">
-                  <h6>
-                    <NavLink
-                      to="/auth/login"
-                      className="link footer-link"
-                    >
-                      Sign in
-                    </NavLink>
-                  </h6>
-                  <Button
-                    className="btn-round"
-                    color="primary"
-                    onClick={createUser}
-                    size="lg"
-                  >
-                    Sign up
-                  </Button>
+                <h6>
+                  <NavLink to="/auth/login" className="link footer-link">
+                    Sign in
+                  </NavLink>
+                </h6>
+                <Button
+                  className="btn-round"
+                  color="primary"
+                  onClick={createUser}
+                  size="lg"
+                >
+                  Sign up
+                </Button>
               </CardFooter>
             </Card>
           </Col>
