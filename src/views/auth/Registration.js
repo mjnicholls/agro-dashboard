@@ -12,8 +12,10 @@ import {
   CardImg,
   CardTitle,
   Label,
-  FormGroup,
   Form,
+  FormGroup,
+  FormFeedback,
+  FormText,
   Input,
   InputGroupAddon,
   InputGroupText,
@@ -29,7 +31,10 @@ import {
   notifySuccess,
 } from '../../features/notifications/actions'
 
-import { createNewUser } from '../../api/personalAccountAPI'
+import cardPrimary from '../../assets/img/card-primary.png'
+import { createNewUser } from '../../api/authAPI'
+import { passwordLength } from '../../config'
+
 
 const RegisterForm = () => {
   const [state, setState] = React.useState({})
@@ -50,7 +55,7 @@ const RegisterForm = () => {
   const createUser = () => {
     setError({})
 
-    const newError = {}
+    let newError = {}
 
     if (
       !username.length ||
@@ -69,10 +74,12 @@ const RegisterForm = () => {
 
     // password conditions
 
-    if (password.length < 8 || confirmPass.length < 8) {
-      newError.pass = password.length < 8
-      newError.confirmPass = confirmPass.length < 8
-      dispatch(notifyError('Must be eight characters or more'))
+    if (password.length < passwordLength || confirmPass.length < passwordLength) {
+      newError = {
+        pass: password.length < passwordLength,
+        confirmPass: confirmPass.length < passwordLength
+      }
+      dispatch(notifyError(`Password must be ${passwordLength} characters or more`))
       setError(newError)
       return
     }
@@ -189,8 +196,7 @@ const RegisterForm = () => {
               <CardHeader>
                 <CardImg
                   alt="..."
-                  // eslint-disable-next-line
-                  src={require('assets/img/card-primary.png').default}
+                  src={cardPrimary}
                   style={{ top: '-70px' }}
                 />
                 <CardTitle tag="h4">Register</CardTitle>
@@ -199,7 +205,7 @@ const RegisterForm = () => {
                 <Form className="form">
                   <InputGroup
                     className={classnames({
-                      'input-group-focus': state.nameFocus,
+                      'input-group-focus': state.emailFocus,
                       'has-danger': error.email,
                     })}
                   >
@@ -212,13 +218,14 @@ const RegisterForm = () => {
                       placeholder="Email Address"
                       type="text"
                       onChange={(e) => setEmail(e.target.value)}
-                      onFocus={() => setState({ ...state, nameFocus: true })}
-                      onBlur={() => setState({ ...state, nameFocus: false })}
+                      onFocus={() => setState({ ...state, emailFocus: true })}
+                      onBlur={() => setState({ ...state, emailFocus: false })}
                     />
                   </InputGroup>
+
                   <InputGroup
                     className={classnames({
-                      'input-group-focus': state.nameFocus,
+                      'input-group-focus': state.usernameFocus,
                       'has-danger': error.username,
                     })}
                   >
@@ -231,13 +238,13 @@ const RegisterForm = () => {
                       placeholder="Full Name"
                       type="text"
                       onChange={(e) => setUsername(e.target.value)}
-                      onFocus={() => setState({ ...state, nameFocus: true })}
-                      onBlur={() => setState({ ...state, nameFocus: false })}
+                      onFocus={() => setState({ ...state, usernameFocus: true })}
+                      onBlur={() => setState({ ...state, usernameFocus: false })}
                     />
                   </InputGroup>
                   <InputGroup
                     className={classnames({
-                      'input-group-focus': state.nameFocus,
+                      'input-group-focus': state.passFocus,
                       'has-danger': error.pass,
                     })}
                   >
@@ -251,11 +258,13 @@ const RegisterForm = () => {
                       type="password"
                       autoComplete="off"
                       onChange={(e) => setPassword(e.target.value)}
+                      onFocus={() => setState({ ...state, passFocus: true })}
+                      onBlur={() => setState({ ...state, passFocus: false })}
                     />
                   </InputGroup>
                   <InputGroup
                     className={classnames({
-                      'input-group-focus': state.nameFocus,
+                      'input-group-focus': state.confirmPassFocus,
                       'has-danger': error.confirmPass,
                     })}
                   >
@@ -269,6 +278,8 @@ const RegisterForm = () => {
                       type="password"
                       autoComplete="off"
                       onChange={(e) => setConfirmPass(e.target.value)}
+                      onFocus={() => setState({ ...state, confirmPassFocus: true })}
+                      onBlur={() => setState({ ...state, confirmPassFocus: false })}
                     />
                   </InputGroup>
                   <Label style={{ margin: '20px 5px 20px 20px' }}>
@@ -395,7 +406,7 @@ const RegisterForm = () => {
               <CardFooter className="d-flex justify-content-between align-items-center">
                 <h6>
                   <NavLink to="/auth/login" className="link footer-link">
-                    Sign in
+                    Back to sign in
                   </NavLink>
                 </h6>
                 <Button

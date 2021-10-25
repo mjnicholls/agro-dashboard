@@ -15,7 +15,7 @@ import {
   Row,
 } from 'reactstrap'
 
-import { updateMailing } from '../../api/personalAccountAPI'
+import { updateMailingPreferences } from '../../api/personalAccountAPI'
 import {
   notifyError,
   notifySuccess,
@@ -32,7 +32,7 @@ const PrivacySettings = ({ mailSettings, setMailSettings }) => {
   }
 
   const confirmMailSettings = () => {
-    updateMailing(mailSettings)
+    updateMailingPreferences(mailSettings)
       .then(() => {
         dispatch(notifySuccess('Settings updated'))
       })

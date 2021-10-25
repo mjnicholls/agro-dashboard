@@ -28,8 +28,9 @@ import {
   confirmVatNumber,
   getCountries,
   createBillingDetails,
-} from '../../api/personalAccountAPI'
+} from '../../api/billingAPI'
 import PropTypes from 'prop-types'
+
 
 const InvoiceSettings = ({
   invoiceSettings,
@@ -70,21 +71,17 @@ const InvoiceSettings = ({
           dispatch(notifySuccess('Billing details saved'))
           refreshData()
         })
-        // eslint-disable-next-line
-        .catch((error) => {
-          // eslint-disable-next-line
-          dispatch(notifyError('Error saving billing details ' + error.message))
+        .catch((err) => {
+          dispatch(notifyError(`Error saving billing details ${err.message}`))
         })
     } else {
       updateBillingDetails(invoiceSettings)
         .then(() => {
           dispatch(notifySuccess('Billing details updated'))
         })
-        // eslint-disable-next-line
-        .catch((error) => {
+        .catch((err) => {
           dispatch(
-            // eslint-disable-next-line
-            notifyError('Error updating billing details ' + error.message),
+            notifyError(`Error saving billing details ${err.message}`),
           )
         })
     }

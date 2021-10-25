@@ -18,7 +18,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheckCircle, faInfoCircle } from '@fortawesome/free-solid-svg-icons'
 import { Link } from 'react-router-dom'
 import ReactBSAlert from 'react-bootstrap-sweetalert'
-import SubscriptionPop2 from './SubscriptionPop'
+import SubscriptionPop2 from './subscription-form/SubscriptionPopUp'
 import Map from '../maps/MapCovereage'
 
 const userSubscriptionSelector = (state) => state.auth.user.tariff
@@ -40,7 +40,7 @@ const BillingPlans = () => {
         onCancel={() => hideAlert()}
         showConfirm={false}
         // eslint-disable-next-line
-        showCloseButton={true}
+        showCloseButton
       >
         <SubscriptionPop2 close={hideAlert} />
       </ReactBSAlert>,

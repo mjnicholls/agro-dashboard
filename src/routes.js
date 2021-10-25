@@ -6,7 +6,7 @@ import {
   faPlus,
   faSatellite,
   faTemperatureLow,
-  faUser
+  faUser,
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
@@ -19,9 +19,10 @@ import ApiKeys from './views/personal-account/ApiKeys'
 import BillingPlans from './views/personal-account/BillingPlans'
 import InvoiceList from './views/personal-account/Payments'
 import RegisterForm from './views/auth/Registration'
-import ResetPass from './views/auth/ResetPassword'
+import ForgotPassword from './views/auth/ForgotPassword'
+import ResetPassword from './views/auth/ChangePassword'
 import Subscription from './views/personal-account/Subscription'
-import Subscription2 from './views/personal-account/Subscription2'
+import Subscription2 from './views/personal-account/SubscriptionPage'
 
 const routes = [
   {
@@ -73,7 +74,7 @@ const routes = [
     collapse: true,
     name: 'My account',
     rtlName: '',
-    icon: <FontAwesomeIcon icon={faUser}/>,
+    icon: <FontAwesomeIcon icon={faUser} />,
     state: 'pagesCollapse',
     // hidden: true,
     views: [
@@ -161,14 +162,22 @@ const routes = [
         component: RegisterForm,
         layout: '/auth',
       },
-
       {
-        path: '/reset-password',
-        name: 'Reset Password',
+        path: '/forgot-password',
+        name: 'Forgot Password',
+        rtlName: '',
+        mini: 'F',
+        rtlMini: '',
+        component: ForgotPassword,
+        layout: '/auth',
+      },
+      {
+        path: '/password/edit',
+        name: 'Change Password',
         rtlName: '',
         mini: 'R',
         rtlMini: '',
-        component: ResetPass,
+        component: ResetPassword,
         layout: '/auth',
       },
     ],

@@ -8,15 +8,11 @@ import {
   invoicesList,
   updateName,
   updatePass,
-  mailing,
+  updateMailing,
   accountInfo,
   deleteAccount,
-  invoiceUpdate,
-  confirmVat,
-  countriesList,
   PolygonGet,
   apiKeyStatus,
-  signupURL,
 } from './index'
 
 export const getAPIKeys = () =>
@@ -35,9 +31,9 @@ export const deleteAPIKey = (apiKey) =>
   /** Delete API key */
   axios.delete(apiKeyDelete, { params: apiKey })
 
-export const getInvoices = () =>
-  /** Get a list of invoices */
-  axios.get(invoicesList)
+export const getAccountInfo = () =>
+  /** Get account preferences */
+  axios.get(accountInfo)
 
 export const updateUserName = (params) =>
   /** Update username or full name */
@@ -47,33 +43,17 @@ export const updatePassword = (params) =>
   /** Update password */
   axios.put(updatePass, params)
 
-export const getAccountInfo = () =>
-  /** Get account preferences */
-  axios.get(accountInfo)
+export const updateMailingPreferences = (params) =>
+  /** Update updateMailing settings */
+  axios.put(updateMailing, params)
 
-export const updateMailing = (params) =>
-  /** Update mailing settings */
-  axios.put(mailing, params)
+export const getInvoices = () =>
+  /** Get a list of invoices */
+  axios.get(invoicesList)
 
 export const deleteAcct = (delParams) =>
   /** Delete account */
   axios.delete(deleteAccount, { data: delParams })
-
-export const createBillingDetails = (params) =>
-  /** Create billing details */
-  axios.post(invoiceUpdate, params)
-
-export const updateBillingDetails = (params) =>
-  /** Update billing information */
-  axios.put(invoiceUpdate, params)
-
-export const confirmVatNumber = () =>
-  /** Confirm VAT: 200 - correct VAT, 422 - incorrect VAT */
-  axios.get(confirmVat)
-
-export const getCountries = () =>
-  /** A list of countries for billing info dropdown */
-  axios.get(countriesList)
 
 export const getPolygons = () =>
   /** Get informational about polygons within personal account */
@@ -82,7 +62,3 @@ export const getPolygons = () =>
 export const getAPIKeyStatus = () =>
   /** Check whether API key has been synced and is ready to use */
   axios.get(apiKeyStatus)
-
-export const createNewUser = (data) =>
-  /** Sign up method */
-  axios.post(signupURL, data)

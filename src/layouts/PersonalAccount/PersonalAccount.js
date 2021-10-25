@@ -13,8 +13,7 @@ import AdminNavbar from '../../components/Navbars/AdminNavbar'
 import Sidebar from '../../components/Sidebar/Sidebar2'
 // import FixedPlugin from "components/FixedPlugin/FixedPlugin";
 import routes from '../../routes'
-import AuthRoute from "../../api/AuthRoute";
-
+import AuthRoute from '../../api/AuthRoute'
 
 let ps
 const isConfirmedEmailSelector = (state) => state.auth.user.confirmed_email
@@ -112,13 +111,15 @@ const PersonalAccount = (props) => {
         return (
           <NavLink
             className={classNames('innerMenu', {
-              active: window.location.pathname.indexOf(
-                prop.layout + prop.path,
-              ) !== -1,
+              active:
+                window.location.pathname.indexOf(prop.layout + prop.path) !==
+                -1,
             })}
             to={prop.layout + prop.path}
             key={prop.layout + prop.name}
-          >{prop.name}</NavLink>
+          >
+            {prop.name}
+          </NavLink>
         )
       }
       return null
@@ -214,11 +215,11 @@ const PersonalAccount = (props) => {
             {getRoutesInnerNavigation(routes)}
           </div>
           {/*<ul className="d-flex justify-content-end text-uppercase">*/}
-            {/*<li>Subscription</li>*/}
-            {/*<li>API Keys</li>*/}
-            {/*<li>Billing Plans</li>*/}
-            {/*<li>Invoices</li>*/}
-            {/*<li>Settings</li>*/}
+          {/*<li>Subscription</li>*/}
+          {/*<li>API Keys</li>*/}
+          {/*<li>Billing Plans</li>*/}
+          {/*<li>Invoices</li>*/}
+          {/*<li>Settings</li>*/}
           {/*</ul>*/}
           {isConfirmed === false && (
             <UncontrolledAlert

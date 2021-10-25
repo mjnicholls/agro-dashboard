@@ -15,9 +15,10 @@ import AuthRoute from './api/AuthRoute'
 import { receiveLogout } from './features/auth/actions'
 import AdminLayout from './layouts/Admin/Admin'
 import AuthLayout from './layouts/Auth/Auth'
-import PersonalAccountLayout from './layouts/PersonalAccount/PersonalAccount'
 import store from './store'
 import Notifications from './views/agro-components/Notifications'
+
+import GA4React from 'ga-4-react'
 
 axios.defaults.headers.common.Authorization = `Bearer ${
   store.getState().auth.token
@@ -25,21 +26,65 @@ axios.defaults.headers.common.Authorization = `Bearer ${
 axios.defaults.timeout = 15000
 axios.interceptors.response.use(
   (response) => (response && response.data ? response.data : response),
-  // eslint-disable-next-line
   (error) => {
     if (error.response && error.response.status === 401) {
       store.dispatch(receiveLogout())
-    } else {
-      let message = 'Something went wrong'
-      if (
-        error.response &&
-        error.response.data &&
-        error.response.data.message
-      ) {
-        message = error.response.data.message
-      }
-      return Promise.reject(message)
+      return Promise.reject(error)
     }
+    let message =''
+    let newErr
+    if (error.response && error.response.data) {
+      if (error.response.data.message) {
+        const m = error.response.data.message;
+        if (typeof m === 'object') {
+          const arr = Object.keys(m)
+          for (let i=0; i< arr.length; i+= 1) {
+            const key = arr[i];
+            const val = m[key];
+            console.log(key, val)
+            message += `${key} ${Array.isArray(val) ? val.join(", ") : val}`
+          }
+        } else {
+          message = m;
+        }
+      } else if (error.response.data.code && error.response.data.code === 404) {
+        // нет message, проверить код на 404
+        message = "Not found"
+      }
+      newErr = {
+        ...error.response.data,
+        message: message || "Something went wrong"
+      }
+    }
+    if (!newErr) {
+      newErr = {
+        ...error,
+        message: 'Something went wrong'
+      }
+    }
+    // if (
+    //   error.response &&
+    //   error.response.data &&
+    //   error.response.data.message
+    // ) {
+    //   console.log("here", error.response.data)
+    //   newErr = {...error.response.data}
+    // }
+    return Promise.reject(newErr)
+
+  },
+)
+
+const ga4react = new GA4React(
+  'G-JE5157018X'
+)
+
+ga4react.initialize().then(
+  (ga4) => {
+    ga4.pageview('path')
+  },
+  (err) => {
+    console.error(err)
   },
 )
 

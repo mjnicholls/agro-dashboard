@@ -3,7 +3,6 @@ import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 
 import classnames from 'classnames'
-// reactstrap components
 
 import { NavLink } from 'react-router-dom'
 import {
@@ -28,9 +27,10 @@ import {
   notifySuccess,
 } from '../../features/notifications/actions'
 
+import { forgotPassword } from "../../api/authAPI";
 import { validateEmail } from '../../utils/validation'
 
-const ResetPass = () => {
+const ForgotPassword = () => {
   const [emailFocus, setEmailFocus] = React.useState(false)
 
   const [email, setEmail] = useState('')
@@ -46,20 +46,17 @@ const ResetPass = () => {
       setError(true)
       return
     }
-
     if (!validateEmail(email)) {
       setError(true)
       dispatch(notifyError('Email address is incorrect'))
       return
     }
 
-    // eslint-disable-next-line
-    updatePass({ email: email })
+    forgotPassword(email)
       .then(() => {
-        dispatch(notifySuccess('Email sent!'))
+        dispatch(notifySuccess('We have sent you an email with reset password instructions'))
       })
       .catch((err) => {
-        // eslint-disable-next-line
         dispatch(notifyError(`Error resetting password: ${err.message}`))
       })
   }
@@ -68,15 +65,15 @@ const ResetPass = () => {
     <>
       <div className="content">
         <Container>
-          <Col className="ml-auto mr-auto" lg="5" md="8">
+          <Col className="ml-auto mr-auto" lg="6" md="8">
             <Card className="card-lock card-white">
               <CardHeader>
-                <CardTitle className="text-left" tag="h3">
-                  <b>Lost your password?</b>
+                <CardTitle tag="h3">
+                  <b>Forgot password?</b>
                 </CardTitle>
               </CardHeader>
               <CardBody>
-                <Label>Email:</Label>
+                <Label>Enter your email and we will send you reset password instructions</Label>
                 <InputGroup
                   className={classnames({
                     'input-group-focus': emailFocus,
@@ -120,4 +117,4 @@ const ResetPass = () => {
   )
 }
 
-export default ResetPass
+export default ForgotPassword

@@ -1,15 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import {
-  Button,
   Card,
   CardBody,
-  CardHeader,
-  CardTitle,
   Col,
   Row,
 } from 'reactstrap'
 import { getAccountInfo } from '../../api/personalAccountAPI'
-// reactstrap components
+
 import UserSettings from './UserSettings'
 import UserPassword from './UserPassword'
 import PrivacySettings from './PrivacySettings'
@@ -17,6 +14,7 @@ import InvoiceSettings from './InvoiceInfo'
 import DeleteAcctCard from './DeleteAccountCard'
 import UnitsRadioButtons from '../agro-components/UnitsRadioButtons'
 import TabsSelector from '../agro-components/TabsSelector'
+
 const AccountSettings = () => {
   const [invoiceSettings, setInvoiceSettings] = useState({
     type: 'individual',

@@ -114,8 +114,8 @@ export default function authReducer(state = initialState, action) {
         ...state,
         user: {
           ...state.user,
-          confirmed_email: true
-        }
+          confirmed_email: true,
+        },
       }
     }
     case API_KEY_STATUS: {

@@ -41,7 +41,7 @@ const ApiKeys = () => {
   const refreshData = () => {
     getAPIKeys()
       .then((res) => {
-        console.log("res", res)
+        console.log('res', res)
         setData(res)
       })
       .catch((err) => {

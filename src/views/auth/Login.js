@@ -22,6 +22,7 @@ import {
   Col,
 } from 'reactstrap'
 
+import cardPrimary from '../../assets/img/card-primary.png'
 import { loginUser, clearLoginError } from '../../features/auth/actions'
 import { validateEmail } from '../../utils/validation'
 
@@ -33,7 +34,6 @@ const override = css`
   align-self: center;
 `
 
-const picture = require('../../assets/img/card-primary.png')
 
 const Login = (props) => {
   const [state, setState] = React.useState({})
@@ -80,7 +80,7 @@ const Login = (props) => {
             <Form className="form">
               <Card className="card-login card-white">
                 <CardHeader>
-                  <img alt="..." src={picture.default} />
+                  <img alt="Login background" src={cardPrimary} />
                   <CardTitle tag="h1">Log in</CardTitle>
                 </CardHeader>
                 <CardBody>
@@ -174,10 +174,10 @@ const Login = (props) => {
                     </h6>
                     <h6>
                       <NavLink
-                        to="/auth/reset-password"
+                        to="/auth/forgot-password"
                         className="link footer-link"
                       >
-                        Lost password?
+                        Forgot password?
                       </NavLink>
                     </h6>
                   </div>

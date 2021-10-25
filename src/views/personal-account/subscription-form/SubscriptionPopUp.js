@@ -1,23 +1,32 @@
 import React, { useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Button, Col, Form, Label, Row } from 'reactstrap'
 
 import {
   getAccountInfo,
+} from '../../../api/personalAccountAPI'
+import {
   updateBillingDetails,
   confirmVatNumber,
-  createBillingDetails,
-} from '../../api/personalAccountAPI'
+  createBillingDetails
+} from '../../../api/billingAPI'
+
 import {
   notifyError,
   notifySuccess,
-} from '../../features/notifications/actions'
+} from '../../../features/notifications/actions'
+import { validateVAT } from "../../../utils/validation";
 
-import Step1 from './subscription-form/Step1'
-import Step2 from './subscription-form/Step2'
+import Step1 from './Step1'
+import Step2 from './Step2'
+
+const selectEmail = (state) => state.auth.user.email
 
 const InvoiceSettings = () => {
+
   const dispatch = useDispatch()
+  const userEmail = useSelector(selectEmail)
+  const [email, setEmail] = useState('')
   const [error, setError] = useState({})
   const [isNew, setIsNew] = useState(true)
   const [step, setStep] = useState(1)
@@ -38,19 +47,26 @@ const InvoiceSettings = () => {
     vat_id: '',
   })
 
+
   useEffect(() => {
     refreshData()
   }, [])
 
   const refreshData = () => {
-    getAccountInfo().then((res) => {
-      if (Object.keys(res.invoice_info).length) {
-        setInvoiceSettings(res.invoice_info)
-        setIsNew(false)
-      } else {
-        setIsNew(true)
-      }
-    })
+    getAccountInfo()
+      .then((res) => {
+        if (Object.keys(res.invoice_info).length) {
+          setInvoiceSettings(res.invoice_info)
+          setIsNew(false)
+        } else {
+          setIsNew(true)
+        }
+        if (Object.keys(res.user).length && res.user.email) {
+          setEmail(res.user.email)
+        } else {
+          setEmail(userEmail)
+        }
+      })
   }
 
   const billingInfoCreate = () => {
@@ -59,9 +75,8 @@ const InvoiceSettings = () => {
         dispatch(notifySuccess('Billing details saved'))
         refreshData()
       })
-      // eslint-disable-next-line
-      .catch((error) => {
-        dispatch(notifyError(`Error saving billing details + ${error.message}`))
+      .catch((err) => {
+        dispatch(notifyError(`Error saving billing details ${err.message}`))
       })
   }
 
@@ -70,9 +85,8 @@ const InvoiceSettings = () => {
       .then(() => {
         dispatch(notifySuccess('Billing details updated'))
       })
-      // eslint-disable-next-line
-      .catch((error) => {
-        dispatch(notifyError(`Error saving billing details + ${error.message}`))
+      .catch((err) => {
+        dispatch(notifyError(`Error saving billing details ${err.message}`))
       })
   }
 
@@ -131,31 +145,29 @@ const InvoiceSettings = () => {
           newError.last_name = !invoiceSettings.last_name.length
         }
       } else {
-        // eslint-disable-next-line
-        if (!invoiceSettings.organisation.length) {
-          newError.organisation = true
+          if (!invoiceSettings.organisation.length) {
+            newError.organisation = true
+          }
+          if (invoiceSettings.vat_id) {
+            validateVAT(invoiceSettings.vat_id)
+          }
         }
-      }
-      console.log('newError', newError)
       setError(newError)
       if (Object.keys(newError).length) {
-        // eslint-disable-next-line
         return
-        // eslint-disable-next-line
-      } else {
-        setStep(2)
       }
+      setStep(2)
     }
   }
 
   return (
     <div>
-      <h2>Subscribe</h2>
       {step === 1 ? (
         <Step1
           invoiceSettings={invoiceSettings}
           setInvoiceSettings={setInvoiceSettings}
           isNew={isNew}
+          email={email}
           error={error}
         />
       ) : (

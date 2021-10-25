@@ -14,7 +14,7 @@ import Sidebar from '../../components/Sidebar/Sidebar2'
 import routes from '../../routes'
 
 import { fetchPolygons } from '../../features/polygons/actions'
-import classNames from "classnames";
+import classNames from 'classnames'
 import EmailConfirmationNotification from '../../views/agro-components/EmailConfirmationNotification'
 
 let ps
@@ -140,13 +140,15 @@ const Admin = (props) => {
         return (
           <NavLink
             className={classNames('innerMenu', {
-              active: window.location.pathname.indexOf(
-                prop.layout + prop.path,
-              ) !== -1,
+              active:
+                window.location.pathname.indexOf(prop.layout + prop.path) !==
+                -1,
             })}
             to={prop.layout + prop.path}
             key={prop.layout + prop.name}
-          >{prop.name}</NavLink>
+          >
+            {prop.name}
+          </NavLink>
         )
       }
       return null

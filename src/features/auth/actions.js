@@ -50,7 +50,6 @@ export const receiveLogout = () => ({
   type: LOGOUT_SUCCESS,
 })
 
-
 export const hideNotification = () => ({
   type: HIDE_NOTIFICATION,
 })

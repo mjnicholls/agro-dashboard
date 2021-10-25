@@ -106,15 +106,7 @@ const Step2 = ({ invoiceSettings, setInvoiceSettings, error }) => {
           </Col>
 
           <Col md="6" style={{ marginBottom: '20px' }}>
-            <Label>Phone *</Label>
-            <FormGroup>
-              <Input
-                type="text"
-                onChange={(e) => handleChange('phone', e.target.value)}
-                value={invoiceSettings.phone}
-                className={error.phone ? 'danger-border' : ''}
-              />
-            </FormGroup>
+
           </Col>
         </Row>
       </Form>

@@ -1576,3 +1576,5 @@ export const deleteAcctOptions = [
   { value: "I don't use this service", label: "I don't use this service" },
   { value: 'Wrong email', label: 'Wrong email' },
 ]
+
+export const passwordLength = 8
