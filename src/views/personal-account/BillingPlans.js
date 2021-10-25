@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 
@@ -18,7 +19,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheckCircle, faInfoCircle } from '@fortawesome/free-solid-svg-icons'
 import { Link } from 'react-router-dom'
 import ReactBSAlert from 'react-bootstrap-sweetalert'
-import SubscriptionPop2 from './subscription-form/SubscriptionPopUp'
+import SubscriptionPopUp from './subscription-form/SubscriptionPopUp'
 import Map from '../maps/MapCovereage'
 
 const userSubscriptionSelector = (state) => state.auth.user.tariff
@@ -31,7 +32,7 @@ const BillingPlans = () => {
     setAlert(null)
   }
 
-  const subScriptionAlert = () => {
+  const subScriptionAlert = (plan) => {
     setAlert(
       <ReactBSAlert
         title="Subscribe"
@@ -39,10 +40,9 @@ const BillingPlans = () => {
         onConfirm={() => hideAlert()}
         onCancel={() => hideAlert()}
         showConfirm={false}
-        // eslint-disable-next-line
         showCloseButton
       >
-        <SubscriptionPop2 close={hideAlert} />
+        <SubscriptionPopUp close={hideAlert} plan={plan} />
       </ReactBSAlert>,
     )
   }
@@ -177,7 +177,7 @@ const BillingPlans = () => {
                                   data-dismiss="modal"
                                   type="button"
                                   onClick={(e) => {
-                                    subScriptionAlert(false)
+                                    subScriptionAlert("starter")
                                     e.stopPropagation()
                                   }}
                                 >
@@ -221,7 +221,7 @@ const BillingPlans = () => {
                                   data-dismiss="modal"
                                   type="button"
                                   onClick={(e) => {
-                                    subScriptionAlert(false)
+                                    subScriptionAlert("small")
                                     e.stopPropagation()
                                   }}
                                 >
@@ -444,7 +444,7 @@ const BillingPlans = () => {
                       <td>&#60; 500</td>
                       <td>&#60; 1,000</td>
                       <td>&#60; 10,000</td>
-                      <td>Unlimited</td>
+                      <td>On request</td>
                     </tr>
                     <tr>
                       <td>
@@ -453,7 +453,7 @@ const BillingPlans = () => {
                       <td>—</td>
                       <td>&#60; 500</td>
                       <td>&#60; 5,000</td>
-                      <td>Unlimited</td>
+                      <td>On request</td>
                     </tr>
 
                     <tr>

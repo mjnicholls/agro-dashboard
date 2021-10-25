@@ -17,8 +17,12 @@ import {
 import {
   notifyError,
   notifySuccess,
-} from '../../features/notifications/actions'
-import { updatePassword } from '../../api/personalAccountAPI'
+} from '../../../features/notifications/actions'
+import { updatePassword } from '../../../api/personalAccountAPI'
+import classnames from "classnames";
+
+import {noBlank} from '../../../config'
+
 
 const UserPassword = () => {
   const [pass, setPass] = useState('')
@@ -30,28 +34,32 @@ const UserPassword = () => {
   const confirmPassUpdate = () => {
     setError({})
 
-    if (!pass.length || !confirmPass.length) {
-      newError.pass = !pass.length
-      newError.confirmPass = !confirmPass.length
-      dispatch(notifyError('Cannot be empty'))
-      setError(newError)
-      return
+    const newError = {}
+
+    if (!pass) {
+      newError.pass = noBlank
+    }
+    if (!confirmPass) {
+      newError.confirmPass = noBlank
     }
 
-    let newError = {}
-
-    if (pass.length < 8 || confirmPass.length < 8) {
-      newError.pass = pass.length < 8
-      newError.confirmPass = confirmPass.length < 8
-      dispatch(notifyError('Must be eight characters or more'))
-      setError(newError)
-      return
+    if (!Object.keys(newError).length) {
+      if (pass.length < 8) {
+        newError.pass = "Must be 8 characters or more"
+      }
+      if (confirmPass.length < 8) {
+        newError.confirmPass = "Must be 8 characters or more"
+      }
     }
 
-    if (pass !== confirmPass) {
-      newError.pass = true
-      newError.confirmPass = true
-      dispatch(notifyError('Passwords do not match'))
+    if (!Object.keys(newError).length) {
+      if (pass !== confirmPass) {
+        newError.pass = "Passwords do not match"
+        newError.confirmPass = "Passwords do not match"
+      }
+    }
+
+    if (Object.keys(newError).length) {
       setError(newError)
       return
     }
@@ -76,8 +84,8 @@ const UserPassword = () => {
       </CardHeader>
       <CardBody>
         <Form>
+          <Label>New password</Label>
           <FormGroup>
-            <Label>New password</Label>
             <Input
               type="password"
               autoComplete="off"
@@ -85,9 +93,15 @@ const UserPassword = () => {
               value={pass}
               className={error.pass ? 'danger-border' : ''}
             />
+            <div
+              className={classnames(
+                'invalid-feedback ',
+                error.pass ? 'd-block' : '',
+              )}
+            >{error.pass}</div>
           </FormGroup>
+          <Label>Confirm new password</Label>
           <FormGroup>
-            <Label>Confirm new password</Label>
             <Input
               type="password"
               autoComplete="off"
@@ -95,6 +109,12 @@ const UserPassword = () => {
               value={confirmPass}
               className={error.confirmPass ? 'danger-border' : ''}
             />
+            <div
+              className={classnames(
+                'invalid-feedback ',
+                error.confirmPass ? 'd-block' : '',
+              )}
+            >{error.confirmPass}</div>
           </FormGroup>
         </Form>
       </CardBody>

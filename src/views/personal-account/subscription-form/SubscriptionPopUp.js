@@ -1,34 +1,31 @@
+/* eslint-disable */
 import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { Button, Col, Form, Label, Row } from 'reactstrap'
 
-import {
-  getAccountInfo,
-} from '../../../api/personalAccountAPI'
+import { getAccountInfo } from '../../../api/personalAccountAPI'
 import {
   updateBillingDetails,
-  confirmVatNumber,
-  createBillingDetails
+  validateVat,
+  createBillingDetails,
+  subscribe
 } from '../../../api/billingAPI'
 
 import {
   notifyError,
   notifySuccess,
 } from '../../../features/notifications/actions'
-import { validateVAT } from "../../../utils/validation";
 
 import Step1 from './Step1'
 import Step2 from './Step2'
+import { noBlank } from '../../../config'
+import {validatePhoneNumber} from "../../../utils/validation";
+import classnames from "classnames";
 
-const selectEmail = (state) => state.auth.user.email
-
-const InvoiceSettings = () => {
-
+const SubscriptionPopUp = ({plan}) => {
   const dispatch = useDispatch()
-  const userEmail = useSelector(selectEmail)
-  const [email, setEmail] = useState('')
   const [error, setError] = useState({})
-  const [isNew, setIsNew] = useState(true)
+  // const [isNew, setIsNew] = useState(true)
   const [step, setStep] = useState(1)
 
   const [invoiceSettings, setInvoiceSettings] = useState({
@@ -46,85 +43,67 @@ const InvoiceSettings = () => {
     phone: '',
     vat_id: '',
   })
-
+  const [user, setUser] = useState({})
 
   useEffect(() => {
-    refreshData()
+    getAccountInfo().then((res) => {
+      if (Object.keys(res.invoice_info).length) {
+        setInvoiceSettings(res.invoice_info)
+        // setIsNew(false)
+      }
+      // else {
+      //   setIsNew(true)
+      // }
+      setUser(res.user)
+    })
   }, [])
 
-  const refreshData = () => {
-    getAccountInfo()
-      .then((res) => {
-        if (Object.keys(res.invoice_info).length) {
-          setInvoiceSettings(res.invoice_info)
-          setIsNew(false)
-        } else {
-          setIsNew(true)
-        }
-        if (Object.keys(res.user).length && res.user.email) {
-          setEmail(res.user.email)
-        } else {
-          setEmail(userEmail)
-        }
-      })
-  }
-
-  const billingInfoCreate = () => {
-    createBillingDetails(invoiceSettings)
-      .then(() => {
-        dispatch(notifySuccess('Billing details saved'))
-        refreshData()
-      })
-      .catch((err) => {
-        dispatch(notifyError(`Error saving billing details ${err.message}`))
-      })
-  }
-
-  const billingInfoUpdate = () => {
-    updateBillingDetails(invoiceSettings)
-      .then(() => {
-        dispatch(notifySuccess('Billing details updated'))
-      })
-      .catch((err) => {
-        dispatch(notifyError(`Error saving billing details ${err.message}`))
-      })
-  }
-
-  const confirmInvoice = () => {
-    setError({})
-    const newError = {
-      country: !invoiceSettings.country.length,
-      address_line_1: !invoiceSettings.address_line_1.length,
-      address_line_2: !invoiceSettings.address_line_2.length,
-      city: !invoiceSettings.address_line_2.length,
-      postal_code: !invoiceSettings.postal_code.length,
-      phone: !invoiceSettings.phone.length,
-    }
-
-    setError(newError)
-
-    if (Object.values(newError).filter(Boolean).length) {
-      dispatch(notifyError('Please fill in required fields'))
-      return
-    }
-
-    if (
-      invoiceSettings.type === 'organisation' &&
-      invoiceSettings.vat_id.length
-    ) {
-      confirmVatNumber(invoiceSettings.vat_id)
-        .then(() => {
-          // eslint-disable-next-line
-          isNew ? billingInfoCreate() : billingInfoUpdate()
-        })
-        .catch(() => {
-          dispatch(notifyError('Incorrect VAT number'))
-        })
+  const confirmSubscription = () => {
+    let invoiceDetails = {...invoiceSettings}
+    if (invoiceSettings.type === "individual") {
+      delete invoiceDetails['organisation']
+      delete invoiceDetails['vat_id']
     } else {
-      // eslint-disable-next-line
-      isNew ? billingInfoCreate() : billingInfoUpdate()
+      delete invoiceDetails['title']
+      delete invoiceDetails['first_name']
+      delete invoiceDetails['last_name']
     }
+    const data = {
+      service_key: "agri",
+      plan_key: plan,
+      user: {
+        email: user.email
+      },
+      invoice_form: invoiceDetails
+    }
+    subscribe(data)
+      .then(() => {
+        dispatch(notifySuccess("Successfully subscribed"))
+      })
+      .catch(err => {notifyError(`Error: ${err.message}`)})
+
   }
+
+
+  // const billingInfoCreate = () => {
+  //   createBillingDetails(invoiceSettings)
+  //     .then(() => {
+  //       dispatch(notifySuccess('Billing details saved'))
+  //     })
+  //     .catch((err) => {
+  //       dispatch(notifyError(`Error saving billing details ${err.message}`))
+  //     })
+  // }
+  //
+  // const billingInfoUpdate = () => {
+  //   updateBillingDetails(invoiceSettings)
+  //     .then(() => {
+  //       dispatch(notifySuccess('Billing details updated'))
+  //     })
+  //     .catch((err) => {
+  //       dispatch(notifyError(`Error saving billing details ${err.message}`))
+  //     })
+  // }
 
   const decrementStep = () => {
     if (step === 2) {
@@ -134,29 +113,47 @@ const InvoiceSettings = () => {
 
   const incrementStep = () => {
     setError({})
+    const newError = {}
+    let mandatoryFields
     if (step === 1) {
-      const newError = {}
-      if (invoiceSettings.type === 'individual') {
-        if (
-          !invoiceSettings.first_name.length ||
-          !invoiceSettings.last_name.length
-        ) {
-          newError.first_name = !invoiceSettings.first_name.length
-          newError.last_name = !invoiceSettings.last_name.length
+      mandatoryFields = invoiceSettings.type === 'individual' ? ["first_name", "last_name", 'phone'] : ["organisation", 'phone']
+      if (invoiceSettings.phone) {
+        const phoneValidation = validatePhoneNumber(invoiceSettings.phone)
+        if (phoneValidation) {
+          newError.phone = phoneValidation
         }
-      } else {
-          if (!invoiceSettings.organisation.length) {
-            newError.organisation = true
+      }
+    } else {
+      mandatoryFields = ['country', 'address_line_1', 'city', 'postal_code']
+    }
+
+    for (let i=0; i<mandatoryFields.length; i+=1) {
+      if (!invoiceSettings[mandatoryFields[i]]) {
+        newError[mandatoryFields[i]] = noBlank
+      }
+    }
+
+    if (step === 2 && invoiceSettings.type === "organisation" && invoiceSettings.country) {
+      validateVat(invoiceSettings.vat_id, invoiceSettings.country)
+        .then(() => {})
+        .catch(() => {newError.vat_id = 'VAT ID is not valid'})
+        .finally(() => {
+          if (Object.keys(newError).length) {
+            setError(newError)
+            return
           }
-          if (invoiceSettings.vat_id) {
-            validateVAT(invoiceSettings.vat_id)
-          }
-        }
-      setError(newError)
+          confirmSubscription()
+        })
+    } else {
       if (Object.keys(newError).length) {
+        setError(newError)
         return
       }
-      setStep(2)
+      if (step === 1 ) {
+        setStep(2)
+      } else {
+        confirmSubscription()
+      }
     }
   }
 
@@ -166,52 +163,28 @@ const InvoiceSettings = () => {
         <Step1
           invoiceSettings={invoiceSettings}
           setInvoiceSettings={setInvoiceSettings}
-          isNew={isNew}
-          email={email}
+          user={user}
           error={error}
         />
       ) : (
         <Step2
           invoiceSettings={invoiceSettings}
           setInvoiceSettings={setInvoiceSettings}
-          isNew={isNew}
           error={error}
         />
       )}
 
       <Form className="form-horizontal">
         <Row>
-          <Label md="3" />
-          <Col md="12" className="text-right">
-            {step === 1 ? (
-              <Button
-                className="btn-fill"
-                color="primary"
-                type="button"
-                onClick={incrementStep}
-                style={{
-                  float: 'right',
-                }}
-              >
-                Next
-              </Button>
-            ) : (
-              <Button
-                className="btn-fill"
-                color="primary"
-                type="button"
-                onClick={confirmInvoice}
-                style={{
-                  float: 'right',
-                }}
-              >
-                Subscribe
-              </Button>
-            )}
-
+          <Label/>
+          <Col
+           className={classnames(
+              'd-flex ',
+              step ===  1 ? 'justify-content-end' : 'justify-content-between'
+            )}>
             {step === 2 && (
               <Button
-                className="btn-neutral"
+                className='btn-neutral '
                 color="default"
                 type="button"
                 onClick={decrementStep}
@@ -219,6 +192,18 @@ const InvoiceSettings = () => {
                 Back
               </Button>
             )}
+
+            <Button
+              className="btn-fill"
+              color="primary"
+              type="button"
+              onClick={incrementStep}
+              style={{
+                float: 'right',
+              }}
+            >
+              {step === 1 ? "Next" : "Subscribe"}
+            </Button>
           </Col>
         </Row>
       </Form>
@@ -226,4 +211,4 @@ const InvoiceSettings = () => {
   )
 }
 
-export default InvoiceSettings
+export default SubscriptionPopUp

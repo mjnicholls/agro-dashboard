@@ -35,7 +35,6 @@ import cardPrimary from '../../assets/img/card-primary.png'
 import { createNewUser } from '../../api/authAPI'
 import { passwordLength } from '../../config'
 
-
 const RegisterForm = () => {
   const [state, setState] = React.useState({})
   const [error, setError] = useState({})
@@ -74,12 +73,17 @@ const RegisterForm = () => {
 
     // password conditions
 
-    if (password.length < passwordLength || confirmPass.length < passwordLength) {
+    if (
+      password.length < passwordLength ||
+      confirmPass.length < passwordLength
+    ) {
       newError = {
         pass: password.length < passwordLength,
-        confirmPass: confirmPass.length < passwordLength
+        confirmPass: confirmPass.length < passwordLength,
       }
-      dispatch(notifyError(`Password must be ${passwordLength} characters or more`))
+      dispatch(
+        notifyError(`Password must be ${passwordLength} characters or more`),
+      )
       setError(newError)
       return
     }
@@ -155,26 +159,24 @@ const RegisterForm = () => {
         <Row>
           <Col className="ml-auto" md="5">
             <div className="info-area info-horizontal mt-5">
-              <div className="icon icon-warning">
-                <i className="tim-icons icon-wifi" />
+                <div className="icon icon-warning">
+                  <i className="tim-icons icon-wifi" />
+                </div>
+                <div className="description">
+                  <h3 className="info-title">Satellite imagery archive and wide range of vegetation indices </h3>
+                  <p className="description">
+                    NDVI, EVI, DSWI, NDWI, NRI, etc. lets you identify anomalies in your fields and plan further actions, and with a historical NDVI chart you can analyze the changes in the level of vegetation in your field through the seasons
+                  </p>
+                </div>
               </div>
-              <div className="description">
-                <h3 className="info-title">Marketing</h3>
-                <p className="description">
-                  We&#39;ve created the marketing campaign of the website. It
-                  was a very interesting collaboration.
-                </p>
-              </div>
-            </div>
             <div className="info-area info-horizontal">
               <div className="icon icon-primary">
                 <i className="tim-icons icon-triangle-right-17" />
               </div>
               <div className="description">
-                <h3 className="info-title">Fully Coded in HTML5</h3>
+                <h3 className="info-title">Accurate and generous weather data</h3>
                 <p className="description">
-                  We&#39;ve developed the website with HTML5 and CSS3. The
-                  client has access to the code using GitHub.
+                  Weather data for your fields, including the current state of weather, soil, weather alerts; weather forecasts with hourly and daily granulation; recent temperature, precipitation, soil temperature and moisture; accumulated temperature and precipitation
                 </p>
               </div>
             </div>
@@ -183,10 +185,20 @@ const RegisterForm = () => {
                 <i className="tim-icons icon-trophy" />
               </div>
               <div className="description">
-                <h3 className="info-title">Built Audience</h3>
+                <h3 className="info-title">Advanced crop recognition </h3>
                 <p className="description">
-                  There is also a Fully Customizable CMS Admin Dashboard for
-                  this product.
+                  Based on Machine Learning technology, it will help you to get information on the state of fields, their crops and NDVI statistics through the years.
+                </p>
+              </div>
+            </div>
+            <div className="info-area info-horizontal">
+              <div className="icon icon-info">
+                <i className="tim-icons icon-trophy" />
+              </div>
+              <div className="description">
+                <h3 className="info-title">Advanced crop recognition </h3>
+                <p className="description">
+                  Based on Machine Learning technology, it will help you to get information on the state of fields, their crops and NDVI statistics through the years.
                 </p>
               </div>
             </div>
@@ -194,11 +206,7 @@ const RegisterForm = () => {
           <Col className="mr-auto" md="7">
             <Card className="card-register card-white">
               <CardHeader>
-                <CardImg
-                  alt="..."
-                  src={cardPrimary}
-                  style={{ top: '-70px' }}
-                />
+                <CardImg alt="..." src={cardPrimary} style={{ top: '-70px' }} />
                 <CardTitle tag="h4">Register</CardTitle>
               </CardHeader>
               <CardBody>
@@ -238,8 +246,12 @@ const RegisterForm = () => {
                       placeholder="Full Name"
                       type="text"
                       onChange={(e) => setUsername(e.target.value)}
-                      onFocus={() => setState({ ...state, usernameFocus: true })}
-                      onBlur={() => setState({ ...state, usernameFocus: false })}
+                      onFocus={() =>
+                        setState({ ...state, usernameFocus: true })
+                      }
+                      onBlur={() =>
+                        setState({ ...state, usernameFocus: false })
+                      }
                     />
                   </InputGroup>
                   <InputGroup
@@ -278,8 +290,12 @@ const RegisterForm = () => {
                       type="password"
                       autoComplete="off"
                       onChange={(e) => setConfirmPass(e.target.value)}
-                      onFocus={() => setState({ ...state, confirmPassFocus: true })}
-                      onBlur={() => setState({ ...state, confirmPassFocus: false })}
+                      onFocus={() =>
+                        setState({ ...state, confirmPassFocus: true })
+                      }
+                      onBlur={() =>
+                        setState({ ...state, confirmPassFocus: false })
+                      }
                     />
                   </InputGroup>
                   <Label style={{ margin: '20px 5px 20px 20px' }}>

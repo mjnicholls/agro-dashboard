@@ -25,6 +25,10 @@ import {
 } from '../../features/notifications/actions'
 import APIKeyEdit from './APIKeyEdit'
 import ApiKeysDelete from './APIKeysDelete'
+import classnames from "classnames";
+
+import {noBlank} from '../../config'
+
 
 const ApiKeys = () => {
   const dispatch = useDispatch()
@@ -41,7 +45,6 @@ const ApiKeys = () => {
   const refreshData = () => {
     getAPIKeys()
       .then((res) => {
-        console.log('res', res)
         setData(res)
       })
       .catch((err) => {
@@ -58,8 +61,7 @@ const ApiKeys = () => {
     setError(null)
 
     if (!name.length) {
-      setError(true)
-      dispatch(notifyError('Name cannot be empty'))
+      setError(noBlank)
       return
     }
 
@@ -105,7 +107,6 @@ const ApiKeys = () => {
 
   return (
     <>
-      <div className="content">
         {alert}
         <Row>
           <Col>
@@ -113,7 +114,7 @@ const ApiKeys = () => {
           </Col>
         </Row>
         <Row>
-          <Col className="mb-0" md="8" mt="20">
+          <Col lg="8">
             <Card>
               <CardBody>
                 <Table>
@@ -210,20 +211,25 @@ const ApiKeys = () => {
             </Card>
           </Col>
 
-          <Col className="mb-2" md="4" mt="6">
+          <Col lg="4">
             <Card>
               <CardHeader>
                 <CardTitle tag="h3">New API Key </CardTitle>
-
                 <Form>
+                  <Label>Name</Label>
                   <FormGroup>
-                    <Label>Name</Label>
                     <Input
                       className={error ? 'danger-border' : ''}
                       type="text"
                       onChange={(e) => setName(e.target.value)}
                       value={name}
                     />
+                     <div
+                      className={classnames(
+                        'invalid-feedback ',
+                        error ? 'd-block' : '',
+                      )}
+                    >{error}</div>
                   </FormGroup>
 
                   <div className="text-right mb-3">
@@ -241,7 +247,6 @@ const ApiKeys = () => {
             </Card>
           </Col>
         </Row>
-      </div>
     </>
   )
 }

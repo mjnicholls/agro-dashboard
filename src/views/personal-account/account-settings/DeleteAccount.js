@@ -9,7 +9,7 @@ import {
   Row,
 } from 'reactstrap'
 import ReactBSAlert from 'react-bootstrap-sweetalert'
-import DeleteAccount from './DeleteAccount'
+import DeleteAccount from './DeleteAccountPopUp'
 
 const DeleteAcctCard = () => {
   const [alert, setAlert] = React.useState(null)

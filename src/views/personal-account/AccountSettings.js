@@ -1,22 +1,22 @@
 import React, { useEffect, useState } from 'react'
-import {
-  Card,
-  CardBody,
-  Col,
-  Row,
-} from 'reactstrap'
+import { Card, CardBody, Col, Row } from 'reactstrap'
 import { getAccountInfo } from '../../api/personalAccountAPI'
 
-import UserSettings from './UserSettings'
-import UserPassword from './UserPassword'
-import PrivacySettings from './PrivacySettings'
-import InvoiceSettings from './InvoiceInfo'
-import DeleteAcctCard from './DeleteAccountCard'
+import UserSettings from './account-settings/UserSettings'
+import UserPassword from './account-settings/UserPassword'
+import PrivacySettings from './account-settings/PrivacySettings'
+import BillingInfo from './account-settings/BillingInformation2'
+import DeleteAcctCard from './account-settings/DeleteAccount'
 import UnitsRadioButtons from '../agro-components/UnitsRadioButtons'
 import TabsSelector from '../agro-components/TabsSelector'
 
+const tabsOptions = [
+    { id: 'user', label: 'User Settings' },
+    { id: 'billing', label: 'Billing information' },
+  ]
+
 const AccountSettings = () => {
-  const [invoiceSettings, setInvoiceSettings] = useState({
+  const [billingSettings, setBillingSettings] = useState({
     type: 'individual',
     organisation: '',
     title: '',
@@ -31,22 +31,17 @@ const AccountSettings = () => {
     phone: '',
     vat_id: '',
   })
-  const [mailSettings, setMailSettings] = useState({
+  const [mailPreferences, setMailPreferences] = useState({
     news: false,
     product: false,
     system: false,
   })
+  const [user, setUser] = useState({})
 
   const [isNew, setIsNew] = useState(true)
-  const [isActiveStripeCustomer, setIsActiveStripeCustomer] = useState(false)
-  const tabsOptions = [
-    { id: 'User Settings', label: 'User Settings' },
-    { id: 'Billing information', label: 'Billing information' },
-  ]
+
   const [activeTab, setActiveTab] = useState(tabsOptions[0])
-  const [name, setName] = useState('')
-  const [username, setUsername] = useState('')
-  const [email, setEmail] = useState('')
+
 
   useEffect(() => {
     refreshData()
@@ -54,24 +49,27 @@ const AccountSettings = () => {
 
   const refreshData = () => {
     getAccountInfo().then((res) => {
-      setName(res.user.full_name)
-      setUsername(res.user.username)
-      setEmail(res.user.email)
-      setMailSettings(res.mailing)
-      setIsActiveStripeCustomer(res.user.active_stripe_customer)
       if (Object.keys(res.invoice_info).length) {
-        setInvoiceSettings({
-          ...invoiceSettings,
+        setBillingSettings({
+          ...billingSettings,
           ...res.invoice_info,
         })
         setIsNew(false)
       }
+      setUser(res.user)
+      setMailPreferences(res.mailing)
     })
+  }
+
+  const handleUserState = (key, value) => {
+    const newObj = { ...user }
+    newObj[key] = value
+    setUser(newObj)
   }
 
   return (
     <>
-      <div className="content no-card-header">
+      <div className="no-card-header">
         <Row>
           <Col>
             <h1>Account Settings</h1>
@@ -84,7 +82,7 @@ const AccountSettings = () => {
             />
           </Col>
         </Row>
-        {activeTab.id === tabsOptions[0].id ? (
+        {activeTab.id === "user" ? (
           <>
             <Row>
               <Col>
@@ -96,12 +94,6 @@ const AccountSettings = () => {
                 </Card>
               </Col>
               <Col>
-                {/*<h4>&nbsp;</h4>*/}
-                {/*<Card>*/}
-                {/*<CardBody>*/}
-                {/*<p>If you have any questions, please reach out to our friendly support team by emailing us at <a href="mailto:info@openweathermap.org" target="_blank">info@openweathermap.org</a></p>*/}
-                {/*</CardBody>*/}
-                {/*</Card>*/}
               </Col>
             </Row>
             <Row>
@@ -110,11 +102,8 @@ const AccountSettings = () => {
                 <Row>
                   <Col md="6">
                     <UserSettings
-                      name={name}
-                      setName={setName}
-                      username={username}
-                      setUserName={setUsername}
-                      email={email}
+                      user={user}
+                      handleUserState={handleUserState}
                     />
                   </Col>
                   <Col md="6">
@@ -127,8 +116,8 @@ const AccountSettings = () => {
               <Col>
                 <h4>Privacy settings</h4>
                 <PrivacySettings
-                  mailSettings={mailSettings}
-                  setMailSettings={setMailSettings}
+                  mailSettings={mailPreferences}
+                  setMailSettings={setMailPreferences}
                 />
               </Col>
               <DeleteAcctCard />
@@ -138,12 +127,13 @@ const AccountSettings = () => {
           <Row>
             <Col>
               <h4>Billing information</h4>
-              <InvoiceSettings
-                invoiceSettings={invoiceSettings}
-                setInvoiceSettings={setInvoiceSettings}
+              <BillingInfo
+                invoiceSettings={billingSettings}
+                setInvoiceSettings={setBillingSettings}
                 isNew={isNew}
                 refreshData={refreshData}
-                isActiveStripeCustomer={isActiveStripeCustomer}
+                user={user}
+
               />
             </Col>
           </Row>

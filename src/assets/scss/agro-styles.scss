@@ -713,3 +713,7 @@ $daily-chart-width: 1000px;
     text-decoration: underline !important;
   }
 }
+
+.invalid-feedback {
+  color: $danger-color;
+}

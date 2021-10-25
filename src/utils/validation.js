@@ -1,5 +1,3 @@
-import axios from 'axios'
-
 export const validateEmail = (email) => {
   /* email: string */
   const re = /\S+@\S+\.\S+/
@@ -13,13 +11,8 @@ export const validatePhoneNumber = (val) => {
   } else {
     const re = /^[0-9A-Za-z\s-+()]+$/
     if (!re.test(val)) {
-      res = 'Can only contain digits, letters and +, (), - characters'
+      res = 'Only digits, letters and +, (), - characters'
     }
   }
   return res
 }
-
-export const validateVAT = (val, country) =>
-  axios.get(`https://home.openweathermap.org/api/check_vat?vat_id=${val}&country=${country}`)
-
-

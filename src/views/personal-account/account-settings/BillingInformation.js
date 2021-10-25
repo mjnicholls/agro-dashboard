@@ -18,17 +18,17 @@ import {
   Row,
 } from 'reactstrap'
 
-import { countriesDefault, titles } from '../../config'
+import { countriesDefault, titles } from '../../../config'
 import {
   notifyError,
   notifySuccess,
-} from '../../features/notifications/actions'
+} from '../../../features/notifications/actions'
 import {
   updateBillingDetails,
-  confirmVatNumber,
+  validateVat,
   getCountries,
   createBillingDetails,
-} from '../../api/billingAPI'
+} from '../../../api/billingAPI'
 import PropTypes from 'prop-types'
 
 
@@ -118,7 +118,7 @@ const InvoiceSettings = ({
       invoiceSettings.type === 'organisation' &&
       invoiceSettings.vat_id.length
     ) {
-      confirmVatNumber(invoiceSettings.vat_id)
+      validateVat(invoiceSettings.vat_id)
         .then(() => {
           billingInfoUpdate()
         })
@@ -137,7 +137,7 @@ const InvoiceSettings = ({
       </CardHeader>
       <CardBody>
         <Form>
-          <Row className="mb-3">
+          <Row className="mb-4">
             <Col>
               <Label>Legal form: </Label>
               <FormGroup check className="form-check-radio">

@@ -4,9 +4,14 @@ import Select from 'react-select'
 
 import { titles } from '../../../config'
 import PropTypes from 'prop-types'
+import classnames from "classnames";
 
-const Step1 = ({ invoiceSettings, setInvoiceSettings, isNew, email, error }) => {
-
+const Step1 = ({
+  invoiceSettings,
+  setInvoiceSettings,
+  user,
+  error,
+}) => {
   const handleChange = (key, value) => {
     const newObj = { ...invoiceSettings }
     newObj[key] = value
@@ -25,7 +30,7 @@ const Step1 = ({ invoiceSettings, setInvoiceSettings, isNew, email, error }) => 
               type="radio"
               checked={invoiceSettings.type === 'individual'}
               onChange={() => handleChange('type', 'individual')}
-              disabled={!isNew && invoiceSettings.type === 'organisation'}
+              disabled={user.active_stripe_customer && invoiceSettings.type === 'organisation'}
             />
             <span className="form-check-sign" />
             Individual
@@ -37,7 +42,7 @@ const Step1 = ({ invoiceSettings, setInvoiceSettings, isNew, email, error }) => 
               type="radio"
               checked={invoiceSettings.type === 'organisation'}
               onChange={() => handleChange('type', 'organisation')}
-              disabled={!isNew && invoiceSettings.type === 'individual'}
+              disabled={user.active_stripe_customer && invoiceSettings.type === 'individual'}
             />
             <span className="form-check-sign" />
             Organisation
@@ -46,10 +51,10 @@ const Step1 = ({ invoiceSettings, setInvoiceSettings, isNew, email, error }) => 
       </Form>
 
       <Form className="form-horizontal">
-        {invoiceSettings.type === 'individual' ?
+        {invoiceSettings.type === 'individual' ? (
           <Row>
-            <Col md="2" className="mt-4">
-              <Label>Title *</Label>
+            <Col className="mt-4">
+              <Label>Title</Label>
               <FormGroup>
                 <Select
                   className="react-select info mb-3"
@@ -58,7 +63,7 @@ const Step1 = ({ invoiceSettings, setInvoiceSettings, isNew, email, error }) => 
                 />
               </FormGroup>
             </Col>
-            <Col md="5" className="mt-4">
+            <Col className="mt-4">
               <Label>First Name *</Label>
               <FormGroup>
                 <Input
@@ -67,9 +72,15 @@ const Step1 = ({ invoiceSettings, setInvoiceSettings, isNew, email, error }) => 
                   value={invoiceSettings.first_name}
                   className={error.first_name ? 'danger-border' : ''}
                 />
+                <div
+                  className={classnames(
+                    'invalid-feedback ',
+                    error.first_name ? 'd-block' : '',
+                  )}
+                >{error.first_name}</div>
               </FormGroup>
             </Col>
-            <Col md="5" className="mt-4">
+            <Col className="mt-4">
               <Label>Last Name *</Label>
               <FormGroup>
                 <Input
@@ -78,60 +89,61 @@ const Step1 = ({ invoiceSettings, setInvoiceSettings, isNew, email, error }) => 
                   value={invoiceSettings.last_name}
                   className={error.last_name ? 'danger-border' : ''}
                 />
-              </FormGroup>
-            </Col>
-          </Row> :
-          <Row>
-            <Col md="6" className="mt-4">
-              <Label>Organisation *</Label>
-              <FormGroup>
-                <Input
-                  type="text"
-                  onChange={(e) =>
-                    handleChange('organisation', e.target.value)
-                  }
-                  value={invoiceSettings.organisation}
-                  className={error.organisation ? 'danger-border' : ''}
-                />
-              </FormGroup>
-            </Col>
-            <Col md="6" className="mt-4">
-              <Label>VAT ID</Label>
-              <FormGroup>
-                <Input
-                  type="text"
-                  onChange={(e) => {
-                    handleChange('vat_id', e.target.value)
-                  }}
-                  value={invoiceSettings.vat_id}
-                  className={error.vat_id ? 'danger-border' : ''}
-                />
-              </FormGroup>
-            </Col>
-          </Row>}
-          <Row>
-            <Col md="6" className="mt-4">
-              <Label>Email</Label>
-              <FormGroup>
-                <Input
-                  type="text"
-                  value={email}
-                  disabled
-                />
-              </FormGroup>
-            </Col>
-            <Col md="6" className="mt-4">
-              <Label>Phone *</Label>
-              <FormGroup>
-                <Input
-                  type="text"
-                  onChange={(e) => handleChange('phone', e.target.value)}
-                  value={invoiceSettings.phone}
-                  className={error.phone ? 'danger-border' : ''}
-                />
+                <div
+                  className={classnames(
+                    'invalid-feedback ',
+                    error.last_name ? 'd-block' : '',
+                  )}
+                >{error.last_name}</div>
               </FormGroup>
             </Col>
           </Row>
+        ) : (
+          <Row>
+            <Col className="mt-4">
+              <Label>Organisation name *</Label>
+              <FormGroup>
+                <Input
+                  type="text"
+                  onChange={(e) => handleChange('organisation', e.target.value)}
+                  value={invoiceSettings.organisation}
+                  className={error.organisation ? 'danger-border' : ''}
+                />
+                <div
+                  className={classnames(
+                    'invalid-feedback ',
+                    error.organisation ? 'd-block' : '',
+                  )}
+                >{error.organisation}</div>
+              </FormGroup>
+            </Col>
+          </Row>
+        )}
+        <Row>
+          <Col className="mt-4">
+            <Label>Email</Label>
+            <FormGroup>
+              <Input type="text" value={user.email} disabled />
+            </FormGroup>
+          </Col>
+          <Col className="mt-4">
+            <Label>Phone *</Label>
+            <FormGroup>
+              <Input
+                type="text"
+                onChange={(e) => handleChange('phone', e.target.value)}
+                value={invoiceSettings.phone}
+                className={error.phone ? 'danger-border' : ''}
+              />
+              <div
+                className={classnames(
+                  'invalid-feedback ',
+                  error.phone ? 'd-block' : '',
+                )}
+              >{error.phone}</div>
+            </FormGroup>
+          </Col>
+        </Row>
       </Form>
     </div>
   )
@@ -139,9 +151,13 @@ const Step1 = ({ invoiceSettings, setInvoiceSettings, isNew, email, error }) => 
 
 Step1.propTypes = {
   error: PropTypes.func,
-  isNew: PropTypes.bool,
   invoiceSettings: PropTypes.object,
-  email: PropTypes.string,
+  user: PropTypes.objectOf({
+    full_name: PropTypes.string,
+    username: PropTypes.string,
+    email: PropTypes.string,
+    active_stripe_customer: PropTypes.bool
+  }),
   setInvoiceSettings: PropTypes.func,
 }
 

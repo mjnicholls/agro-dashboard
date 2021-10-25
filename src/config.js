@@ -1578,3 +1578,5 @@ export const deleteAcctOptions = [
 ]
 
 export const passwordLength = 8
+
+export const noBlank = "Cannot be blank"

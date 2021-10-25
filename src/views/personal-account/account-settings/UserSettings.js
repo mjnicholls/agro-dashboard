@@ -17,14 +17,16 @@ import {
 import {
   notifyError,
   notifySuccess,
-} from '../../features/notifications/actions'
-import { updateUserName } from '../../api/personalAccountAPI'
+} from '../../../features/notifications/actions'
+import { updateUserSettings } from '../../../api/personalAccountAPI'
 import PropTypes from 'prop-types'
 
-const UserSettings = ({ email, name, setName, username, setUserName }) => {
+import {noBlank} from '../../../config'
+import classnames from "classnames";
+
+
+const UserSettings = ({ user, handleUserState }) => {
   const [error, setError] = useState({})
-  //const [name, setName] = useState('')
-  //const [username, setUserName] = useState('')
 
   const dispatch = useDispatch()
 
@@ -33,26 +35,27 @@ const UserSettings = ({ email, name, setName, username, setUserName }) => {
 
     const newError = {}
 
-    if (!name.length && !username.length) {
-      newError.username = !username.length
-      dispatch(notifyError('Both fields cannot be blank'))
-      setError(newError)
+    if (!user.full_name && !user.username) {
+      setError({
+        username: noBlank,
+        full_name: noBlank
+      })
       return
     }
 
     const data = {
       // cannot send an empty string to back-end
-      new_username: username.length ? username : null,
-      new_full_name: name,
+      new_username: user.username ? user.username : null,
+      new_full_name: user.name,
     }
 
-    updateUserName(data)
+    updateUserSettings(data)
       .then(() => {
-        dispatch(notifySuccess('Username updated'))
+        dispatch(notifySuccess('Details updated'))
       })
       // eslint-disable-next-line
       .catch((error) => {
-        dispatch(notifyError(`Error updating name ' + ${error.message}`))
+        dispatch(notifyError(`Error updating detais ' + ${error.message}`))
       })
   }
 
@@ -67,25 +70,37 @@ const UserSettings = ({ email, name, setName, username, setUserName }) => {
           <FormGroup>
             <Input
               type="text"
-              onChange={(e) => setUserName(e.target.value)}
-              value={username}
+              onChange={(e) => handleUserState('username', e.target.value)}
+              value={user.username}
               className={error.username ? 'danger-border' : ''}
             />
+            <div
+              className={classnames(
+                'invalid-feedback ',
+                error.username ? 'd-block' : '',
+              )}
+            >{error.username}</div>
           </FormGroup>
 
           <Label>Full Name</Label>
           <FormGroup>
             <Input
               type="text"
-              onChange={(e) => setName(e.target.value)}
-              value={name}
-              className={error.name ? 'danger-border' : ''}
+              onChange={(e) => handleUserState('full_name', e.target.value)}
+              value={user.full_name}
+              className={error.full_name ? 'danger-border' : ''}
             />
+            <div
+              className={classnames(
+                'invalid-feedback ',
+                error.full_name ? 'd-block' : '',
+              )}
+            >{error.full_name}</div>
           </FormGroup>
 
           <Label>Email address</Label>
           <FormGroup>
-            <Input type="email" value={email} disabled />
+            <Input type="email" value={user.email} disabled />
           </FormGroup>
         </Form>
       </CardBody>
@@ -104,11 +119,13 @@ const UserSettings = ({ email, name, setName, username, setUserName }) => {
 }
 
 UserSettings.propTypes = {
-  email: PropTypes.string,
-  name: PropTypes.string,
-  setName: PropTypes.func,
-  username: PropTypes.string,
-  setUserName: PropTypes.func,
+  user: PropTypes.objectOf({
+    full_name: PropTypes.string,
+    username: PropTypes.string,
+    email: PropTypes.string,
+    active_stripe_customer: PropTypes.bool
+  }),
+  handleUserState: PropTypes.func,
 }
 
 export default UserSettings

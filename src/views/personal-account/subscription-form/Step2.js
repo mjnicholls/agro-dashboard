@@ -6,11 +6,11 @@ import { countriesDefault } from '../../../config'
 import PropTypes from 'prop-types'
 
 const Step2 = ({ invoiceSettings, setInvoiceSettings, error }) => {
+
   const [countries, setCountries] = useState(countriesDefault)
 
   const handleChange = (key, value) => {
-    // eslint-disable-next-line
-    let newObj = Object.assign({}, invoiceSettings)
+    const newObj = {...invoiceSettings}
     newObj[key] = value
     setInvoiceSettings(newObj)
   }
@@ -19,35 +19,12 @@ const Step2 = ({ invoiceSettings, setInvoiceSettings, error }) => {
     <div>
       <Form>
         <Row>
-          <Col md="12">
-            <Label>Address Line 1 *</Label>
-            <FormGroup>
-              <Input
-                type="text"
-                onChange={(e) => handleChange('address_line_1', e.target.value)}
-                value={invoiceSettings.address_line_1}
-                className={error.address_line_1 ? 'danger-border' : ''}
-              />
-            </FormGroup>
-          </Col>
-        </Row>
-        <Row>
-          <Col md="6">
-            <Label>Address Line 2</Label>
-            <FormGroup>
-              <Input
-                type="text"
-                onChange={(e) => handleChange('address_line_2', e.target.value)}
-                value={invoiceSettings.address_line_2}
-              />
-            </FormGroup>
-          </Col>
-          <Col md="6">
+          <Col>
             <Label>Country *</Label>
             <FormGroup>
               <Select
                 className={classnames(
-                  'react-select info mb-3',
+                  'react-select info',
                   error.country ? 'danger-border' : '',
                 )}
                 classNamePrefix="react-select"
@@ -65,11 +42,48 @@ const Step2 = ({ invoiceSettings, setInvoiceSettings, error }) => {
                     : ''
                 }
               />
+              <div
+                className={classnames(
+                  'invalid-feedback ',
+                  error.country ? 'd-block' : '',
+                )}
+              >{error.country}</div>
             </FormGroup>
           </Col>
         </Row>
         <Row>
-          <Col md="6">
+          <Col>
+            <Label>Address Line 1 *</Label>
+            <FormGroup>
+              <Input
+                type="text"
+                onChange={(e) => handleChange('address_line_1', e.target.value)}
+                value={invoiceSettings.address_line_1}
+                className={error.address_line_1 ? 'danger-border' : ''}
+              />
+              <div
+                className={classnames(
+                  'invalid-feedback ',
+                  error.address_line_1 ? 'd-block' : '',
+                )}
+              >{error.address_line_1}</div>
+            </FormGroup>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <Label>Address Line 2</Label>
+            <FormGroup>
+              <Input
+                type="text"
+                onChange={(e) => handleChange('address_line_2', e.target.value)}
+                value={invoiceSettings.address_line_2}
+              />
+            </FormGroup>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
             <Label>City *</Label>
             <FormGroup>
               <Input
@@ -78,10 +92,16 @@ const Step2 = ({ invoiceSettings, setInvoiceSettings, error }) => {
                 value={invoiceSettings.city}
                 className={error.city ? 'danger-border' : ''}
               />
+              <div
+                className={classnames(
+                  'invalid-feedback ',
+                  error.city ? 'd-block' : '',
+                )}
+              >{error.city}</div>
             </FormGroup>
           </Col>
 
-          <Col md="6">
+          <Col>
             <Label>Postcode *</Label>
             <FormGroup>
               <Input
@@ -90,11 +110,17 @@ const Step2 = ({ invoiceSettings, setInvoiceSettings, error }) => {
                 value={invoiceSettings.postal_code}
                 className={error.postal_code ? 'danger-border' : ''}
               />
+              <div
+                className={classnames(
+                  'invalid-feedback ',
+                  error.postal_code ? 'd-block' : '',
+                )}
+              >{error.postal_code}</div>
             </FormGroup>
           </Col>
         </Row>
         <Row>
-          <Col md="6">
+          <Col>
             <Label>State</Label>
             <FormGroup>
               <Input
@@ -105,8 +131,27 @@ const Step2 = ({ invoiceSettings, setInvoiceSettings, error }) => {
             </FormGroup>
           </Col>
 
-          <Col md="6" style={{ marginBottom: '20px' }}>
-
+          <Col>
+            {(invoiceSettings.type === "organisation") &&
+            <>
+              <Label>VAT ID</Label>
+              <FormGroup>
+                <Input
+                  type="text"
+                  onChange={(e) => {
+                    handleChange('vat_id', e.target.value)
+                  }}
+                  value={invoiceSettings.vat_id}
+                  className={error.vat_id ? 'danger-border' : ''}
+                />
+                <div
+                  className={classnames(
+                    'invalid-feedback ',
+                    error.vat_id ? 'd-block' : '',
+                  )}
+                >{error.vat_id}</div>
+              </FormGroup>
+            </>}
           </Col>
         </Row>
       </Form>

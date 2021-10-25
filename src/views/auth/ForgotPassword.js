@@ -27,7 +27,7 @@ import {
   notifySuccess,
 } from '../../features/notifications/actions'
 
-import { forgotPassword } from "../../api/authAPI";
+import { forgotPassword } from '../../api/authAPI'
 import { validateEmail } from '../../utils/validation'
 
 const ForgotPassword = () => {
@@ -54,7 +54,11 @@ const ForgotPassword = () => {
 
     forgotPassword(email)
       .then(() => {
-        dispatch(notifySuccess('We have sent you an email with reset password instructions'))
+        dispatch(
+          notifySuccess(
+            'We have sent you an email with reset password instructions',
+          ),
+        )
       })
       .catch((err) => {
         dispatch(notifyError(`Error resetting password: ${err.message}`))
@@ -73,7 +77,10 @@ const ForgotPassword = () => {
                 </CardTitle>
               </CardHeader>
               <CardBody>
-                <Label>Enter your email and we will send you reset password instructions</Label>
+                <Label>
+                  Enter your email and we will send you reset password
+                  instructions
+                </Label>
                 <InputGroup
                   className={classnames({
                     'input-group-focus': emailFocus,

@@ -19,7 +19,6 @@ export const polygonCreate = `${agriBase}polygon`
 export const polygonDelete = `${agriBase}polygon/`
 export const polygonSatelliteImagesList = `${agriBase}image/search`
 
-
 // personal account
 
 // API Keys
@@ -37,7 +36,6 @@ export const updateName = `${personalAccountBase}account/user/names`
 export const updatePass = `${personalAccountBase}account/user/password`
 export const updateMailing = `${personalAccountBase}account/mailing`
 
-
 // delete account
 export const deleteAccount = `${personalAccountBase}account/delete`
 
@@ -49,10 +47,6 @@ export const PolygonGet = `${personalAccountBase}/polygons`
 
 export const confirmVat = 'https://home.agromonitoring.com/api/check_vat'
 export const countriesList = 'https://home.agromonitoring.com/api/countries'
-
-
-
-
 
 // charts
 const current = 'current/'
@@ -67,5 +61,3 @@ export const historyAccumulatedPrecipitation = `${agriBase}${history}weather_ap`
 export const historyWeather = `${agriBase}${history}weather`
 
 export const weatherOneCall = `${agriBase}one_call`
-
-

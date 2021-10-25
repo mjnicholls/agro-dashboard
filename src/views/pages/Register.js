@@ -1,23 +1,6 @@
-/*!
-
-=========================================================
-* Black Dashboard PRO React - v1.2.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/black-dashboard-pro-react
-* Copyright 2020 Creative Tim (https://www.creative-tim.com)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
 import React from 'react'
 
 import classnames from 'classnames'
-// reactstrap components
 import {
   Button,
   Card,
@@ -57,10 +40,9 @@ const Register = () => {
                   <i className="tim-icons icon-wifi" />
                 </div>
                 <div className="description">
-                  <h3 className="info-title">Marketing</h3>
+                  <h3 className="info-title">Satellite imagery archive and wide range of vegetation indices </h3>
                   <p className="description">
-                    We've created the marketing campaign of the website. It was
-                    a very interesting collaboration.
+                    NDVI, EVI, DSWI, NDWI, NRI, etc. lets you identify anomalies in your fields and plan further actions, and with a historical NDVI chart you can analyze the changes in the level of vegetation in your field through the seasons
                   </p>
                 </div>
               </div>
@@ -69,10 +51,9 @@ const Register = () => {
                   <i className="tim-icons icon-triangle-right-17" />
                 </div>
                 <div className="description">
-                  <h3 className="info-title">Fully Coded in HTML5</h3>
+                  <h3 className="info-title">Accurate and generous weather data</h3>
                   <p className="description">
-                    We've developed the website with HTML5 and CSS3. The client
-                    has access to the code using GitHub.
+                    Weather data for your fields include the current state of weather, soil, weather alerts; weather forecasts with hourly and daily granulation; resent temperature, precipitation, soil temperature and moisture; accumulated temperature and precipitation
                   </p>
                 </div>
               </div>
@@ -81,10 +62,20 @@ const Register = () => {
                   <i className="tim-icons icon-trophy" />
                 </div>
                 <div className="description">
-                  <h3 className="info-title">Built Audience</h3>
+                  <h3 className="info-title">Advanced crop recognition </h3>
                   <p className="description">
-                    There is also a Fully Customizable CMS Admin Dashboard for
-                    this product.
+                    Based on Machine Learning technology, it will help you to get information on the state of fields, their crops and NDVI statistics through the years.
+                  </p>
+                </div>
+              </div>
+              <div className="info-area info-horizontal">
+                <div className="icon icon-info">
+                  <i className="tim-icons icon-trophy" />
+                </div>
+                <div className="description">
+                  <h3 className="info-title">Advanced crop recognition </h3>
+                  <p className="description">
+                    Based on Machine Learning technology, it will help you to get information on the state of fields, their crops and NDVI statistics through the years.
                   </p>
                 </div>
               </div>

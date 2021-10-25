@@ -35,7 +35,7 @@ export const getAccountInfo = () =>
   /** Get account preferences */
   axios.get(accountInfo)
 
-export const updateUserName = (params) =>
+export const updateUserSettings = (params) =>
   /** Update username or full name */
   axios.put(updateName, params)
 

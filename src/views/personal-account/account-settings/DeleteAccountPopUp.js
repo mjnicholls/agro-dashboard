@@ -3,12 +3,12 @@ import { useDispatch, useSelector } from 'react-redux'
 import Select from 'react-select'
 import { Button, Col, FormGroup, Row } from 'reactstrap'
 import { NavLink } from 'react-router-dom'
-import { deleteAcct } from '../../api/personalAccountAPI'
+import { deleteAcct } from '../../../api/personalAccountAPI'
 import {
   notifyError,
   notifySuccess,
-} from '../../features/notifications/actions'
-import { deleteAcctOptions } from '../../config'
+} from '../../../features/notifications/actions'
+import { deleteAcctOptions } from '../../../config'
 import PropTypes from 'prop-types'
 
 const userSubscriptionSelector = (state) => state.auth.user.tariff
@@ -60,7 +60,7 @@ const DeleteAccount = ({ close }) => {
                   getOptionValue={(option) => option.label}
                   menuPortalTarget={document.body}
                   styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
-                ></Select>
+                />
               </FormGroup>
             </Col>
           </Row>
@@ -95,7 +95,6 @@ const DeleteAccount = ({ close }) => {
           </p>
         </Col>
       </Row>
-      <div className="agro-pop-up-footer"></div>
     </div>
   )
 }

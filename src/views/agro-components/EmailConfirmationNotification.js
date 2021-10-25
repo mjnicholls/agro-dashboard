@@ -5,12 +5,14 @@ import { Button, UncontrolledAlert } from 'reactstrap'
 
 import { confirmEmail } from '../../api/authAPI'
 import { hideNotification } from '../../features/auth/actions'
-import {notifyError, notifySuccess} from "../../features/notifications/actions";
+import {
+  notifyError,
+  notifySuccess,
+} from '../../features/notifications/actions'
 
 const selectEmail = (state) => state.auth.user.email
 
 const EmailConfirmationNotification = () => {
-
   const dispatch = useDispatch()
   const email = useSelector(selectEmail)
 
@@ -21,10 +23,14 @@ const EmailConfirmationNotification = () => {
   const sendConfirmation = () => {
     confirmEmail(email)
       .then(() => {
-        dispatch(notifySuccess("Confirmation email sent"))
+        dispatch(notifySuccess('Confirmation email sent'))
         dispatch(hideNotification())
       })
-      .catch((err) => {dispatch(notifyError(`Error sending confirmation email: ${err.message}`))})
+      .catch((err) => {
+        dispatch(
+          notifyError(`Error sending confirmation email: ${err.message}`),
+        )
+      })
   }
 
   return (
@@ -37,9 +43,13 @@ const EmailConfirmationNotification = () => {
       <span data-notify="icon" className="tim-icons icon-bell-55" />
       <span data-notify="message">
         You have to verify your email to use Agro services. Please{' '}
-        <Button className="btn-link remove-button-style m-0 notification-link" style={{}} onClick={sendConfirmation}><b>
-          click here
-        </b></Button>{' '}
+        <Button
+          className="btn-link remove-button-style m-0 notification-link"
+          style={{}}
+          onClick={sendConfirmation}
+        >
+          <b>click here</b>
+        </Button>{' '}
         to get an email with the confirmation link.
       </span>
     </UncontrolledAlert>

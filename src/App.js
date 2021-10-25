@@ -18,7 +18,7 @@ import AuthLayout from './layouts/Auth/Auth'
 import store from './store'
 import Notifications from './views/agro-components/Notifications'
 
-import GA4React from 'ga-4-react'
+// import GA4React from 'ga-4-react'
 
 axios.defaults.headers.common.Authorization = `Bearer ${
   store.getState().auth.token
@@ -31,35 +31,35 @@ axios.interceptors.response.use(
       store.dispatch(receiveLogout())
       return Promise.reject(error)
     }
-    let message =''
+    let message = ''
     let newErr
     if (error.response && error.response.data) {
       if (error.response.data.message) {
-        const m = error.response.data.message;
+        const m = error.response.data.message
         if (typeof m === 'object') {
           const arr = Object.keys(m)
-          for (let i=0; i< arr.length; i+= 1) {
-            const key = arr[i];
-            const val = m[key];
+          for (let i = 0; i < arr.length; i += 1) {
+            const key = arr[i]
+            const val = m[key]
             console.log(key, val)
-            message += `${key} ${Array.isArray(val) ? val.join(", ") : val}`
+            message += `${key} ${Array.isArray(val) ? val.join(', ') : val}`
           }
         } else {
-          message = m;
+          message = m
         }
       } else if (error.response.data.code && error.response.data.code === 404) {
         // нет message, проверить код на 404
-        message = "Not found"
+        message = 'Not found'
       }
       newErr = {
         ...error.response.data,
-        message: message || "Something went wrong"
+        message: message || 'Something went wrong',
       }
     }
     if (!newErr) {
       newErr = {
         ...error,
-        message: 'Something went wrong'
+        message: 'Something went wrong',
       }
     }
     // if (
@@ -71,22 +71,21 @@ axios.interceptors.response.use(
     //   newErr = {...error.response.data}
     // }
     return Promise.reject(newErr)
-
   },
 )
 
-const ga4react = new GA4React(
-  'G-JE5157018X'
-)
-
-ga4react.initialize().then(
-  (ga4) => {
-    ga4.pageview('path')
-  },
-  (err) => {
-    console.error(err)
-  },
-)
+// const ga4react = new GA4React(
+//   'G-JE5157018X'
+// )
+//
+// ga4react.initialize().then(
+//   (ga4) => {
+//     ga4.pageview('path')
+//   },
+//   (err) => {
+//     console.error(err)
+//   },
+// )
 
 const App = () => (
   <Provider store={store}>
@@ -97,7 +96,7 @@ const App = () => (
           path="/dashboard"
           render={(props) => <AdminLayout {...props} />}
         />
-        <Route path="/users" render={(props) => <AdminLayout {...props} />} />
+        <AuthRoute path="/users" render={(props) => <AdminLayout {...props} />} />
         <Redirect from="/" to="/dashboard/polygons" />
       </Switch>
     </BrowserRouter>
