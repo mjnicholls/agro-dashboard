@@ -113,10 +113,10 @@ const AdminNavbar = (props) => {
               <span className="navbar-toggler-bar bar3" />
             </button>
           </div>
-          <NavbarBrand href="#pablo" onClick={(e) => e.preventDefault()}>
+          <span className="navbar-brand">
             {pageName()}
             {/* {props.brandText} */}
-          </NavbarBrand>
+          </span>
         </div>
         <button
           className="navbar-toggler"

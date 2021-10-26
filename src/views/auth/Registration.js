@@ -14,8 +14,6 @@ import {
   Label,
   Form,
   FormGroup,
-  FormFeedback,
-  FormText,
   Input,
   InputGroupAddon,
   InputGroupText,
@@ -34,6 +32,14 @@ import {
 import cardPrimary from '../../assets/img/card-primary.png'
 import { createNewUser } from '../../api/authAPI'
 import { passwordLength } from '../../config'
+
+import {
+  faKey,
+  faMapMarkerAlt,
+  faSatellite,
+  faTemperatureLow,
+} from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const RegisterForm = () => {
   const [state, setState] = React.useState({})
@@ -160,7 +166,7 @@ const RegisterForm = () => {
           <Col className="ml-auto" md="5">
             <div className="info-area info-horizontal mt-5">
                 <div className="icon icon-warning">
-                  <i className="tim-icons icon-wifi" />
+                  <FontAwesomeIcon icon={faSatellite} />
                 </div>
                 <div className="description">
                   <h3 className="info-title">Satellite imagery archive and wide range of vegetation indices </h3>
@@ -171,7 +177,7 @@ const RegisterForm = () => {
               </div>
             <div className="info-area info-horizontal">
               <div className="icon icon-primary">
-                <i className="tim-icons icon-triangle-right-17" />
+                <FontAwesomeIcon icon={faTemperatureLow} />
               </div>
               <div className="description">
                 <h3 className="info-title">Accurate and generous weather data</h3>
@@ -182,7 +188,7 @@ const RegisterForm = () => {
             </div>
             <div className="info-area info-horizontal">
               <div className="icon icon-info">
-                <i className="tim-icons icon-trophy" />
+                <FontAwesomeIcon icon={faMapMarkerAlt} />
               </div>
               <div className="description">
                 <h3 className="info-title">Advanced crop recognition </h3>
@@ -193,12 +199,12 @@ const RegisterForm = () => {
             </div>
             <div className="info-area info-horizontal">
               <div className="icon icon-info">
-                <i className="tim-icons icon-trophy" />
+                <FontAwesomeIcon icon={faKey} />
               </div>
               <div className="description">
-                <h3 className="info-title">Advanced crop recognition </h3>
+                <h3 className="info-title">Agro API access</h3>
                 <p className="description">
-                  Based on Machine Learning technology, it will help you to get information on the state of fields, their crops and NDVI statistics through the years.
+                  Easy-to-use Agro API will help you to build your own agricultural dashboard or app. Just  sign up and get your API key to start working on a new project.
                 </p>
               </div>
             </div>

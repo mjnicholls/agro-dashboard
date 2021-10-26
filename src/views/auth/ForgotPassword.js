@@ -73,7 +73,7 @@ const ForgotPassword = () => {
             <Card className="card-lock card-white">
               <CardHeader>
                 <CardTitle tag="h3">
-                  <b>Forgot password?</b>
+                  <b>Forgot your password?</b>
                 </CardTitle>
               </CardHeader>
               <CardBody>

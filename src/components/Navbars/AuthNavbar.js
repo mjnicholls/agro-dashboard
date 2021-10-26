@@ -33,11 +33,9 @@ const AuthNavbar = (props) => {
       expand="lg"
     >
       <Container fluid>
-        <div className="navbar-wrapper">
-          <NavbarBrand href="#pablo" onClick={(e) => e.preventDefault()}>
+          <span className="navbar-brand">
             {props.brandText}
-          </NavbarBrand>
-        </div>
+          </span>
         <button
           aria-controls="navigation-index"
           aria-expanded={false}

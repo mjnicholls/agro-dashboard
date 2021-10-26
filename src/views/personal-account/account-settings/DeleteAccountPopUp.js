@@ -84,7 +84,7 @@ const DeleteAccount = ({ close }) => {
         <Col className="mb-3">
           <p>
             Please{' '}
-            <NavLink to="/dashboard/billing-plans">
+            <NavLink to="/users/home">
               cancel your subscriptions
             </NavLink>{' '}
             before deleting your account.

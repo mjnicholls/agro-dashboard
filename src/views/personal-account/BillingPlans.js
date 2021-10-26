@@ -97,7 +97,7 @@ const BillingPlans = () => {
 
   return (
     <>
-      <div className="content">
+      <div>
         {alert}
 
         <Row>
@@ -299,18 +299,18 @@ const BillingPlans = () => {
                         color, False color)
                       </td>
                       <td>
-                        <a href="#map" target="_blank">
+                        <Link to={window.location.pathname} hash="/#map">
                           All available data
-                        </a>
+                        </Link>
                       </td>
                       <td>
-                        <a href="#map" target="_blank">
+                        <Link to="/users/billing-plans#map">
                           All available data
-                        </a>{' '}
+                        </Link>{' '}
                         + total archive on request
                       </td>
                       <td>
-                        <a href="#map" target="_blank">
+                        <a href="#map">
                           All available data
                         </a>{' '}
                         + total archive on request
@@ -744,7 +744,7 @@ const BillingPlans = () => {
 
         <Row>
           <Col className="mb-0" md="12" mt="20">
-            <Card>
+            <Card id="map">
               {/*<CardHeader>*/}
               {/*<h3>Where you can get satellite imagery data right now</h3>*/}
               {/*</CardHeader>*/}
