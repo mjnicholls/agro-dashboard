@@ -36,7 +36,7 @@ const tabsOptions = [
   { id: 'dashboard', label: 'Dashboard' },
 ]
 
-const Subscription2 = () => {
+const SubscriptionPage3 = () => {
 
   const [activePage, setActivePage] = useState('charge') // Charges or Limits
   const [activeTab, setActiveTab] = useState(tabsOptions[0]) // api or dashboard
@@ -116,38 +116,38 @@ const Subscription2 = () => {
                             className="nav-pills-info nav-pills-icons justify-content-center"
                             pills
                           >
+                            {/*<NavItem>*/}
+                              {/*<NavLink>*/}
+                                {/*<Row>*/}
+                                  {/*<Col className="col">*/}
+                                    {/*<i*/}
+                                      {/*className="tim-icons icon-paper"*/}
+                                      {/*style={{ marginTop: '15px' }}*/}
+                                    {/*/>*/}
+                                    {/*<p>Your Charges</p>*/}
+                                    {/*<p>This Month</p>*/}
+                                  {/*</Col>*/}
+                                  {/*<Col className="col">*/}
+                                    {/*<p style={{ fontSize: '40px' }}>£40</p>*/}
+                                    {/*<Link to="/dashboard/payments">*/}
+                                      {/*<Button*/}
+                                        {/*className="btn-fill"*/}
+                                        {/*color="primary"*/}
+                                        {/*type="submit"*/}
+                                        {/*style={{ marginTop: '17px' }}*/}
+                                      {/*>*/}
+                                        {/*Invoice*/}
+                                      {/*</Button>*/}
+                                    {/*</Link>*/}
+                                  {/*</Col>*/}
+                                {/*</Row>*/}
+                              {/*</NavLink>*/}
+                            {/*</NavItem>*/}
                             <NavItem>
-                              <NavLink>
-                                <Row>
-                                  <Col className="col">
-                                    <i
-                                      className="tim-icons icon-paper"
-                                      style={{ marginTop: '15px' }}
-                                    />
-                                    <p>Your Charges</p>
-                                    <p>This Month</p>
-                                  </Col>
-                                  <Col className="col">
-                                    <p style={{ fontSize: '40px' }}>£40</p>
-                                    <Link to="/dashboard/payments">
-                                      <Button
-                                        className="btn-fill"
-                                        color="primary"
-                                        type="submit"
-                                        style={{ marginTop: '17px' }}
-                                      >
-                                        Invoice
-                                      </Button>
-                                    </Link>
-                                  </Col>
-                                </Row>
-                              </NavLink>
-                            </NavItem>
-                            <NavItem>
-                              <NavLink>
-                                <h4>
-                                  Next Payment: <b>Sep 30, 2022</b>
-                                </h4>
+                              <NavLink className="py-4 px-5">
+                                {/*<h4>*/}
+                                  {/*Next Payment: <b>Sep 30, 2022</b>*/}
+                                {/*</h4>*/}
 
                                 <h4>
                                   Your Tariff: <b>{data.name.toUpperCase()}</b>
@@ -682,15 +682,38 @@ const Subscription2 = () => {
                     </Col>
                   </Row>
                 </TabPane>
-
-
               </TabContent>
             </CardBody>
           </Card>
+        </Col>
+      </Row>
+      <Row>
+        <Col><h2>FAQ</h2></Col>
+      </Row>
+      <Row>
+        <Col lg="4">
+          <h4><b>What does a monthly price consist of?</b></h4>
+          <p>The monthly price for your subscription consists of two parts - one is <u>a fixed fee</u> for a certain fixed area of polygons (your fields) per month. Another is a separate <u>fee for all exceeded areas</u> over that threshold area.</p>
+        </Col>
+        <Col lg="4">
+          <h4><b>What is a monthly period?</b></h4>
+          <p>For recurrent subscription, it is a one month starting from the day of your subscription. At the end of the calendar month, we will charge your account for all your polygons during that month For manual invoicing, it is a calendar month. We count your subscription activity and charge from 1st to the last day of each month. You can subscribe to our service at any day of the month, for your first month we calculate your monthly fee on daily basis.</p>
+        </Col>
+        <Col lg="4">
+          <h4><b>How we count the active area within a month?</b></h4>
+          <p>Any polygon that is created under your account is considered as an active polygon. When you create a new polygon, it starts to receive data automatically, and we add up its area to the total monthly active area by default. If you delete a polygon, it still will be counted as an active in the current calendar month, although it will not be counted in the next calendar period.</p>
+        </Col>
+        <Col lg="4">
+          <h4><b>What is a monthly fixed fee?</b></h4>
+          <p>Fixedfee depends on a chosen subscription; each subscription has its own allowance threshold. For example, fixed fee of Starter subscription covers a territory that is not exceeded 4,000 ha in total per month. Everything after this threshould will be charge via fee for exceeded areas.</p>
+        </Col>
+        <Col lg="4">
+          <h4><b>How is the exceeded area fee calculated?</b></h4>
+          <p>We count area of your active polygons that exceeds a monthly threshold of your subscription. Different subscriptions have different price rate for exceeded area, please refer to the price-list for details.</p>
         </Col>
       </Row>
     </>
   )
 }
 
-export default Subscription2
+export default SubscriptionPage3

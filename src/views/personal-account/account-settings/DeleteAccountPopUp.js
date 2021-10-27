@@ -41,8 +41,8 @@ const DeleteAccount = ({ close }) => {
           <Row className="my-3">
             <Col>
               <p>
-                We are sad to see you leave. Please share with us the reason why
-                you are deleting your account:
+                We&apos;re sorry to see you go! Please share with us the reason why
+                you&apos;re deleting your account:
               </p>
             </Col>
           </Row>

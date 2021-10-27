@@ -1,17 +1,25 @@
 export const serverBaseURL = 'https://new.agromonitoring.com/api/'
 
-export const personalAccountBase = `${serverBaseURL}auth/`
+// export const personalAccountBase = `${serverBaseURL}auth/`
+export const personalAccountBase = `http://k8s-eu4.owm.io:12346/`
 const agriBase = `${serverBaseURL}proxy/`
+
+const testServer = 'http://k8s-eu4.owm.io:12346/'
+
 
 // user
 export const loginURL = `${personalAccountBase}auth/login`
 export const logoutURL = `${personalAccountBase}auth/logout`
-export const signupURL = 'http://agri.stage.owm.io/api/sign_up'
-export const forgotPasswordURL = 'http://agri.stage.owm.io/api/forgot_password'
-export const resetPasswordURL = 'http://agri.stage.owm.io/api/reset_password'
-export const confirmEmailURL = 'http://agri.stage.owm.io/api/send_confirmation'
-export const subscribeURL = 'http://agri.stage.owm.io/api/subscribe'
-export const unsubscribeURL = 'http://agri.stage.owm.io/api/unsubscribe'
+export const signupURL = `${testServer}auth/signup`
+
+export const forgotPasswordURL = `${testServer}auth/password/forgot`
+export const resetPasswordURL = `${testServer}auth/password/reset`
+export const confirmEmailURL = `${testServer}account/confirmation`
+// export const confirmEmailURL = 'http://agri.stage.owm.io/api/send_confirmation'
+
+// billing
+export const subscribeURL = `${testServer}account/subscribe`
+export const unsubscribeURL = `${testServer}account/unsubscribe`
 
 export const apiKeyStatus = `${personalAccountBase}appid/status`
 export const polygonsEndpoint = `${agriBase}polygons`

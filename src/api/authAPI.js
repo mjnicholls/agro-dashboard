@@ -37,9 +37,12 @@ export const changePassword = (data) =>
     },
   })
 
-export const confirmEmail = (email) =>
-  axios.post(confirmEmailURL, {
-    user: {
-      email,
-    },
-  })
+export const confirmEmail = (email) => {
+    const data = {
+      user: {
+        email
+      }
+    }
+    return axios.post(confirmEmailURL, data)
+}
+

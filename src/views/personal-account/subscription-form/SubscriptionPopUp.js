@@ -60,7 +60,7 @@ const SubscriptionPopUp = ({plan}) => {
 
   const confirmSubscription = () => {
     let invoiceDetails = {...invoiceSettings}
-    if (invoiceSettings.type === "individual") {
+    if (invoiceDetails.type === "individual") {
       delete invoiceDetails['organisation']
       delete invoiceDetails['vat_id']
     } else {
@@ -68,6 +68,9 @@ const SubscriptionPopUp = ({plan}) => {
       delete invoiceDetails['first_name']
       delete invoiceDetails['last_name']
     }
+    invoiceDetails.legal_form = invoiceDetails.type
+    delete invoiceDetails.type
+
     const data = {
       service_key: "agri",
       plan_key: plan,

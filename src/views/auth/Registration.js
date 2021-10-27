@@ -143,6 +143,7 @@ const RegisterForm = () => {
         dispatch(notifySuccess('Registration complete'))
       })
       .catch((err) => {
+        console.log(err)
         dispatch(
           notifyError(`Error registering ... please try again ${err.message}`), // TODO get errors
         )

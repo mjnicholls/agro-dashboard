@@ -15,7 +15,7 @@ import routes from '../../routes'
 
 import { fetchPolygons } from '../../features/polygons/actions'
 import classNames from 'classnames'
-import EmailConfirmationNotification from '../../views/agro-components/EmailConfirmationNotification'
+import EmailConfirmationNotification from '../../views/agro-components/NotificationEmailConfirmation'
 
 let ps
 const isConfirmedEmailSelector = (state) => state.auth.user.confirmed_email

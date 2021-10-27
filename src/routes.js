@@ -22,7 +22,7 @@ import RegisterForm from './views/auth/Registration'
 import ForgotPassword from './views/auth/ForgotPassword'
 import ResetPassword from './views/auth/ChangePassword'
 import Subscription from './views/personal-account/Subscription'
-import Subscription2 from './views/personal-account/SubscriptionPage'
+import Subscription2 from './views/personal-account/SubscriptionPage3'
 
 const routes = [
   {
@@ -126,7 +126,7 @@ const routes = [
       },
       // {
       //   path: '/subscription2',
-      //   name: 'Subscription2',
+      //   name: 'SubscriptionPage3',
       //   rtlName: '',
       //   mini: 'A',
       //   rtlMini: '',

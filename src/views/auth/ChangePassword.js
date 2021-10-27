@@ -28,10 +28,11 @@ import {
 
 import { changePassword } from '../../api/authAPI'
 
-import { passwordLength } from '../../config'
+import {noBlank, passwordLength} from '../../config'
 
 const ChangePassword = (props) => {
   const [state, setState] = useState({})
+  const [error, setError] = useState({})
   const [resetToken, setResetToken] = useState(null)
   const [password, setPassword] = useState('')
   const [confirmPass, setConfirmPass] = useState('')
@@ -39,6 +40,7 @@ const ChangePassword = (props) => {
   useEffect(() => {
     const queryParams = queryString.parse(props.location.search)
     const tokenVal = queryParams.reset_password_token
+    console.log("token", tokenVal)
     if (!tokenVal) {
       props.history.push('/auth/login')
       return
@@ -46,33 +48,29 @@ const ChangePassword = (props) => {
     setResetToken(tokenVal)
   }, [])
 
-  const [error, setError] = useState({})
-
   const dispatch = useDispatch()
 
   const confirmPassReset = () => {
-    setError(false)
+    setError({})
+    const newError = {}
 
-    if (
-      password.length < passwordLength ||
-      confirmPass.length < passwordLength
-    ) {
-      setError({
-        password: !password.length,
-        confirmPassword: !password.length,
-      })
-      dispatch(
-        notifyError(`Password must be ${passwordLength} characters or more`),
-      )
+    if (password.length < passwordLength) {
+      newError.password = password.length ? `Password must be ${passwordLength} characters or more` : noBlank
+    }
+
+    if (confirmPass.length < passwordLength) {
+      newError.confirmPass = confirmPass.length ? `Password must be ${passwordLength} characters or more` : noBlank
+    }
+    if (Object.keys(newError).length) {
+      setError(newError)
       return
     }
 
-    if (password.length !== confirmPass.length) {
+    if (password !== confirmPass) {
       setError({
-        password: true,
-        confirmPassword: true,
+        password: "Passwords do not match",
+        confirmPass: "Passwords do not match",
       })
-      dispatch(notifyError("Passwords don't match"))
       return
     }
 
@@ -101,28 +99,36 @@ const ChangePassword = (props) => {
                 </CardTitle>
               </CardHeader>
               <CardBody>
+                <div>
+                  <InputGroup
+                    className={classnames('mb-0 ', {
+                      'input-group-focus': state.passFocus,
+                      'has-danger': error.pass,
+                    })}
+                    onFocus={() => setState({ ...state, passFocus: true })}
+                    onBlur={() => setState({ ...state, passFocus: false })}
+                  >
+                    <InputGroupAddon addonType="prepend">
+                      <InputGroupText>
+                        <i className="tim-icons icon-lock-circle" />
+                      </InputGroupText>
+                    </InputGroupAddon>
+                    <Input
+                      placeholder="Password"
+                      type="password"
+                      autoComplete="off"
+                      onChange={(e) => setPassword(e.target.value)}
+                    />
+                  </InputGroup>
+                </div>
+                <div
+                  className={classnames(
+                    'invalid-feedback ',
+                    error.password ? 'd-block' : '',
+                  )}
+                >{error.password}</div>
                 <InputGroup
-                  className={classnames({
-                    'input-group-focus': state.passFocus,
-                    'has-danger': error.pass,
-                  })}
-                  onFocus={() => setState({ ...state, passFocus: true })}
-                  onBlur={() => setState({ ...state, passFocus: false })}
-                >
-                  <InputGroupAddon addonType="prepend">
-                    <InputGroupText>
-                      <i className="tim-icons icon-lock-circle" />
-                    </InputGroupText>
-                  </InputGroupAddon>
-                  <Input
-                    placeholder="Password"
-                    type="password"
-                    autoComplete="off"
-                    onChange={(e) => setPassword(e.target.value)}
-                  />
-                </InputGroup>
-                <InputGroup
-                  className={classnames({
+                  className={classnames('mb-0 mt-3 ', {
                     'input-group-focus': state.confirmPassFocus,
                     'has-danger': error.confirmPass,
                   })}
@@ -141,6 +147,12 @@ const ChangePassword = (props) => {
                     onChange={(e) => setConfirmPass(e.target.value)}
                   />
                 </InputGroup>
+                <div
+                  className={classnames(
+                    'invalid-feedback ',
+                    error.confirmPass ? 'd-block' : '',
+                  )}
+                >{error.confirmPass}</div>
               </CardBody>
               <CardFooter className="d-flex justify-content-between align-items-center">
                 <h6>

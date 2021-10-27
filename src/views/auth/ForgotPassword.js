@@ -29,6 +29,7 @@ import {
 
 import { forgotPassword } from '../../api/authAPI'
 import { validateEmail } from '../../utils/validation'
+import { noBlank } from "../../config";
 
 const ForgotPassword = () => {
   const [emailFocus, setEmailFocus] = React.useState(false)
@@ -42,13 +43,11 @@ const ForgotPassword = () => {
     setError(false)
 
     if (!email.length) {
-      dispatch(notifyError('Please enter your email address'))
-      setError(true)
+      setError(noBlank)
       return
     }
     if (!validateEmail(email)) {
-      setError(true)
-      dispatch(notifyError('Email address is incorrect'))
+      setError('Email address is incorrect')
       return
     }
 
@@ -62,6 +61,7 @@ const ForgotPassword = () => {
       })
       .catch((err) => {
         dispatch(notifyError(`Error resetting password: ${err.message}`))
+        setError(err.message)
       })
   }
 
@@ -69,55 +69,63 @@ const ForgotPassword = () => {
     <>
       <div className="content">
         <Container>
-          <Col className="ml-auto mr-auto" lg="6" md="8">
-            <Card className="card-lock card-white">
-              <CardHeader>
-                <CardTitle tag="h3">
-                  <b>Forgot your password?</b>
-                </CardTitle>
-              </CardHeader>
-              <CardBody>
-                <Label>
-                  Enter your email and we will send you reset password
-                  instructions
-                </Label>
-                <InputGroup
-                  className={classnames({
-                    'input-group-focus': emailFocus,
-                    'has-danger': error.email,
-                  })}
-                >
-                  <InputGroupAddon addonType="prepend">
-                    <InputGroupText>
-                      <i className="tim-icons icon-email-85" />
-                    </InputGroupText>
-                  </InputGroupAddon>
-                  <Input
-                    placeholder="Enter email"
-                    type="text"
-                    onChange={(e) => setEmail(e.target.value)}
-                    onFocus={() => setEmailFocus(true)}
-                    onBlur={() => setEmailFocus(false)}
-                  />
-                </InputGroup>
-              </CardBody>
-              <CardFooter className="d-flex justify-content-between align-items-center">
-                <h6>
-                  <NavLink to="/auth/login" className="link footer-link">
-                    Back to sign in
-                  </NavLink>
-                </h6>
-                <Button
-                  className="btn-round"
-                  color="primary"
-                  size="lg"
-                  onClick={confirmPassReset}
-                >
-                  Get instructions
-                </Button>
-              </CardFooter>
-            </Card>
-          </Col>
+          <Row>
+            <Col className="ml-auto mr-auto" lg="6" md="8">
+              <Card className="card-lock card-white">
+                <CardHeader>
+                  <CardTitle tag="h3">
+                    <b>Forgot your password?</b>
+                  </CardTitle>
+                </CardHeader>
+                <CardBody>
+                  <Label>
+                    Enter your email and we will send you reset password
+                    instructions
+                  </Label>
+                  <InputGroup
+                    className={classnames('mb-0', {
+                      'input-group-focus': emailFocus,
+                      'has-danger': error,
+                    })}
+                  >
+                    <InputGroupAddon addonType="prepend">
+                      <InputGroupText>
+                        <i className="tim-icons icon-email-85" />
+                      </InputGroupText>
+                    </InputGroupAddon>
+                    <Input
+                      placeholder="Enter email"
+                      type="text"
+                      onChange={(e) => setEmail(e.target.value)}
+                      onFocus={() => setEmailFocus(true)}
+                      onBlur={() => setEmailFocus(false)}
+                    />
+                  </InputGroup>
+                   <div
+                    className={classnames(
+                      'invalid-feedback ',
+                      error ? 'd-block' : '',
+                    )}
+                  >{error}</div>
+                </CardBody>
+                <CardFooter className="d-flex justify-content-between align-items-center">
+                  <h6>
+                    <NavLink to="/auth/login" className="link footer-link">
+                      Back to sign in
+                    </NavLink>
+                  </h6>
+                  <Button
+                    className="btn-round"
+                    color="primary"
+                    size="lg"
+                    onClick={confirmPassReset}
+                  >
+                    Get instructions
+                  </Button>
+                </CardFooter>
+              </Card>
+            </Col>
+          </Row>
         </Container>
       </div>
     </>
