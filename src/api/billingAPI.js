@@ -18,7 +18,7 @@ export const getCountries = () =>
   axios.get(countriesList)
 
 export const subscribe = (params) =>
-  axios.post(subscribeURL, params)
+  axios.put(subscribeURL, params)
 
 
 export const unsubscribe = (data) =>
