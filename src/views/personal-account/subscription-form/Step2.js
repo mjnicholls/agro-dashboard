@@ -6,11 +6,10 @@ import { countriesDefault } from '../../../config'
 import PropTypes from 'prop-types'
 
 const Step2 = ({ invoiceSettings, setInvoiceSettings, error }) => {
-
   const [countries, setCountries] = useState(countriesDefault)
 
   const handleChange = (key, value) => {
-    const newObj = {...invoiceSettings}
+    const newObj = { ...invoiceSettings }
     newObj[key] = value
     setInvoiceSettings(newObj)
   }
@@ -47,7 +46,9 @@ const Step2 = ({ invoiceSettings, setInvoiceSettings, error }) => {
                   'invalid-feedback ',
                   error.country ? 'd-block' : '',
                 )}
-              >{error.country}</div>
+              >
+                {error.country}
+              </div>
             </FormGroup>
           </Col>
         </Row>
@@ -66,7 +67,9 @@ const Step2 = ({ invoiceSettings, setInvoiceSettings, error }) => {
                   'invalid-feedback ',
                   error.address_line_1 ? 'd-block' : '',
                 )}
-              >{error.address_line_1}</div>
+              >
+                {error.address_line_1}
+              </div>
             </FormGroup>
           </Col>
         </Row>
@@ -97,7 +100,9 @@ const Step2 = ({ invoiceSettings, setInvoiceSettings, error }) => {
                   'invalid-feedback ',
                   error.city ? 'd-block' : '',
                 )}
-              >{error.city}</div>
+              >
+                {error.city}
+              </div>
             </FormGroup>
           </Col>
 
@@ -115,7 +120,9 @@ const Step2 = ({ invoiceSettings, setInvoiceSettings, error }) => {
                   'invalid-feedback ',
                   error.postal_code ? 'd-block' : '',
                 )}
-              >{error.postal_code}</div>
+              >
+                {error.postal_code}
+              </div>
             </FormGroup>
           </Col>
         </Row>
@@ -132,26 +139,29 @@ const Step2 = ({ invoiceSettings, setInvoiceSettings, error }) => {
           </Col>
 
           <Col>
-            {(invoiceSettings.type === "organisation") &&
-            <>
-              <Label>VAT ID</Label>
-              <FormGroup>
-                <Input
-                  type="text"
-                  onChange={(e) => {
-                    handleChange('vat_id', e.target.value)
-                  }}
-                  value={invoiceSettings.vat_id}
-                  className={error.vat_id ? 'danger-border' : ''}
-                />
-                <div
-                  className={classnames(
-                    'invalid-feedback ',
-                    error.vat_id ? 'd-block' : '',
-                  )}
-                >{error.vat_id}</div>
-              </FormGroup>
-            </>}
+            {invoiceSettings.type === 'organisation' && (
+              <>
+                <Label>VAT ID</Label>
+                <FormGroup>
+                  <Input
+                    type="text"
+                    onChange={(e) => {
+                      handleChange('vat_id', e.target.value)
+                    }}
+                    value={invoiceSettings.vat_id}
+                    className={error.vat_id ? 'danger-border' : ''}
+                  />
+                  <div
+                    className={classnames(
+                      'invalid-feedback ',
+                      error.vat_id ? 'd-block' : '',
+                    )}
+                  >
+                    {error.vat_id}
+                  </div>
+                </FormGroup>
+              </>
+            )}
           </Col>
         </Row>
       </Form>

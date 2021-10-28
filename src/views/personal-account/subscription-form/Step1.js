@@ -4,14 +4,9 @@ import Select from 'react-select'
 
 import { titles } from '../../../config'
 import PropTypes from 'prop-types'
-import classnames from "classnames";
+import classnames from 'classnames'
 
-const Step1 = ({
-  invoiceSettings,
-  setInvoiceSettings,
-  user,
-  error,
-}) => {
+const Step1 = ({ invoiceSettings, setInvoiceSettings, user, error }) => {
   const handleChange = (key, value) => {
     const newObj = { ...invoiceSettings }
     newObj[key] = value
@@ -30,7 +25,10 @@ const Step1 = ({
               type="radio"
               checked={invoiceSettings.type === 'individual'}
               onChange={() => handleChange('type', 'individual')}
-              disabled={user.active_stripe_customer && invoiceSettings.type === 'organisation'}
+              disabled={
+                user.active_stripe_customer &&
+                invoiceSettings.type === 'organisation'
+              }
             />
             <span className="form-check-sign" />
             Individual
@@ -42,7 +40,10 @@ const Step1 = ({
               type="radio"
               checked={invoiceSettings.type === 'organisation'}
               onChange={() => handleChange('type', 'organisation')}
-              disabled={user.active_stripe_customer && invoiceSettings.type === 'individual'}
+              disabled={
+                user.active_stripe_customer &&
+                invoiceSettings.type === 'individual'
+              }
             />
             <span className="form-check-sign" />
             Organisation
@@ -77,7 +78,9 @@ const Step1 = ({
                     'invalid-feedback ',
                     error.first_name ? 'd-block' : '',
                   )}
-                >{error.first_name}</div>
+                >
+                  {error.first_name}
+                </div>
               </FormGroup>
             </Col>
             <Col className="mt-4">
@@ -94,7 +97,9 @@ const Step1 = ({
                     'invalid-feedback ',
                     error.last_name ? 'd-block' : '',
                   )}
-                >{error.last_name}</div>
+                >
+                  {error.last_name}
+                </div>
               </FormGroup>
             </Col>
           </Row>
@@ -114,7 +119,9 @@ const Step1 = ({
                     'invalid-feedback ',
                     error.organisation ? 'd-block' : '',
                   )}
-                >{error.organisation}</div>
+                >
+                  {error.organisation}
+                </div>
               </FormGroup>
             </Col>
           </Row>
@@ -140,7 +147,9 @@ const Step1 = ({
                   'invalid-feedback ',
                   error.phone ? 'd-block' : '',
                 )}
-              >{error.phone}</div>
+              >
+                {error.phone}
+              </div>
             </FormGroup>
           </Col>
         </Row>
@@ -156,7 +165,7 @@ Step1.propTypes = {
     full_name: PropTypes.string,
     username: PropTypes.string,
     email: PropTypes.string,
-    active_stripe_customer: PropTypes.bool
+    active_stripe_customer: PropTypes.bool,
   }),
   setInvoiceSettings: PropTypes.func,
 }

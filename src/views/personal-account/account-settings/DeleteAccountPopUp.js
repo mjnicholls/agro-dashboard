@@ -41,8 +41,8 @@ const DeleteAccount = ({ close }) => {
           <Row className="my-3">
             <Col>
               <p>
-                We&apos;re sorry to see you go! Please share with us the reason why
-                you&apos;re deleting your account:
+                We&apos;re sorry to see you go! Please share with us the reason
+                why you&apos;re deleting your account:
               </p>
             </Col>
           </Row>
@@ -83,10 +83,7 @@ const DeleteAccount = ({ close }) => {
       <Row>
         <Col className="mb-3">
           <p>
-            Please{' '}
-            <NavLink to="/users/home">
-              cancel your subscriptions
-            </NavLink>{' '}
+            Please <NavLink to="/users/home">cancel your subscriptions</NavLink>{' '}
             before deleting your account.
           </p>
           <p>

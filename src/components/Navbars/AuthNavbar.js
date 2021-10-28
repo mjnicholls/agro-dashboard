@@ -33,9 +33,7 @@ const AuthNavbar = (props) => {
       expand="lg"
     >
       <Container fluid>
-          <span className="navbar-brand">
-            {props.brandText}
-          </span>
+        <span className="navbar-brand">{props.brandText}</span>
         <button
           aria-controls="navigation-index"
           aria-expanded={false}

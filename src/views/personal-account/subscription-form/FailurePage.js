@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 
 import {
   Button,
@@ -23,11 +23,16 @@ const FailurePage = () => (
       </Row>
       <Row>
         <Col className="text-right">
-          <a role="button" href="mailto:info@openweathermap.org" className="btn btn-primary">Contact us</a>
+          <a
+            role="button"
+            href="mailto:info@openweathermap.org"
+            className="btn btn-primary"
+          >
+            Contact us
+          </a>
         </Col>
       </Row>
     </CardBody>
-
   </Card>
 )
 

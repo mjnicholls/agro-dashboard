@@ -55,9 +55,9 @@ export const getPageHeight = () =>
   100
 
 export const numberWithCommas = (x) => {
-    let res = 0
-    if (x) {
-      res = x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-    }
-    return res
+  let res = 0
+  if (x) {
+    res = x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
   }
+  return res
+}

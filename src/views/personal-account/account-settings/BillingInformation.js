@@ -31,7 +31,6 @@ import {
 } from '../../../api/billingAPI'
 import PropTypes from 'prop-types'
 
-
 const InvoiceSettings = ({
   invoiceSettings,
   setInvoiceSettings,
@@ -80,9 +79,7 @@ const InvoiceSettings = ({
           dispatch(notifySuccess('Billing details updated'))
         })
         .catch((err) => {
-          dispatch(
-            notifyError(`Error saving billing details ${err.message}`),
-          )
+          dispatch(notifyError(`Error saving billing details ${err.message}`))
         })
     }
   }

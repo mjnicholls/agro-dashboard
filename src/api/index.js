@@ -6,7 +6,6 @@ const agriBase = `${serverBaseURL}proxy/`
 
 const testServer = 'http://k8s-eu4.owm.io:12346/'
 
-
 // user
 export const loginURL = `${personalAccountBase}auth/login`
 export const logoutURL = `${personalAccountBase}auth/logout`

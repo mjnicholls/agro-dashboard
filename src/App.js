@@ -96,7 +96,10 @@ const App = () => (
           path="/dashboard"
           render={(props) => <AdminLayout {...props} />}
         />
-        <AuthRoute path="/users" render={(props) => <AdminLayout {...props} />} />
+        <AuthRoute
+          path="/users"
+          render={(props) => <AdminLayout {...props} />}
+        />
         <Redirect from="/" to="/dashboard/polygons" />
       </Switch>
     </BrowserRouter>
