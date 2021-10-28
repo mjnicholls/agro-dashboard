@@ -32,6 +32,7 @@ COPY . .
 RUN npm run build
 
 # Copy static to nginx static folder
+RUN mkdir -R /var/www/html
 RUN cp -r /app/build /var/www/html
 
 # Copy config to nginx config folder
