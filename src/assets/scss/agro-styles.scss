@@ -717,3 +717,13 @@ $daily-chart-width: 1000px;
 .invalid-feedback {
   color: $danger-color;
 }
+
+.price-container {
+  vertical-align: top !important;
+  //background-color: #191f31;
+  //height: 100%;
+  //color: rgba(255, 255, 255, 0.5);
+  //&:hover {
+  //  background-color: #111520;
+  //}
+}

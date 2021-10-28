@@ -108,12 +108,12 @@ const BillingPlans = () => {
     </>
   )
 
-  const buttonSubscribe = (plan) =>{
-    console.log(plan === subscription, plan, subscription)
-    return (<Button
-      className={classnames("btn-primary", {
-        'btn-simple': plan === subscription
-      })}
+  const buttonSubscribe = (plan) => (
+    plan === subscription ?
+      <h6 className="p-2" style={{color: "#e14eca"}}>Your plan</h6> :
+
+      <Button
+      className="btn btn-primary"
       color="primary"
       data-dismiss="modal"
       type="button"
@@ -123,7 +123,7 @@ const BillingPlans = () => {
       disabled={plan === subscription}
     >
       Subscribe
-    </Button>)}
+    </Button>)
 
   const buttonContact = (plan) =>
     (<a
@@ -172,66 +172,32 @@ const BillingPlans = () => {
                         <p>Fixed price per month</p>
                         <p>(excl. VAT)</p>
                       </th>
-                      <th>
-                        <Nav
-                          className="nav-pills-info nav-pills-icons justify-content-center"
-                          pills
-                        >
-                          <NavItem>
-                            <NavLink>
-                              <h3 className="mb-0">Free</h3>
-                              <h3>
-                                <b>£0</b>
-                              </h3>
-                            </NavLink>
-                          </NavItem>
-                        </Nav>
+                      <th className="price-container">
+                          <h3 className="mb-0">Free</h3>
+                          <h3>
+                            <b>£0</b>
+                          </h3>
                       </th>
-                      <th>
-                        <Nav
-                          className="nav-pills-info nav-pills-icons justify-content-center"
-                          pills
-                        >
-                          <NavItem>
-                            <NavLink>
-                              <h3 className="mb-0">Starter</h3>
-                              <h3>
-                                <b>£20</b>
-                              </h3>
-                              <ShowSubscribeButton plan="starter" />
-                            </NavLink>
-                          </NavItem>
-                        </Nav>
+                      <th className="price-container">
+                        <div >
+                          <h3 className="mb-0">Starter</h3>
+                          <h3>
+                            <b>£20</b>
+                          </h3>
+                          <ShowSubscribeButton plan="starter" />
+                        </div>
                       </th>
-                      <th>
-                        <Nav
-                          className="nav-pills-info nav-pills-icons justify-content-center"
-                          pills
-                        >
-                          <NavItem>
-                            <NavLink>
-                              <h3 className="mb-0">Small Kit</h3>
-                              <h3>
-                                <b>£200</b>
-                              </h3>
-                              <ShowSubscribeButton plan="small" />
-                            </NavLink>
-                          </NavItem>
-                        </Nav>
+                      <th className="price-container">
+                        <h3 className="mb-0">Small Kit</h3>
+                        <h3>
+                          <b>£200</b>
+                        </h3>
+                        <ShowSubscribeButton plan="small" />
                       </th>
-                      <th>
-                        <Nav
-                          className="nav-pills-info nav-pills-icons justify-content-center"
-                          pills
-                        >
-                          <NavItem>
-                            <NavLink>
-                              <h3 className="mb-0">Corporate</h3>
-                              <h3>&nbsp;</h3>
-                              <ShowSubscribeButton plan="corp" />
-                            </NavLink>
-                          </NavItem>
-                        </Nav>
+                      <th className="price-container">
+                        <h3 className="mb-0">Corporate</h3>
+                        <h3>&nbsp;</h3>
+                        <ShowSubscribeButton plan="corp" />
                       </th>
                     </tr>
                     <tr>
