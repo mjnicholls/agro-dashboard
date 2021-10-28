@@ -1,7 +1,20 @@
-FROM node:lts-alpine
+FROM nginx:1.9
 
-# устанавливаем простой HTTP-сервер для статики
-RUN npm install -g http-server
+# Install nodejs
+ENV NODE_VERSION=12.6.0
+RUN apt-get update
+RUN apt install -y curl
+RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.34.0/install.sh | bash
+ENV NVM_DIR=/root/.nvm
+RUN . "$NVM_DIR/nvm.sh" && nvm install ${NODE_VERSION}
+RUN . "$NVM_DIR/nvm.sh" && nvm use v${NODE_VERSION}
+RUN . "$NVM_DIR/nvm.sh" && nvm alias default v${NODE_VERSION}
+ENV PATH="/root/.nvm/versions/node/v${NODE_VERSION}/bin/:${PATH}"
+RUN node --version
+RUN npm --version
+
+# To handle 'not get uid/gid'
+RUN npm config set unsafe-perm true
 
 # делаем каталог 'app' текущим рабочим каталогом
 WORKDIR /app
@@ -18,5 +31,12 @@ COPY . .
 # собираем приложение для production с минификацией
 RUN npm run build
 
-EXPOSE 8080
-CMD [ "http-server", "build" ]
+# Copy static to nginx static folder
+COPY ./build /var/www/html
+
+# Copy config to nginx config folder
+RUN rm -rf /etc/nginx
+COPY ./nginx /etc/nginx
+
+EXPOSE 80 443
+CMD [ "nginx", "-g", "daemon off;" ]

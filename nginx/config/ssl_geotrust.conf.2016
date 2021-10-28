@@ -1,0 +1,6 @@
+ssl                     on;
+ssl_protocols           SSLv3 TLSv1;
+#ssl_certificate         /etc/nginx/sslgeotrust/cert.pem;
+ssl_certificate         /etc/nginx/sslgeotrust_v2/ssl.crt;
+ssl_certificate_key     /etc/nginx/sslgeotrust_v2/cert.key;
+
