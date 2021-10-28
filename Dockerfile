@@ -32,11 +32,11 @@ COPY . .
 RUN npm run build
 
 # Copy static to nginx static folder
-COPY ./build /var/www/html
+COPY /app/build /var/www/html
 
 # Copy config to nginx config folder
 RUN rm -rf /etc/nginx
-COPY ./nginx /etc/nginx
+COPY /app/nginx /etc/nginx
 
 EXPOSE 80 443
 CMD [ "nginx", "-g", "daemon off;" ]
