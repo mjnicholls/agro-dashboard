@@ -37,7 +37,7 @@ RUN cp -r /app/build /var/www/html
 
 # Copy config to nginx config folder
 RUN rm -rf /etc/nginx
-RUN cp -r /app/nginx /etc/nginx
+RUN cp -r /app/nginx/config /etc/nginx
 
 EXPOSE 80 443
 CMD [ "nginx", "-g", "daemon off;" ]
