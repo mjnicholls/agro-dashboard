@@ -135,6 +135,7 @@ const routes = [
         rtlMini: '',
         component: SuccessPage,
         layout: '/users',
+        hidden: true
       },
       {
         path: '/subscription/failure',
@@ -144,6 +145,7 @@ const routes = [
         rtlMini: '',
         component: FailurePage,
         layout: '/users',
+        hidden: true
       },
 
     ],
