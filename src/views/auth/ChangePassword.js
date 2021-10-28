@@ -28,7 +28,7 @@ import {
 
 import { changePassword } from '../../api/authAPI'
 
-import {noBlank, passwordLength} from '../../config'
+import { noBlankErrorMessage, passwordLength } from '../../config'
 
 const ChangePassword = (props) => {
   const [state, setState] = useState({})
@@ -40,7 +40,7 @@ const ChangePassword = (props) => {
   useEffect(() => {
     const queryParams = queryString.parse(props.location.search)
     const tokenVal = queryParams.reset_password_token
-    console.log("token", tokenVal)
+    console.log('token', tokenVal)
     if (!tokenVal) {
       props.history.push('/auth/login')
       return
@@ -55,11 +55,15 @@ const ChangePassword = (props) => {
     const newError = {}
 
     if (password.length < passwordLength) {
-      newError.password = password.length ? `Password must be ${passwordLength} characters or more` : noBlank
+      newError.password = password.length
+        ? `Password must be ${passwordLength} characters or more`
+        : noBlankErrorMessage
     }
 
     if (confirmPass.length < passwordLength) {
-      newError.confirmPass = confirmPass.length ? `Password must be ${passwordLength} characters or more` : noBlank
+      newError.confirmPass = confirmPass.length
+        ? `Password must be ${passwordLength} characters or more`
+        : noBlankErrorMessage
     }
     if (Object.keys(newError).length) {
       setError(newError)
@@ -68,8 +72,8 @@ const ChangePassword = (props) => {
 
     if (password !== confirmPass) {
       setError({
-        password: "Passwords do not match",
-        confirmPass: "Passwords do not match",
+        password: 'Passwords do not match',
+        confirmPass: 'Passwords do not match',
       })
       return
     }
@@ -126,7 +130,9 @@ const ChangePassword = (props) => {
                     'invalid-feedback ',
                     error.password ? 'd-block' : '',
                   )}
-                >{error.password}</div>
+                >
+                  {error.password}
+                </div>
                 <InputGroup
                   className={classnames('mb-0 mt-3 ', {
                     'input-group-focus': state.confirmPassFocus,
@@ -152,7 +158,9 @@ const ChangePassword = (props) => {
                     'invalid-feedback ',
                     error.confirmPass ? 'd-block' : '',
                   )}
-                >{error.confirmPass}</div>
+                >
+                  {error.confirmPass}
+                </div>
               </CardBody>
               <CardFooter className="d-flex justify-content-between align-items-center">
                 <h6>

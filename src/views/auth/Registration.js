@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 
 import classnames from 'classnames'
 import ReCAPTCHA from 'react-google-recaptcha'
@@ -31,7 +31,7 @@ import {
 
 import cardPrimary from '../../assets/img/card-primary.png'
 import { createNewUser } from '../../api/authAPI'
-import { passwordLength } from '../../config'
+import { passwordLength, RECAPTCHA_SITE_KEY, RECAPTCHA_SECRET_KEY } from '../../config'
 
 import {
   faKey,
@@ -42,8 +42,10 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const RegisterForm = () => {
+
   const [state, setState] = React.useState({})
   const [error, setError] = useState({})
+  const [captchaError, setCaptchaError] = useState(null)
   const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -57,9 +59,23 @@ const RegisterForm = () => {
     system: false,
   })
 
+  const recaptchaRef = useRef();
+
+  const onSubmitWithReCAPTCHA = () => {
+    const recaptchaValue = recaptchaRef.current.getValue()
+    console.log("recaptchaValue", recaptchaValue)
+      // .then((res) => console.log("res", res))
+      // .catch(err => {
+      //   console.log("err", err)
+      //   setCaptchaError(true)
+      // })
+
+    // apply to form data
+  }
+
   const createUser = () => {
     setError({})
-
+    onSubmitWithReCAPTCHA()
     let newError = {}
 
     if (
@@ -166,24 +182,35 @@ const RegisterForm = () => {
         <Row>
           <Col className="ml-auto" md="5">
             <div className="info-area info-horizontal mt-5">
-                <div className="icon icon-warning">
-                  <FontAwesomeIcon icon={faSatellite} />
-                </div>
-                <div className="description">
-                  <h3 className="info-title">Satellite imagery archive and wide range of vegetation indices </h3>
-                  <p className="description">
-                    NDVI, EVI, DSWI, NDWI, NRI, etc. lets you identify anomalies in your fields and plan further actions, and with a historical NDVI chart you can analyze the changes in the level of vegetation in your field through the seasons
-                  </p>
-                </div>
+              <div className="icon icon-warning">
+                <FontAwesomeIcon icon={faSatellite} />
               </div>
+              <div className="description">
+                <h3 className="info-title">
+                  Satellite imagery archive and wide range of vegetation indices{' '}
+                </h3>
+                <p className="description">
+                  NDVI, EVI, DSWI, NDWI, NRI, etc. lets you identify anomalies
+                  in your fields and plan further actions, and with a historical
+                  NDVI chart you can analyze the changes in the level of
+                  vegetation in your field through the seasons
+                </p>
+              </div>
+            </div>
             <div className="info-area info-horizontal">
               <div className="icon icon-primary">
                 <FontAwesomeIcon icon={faTemperatureLow} />
               </div>
               <div className="description">
-                <h3 className="info-title">Accurate and generous weather data</h3>
+                <h3 className="info-title">
+                  Accurate and generous weather data
+                </h3>
                 <p className="description">
-                  Weather data for your fields, including the current state of weather, soil, weather alerts; weather forecasts with hourly and daily granulation; recent temperature, precipitation, soil temperature and moisture; accumulated temperature and precipitation
+                  Weather data for your fields, including the current state of
+                  weather, soil, weather alerts; weather forecasts with hourly
+                  and daily granulation; recent temperature, precipitation, soil
+                  temperature and moisture; accumulated temperature and
+                  precipitation
                 </p>
               </div>
             </div>
@@ -194,7 +221,9 @@ const RegisterForm = () => {
               <div className="description">
                 <h3 className="info-title">Advanced crop recognition </h3>
                 <p className="description">
-                  Based on Machine Learning technology, it will help you to get information on the state of fields, their crops and NDVI statistics through the years.
+                  Based on Machine Learning technology, it will help you to get
+                  information on the state of fields, their crops and NDVI
+                  statistics through the years.
                 </p>
               </div>
             </div>
@@ -205,7 +234,9 @@ const RegisterForm = () => {
               <div className="description">
                 <h3 className="info-title">Agro API access</h3>
                 <p className="description">
-                  Easy-to-use Agro API will help you to build your own agricultural dashboard or app. Just  sign up and get your API key to start working on a new project.
+                  Easy-to-use Agro API will help you to build your own
+                  agricultural dashboard or app. Just sign up and get your API
+                  key to start working on a new project.
                 </p>
               </div>
             </div>
@@ -417,8 +448,9 @@ const RegisterForm = () => {
                   <FormGroup className="text-left">
                     <Label>
                       <ReCAPTCHA
+                        ref={recaptchaRef}
                         style={{ marginLeft: '15px', marginTop: '35px' }}
-                        sitekey="6Ler3aocAAAAADwkBRcUEZYnjE7KEJChWn1P_Hu4"
+                        sitekey={RECAPTCHA_SITE_KEY}
                         onChange={onChange}
                       />
                     </Label>

@@ -28,7 +28,6 @@ import { getPolygons } from '../../api/personalAccountAPI'
 import { toDate } from '../../utils/dateTime'
 import { numberWithCommas } from '../../utils/utils'
 
-
 const authSelector = (state) => state.auth
 
 const tabsOptions = [
@@ -37,7 +36,6 @@ const tabsOptions = [
 ]
 
 const Subscription2 = () => {
-
   const [activePage, setActivePage] = useState('charge') // Charges or Limits
   const [activeTab, setActiveTab] = useState(tabsOptions[0]) // api or dashboard
 
@@ -682,8 +680,6 @@ const Subscription2 = () => {
                     </Col>
                   </Row>
                 </TabPane>
-
-
               </TabContent>
             </CardBody>
           </Card>

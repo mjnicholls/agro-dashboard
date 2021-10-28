@@ -21,7 +21,7 @@ import {
 import { updateUserSettings } from '../../../api/personalAccountAPI'
 import PropTypes from 'prop-types'
 
-import {noBlank} from '../../../config'
+import {noBlankErrorMessage} from '../../../config'
 import classnames from "classnames";
 
 
@@ -37,8 +37,8 @@ const UserSettings = ({ user, handleUserState }) => {
 
     if (!user.full_name && !user.username) {
       setError({
-        username: noBlank,
-        full_name: noBlank
+        username: noBlankErrorMessage,
+        full_name: noBlankErrorMessage
       })
       return
     }

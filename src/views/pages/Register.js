@@ -40,9 +40,15 @@ const Register = () => {
                   <i className="tim-icons icon-wifi" />
                 </div>
                 <div className="description">
-                  <h3 className="info-title">Satellite imagery archive and wide range of vegetation indices </h3>
+                  <h3 className="info-title">
+                    Satellite imagery archive and wide range of vegetation
+                    indices{' '}
+                  </h3>
                   <p className="description">
-                    NDVI, EVI, DSWI, NDWI, NRI, etc. lets you identify anomalies in your fields and plan further actions, and with a historical NDVI chart you can analyze the changes in the level of vegetation in your field through the seasons
+                    NDVI, EVI, DSWI, NDWI, NRI, etc. lets you identify anomalies
+                    in your fields and plan further actions, and with a
+                    historical NDVI chart you can analyze the changes in the
+                    level of vegetation in your field through the seasons
                   </p>
                 </div>
               </div>
@@ -51,9 +57,15 @@ const Register = () => {
                   <i className="tim-icons icon-triangle-right-17" />
                 </div>
                 <div className="description">
-                  <h3 className="info-title">Accurate and generous weather data</h3>
+                  <h3 className="info-title">
+                    Accurate and generous weather data
+                  </h3>
                   <p className="description">
-                    Weather data for your fields include the current state of weather, soil, weather alerts; weather forecasts with hourly and daily granulation; resent temperature, precipitation, soil temperature and moisture; accumulated temperature and precipitation
+                    Weather data for your fields include the current state of
+                    weather, soil, weather alerts; weather forecasts with hourly
+                    and daily granulation; resent temperature, precipitation,
+                    soil temperature and moisture; accumulated temperature and
+                    precipitation
                   </p>
                 </div>
               </div>
@@ -64,7 +76,9 @@ const Register = () => {
                 <div className="description">
                   <h3 className="info-title">Advanced crop recognition </h3>
                   <p className="description">
-                    Based on Machine Learning technology, it will help you to get information on the state of fields, their crops and NDVI statistics through the years.
+                    Based on Machine Learning technology, it will help you to
+                    get information on the state of fields, their crops and NDVI
+                    statistics through the years.
                   </p>
                 </div>
               </div>
@@ -75,7 +89,9 @@ const Register = () => {
                 <div className="description">
                   <h3 className="info-title">Advanced crop recognition </h3>
                   <p className="description">
-                    Based on Machine Learning technology, it will help you to get information on the state of fields, their crops and NDVI statistics through the years.
+                    Based on Machine Learning technology, it will help you to
+                    get information on the state of fields, their crops and NDVI
+                    statistics through the years.
                   </p>
                 </div>
               </div>

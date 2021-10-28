@@ -18,7 +18,7 @@ import {
   Row,
 } from 'reactstrap'
 
-import {countriesDefault, noBlank, titles} from '../../../config'
+import {countriesDefault, noBlankErrorMessage, titles} from '../../../config'
 import {
   notifyError,
   notifySuccess,
@@ -101,7 +101,7 @@ const BillingInfo = ({
     }
     for (let i=0; i<mandatoryFields.length; i+=1) {
       if (!invoiceSettings[mandatoryFields[i]]) {
-        newError[mandatoryFields[i]] = noBlank
+        newError[mandatoryFields[i]] = noBlankErrorMessage
       }
     }
     if (invoiceSettings.phone) {

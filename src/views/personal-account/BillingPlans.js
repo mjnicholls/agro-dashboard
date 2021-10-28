@@ -26,7 +26,6 @@ import classnames from 'classnames'
 const userSelector = (state) => state.auth.user
 
 const BillingPlans = () => {
-
   const [alert, setAlert] = useState(null)
   const [isSubscriptionAvailable, setIsSubscriptionAvailable] = useState(null)
 
@@ -34,12 +33,11 @@ const BillingPlans = () => {
   const subscription = user.tariff
 
   useEffect(() => {
-    isSubscriptionAvailableAPI(user.email)
-      .then(res => {
-        if (res && res.message && res.message.user)
-          setIsSubscriptionAvailable(res.message.user.available_subscription)
-      })
-    }, [user])
+    isSubscriptionAvailableAPI(user.email).then((res) => {
+      if (res && res.message && res.message.user)
+        setIsSubscriptionAvailable(res.message.user.available_subscription)
+    })
+  }, [user])
 
   const hideAlert = () => {
     setAlert(null)
@@ -108,25 +106,28 @@ const BillingPlans = () => {
     </>
   )
 
-  const buttonSubscribe = (plan) => (
-    plan === subscription ?
-      <h6 className="p-2" style={{color: "#e14eca"}}>Your plan</h6> :
-
+  const buttonSubscribe = (plan) =>
+    plan === subscription ? (
+      <h6 className="p-2" style={{ color: '#e14eca' }}>
+        Your plan
+      </h6>
+    ) : (
       <Button
-      className="btn btn-primary"
-      color="primary"
-      data-dismiss="modal"
-      type="button"
-      onClick={() => {
-        subScriptionAlert(plan);
-      }}
-      disabled={plan === subscription}
-    >
-      Subscribe
-    </Button>)
+        className="btn btn-primary"
+        color="primary"
+        data-dismiss="modal"
+        type="button"
+        onClick={() => {
+          subScriptionAlert(plan)
+        }}
+        disabled={plan === subscription}
+      >
+        Subscribe
+      </Button>
+    )
 
-  const buttonContact = (plan) =>
-    (<a
+  const buttonContact = (plan) => (
+    <a
       role="button"
       className="btn btn-primary"
       color="primary"
@@ -136,13 +137,14 @@ const BillingPlans = () => {
       disabled={plan === subscription}
     >
       Contact us
-    </a>)
+    </a>
+  )
 
-  const ShowSubscribeButton = ({plan}) => {
-    if (plan === "free") {
+  const ShowSubscribeButton = ({ plan }) => {
+    if (plan === 'free') {
       return buttonSubscribe(plan)
     }
-    if (plan === "corp") {
+    if (plan === 'corp') {
       return buttonContact(plan)
     }
     return isSubscriptionAvailable ? buttonSubscribe(plan) : buttonContact(plan)
@@ -173,13 +175,13 @@ const BillingPlans = () => {
                         <p>(excl. VAT)</p>
                       </th>
                       <th className="price-container">
-                          <h3 className="mb-0">Free</h3>
-                          <h3>
-                            <b>£0</b>
-                          </h3>
+                        <h3 className="mb-0">Free</h3>
+                        <h3>
+                          <b>£0</b>
+                        </h3>
                       </th>
                       <th className="price-container">
-                        <div >
+                        <div>
                           <h3 className="mb-0">Starter</h3>
                           <h3>
                             <b>£20</b>
@@ -252,10 +254,8 @@ const BillingPlans = () => {
                         + total archive on request
                       </td>
                       <td>
-                        <a href="#coverage">
-                          All available data
-                        </a>{' '}
-                        + total archive on request
+                        <a href="#coverage">All available data</a> + total
+                        archive on request
                       </td>
                       <td>Total archive</td>
                     </tr>

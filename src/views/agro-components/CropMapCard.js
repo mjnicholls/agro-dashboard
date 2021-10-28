@@ -13,9 +13,11 @@ import {
   Col,
   Row,
 } from 'reactstrap'
+import { Link, NavLink } from 'react-router-dom'
 
 import { tariffError } from '../../config'
 import { getCropName } from '../maps/crops'
+
 
 const CropMapCard = ({ years, activeYear, setActiveYear, info, setAlert }) => {
   const [options, setOptions] = useState(years)
@@ -46,6 +48,14 @@ const CropMapCard = ({ years, activeYear, setActiveYear, info, setAlert }) => {
     setAlert(null)
   }
 
+  const SubscriptionPlansButton = () => (
+    <Link to="/users/billing-plans" role="button" className="btn btn-primary">Subscription plans</Link>
+  )
+
+  const ContactUsButton = () => (
+    <a role="button" href="mailto:info@openweathermap.org" className="btn btn-primary">Contact us</a>
+  )
+
   const buttonOnClick = (year) => {
     if (year.status === 3) {
       setActiveYear(year)
@@ -65,18 +75,10 @@ const CropMapCard = ({ years, activeYear, setActiveYear, info, setAlert }) => {
           showCloseButton={true}
         >
           <div className="mt-3 text-center">
-            <a
-              role="button"
-              target="_blank"
-              href={
-                year.status === 1
-                  ? 'https://home.agromonitoring.com/subscriptions'
-                  : 'mailto:info@openweathermap.org'
-              }
-              className="btn btn-primary"
-            >
-              {year.status === 1 ? 'Subscription plans' : 'Contact us'}
-            </a>
+            {
+              year.status === 1 ?
+              <SubscriptionPlansButton /> : <ContactUsButton />
+            }
           </div>
         </ReactBSAlert>,
       )

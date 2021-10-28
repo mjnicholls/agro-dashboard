@@ -11,9 +11,9 @@ import UnitsRadioButtons from '../agro-components/UnitsRadioButtons'
 import TabsSelector from '../agro-components/TabsSelector'
 
 const tabsOptions = [
-    { id: 'user', label: 'User Settings' },
-    { id: 'billing', label: 'Billing information' },
-  ]
+  { id: 'user', label: 'User Settings' },
+  { id: 'billing', label: 'Billing information' },
+]
 
 const AccountSettings = () => {
   const [billingSettings, setBillingSettings] = useState({
@@ -41,7 +41,6 @@ const AccountSettings = () => {
   const [isNew, setIsNew] = useState(true)
 
   const [activeTab, setActiveTab] = useState(tabsOptions[0])
-
 
   useEffect(() => {
     refreshData()
@@ -82,7 +81,7 @@ const AccountSettings = () => {
             />
           </Col>
         </Row>
-        {activeTab.id === "user" ? (
+        {activeTab.id === 'user' ? (
           <>
             <Row>
               <Col>
@@ -93,8 +92,7 @@ const AccountSettings = () => {
                   </CardBody>
                 </Card>
               </Col>
-              <Col>
-              </Col>
+              <Col></Col>
             </Row>
             <Row>
               <Col>
@@ -133,7 +131,6 @@ const AccountSettings = () => {
                 isNew={isNew}
                 refreshData={refreshData}
                 user={user}
-
               />
             </Col>
           </Row>

@@ -29,7 +29,7 @@ import {
 
 import { forgotPassword } from '../../api/authAPI'
 import { validateEmail } from '../../utils/validation'
-import { noBlank } from "../../config";
+import { noBlankErrorMessage } from '../../config'
 
 const ForgotPassword = () => {
   const [emailFocus, setEmailFocus] = React.useState(false)
@@ -43,7 +43,7 @@ const ForgotPassword = () => {
     setError(false)
 
     if (!email.length) {
-      setError(noBlank)
+      setError(noBlankErrorMessage)
       return
     }
     if (!validateEmail(email)) {
@@ -101,12 +101,14 @@ const ForgotPassword = () => {
                       onBlur={() => setEmailFocus(false)}
                     />
                   </InputGroup>
-                   <div
+                  <div
                     className={classnames(
                       'invalid-feedback ',
                       error ? 'd-block' : '',
                     )}
-                  >{error}</div>
+                  >
+                    {error}
+                  </div>
                 </CardBody>
                 <CardFooter className="d-flex justify-content-between align-items-center">
                   <h6>

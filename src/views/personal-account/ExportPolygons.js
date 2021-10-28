@@ -61,7 +61,7 @@ const ExportPolygon = () => {
       data-dismiss="modal"
       type="button"
       onClick={downLoad}
-      style={{width: "200px"}}
+      style={{ width: '200px' }}
     >
       Export
     </Button>

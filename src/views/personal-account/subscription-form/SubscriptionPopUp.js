@@ -17,7 +17,7 @@ import {
 
 import Step1 from './Step1'
 import Step2 from './Step2'
-import { noBlank } from '../../../config'
+import { noBlankErrorMessage } from '../../../config'
 import {validatePhoneNumber} from "../../../utils/validation";
 import classnames from "classnames";
 import {loadStripe} from '@stripe/stripe-js';
@@ -140,7 +140,7 @@ const SubscriptionPopUp = ({plan}) => {
 
     for (let i=0; i<mandatoryFields.length; i+=1) {
       if (!invoiceSettings[mandatoryFields[i]]) {
-        newError[mandatoryFields[i]] = noBlank
+        newError[mandatoryFields[i]] = noBlankErrorMessage
       }
     }
 

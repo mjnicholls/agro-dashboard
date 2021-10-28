@@ -21,7 +21,7 @@ import {
 import { updatePassword } from '../../../api/personalAccountAPI'
 import classnames from "classnames";
 
-import {noBlank} from '../../../config'
+import {noBlankErrorMessage} from '../../../config'
 
 
 const UserPassword = () => {
@@ -37,10 +37,10 @@ const UserPassword = () => {
     const newError = {}
 
     if (!pass) {
-      newError.pass = noBlank
+      newError.pass = noBlankErrorMessage
     }
     if (!confirmPass) {
-      newError.confirmPass = noBlank
+      newError.confirmPass = noBlankErrorMessage
     }
 
     if (!Object.keys(newError).length) {
