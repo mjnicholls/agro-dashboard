@@ -11,7 +11,3 @@ export const notifyError = (message) => ({
   type: NOTIFICATION_ERROR,
   payload: message,
 })
-
-export const clearNotification = () => ({
-  type: NOTIFICATION_CLEAR,
-})

@@ -3,9 +3,9 @@ import React, { useRef, useEffect } from 'react'
 import NotificationAlert from 'react-notification-alert'
 import { useSelector } from 'react-redux'
 
-const notificationsSelector = (state) => state.notifications
+const notificationsSelector = (state) => state.notifications.temporary
 
-const Notifications = () => {
+const NotificationsTemporary = () => {
   const notificationAlertRef = useRef(null)
   const notification = useSelector(notificationsSelector)
 
@@ -51,4 +51,4 @@ const Notifications = () => {
   )
 }
 
-export default Notifications
+export default NotificationsTemporary

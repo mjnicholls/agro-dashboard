@@ -17,10 +17,10 @@ import {
 
 import { setActivePoly } from '../../features/state/actions'
 import { toDate } from '../../utils/dateTime'
-import AgroPagination from './AgroPagination'
+import AgroPagination from '../components/AgroPagination'
+import Shape from '../components/Shape'
 import PolygonDelete from './PolygonDelete'
 import PolygonEdit from './PolygonEdit'
-import Shape from './Shape'
 
 const PolygonTable = ({ data }) => {
   const dispatch = useDispatch()
@@ -91,7 +91,7 @@ const PolygonTable = ({ data }) => {
         onConfirm={() => hideAlert()}
         onCancel={() => hideAlert()}
         showConfirm={false}
-        showCloseButton={true}
+        showCloseButton
       >
         {isEdit ? (
           <PolygonEdit polygon={polygon} close={hideAlert} />

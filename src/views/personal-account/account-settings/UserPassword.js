@@ -18,11 +18,10 @@ import {
   notifyError,
   notifySuccess,
 } from '../../../features/notifications/actions'
-import { updatePassword } from '../../../api/personalAccountAPI'
-import classnames from "classnames";
+import { updatePassword } from '../../../api/personalAccount'
+import classnames from 'classnames'
 
-import {noBlankErrorMessage} from '../../../config'
-
+import { noBlankErrorMessage } from '../../../config'
 
 const UserPassword = () => {
   const [pass, setPass] = useState('')
@@ -45,17 +44,17 @@ const UserPassword = () => {
 
     if (!Object.keys(newError).length) {
       if (pass.length < 8) {
-        newError.pass = "Must be 8 characters or more"
+        newError.pass = 'Must be 8 characters or more'
       }
       if (confirmPass.length < 8) {
-        newError.confirmPass = "Must be 8 characters or more"
+        newError.confirmPass = 'Must be 8 characters or more'
       }
     }
 
     if (!Object.keys(newError).length) {
       if (pass !== confirmPass) {
-        newError.pass = "Passwords do not match"
-        newError.confirmPass = "Passwords do not match"
+        newError.pass = 'Passwords do not match'
+        newError.confirmPass = 'Passwords do not match'
       }
     }
 
@@ -98,7 +97,9 @@ const UserPassword = () => {
                 'invalid-feedback ',
                 error.pass ? 'd-block' : '',
               )}
-            >{error.pass}</div>
+            >
+              {error.pass}
+            </div>
           </FormGroup>
           <Label>Confirm new password</Label>
           <FormGroup>
@@ -114,7 +115,9 @@ const UserPassword = () => {
                 'invalid-feedback ',
                 error.confirmPass ? 'd-block' : '',
               )}
-            >{error.confirmPass}</div>
+            >
+              {error.confirmPass}
+            </div>
           </FormGroup>
         </Form>
       </CardBody>

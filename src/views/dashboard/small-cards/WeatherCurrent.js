@@ -12,14 +12,14 @@ import {
   Col,
 } from 'reactstrap'
 
-import { formatDateTime } from '../../utils/dateTime'
+import { formatDateTime } from '../../../utils/dateTime'
 import {
   capitalize,
   convertTemp,
   getPreticipationInfo,
-} from '../../utils/utils'
-import ChartContainer from '../charts/ui/ChartContainer'
-import OWMWeatherIcon from '../owm-icons'
+} from '../../../utils/utils'
+import ChartContainer from '../../charts/ui/ChartContainer'
+import OWMWeatherIcon from '../../owm-icons/index'
 
 const selectUnits = (state) => state.units.isMetric
 

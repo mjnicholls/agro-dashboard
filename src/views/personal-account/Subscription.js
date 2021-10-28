@@ -13,10 +13,10 @@ import {
   Row,
 } from 'reactstrap'
 
-import TabsSelector from '../agro-components/TabsSelector'
+import TabsSelector from '../components/TabsSelector'
 import ExportPolygons from './ExportPolygons'
 import { api, subscriptions } from './utils'
-import { getPolygons } from '../../api/personalAccountAPI'
+import { getPolygons } from '../../api/personalAccount'
 import { toDate } from '../../utils/dateTime'
 // import {getPolygons} from '../../services/api/personalAccountAPI.js'
 

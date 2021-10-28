@@ -1,28 +1,31 @@
-import {
-  NOTIFICATION_SUCCESS,
-  NOTIFICATION_ERROR,
-  NOTIFICATION_CLEAR,
-} from './actions'
+import { NOTIFICATION_SUCCESS, NOTIFICATION_ERROR } from './actions'
 
-const initialState = {}
+const initialState = {
+  temporary: {},
+  permanent: {},
+}
 
 export default function notificationsReducer(state = initialState, action) {
   switch (action.type) {
     case NOTIFICATION_SUCCESS: {
       return {
-        isSuccess: true,
-        message: action.payload,
+        ...state,
+        temporary: {
+          isSuccess: true,
+          message: action.payload,
+        },
       }
     }
     case NOTIFICATION_ERROR: {
       return {
-        isSuccess: false,
-        message: action.payload,
+        ...state,
+        temporary: {
+          isSuccess: false,
+          message: action.payload,
+        },
       }
     }
-    case NOTIFICATION_CLEAR: {
-      return {}
-    }
+
     default:
       return state
   }

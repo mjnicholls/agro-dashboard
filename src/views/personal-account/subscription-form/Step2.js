@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
-import Select from 'react-select'
+
 import classnames from 'classnames'
-import { Col, Form, Label, FormGroup, Input, Row } from 'reactstrap'
-import { countriesDefault } from '../../../config'
 import PropTypes from 'prop-types'
+import Select from 'react-select'
+import { Col, Form, Label, FormGroup, Input, Row } from 'reactstrap'
+
+import { countriesDefault } from '../../../config'
 
 const Step2 = ({ invoiceSettings, setInvoiceSettings, error }) => {
   const [countries, setCountries] = useState(countriesDefault)

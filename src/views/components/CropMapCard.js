@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react'
 import classNames from 'classnames'
 import PropTypes from 'prop-types'
 import ReactBSAlert from 'react-bootstrap-sweetalert'
+import { Link } from 'react-router-dom'
 import Select from 'react-select'
 import {
   Button,
@@ -13,11 +14,10 @@ import {
   Col,
   Row,
 } from 'reactstrap'
-import { Link, NavLink } from 'react-router-dom'
 
 import { tariffError } from '../../config'
 import { getCropName } from '../maps/crops'
-
+import ContactUsButton from './ContactUsButton'
 
 const CropMapCard = ({ years, activeYear, setActiveYear, info, setAlert }) => {
   const [options, setOptions] = useState(years)
@@ -49,11 +49,9 @@ const CropMapCard = ({ years, activeYear, setActiveYear, info, setAlert }) => {
   }
 
   const SubscriptionPlansButton = () => (
-    <Link to="/users/billing-plans" role="button" className="btn btn-primary">Subscription plans</Link>
-  )
-
-  const ContactUsButton = () => (
-    <a role="button" href="mailto:info@openweathermap.org" className="btn btn-primary">Contact us</a>
+    <Link to="/users/billing-plans" role="button" className="btn btn-primary">
+      Subscription plans
+    </Link>
   )
 
   const buttonOnClick = (year) => {
@@ -72,13 +70,14 @@ const CropMapCard = ({ years, activeYear, setActiveYear, info, setAlert }) => {
           onConfirm={() => hideAlert()}
           onCancel={() => hideAlert()}
           showConfirm={false}
-          showCloseButton={true}
+          showCloseButton
         >
           <div className="mt-3 text-center">
-            {
-              year.status === 1 ?
-              <SubscriptionPlansButton /> : <ContactUsButton />
-            }
+            {year.status === 1 ? (
+              <SubscriptionPlansButton />
+            ) : (
+              <ContactUsButton />
+            )}
           </div>
         </ReactBSAlert>,
       )

@@ -18,7 +18,7 @@ import {
   UncontrolledTooltip,
 } from 'reactstrap'
 
-import { createApiKey, getAPIKeys } from '../../api/personalAccountAPI'
+import { createApiKey, getAPIKeys } from '../../api/personalAccount'
 import {
   notifyError,
   notifySuccess,
@@ -85,7 +85,7 @@ const ApiKeys = () => {
         onConfirm={hideAlert}
         onCancel={hideAlert}
         showConfirm={false}
-        showCloseButton={true}
+        showCloseButton
       >
         {isEdit ? (
           <APIKeyEdit

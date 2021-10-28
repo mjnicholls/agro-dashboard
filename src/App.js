@@ -11,12 +11,12 @@ import './assets/demo/demo.css'
 import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css'
 import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css'
 
-import AuthRoute from './api/AuthRoute'
 import { receiveLogout } from './features/auth/actions'
 import AdminLayout from './layouts/Admin/Admin'
 import AuthLayout from './layouts/Auth/Auth'
 import store from './store'
-import Notifications from './views/agro-components/Notifications'
+import AuthRoute from './views/AuthRoute'
+import Notifications from './views/components/NotificationsTemporary'
 
 // import GA4React from 'ga-4-react'
 

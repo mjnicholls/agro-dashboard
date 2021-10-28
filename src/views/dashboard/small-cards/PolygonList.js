@@ -12,8 +12,8 @@ import {
   Table,
 } from 'reactstrap'
 
-import { setActivePoly } from '../../features/state/actions'
-import ToggleModes from '../agro-components/ToggleModes'
+import { setActivePoly } from '../../../features/state/actions'
+import ToggleModes from '../../components/ToggleModes'
 
 const selectActivePoly = (state) => state.state.polygon
 const selectPolygons = (state) => state.polygons

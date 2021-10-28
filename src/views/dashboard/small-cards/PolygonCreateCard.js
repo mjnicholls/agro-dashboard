@@ -23,11 +23,10 @@ import {
   TabPane,
   Row,
 } from 'reactstrap'
-import ImageUpload from '../../components/CustomUpload/ImageUpload.js'
 
-import { notifyError } from '../../features/notifications/actions'
-import { addPolygon } from '../../features/polygons/actions'
-import AllPolygonsButton from '../agro-components/AllPolygonsButton'
+import { notifyError } from '../../../features/notifications/actions'
+import { addPolygon } from '../../../features/polygons/actions'
+import AllPolygonsButton from '../../components/AllPolygonsButton'
 
 const selectMinPolygonArea = (state) =>
   state.auth.limits.polygon_area.min_polygon_area
@@ -45,7 +44,6 @@ const PolygonCreateCard = ({
   setMode,
   resetMap,
   mapHeight,
-  blockResetMap,
 }) => {
   const [name, setName] = useState('')
 

@@ -5,7 +5,7 @@ import {
   createPolygonApi,
   deletePolygonApi,
   editPolygonApi,
-} from '../../api/polygonApi'
+} from '../../api/polygon'
 import { polygonShapeSize } from '../../config'
 import { notifySuccess, notifyError } from '../notifications/actions'
 

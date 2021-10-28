@@ -1,9 +1,8 @@
 import React from 'react'
 
 import classnames from 'classnames'
-import { NavLink } from 'react-router-dom'
-
 import PropTypes from 'prop-types'
+import { NavLink } from 'react-router-dom'
 import {
   Collapse,
   NavbarBrand,

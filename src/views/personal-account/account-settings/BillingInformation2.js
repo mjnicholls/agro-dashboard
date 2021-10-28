@@ -18,7 +18,7 @@ import {
   Row,
 } from 'reactstrap'
 
-import {countriesDefault, noBlankErrorMessage, titles} from '../../../config'
+import { countriesDefault, noBlankErrorMessage, titles } from '../../../config'
 import {
   notifyError,
   notifySuccess,
@@ -28,10 +28,8 @@ import {
   validateVat,
   getCountries,
   createBillingDetails,
-} from '../../../api/billingAPI'
-import {
-  validatePhoneNumber
-} from '../../../utils/validation'
+} from '../../../api/billing'
+import { validatePhoneNumber } from '../../../utils/validation'
 
 import PropTypes from 'prop-types'
 
@@ -40,7 +38,7 @@ const BillingInfo = ({
   setInvoiceSettings,
   isNew,
   refreshData,
-  user
+  user,
 }) => {
   const dispatch = useDispatch()
   const [error, setError] = useState({})
@@ -88,18 +86,23 @@ const BillingInfo = ({
     }
   }
 
-
   const saveBillingInfo = () => {
     setError({})
     const newError = {}
-    const mandatoryFields = ['country', 'address_line_1', 'city', 'postal_code', 'phone']
+    const mandatoryFields = [
+      'country',
+      'address_line_1',
+      'city',
+      'postal_code',
+      'phone',
+    ]
     if (invoiceSettings.type === 'individual') {
       mandatoryFields.push('first_name')
       mandatoryFields.push('last_name')
     } else {
       mandatoryFields.push('organisation')
     }
-    for (let i=0; i<mandatoryFields.length; i+=1) {
+    for (let i = 0; i < mandatoryFields.length; i += 1) {
       if (!invoiceSettings[mandatoryFields[i]]) {
         newError[mandatoryFields[i]] = noBlankErrorMessage
       }
@@ -110,10 +113,12 @@ const BillingInfo = ({
         newError.phone = phoneValidation
       }
     }
-    if (invoiceSettings.type === "organisation" && invoiceSettings.country) {
+    if (invoiceSettings.type === 'organisation' && invoiceSettings.country) {
       validateVat(invoiceSettings.vat_id, invoiceSettings.country)
         .then(() => {})
-        .catch(() => {newError.vat_id = 'VAT ID is not valid'})
+        .catch(() => {
+          newError.vat_id = 'VAT ID is not valid'
+        })
         .finally(() => {
           if (Object.keys(newError).length) {
             setError(newError)
@@ -121,8 +126,7 @@ const BillingInfo = ({
           }
           billingInfoUpdate()
         })
-    }
-    else {
+    } else {
       if (Object.keys(newError).length) {
         setError(newError)
         return
@@ -209,9 +213,10 @@ const BillingInfo = ({
                         'invalid-feedback ',
                         error.first_name ? 'd-block' : '',
                       )}
-                    >{error.first_name}</div>
+                    >
+                      {error.first_name}
+                    </div>
                   </FormGroup>
-
                 </Col>
                 <Col>
                   <Label>Last Name *</Label>
@@ -225,13 +230,14 @@ const BillingInfo = ({
                       className={error.last_name ? 'danger-border' : ''}
                     />
                     <div
-                    className={classnames(
-                      'invalid-feedback ',
-                      error.last_name ? 'd-block' : '',
-                    )}
-                  >{error.last_name}</div>
+                      className={classnames(
+                        'invalid-feedback ',
+                        error.last_name ? 'd-block' : '',
+                      )}
+                    >
+                      {error.last_name}
+                    </div>
                   </FormGroup>
-
                 </Col>
               </>
             ) : (
@@ -252,7 +258,9 @@ const BillingInfo = ({
                         'invalid-feedback ',
                         error.organisation ? 'd-block' : '',
                       )}
-                    >{error.organisation}</div>
+                    >
+                      {error.organisation}
+                    </div>
                   </FormGroup>
                 </Col>
                 <Col>
@@ -271,7 +279,9 @@ const BillingInfo = ({
                         'invalid-feedback ',
                         error.vat_id ? 'd-block' : '',
                       )}
-                    >{error.vat_id}</div>
+                    >
+                      {error.vat_id}
+                    </div>
                   </FormGroup>
                 </Col>
               </>
@@ -289,11 +299,13 @@ const BillingInfo = ({
                   className={error.phone ? 'danger-border' : ''}
                 />
                 <div
-                      className={classnames(
-                        'invalid-feedback ',
-                        error.phone ? 'd-block' : '',
-                      )}
-                    >{error.phone}</div>
+                  className={classnames(
+                    'invalid-feedback ',
+                    error.phone ? 'd-block' : '',
+                  )}
+                >
+                  {error.phone}
+                </div>
               </FormGroup>
             </Col>
             <Col>
@@ -334,7 +346,9 @@ const BillingInfo = ({
                     'invalid-feedback ',
                     error.country ? 'd-block' : '',
                   )}
-                >{error.country}</div>
+                >
+                  {error.country}
+                </div>
               </FormGroup>
             </Col>
             <Col>
@@ -353,7 +367,9 @@ const BillingInfo = ({
                     'invalid-feedback ',
                     error.address_line_1 ? 'd-block' : '',
                   )}
-                >{error.address_line_1}</div>
+                >
+                  {error.address_line_1}
+                </div>
               </FormGroup>
             </Col>
           </Row>
@@ -384,7 +400,9 @@ const BillingInfo = ({
                     'invalid-feedback ',
                     error.city ? 'd-block' : '',
                   )}
-                >{error.city}</div>
+                >
+                  {error.city}
+                </div>
               </FormGroup>
             </Col>
           </Row>
@@ -403,7 +421,9 @@ const BillingInfo = ({
                     'invalid-feedback ',
                     error.postal_code ? 'd-block' : '',
                   )}
-                >{error.postal_code}</div>
+                >
+                  {error.postal_code}
+                </div>
               </FormGroup>
             </Col>
             <Col>
@@ -446,7 +466,7 @@ BillingInfo.propTypes = {
     full_name: PropTypes.string,
     username: PropTypes.string,
     email: PropTypes.string,
-    active_stripe_customer: PropTypes.bool
+    active_stripe_customer: PropTypes.bool,
   }),
 }
 

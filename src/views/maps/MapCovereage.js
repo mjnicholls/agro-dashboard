@@ -1,7 +1,6 @@
 import React, { useEffect, useRef } from 'react'
 
 import { coverage } from '../../utils/coverage'
-
 import { initialiseMap, basicColor, basicOpacity } from './base'
 
 const COVERAGE_LAYER_ID = 'COVERAGE_LAYER'

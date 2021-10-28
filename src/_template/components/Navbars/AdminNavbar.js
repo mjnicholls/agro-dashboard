@@ -9,7 +9,6 @@ import {
   DropdownMenu,
   DropdownItem,
   UncontrolledDropdown,
-  NavbarBrand,
   Navbar,
   NavLink,
   Nav,
@@ -17,7 +16,7 @@ import {
   UncontrolledTooltip,
 } from 'reactstrap'
 
-import { logoutUser } from '../../features/auth/actions'
+import { logoutUser } from '../../../features/auth/actions'
 
 const userEmailSelector = (state) => state.auth.user.email
 const selectActivePoly = (state) => state.state.polygon

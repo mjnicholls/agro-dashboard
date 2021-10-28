@@ -2,8 +2,8 @@ import React from 'react'
 
 import { Route, Switch, Redirect } from 'react-router-dom'
 
-import Footer from '../../components/Footer/Footer'
-import AuthNavbar from '../../components/Navbars/AuthNavbar'
+import Footer from '../../_template/components/Footer/Footer'
+import AuthNavbar from '../../_template/components/Navbars/AuthNavbar'
 import routes from '../../routes'
 
 const Pages = () => {

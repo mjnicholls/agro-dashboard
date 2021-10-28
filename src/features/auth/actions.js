@@ -1,6 +1,7 @@
 import axios from 'axios'
 
-import { login, logout } from '../../api/authAPI'
+import { login, logout } from '../../api/auth'
+import { isSubscriptionAvailableAPI } from '../../api/billing'
 import { deleteCookie, setCookie } from '../../utils/cookies'
 import { fetchPolygons } from '../polygons/actions'
 import { parseJwt } from './utils'
@@ -99,6 +100,7 @@ export const loginUser = (email, password) => (dispatch) => {
           limits: tokenInfo.limits,
         }),
       )
+
       dispatch(fetchPolygons())
     })
     .catch((err) => {

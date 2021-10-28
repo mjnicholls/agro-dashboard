@@ -3,9 +3,9 @@ import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Card, CardHeader, CardBody, CardTitle, Col, Row } from 'reactstrap'
 
-import { getCurrentSoil } from '../../api/weatherApi'
-import { convertTemp } from '../../utils/utils'
-import ChartContainer from '../charts/ui/ChartContainer'
+import { getCurrentSoil } from '../../../api/weather'
+import { convertTemp } from '../../../utils/utils'
+import ChartContainer from '../../charts/ui/ChartContainer'
 
 const selectUnits = (state) => state.units.isMetric
 

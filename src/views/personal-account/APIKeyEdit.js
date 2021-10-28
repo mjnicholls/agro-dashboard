@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import { useDispatch } from 'react-redux'
 import { Button, Col, FormGroup, Input, Label, Row } from 'reactstrap'
 
-import { updateAPIKey } from '../../api/personalAccountAPI'
+import { updateAPIKey } from '../../api/personalAccount'
 import {
   notifyError,
   notifySuccess,

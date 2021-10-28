@@ -6,7 +6,10 @@ import { useSelector, useDispatch } from 'react-redux'
 import { NavLink, useLocation } from 'react-router-dom'
 import { Nav, Collapse } from 'reactstrap'
 
-import { setActivePoly, setSatelliteMode } from '../../features/state/actions'
+import {
+  setActivePoly,
+  setSatelliteMode,
+} from '../../../features/state/actions'
 let ps
 
 const selectPolygons = (state) => state.polygons

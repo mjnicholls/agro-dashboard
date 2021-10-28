@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import { getMapBounds } from '../../features/polygons/selectors'
 import { setActivePoly } from '../../features/state/actions'
-import SatelliteImagesList from '../agro-components/SatelliteImagesList'
+import SatelliteImagesList from '../dashboard/SatelliteImagesList'
 import {
   clusterPadding,
   initialiseMap,

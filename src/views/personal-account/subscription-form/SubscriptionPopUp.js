@@ -2,13 +2,13 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { Button, Col, Form, Label, Row } from 'reactstrap'
 
-import { getAccountInfo } from '../../../api/personalAccountAPI'
+import { getAccountInfo } from '../../../api/personalAccount'
 import {
   updateBillingDetails,
   validateVat,
   createBillingDetails,
-  subscribe
-} from '../../../api/billingAPI'
+  subscribe,
+} from '../../../api/billing'
 
 import {
   notifyError,
@@ -18,11 +18,11 @@ import {
 import Step1 from './Step1'
 import Step2 from './Step2'
 import { noBlankErrorMessage } from '../../../config'
-import {validatePhoneNumber} from "../../../utils/validation";
-import classnames from "classnames";
-import {loadStripe} from '@stripe/stripe-js';
+import { validatePhoneNumber } from '../../../utils/validation'
+import classnames from 'classnames'
+import { loadStripe } from '@stripe/stripe-js'
 
-const SubscriptionPopUp = ({plan}) => {
+const SubscriptionPopUp = ({ plan }) => {
   const dispatch = useDispatch()
   const [error, setError] = useState({})
   // const [isNew, setIsNew] = useState(true)
@@ -58,10 +58,9 @@ const SubscriptionPopUp = ({plan}) => {
     })
   }, [])
 
-
   const confirmSubscription = () => {
-    const invoiceDetails = {...invoiceSettings}
-    if (invoiceDetails.type === "individual") {
+    const invoiceDetails = { ...invoiceSettings }
+    if (invoiceDetails.type === 'individual') {
       delete invoiceDetails.organisation
       delete invoiceDetails.vat_id
     } else {
@@ -73,28 +72,31 @@ const SubscriptionPopUp = ({plan}) => {
     delete invoiceDetails.type
 
     const data = {
-      service_key: "agri",
+      service_key: 'agri',
       plan_key: plan,
       user: {
-        email: user.email
+        email: user.email,
       },
-      invoice_form: invoiceDetails
+      invoice_form: invoiceDetails,
     }
     subscribe(data)
       .then((res) => {
         console.log(res)
-        dispatch(notifySuccess("Successfully subscribed. You will be redirected to stripe page"))
-        loadStripe(res.stripe_publishable_key)
-          .then(stripe => {
-            stripe.redirectToCheckout({
-              sessionId: res.stripe_session_id
-            })
+        dispatch(
+          notifySuccess(
+            'Successfully subscribed. You will be redirected to stripe page',
+          ),
+        )
+        loadStripe(res.stripe_publishable_key).then((stripe) => {
+          stripe.redirectToCheckout({
+            sessionId: res.stripe_session_id,
           })
+        })
       })
-      .catch(err => {notifyError(`Error: ${err.message}`)})
-
+      .catch((err) => {
+        notifyError(`Error: ${err.message}`)
+      })
   }
-
 
   // const billingInfoCreate = () => {
   //   createBillingDetails(invoiceSettings)
@@ -127,7 +129,10 @@ const SubscriptionPopUp = ({plan}) => {
     const newError = {}
     let mandatoryFields
     if (step === 1) {
-      mandatoryFields = invoiceSettings.type === 'individual' ? ["first_name", "last_name", 'phone'] : ["organisation", 'phone']
+      mandatoryFields =
+        invoiceSettings.type === 'individual'
+          ? ['first_name', 'last_name', 'phone']
+          : ['organisation', 'phone']
       if (invoiceSettings.phone) {
         const phoneValidation = validatePhoneNumber(invoiceSettings.phone)
         if (phoneValidation) {
@@ -138,16 +143,22 @@ const SubscriptionPopUp = ({plan}) => {
       mandatoryFields = ['country', 'address_line_1', 'city', 'postal_code']
     }
 
-    for (let i=0; i<mandatoryFields.length; i+=1) {
+    for (let i = 0; i < mandatoryFields.length; i += 1) {
       if (!invoiceSettings[mandatoryFields[i]]) {
         newError[mandatoryFields[i]] = noBlankErrorMessage
       }
     }
 
-    if (step === 2 && invoiceSettings.type === "organisation" && invoiceSettings.country) {
+    if (
+      step === 2 &&
+      invoiceSettings.type === 'organisation' &&
+      invoiceSettings.country
+    ) {
       validateVat(invoiceSettings.vat_id, invoiceSettings.country)
         .then(() => {})
-        .catch(() => {newError.vat_id = 'VAT ID is not valid'})
+        .catch(() => {
+          newError.vat_id = 'VAT ID is not valid'
+        })
         .finally(() => {
           if (Object.keys(newError).length) {
             setError(newError)
@@ -160,7 +171,7 @@ const SubscriptionPopUp = ({plan}) => {
         setError(newError)
         return
       }
-      if (step === 1 ) {
+      if (step === 1) {
         setStep(2)
       } else {
         confirmSubscription()
@@ -187,15 +198,16 @@ const SubscriptionPopUp = ({plan}) => {
 
       <Form className="form-horizontal">
         <Row>
-          <Label/>
+          <Label />
           <Col
-           className={classnames(
+            className={classnames(
               'd-flex ',
-              step ===  1 ? 'justify-content-end' : 'justify-content-between'
-            )}>
+              step === 1 ? 'justify-content-end' : 'justify-content-between',
+            )}
+          >
             {step === 2 && (
               <Button
-                className='btn-neutral '
+                className="btn-neutral "
                 color="default"
                 type="button"
                 onClick={decrementStep}
@@ -213,7 +225,7 @@ const SubscriptionPopUp = ({plan}) => {
                 float: 'right',
               }}
             >
-              {step === 1 ? "Next" : "Subscribe"}
+              {step === 1 ? 'Next' : 'Subscribe'}
             </Button>
           </Col>
         </Row>

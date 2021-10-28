@@ -3,7 +3,7 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Button, UncontrolledAlert } from 'reactstrap'
 
-import { confirmEmail } from '../../api/authAPI'
+import { confirmEmail } from '../../api/auth'
 import { hideNotification } from '../../features/auth/actions'
 import {
   notifyError,

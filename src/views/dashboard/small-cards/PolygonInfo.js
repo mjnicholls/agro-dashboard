@@ -11,9 +11,9 @@ import {
   Table,
 } from 'reactstrap'
 
-import { toDate } from '../../utils/dateTime'
-import { totalArea } from '../../utils/utils'
-import Shape from '../agro-components/Shape'
+import { toDate } from '../../../utils/dateTime'
+import { totalArea } from '../../../utils/utils'
+import Shape from '../../components/Shape'
 
 const PolygonInfo = ({ polygonInFocus }) => {
   const PolygonPresentation = (val) =>

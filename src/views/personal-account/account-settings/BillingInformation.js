@@ -28,7 +28,7 @@ import {
   validateVat,
   getCountries,
   createBillingDetails,
-} from '../../../api/billingAPI'
+} from '../../../api/billing'
 import PropTypes from 'prop-types'
 
 const InvoiceSettings = ({

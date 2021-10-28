@@ -26,7 +26,7 @@ import {
   thresholdSettings,
 } from '../../config'
 import { getDateInPast } from '../../utils/dateTime'
-import TabsSelector from '../agro-components/TabsSelector'
+import TabsSelector from '../components/TabsSelector'
 import DatePickerFromTo from './ui/DatePickerFromTo'
 
 const selectUnits = (state) => state.units.isMetric

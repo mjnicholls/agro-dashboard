@@ -27,7 +27,7 @@ import {
   notifySuccess,
 } from '../../features/notifications/actions'
 
-import { forgotPassword } from '../../api/authAPI'
+import { forgotPassword } from '../../api/auth'
 import { validateEmail } from '../../utils/validation'
 import { noBlankErrorMessage } from '../../config'
 

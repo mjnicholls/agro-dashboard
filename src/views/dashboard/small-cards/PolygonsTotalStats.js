@@ -2,7 +2,7 @@ import React from 'react'
 
 import { Card, CardBody, CardHeader, CardTitle, Col, Row } from 'reactstrap'
 
-import { totalArea } from '../../utils/utils'
+import { totalArea } from '../../../utils/utils'
 
 const PolygonsTotalStats = ({ polygons }) => (
   <Card className="card-stats d-none d-lg-block mb-5">

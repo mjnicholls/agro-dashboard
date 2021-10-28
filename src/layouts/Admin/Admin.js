@@ -1,21 +1,20 @@
 import React from 'react'
 
+import classNames from 'classnames'
 import PerfectScrollbar from 'perfect-scrollbar'
 import NotificationAlert from 'react-notification-alert'
-import { NavLink, Redirect, Route, Switch, useLocation } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
+import { NavLink, Redirect, Route, Switch, useLocation } from 'react-router-dom'
 import { UncontrolledAlert } from 'reactstrap'
+
 // core components
 import logo from '../../assets/img/agro-logo.png'
-import Footer from '../../components/Footer/Footer'
-import AdminNavbar from '../../components/Navbars/AdminNavbar'
-import Sidebar from '../../components/Sidebar/Sidebar2'
-// import FixedPlugin from "components/FixedPlugin/FixedPlugin";
-import routes from '../../routes'
-
+import Footer from '../../_template/components/Footer/Footer'
+import AdminNavbar from '../../_template/components/Navbars/AdminNavbar'
+import Sidebar from '../../_template/components/Sidebar/Sidebar2'
 import { fetchPolygons } from '../../features/polygons/actions'
-import classNames from 'classnames'
-import EmailConfirmationNotification from '../../views/agro-components/NotificationEmailConfirmation'
+import routes from '../../routes'
+import EmailConfirmationNotification from '../../views/components/NotificationEmailConfirmation'
 
 let ps
 const isConfirmedEmailSelector = (state) => state.auth.user.confirmed_email
@@ -136,7 +135,7 @@ const Admin = (props) => {
       if (prop.collapse) {
         return getRoutesInnerNavigation(prop.views)
       }
-      if (prop.layout === '/users') {
+      if (prop.layout === '/users' && !prop.hidden) {
         return (
           <NavLink
             className={classNames('innerMenu', {

@@ -30,8 +30,12 @@ import {
 } from '../../features/notifications/actions'
 
 import cardPrimary from '../../assets/img/card-primary.png'
-import { createNewUser } from '../../api/authAPI'
-import { passwordLength, RECAPTCHA_SITE_KEY, RECAPTCHA_SECRET_KEY } from '../../config'
+import { createNewUser } from '../../api/auth'
+import {
+  passwordLength,
+  RECAPTCHA_SITE_KEY,
+  RECAPTCHA_SECRET_KEY,
+} from '../../config'
 
 import {
   faKey,
@@ -42,7 +46,6 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const RegisterForm = () => {
-
   const [state, setState] = React.useState({})
   const [error, setError] = useState({})
   const [captchaError, setCaptchaError] = useState(null)
@@ -59,16 +62,16 @@ const RegisterForm = () => {
     system: false,
   })
 
-  const recaptchaRef = useRef();
+  const recaptchaRef = useRef()
 
   const onSubmitWithReCAPTCHA = () => {
     const recaptchaValue = recaptchaRef.current.getValue()
-    console.log("recaptchaValue", recaptchaValue)
-      // .then((res) => console.log("res", res))
-      // .catch(err => {
-      //   console.log("err", err)
-      //   setCaptchaError(true)
-      // })
+    console.log('recaptchaValue', recaptchaValue)
+    // .then((res) => console.log("res", res))
+    // .catch(err => {
+    //   console.log("err", err)
+    //   setCaptchaError(true)
+    // })
 
     // apply to form data
   }

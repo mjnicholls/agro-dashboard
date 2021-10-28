@@ -1,14 +1,8 @@
 import React from 'react'
 
-import {
-  Button,
-  Card,
-  CardHeader,
-  CardBody,
-  CardTitle,
-  Col,
-  Row,
-} from 'reactstrap'
+import { Card, CardHeader, CardBody, CardTitle, Col, Row } from 'reactstrap'
+
+import ContactUsButton from '../../components/ContactUsButton'
 
 const FailurePage = () => (
   <Card>
@@ -23,13 +17,7 @@ const FailurePage = () => (
       </Row>
       <Row>
         <Col className="text-right">
-          <a
-            role="button"
-            href="mailto:info@openweathermap.org"
-            className="btn btn-primary"
-          >
-            Contact us
-          </a>
+          <ContactUsButton />
         </Col>
       </Row>
     </CardBody>

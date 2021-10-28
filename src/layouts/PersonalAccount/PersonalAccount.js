@@ -3,9 +3,10 @@ import React from 'react'
 import classNames from 'classnames'
 import PerfectScrollbar from 'perfect-scrollbar'
 import NotificationAlert from 'react-notification-alert'
-import { NavLink, Redirect, Route, Switch, useLocation } from 'react-router-dom'
 import { useSelector } from 'react-redux'
+import { NavLink, Redirect, Route, Switch, useLocation } from 'react-router-dom'
 import { UncontrolledAlert } from 'reactstrap'
+
 // core components
 import logo from '../../assets/img/agro-logo.png'
 import Footer from '../../components/Footer/Footer'
@@ -13,7 +14,7 @@ import AdminNavbar from '../../components/Navbars/AdminNavbar'
 import Sidebar from '../../components/Sidebar/Sidebar2'
 // import FixedPlugin from "components/FixedPlugin/FixedPlugin";
 import routes from '../../routes'
-import AuthRoute from '../../api/AuthRoute'
+import AuthRoute from '../../views/AuthRoute'
 
 let ps
 const isConfirmedEmailSelector = (state) => state.auth.user.confirmed_email
@@ -214,13 +215,13 @@ const PersonalAccount = (props) => {
           <div className="d-flex justify-content-end text-uppercase">
             {getRoutesInnerNavigation(routes)}
           </div>
-          {/*<ul className="d-flex justify-content-end text-uppercase">*/}
-          {/*<li>Subscription</li>*/}
-          {/*<li>API Keys</li>*/}
-          {/*<li>Billing Plans</li>*/}
-          {/*<li>Invoices</li>*/}
-          {/*<li>Settings</li>*/}
-          {/*</ul>*/}
+          {/* <ul className="d-flex justify-content-end text-uppercase"> */}
+          {/* <li>Subscription</li> */}
+          {/* <li>API Keys</li> */}
+          {/* <li>Billing Plans</li> */}
+          {/* <li>Invoices</li> */}
+          {/* <li>Settings</li> */}
+          {/* </ul> */}
           {isConfirmed === false && (
             <UncontrolledAlert
               className="alert-with-icon"

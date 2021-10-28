@@ -10,22 +10,21 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
+import ResetPassword from './views/auth/ChangePassword'
+import ForgotPassword from './views/auth/ForgotPassword'
+import Login from './views/auth/Login'
+import RegisterForm from './views/auth/Registration'
 import CropMap from './views/CropMap'
 import DashboardMain from './views/Dashboard'
 import PolygonNew from './views/NewPolygon'
-import Login from './views/auth/Login'
 import AccountSettings from './views/personal-account/AccountSettings'
 import ApiKeys from './views/personal-account/ApiKeys'
 import BillingPlans from './views/personal-account/BillingPlans'
 import InvoiceList from './views/personal-account/Payments'
-import RegisterForm from './views/auth/Registration'
-import ForgotPassword from './views/auth/ForgotPassword'
-import ResetPassword from './views/auth/ChangePassword'
 import Subscription from './views/personal-account/Subscription'
-import Subscription2 from './views/personal-account/SubscriptionPage3'
-
-import SuccessPage from './views/personal-account/subscription-form/SuccessPage'
 import FailurePage from './views/personal-account/subscription-form/FailurePage'
+import SuccessPage from './views/personal-account/subscription-form/SuccessPage'
+import Subscription2 from './views/personal-account/SubscriptionPage-2-1'
 
 const routes = [
   {

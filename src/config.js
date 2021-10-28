@@ -5,14 +5,16 @@
 export const mapBoxAccessToken =
   'pk.eyJ1IjoiYXZvbG92aWsiLCJhIjoiY2txdzNpdWs1MGkwZjJ3cGNrYnZua3I4aCJ9.Le6NapjFYy5FfdDXfBmvrg'
 
-
 // captcha луны
 // stage.owm.io
-export const RECAPTCHA_SITE_KEY = "6Lcq1RQUAAAAAEzi1nXsgbjk7dsMdaU7T90xR5Km"
-export const RECAPTCHA_SECRET_KEY = "6Lcq1RQUAAAAAOtqNnbrDxi6lIMm3oIHO9arUOWh"
+export const RECAPTCHA_SITE_KEY = '6Lcq1RQUAAAAAEzi1nXsgbjk7dsMdaU7T90xR5Km'
+export const RECAPTCHA_SECRET_KEY = '6Lcq1RQUAAAAAOtqNnbrDxi6lIMm3oIHO9arUOWh'
 // production
 // export const RECAPTCHA_SITE_KEY = "6LcJWVAUAAAAAK0_VMH-33Okly6js-CtYr2ksvbf"
 // export const RECAPTCHA_SECRET_KEY = "6LcJWVAUAAAAAF59dqViAnTZaL1Ish5EngASGy98"
+
+export const supportEmail = 'info@openweathermap.org'
+export const supportEmailMailTo = `mailto:${supportEmail}`
 
 export const polygonShapeSize = 48
 export const startSatelliteImagesSearchDate = 1262304000
@@ -20,7 +22,6 @@ export const startSatelliteImagesSearchDate = 1262304000
 export const tariffError =
   'This feature is not available with your subscription plan'
 export const noBlankErrorMessage = 'Cannot be blank'
-
 
 export const defaultStartHistoryWeatherCharts = 1 // months
 export const cropColorDict = {
@@ -1590,6 +1591,3 @@ export const deleteAcctOptions = [
 ]
 
 export const passwordLength = 8
-
-
-

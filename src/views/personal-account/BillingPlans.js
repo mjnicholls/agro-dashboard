@@ -1,18 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 
-import {
-  Button,
-  Card,
-  CardHeader,
-  CardBody,
-  Row,
-  Col,
-  Table,
-  NavItem,
-  NavLink,
-  Nav,
-} from 'reactstrap'
+import { Button, Card, CardBody, Row, Col, Table } from 'reactstrap'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheckCircle, faInfoCircle } from '@fortawesome/free-solid-svg-icons'
@@ -20,8 +9,8 @@ import { Link } from 'react-router-dom'
 import ReactBSAlert from 'react-bootstrap-sweetalert'
 import SubscriptionPopUp from './subscription-form/SubscriptionPopUp'
 import Map from '../maps/MapCovereage'
-import { isSubscriptionAvailableAPI } from '../../api/billingAPI'
-import classnames from 'classnames'
+import { isSubscriptionAvailableAPI } from '../../api/billing'
+import ContactUsButton from '../components/ContactUsButton'
 
 const userSelector = (state) => state.auth.user
 
@@ -66,8 +55,7 @@ const BillingPlans = () => {
         onConfirm={() => hideAlert()}
         onCancel={() => hideAlert()}
         showConfirm={false}
-        // eslint-disable-next-line
-        showCloseButton={true}
+        showCloseButton
       >
         <div className="text-left">
           <p>
@@ -126,28 +114,14 @@ const BillingPlans = () => {
       </Button>
     )
 
-  const buttonContact = (plan) => (
-    <a
-      role="button"
-      className="btn btn-primary"
-      color="primary"
-      data-dismiss="modal"
-      href="mailto:info@openweathermap.org"
-      target="_blank"
-      disabled={plan === subscription}
-    >
-      Contact us
-    </a>
-  )
-
   const ShowSubscribeButton = ({ plan }) => {
     if (plan === 'free') {
       return buttonSubscribe(plan)
     }
     if (plan === 'corp') {
-      return buttonContact(plan)
+      return <ContactUsButton />
     }
-    return isSubscriptionAvailable ? buttonSubscribe(plan) : buttonContact(plan)
+    return isSubscriptionAvailable ? buttonSubscribe(plan) : <ContactUsButton />
   }
 
   return (

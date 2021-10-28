@@ -14,8 +14,8 @@ import {
   UncontrolledTooltip,
 } from 'reactstrap'
 
-import { getInvoices } from '../../api/personalAccountAPI'
-import AgroPagination from '../agro-components/AgroPagination'
+import { getInvoices } from '../../api/personalAccount'
+import AgroPagination from '../components/AgroPagination'
 
 const InvoiceList = () => {
   const [data, setData] = useState([])

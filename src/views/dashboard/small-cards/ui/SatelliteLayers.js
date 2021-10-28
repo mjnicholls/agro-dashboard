@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import Select from 'react-select'
 import { Col, Row } from 'reactstrap'
 
-import { availableLayers } from '../../../config'
+import { availableLayers } from '../../../../config'
 
 const SatelliteLayers = ({
   satelliteImage,

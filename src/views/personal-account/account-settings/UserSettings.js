@@ -18,12 +18,11 @@ import {
   notifyError,
   notifySuccess,
 } from '../../../features/notifications/actions'
-import { updateUserSettings } from '../../../api/personalAccountAPI'
+import { updateUserSettings } from '../../../api/personalAccount'
 import PropTypes from 'prop-types'
 
-import {noBlankErrorMessage} from '../../../config'
-import classnames from "classnames";
-
+import { noBlankErrorMessage } from '../../../config'
+import classnames from 'classnames'
 
 const UserSettings = ({ user, handleUserState }) => {
   const [error, setError] = useState({})
@@ -38,7 +37,7 @@ const UserSettings = ({ user, handleUserState }) => {
     if (!user.full_name && !user.username) {
       setError({
         username: noBlankErrorMessage,
-        full_name: noBlankErrorMessage
+        full_name: noBlankErrorMessage,
       })
       return
     }
@@ -79,7 +78,9 @@ const UserSettings = ({ user, handleUserState }) => {
                 'invalid-feedback ',
                 error.username ? 'd-block' : '',
               )}
-            >{error.username}</div>
+            >
+              {error.username}
+            </div>
           </FormGroup>
 
           <Label>Full Name</Label>
@@ -95,7 +96,9 @@ const UserSettings = ({ user, handleUserState }) => {
                 'invalid-feedback ',
                 error.full_name ? 'd-block' : '',
               )}
-            >{error.full_name}</div>
+            >
+              {error.full_name}
+            </div>
           </FormGroup>
 
           <Label>Email address</Label>
@@ -123,7 +126,7 @@ UserSettings.propTypes = {
     full_name: PropTypes.string,
     username: PropTypes.string,
     email: PropTypes.string,
-    active_stripe_customer: PropTypes.bool
+    active_stripe_customer: PropTypes.bool,
   }),
   handleUserState: PropTypes.func,
 }

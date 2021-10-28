@@ -26,7 +26,7 @@ import {
   notifySuccess,
 } from '../../features/notifications/actions'
 
-import { changePassword } from '../../api/authAPI'
+import { changePassword } from '../../api/auth'
 
 import { noBlankErrorMessage, passwordLength } from '../../config'
 

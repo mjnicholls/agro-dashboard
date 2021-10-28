@@ -8,7 +8,6 @@ const isAuthenticatedSelector = (state) => state.auth.isAuthenticated
 const AuthRoute = (props) => {
   const isAuthenticated = useSelector(isAuthenticatedSelector)
   if (!isAuthenticated) {
-    console.log('jheer')
     return (
       <Redirect
         to={{

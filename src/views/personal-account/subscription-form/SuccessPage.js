@@ -1,9 +1,6 @@
 import React from 'react'
 
 import { useDispatch } from 'react-redux'
-
-import { logoutUser } from '../../../features/auth/actions'
-
 import {
   Button,
   Card,
@@ -13,6 +10,9 @@ import {
   Col,
   Row,
 } from 'reactstrap'
+
+import { logoutUser } from '../../../features/auth/actions'
+import { supportEmailMailTo } from '../../../config'
 
 const SuccessPage = () => {
   const dispatch = useDispatch()
@@ -36,10 +36,7 @@ const SuccessPage = () => {
             <p>
               If you have any problem with activation your billing subscription,
               please contact us at{' '}
-              <a href="mailto:info@openweathermap.org">
-                info@openweathermap.org
-              </a>
-              .
+              <a href={supportEmailMailTo}>info@openweathermap.org</a>.
             </p>
             <p>You will be automatically signed out in ...</p>
           </Col>
