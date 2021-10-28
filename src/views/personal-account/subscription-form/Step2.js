@@ -160,7 +160,7 @@ const Step2 = ({ invoiceSettings, setInvoiceSettings, error }) => {
 }
 
 Step2.propTypes = {
-  error: PropTypes.func,
+  error: PropTypes.object,
   invoiceSettings: PropTypes.object,
   setInvoiceSettings: PropTypes.func,
 }

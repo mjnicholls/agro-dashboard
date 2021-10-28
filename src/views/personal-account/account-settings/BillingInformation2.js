@@ -442,7 +442,7 @@ BillingInfo.propTypes = {
   setInvoiceSettings: PropTypes.func,
   isNew: PropTypes.bool,
   refreshData: PropTypes.func,
-  user: PropTypes.objectOf({
+  user: PropTypes.shape({
     full_name: PropTypes.string,
     username: PropTypes.string,
     email: PropTypes.string,

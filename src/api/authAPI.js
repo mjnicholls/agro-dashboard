@@ -29,20 +29,18 @@ export const forgotPassword = (email) =>
     },
   })
 
-export const changePassword = (data) =>
+export const changePassword = (params) =>
   /** Change password */
   axios.put(resetPasswordURL, {
     user: {
-      data,
+      ...params,
     },
   })
 
-export const confirmEmail = (email) => {
-    const data = {
-      user: {
-        email
-      }
+export const confirmEmail = (email) =>
+  axios.post(confirmEmailURL,  {
+    user: {
+      email
     }
-    return axios.post(confirmEmailURL, data)
-}
+  })
 

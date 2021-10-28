@@ -1,6 +1,8 @@
 /* eslint-disable */
 import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
+
+import ReactBSAlert from 'react-bootstrap-sweetalert'
+import { useDispatch, useSelector } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import {
@@ -25,9 +27,10 @@ import TabsSelector from '../agro-components/TabsSelector'
 import ExportPolygons from './ExportPolygons'
 import { api, subscriptions } from './utils'
 import { getPolygons } from '../../api/personalAccountAPI'
+import { unsubscribe } from "../../api/billingAPI";
+import {notifySuccess, notifyError} from "../../features/notifications/actions";
 import { toDate } from '../../utils/dateTime'
 import { numberWithCommas } from '../../utils/utils'
-
 
 const authSelector = (state) => state.auth
 
@@ -40,6 +43,7 @@ const SubscriptionPage3 = () => {
 
   const [activePage, setActivePage] = useState('charge') // Charges or Limits
   const [activeTab, setActiveTab] = useState(tabsOptions[0]) // api or dashboard
+  const [alert, setAlert] = useState(null)
 
   const [polygonsData, setPolygonsData] = useState({})
   const auth = useSelector(authSelector)
@@ -56,12 +60,65 @@ const SubscriptionPage3 = () => {
       })
   }, [])
 
+  const dispatch = useDispatch()
+
+  const hideAlert = () => {
+    setAlert(null)
+  }
+
+  const htmlAlert = () => {
+    setAlert(
+      <ReactBSAlert
+        customClass="agro-alert-dark"
+        title="Unsubscribe"
+        onConfirm={hideAlert}
+        onCancel={hideAlert}
+        showConfirm={false}
+        showCloseButton
+      >
+        <Row>
+          <Col>
+            <p>Are you sure you want to unsubscribe?</p>
+            <p>Дорогой клиент, вы отписываетесь от сервиса, с вас будет списана оплата за фиксу и за прувышение (если оно было в текущем месяце)</p>
+          </Col>
+        </Row>
+        <Row>
+          <Col className="text-right">
+          <Button
+            className="btn-fill"
+            color="primary"
+            type="submit"
+            onClick={unsubscribeFunc}
+          >
+            Unsubscribe
+          </Button>
+          </Col>
+        </Row>
+      </ReactBSAlert>,
+    )
+  }
+
+  const unsubscribeFunc = () => {
+    unsubscribe({
+      service_key: "agri",
+      plan_key: tariff,
+      user: {
+        email: auth.user.email
+      }
+    })
+      .then(() => {})
+      .catch(err => {
+
+      })
+  }
+
   const depthInYears = (year) => {
     return year > 0 ? year + ' year' : year === 0 ? '0 years' : 'Unlimited'
   }
 
   return (
     <>
+      {alert}
       <Row className="mb-5">
         <Col>
           <h1 className="mb-0">{data.name}</h1>
@@ -244,8 +301,8 @@ const SubscriptionPage3 = () => {
                                     className="btn-fill"
                                     color="primary"
                                     type="submit"
-                                    style={{ marginTop: '15px' }}
-                                    //onClick={}
+                                    style={{width: "200px"}}
+                                    onClick={htmlAlert}
                                   >
                                     Unsubscribe
                                   </Button>

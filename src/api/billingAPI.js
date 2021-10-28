@@ -1,5 +1,5 @@
 import axios from 'axios/index'
-import { confirmVat, countriesList, invoiceUpdate, subscribeURL, unsubscribeURL } from './index'
+import { confirmVat, countriesList, invoiceUpdate, isSubscriptionAvailableURL, subscribeURL, unsubscribeURL } from './index'
 
 export const createBillingDetails = (params) =>
   /** Create billing details */
@@ -20,7 +20,8 @@ export const getCountries = () =>
 export const subscribe = (params) =>
   axios.put(subscribeURL, params)
 
-
 export const unsubscribe = (data) =>
   axios.put(unsubscribeURL, data)
 
+export const isSubscriptionAvailableAPI = (email) =>
+  axios.get(`${isSubscriptionAvailableURL}?user[email]=${email}`)

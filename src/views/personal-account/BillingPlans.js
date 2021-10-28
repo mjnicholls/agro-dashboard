@@ -1,5 +1,4 @@
-/* eslint-disable */
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 
 import {
@@ -21,12 +20,26 @@ import { Link } from 'react-router-dom'
 import ReactBSAlert from 'react-bootstrap-sweetalert'
 import SubscriptionPopUp from './subscription-form/SubscriptionPopUp'
 import Map from '../maps/MapCovereage'
+import { isSubscriptionAvailableAPI } from '../../api/billingAPI'
+import classnames from 'classnames'
 
-const userSubscriptionSelector = (state) => state.auth.user.tariff
+const userSelector = (state) => state.auth.user
 
 const BillingPlans = () => {
-  const subscription = useSelector(userSubscriptionSelector)
-  const [alert, setAlert] = React.useState(null)
+
+  const [alert, setAlert] = useState(null)
+  const [isSubscriptionAvailable, setIsSubscriptionAvailable] = useState(null)
+
+  const user = useSelector(userSelector)
+  const subscription = user.tariff
+
+  useEffect(() => {
+    isSubscriptionAvailableAPI(user.email)
+      .then(res => {
+        if (res && res.message && res.message.user)
+          setIsSubscriptionAvailable(res.message.user.available_subscription)
+      })
+    }, [user])
 
   const hideAlert = () => {
     setAlert(null)
@@ -95,11 +108,50 @@ const BillingPlans = () => {
     </>
   )
 
+  const buttonSubscribe = (plan) =>{
+    console.log(plan === subscription, plan, subscription)
+    return (<Button
+      className={classnames("btn-primary", {
+        'btn-simple': plan === subscription
+      })}
+      color="primary"
+      data-dismiss="modal"
+      type="button"
+      onClick={() => {
+        subScriptionAlert(plan);
+      }}
+      disabled={plan === subscription}
+    >
+      Subscribe
+    </Button>)}
+
+  const buttonContact = (plan) =>
+    (<a
+      role="button"
+      className="btn btn-primary"
+      color="primary"
+      data-dismiss="modal"
+      href="mailto:info@openweathermap.org"
+      target="_blank"
+      disabled={plan === subscription}
+    >
+      Contact us
+    </a>)
+
+  const ShowSubscribeButton = ({plan}) => {
+    if (plan === "free") {
+      return buttonSubscribe(plan)
+    }
+    if (plan === "corp") {
+      return buttonContact(plan)
+    }
+    return isSubscriptionAvailable ? buttonSubscribe(plan) : buttonContact(plan)
+  }
+
   return (
     <>
       <div>
         {alert}
-
         <Row>
           <Col>
             <h1>Billing Plans</h1>
@@ -107,7 +159,7 @@ const BillingPlans = () => {
         </Row>
 
         <Row>
-          <Col className="mb-0" md="12" mt="20">
+          <Col className="mb-0" mt="20">
             <Card>
               <CardBody>
                 <Table
@@ -131,16 +183,6 @@ const BillingPlans = () => {
                               <h3>
                                 <b>£0</b>
                               </h3>
-                              <Link to="/dashboard/api-keys">
-                                <Button
-                                  className="btn-primary text-nowrap"
-                                  color="primary"
-                                  data-dismiss="modal"
-                                  type="button"
-                                >
-                                  API Key
-                                </Button>
-                              </Link>
                             </NavLink>
                           </NavItem>
                         </Nav>
@@ -156,34 +198,7 @@ const BillingPlans = () => {
                               <h3>
                                 <b>£20</b>
                               </h3>
-
-                              {subscription === 'starter' ? (
-                                <Button
-                                  className="btn-primary btn-simple"
-                                  color="primary"
-                                  data-dismiss="modal"
-                                  type="button"
-                                  /* onClick={(e) => {
-                                    htmlAlert(false);
-                                    e.stopPropagation();
-                                  }} */
-                                >
-                                  Unsubscribe
-                                </Button>
-                              ) : (
-                                <Button
-                                  className="btn-primary"
-                                  color="primary"
-                                  data-dismiss="modal"
-                                  type="button"
-                                  onClick={(e) => {
-                                    subScriptionAlert("starter")
-                                    e.stopPropagation()
-                                  }}
-                                >
-                                  Subscribe
-                                </Button>
-                              )}
+                              <ShowSubscribeButton plan="starter" />
                             </NavLink>
                           </NavItem>
                         </Nav>
@@ -199,35 +214,7 @@ const BillingPlans = () => {
                               <h3>
                                 <b>£200</b>
                               </h3>
-
-                              {subscription === 'small' ? (
-                                <Button
-                                  className="btn-primary btn-simple"
-                                  color="primary"
-                                  data-dismiss="modal"
-                                  type="button"
-                                  /* onClick={(e) => {
-                                  htmlAlert(false);
-                                  e.stopPropagation();
-                                }}
-                                */
-                                >
-                                  Unsubscribe
-                                </Button>
-                              ) : (
-                                <Button
-                                  className="btn-primary"
-                                  color="primary"
-                                  data-dismiss="modal"
-                                  type="button"
-                                  onClick={(e) => {
-                                    subScriptionAlert("small")
-                                    e.stopPropagation()
-                                  }}
-                                >
-                                  Subscribe
-                                </Button>
-                              )}
+                              <ShowSubscribeButton plan="small" />
                             </NavLink>
                           </NavItem>
                         </Nav>
@@ -241,18 +228,7 @@ const BillingPlans = () => {
                             <NavLink>
                               <h3 className="mb-0">Corporate</h3>
                               <h3>&nbsp;</h3>
-                              <a
-                                href="https://openweathermap.force.com/s/contactsupport"
-                                target="_blank"
-                              >
-                                <Button
-                                  className="btn-primary text-nowrap"
-                                  color="primary"
-                                  type="button"
-                                >
-                                  Contact us
-                                </Button>
-                              </a>
+                              <ShowSubscribeButton plan="corp" />
                             </NavLink>
                           </NavItem>
                         </Nav>
@@ -299,18 +275,18 @@ const BillingPlans = () => {
                         color, False color)
                       </td>
                       <td>
-                        <Link to={window.location.pathname} hash="/#map">
+                        <Link to={window.location.pathname} hash="/#coverage">
                           All available data
                         </Link>
                       </td>
                       <td>
-                        <Link to="/users/billing-plans#map">
+                        <Link to="/users/billing-plans#coverage">
                           All available data
                         </Link>{' '}
                         + total archive on request
                       </td>
                       <td>
-                        <a href="#map">
+                        <a href="#coverage">
                           All available data
                         </a>{' '}
                         + total archive on request
@@ -744,7 +720,7 @@ const BillingPlans = () => {
 
         <Row>
           <Col className="mb-0" md="12" mt="20">
-            <Card id="map">
+            <Card id="coverage">
               {/*<CardHeader>*/}
               {/*<h3>Where you can get satellite imagery data right now</h3>*/}
               {/*</CardHeader>*/}

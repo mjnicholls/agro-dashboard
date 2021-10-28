@@ -15,7 +15,7 @@ export const signupURL = `${testServer}auth/signup`
 export const forgotPasswordURL = `${testServer}auth/password/forgot`
 export const resetPasswordURL = `${testServer}auth/password/reset`
 export const confirmEmailURL = `${testServer}account/confirmation`
-// export const confirmEmailURL = 'http://agri.stage.owm.io/api/send_confirmation'
+export const isSubscriptionAvailableURL = `${testServer}account/subscription`
 
 // billing
 export const subscribeURL = `${testServer}account/subscribe`

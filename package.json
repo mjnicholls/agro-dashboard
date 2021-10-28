@@ -12,6 +12,7 @@
     "@mapbox/mapbox-gl-geocoder": "^4.7.1",
     "@react-leaflet/core": "^1.1.0",
     "@reduxjs/toolkit": "^1.6.0",
+    "@stripe/stripe-js": "^1.20.3",
     "@turf/buffer": "^6.4.0",
     "@turf/collect": "^6.4.0",
     "@turf/turf": "^6.4.0",

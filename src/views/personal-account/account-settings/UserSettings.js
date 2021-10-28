@@ -119,7 +119,7 @@ const UserSettings = ({ user, handleUserState }) => {
 }
 
 UserSettings.propTypes = {
-  user: PropTypes.objectOf({
+  user: PropTypes.shape({
     full_name: PropTypes.string,
     username: PropTypes.string,
     email: PropTypes.string,

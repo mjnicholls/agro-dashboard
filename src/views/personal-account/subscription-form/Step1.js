@@ -150,9 +150,9 @@ const Step1 = ({
 }
 
 Step1.propTypes = {
-  error: PropTypes.func,
+  error: PropTypes.object,
   invoiceSettings: PropTypes.object,
-  user: PropTypes.objectOf({
+  user: PropTypes.shape({
     full_name: PropTypes.string,
     username: PropTypes.string,
     email: PropTypes.string,

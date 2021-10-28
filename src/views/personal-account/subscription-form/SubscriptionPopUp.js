@@ -1,4 +1,3 @@
-/* eslint-disable */
 import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { Button, Col, Form, Label, Row } from 'reactstrap'
@@ -21,6 +20,7 @@ import Step2 from './Step2'
 import { noBlank } from '../../../config'
 import {validatePhoneNumber} from "../../../utils/validation";
 import classnames from "classnames";
+import {loadStripe} from '@stripe/stripe-js';
 
 const SubscriptionPopUp = ({plan}) => {
   const dispatch = useDispatch()
@@ -58,15 +58,16 @@ const SubscriptionPopUp = ({plan}) => {
     })
   }, [])
 
+
   const confirmSubscription = () => {
-    let invoiceDetails = {...invoiceSettings}
+    const invoiceDetails = {...invoiceSettings}
     if (invoiceDetails.type === "individual") {
-      delete invoiceDetails['organisation']
-      delete invoiceDetails['vat_id']
+      delete invoiceDetails.organisation
+      delete invoiceDetails.vat_id
     } else {
-      delete invoiceDetails['title']
-      delete invoiceDetails['first_name']
-      delete invoiceDetails['last_name']
+      delete invoiceDetails.title
+      delete invoiceDetails.first_name
+      delete invoiceDetails.last_name
     }
     invoiceDetails.legal_form = invoiceDetails.type
     delete invoiceDetails.type
@@ -80,8 +81,15 @@ const SubscriptionPopUp = ({plan}) => {
       invoice_form: invoiceDetails
     }
     subscribe(data)
-      .then(() => {
-        dispatch(notifySuccess("Successfully subscribed"))
+      .then((res) => {
+        console.log(res)
+        dispatch(notifySuccess("Successfully subscribed. You will be redirected to stripe page"))
+        loadStripe(res.stripe_publishable_key)
+          .then(stripe => {
+            stripe.redirectToCheckout({
+              sessionId: res.stripe_session_id
+            })
+          })
       })
       .catch(err => {notifyError(`Error: ${err.message}`)})
 
