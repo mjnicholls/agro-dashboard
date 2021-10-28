@@ -24,6 +24,9 @@ import ResetPassword from './views/auth/ChangePassword'
 import Subscription from './views/personal-account/Subscription'
 import Subscription2 from './views/personal-account/SubscriptionPage3'
 
+import SuccessPage from './views/personal-account/subscription-form/SuccessPage'
+import FailurePage from './views/personal-account/subscription-form/FailurePage'
+
 const routes = [
   {
     path: '/polygons',
@@ -124,15 +127,25 @@ const routes = [
         component: AccountSettings,
         layout: '/users',
       },
-      // {
-      //   path: '/subscription2',
-      //   name: 'SubscriptionPage3',
-      //   rtlName: '',
-      //   mini: 'A',
-      //   rtlMini: '',
-      //   component: Subscription,
-      //   layout: '/users',
-      // },
+      {
+        path: '/subscription/success',
+        name: 'Success',
+        rtlName: '',
+        mini: 'I',
+        rtlMini: '',
+        component: SuccessPage,
+        layout: '/users',
+      },
+      {
+        path: '/subscription/failure',
+        name: 'Failure',
+        rtlName: '',
+        mini: 'I',
+        rtlMini: '',
+        component: FailurePage,
+        layout: '/users',
+      },
+
     ],
   },
   {
