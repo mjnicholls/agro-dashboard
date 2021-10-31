@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react'
-import { Card, CardBody, Col, Row } from 'reactstrap'
-import { getAccountInfo } from '../../api/personalAccount'
 
-import UserSettings from './account-settings/UserSettings'
-import UserPassword from './account-settings/UserPassword'
-import PrivacySettings from './account-settings/PrivacySettings'
+import { Card, CardBody, Col, Row } from 'reactstrap'
+
+import { getAccountInfo } from '../../api/personalAccount'
+import TabsSelector from '../components/TabsSelector'
+import UnitsRadioButtons from '../components/UnitsRadioButtons'
 import BillingInfo from './account-settings/BillingInformation2'
 import DeleteAcctCard from './account-settings/DeleteAccount'
-import UnitsRadioButtons from '../components/UnitsRadioButtons'
-import TabsSelector from '../components/TabsSelector'
+import PrivacySettings from './account-settings/PrivacySettings'
+import UserPassword from './account-settings/UserPassword'
+import UserSettings from './account-settings/UserSettings'
 
 const tabsOptions = [
   { id: 'user', label: 'User Settings' },

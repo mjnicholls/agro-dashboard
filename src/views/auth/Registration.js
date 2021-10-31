@@ -1,8 +1,16 @@
 import React, { useRef, useState } from 'react'
 
+import {
+  faKey,
+  faMapMarkerAlt,
+  faSatellite,
+  faTemperatureLow,
+} from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import classnames from 'classnames'
 import ReCAPTCHA from 'react-google-recaptcha'
 import { useDispatch } from 'react-redux'
+import { NavLink } from 'react-router-dom'
 import {
   Button,
   Card,
@@ -22,129 +30,84 @@ import {
   Row,
   Col,
 } from 'reactstrap'
-import { NavLink } from 'react-router-dom'
 
+import { createNewUser } from '../../api/auth'
+import cardPrimary from '../../assets/img/card-primary.png'
+import {
+  errors,
+  passwordLength,
+  RECAPTCHA_SITE_KEY,
+} from '../../config'
 import {
   notifyError,
   notifySuccess,
 } from '../../features/notifications/actions'
 
-import cardPrimary from '../../assets/img/card-primary.png'
-import { createNewUser } from '../../api/auth'
-import {
-  passwordLength,
-  RECAPTCHA_SITE_KEY,
-  RECAPTCHA_SECRET_KEY,
-} from '../../config'
-
-import {
-  faKey,
-  faMapMarkerAlt,
-  faSatellite,
-  faTemperatureLow,
-} from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const RegisterForm = () => {
   const [state, setState] = React.useState({})
   const [error, setError] = useState({})
-  const [captchaError, setCaptchaError] = useState(null)
-  const [username, setUsername] = useState('')
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [confirmPass, setConfirmPass] = useState('')
-  const [checkAge, setCheckAge] = useState(false)
-  const [checkTerms, setCheckTerms] = useState(false)
-  const dispatch = useDispatch()
   const [mailSettings, setMailSettings] = useState({
     news: false,
     product: false,
     system: false,
   })
+  const [user, setUser] = useState({
+    name: '',
+    username: '',
+    password: '',
+    confirmPass: ''
+  })
+  const [isAge, setIsAge] = useState(false)
+  const [isTerms, setIsTerms] = useState(false)
+  const dispatch = useDispatch()
 
   const recaptchaRef = useRef()
 
-  const onSubmitWithReCAPTCHA = () => {
-    const recaptchaValue = recaptchaRef.current.getValue()
-    console.log('recaptchaValue', recaptchaValue)
-    // .then((res) => console.log("res", res))
-    // .catch(err => {
-    //   console.log("err", err)
-    //   setCaptchaError(true)
-    // })
-
-    // apply to form data
-  }
-
-  const createUser = () => {
+  const signUp = () => {
     setError({})
-    onSubmitWithReCAPTCHA()
-    let newError = {}
-
-    if (
-      !username.length ||
-      !email.length ||
-      !password.length ||
-      !confirmPass.length
-    ) {
-      newError.username = !username.length
-      newError.email = !email.length
-      newError.pass = !password.length
-      newError.confirmPass = !confirmPass.length
-      dispatch(notifyError('Cannot be empty'))
-      setError(newError)
-      return
-    }
-
-    // password conditions
-
-    if (
-      password.length < passwordLength ||
-      confirmPass.length < passwordLength
-    ) {
-      newError = {
-        pass: password.length < passwordLength,
-        confirmPass: confirmPass.length < passwordLength,
+    const newError = {}
+    const requiredFields = ["username", "email", "password", "confirmPass"]
+    for (let i=0; i < requiredFields.length; i+=1) {
+      if (!user[requiredFields[i]]) {
+        newError[requiredFields[i]] = errors.noBlank
       }
-      dispatch(
-        notifyError(`Password must be ${passwordLength} characters or more`),
-      )
-      setError(newError)
-      return
+    }
+    if (user.password.length < passwordLength) {
+      newError.password = errors.passwordLength
+    }
+    if (user.confirmPass.length < passwordLength) {
+      newError.confirmPass = errors.passwordLength
+    }
+    if (user.password !== user.confirmPass) {
+      newError.password = errors.passwordMissMatch
+      newError.confirmPass = errors.passwordMissMatch
+    }
+    if (!isAge) {
+      newError.isAge = 'Please confirm you are 16 years old or older'
+    }
+    if (!isTerms) {
+      newError.isTerms = 'Please agree to the privacy policy'
     }
 
-    if (password !== confirmPass) {
-      newError.pass = true
-      newError.confirmPass = true
-      dispatch(notifyError('Passwords do not match'))
-      setError(newError)
-      return
+    if (!recaptchaRef.current.getValue()) {
+      newError.recaptcha = "reCAPTCHA verification failed, please try again."
     }
 
-    if (checkAge === false) {
-      newError.checkAge = true
-      dispatch(notifyError('Please confirm you are 16 years or over'))
-      setError(newError)
-      return
-    }
-
-    if (checkTerms === false) {
-      newError.checkTerms = true
-      dispatch(notifyError('Please agree to the privacy policy'))
+    console.log("newError", newError)
+    if (Object.keys(newError).length) {
       setError(newError)
       return
     }
 
     const data = {
       user: {
-        username,
-        email,
-        password,
-        password_confirmation: confirmPass,
+        ...user,
+        password_confirmation: user.confirmPass,
       },
       agreement: {
-        is_age_confirmed: checkAge ? '1' : '0',
-        is_accepted: checkTerms ? '1' : '0',
+        is_age_confirmed: isAge ? '1' : '0',
+        is_accepted: isTerms ? '1' : '0',
       },
       mailing: {
         system: mailSettings.system ? '1' : '0',
@@ -164,7 +127,7 @@ const RegisterForm = () => {
       .catch((err) => {
         console.log(err)
         dispatch(
-          notifyError(`Error registering ... please try again ${err.message}`), // TODO get errors
+          notifyError(`Error signing up: ${err.message}. Please try again.`),
         )
       })
   }
@@ -175,8 +138,10 @@ const RegisterForm = () => {
     setMailSettings(newObj)
   }
 
-  const onChange = (value) => {
-    console.log('Captcha value:', value)
+  const updateUser = (key, value) => {
+    const newObj = { ...user }
+    newObj[key] = value
+    setUser(newObj)
   }
 
   return (
@@ -185,7 +150,7 @@ const RegisterForm = () => {
         <Row>
           <Col className="ml-auto" md="5">
             <div className="info-area info-horizontal mt-5">
-              <div className="icon icon-warning">
+              <div className="icon icon-primary">
                 <FontAwesomeIcon icon={faSatellite} />
               </div>
               <div className="description">
@@ -193,8 +158,8 @@ const RegisterForm = () => {
                   Satellite imagery archive and wide range of vegetation indices{' '}
                 </h3>
                 <p className="description">
-                  NDVI, EVI, DSWI, NDWI, NRI, etc. lets you identify anomalies
-                  in your fields and plan further actions, and with a historical
+                  NDVI, EVI, DSWI, NDWI, NRI and other vegetation indices let you identify anomalies
+                  in your fields and plan further actions, and with historical
                   NDVI chart you can analyze the changes in the level of
                   vegetation in your field through the seasons
                 </p>
@@ -218,27 +183,27 @@ const RegisterForm = () => {
               </div>
             </div>
             <div className="info-area info-horizontal">
-              <div className="icon icon-info">
+              <div className="icon icon-primary">
                 <FontAwesomeIcon icon={faMapMarkerAlt} />
               </div>
               <div className="description">
                 <h3 className="info-title">Advanced crop recognition </h3>
                 <p className="description">
-                  Based on Machine Learning technology, it will help you to get
+                  Based on Machine Learning technology, it will help you get
                   information on the state of fields, their crops and NDVI
                   statistics through the years.
                 </p>
               </div>
             </div>
             <div className="info-area info-horizontal">
-              <div className="icon icon-info">
+              <div className="icon icon-primary">
                 <FontAwesomeIcon icon={faKey} />
               </div>
               <div className="description">
                 <h3 className="info-title">Agro API access</h3>
                 <p className="description">
-                  Easy-to-use Agro API will help you to build your own
-                  agricultural dashboard or app. Just sign up and get your API
+                  Easy-to-use Agro API will help you build your own
+                  agricultural dashboard or app. Simply sign up and get your API
                   key to start working on a new project.
                 </p>
               </div>
@@ -251,9 +216,9 @@ const RegisterForm = () => {
                 <CardTitle tag="h4">Register</CardTitle>
               </CardHeader>
               <CardBody>
-                <Form className="form">
+                <Form className="form p-3">
                   <InputGroup
-                    className={classnames({
+                    className={classnames('mb-0 mt-2 ', {
                       'input-group-focus': state.emailFocus,
                       'has-danger': error.email,
                     })}
@@ -266,14 +231,22 @@ const RegisterForm = () => {
                     <Input
                       placeholder="Email Address"
                       type="text"
-                      onChange={(e) => setEmail(e.target.value)}
+                      value={user.email}
+                      onChange={(e) => updateUser('email', e.target.value)}
                       onFocus={() => setState({ ...state, emailFocus: true })}
                       onBlur={() => setState({ ...state, emailFocus: false })}
                     />
                   </InputGroup>
-
+                  <div
+                      className={classnames(
+                        'invalid-feedback ',
+                        error.email ? 'd-block' : '',
+                      )}
+                    >
+                      {error.email}
+                    </div>
                   <InputGroup
-                    className={classnames({
+                    className={classnames('mb-0 mt-2 ', {
                       'input-group-focus': state.usernameFocus,
                       'has-danger': error.username,
                     })}
@@ -286,7 +259,8 @@ const RegisterForm = () => {
                     <Input
                       placeholder="Full Name"
                       type="text"
-                      onChange={(e) => setUsername(e.target.value)}
+                      value={user.username}
+                      onChange={(e) => updateUser('username', e.target.value)}
                       onFocus={() =>
                         setState({ ...state, usernameFocus: true })
                       }
@@ -295,8 +269,16 @@ const RegisterForm = () => {
                       }
                     />
                   </InputGroup>
+                  <div
+                      className={classnames(
+                        'invalid-feedback ',
+                        error.username ? 'd-block' : '',
+                      )}
+                    >
+                      {error.username}
+                    </div>
                   <InputGroup
-                    className={classnames({
+                    className={classnames('mb-0 mt-2 ', {
                       'input-group-focus': state.passFocus,
                       'has-danger': error.pass,
                     })}
@@ -309,14 +291,23 @@ const RegisterForm = () => {
                     <Input
                       placeholder="Password"
                       type="password"
+                      value={user.password}
                       autoComplete="off"
-                      onChange={(e) => setPassword(e.target.value)}
+                      onChange={(e) => updateUser('password', e.target.value)}
                       onFocus={() => setState({ ...state, passFocus: true })}
                       onBlur={() => setState({ ...state, passFocus: false })}
                     />
                   </InputGroup>
+                  <div
+                      className={classnames(
+                        'invalid-feedback ',
+                        error.password ? 'd-block' : '',
+                      )}
+                    >
+                      {error.password}
+                    </div>
                   <InputGroup
-                    className={classnames({
+                    className={classnames('mb-0 mt-2 ', {
                       'input-group-focus': state.confirmPassFocus,
                       'has-danger': error.confirmPass,
                     })}
@@ -330,7 +321,8 @@ const RegisterForm = () => {
                       placeholder="Confirm Password"
                       type="password"
                       autoComplete="off"
-                      onChange={(e) => setConfirmPass(e.target.value)}
+                      value={user.confirmPass}
+                      onChange={(e) => updateUser('confirmPass', e.target.value)}
                       onFocus={() =>
                         setState({ ...state, confirmPassFocus: true })
                       }
@@ -339,7 +331,15 @@ const RegisterForm = () => {
                       }
                     />
                   </InputGroup>
-                  <Label style={{ margin: '20px 5px 20px 20px' }}>
+                  <div
+                      className={classnames(
+                        'invalid-feedback ',
+                        error.confirmPass ? 'd-block' : '',
+                      )}
+                    >
+                      {error.confirmPass}
+                    </div>
+                  <div className="my-3">
                     <span className="form-check-sign">
                       We will use information you provided for management and
                       administration purposes, and for keeping you informed by
@@ -356,26 +356,34 @@ const RegisterForm = () => {
                         Privacy Policy.
                       </a>
                     </span>
-                  </Label>
+                  </div>
+
                   <FormGroup check className="text-left">
                     <Label check>
                       <Input
                         type="checkbox"
-                        onChange={(e) => setCheckAge(!checkAge)}
-                        checked={checkAge}
+                        onChange={() => setIsAge(!isAge)}
+                        checked={isAge}
                       />
-                      <span className="form-check-sign" />I am 16 years or over
+                      <span className="form-check-sign" />I am 16 years old or older
                     </Label>
+                    <div
+                      className={classnames(
+                        'invalid-feedback mt-0 ',
+                        error.isAge ? 'd-block' : '',
+                      )}
+                    >
+                      {error.isAge}
+                    </div>
                   </FormGroup>
                   <FormGroup check className="text-left">
                     <Label check>
                       <Input
                         type="checkbox"
-                        //className={error.checkTerms ? 'danger-border' : ''}
-                        onChange={(e) => setCheckTerms(!checkTerms)}
-                        checked={checkTerms}
+                        onChange={() => setIsTerms(!isTerms)}
+                        checked={isTerms}
                       />
-                      <span className="form-check-sign" />I agree with{' '}
+                      <span className="form-check-sign" />I agree to the{' '}
                       <a
                         href="https://agromonitoring.com/privacy-policy"
                         target="_blank"
@@ -400,17 +408,23 @@ const RegisterForm = () => {
                         Website&#39;s terms and conditions of use
                       </a>
                     </Label>
+                    <div
+                      className={classnames(
+                        'invalid-feedback mt-0 ',
+                        error.isTerms ? 'd-block' : '',
+                      )}
+                    >
+                      {error.isTerms}
+                    </div>
                   </FormGroup>
-                </Form>
                 <hr />
-                <Form className="form">
-                  <Label style={{ margin: '10px 5px 10px 20px' }}>
-                    <span className="form-check-sign">
-                      I consent to receive communications from Extreme
-                      Electronics Ltd. and their partners:
-                    </span>
-                  </Label>
-                  <FormGroup check className="text-left">
+                <div className="my-3">
+                  <span className="form-check-sign">
+                    I consent to receive communications from Extreme
+                    Electronics Ltd. and their partners:
+                  </span>
+                </div>
+                  <FormGroup check>
                     <Label check>
                       <Input
                         type="checkbox"
@@ -423,7 +437,7 @@ const RegisterForm = () => {
                       system shutdown, etc)
                     </Label>
                   </FormGroup>
-                  <FormGroup check className="text-left">
+                  <FormGroup check>
                     <Label check>
                       <Input
                         type="checkbox"
@@ -435,7 +449,7 @@ const RegisterForm = () => {
                       Product news (change to price, new product features, etc)
                     </Label>
                   </FormGroup>
-                  <FormGroup check className="text-left">
+                  <FormGroup check>
                     <Label check className="mr-3">
                       <Input
                         type="checkbox"
@@ -448,16 +462,22 @@ const RegisterForm = () => {
                       etc)
                     </Label>
                   </FormGroup>
-                  <FormGroup className="text-left">
+                  <FormGroup className="my-5">
                     <Label>
                       <ReCAPTCHA
                         ref={recaptchaRef}
-                        style={{ marginLeft: '15px', marginTop: '35px' }}
                         sitekey={RECAPTCHA_SITE_KEY}
-                        onChange={onChange}
                       />
+                      <div
+                      className={classnames(
+                        'invalid-feedback ',
+                        error.recaptcha ? 'd-block' : '',
+                      )}
+                    >
+                      {error.recaptcha}
+                    </div>
                     </Label>
-                    {/* Secret Key: 6Ler3aocAAAAABa_3uUTRkSIfyiJrxd9MYiXshEU */}
+
                   </FormGroup>
                 </Form>
               </CardBody>
@@ -470,7 +490,7 @@ const RegisterForm = () => {
                 <Button
                   className="btn-round"
                   color="primary"
-                  onClick={createUser}
+                  onClick={signUp}
                   size="lg"
                 >
                   Sign up

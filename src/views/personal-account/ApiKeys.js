@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
+import classnames from 'classnames'
 import ReactBSAlert from 'react-bootstrap-sweetalert'
 import { useDispatch } from 'react-redux'
 import {
@@ -19,15 +20,13 @@ import {
 } from 'reactstrap'
 
 import { createApiKey, getAPIKeys } from '../../api/personalAccount'
+import { noBlankErrorMessage } from '../../config'
 import {
   notifyError,
   notifySuccess,
 } from '../../features/notifications/actions'
 import APIKeyEdit from './APIKeyEdit'
 import ApiKeysDelete from './APIKeysDelete'
-import classnames from 'classnames'
-
-import { noBlankErrorMessage } from '../../config'
 
 const ApiKeys = () => {
   const dispatch = useDispatch()

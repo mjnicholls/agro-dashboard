@@ -1,15 +1,17 @@
 import React, { useState } from 'react'
+
+import PropTypes from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux'
+import { NavLink } from 'react-router-dom'
 import Select from 'react-select'
 import { Button, Col, FormGroup, Row } from 'reactstrap'
-import { NavLink } from 'react-router-dom'
+
 import { deleteAcct } from '../../../api/personalAccount'
+import { deleteAcctOptions } from '../../../config'
 import {
   notifyError,
   notifySuccess,
 } from '../../../features/notifications/actions'
-import { deleteAcctOptions } from '../../../config'
-import PropTypes from 'prop-types'
 
 const userSubscriptionSelector = (state) => state.auth.user.tariff
 

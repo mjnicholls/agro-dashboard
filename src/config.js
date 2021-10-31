@@ -18,6 +18,14 @@ export const supportEmailMailTo = `mailto:${supportEmail}`
 
 export const polygonShapeSize = 48
 export const startSatelliteImagesSearchDate = 1262304000
+export const passwordLength = 8
+
+export const errors = {
+  tariff: 'This feature is not available with your subscription plan',
+  noBlank: 'Cannot be blank',
+  passwordLength: `Password must be ${passwordLength} characters or more`,
+  passwordMissMatch: 'Passwords don\'t match'
+}
 
 export const tariffError =
   'This feature is not available with your subscription plan'
@@ -1590,4 +1598,3 @@ export const deleteAcctOptions = [
   { value: 'Wrong email', label: 'Wrong email' },
 ]
 
-export const passwordLength = 8

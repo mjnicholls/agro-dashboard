@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react'
 
+import classnames from 'classnames'
 import queryString from 'query-string'
 import { useDispatch } from 'react-redux'
-
-import classnames from 'classnames'
-
 import { NavLink } from 'react-router-dom'
 import {
   Button,
@@ -21,14 +19,12 @@ import {
   InputGroup,
 } from 'reactstrap'
 
+import { changePassword } from '../../api/auth'
+import { noBlankErrorMessage, passwordLength } from '../../config'
 import {
   notifyError,
   notifySuccess,
 } from '../../features/notifications/actions'
-
-import { changePassword } from '../../api/auth'
-
-import { noBlankErrorMessage, passwordLength } from '../../config'
 
 const ChangePassword = (props) => {
   const [state, setState] = useState({})

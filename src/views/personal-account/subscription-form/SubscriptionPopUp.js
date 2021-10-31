@@ -1,25 +1,25 @@
 import React, { useEffect, useState } from 'react'
+
+import classnames from 'classnames'
 import { useDispatch } from 'react-redux'
 import { Button, Col, Form, Label, Row } from 'reactstrap'
 
-import { getAccountInfo } from '../../../api/personalAccount'
 import {
   updateBillingDetails,
   validateVat,
   createBillingDetails,
   subscribe,
 } from '../../../api/billing'
-
+import { getAccountInfo } from '../../../api/personalAccount'
+import { noBlankErrorMessage } from '../../../config'
 import {
   notifyError,
   notifySuccess,
 } from '../../../features/notifications/actions'
-
+import { validatePhoneNumber } from '../../../utils/validation'
 import Step1 from './Step1'
 import Step2 from './Step2'
-import { noBlankErrorMessage } from '../../../config'
-import { validatePhoneNumber } from '../../../utils/validation'
-import classnames from 'classnames'
+
 // eslint-disable-next-line
 import { loadStripe } from '@stripe/stripe-js'
 

@@ -1,22 +1,20 @@
 import React, { useEffect, useState } from 'react'
 
+import PropTypes from 'prop-types'
 import ReactBSAlert from 'react-bootstrap-sweetalert'
 import { useDispatch, useSelector } from 'react-redux'
-import PropTypes from 'prop-types'
+import { Button, Col, Row } from 'reactstrap'
 
 import { isSubscriptionAvailableAPI, unsubscribe } from '../../api/billing'
 import {
   notifySuccess,
   notifyError,
 } from '../../features/notifications/actions'
-
-import { Button, Col, Row } from 'reactstrap'
-
 import ContactUsButton from '../components/ContactUsButton'
 
 const userSelector = (state) => state.auth.user
 
-const Unsubscribe = ({callback}) => {
+const Unsubscribe = ({ callback }) => {
   const [alert, setAlert] = useState(null)
   const [isSubscriptionAvailable, setIsSubscriptionAvailable] = useState(null)
 
@@ -110,7 +108,7 @@ const Unsubscribe = ({callback}) => {
 }
 
 Unsubscribe.propTypes = {
-  callback: PropTypes.func
+  callback: PropTypes.func,
 }
 
 export default Unsubscribe

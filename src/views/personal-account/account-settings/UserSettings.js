@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 
+import classnames from 'classnames'
+import PropTypes from 'prop-types'
 import { useDispatch } from 'react-redux'
 import {
   Button,
@@ -14,15 +16,12 @@ import {
   Label,
 } from 'reactstrap'
 
+import { updateUserSettings } from '../../../api/personalAccount'
+import { noBlankErrorMessage } from '../../../config'
 import {
   notifyError,
   notifySuccess,
 } from '../../../features/notifications/actions'
-import { updateUserSettings } from '../../../api/personalAccount'
-import PropTypes from 'prop-types'
-
-import { noBlankErrorMessage } from '../../../config'
-import classnames from 'classnames'
 
 const UserSettings = ({ user, handleUserState }) => {
   const [error, setError] = useState({})

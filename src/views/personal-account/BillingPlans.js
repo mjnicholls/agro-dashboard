@@ -1,17 +1,18 @@
+/* eslint-disable */
 import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
 
+import { faCheckCircle, faInfoCircle } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import ReactBSAlert from 'react-bootstrap-sweetalert'
+import { useSelector } from 'react-redux'
+import { HashLink } from 'react-router-hash-link'
 import { Button, Card, CardBody, Row, Col, Table } from 'reactstrap'
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCheckCircle, faInfoCircle } from '@fortawesome/free-solid-svg-icons'
-import ReactBSAlert from 'react-bootstrap-sweetalert'
-import SubscriptionPopUp from './subscription-form/SubscriptionPopUp'
-import Map from '../maps/MapCovereage'
 import { isSubscriptionAvailableAPI } from '../../api/billing'
-import ContactUsButton from '../components/ContactUsButton'
-import { HashLink } from 'react-router-hash-link'
 import { supportEmailMailTo } from '../../config'
+import ContactUsButton from '../components/ContactUsButton'
+import Map from '../maps/MapCovereage'
+import SubscriptionPopUp from './subscription-form/SubscriptionPopUp'
 
 const userSelector = (state) => state.auth.user
 
@@ -118,7 +119,7 @@ const BillingPlans = () => {
   const ShowSubscribeButton = ({ plan }) => {
     if (plan === subscription) {
       return (
-        <h6 className="p-2" style={{color: '#e14eca'}}>
+        <h6 className="p-2" style={{ color: '#e14eca' }}>
           Your plan
         </h6>
       )
@@ -126,7 +127,7 @@ const BillingPlans = () => {
     if (plan === 'corp') {
       return <ContactUsButton />
     }
-    if (plan === "free") {
+    if (plan === 'free') {
       return null
     }
     return isSubscriptionAvailable ? buttonSubscribe(plan) : <ContactUsButton />
@@ -228,7 +229,12 @@ const BillingPlans = () => {
                       <td>
                         <HashLink
                           to={`${window.location.pathname}#coverage`}
-                          scroll={(el) => el.scrollIntoView({ behavior: 'smooth', block: 'start' })}
+                          scroll={(el) =>
+                            el.scrollIntoView({
+                              behavior: 'smooth',
+                              block: 'start',
+                            })
+                          }
                         >
                           All available data
                         </HashLink>
@@ -236,7 +242,12 @@ const BillingPlans = () => {
                       <td>
                         <HashLink
                           to={`${window.location.pathname}#coverage`}
-                          scroll={(el) => el.scrollIntoView({ behavior: 'smooth', block: 'start' })}
+                          scroll={(el) =>
+                            el.scrollIntoView({
+                              behavior: 'smooth',
+                              block: 'start',
+                            })
+                          }
                         >
                           All available data
                         </HashLink>{' '}
@@ -245,11 +256,16 @@ const BillingPlans = () => {
                       <td>
                         <HashLink
                           to={`${window.location.pathname}#coverage`}
-                          scroll={(el) => el.scrollIntoView({ behavior: 'smooth', block: 'start' })}
+                          scroll={(el) =>
+                            el.scrollIntoView({
+                              behavior: 'smooth',
+                              block: 'start',
+                            })
+                          }
                         >
                           All available data
-                        </HashLink>{' '} + total
-                        archive on request
+                        </HashLink>{' '}
+                        + total archive on request
                       </td>
                       <td>Total archive</td>
                     </tr>
@@ -279,8 +295,9 @@ const BillingPlans = () => {
                         <a
                           href="https://agromonitoring.com/api/images"
                           target="_blank"
-                        >Satellite imagery (NDVI, EVI, EVI2, NDWI, NRI, True
-                        color, False color)
+                        >
+                          Satellite imagery (NDVI, EVI, EVI2, NDWI, NRI, True
+                          color, False color)
                         </a>
                       </td>
                       <td>
@@ -680,10 +697,10 @@ const BillingPlans = () => {
 
         <Row>
           <Col className="mb-0" md="12" mt="20">
-            <Card >
-              {/*<CardHeader>*/}
-              {/*<h3>Where you can get satellite imagery data right now</h3>*/}
-              {/*</CardHeader>*/}
+            <Card>
+              {/* <CardHeader> */}
+              {/* <h3>Where you can get satellite imagery data right now</h3> */}
+              {/* </CardHeader> */}
               <CardBody>
                 <Row>
                   <Col>
@@ -710,10 +727,7 @@ const BillingPlans = () => {
                   <Col>
                     <p>
                       Please{' '}
-                      <a
-                        href={supportEmailMailTo}
-                        target="_blank"
-                      >
+                      <a href={supportEmailMailTo} target="_blank">
                         contact us
                       </a>{' '}
                       with any questions. We will do our best to prepare a

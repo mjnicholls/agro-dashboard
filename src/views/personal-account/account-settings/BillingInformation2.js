@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 
 import classnames from 'classnames'
+import PropTypes from 'prop-types'
 import { useDispatch } from 'react-redux'
 import Select from 'react-select'
 import {
@@ -18,20 +19,18 @@ import {
   Row,
 } from 'reactstrap'
 
-import { countriesDefault, noBlankErrorMessage, titles } from '../../../config'
-import {
-  notifyError,
-  notifySuccess,
-} from '../../../features/notifications/actions'
 import {
   updateBillingDetails,
   validateVat,
   getCountries,
   createBillingDetails,
 } from '../../../api/billing'
+import { countriesDefault, noBlankErrorMessage, titles } from '../../../config'
+import {
+  notifyError,
+  notifySuccess,
+} from '../../../features/notifications/actions'
 import { validatePhoneNumber } from '../../../utils/validation'
-
-import PropTypes from 'prop-types'
 
 const BillingInfo = ({
   invoiceSettings,

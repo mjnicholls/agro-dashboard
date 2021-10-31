@@ -8,10 +8,10 @@ import { NavLink, Redirect, Route, Switch, useLocation } from 'react-router-dom'
 import { UncontrolledAlert } from 'reactstrap'
 
 // core components
-import logo from '../../assets/img/agro-logo.png'
 import Footer from '../../_template/components/Footer/Footer'
 import AdminNavbar from '../../_template/components/Navbars/AdminNavbar'
 import Sidebar from '../../_template/components/Sidebar/Sidebar2'
+import logo from '../../assets/img/agro-logo.png'
 import { fetchPolygons } from '../../features/polygons/actions'
 import routes from '../../routes'
 import EmailConfirmationNotification from '../../views/components/NotificationEmailConfirmation'

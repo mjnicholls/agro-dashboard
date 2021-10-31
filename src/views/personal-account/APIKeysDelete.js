@@ -1,12 +1,14 @@
 import React from 'react'
+
+import PropTypes from 'prop-types'
 import { useDispatch } from 'react-redux'
 import { Button, Col, Row } from 'reactstrap'
+
 import { deleteAPIKey } from '../../api/personalAccount'
 import {
   notifyError,
   notifySuccess,
 } from '../../features/notifications/actions'
-import PropTypes from 'prop-types'
 
 const ApiKeyDelete = ({ apiKey, close, refreshData }) => {
   const dispatch = useDispatch()

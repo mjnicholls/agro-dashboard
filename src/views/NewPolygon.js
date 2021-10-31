@@ -7,8 +7,8 @@ import { Col, Row } from 'reactstrap'
 import { getAPIKeyStatus } from '../api/personalAccount'
 import { setApiKeyStatus } from '../features/auth/actions'
 import { getPageHeight } from '../utils/utils'
-import MapBoxDraw from './maps/MapBoxDraw'
 import PolygonCreateCard from './dashboard/small-cards/PolygonCreateCard'
+import MapBoxDraw from './maps/MapBoxDraw'
 
 const selectIsApiKeyValid = (state) => state.auth.isApiKeyValid
 

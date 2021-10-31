@@ -1,4 +1,6 @@
 import React from 'react'
+
+import PropTypes from 'prop-types'
 import { useDispatch } from 'react-redux'
 import {
   Button,
@@ -20,7 +22,6 @@ import {
   notifyError,
   notifySuccess,
 } from '../../../features/notifications/actions'
-import PropTypes from 'prop-types'
 
 const PrivacySettings = ({ mailSettings, setMailSettings }) => {
   const dispatch = useDispatch()

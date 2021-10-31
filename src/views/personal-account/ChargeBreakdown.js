@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { numberWithCommas } from '../../utils/utils'
 
 import {
   Button,
@@ -17,7 +16,9 @@ import {
   TabPane,
   UncontrolledTooltip,
 } from 'reactstrap'
+
 import { getPolygons } from '../../api/personalAccount'
+import { numberWithCommas } from '../../utils/utils'
 import ExportPolygons from './ExportPolygons'
 
 const ChargeBreakDown = () => {

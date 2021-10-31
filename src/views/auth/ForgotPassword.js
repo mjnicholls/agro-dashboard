@@ -1,9 +1,7 @@
 import React, { useState } from 'react'
 
-import { useDispatch } from 'react-redux'
-
 import classnames from 'classnames'
-
+import { useDispatch } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 import {
   Button,
@@ -22,14 +20,13 @@ import {
   Row,
 } from 'reactstrap'
 
+import { forgotPassword } from '../../api/auth'
+import { noBlankErrorMessage } from '../../config'
 import {
   notifyError,
   notifySuccess,
 } from '../../features/notifications/actions'
-
-import { forgotPassword } from '../../api/auth'
 import { validateEmail } from '../../utils/validation'
-import { noBlankErrorMessage } from '../../config'
 
 const ForgotPassword = () => {
   const [emailFocus, setEmailFocus] = React.useState(false)

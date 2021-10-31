@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 
+import classnames from 'classnames'
 import { useDispatch } from 'react-redux'
 import {
   Button,
@@ -14,14 +15,12 @@ import {
   Label,
 } from 'reactstrap'
 
+import { updatePassword } from '../../../api/personalAccount'
+import { noBlankErrorMessage } from '../../../config'
 import {
   notifyError,
   notifySuccess,
 } from '../../../features/notifications/actions'
-import { updatePassword } from '../../../api/personalAccount'
-import classnames from 'classnames'
-
-import { noBlankErrorMessage } from '../../../config'
 
 const UserPassword = () => {
   const [pass, setPass] = useState('')

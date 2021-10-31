@@ -4,16 +4,16 @@ import { useSelector } from 'react-redux'
 import { Col, Row } from 'reactstrap'
 
 import { getOneCallData } from '../api/weather'
-import PolygonTable from './dashboard/PolygonTable'
 import CombinedChart from './charts/CombinedChart'
 import NdviChart from './charts/NdviChart'
-import MapBox from './maps/MapBox'
+import PolygonTable from './dashboard/PolygonTable'
 import ImageStats from './dashboard/small-cards/LayerStats'
 import PolygonInfo from './dashboard/small-cards/PolygonInfo'
 import PolygonTableSmall from './dashboard/small-cards/PolygonList'
 import PolygonsTotalStats from './dashboard/small-cards/PolygonsTotalStats'
 import SoilCurrent from './dashboard/small-cards/SoilCurrent'
 import WeatherCurrent from './dashboard/small-cards/WeatherCurrent'
+import MapBox from './maps/MapBox'
 
 const selectPolygons = (state) => state.polygons
 const selectActivePoly = (state) => state.state.polygon

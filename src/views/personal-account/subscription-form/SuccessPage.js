@@ -11,8 +11,8 @@ import {
   Row,
 } from 'reactstrap'
 
-import { logoutUser } from '../../../features/auth/actions'
 import { supportEmailMailTo } from '../../../config'
+import { logoutUser } from '../../../features/auth/actions'
 
 const SuccessPage = () => {
   const dispatch = useDispatch()
