@@ -21,10 +21,9 @@ import AccountSettings from './views/personal-account/AccountSettings'
 import ApiKeys from './views/personal-account/ApiKeys'
 import BillingPlans from './views/personal-account/BillingPlans'
 import InvoiceList from './views/personal-account/Payments'
-import Subscription from './views/personal-account/Subscription'
 import FailurePage from './views/personal-account/subscription-form/FailurePage'
 import SuccessPage from './views/personal-account/subscription-form/SuccessPage'
-import Subscription2 from './views/personal-account/SubscriptionPage-2-1'
+import Subscription from './views/personal-account/SubscriptionPage-2-1'
 
 const routes = [
   {
@@ -95,7 +94,7 @@ const routes = [
         rtlName: '',
         mini: 'S',
         rtlMini: '',
-        component: Subscription2,
+        component: Subscription,
         layout: '/users',
       },
 

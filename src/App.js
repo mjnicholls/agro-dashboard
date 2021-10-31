@@ -1,6 +1,7 @@
 import React from 'react'
 
 import axios from 'axios'
+import GA4React from 'ga-4-react'
 import { Provider } from 'react-redux'
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom'
 
@@ -18,8 +19,6 @@ import store from './store'
 import AuthRoute from './views/AuthRoute'
 import Notifications from './views/components/NotificationsTemporary'
 
-// import GA4React from 'ga-4-react'
-
 axios.defaults.headers.common.Authorization = `Bearer ${
   store.getState().auth.token
 }`
@@ -34,58 +33,54 @@ axios.interceptors.response.use(
     let message = ''
     let newErr
     if (error.response && error.response.data) {
-      if (error.response.data.message) {
-        const m = error.response.data.message
-        if (typeof m === 'object') {
-          const arr = Object.keys(m)
+      const { data } = error.response
+      if ((data.description && data.description.message) || data.message) {
+        const errorMessage =
+          data.description && data.description.message
+            ? data.description.message
+            : data.message
+        if (typeof errorMessage === 'object') {
+          const arr = Object.keys(errorMessage)
           for (let i = 0; i < arr.length; i += 1) {
             const key = arr[i]
-            const val = m[key]
-            console.log(key, val)
+            const val = errorMessage[key]
             message += `${key} ${Array.isArray(val) ? val.join(', ') : val}`
           }
         } else {
-          message = m
+          message = errorMessage
         }
-      } else if (error.response.data.code && error.response.data.code === 404) {
+      } else if (data.code && data.code === 404) {
         // нет message, проверить код на 404
         message = 'Not found'
       }
       newErr = {
-        ...error.response.data,
+        ...data,
         message: message || 'Something went wrong',
       }
     }
+
     if (!newErr) {
       newErr = {
         ...error,
         message: 'Something went wrong',
       }
     }
-    // if (
-    //   error.response &&
-    //   error.response.data &&
-    //   error.response.data.message
-    // ) {
-    //   console.log("here", error.response.data)
-    //   newErr = {...error.response.data}
-    // }
+
     return Promise.reject(newErr)
   },
 )
 
-// const ga4react = new GA4React(
-//   'G-JE5157018X'
-// )
-//
-// ga4react.initialize().then(
-//   (ga4) => {
-//     ga4.pageview('path')
-//   },
-//   (err) => {
-//     console.error(err)
-//   },
-// )
+const ga4react = new GA4React('G-JE5157018X')
+
+ga4react.initialize().then(
+  (ga4) => {
+    ga4.pageview('path')
+  },
+  (err) => {
+    /* eslint-disable-next-line */
+    console.error(err)
+  },
+)
 
 const App = () => (
   <Provider store={store}>

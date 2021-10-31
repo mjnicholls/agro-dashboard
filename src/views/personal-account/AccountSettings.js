@@ -5,11 +5,11 @@ import { Card, CardBody, Col, Row } from 'reactstrap'
 import { getAccountInfo } from '../../api/personalAccount'
 import TabsSelector from '../components/TabsSelector'
 import UnitsRadioButtons from '../components/UnitsRadioButtons'
-import BillingInfo from './account-settings/BillingInformation2'
-import DeleteAcctCard from './account-settings/DeleteAccount'
-import PrivacySettings from './account-settings/PrivacySettings'
-import UserPassword from './account-settings/UserPassword'
-import UserSettings from './account-settings/UserSettings'
+import BillingInfo from './settings/BillingInformation2'
+import DeleteAcctCard from './settings/DeleteAccount'
+import PrivacySettings from './settings/PrivacySettings'
+import UserPassword from './settings/UserPassword'
+import UserSettings from './settings/UserSettings'
 
 const tabsOptions = [
   { id: 'user', label: 'User Settings' },

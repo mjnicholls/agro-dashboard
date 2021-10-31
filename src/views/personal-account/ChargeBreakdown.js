@@ -1,21 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
-import {
-  Button,
-  Card,
-  CardBody,
-  CardHeader,
-  CardTitle,
-  Col,
-  NavItem,
-  NavLink,
-  Nav,
-  Table,
-  Row,
-  TabContent,
-  TabPane,
-  UncontrolledTooltip,
-} from 'reactstrap'
+import { Table } from 'reactstrap'
 
 import { getPolygons } from '../../api/personalAccount'
 import { numberWithCommas } from '../../utils/utils'

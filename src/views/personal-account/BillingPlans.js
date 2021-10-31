@@ -1,4 +1,3 @@
-/* eslint-disable */
 import React, { useEffect, useState } from 'react'
 
 import { faCheckCircle, faInfoCircle } from '@fortawesome/free-solid-svg-icons'
@@ -6,11 +5,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import ReactBSAlert from 'react-bootstrap-sweetalert'
 import { useSelector } from 'react-redux'
 import { HashLink } from 'react-router-hash-link'
-import { Button, Card, CardBody, Row, Col, Table } from 'reactstrap'
+import { Button, Card, CardBody, Col, Row, Table } from 'reactstrap'
 
 import { isSubscriptionAvailableAPI } from '../../api/billing'
 import { supportEmailMailTo } from '../../config'
 import ContactUsButton from '../components/ContactUsButton'
+import ExceedingPriceInfo from '../components/ExceedingPriceInfo'
 import Map from '../maps/MapCovereage'
 import SubscriptionPopUp from './subscription-form/SubscriptionPopUp'
 
@@ -50,36 +50,7 @@ const BillingPlans = () => {
   }
 
   const priceInfoAlert = () => {
-    setAlert(
-      <ReactBSAlert
-        title="Price for exceeding area limit"
-        customClass="agro-alert-dark"
-        onConfirm={() => hideAlert()}
-        onCancel={() => hideAlert()}
-        showConfirm={false}
-        showCloseButton
-      >
-        <div className="text-left">
-          <p>
-            If you need a broader territory that exceeds your plan threshold,
-            you can still call data without limitation with Starter subscription
-            plan and above. In this case, you will be charged according to your
-            subscription plan. We send you an invoice for the exceeded amount at
-            the very beginning of the next month.
-          </p>
-
-          <p>
-            Please note that if a polygon was created and then deleted in the
-            same payment month, it <b>will be included</b> in the total area of
-            used polygons for that particular month, but it{' '}
-            <b>will not be included</b> in your next payment month. The total
-            area of used polygons will also include those polygons, which have
-            been created before the current payment month and that still exist
-            now or have been deleted during the current payment month.
-          </p>
-        </div>
-      </ReactBSAlert>,
-    )
+    setAlert(<ExceedingPriceInfo close={hideAlert} />)
   }
 
   const CorporateText = () => (

@@ -31,8 +31,6 @@ const UserSettings = ({ user, handleUserState }) => {
   const confirmUpdate = () => {
     setError({})
 
-    const newError = {}
-
     if (!user.full_name && !user.username) {
       setError({
         username: noBlankErrorMessage,
@@ -42,18 +40,16 @@ const UserSettings = ({ user, handleUserState }) => {
     }
 
     const data = {
-      // cannot send an empty string to back-end
-      new_username: user.username ? user.username : null,
-      new_full_name: user.name,
+      new_username: user.username,
+      new_full_name: user.full_name,
     }
 
     updateUserSettings(data)
       .then(() => {
         dispatch(notifySuccess('Details updated'))
       })
-      // eslint-disable-next-line
-      .catch((error) => {
-        dispatch(notifyError(`Error updating detais ' + ${error.message}`))
+      .catch((err) => {
+        dispatch(notifyError(`Error updating detais ' + ${err.message}`))
       })
   }
 

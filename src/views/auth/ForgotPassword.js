@@ -27,12 +27,14 @@ import {
   notifySuccess,
 } from '../../features/notifications/actions'
 import { validateEmail } from '../../utils/validation'
+import LoaderCircle from '../components/LoaderCircle'
 
 const ForgotPassword = () => {
   const [emailFocus, setEmailFocus] = React.useState(false)
 
   const [email, setEmail] = useState('')
-  const [error, setError] = useState(false)
+  const [error, setError] = useState(null)
+  const [isFetching, setIsFetching] = useState(false)
 
   const dispatch = useDispatch()
 
@@ -47,7 +49,7 @@ const ForgotPassword = () => {
       setError('Email address is incorrect')
       return
     }
-
+    setIsFetching(true)
     forgotPassword(email)
       .then(() => {
         dispatch(
@@ -58,7 +60,10 @@ const ForgotPassword = () => {
       })
       .catch((err) => {
         dispatch(notifyError(`Error resetting password: ${err.message}`))
-        setError(err.message)
+        setError(`Error resetting password: ${err.message}`)
+      })
+      .finally(() => {
+        setIsFetching(false)
       })
   }
 
@@ -75,37 +80,43 @@ const ForgotPassword = () => {
                   </CardTitle>
                 </CardHeader>
                 <CardBody>
-                  <Label>
-                    Enter your email and we will send you reset password
-                    instructions
-                  </Label>
-                  <InputGroup
-                    className={classnames('mb-0', {
-                      'input-group-focus': emailFocus,
-                      'has-danger': error,
-                    })}
-                  >
-                    <InputGroupAddon addonType="prepend">
-                      <InputGroupText>
-                        <i className="tim-icons icon-email-85" />
-                      </InputGroupText>
-                    </InputGroupAddon>
-                    <Input
-                      placeholder="Enter email"
-                      type="text"
-                      onChange={(e) => setEmail(e.target.value)}
-                      onFocus={() => setEmailFocus(true)}
-                      onBlur={() => setEmailFocus(false)}
-                    />
-                  </InputGroup>
-                  <div
-                    className={classnames(
-                      'invalid-feedback ',
-                      error ? 'd-block' : '',
-                    )}
-                  >
-                    {error}
-                  </div>
+                  {isFetching ? (
+                    <LoaderCircle />
+                  ) : (
+                    <>
+                      <Label>
+                        Enter your email and we will send you reset password
+                        instructions
+                      </Label>
+                      <InputGroup
+                        className={classnames('mb-0', {
+                          'input-group-focus': emailFocus,
+                          'has-danger': error,
+                        })}
+                      >
+                        <InputGroupAddon addonType="prepend">
+                          <InputGroupText>
+                            <i className="tim-icons icon-email-85" />
+                          </InputGroupText>
+                        </InputGroupAddon>
+                        <Input
+                          placeholder="Enter email"
+                          type="text"
+                          onChange={(e) => setEmail(e.target.value)}
+                          onFocus={() => setEmailFocus(true)}
+                          onBlur={() => setEmailFocus(false)}
+                        />
+                      </InputGroup>
+                      <div
+                        className={classnames(
+                          'invalid-feedback ',
+                          error ? 'd-block' : '',
+                        )}
+                      >
+                        {error}
+                      </div>
+                    </>
+                  )}
                 </CardBody>
                 <CardFooter className="d-flex justify-content-between align-items-center">
                   <h6>

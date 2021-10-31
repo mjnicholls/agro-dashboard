@@ -37,7 +37,7 @@ const tabsOptions = [
 ]
 
 const Subscription2 = () => {
-  const [activePage, setActivePage] = useState('charge') // Charges or Limits
+  const [activePage, setActivePage] = useState('charge') // Charges or LimitsApi
   const [activeTab, setActiveTab] = useState(tabsOptions[0]) // api or dashboard
 
   const [polygonsData, setPolygonsData] = useState({})
@@ -155,9 +155,7 @@ const Subscription2 = () => {
                                 {tariff === 'corp' ? (
                                   <h4 style={{ marginTop: '25px' }}>
                                     Need help?{' '}
-                                    <a href={supportEmailMailTo}>
-                                      Contact us.
-                                    </a>
+                                    <a href={supportEmailMailTo}>Contact us.</a>
                                   </h4>
                                 ) : (
                                   <Link to="/dashboard/billing-plans">
@@ -480,8 +478,8 @@ const Subscription2 = () => {
                               <tbody>
                                 <tr>
                                   <td>
-                                    Satellite imagery (DVI, EVI, EVI2, NDWI, NRI, True
-                                    color, False color) data update
+                                    Satellite imagery (DVI, EVI, EVI2, NDWI,
+                                    NRI, True color, False color) data update
                                   </td>
                                   <td>
                                     <p>{data.satelitte_imagery_service}</p>

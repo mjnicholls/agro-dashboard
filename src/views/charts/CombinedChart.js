@@ -95,7 +95,7 @@ const CombinedChart = ({ polyId, onecall }) => {
      * - accumulated precipitation
      * - history soil
      * - history weather data
-     * Limits come from backend as:
+     * LimitsApi come from backend as:
      * -1: unlimited
      * 0: not available for this tariff
      * int - number in years

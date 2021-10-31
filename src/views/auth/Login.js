@@ -1,10 +1,8 @@
 import React from 'react'
 
-import { css } from '@emotion/react'
 import classnames from 'classnames'
 import { useDispatch, useSelector } from 'react-redux'
 import { NavLink, Redirect } from 'react-router-dom'
-import DotLoader from 'react-spinners/DotLoader'
 import {
   Button,
   Card,
@@ -25,14 +23,11 @@ import {
 import cardPrimary from '../../assets/img/card-primary.png'
 import { loginUser, clearLoginError } from '../../features/auth/actions'
 import { validateEmail } from '../../utils/validation'
+import LoaderCircle from '../components/LoaderCircle'
 
 const isAuthenticatedSelector = (state) => state.auth.isAuthenticated
 const isFetchingSelector = (state) => state.auth.isFetching
 const errorMessageSelector = (state) => state.auth.errorMessage
-
-const override = css`
-  align-self: center;
-`
 
 const Login = (props) => {
   const [state, setState] = React.useState({})
@@ -85,14 +80,7 @@ const Login = (props) => {
                 <CardBody>
                   <div style={{ minHeight: '125px' }}>
                     {isFetching ? (
-                      <div
-                        className="d-flex justify-content-center align-items-center"
-                        style={{
-                          height: '125px',
-                        }}
-                      >
-                        <DotLoader size="60px" color="#e14eca" css={override} />
-                      </div>
+                      <LoaderCircle style={{ height: '125px' }} />
                     ) : (
                       <>
                         <InputGroup

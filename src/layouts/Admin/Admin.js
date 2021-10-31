@@ -5,7 +5,7 @@ import PerfectScrollbar from 'perfect-scrollbar'
 import NotificationAlert from 'react-notification-alert'
 import { useSelector, useDispatch } from 'react-redux'
 import { NavLink, Redirect, Route, Switch, useLocation } from 'react-router-dom'
-import { UncontrolledAlert } from 'reactstrap'
+import { Container } from 'reactstrap'
 
 // core components
 import Footer from '../../_template/components/Footer/Footer'
@@ -224,10 +224,12 @@ const Admin = (props) => {
             {getRoutesInnerNavigation(routes)}
           </div>
           {isConfirmed === false && <EmailConfirmationNotification />}
-          <Switch>
-            {getRoutes(routes)}
-            <Redirect from="*" to="/dashboard/polygons" />
-          </Switch>
+          <Container fluid="xl">
+            <Switch>
+              {getRoutes(routes)}
+              <Redirect from="*" to="/dashboard/polygons" />
+            </Switch>
+          </Container>
         </div>
         {
           // we don't want the Footer to be rendered on full screen maps page

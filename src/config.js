@@ -5,7 +5,7 @@
 export const mapBoxAccessToken =
   'pk.eyJ1IjoiYXZvbG92aWsiLCJhIjoiY2txdzNpdWs1MGkwZjJ3cGNrYnZua3I4aCJ9.Le6NapjFYy5FfdDXfBmvrg'
 
-// captcha луны
+// captcha
 // stage.owm.io
 export const RECAPTCHA_SITE_KEY = '6Lcq1RQUAAAAAEzi1nXsgbjk7dsMdaU7T90xR5Km'
 export const RECAPTCHA_SECRET_KEY = '6Lcq1RQUAAAAAOtqNnbrDxi6lIMm3oIHO9arUOWh'
@@ -24,7 +24,7 @@ export const errors = {
   tariff: 'This feature is not available with your subscription plan',
   noBlank: 'Cannot be blank',
   passwordLength: `Password must be ${passwordLength} characters or more`,
-  passwordMissMatch: 'Passwords don\'t match'
+  passwordMissMatch: "Passwords don't match",
 }
 
 export const tariffError =
@@ -1597,4 +1597,3 @@ export const deleteAcctOptions = [
   { value: "I don't use this service", label: "I don't use this service" },
   { value: 'Wrong email', label: 'Wrong email' },
 ]
-

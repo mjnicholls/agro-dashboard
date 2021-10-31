@@ -4,12 +4,7 @@ import classnames from 'classnames'
 import { useDispatch } from 'react-redux'
 import { Button, Col, Form, Label, Row } from 'reactstrap'
 
-import {
-  updateBillingDetails,
-  validateVat,
-  createBillingDetails,
-  subscribe,
-} from '../../../api/billing'
+import { validateVat, subscribe } from '../../../api/billing'
 import { getAccountInfo } from '../../../api/personalAccount'
 import { noBlankErrorMessage } from '../../../config'
 import {
@@ -26,7 +21,6 @@ import { loadStripe } from '@stripe/stripe-js'
 const SubscriptionPopUp = ({ plan }) => {
   const dispatch = useDispatch()
   const [error, setError] = useState({})
-  // const [isNew, setIsNew] = useState(true)
   const [step, setStep] = useState(1)
 
   const [invoiceSettings, setInvoiceSettings] = useState({
@@ -50,11 +44,7 @@ const SubscriptionPopUp = ({ plan }) => {
     getAccountInfo().then((res) => {
       if (Object.keys(res.invoice_info).length) {
         setInvoiceSettings(res.invoice_info)
-        // setIsNew(false)
       }
-      // else {
-      //   setIsNew(true)
-      // }
       setUser(res.user)
     })
   }, [])
@@ -98,26 +88,6 @@ const SubscriptionPopUp = ({ plan }) => {
         notifyError(`Error: ${err.message}`)
       })
   }
-
-  // const billingInfoCreate = () => {
-  //   createBillingDetails(invoiceSettings)
-  //     .then(() => {
-  //       dispatch(notifySuccess('Billing details saved'))
-  //     })
-  //     .catch((err) => {
-  //       dispatch(notifyError(`Error saving billing details ${err.message}`))
-  //     })
-  // }
-  //
-  // const billingInfoUpdate = () => {
-  //   updateBillingDetails(invoiceSettings)
-  //     .then(() => {
-  //       dispatch(notifySuccess('Billing details updated'))
-  //     })
-  //     .catch((err) => {
-  //       dispatch(notifyError(`Error saving billing details ${err.message}`))
-  //     })
-  // }
 
   const decrementStep = () => {
     if (step === 2) {
