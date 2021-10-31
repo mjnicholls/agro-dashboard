@@ -20,6 +20,7 @@ import Step2 from './Step2'
 import { noBlankErrorMessage } from '../../../config'
 import { validatePhoneNumber } from '../../../utils/validation'
 import classnames from 'classnames'
+// eslint-disable-next-line
 import { loadStripe } from '@stripe/stripe-js'
 
 const SubscriptionPopUp = ({ plan }) => {

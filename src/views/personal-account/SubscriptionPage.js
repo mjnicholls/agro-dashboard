@@ -27,6 +27,7 @@ import { api, subscriptions } from './utils'
 import { getPolygons } from '../../api/personalAccount'
 import { toDate } from '../../utils/dateTime'
 import { numberWithCommas } from '../../utils/utils'
+import { supportEmailMailTo } from '../../config'
 
 const authSelector = (state) => state.auth
 
@@ -154,7 +155,7 @@ const Subscription2 = () => {
                                 {tariff === 'corp' ? (
                                   <h4 style={{ marginTop: '25px' }}>
                                     Need help?{' '}
-                                    <a href="https://openweathermap.force.com/s/contactsupport">
+                                    <a href={supportEmailMailTo}>
                                       Contact us.
                                     </a>
                                   </h4>
@@ -479,8 +480,8 @@ const Subscription2 = () => {
                               <tbody>
                                 <tr>
                                   <td>
-                                    Satellite imagery (NDVI, EVI, True color,
-                                    False color) data update
+                                    Satellite imagery (DVI, EVI, EVI2, NDWI, NRI, True
+                                    color, False color) data update
                                   </td>
                                   <td>
                                     <p>{data.satelitte_imagery_service}</p>

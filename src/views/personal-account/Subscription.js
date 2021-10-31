@@ -228,8 +228,8 @@ const Subscription = () => {
                   <tbody>
                     <tr>
                       <td className="pl-5">
-                        Satellite imagery (NDVI, EVI, True color, False color)
-                        data update
+                        Satellite imagery (DVI, EVI, EVI2, NDWI, NRI, True
+                        color, False color) data update
                       </td>
                       <td>
                         <p>{data.satelitte_imagery_service}</p>

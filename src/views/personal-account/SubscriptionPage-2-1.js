@@ -1,11 +1,10 @@
 /* eslint-disable */
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 
 import { useSelector } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import {
-  Button,
   Card,
   CardBody,
   CardHeader,
@@ -30,6 +29,8 @@ import { toDate } from '../../utils/dateTime'
 import { numberWithCommas } from '../../utils/utils'
 import ChargeBreakdown from './ChargeBreakdown'
 import Unsubscribe from './Unsubscribe'
+import { supportEmailMailTo } from '../../config'
+
 
 const authSelector = (state) => state.auth
 
@@ -114,7 +115,7 @@ const SubscriptionPage3 = () => {
                                 {tariff === 'corp' ? (
                                   <h4 style={{ marginTop: '25px' }}>
                                     Need help?{' '}
-                                    <a href="https://openweathermap.force.com/s/contactsupport">
+                                    <a href={supportEmailMailTo}>
                                       Contact us.
                                     </a>
                                   </h4>
@@ -395,8 +396,8 @@ const SubscriptionPage3 = () => {
                           <tbody>
                             <tr>
                               <td>
-                                Satellite imagery (NDVI, EVI, True color, False
-                                color) data update
+                                Satellite imagery (DVI, EVI, EVI2, NDWI, NRI, True
+                        color, False color) data update
                               </td>
                               <td>
                                 <p>{data.satelitte_imagery_service}</p>
