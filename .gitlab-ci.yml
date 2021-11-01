@@ -8,7 +8,7 @@ variables:
 build_docker:
   stage: build
   script:
-    - docker build --no-cache -t $DOCKER_IMAGE_NAME:latest .
+    - docker build -t $DOCKER_IMAGE_NAME:latest .
 
 push_docker_stage:
   stage: deploy
