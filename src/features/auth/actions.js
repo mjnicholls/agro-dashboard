@@ -1,7 +1,6 @@
 import axios from 'axios'
 
 import { login, logout } from '../../api/auth'
-import { isSubscriptionAvailableAPI } from '../../api/billing'
 import { deleteCookie, setCookie } from '../../utils/cookies'
 import { fetchPolygons } from '../polygons/actions'
 import { parseJwt } from './utils'

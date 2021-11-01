@@ -1,5 +1,7 @@
 import React from 'react'
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCheckCircle, faInfoCircle } from '@fortawesome/free-solid-svg-icons'
 import { useSelector } from 'react-redux'
 import { Table, UncontrolledTooltip } from 'reactstrap'
 
@@ -16,13 +18,40 @@ const LimitsDashboard = () => {
   const depthInYears = (year) =>
     year >= 0 ? `${year} year${year === 1 ? '' : 's'}` : 'Unlimited'
 
+  const getColSpan = () => (tariff === 'corp' ? 3 : 2)
+
   return (
     <Table>
       <thead>
         <tr>
-          <th>Sections</th>
-          <th>Depth</th>
-          {tariff === 'corp' && <th>Start date</th>}
+          <th colSpan={getColSpan()}>Satellite data </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Satellite imagery archive</td>
+          <td colSpan={tariff === 'corp' ? 2 : 1}>
+            <FontAwesomeIcon icon={faCheckCircle} />
+          </td>
+        </tr>
+        <tr>
+          <td>Historical NDVI Chart</td>
+          <td colSpan={tariff === 'corp' ? 2 : 1}>
+            {depthInYears(auth.limits.history.ndvi_history.depth)}
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Indices statistics by field (NDVI, EVI, DSWI, NDWI, NRI, etc.){' '}
+          </td>
+          <td colSpan={tariff === 'corp' ? 2 : 1}>
+            <FontAwesomeIcon icon={faCheckCircle} />
+          </td>
+        </tr>
+      </tbody>
+      <thead>
+        <tr>
+          <th colSpan={getColSpan()}>Weather data </th>
         </tr>
       </thead>
       <tbody>
