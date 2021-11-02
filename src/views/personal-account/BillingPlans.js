@@ -4,15 +4,15 @@ import { faCheckCircle, faInfoCircle } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import ReactBSAlert from 'react-bootstrap-sweetalert'
 import { useSelector } from 'react-redux'
-import { HashLink } from 'react-router-hash-link'
 import { Button, Card, CardBody, Col, Row, Table } from 'reactstrap'
 
 import { isSubscriptionAvailableAPI } from '../../api/billing'
-import { supportEmailMailTo } from '../../config'
+import { supportEmailMailTo, vegetationIndices } from '../../config'
 import ContactUsButton from '../components/ContactUsButton'
 import ExceedingPriceInfo from '../components/ExceedingPriceInfo'
 import Map from '../maps/MapCovereage'
 import SubscriptionPopUp from './subscription-form/SubscriptionPopUp'
+import { subscriptions } from './utils'
 
 const userSelector = (state) => state.auth.user
 
@@ -168,108 +168,70 @@ const BillingPlans = () => {
                   <tbody>
                     <tr className="mb-2">
                       <td>Total area of created polygons</td>
-                      <td>1,000 ha</td>
-                      <td>4,000 ha</td>
-                      <td>20,000 ha</td>
-                      <td>Unlimited</td>
+                      <td>{subscriptions.free.polygons_total_area}</td>
+                      <td>{subscriptions.starter.polygons_total_area}</td>
+                      <td>{subscriptions.small.polygons_total_area}</td>
+                      <td>{subscriptions.corp.polygons_total_area}</td>
                     </tr>
 
                     <tr>
                       <td>
                         API calls <b>per minute</b> to satellite data
                       </td>
-                      <td>&#60; 60</td>
-                      <td>&#60; 600</td>
-                      <td>&#60; 3,000</td>
-                      <td>Unlimited</td>
+                      <td>{subscriptions.free.api_calls_per_min}</td>
+                      <td>{subscriptions.starter.api_calls_per_min}</td>
+                      <td>{subscriptions.small.api_calls_per_min}</td>
+                      <td>{subscriptions.corp.api_calls_per_min}</td>
                     </tr>
 
                     <tr>
                       <td>Number of created polygons per month</td>
-                      <td>&#60; 10</td>
-                      <td>Unlimited</td>
-                      <td>Unlimited</td>
-                      <td>Unlimited</td>
+                      <td>{subscriptions.free.polygons_per_month}</td>
+                      <td>{subscriptions.starter.polygons_per_month}</td>
+                      <td>{subscriptions.small.polygons_per_month}</td>
+                      <td>{subscriptions.corp.polygons_per_month}</td>
                     </tr>
 
                     <tr>
                       <td>
-                        Satellite imagery (NDVI, EVI, EVI2, NDWI, NRI, True
-                        color, False color)
+                        Satellite imagery
+                        <br />({vegetationIndices})
                       </td>
-                      <td>
-                        <HashLink
-                          to={`${window.location.pathname}#coverage`}
-                          scroll={(el) =>
-                            el.scrollIntoView({
-                              behavior: 'smooth',
-                              block: 'start',
-                            })
-                          }
-                        >
-                          All available data
-                        </HashLink>
-                      </td>
-                      <td>
-                        <HashLink
-                          to={`${window.location.pathname}#coverage`}
-                          scroll={(el) =>
-                            el.scrollIntoView({
-                              behavior: 'smooth',
-                              block: 'start',
-                            })
-                          }
-                        >
-                          All available data
-                        </HashLink>{' '}
-                        + total archive on request
-                      </td>
-                      <td>
-                        <HashLink
-                          to={`${window.location.pathname}#coverage`}
-                          scroll={(el) =>
-                            el.scrollIntoView({
-                              behavior: 'smooth',
-                              block: 'start',
-                            })
-                          }
-                        >
-                          All available data
-                        </HashLink>{' '}
-                        + total archive on request
-                      </td>
-                      <td>Total archive</td>
+                      <td>{subscriptions.free.satellite_imagery_data}</td>
+                      <td>{subscriptions.starter.satellite_imagery_data}</td>
+                      <td>{subscriptions.small.satellite_imagery_data}</td>
+                      <td>{subscriptions.corp.satellite_imagery_data}</td>
                     </tr>
                     <tr className="mb-2">
                       <td>Satellite imagery data update</td>
-                      <td>Near real-time (operative)</td>
-                      <td>Near real-time (operative)</td>
-                      <td>Near real-time (operative)</td>
-                      <td>Near real-time (operative)</td>
+                      <td>{subscriptions.free.satellite_imagery_service}</td>
+                      <td>{subscriptions.starter.satellite_imagery_service}</td>
+                      <td>{subscriptions.small.satellite_imagery_service}</td>
+                      <td>{subscriptions.corp.satellite_imagery_service}</td>
                     </tr>
                     <tr>
                       <td>
-                        Price for exceeding area limit{' '}
+                        Price for exceeding area limit&nbsp;
                         <FontAwesomeIcon
                           icon={faInfoCircle}
                           onClick={priceInfoAlert}
                         />
                       </td>
-                      <td>Unavailable</td>
-                      <td>£0.02 per each 1 ha</td>
-                      <td>£0.01 per each 1 ha</td>
-                      <td>Flexible discount system</td>
+                      <td>{subscriptions.free.price_exceeded_area}</td>
+                      <td>{subscriptions.starter.price_exceeded_area}</td>
+                      <td>{subscriptions.small.price_exceeded_area}</td>
+                      <td>{subscriptions.corp.price_exceeded_area}</td>
                     </tr>
-
                     <tr>
                       <td>
                         <a
                           href="https://agromonitoring.com/api/images"
                           target="_blank"
                         >
-                          Satellite imagery (NDVI, EVI, EVI2, NDWI, NRI, True
-                          color, False color)
+                          Satellite imagery
                         </a>
+                        <br />
+                        {vegetationIndices}
                       </td>
                       <td>
                         <FontAwesomeIcon icon={faCheckCircle} />
@@ -325,10 +287,6 @@ const BillingPlans = () => {
                       </td>
                     </tr>
                     <tr>
-                      <td>Crop Recognition Map</td>
-                    </tr>
-
-                    <tr>
                       <td>
                         <a
                           href="https://agromonitoring.com/api/history-soil"
@@ -349,10 +307,17 @@ const BillingPlans = () => {
                     </tr>
                     <tr>
                       <td>Current soil temperature and moisture data update</td>
-                      <td>2 times per day</td>
-                      <td>2 times per day</td>
-                      <td>2 times per day</td>
-                      <td>2 times per day</td>
+                      <td>{subscriptions.free.soil_update}</td>
+                      <td>{subscriptions.starter.soil_update}</td>
+                      <td>{subscriptions.small.soil_update}</td>
+                      <td>{subscriptions.corp.soil_update}</td>
+                    </tr>
+                    <tr>
+                      <td>Crop Recognition Map</td>
+                      <td>{subscriptions.free.crop_recognition}</td>
+                      <td>{subscriptions.starter.crop_recognition}</td>
+                      <td>{subscriptions.small.crop_recognition}</td>
+                      <td>{subscriptions.corp.crop_recognition}</td>
                     </tr>
                   </tbody>
                   <thead>
@@ -368,27 +333,27 @@ const BillingPlans = () => {
                         API calls <b>per day</b> to current and forecast weather
                         data
                       </td>
-                      <td>&#60; 500</td>
-                      <td>&#60; 1,000</td>
-                      <td>&#60; 10,000</td>
-                      <td>On request</td>
+                      <td>{subscriptions.free.api_calls_per_day}</td>
+                      <td>{subscriptions.starter.api_calls_per_day}</td>
+                      <td>{subscriptions.small.api_calls_per_day}</td>
+                      <td>{subscriptions.corp.api_calls_per_day}</td>
                     </tr>
                     <tr>
                       <td>
                         API calls <b>per day</b> to historical weather data
                       </td>
-                      <td>—</td>
-                      <td>&#60; 500</td>
-                      <td>&#60; 5,000</td>
-                      <td>On request</td>
+                      <td>{subscriptions.free.api_calls_historical}</td>
+                      <td>{subscriptions.starter.api_calls_historical}</td>
+                      <td>{subscriptions.small.api_calls_historical}</td>
+                      <td>{subscriptions.corp.api_calls_historical}</td>
                     </tr>
 
                     <tr>
                       <td>Historical weather data depth</td>
-                      <td>—</td>
-                      <td>1 Year</td>
-                      <td>1 Year</td>
-                      <td>Total archive</td>
+                      <td>{subscriptions.free.historical_data_depths}</td>
+                      <td>{subscriptions.starter.historical_data_depths}</td>
+                      <td>{subscriptions.small.historical_data_depths}</td>
+                      <td>{subscriptions.corp.historical_data_depths}</td>
                     </tr>
 
                     <tr>
@@ -545,10 +510,10 @@ const BillingPlans = () => {
                     </tr>
                     <tr>
                       <td>Weather API data update</td>
-                      <td>&#60; 2 hours</td>
-                      <td>&#60; 1 hour</td>
-                      <td>&#60; 1 hour</td>
-                      <td>&#60; 10 mins</td>
+                      <td>{subscriptions.free.weather_api_update}</td>
+                      <td>{subscriptions.starter.weather_api_update}</td>
+                      <td>{subscriptions.small.weather_api_update}</td>
+                      <td>{subscriptions.corp.weather_api_update}</td>
                     </tr>
                   </tbody>
                   <thead>
@@ -577,84 +542,26 @@ const BillingPlans = () => {
 
                     <tr>
                       <td>License for maps, APIs, and other products</td>
-                      <td>
-                        <a
-                          href="http://creativecommons.org/licenses/by-sa/4.0/"
-                          target="_blank"
-                        >
-                          CC BY-SA 4.0
-                        </a>
-                      </td>
-                      <td>
-                        <a
-                          href="http://creativecommons.org/licenses/by-sa/4.0/"
-                          target="_blank"
-                        >
-                          CC BY-SA 4.0
-                        </a>
-                      </td>
-                      <td>
-                        <a
-                          href="http://creativecommons.org/licenses/by-sa/4.0/"
-                          target="_blank"
-                        >
-                          CC BY-SA 4.0
-                        </a>
-                      </td>
-                      <td>
-                        <a
-                          href="http://creativecommons.org/licenses/by-sa/4.0/"
-                          target="_blank"
-                        >
-                          CC BY-SA 4.0{' '}
-                        </a>
-                        (or custom)
-                      </td>
+                      <td>{subscriptions.free.license_maps}</td>
+                      <td>{subscriptions.starter.license_maps}</td>
+                      <td>{subscriptions.small.license_maps}</td>
+                      <td>{subscriptions.corp.license_maps}</td>
                     </tr>
 
                     <tr>
                       <td>License for data and database</td>
-                      <td>
-                        <a
-                          href="http://opendatacommons.org/licenses/odbl/"
-                          target="_blank"
-                        >
-                          ODbL
-                        </a>
-                      </td>
-                      <td>
-                        <a
-                          href="http://opendatacommons.org/licenses/odbl/"
-                          target="_blank"
-                        >
-                          ODbL
-                        </a>
-                      </td>
-                      <td>
-                        <a
-                          href="http://opendatacommons.org/licenses/odbl/"
-                          target="_blank"
-                        >
-                          ODbL
-                        </a>
-                      </td>
-                      <td>
-                        <a
-                          href="http://opendatacommons.org/licenses/odbl/"
-                          target="_blank"
-                        >
-                          ODbL{' '}
-                        </a>
-                        (or custom)
-                      </td>
+                      <td>{subscriptions.free.license_data}</td>
+                      <td>{subscriptions.starter.license_data}</td>
+                      <td>{subscriptions.small.license_data}</td>
+                      <td>{subscriptions.corp.license_data}</td>
                     </tr>
 
                     <tr>
                       <td>Support</td>
-                      <td>Helpdesk</td>
-                      <td>Helpdesk</td>
-                      <td>Helpdesk</td>
-                      <td>Direct 24x7</td>
+                      <td>{subscriptions.free.support}</td>
+                      <td>{subscriptions.starter.support}</td>
+                      <td>{subscriptions.small.support}</td>
+                      <td>{subscriptions.corp.support}</td>
                     </tr>
                   </tbody>
                 </Table>

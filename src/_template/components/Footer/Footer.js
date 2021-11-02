@@ -30,16 +30,6 @@ const Footer = (props) => (
         <li className="nav-item">
           <a
             className="nav-link"
-            href="https://home.agromonitoring.com/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Account
-          </a>
-        </li>
-        <li className="nav-item">
-          <a
-            className="nav-link"
             href="https://old.agromonitoring.com/dashboard/satellite"
             target="_blank"
             rel="noopener noreferrer"

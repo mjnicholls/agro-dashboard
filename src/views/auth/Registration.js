@@ -39,8 +39,9 @@ import {
   notifySuccess,
 } from '../../features/notifications/actions'
 import LoaderCircle from '../components/LoaderCircle'
+import { loginUser } from '../../features/auth/actions'
 
-const RegisterForm = (props) => {
+const RegisterForm = ({ history }) => {
   const [state, setState] = React.useState({})
   const [error, setError] = useState({})
   const [mailSettings, setMailSettings] = useState({
@@ -87,9 +88,9 @@ const RegisterForm = (props) => {
       newError.isTerms = 'Please agree to the privacy policy'
     }
 
-    if (!recaptchaRef.current.getValue()) {
-      newError.recaptcha = 'reCAPTCHA verification failed, please try again.'
-    }
+    // if (!recaptchaRef.current.getValue()) {
+    //   newError.recaptcha = 'reCAPTCHA verification failed, please try again.'
+    // }
 
     if (Object.keys(newError).length) {
       setError(newError)
@@ -119,7 +120,8 @@ const RegisterForm = (props) => {
     createNewUser(data)
       .then(() => {
         dispatch(notifySuccess('Registration complete'))
-        props.history.push('/users/login')
+        dispatch(loginUser(user.email, user.password))
+        history.push('/dashboard/polygons')
       })
       .catch((err) => {
         dispatch(
@@ -288,7 +290,7 @@ const RegisterForm = (props) => {
                       <InputGroup
                         className={classnames('mb-0 mt-2 ', {
                           'input-group-focus': state.passFocus,
-                          'has-danger': error.pass,
+                          'has-danger': error.password,
                         })}
                       >
                         <InputGroupAddon addonType="prepend">

@@ -21,13 +21,13 @@ import {
 } from 'reactstrap'
 import { Link } from 'react-router-dom'
 
-import TabsSelector from '../components/TabsSelector'
+import TabsSelector from '../../components/TabsSelector'
 import ExportPolygons from './ExportPolygons'
-import { api, subscriptions } from './utils'
-import { getPolygons } from '../../api/personalAccount'
-import { toDate } from '../../utils/dateTime'
-import { numberWithCommas } from '../../utils/utils'
-import { supportEmailMailTo } from '../../config'
+import { api, subscriptions } from '../utils'
+import { getPolygons } from '../../../api/personalAccount'
+import { toDate } from '../../../utils/dateTime'
+import { numberWithCommas } from '../../../utils/utils'
+import { supportEmailMailTo } from '../../../config'
 
 const authSelector = (state) => state.auth
 

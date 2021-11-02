@@ -14,7 +14,7 @@ import {
 } from 'reactstrap'
 
 import TabsSelector from '../components/TabsSelector'
-import ExportPolygons from './ExportPolygons'
+import ExportPolygons from './subscription/ExportPolygons'
 import { api, subscriptions } from './utils'
 import { getPolygons } from '../../api/personalAccount'
 import { toDate } from '../../utils/dateTime'

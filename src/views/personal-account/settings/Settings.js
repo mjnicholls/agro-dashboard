@@ -2,14 +2,14 @@ import React, { useEffect, useState } from 'react'
 
 import { Card, CardBody, Col, Row } from 'reactstrap'
 
-import { getAccountInfo } from '../../api/personalAccount'
-import TabsSelector from '../components/TabsSelector'
-import UnitsRadioButtons from '../components/UnitsRadioButtons'
-import BillingInfo from './settings/BillingInformation2'
-import DeleteAcctCard from './settings/DeleteAccount'
-import PrivacySettings from './settings/PrivacySettings'
-import UserPassword from './settings/UserPassword'
-import UserSettings from './settings/UserSettings'
+import { getAccountInfo } from '../../../api/personalAccount'
+import TabsSelector from '../../components/TabsSelector'
+import UnitsRadioButtons from '../../components/UnitsRadioButtons'
+import BillingInfo from './BillingInformation'
+import DeleteAcctCard from './DeleteAccount'
+import PrivacySettings from './PrivacySettings'
+import UserPassword from './UserPassword'
+import UserSettings from './UserSettings'
 
 const tabsOptions = [
   { id: 'user', label: 'User Settings' },
@@ -98,28 +98,26 @@ const AccountSettings = () => {
             <Row>
               <Col>
                 <h4>Personal information</h4>
-                <Row>
-                  <Col md="6">
-                    <UserSettings
-                      user={user}
-                      handleUserState={handleUserState}
-                    />
-                  </Col>
-                  <Col md="6">
-                    <UserPassword />
-                  </Col>
-                </Row>
               </Col>
             </Row>
             <Row>
-              <Col>
-                <h4>Privacy settings</h4>
+              <Col md="6">
+                <UserSettings user={user} handleUserState={handleUserState} />
+              </Col>
+              <Col md="6">
+                <UserPassword />
+              </Col>
+            </Row>
+            <Row>
+              <Col md="6">
                 <PrivacySettings
                   mailSettings={mailPreferences}
                   setMailSettings={setMailPreferences}
                 />
               </Col>
-              <DeleteAcctCard />
+              <Col md="6">
+                <DeleteAcctCard />
+              </Col>
             </Row>
           </>
         ) : (

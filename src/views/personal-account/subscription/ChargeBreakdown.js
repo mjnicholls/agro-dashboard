@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react'
 
 import { Table } from 'reactstrap'
 
-import { getPolygons } from '../../api/personalAccount'
-import { numberWithCommas } from '../../utils/utils'
+import { getPolygons } from '../../../api/personalAccount'
+import { numberWithCommas } from '../../../utils/utils'
 import ExportPolygons from './ExportPolygons'
 
 const ChargeBreakDown = () => {

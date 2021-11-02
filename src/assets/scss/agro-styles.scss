@@ -18,6 +18,7 @@ $mapHeight: 400px;
 }
 
 @mixin no-button-style {
+  display: inline;
   cursor: pointer;
   background: none;
   border: none;

@@ -8,8 +8,6 @@ import {
   Card,
   CardBody,
   CardFooter,
-  CardHeader,
-  CardTitle,
   Form,
   FormGroup,
   Input,
@@ -55,9 +53,6 @@ const UserSettings = ({ user, handleUserState }) => {
 
   return (
     <Card>
-      <CardHeader>
-        <CardTitle tag="h4">Personal information</CardTitle>
-      </CardHeader>
       <CardBody>
         <Form>
           <Label>Username</Label>

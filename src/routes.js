@@ -14,16 +14,18 @@ import ResetPassword from './views/auth/ChangePassword'
 import ForgotPassword from './views/auth/ForgotPassword'
 import Login from './views/auth/Login'
 import RegisterForm from './views/auth/Registration'
+import ConfirmEmail from './views/auth/ConfrimEmail'
+
 import CropMap from './views/CropMap'
 import DashboardMain from './views/Dashboard'
 import PolygonNew from './views/NewPolygon'
-import AccountSettings from './views/personal-account/AccountSettings'
+import Settings from './views/personal-account/settings/Settings'
 import ApiKeys from './views/personal-account/ApiKeys'
 import BillingPlans from './views/personal-account/BillingPlans'
 import InvoiceList from './views/personal-account/Payments'
 import FailurePage from './views/personal-account/subscription-form/FailurePage'
 import SuccessPage from './views/personal-account/subscription-form/SuccessPage'
-import Subscription from './views/personal-account/SubscriptionPage-2-1'
+import Subscription from './views/personal-account/subscription/SubscriptionPage-2-1'
 
 const routes = [
   {
@@ -122,7 +124,7 @@ const routes = [
         rtlName: '',
         mini: 'S',
         rtlMini: '',
-        component: AccountSettings,
+        component: Settings,
         layout: '/users',
       },
       {
@@ -190,6 +192,15 @@ const routes = [
         mini: 'R',
         rtlMini: '',
         component: ResetPassword,
+        layout: '/auth',
+      },
+      {
+        path: '/confirmation',
+        name: 'Change Password',
+        rtlName: '',
+        mini: 'R',
+        rtlMini: '',
+        component: ConfirmEmail,
         layout: '/auth',
       },
     ],

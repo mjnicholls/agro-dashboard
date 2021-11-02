@@ -31,7 +31,8 @@ export const tariffError =
   'This feature is not available with your subscription plan'
 export const noBlankErrorMessage = 'Cannot be blank'
 
-export const vegetationIndices = "NDVI, EVI, EVI2, NRI, DSWI, NDWI, True color, False color"
+export const vegetationIndices =
+  'NDVI, EVI, EVI2, NRI, DSWI, NDWI, True color, False color'
 
 export const defaultStartHistoryWeatherCharts = 1 // months
 export const cropColorDict = {

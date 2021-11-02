@@ -220,11 +220,11 @@ const Admin = (props) => {
         />
 
         <div className="content">
-          <div className="d-flex justify-content-end text-uppercase">
-            {getRoutesInnerNavigation(routes)}
-          </div>
-          {isConfirmed === false && <EmailConfirmationNotification />}
           <Container fluid="xl">
+            <div className="d-flex justify-content-end text-uppercase">
+              {getRoutesInnerNavigation(routes)}
+            </div>
+            {isConfirmed === false && <EmailConfirmationNotification />}
             <Switch>
               {getRoutes(routes)}
               <Redirect from="*" to="/dashboard/polygons" />
