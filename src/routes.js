@@ -196,7 +196,7 @@ const routes = [
       },
       {
         path: '/confirmation',
-        name: 'Change Password',
+        name: 'Confirm email',
         rtlName: '',
         mini: 'R',
         rtlMini: '',
