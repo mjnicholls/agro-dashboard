@@ -8,6 +8,7 @@ import { Table } from 'reactstrap'
 
 import ExceedingPriceInfo from '../components/ExceedingPriceInfo'
 import { api, subscriptions } from './utils'
+import {vegetationIndices} from "../../config";
 
 const authSelector = (state) => state.auth
 
@@ -40,7 +41,7 @@ const LimitsApi = () => {
             <td>
               Satellite imagery
               <br />
-              (NDVI, EVI, EVI2, NRI, DSWI, NDWI, True color, False color){' '}
+              ({vegetationIndices}){' '}
             </td>
             <td>
               <HashLink

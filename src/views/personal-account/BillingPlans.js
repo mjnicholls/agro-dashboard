@@ -324,6 +324,9 @@ const BillingPlans = () => {
                         <FontAwesomeIcon icon={faCheckCircle} />
                       </td>
                     </tr>
+                    <tr>
+                      <td>Crop Recognition Map</td>
+                    </tr>
 
                     <tr>
                       <td>

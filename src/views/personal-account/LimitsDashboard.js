@@ -1,13 +1,14 @@
 import React from 'react'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCheckCircle, faInfoCircle } from '@fortawesome/free-solid-svg-icons'
+import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import { useSelector } from 'react-redux'
 import { Table, UncontrolledTooltip } from 'reactstrap'
 
 import { toDate } from '../../utils/dateTime'
 import { numberWithCommas } from '../../utils/utils'
 import { api } from './utils'
+import { vegetationIndices } from '../../config'
 
 const authSelector = (state) => state.auth
 
@@ -35,19 +36,21 @@ const LimitsDashboard = () => {
           </td>
         </tr>
         <tr>
-          <td>Historical NDVI Chart</td>
-          <td colSpan={tariff === 'corp' ? 2 : 1}>
-            {depthInYears(auth.limits.history.ndvi_history.depth)}
-          </td>
-        </tr>
-        <tr>
           <td>
-            Indices statistics by field (NDVI, EVI, DSWI, NDWI, NRI, etc.){' '}
+            Indices statistics by field<br /> ({vegetationIndices}){' '}
           </td>
           <td colSpan={tariff === 'corp' ? 2 : 1}>
             <FontAwesomeIcon icon={faCheckCircle} />
           </td>
         </tr>
+        <tr>
+          <td>Historical NDVI Chart</td>
+          <td colSpan={tariff === 'corp' ? 2 : 1}>
+            {depthInYears(auth.limits.history.ndvi_history.depth)}
+          </td>
+          {tariff === 'corp' && <td>{toDate(auth.limits.history.ndvi_history.start)}</td>}
+        </tr>
+
       </tbody>
       <thead>
         <tr>
@@ -55,6 +58,44 @@ const LimitsDashboard = () => {
         </tr>
       </thead>
       <tbody>
+        <tr>
+          <td>Minute forecast ?</td>
+          <td colSpan={tariff === 'corp' ? 2 : 1}>1 hour</td>
+        </tr>
+        <tr>
+          <td>Hourly forecast</td>
+          <td colSpan={tariff === 'corp' ? 2 : 1}>2 days</td>
+        </tr>
+        <tr>
+          <td>Daily forecast</td>
+          <td colSpan={tariff === 'corp' ? 2 : 1}>8 days</td>
+        </tr>
+        <tr>
+          <td>Historical Soil Data Chart</td>
+          <td colSpan={tariff === 'corp' ? 2 : 1}>{depthInYears(auth.limits.history.soil_history.depth)}</td>
+          {tariff === 'corp' && <td>{toDate(auth.limits.history.soil_history.start)}</td>}
+        </tr>
+        <tr>
+          <td>Accumulated Parameters</td>
+          <td colSpan={tariff === 'corp' ? 2 : 1}>{depthInYears(auth.limits.history.weather_history_accumulated_temperature.depth)}</td>
+          {tariff === 'corp' && <td>{toDate(auth.limits.history.weather_history_accumulated_temperature.start)}</td>}
+        </tr>
+        <tr>
+          <td>Historical Weather Data</td>
+          <td colSpan={tariff === 'corp' ? 2 : 1}>{depthInYears(auth.limits.history.weather_history.depth)}</td>
+          {tariff === 'corp' && <td>{toDate(auth.limits.history.weather_history.start)}</td>}
+        </tr>
+      </tbody>
+      <thead>
+        <tr>
+          <th colSpan={getColSpan()}>Crop map</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Crop Recognition Map</td>
+          <td colSpan={tariff === 'corp' ? 2 : 1}></td>
+        </tr>
         {Object.keys(auth.limits.calls).map(
           (key) =>
             !api[key].dashboardHidden && (
