@@ -2,9 +2,10 @@ import React from 'react'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import {
+  Button,
   Card,
   CardBody,
   CardHeader,
@@ -15,20 +16,42 @@ import {
 
 import { toDate } from '../../../utils/dateTime'
 import { numberWithCommas } from '../../../utils/utils'
-import { api, subscriptions } from '../utils'
+import { subscriptions } from '../utils'
 import { vegetationIndices } from '../../../config'
 
-const authSelector = (state) => state.auth
+import {
+  setActivePoly,
+  setSatelliteMode,
+} from '../../../features/state/actions'
 
-const LimitsDashboard = () => {
+const authSelector = (state) => state.auth
+const polygonsSelector = (state) => state.polygons
+
+const LimitsDashboard = (props) => {
+  console.log('LimitsDashboard', props)
   const auth = useSelector(authSelector)
   const { tariff } = auth.user
+  const polygons = useSelector(polygonsSelector)
+  const dispatch = useDispatch()
+
   const data = subscriptions[tariff]
 
   const depthInYears = (year) =>
     year >= 0 ? `${year} year${year === 1 ? '' : 's'}` : 'Unlimited'
 
   const getColSpan = () => (tariff === 'corp' ? 3 : 2)
+
+  const onSatelliteClick = () => {
+    props.history.push('/dashboard/polygons')
+    dispatch(setActivePoly(polygons[0]))
+    dispatch(setSatelliteMode(true))
+  }
+
+  const onWeatherClick = () => {
+    props.history.push('/dashboard/polygons') // TODO
+    dispatch(setActivePoly(polygons[0]))
+    dispatch(setSatelliteMode(false))
+  }
 
   return (
     <Card>
@@ -42,9 +65,30 @@ const LimitsDashboard = () => {
           <thead>
             <tr>
               <th colSpan={getColSpan()}>
-                <Link to="/dashboard/polygons">
-                  <b>Satellite data</b>
-                </Link>
+                {polygons.length ? (
+                  <Button
+                    type="button"
+                    className="btn-link btn-primary remove-button-style text-uppercase"
+                    tabIndex={0}
+                    onClick={onSatelliteClick}
+                  >
+                    Satellite data
+                  </Button>
+                ) : (
+                  <div>
+                    <Link id="satellite" to="/dashboard/polygons">
+                      Satellite data
+                    </Link>
+                    <UncontrolledTooltip
+                      delay={0}
+                      target="satellite"
+                      placement="top"
+                    >
+                      Satellite section will be available in the left-hand menu
+                      with the first polygon
+                    </UncontrolledTooltip>
+                  </div>
+                )}
               </th>
             </tr>
           </thead>
@@ -77,9 +121,30 @@ const LimitsDashboard = () => {
           <thead>
             <tr>
               <th colSpan={getColSpan()}>
-                <Link to="/dashboard/polygons">
-                  <b>Weather data</b>
-                </Link>
+                {polygons.length ? (
+                  <Button
+                    type="button"
+                    className="btn-link btn-primary remove-button-style text-uppercase"
+                    tabIndex={0}
+                    onClick={onWeatherClick}
+                  >
+                    Weather data
+                  </Button>
+                ) : (
+                  <div>
+                    <Link id="weather" to="/dashboard/polygons">
+                      Weather data
+                    </Link>
+                    <UncontrolledTooltip
+                      delay={0}
+                      target="weather"
+                      placement="top"
+                    >
+                      Weather section will be available in the left-hand menu
+                      with the first polygon
+                    </UncontrolledTooltip>
+                  </div>
+                )}
               </th>
             </tr>
           </thead>
@@ -148,40 +213,23 @@ const LimitsDashboard = () => {
                 {data.crop_recognition}
               </td>
             </tr>
-            <tr>
-              <td>
-                <a href={api.crop_recognition.link}>
-                  {api.crop_recognition.name}
-                </a>{' '}
-                <i className="tim-icons icon-alert-circle-exc" id="tool15" />
-                <UncontrolledTooltip delay={0} target="tool15">
-                  Available only in the dashboard.
-                </UncontrolledTooltip>
-              </td>
-              {tariff === 'free' ? (
-                <td>2017, 2018 - available</td>
-              ) : (
-                <td>2017, 2018, 2019 - available 2020, 2021 - on request</td>
-              )}
-              <td></td>
-            </tr>
           </tbody>
           <thead>
             <br />
             <tr>
-              <th colSpan={tariff === 'corp' ? 4 : 3}>Polygons</th>
+              <th colSpan={tariff === 'corp' ? 4 : 3}>Polygon creation</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td>Min polygon area</td>
+              <td>Minimum polygon area</td>
               <td colSpan={tariff === 'corp' ? 2 : 1}>
                 {auth.limits.polygon_area.min_polygon_area} ha
               </td>
               <td></td>
             </tr>
             <tr>
-              <td>Max polygon area</td>
+              <td>Maximum polygon area</td>
               <td colSpan={tariff === 'corp' ? 2 : 1}>
                 {numberWithCommas(auth.limits.polygon_area.max_polygon_area)} ha
               </td>

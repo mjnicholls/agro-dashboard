@@ -16,7 +16,8 @@ import FAQ from './FAQ'
 import LimitsApi from './LimitsApi'
 import LimitsDashboard from './LimitsDashboard'
 
-const SubscriptionPage3 = () => {
+const SubscriptionPage3 = (props) => {
+  console.log('SubscriptionPage3', props)
   const [activePage, setActivePage] = useState('charge') // Charges or LimitsApi
   const [hasUnsubscribed, setHasUnsubscribed] = useState(false)
 
@@ -80,7 +81,7 @@ const SubscriptionPage3 = () => {
               <LimitsApi />
             </TabPane>
             <TabPane tabId="dashboard">
-              <LimitsDashboard />
+              <LimitsDashboard history={props.history}/>
             </TabPane>
           </TabContent>
         </Col>
