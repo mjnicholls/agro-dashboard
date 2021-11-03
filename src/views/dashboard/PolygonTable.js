@@ -21,6 +21,7 @@ import AgroPagination from '../components/AgroPagination'
 import Shape from '../components/Shape'
 import PolygonDelete from './PolygonDelete'
 import PolygonEdit from './PolygonEdit'
+import {itemsPerPage} from "../../config";
 
 const PolygonTable = ({ data }) => {
   const dispatch = useDispatch()

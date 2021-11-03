@@ -13,6 +13,7 @@ import {
   Table,
   UncontrolledTooltip,
 } from 'reactstrap'
+import {itemsPerPage} from "../../config";
 
 import { getInvoices } from '../../api/personalAccount'
 import AgroPagination from '../components/AgroPagination'
