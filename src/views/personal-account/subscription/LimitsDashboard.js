@@ -28,7 +28,6 @@ const authSelector = (state) => state.auth
 const polygonsSelector = (state) => state.polygons
 
 const LimitsDashboard = (props) => {
-  console.log('LimitsDashboard', props)
   const auth = useSelector(authSelector)
   const { tariff } = auth.user
   const polygons = useSelector(polygonsSelector)

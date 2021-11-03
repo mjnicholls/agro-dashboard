@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 
 import axios from 'axios'
 import GA4React from 'ga-4-react'
@@ -83,6 +83,18 @@ ga4react.initialize().then(
 )
 
 const App = () => (
+
+  // useEffect(() => {
+  //   // // const queryParams = queryString.parse(props.location.search)
+  //   // const tokenVal = queryParams.reset_password_token
+  //   // if (!tokenVal) {
+  //   //   props.history.push('/auth/login')
+  //   //   return
+  //   // }
+  //   // setResetToken(tokenVal)
+  // }, [])
+
+
   <Provider store={store}>
     <BrowserRouter>
       <Switch>

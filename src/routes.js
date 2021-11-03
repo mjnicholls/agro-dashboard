@@ -14,7 +14,7 @@ import ResetPassword from './views/auth/ChangePassword'
 import ForgotPassword from './views/auth/ForgotPassword'
 import Login from './views/auth/Login'
 import RegisterForm from './views/auth/Registration'
-import ConfirmEmail from './views/auth/ConfrimEmail'
+import ConfirmEmail from './views/auth/ConfirmEmail'
 
 import CropMap from './views/CropMap'
 import DashboardMain from './views/Dashboard'

@@ -37,9 +37,16 @@ export const changePassword = (params) =>
     },
   })
 
-export const confirmEmail = (email) =>
+export const receiveConfirmationEmail = (email) =>
   axios.post(confirmEmailURL, {
     user: {
       email,
+    },
+  })
+
+export const confirmEmailApi = (value) =>
+  axios.put(confirmEmailURL, {
+    user: {
+      token: value
     },
   })

@@ -16,9 +16,8 @@ import FAQ from './FAQ'
 import LimitsApi from './LimitsApi'
 import LimitsDashboard from './LimitsDashboard'
 
-const SubscriptionPage3 = (props) => {
-  console.log('SubscriptionPage3', props)
-  const [activePage, setActivePage] = useState('charge') // Charges or LimitsApi
+const SubscriptionPage = (props) => {
+  const [activePage, setActivePage] = useState('charge')
   const [hasUnsubscribed, setHasUnsubscribed] = useState(false)
 
   return (
@@ -64,7 +63,7 @@ const SubscriptionPage3 = (props) => {
                 onClick={() => setActivePage('dashboard')}
               >
                 <i className="tim-icons icon-chart-pie-36" />
-                Dashboard Limits
+                Dashboard
               </NavLink>
             </NavItem>
           </Nav>
@@ -90,4 +89,4 @@ const SubscriptionPage3 = (props) => {
   )
 }
 
-export default SubscriptionPage3
+export default SubscriptionPage

@@ -3,7 +3,7 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Button, UncontrolledAlert } from 'reactstrap'
 
-import { confirmEmail } from '../../api/auth'
+import { receiveConfirmationEmail } from '../../api/auth'
 import { hideNotification } from '../../features/auth/actions'
 import {
   notifyError,
@@ -21,7 +21,7 @@ const EmailConfirmationNotification = () => {
   }
 
   const sendConfirmation = () => {
-    confirmEmail(email)
+    receiveConfirmationEmail(email)
       .then(() => {
         dispatch(notifySuccess('Confirmation email sent'))
         dispatch(hideNotification())
