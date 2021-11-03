@@ -2,8 +2,10 @@ import React from 'react'
 
 import { Pagination, PaginationItem, PaginationLink } from 'reactstrap'
 
-const AgroPagination = ({ count, itemsPerPage, page, setPage }) => {
-  const maxPageNumber = Math.floor(count / itemsPerPage) - 1
+import { itemsPerPage } from '../../config'
+
+const AgroPagination = ({ count, page, setPage }) => {
+  const maxPageNumber = Math.floor(count / itemsPerPage)
   const maxPaginationItems = 5
 
   const pages = () => {

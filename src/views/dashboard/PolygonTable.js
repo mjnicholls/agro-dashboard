@@ -36,8 +36,6 @@ const PolygonTable = ({ data }) => {
     order: '',
   })
 
-  const itemsPerPage = 10
-
   useEffect(() => {
     setTableData(data)
   }, [data])
@@ -244,7 +242,6 @@ const PolygonTable = ({ data }) => {
         <CardFooter>
           <AgroPagination
             count={tableData.length}
-            itemsPerPage={itemsPerPage}
             page={page}
             setPage={setPage}
           />

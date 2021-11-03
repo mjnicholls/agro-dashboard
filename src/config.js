@@ -32,6 +32,8 @@ export const cookies = {
 
 }
 
+export const itemsPerPage = 10
+
 export const tariffError =
   'This feature is not available with your subscription plan'
 export const noBlankErrorMessage = 'Cannot be blank'

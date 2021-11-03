@@ -37,8 +37,6 @@ const InvoiceList = () => {
     setPageData(data.slice(page * itemsPerPage, (page + 1) * itemsPerPage))
   }, [data, page])
 
-  const itemsPerPage = 10
-
   return (
     <>
       <div className="content">
@@ -113,7 +111,6 @@ const InvoiceList = () => {
               </CardBody>
               <AgroPagination
                 count={data.length}
-                itemsPerPage={itemsPerPage}
                 page={page}
                 setPage={setPage}
               />
