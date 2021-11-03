@@ -10,10 +10,6 @@ import {
   Col,
   Row,
   Container,
-  Input,
-  InputGroupAddon,
-  InputGroupText,
-  InputGroup,
 } from 'reactstrap'
 import queryString from 'query-string'
 import { useDispatch } from 'react-redux'
@@ -49,34 +45,31 @@ const ConfirmEmail = (props) => {
     }
   }, [])
 
-
   return (
-     <>
-      <div className="content">
-        <Container>
-          <Row>
-            <Col className="ml-auto mr-auto" lg="6" md="8">
-              <Card className="card-lock card-white" style={{minHeight: "170px"}}>
-                <CardHeader>
-                  <CardTitle tag="h3">
-                    <b>Confirm email</b>
-                  </CardTitle>
-                </CardHeader>
-                <CardBody>
-                  {isFetching &&
-                    <LoaderCircle  /> }
-                </CardBody>
-                  {!isFetching && <CardFooter className="d-flex justify-content-between">
-                    <Button onClick={confirmEmail} color="primary">
-                      Confirm
-                    </Button>
-                  </CardFooter> }
-              </Card>
-            </Col>
-          </Row>
-        </Container>
-      </div>
-    </>
+    <div className="content">
+      <Container>
+        <Row>
+          <Col className="ml-auto mr-auto" lg="6" md="8">
+            <Card className="card-lock card-white" style={{minHeight: "170px"}}>
+              <CardHeader>
+                <CardTitle tag="h3">
+                  <b>Confirm email</b>
+                </CardTitle>
+              </CardHeader>
+              <CardBody>
+                {isFetching &&
+                  <LoaderCircle  /> }
+              </CardBody>
+                {!isFetching && <CardFooter className="d-flex justify-content-between">
+                  <Button onClick={confirmEmail} color="primary">
+                    Confirm
+                  </Button>
+                </CardFooter> }
+            </Card>
+          </Col>
+        </Row>
+      </Container>
+    </div>
   )
 }
 

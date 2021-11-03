@@ -27,6 +27,11 @@ export const errors = {
   passwordMissMatch: "Passwords don't match",
 }
 
+export const cookies = {
+  ad: "agro-ad",
+
+}
+
 export const tariffError =
   'This feature is not available with your subscription plan'
 export const noBlankErrorMessage = 'Cannot be blank'

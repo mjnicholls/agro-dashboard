@@ -18,6 +18,9 @@ import AuthLayout from './layouts/Auth/Auth'
 import store from './store'
 import AuthRoute from './views/AuthRoute'
 import Notifications from './views/components/NotificationsTemporary'
+import {setCookie} from "./utils/cookies";
+import queryString from 'query-string'
+import {cookies} from './config'
 
 axios.defaults.headers.common.Authorization = `Bearer ${
   store.getState().auth.token
@@ -82,36 +85,37 @@ ga4react.initialize().then(
   },
 )
 
-const App = () => (
+const App = () => {
 
-  // useEffect(() => {
-  //   // // const queryParams = queryString.parse(props.location.search)
-  //   // const tokenVal = queryParams.reset_password_token
-  //   // if (!tokenVal) {
-  //   //   props.history.push('/auth/login')
-  //   //   return
-  //   // }
-  //   // setResetToken(tokenVal)
-  // }, [])
+  useEffect(() => {
+    const queryParams = queryString.parse(window.location.search)
+    const tokenVal = queryParams.ad_campaign
+    if (tokenVal) {
+      const date = Math.round(new Date().getTime() / 1000)
+      setCookie(cookies.ad, `campaign=${tokenVal}&date=${date}`) // TODO domains?
+    }
+  }, [])
 
 
-  <Provider store={store}>
-    <BrowserRouter>
-      <Switch>
-        <Route path="/auth" render={(props) => <AuthLayout {...props} />} />
-        <AuthRoute
-          path="/dashboard"
-          render={(props) => <AdminLayout {...props} />}
-        />
-        <AuthRoute
-          path="/users"
-          render={(props) => <AdminLayout {...props} />}
-        />
-        <Redirect from="/" to="/dashboard/polygons" />
-      </Switch>
-    </BrowserRouter>
-    <Notifications />
-  </Provider>
-)
+  return (
+    <Provider store={store}>
+      <BrowserRouter>
+        <Switch>
+          <Route path="/auth" render={(props) => <AuthLayout {...props} />} />
+          <AuthRoute
+            path="/dashboard"
+            render={(props) => <AdminLayout {...props} />}
+          />
+          <AuthRoute
+            path="/users"
+            render={(props) => <AdminLayout {...props} />}
+          />
+          <Redirect from="/" to="/dashboard/polygons" />
+        </Switch>
+      </BrowserRouter>
+      <Notifications />
+    </Provider>
+  )
+}
 
 export default App
