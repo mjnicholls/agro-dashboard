@@ -1,8 +1,9 @@
 import React from 'react'
 
 import { Card, CardHeader, CardBody, CardTitle, Col, Row } from 'reactstrap'
+import { Link } from 'react-router-dom'
 
-import ContactUsButton from '../../components/ContactUsButton'
+import {supportEmailMailTo} from "../../../config";
 
 const FailurePage = () => (
   <Card>
@@ -12,12 +13,13 @@ const FailurePage = () => (
     <CardBody>
       <Row>
         <Col>
-          <p>Something went wrong. Please try again or contact us </p>
+          <p>Something went wrong. Please try again or contact us at &nbsp;
+            <a href={supportEmailMailTo}>info@openweathermap.org</a>.</p>
         </Col>
       </Row>
       <Row>
         <Col className="text-right">
-          <ContactUsButton />
+          <Link role="button" color="primary" className="btn btn-primary" to="/users/billing-plans" >Back to plans</Link>
         </Col>
       </Row>
     </CardBody>

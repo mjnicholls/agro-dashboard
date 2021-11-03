@@ -13,9 +13,9 @@ import {
   Table,
   UncontrolledTooltip,
 } from 'reactstrap'
-import {itemsPerPage} from "../../config";
 
 import { getInvoices } from '../../api/personalAccount'
+import { itemsPerPage } from '../../config'
 import AgroPagination from '../components/AgroPagination'
 
 const InvoiceList = () => {

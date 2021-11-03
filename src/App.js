@@ -1,7 +1,8 @@
-import React, {useEffect} from 'react'
+import React, { useEffect } from 'react'
 
 import axios from 'axios'
 import GA4React from 'ga-4-react'
+import queryString from 'query-string'
 import { Provider } from 'react-redux'
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom'
 
@@ -12,15 +13,14 @@ import './assets/demo/demo.css'
 import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css'
 import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css'
 
+import { cookies } from './config'
 import { receiveLogout } from './features/auth/actions'
 import AdminLayout from './layouts/Admin/Admin'
 import AuthLayout from './layouts/Auth/Auth'
 import store from './store'
+import { setCookie } from './utils/cookies'
 import AuthRoute from './views/AuthRoute'
 import Notifications from './views/components/NotificationsTemporary'
-import {setCookie} from "./utils/cookies";
-import queryString from 'query-string'
-import {cookies} from './config'
 
 axios.defaults.headers.common.Authorization = `Bearer ${
   store.getState().auth.token
@@ -86,7 +86,6 @@ ga4react.initialize().then(
 )
 
 const App = () => {
-
   useEffect(() => {
     const queryParams = queryString.parse(window.location.search)
     const tokenVal = queryParams.ad_campaign
@@ -95,7 +94,6 @@ const App = () => {
       setCookie(cookies.ad, `campaign=${tokenVal}&date=${date}`) // TODO domains?
     }
   }, [])
-
 
   return (
     <Provider store={store}>

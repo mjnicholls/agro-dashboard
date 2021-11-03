@@ -15,13 +15,13 @@ import {
   UncontrolledTooltip,
 } from 'reactstrap'
 
+import { itemsPerPage } from '../../config'
 import { setActivePoly } from '../../features/state/actions'
 import { toDate } from '../../utils/dateTime'
 import AgroPagination from '../components/AgroPagination'
 import Shape from '../components/Shape'
 import PolygonDelete from './PolygonDelete'
 import PolygonEdit from './PolygonEdit'
-import {itemsPerPage} from "../../config";
 
 const PolygonTable = ({ data }) => {
   const dispatch = useDispatch()

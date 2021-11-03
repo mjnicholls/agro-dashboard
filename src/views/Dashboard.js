@@ -14,9 +14,11 @@ import PolygonsTotalStats from './dashboard/small-cards/PolygonsTotalStats'
 import SoilCurrent from './dashboard/small-cards/SoilCurrent'
 import WeatherCurrent from './dashboard/small-cards/WeatherCurrent'
 import MapBox from './maps/MapBox'
+import Synchronizing from './components/Synchronizing'
 
 const selectPolygons = (state) => state.polygons
 const selectActivePoly = (state) => state.state.polygon
+const selectIsApiKeyValid = (state) => state.auth.isApiKeyValid
 const selectIsSatelliteMode = (state) => state.state.isSatelliteMode
 
 const Dashboard = () => {
@@ -32,6 +34,8 @@ const Dashboard = () => {
   const activePolygon = useSelector(selectActivePoly)
   const polygons = useSelector(selectPolygons)
   const isSatelliteMode = useSelector(selectIsSatelliteMode)
+  const isApiKeyValid = useSelector(selectIsApiKeyValid)
+
 
   useEffect(() => {
     if (!isSatelliteMode) {
@@ -77,7 +81,7 @@ const Dashboard = () => {
     )
 
   return (
-    <>
+    isApiKeyValid ? <>
       <Row>
         <Col lg="6">
           <MapBox
@@ -122,7 +126,7 @@ const Dashboard = () => {
           )}
         </Col>
       </Row>
-    </>
+    </> : <Synchronizing />
   )
 }
 

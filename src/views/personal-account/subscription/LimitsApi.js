@@ -5,9 +5,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useSelector } from 'react-redux'
 import { Card, CardBody, CardHeader, CardTitle, Table } from 'reactstrap'
 
+import { vegetationIndices } from '../../../config'
 import ExceedingPriceInfo from '../../components/ExceedingPriceInfo'
 import { api, subscriptions } from '../utils'
-import { vegetationIndices } from '../../../config'
 
 const authSelector = (state) => state.auth
 

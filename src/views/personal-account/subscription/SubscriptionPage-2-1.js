@@ -80,7 +80,7 @@ const SubscriptionPage = (props) => {
               <LimitsApi />
             </TabPane>
             <TabPane tabId="dashboard">
-              <LimitsDashboard history={props.history}/>
+              <LimitsDashboard history={props.history} />
             </TabPane>
           </TabContent>
         </Col>

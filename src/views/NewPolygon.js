@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
 import { useDispatch, useSelector } from 'react-redux'
-import { PropagateLoader } from 'react-spinners'
 import { Col, Row } from 'reactstrap'
 
 import { getAPIKeyStatus } from '../api/personalAccount'
@@ -9,8 +8,10 @@ import { setApiKeyStatus } from '../features/auth/actions'
 import { getPageHeight } from '../utils/utils'
 import PolygonCreateCard from './dashboard/small-cards/PolygonCreateCard'
 import MapBoxDraw from './maps/MapBoxDraw'
+import Synchronizing from './components/Synchronizing'
 
 const selectIsApiKeyValid = (state) => state.auth.isApiKeyValid
+
 
 const PolygonNew = () => {
   /** Draw a new polygon, give it a name */
@@ -31,23 +32,6 @@ const PolygonNew = () => {
     }
   }, [])
 
-  const checkAPIKeyStatus = () => {
-    getAPIKeyStatus()
-      .then(() => {
-        dispatch(setApiKeyStatus(true))
-      })
-      .catch(() => {
-        dispatch(setApiKeyStatus(false))
-        setTimeout(checkAPIKeyStatus, 20000)
-      })
-  }
-
-  useEffect(() => {
-    if (isApiKeyValid === null) {
-      checkAPIKeyStatus()
-    }
-  }, [isApiKeyValid])
-
   const resetMap = () => {
     const data = drawRef.current.getAll()
     data.features.forEach((f) => {
@@ -62,23 +46,6 @@ const PolygonNew = () => {
   const blockResetMap = () =>
     !drawRef.current || !drawRef.current.getAll().features.length
 
-  const PlaceHolder = () => (
-    <Row>
-      <Col className="text-center my-5 align-self-center">
-        <div className="my-5">
-          <div>
-            <PropagateLoader color="#f2f2f2" size={15} />
-            <br />
-          </div>
-          {isApiKeyValid === false && (
-            <p className="my-3">
-              Synchronizing API key... It might take a few minutes
-            </p>
-          )}
-        </div>
-      </Col>
-    </Row>
-  )
 
   return isApiKeyValid ? (
     <Row>
@@ -107,7 +74,7 @@ const PolygonNew = () => {
       </Col>
     </Row>
   ) : (
-    <PlaceHolder />
+    <Synchronizing />
   )
 }
 

@@ -37,18 +37,16 @@ const DeleteAcctCard = () => {
           <p className="mb-3">
             If you delete your account all your API keys will be blocked.
           </p>
-          <p>
+          <p  className="mb-3">
             If you have any questions, please reach out to our friendly support
-            team by emailing us at{' '}
-            <a href={supportEmailMailTo} target="_blank">
+            team at <a href={supportEmailMailTo} target="_blank">
               {supportEmail}
             </a>
-            .
           </p>
 
           <div className="text-right">
             <Button
-              className="btn-fill"
+              className="btn-fill mt-3"
               color="danger"
               type="button"
               title="Delete"

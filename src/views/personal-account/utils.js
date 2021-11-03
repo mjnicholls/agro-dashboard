@@ -284,7 +284,7 @@ export const subscriptions = {
           target="_blank"
         >
           CC BY-SA 4.0
-        </a>
+        </a>&nbsp;
         (or custom)
       </p>
     ),

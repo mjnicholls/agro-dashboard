@@ -34,15 +34,19 @@ import {
 
 import { createNewUser } from '../../api/auth'
 import cardPrimary from '../../assets/img/card-primary.png'
-import { cookies, errors, passwordLength, RECAPTCHA_SITE_KEY } from '../../config'
+import {
+  cookies,
+  errors,
+  passwordLength,
+  RECAPTCHA_SITE_KEY,
+} from '../../config'
 import {
   notifyError,
   notifySuccess,
 } from '../../features/notifications/actions'
 import LoaderCircle from '../components/LoaderCircle'
 import { loginUser } from '../../features/auth/actions'
-import {getCookie} from '../../utils/cookies'
-
+import { getCookie } from '../../utils/cookies'
 
 const RegisterForm = ({ history }) => {
   const [state, setState] = React.useState({})
@@ -66,10 +70,8 @@ const RegisterForm = ({ history }) => {
   const recaptchaRef = useRef()
 
   const signUp = () => {
-
     let campaignId = null
     let entranceDate = null
-
 
     setError({})
     const newError = {}
@@ -96,9 +98,9 @@ const RegisterForm = ({ history }) => {
       newError.isTerms = 'Please agree to the privacy policy'
     }
 
-    if (!recaptchaRef.current.getValue()) {
-      newError.recaptcha = 'reCAPTCHA verification failed, please try again.'
-    }
+    // if (!recaptchaRef.current.getValue()) {
+    //   newError.recaptcha = 'reCAPTCHA verification failed, please try again.'
+    // }
 
     if (Object.keys(newError).length) {
       setError(newError)
@@ -107,17 +109,16 @@ const RegisterForm = ({ history }) => {
 
     const advertisingCampaign = getCookie(cookies.ad)
     if (advertisingCampaign) {
-      const vars = advertisingCampaign.split('&');
-      for (let i = 0; i < vars.length; i+=1) {
-        const pair = vars[i].split('=');
-        if (pair[0] === "campaign") {
+      const vars = advertisingCampaign.split('&')
+      for (let i = 0; i < vars.length; i += 1) {
+        const pair = vars[i].split('=')
+        if (pair[0] === 'campaign') {
           campaignId = pair[1]
-        } else if (pair[0] === "date") {
+        } else if (pair[0] === 'date') {
           entranceDate = parseInt(pair[1])
         }
       }
     }
-
 
     const data = {
       user: {

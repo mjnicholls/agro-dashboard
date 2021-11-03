@@ -70,7 +70,7 @@ const Login = (props) => {
     <>
       <div className="content">
         <Container>
-          <Col className="ml-auto mr-auto" lg="4" md="6">
+          <Col className="ml-auto mr-auto" lg="4" md="6" >
             <Form className="form">
               <Card className="card-login card-white">
                 <CardHeader>

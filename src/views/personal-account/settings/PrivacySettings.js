@@ -47,7 +47,7 @@ const PrivacySettings = ({ mailSettings, setMailSettings }) => {
         <CardBody>
           <Row>
             <Col>
-              <p>
+              <p className="mb-3">
                 Please indicate what news from our company you would like to
                 receive by email:
               </p>

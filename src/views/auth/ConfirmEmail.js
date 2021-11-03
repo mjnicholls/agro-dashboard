@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
+import queryString from 'query-string'
+import { useDispatch } from 'react-redux'
 import {
   Button,
   Card,
@@ -11,18 +13,15 @@ import {
   Row,
   Container,
 } from 'reactstrap'
-import queryString from 'query-string'
-import { useDispatch } from 'react-redux'
 
+import { confirmEmailApi } from '../../api/auth'
 import {
   notifyError,
   notifySuccess,
 } from '../../features/notifications/actions'
 import LoaderCircle from '../components/LoaderCircle'
-import { confirmEmailApi } from '../../api/auth'
 
 const ConfirmEmail = (props) => {
-
   const [token, setToken] = useState('test')
   const [isFetching, setIsFetching] = useState(false)
   const dispatch = useDispatch()
@@ -30,7 +29,9 @@ const ConfirmEmail = (props) => {
   const confirmEmail = () => {
     setIsFetching(true)
     confirmEmailApi(token)
-      .then(() => {dispatch(notifySuccess('Email confirmed'))})
+      .then(() => {
+        dispatch(notifySuccess('Email confirmed'))
+      })
       .catch((err) => {
         dispatch(notifyError(`Error confirming email: ${err.message}`))
       })
@@ -50,21 +51,23 @@ const ConfirmEmail = (props) => {
       <Container>
         <Row>
           <Col className="ml-auto mr-auto" lg="6" md="8">
-            <Card className="card-lock card-white" style={{minHeight: "170px"}}>
+            <Card
+              className="card-lock card-white"
+              style={{ minHeight: '170px' }}
+            >
               <CardHeader>
                 <CardTitle tag="h3">
                   <b>Confirm email</b>
                 </CardTitle>
               </CardHeader>
-              <CardBody>
-                {isFetching &&
-                  <LoaderCircle  /> }
-              </CardBody>
-                {!isFetching && <CardFooter className="d-flex justify-content-between">
+              <CardBody>{isFetching && <LoaderCircle />}</CardBody>
+              {!isFetching && (
+                <CardFooter className="d-flex justify-content-between">
                   <Button onClick={confirmEmail} color="primary">
                     Confirm
                   </Button>
-                </CardFooter> }
+                </CardFooter>
+              )}
             </Card>
           </Col>
         </Row>

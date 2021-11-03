@@ -76,7 +76,7 @@ export const loginUser = (email, password) => (dispatch) => {
         // eslint-disable-next-line
         (error) => {
           if (error.response && error.response.status === 401) {
-            dispatch(receiveLogout())
+            dispatch(logoutUser())
           } else {
             let message = 'Something went wrong'
             if (

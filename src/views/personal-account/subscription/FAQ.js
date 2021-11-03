@@ -10,6 +10,7 @@ import {
   Col,
   Row,
 } from 'reactstrap'
+
 import ExceedingPriceInfo from '../../components/ExceedingPriceInfo'
 
 const FAQ = () => {

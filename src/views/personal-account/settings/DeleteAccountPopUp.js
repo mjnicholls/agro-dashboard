@@ -12,6 +12,7 @@ import {
   notifyError,
   notifySuccess,
 } from '../../../features/notifications/actions'
+import {logoutUser} from "../../../features/auth/actions";
 
 const userSubscriptionSelector = (state) => state.auth.user.tariff
 
@@ -29,6 +30,7 @@ const DeleteAccount = ({ close }) => {
     deleteAcct(data)
       .then(() => {
         dispatch(notifySuccess('Account deleted'))
+        dispatch(logoutUser())
       })
       .catch((error) => {
         dispatch(notifyError(`Error deleting account + ${error.message}`))
@@ -43,7 +45,7 @@ const DeleteAccount = ({ close }) => {
           <Row className="my-3">
             <Col>
               <p>
-                We&apos;re sorry to see you go! Please share with us the reason
+                We&apos;re sorry to see you go. Please tell us
                 why you&apos;re deleting your account:
               </p>
             </Col>
@@ -83,14 +85,13 @@ const DeleteAccount = ({ close }) => {
   ) : (
     <div>
       <Row>
-        <Col className="mb-3">
-          <p>
-            Please <NavLink to="/users/home">cancel your subscriptions</NavLink>{' '}
-            before deleting your account.
+        <Col>
+          <p className="mb-3">
+            Please <NavLink to="/users/home">cancel your subscriptions</NavLink>&nbsp;
+            before deleting your account.  If you have a paid subscription and you delete your account, your money will not be returned.
           </p>
-          <p>
-            If you have a paid subscription and delete your account,{' '}
-            <b>your money will not be returned.</b>
+          <p className="mb-3">
+            If you delete your account all your API keys will be blocked.
           </p>
         </Col>
       </Row>

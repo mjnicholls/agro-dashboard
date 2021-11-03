@@ -1,7 +1,7 @@
 import React from 'react'
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import {
@@ -14,15 +14,14 @@ import {
   UncontrolledTooltip,
 } from 'reactstrap'
 
-import { toDate } from '../../../utils/dateTime'
-import { numberWithCommas } from '../../../utils/utils'
-import { subscriptions } from '../utils'
 import { vegetationIndices } from '../../../config'
-
 import {
   setActivePoly,
   setSatelliteMode,
 } from '../../../features/state/actions'
+import { toDate } from '../../../utils/dateTime'
+import { numberWithCommas } from '../../../utils/utils'
+import { subscriptions } from '../utils'
 
 const authSelector = (state) => state.auth
 const polygonsSelector = (state) => state.polygons

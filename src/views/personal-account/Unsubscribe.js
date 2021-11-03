@@ -11,11 +11,13 @@ import {
   notifyError,
 } from '../../features/notifications/actions'
 import ContactUsButton from '../components/ContactUsButton'
+import LoaderDots from '../components/LoaderDots'
 
 const userSelector = (state) => state.auth.user
 
 const Unsubscribe = ({ callback }) => {
   const [alert, setAlert] = useState(null)
+  const [isFetching, setIsFetching] = useState(false)
   const [isSubscriptionAvailable, setIsSubscriptionAvailable] = useState(null)
 
   const dispatch = useDispatch()
@@ -29,6 +31,8 @@ const Unsubscribe = ({ callback }) => {
   }, [user])
 
   const unsubscribeFunc = () => {
+    setIsFetching(true)
+
     unsubscribe({
       service_key: 'agri',
       plan_key: user.tariff,
@@ -46,6 +50,7 @@ const Unsubscribe = ({ callback }) => {
       .catch((err) => {
         dispatch(notifyError(`Error cancelling subscription: ${err.message}`))
       })
+      .finally(() => { setIsFetching(false) })
   }
 
   const hideAlert = () => {
@@ -56,37 +61,37 @@ const Unsubscribe = ({ callback }) => {
     setAlert(
       <ReactBSAlert
         customClass="agro-alert-dark"
-        title="Unsubscribe"
+        title="Are you sure you want to unsubscribe?"
         onConfirm={hideAlert}
         onCancel={hideAlert}
         showConfirm={false}
         showCloseButton
       >
-        <Row>
-          <Col>
-            <p>Are you sure you want to unsubscribe?</p>
-            <p>
-              Дорогой клиент, вы отписываетесь от сервиса, с вас будет списана
-              оплата за фиксу и за прувышение (если оно было в текущем месяце)
-            </p>
-          </Col>
-        </Row>
-        <Row>
-          <Col className="text-right">
-            {isSubscriptionAvailable ? (
-              <Button
-                className="btn-fill"
-                color="primary"
-                type="submit"
-                onClick={unsubscribeFunc}
-              >
-                Unsubscribe
-              </Button>
-            ) : (
-              <ContactUsButton />
-            )}
-          </Col>
-        </Row>
+        {isFetching ? <LoaderDots /> : <>
+          <Row className="mt-3 mb-5">
+            <Col>
+              <p>
+                You will be charged at a fixed rate plus a fee for any exceeded area of your polygons this month
+              </p>
+            </Col>
+          </Row>
+          <Row >
+            <Col className="text-right">
+              {isSubscriptionAvailable ? (
+                <Button
+                  className="btn-fill"
+                  color="primary"
+                  type="submit"
+                  onClick={unsubscribeFunc}
+                >
+                  Unsubscribe
+                </Button>
+              ) : (
+                <ContactUsButton />
+              )}
+            </Col>
+          </Row>
+        </>}
       </ReactBSAlert>,
     )
   }

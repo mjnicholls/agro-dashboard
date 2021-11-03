@@ -16,10 +16,10 @@ import {
   Row,
 } from 'reactstrap'
 
-import ChargeBreakdown from './ChargeBreakdown'
+import { supportEmailMailTo } from '../../../config'
 import Unsubscribe from '../Unsubscribe'
 import { subscriptions } from '../utils'
-import { supportEmailMailTo } from '../../../config'
+import ChargeBreakdown from './ChargeBreakdown'
 const authSelector = (state) => state.auth
 
 const Charges = ({ setHasUnsubscribed }) => {
