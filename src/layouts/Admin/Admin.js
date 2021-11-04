@@ -220,7 +220,7 @@ const Admin = (props) => {
         />
 
         <div className="content">
-          <Container fluid="xl">
+          <Container fluid="xxl">
             <div className="d-flex justify-content-end text-uppercase">
               {getRoutesInnerNavigation(routes)}
             </div>

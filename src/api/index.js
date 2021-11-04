@@ -4,7 +4,8 @@ export const serverBaseURL = 'https://new.agromonitoring.com/api/'
 export const personalAccountBase = `http://k8s-eu4.owm.io:12346/`
 const agriBase = `${serverBaseURL}proxy/`
 
-const testServer = 'http://k8s-eu4.owm.io:12346/'
+// const testServer = 'http://k8s-eu4.owm.io:12346/'
+const testServer = agriBase
 
 // user
 export const loginURL = `${personalAccountBase}auth/login`
