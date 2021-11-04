@@ -1,16 +1,16 @@
 import React from 'react'
 
-import { Col, Row } from 'reactstrap'
-import { Link } from 'react-router-dom'
+import { Button, Col, Row } from 'reactstrap'
 import ReactBSAlert from 'react-bootstrap-sweetalert'
-
 import { supportEmailMailTo } from '../../../config'
 
-const FailurePage = () => (
+const UnsubscribeFailureAlert = ({ close }) => (
   <ReactBSAlert
-    title="Error activating subscription"
+    title="Error cancelling subscription"
     customClass="agro-alert-dark"
     showConfirm={false}
+    onCancel={() => close()}
+    showCloseButton
   >
     <Row className="my-3">
       <Col>
@@ -20,19 +20,7 @@ const FailurePage = () => (
         </p>
       </Col>
     </Row>
-    <Row>
-      <Col className="text-right">
-        <Link
-          role="button"
-          color="primary"
-          className="btn btn-primary"
-          to="/users/billing-plans"
-        >
-          Back to plans
-        </Link>
-      </Col>
-    </Row>
   </ReactBSAlert>
 )
 
-export default FailurePage
+export default UnsubscribeFailureAlert

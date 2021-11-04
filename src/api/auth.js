@@ -47,6 +47,6 @@ export const receiveConfirmationEmail = (email) =>
 export const confirmEmailApi = (value) =>
   axios.put(confirmEmailURL, {
     user: {
-      token: value
+      token: value,
     },
   })

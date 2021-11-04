@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import PropTypes from 'prop-types'
 import { useSelector } from 'react-redux'
@@ -20,98 +20,126 @@ import { supportEmailMailTo } from '../../../config'
 import Unsubscribe from '../Unsubscribe'
 import { subscriptions } from '../utils'
 import ChargeBreakdown from './ChargeBreakdown'
+import UnsubscribeAlert from './UnsubscribeAlert'
+import UnsubscribeSuccessAlert from './UnsubscribeSuccessAlert'
+import UnsubscribeFailureAlert from './UnsubscribeFailureAlert'
+
 const authSelector = (state) => state.auth
 
-const Charges = ({ setHasUnsubscribed }) => {
+const Charges = () => {
   const auth = useSelector(authSelector)
   const { tariff } = auth.user
   const data = subscriptions[tariff]
+  const [unsubscribeAlert, setUnsubscribeAlert] = useState(false)
+  const [unsubscribeSuccess, setUnsubscribeSuccess] = useState(false)
+  const [unsubscribeFailure, setUnsubscribeFailure] = useState(false)
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>
-          <h2>Your Charges</h2>
-        </CardTitle>
-      </CardHeader>
-      <CardBody>
-        <Row>
-          <Col>
-            <Nav className="nav-pills-info nav-pills-icons mt-0 mb-5" pills>
-              <NavItem>
-                <NavLink className="py-4 px-5">
-                  <h4>
-                    Your Tariff: <b>{data.name.toUpperCase()}</b>
-                  </h4>
-
-                  {tariff === 'corp' ? (
-                    <h4 style={{ marginTop: '25px' }}>
-                      Need help? <a href={supportEmailMailTo}>Contact us.</a>
+    <>
+      {unsubscribeAlert && (
+        <UnsubscribeAlert
+          close={() => {
+            setUnsubscribeAlert(false)
+          }}
+          onSuccess={() => {
+            setUnsubscribeSuccess(false)
+          }}
+          onFailure={() => {
+            setUnsubscribeFailure(false)
+          }}
+        />
+      )}
+      {unsubscribeSuccess && <UnsubscribeSuccessAlert />}
+      {unsubscribeFailure && (
+        <UnsubscribeFailureAlert close={() => setUnsubscribeFailure(false)} />
+      )}
+      <Card>
+        <CardHeader>
+          <CardTitle>
+            <h2>Your Charges</h2>
+          </CardTitle>
+        </CardHeader>
+        <CardBody>
+          <Row>
+            <Col>
+              <Nav className="nav-pills-info nav-pills-icons mt-0 mb-5" pills>
+                <NavItem>
+                  <NavLink className="py-4 px-5">
+                    <h4>
+                      Your Tariff: <b>{data.name.toUpperCase()}</b>
                     </h4>
-                  ) : (
-                    <Link
-                      to="/users/billing-plans"
-                      role="button"
-                      className="btn btn-primary"
-                    >
-                      Upgrade
-                    </Link>
-                  )}
-                </NavLink>
-              </NavItem>
-            </Nav>
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <ChargeBreakdown />
-          </Col>
-          <Col>
-            <Table>
-              <thead>
-                <tr>
-                  <th>My payments</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>
-                    <Link
-                      to="/users/payments"
-                      role="button"
-                      className="btn btn-primary"
-                      style={{ width: '180px' }}
-                    >
-                      To invoices
-                    </Link>
-                  </td>
-                </tr>
-              </tbody>
-            </Table>
 
-            {tariff !== 'free' && (
+                    {tariff === 'corp' ? (
+                      <h4 style={{ marginTop: '25px' }}>
+                        Need help? <a href={supportEmailMailTo}>Contact us.</a>
+                      </h4>
+                    ) : (
+                      <Link
+                        to="/users/billing-plans"
+                        role="button"
+                        className="btn btn-primary"
+                      >
+                        Upgrade
+                      </Link>
+                    )}
+                  </NavLink>
+                </NavItem>
+              </Nav>
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              <ChargeBreakdown />
+            </Col>
+            <Col>
               <Table>
                 <thead>
                   <tr>
-                    <th>
-                      <br />
-                      Unsubscribe
-                    </th>
+                    <th>My payments</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
                     <td>
-                      <Unsubscribe callback={() => setHasUnsubscribed(true)} />
+                      <Link
+                        to="/users/payments"
+                        role="button"
+                        className="btn btn-primary"
+                        style={{ width: '180px' }}
+                      >
+                        To invoices
+                      </Link>
                     </td>
                   </tr>
                 </tbody>
               </Table>
-            )}
-          </Col>
-        </Row>
-      </CardBody>
-    </Card>
+
+              {tariff !== 'free' && (
+                <Table>
+                  <thead>
+                    <tr>
+                      <th>
+                        <br />
+                        Unsubscribe
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <Unsubscribe
+                          callback={() => setUnsubscribeSuccess(true)}
+                        />
+                      </td>
+                    </tr>
+                  </tbody>
+                </Table>
+              )}
+            </Col>
+          </Row>
+        </CardBody>
+      </Card>
+    </>
   )
 }
 

@@ -28,8 +28,7 @@ export const errors = {
 }
 
 export const cookies = {
-  ad: "agro-ad",
-
+  ad: 'agro-ad',
 }
 
 export const itemsPerPage = 10

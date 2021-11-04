@@ -8,7 +8,6 @@ import {
   Row,
   TabContent,
   TabPane,
-  UncontrolledAlert,
 } from 'reactstrap'
 
 import Charges from './Charges'
@@ -18,18 +17,9 @@ import LimitsDashboard from './LimitsDashboard'
 
 const SubscriptionPage = (props) => {
   const [activePage, setActivePage] = useState('charge')
-  const [hasUnsubscribed, setHasUnsubscribed] = useState(false)
 
   return (
     <>
-      {hasUnsubscribed && (
-        <UncontrolledAlert color="success" fade={false}>
-          <span>
-            <b>Success - </b> You have been unsubscribed successfully. Please
-            sign out for changes to take effect.
-          </span>
-        </UncontrolledAlert>
-      )}
       <Row>
         <Col className="ml-auto mr-auto">
           <Nav
@@ -73,7 +63,7 @@ const SubscriptionPage = (props) => {
             activeTab={activePage}
           >
             <TabPane tabId="charge">
-              <Charges setHasUnsubscribed={setHasUnsubscribed} />
+              <Charges />
               <FAQ />
             </TabPane>
             <TabPane tabId="limits">
