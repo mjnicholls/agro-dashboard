@@ -1,25 +1,22 @@
 export const serverBaseURL = 'https://new.agromonitoring.com/api/'
 
-// export const personalAccountBase = `${serverBaseURL}auth/`
-export const personalAccountBase = `http://k8s-eu4.owm.io:12346/`
-const agriBase = `${serverBaseURL}proxy/`
+export const personalAccountBase = `${serverBaseURL}auth/`
 
-// const testServer = 'http://k8s-eu4.owm.io:12346/'
-const testServer = agriBase
+const agriBase = `${serverBaseURL}proxy/`
 
 // user
 export const loginURL = `${personalAccountBase}auth/login`
 export const logoutURL = `${personalAccountBase}auth/logout`
-export const signupURL = `${testServer}auth/signup`
+export const signupURL = `${personalAccountBase}auth/signup`
 
-export const forgotPasswordURL = `${testServer}auth/password/forgot`
-export const resetPasswordURL = `${testServer}auth/password/reset`
-export const confirmEmailURL = `${testServer}account/confirmation`
-export const isSubscriptionAvailableURL = `${testServer}account/subscription`
+export const forgotPasswordURL = `${personalAccountBase}auth/password/forgot`
+export const resetPasswordURL = `${personalAccountBase}auth/password/reset`
+export const confirmEmailURL = `${personalAccountBase}account/confirmation`
+export const isSubscriptionAvailableURL = `${personalAccountBase}account/subscription`
 
 // billing
-export const subscribeURL = `${testServer}account/subscribe`
-export const unsubscribeURL = `${testServer}account/unsubscribe`
+export const subscribeURL = `${personalAccountBase}account/subscribe`
+export const unsubscribeURL = `${personalAccountBase}account/unsubscribe`
 
 export const apiKeyStatus = `${personalAccountBase}appid/status`
 export const polygonsEndpoint = `${agriBase}polygons`
