@@ -1,8 +1,8 @@
 import React from 'react'
 
-import { Col, Row } from 'reactstrap'
-import { Link } from 'react-router-dom'
 import ReactBSAlert from 'react-bootstrap-sweetalert'
+import { Link } from 'react-router-dom'
+import { Col, Row } from 'reactstrap'
 
 import { supportEmailMailTo } from '../../../config'
 

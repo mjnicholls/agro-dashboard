@@ -157,7 +157,7 @@ const AdminNavbar = (props) => {
                 {/* <DropdownItem divider tag="li" /> */}
                 <NavLink tag="li">
                   <DropdownItem className="nav-item" onClick={logOut}>
-                    Log out
+                    Sign out
                   </DropdownItem>
                 </NavLink>
               </DropdownMenu>

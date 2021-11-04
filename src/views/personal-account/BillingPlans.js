@@ -11,14 +11,14 @@ import { supportEmailMailTo, vegetationIndices } from '../../config'
 import ContactUsButton from '../components/ContactUsButton'
 import ExceedingPriceInfo from '../components/ExceedingPriceInfo'
 import Map from '../maps/MapCovereage'
-import SubscriptionPopUp from './subscription-form/SubscriptionPopUp'
+import SubscriptionPopUp from './subscription/popup/SubscriptionPopUp'
 import { subscriptions } from './utils'
 
 const userSelector = (state) => state.auth.user
 
 const BillingPlans = () => {
   const [alert, setAlert] = useState(null)
-  const [isSubscriptionAvailable, setIsSubscriptionAvailable] = useState(null)
+  const [isSubscriptionAvailable, setIsSubscriptionAvailable] = useState(true)
 
   const user = useSelector(userSelector)
   const subscription = user.tariff

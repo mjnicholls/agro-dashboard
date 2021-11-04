@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import Select from 'react-select'
 import { Col, Form, Label, FormGroup, Input, Row } from 'reactstrap'
 
-import { titles } from '../../../config'
+import { titles } from '../../../../config'
 
 const Step1 = ({ invoiceSettings, setInvoiceSettings, user, error }) => {
   const handleChange = (key, value) => {

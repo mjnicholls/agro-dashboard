@@ -8,7 +8,7 @@ import { Button, Col, Row } from 'reactstrap'
 import { isSubscriptionAvailableAPI, unsubscribe } from '../../../api/billing'
 import ContactUsButton from '../../components/ContactUsButton'
 import LoaderDots from '../../components/LoaderDots'
-import {supportEmailMailTo} from "../../../config";
+import { supportEmailMailTo } from '../../../config'
 
 import { logoutUser } from '../../../features/auth/actions'
 
@@ -44,23 +44,31 @@ const UnsubscribeAlert = ({ close }) => {
         email: user.email,
       },
     })
-      .then(() => { setIsSuccess(true) })
-      .catch(() => { setIsFailure(true) })
+      .then(() => {
+        setIsSuccess(true)
+      })
+      .catch(() => {
+        setIsFailure(true)
+      })
       .finally(() => {
         setIsFetching(false)
       })
   }
 
   const getTitle = () =>
-    isSuccess ? "You are successfully unsubscribed" : isFailure ? "Error cancelling subscription" : "Are you sure you want to unsubscribe?"
+    isSuccess
+      ? 'You are successfully unsubscribed'
+      : isFailure
+      ? 'Error cancelling subscription'
+      : 'Are you sure you want to unsubscribe?'
 
   const AlertContent = () => (
     <>
       <Row className="mt-3 mb-5">
         <Col>
           <p>
-            You will be charged at a fixed rate plus a fee for any exceeded
-            area of your polygons this month
+            You will be charged at a fixed rate plus a fee for any exceeded area
+            of your polygons this month
           </p>
         </Col>
       </Row>
@@ -103,7 +111,7 @@ const UnsubscribeAlert = ({ close }) => {
             type="button"
             onClick={logOut}
           >
-            Logout
+            Sign out
           </Button>
         </Col>
       </Row>
@@ -131,7 +139,13 @@ const UnsubscribeAlert = ({ close }) => {
     >
       {isFetching ? (
         <LoaderDots />
-      ) : isSuccess ? <SuccessContent/> : isFailure ? <FailureContent/> : <AlertContent/> }
+      ) : isSuccess ? (
+        <SuccessContent />
+      ) : isFailure ? (
+        <FailureContent />
+      ) : (
+        <AlertContent />
+      )}
     </ReactBSAlert>
   )
 }

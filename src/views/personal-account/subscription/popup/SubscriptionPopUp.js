@@ -4,14 +4,14 @@ import classnames from 'classnames'
 import { useDispatch } from 'react-redux'
 import { Button, Col, Form, Label, Row } from 'reactstrap'
 
-import { validateVat, subscribe } from '../../../api/billing'
-import { getAccountInfo } from '../../../api/personalAccount'
-import { noBlankErrorMessage } from '../../../config'
+import { validateVat, subscribe } from '../../../../api/billing'
+import { getAccountInfo } from '../../../../api/personalAccount'
+import { noBlankErrorMessage } from '../../../../config'
 import {
   notifyError,
   notifySuccess,
-} from '../../../features/notifications/actions'
-import { validatePhoneNumber } from '../../../utils/validation'
+} from '../../../../features/notifications/actions'
+import { validatePhoneNumber } from '../../../../utils/validation'
 import Step1 from './Step1'
 import Step2 from './Step2'
 
@@ -22,7 +22,7 @@ const SubscriptionPopUp = ({ plan }) => {
   const dispatch = useDispatch()
   const [error, setError] = useState({})
   const [step, setStep] = useState(1)
-
+  const [isFetching, setIsFetching] = useState(false)
   const [invoiceSettings, setInvoiceSettings] = useState({
     type: 'individual',
     organisation: '',
@@ -70,9 +70,9 @@ const SubscriptionPopUp = ({ plan }) => {
       },
       invoice_form: invoiceDetails,
     }
+    setIsFetching(true)
     subscribe(data)
       .then((res) => {
-        console.log(res)
         dispatch(
           notifySuccess(
             'Successfully subscribed. You will be redirected to stripe page',
@@ -86,6 +86,9 @@ const SubscriptionPopUp = ({ plan }) => {
       })
       .catch((err) => {
         notifyError(`Error: ${err.message}`)
+      })
+      .finally(() => {
+        setIsFetching(false)
       })
   }
 
@@ -163,6 +166,7 @@ const SubscriptionPopUp = ({ plan }) => {
         <Step2
           invoiceSettings={invoiceSettings}
           setInvoiceSettings={setInvoiceSettings}
+          isFetching={isFetching}
           error={error}
         />
       )}

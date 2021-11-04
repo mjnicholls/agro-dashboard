@@ -22,9 +22,9 @@ import ApiKeys from './views/personal-account/ApiKeys'
 import BillingPlans from './views/personal-account/BillingPlans'
 import InvoiceList from './views/personal-account/Payments'
 import Settings from './views/personal-account/settings/Settings'
-import FailurePage from './views/personal-account/subscription-form/FailurePage'
-import SuccessPage from './views/personal-account/subscription-form/SuccessPage'
-import Subscription from './views/personal-account/subscription/SubscriptionPage-2-1'
+import FailurePage from './views/personal-account/subscription/FailurePage'
+import SuccessPage from './views/personal-account/subscription/SuccessPage'
+import Subscription from './views/personal-account/subscription/SubscriptionPage'
 
 const routes = [
   {

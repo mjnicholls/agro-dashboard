@@ -30,6 +30,70 @@ const Charges = () => {
   const data = subscriptions[tariff]
   const [unsubscribeAlert, setUnsubscribeAlert] = useState(false)
 
+  // const fullSection22 = () => (
+  //   <Nav
+  //                           className="nav-pills-info nav-pills-icons justify-content-center"
+  //                           pills
+  //                         >
+  //                           <NavItem>
+  //                             <NavLink>
+  //                               <Row>
+  //                                 <Col className="col">
+  //                                   <i
+  //                                     className="tim-icons icon-paper"
+  //                                     style={{ marginTop: '15px' }}
+  //                                   />
+  //                                   <p>Your Charges</p>
+  //                                   <p>This Month</p>
+  //                                 </Col>
+  //                                 <Col className="col">
+  //                                   <p style={{ fontSize: '40px' }}>£40</p>
+  //                                   <Link to="/dashboard/payments">
+  //                                     <Button
+  //                                       className="btn-fill"
+  //                                       color="primary"
+  //                                       type="submit"
+  //                                       style={{ marginTop: '17px' }}
+  //                                     >
+  //                                       Invoice
+  //                                     </Button>
+  //                                   </Link>
+  //                                 </Col>
+  //                               </Row>
+  //                             </NavLink>
+  //                           </NavItem>
+  //                           <NavItem>
+  //                             <NavLink>
+  //                               <h4>
+  //                                 Next Payment: <b>Sep 30, 2022</b>
+  //                               </h4>
+  //
+  //                               <h4>
+  //                                 Your Tariff: <b>{data.name.toUpperCase()}</b>
+  //                               </h4>
+  //
+  //                               {tariff === 'corp' ? (
+  //                                 <h4 style={{ marginTop: '25px' }}>
+  //                                   Need help?{' '}
+  //                                   <a href={supportEmailMailTo}>Contact us.</a>
+  //                                 </h4>
+  //                               ) : (
+  //                                 <Link to="/dashboard/billing-plans">
+  //                                   <Button
+  //                                     className="btn-fill"
+  //                                     color="primary"
+  //                                     type="submit"
+  //                                     // onClick={}
+  //                                   >
+  //                                     Upgrade
+  //                                   </Button>
+  //                                 </Link>
+  //                               )}
+  //                             </NavLink>
+  //                           </NavItem>
+  //                         </Nav>
+  // )
+
   return (
     <>
       {unsubscribeAlert && (

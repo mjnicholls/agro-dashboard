@@ -5,9 +5,10 @@ import PropTypes from 'prop-types'
 import Select from 'react-select'
 import { Col, Form, Label, FormGroup, Input, Row } from 'reactstrap'
 
-import { countriesDefault } from '../../../config'
+import { countriesDefault } from '../../../../config'
+import LoaderDots from '../../../components/LoaderDots'
 
-const Step2 = ({ invoiceSettings, setInvoiceSettings, error }) => {
+const Step2 = ({ invoiceSettings, setInvoiceSettings, error, isFetching }) => {
   const [countries, setCountries] = useState(countriesDefault)
 
   const handleChange = (key, value) => {
@@ -16,7 +17,9 @@ const Step2 = ({ invoiceSettings, setInvoiceSettings, error }) => {
     setInvoiceSettings(newObj)
   }
 
-  return (
+  return isFetching ? (
+    <LoaderDots />
+  ) : (
     <div>
       <Form>
         <Row>
