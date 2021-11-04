@@ -1,5 +1,6 @@
 // export const serverBaseURL = 'https://new.agromonitoring.com/api/'
-export const serverBaseURL = 'http://dashboard.phase.owm.io/api/'
+// export const serverBaseURL = 'http://dashboard.phase.owm.io/api/'
+export const serverBaseURL = 'https://dashboard.owm.io/api/'
 
 export const personalAccountBase = `${serverBaseURL}auth/`
 export const test = `http://k8s-eu4.owm.io:12346/`
