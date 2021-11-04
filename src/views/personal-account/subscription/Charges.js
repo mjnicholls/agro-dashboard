@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import {
+  Button,
   Card,
   CardBody,
   CardHeader,
@@ -17,12 +18,9 @@ import {
 } from 'reactstrap'
 
 import { supportEmailMailTo } from '../../../config'
-import Unsubscribe from '../Unsubscribe'
 import { subscriptions } from '../utils'
 import ChargeBreakdown from './ChargeBreakdown'
 import UnsubscribeAlert from './UnsubscribeAlert'
-import UnsubscribeSuccessAlert from './UnsubscribeSuccessAlert'
-import UnsubscribeFailureAlert from './UnsubscribeFailureAlert'
 
 const authSelector = (state) => state.auth
 
@@ -31,8 +29,6 @@ const Charges = () => {
   const { tariff } = auth.user
   const data = subscriptions[tariff]
   const [unsubscribeAlert, setUnsubscribeAlert] = useState(false)
-  const [unsubscribeSuccess, setUnsubscribeSuccess] = useState(false)
-  const [unsubscribeFailure, setUnsubscribeFailure] = useState(false)
 
   return (
     <>
@@ -41,17 +37,7 @@ const Charges = () => {
           close={() => {
             setUnsubscribeAlert(false)
           }}
-          onSuccess={() => {
-            setUnsubscribeSuccess(false)
-          }}
-          onFailure={() => {
-            setUnsubscribeFailure(false)
-          }}
         />
-      )}
-      {unsubscribeSuccess && <UnsubscribeSuccessAlert />}
-      {unsubscribeFailure && (
-        <UnsubscribeFailureAlert close={() => setUnsubscribeFailure(false)} />
       )}
       <Card>
         <CardHeader>
@@ -127,9 +113,15 @@ const Charges = () => {
                   <tbody>
                     <tr>
                       <td>
-                        <Unsubscribe
-                          callback={() => setUnsubscribeSuccess(true)}
-                        />
+                        <Button
+                          className="btn-fill"
+                          color="primary"
+                          type="submit"
+                          style={{ width: '180px' }}
+                          onClick={() => setUnsubscribeAlert(true)}
+                        >
+                          Unsubscribe
+                        </Button>
                       </td>
                     </tr>
                   </tbody>

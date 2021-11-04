@@ -11,11 +11,7 @@ const ChartContainer = (props) => {
   return props.isLoading || props.error ? (
     <div className="agro-placeholder" style={{ ...props.style }}>
       <div className="agro-placeholder-content">
-        {props.isLoading ? (
-          <LoaderDots />
-        ) : (
-          <div>{props.error}</div>
-        )}
+        {props.isLoading ? <LoaderDots /> : <div>{props.error}</div>}
       </div>
     </div>
   ) : (

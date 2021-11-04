@@ -112,7 +112,7 @@ const RegisterForm = ({ history }) => {
       const vars = advertisingCampaign.split('&')
       for (let i = 0; i < vars.length; i += 1) {
         const pair = vars[i].split('=')
-        if (pair[0] === 'campaign') {
+        if (pair[0] === 'campaign_id') {
           campaignId = pair[1]
         } else if (pair[0] === 'date') {
           entranceDate = parseInt(pair[1])

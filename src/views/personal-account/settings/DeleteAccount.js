@@ -37,9 +37,10 @@ const DeleteAcctCard = () => {
           <p className="mb-3">
             If you delete your account all your API keys will be blocked.
           </p>
-          <p  className="mb-3">
+          <p className="mb-3">
             If you have any questions, please reach out to our friendly support
-            team at <a href={supportEmailMailTo} target="_blank">
+            team at{' '}
+            <a href={supportEmailMailTo} target="_blank">
               {supportEmail}
             </a>
           </p>

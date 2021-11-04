@@ -3,14 +3,13 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Col, Row } from 'reactstrap'
 
-import {getAPIKeyStatus} from "../../api/personalAccount";
-import {setApiKeyStatus} from "../../features/auth/actions";
+import { getAPIKeyStatus } from '../../api/personalAccount'
+import { setApiKeyStatus } from '../../features/auth/actions'
 import LoaderDots from './LoaderDots'
 
 const selectIsApiKeyValid = (state) => state.auth.isApiKeyValid
 
 const Synchronizing = () => {
-
   const isApiKeyValid = useSelector(selectIsApiKeyValid)
   const dispatch = useDispatch()
 
@@ -19,7 +18,7 @@ const Synchronizing = () => {
       .then(() => {
         dispatch(setApiKeyStatus(true))
       })
-      .catch(() => {
+      .catch((err) => {
         dispatch(setApiKeyStatus(false))
         setTimeout(checkAPIKeyStatus, 20000)
       })

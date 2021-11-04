@@ -6,12 +6,11 @@ import { Col, Row } from 'reactstrap'
 import { getAPIKeyStatus } from '../api/personalAccount'
 import { setApiKeyStatus } from '../features/auth/actions'
 import { getPageHeight } from '../utils/utils'
+import Synchronizing from './components/Synchronizing'
 import PolygonCreateCard from './dashboard/small-cards/PolygonCreateCard'
 import MapBoxDraw from './maps/MapBoxDraw'
-import Synchronizing from './components/Synchronizing'
 
 const selectIsApiKeyValid = (state) => state.auth.isApiKeyValid
-
 
 const PolygonNew = () => {
   /** Draw a new polygon, give it a name */
@@ -45,7 +44,6 @@ const PolygonNew = () => {
 
   const blockResetMap = () =>
     !drawRef.current || !drawRef.current.getAll().features.length
-
 
   return isApiKeyValid ? (
     <Row>

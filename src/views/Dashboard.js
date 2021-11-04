@@ -6,6 +6,7 @@ import { Col, Row } from 'reactstrap'
 import { getOneCallData } from '../api/weather'
 import CombinedChart from './charts/CombinedChart'
 import NdviChart from './charts/NdviChart'
+import Synchronizing from './components/Synchronizing'
 import PolygonTable from './dashboard/PolygonTable'
 import ImageStats from './dashboard/small-cards/LayerStats'
 import PolygonInfo from './dashboard/small-cards/PolygonInfo'
@@ -14,7 +15,6 @@ import PolygonsTotalStats from './dashboard/small-cards/PolygonsTotalStats'
 import SoilCurrent from './dashboard/small-cards/SoilCurrent'
 import WeatherCurrent from './dashboard/small-cards/WeatherCurrent'
 import MapBox from './maps/MapBox'
-import Synchronizing from './components/Synchronizing'
 
 const selectPolygons = (state) => state.polygons
 const selectActivePoly = (state) => state.state.polygon
@@ -35,7 +35,6 @@ const Dashboard = () => {
   const polygons = useSelector(selectPolygons)
   const isSatelliteMode = useSelector(selectIsSatelliteMode)
   const isApiKeyValid = useSelector(selectIsApiKeyValid)
-
 
   useEffect(() => {
     if (!isSatelliteMode) {
@@ -80,8 +79,8 @@ const Dashboard = () => {
       <CombinedChart polyId={activePolygon.id} onecall={weatherData} />
     )
 
-  return (
-    isApiKeyValid ? <>
+  return isApiKeyValid ? (
+    <>
       <Row>
         <Col lg="6">
           <MapBox
@@ -126,7 +125,9 @@ const Dashboard = () => {
           )}
         </Col>
       </Row>
-    </> : <Synchronizing />
+    </>
+  ) : (
+    <Synchronizing />
   )
 }
 
