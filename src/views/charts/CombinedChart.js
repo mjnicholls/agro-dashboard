@@ -140,7 +140,7 @@ const CombinedChart = ({ polyId, onecall }) => {
       setEarliestAvailableDate(newEarliestAvailableDate)
       if (newStartDate) {
         setStartDate(newStartDate.getTime())
-        setEndDate(new Date().getTime())
+        setEndDate(new Date().getTime() - 5000) // 5 seconds lead time for the back-end
       }
     }
   }, [limitAccPrec, limitAccTemp, limitSoil, limitHistoryWeather, polyId])

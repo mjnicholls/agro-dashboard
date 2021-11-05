@@ -43,7 +43,7 @@ const NdviChart = ({ polyId }) => {
         setEarliestAvailableDate(newEarliestAvailableDate)
         setEarliestAvailableDate(newEarliestAvailableDate)
         setStartDate(newStartDate)
-        setEndDate(new Date().getTime())
+        setEndDate(new Date().getTime() - 5000) // 5 seconds lead time for the back-end
       } else {
         setIsLoading(false)
         setError(tariffError)
