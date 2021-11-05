@@ -1,4 +1,3 @@
-/* eslint-disable */
 import React, { useEffect, useState } from 'react'
 
 import ReactBSAlert from 'react-bootstrap-sweetalert'
@@ -55,12 +54,15 @@ const UnsubscribeAlert = ({ close }) => {
       })
   }
 
-  const getTitle = () =>
-    isSuccess
-      ? 'You are successfully unsubscribed'
-      : isFailure
-      ? 'Error cancelling subscription'
-      : 'Are you sure you want to unsubscribe?'
+  const getTitle = () => {
+    if (isSuccess) {
+      return 'You are successfully unsubscribed'
+    }
+    if (isFailure) {
+      return 'Error cancelling subscription'
+    }
+    return 'Are you sure you want to unsubscribe?'
+  }
 
   const AlertContent = () => (
     <>
@@ -84,7 +86,7 @@ const UnsubscribeAlert = ({ close }) => {
               Unsubscribe
             </Button>
           ) : (
-            <ContactUsButton />
+            <ContactUsButton title="Contact us to unsubscribe" />
           )}
         </Col>
       </Row>
@@ -129,6 +131,19 @@ const UnsubscribeAlert = ({ close }) => {
     </Row>
   )
 
+  const Content = () => {
+    if (isFetching) {
+      return <LoaderDots />
+    }
+    if (isSuccess) {
+      return <SuccessContent />
+    }
+    if (isFailure) {
+      return <FailureContent />
+    }
+    return <AlertContent />
+  }
+
   return (
     <ReactBSAlert
       customClass="agro-alert-dark"
@@ -137,15 +152,7 @@ const UnsubscribeAlert = ({ close }) => {
       showConfirm={false}
       showCloseButton={!isSuccess}
     >
-      {isFetching ? (
-        <LoaderDots />
-      ) : isSuccess ? (
-        <SuccessContent />
-      ) : isFailure ? (
-        <FailureContent />
-      ) : (
-        <AlertContent />
-      )}
+      <Content />
     </ReactBSAlert>
   )
 }

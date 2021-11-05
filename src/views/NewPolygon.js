@@ -3,9 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Col, Row } from 'reactstrap'
 
-import { getAPIKeyStatus } from '../api/personalAccount'
-import { setApiKeyStatus } from '../features/auth/actions'
-import { getPageHeight } from '../utils/utils'
+import { getMapHeight } from '../utils/utils'
 import Synchronizing from './components/Synchronizing'
 import PolygonCreateCard from './dashboard/small-cards/PolygonCreateCard'
 import MapBoxDraw from './maps/MapBoxDraw'
@@ -16,20 +14,12 @@ const PolygonNew = () => {
   /** Draw a new polygon, give it a name */
 
   const isApiKeyValid = useSelector(selectIsApiKeyValid)
-  const dispatch = useDispatch()
   const [geoJson, setGeoJson] = React.useState(null)
   const [area, setArea] = React.useState('')
   const [intersection, setIntersection] = React.useState(false)
   const [mode, setMode] = React.useState('draw')
-  const [mapHeight, setMapHeight] = useState(550)
   const drawRef = React.useRef(null)
-
-  useEffect(() => {
-    const contentHeight = getPageHeight()
-    if (contentHeight > 200) {
-      setMapHeight(contentHeight)
-    }
-  }, [])
+  const mapHeight = getMapHeight()
 
   const resetMap = () => {
     const data = drawRef.current.getAll()

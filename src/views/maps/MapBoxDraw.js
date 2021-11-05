@@ -164,7 +164,7 @@ const MapBoxDraw = ({
       <div
         ref={mapContainer}
         className="map-container map-box-container mb-5"
-        style={{ height: `${mapHeight}px` }}
+        style={{ height: mapHeight }}
       />
     </div>
   )

@@ -57,6 +57,12 @@ const Admin = (props) => {
       }
     }
     window.addEventListener('scroll', showNavbarButton)
+
+    // fetch polygons inside dashboard, if we don't have any
+    if (!polygons.length) {
+      dispatch(fetchPolygons())
+    }
+
     return function cleanup() {
       if (navigator.platform.indexOf('Win') > -1) {
         ps.destroy()
@@ -71,10 +77,6 @@ const Admin = (props) => {
       }
       window.removeEventListener('scroll', showNavbarButton)
 
-      // fetch polygons inside dashboard, if we don't have any
-      if (!polygons.length) {
-        dispatch(fetchPolygons())
-      }
     }
   }, [])
 

@@ -49,10 +49,8 @@ export const getPreticipationInfo = (data) => {
   return res
 }
 
-export const getPageHeight = () =>
-  window.innerHeight -
-  document.getElementsByClassName('navbar-collapse')[0].clientHeight -
-  100
+
+export const getMapHeight = () =>  "calc(100vh - 220px)"
 
 export const numberWithCommas = (x) => {
   let res = 0
