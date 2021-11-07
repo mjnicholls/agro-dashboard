@@ -12,7 +12,7 @@ import {
 } from '../../../features/state/actions'
 let ps
 
-const selectPolygons = (state) => state.polygons
+const selectPolygons = (state) => state.polygons.data
 const selectActivePoly = (state) => state.state.polygon
 const selectIsSatelliteMode = (state) => state.state.isSatelliteMode
 

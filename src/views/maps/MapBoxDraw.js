@@ -13,7 +13,7 @@ import { displayClusters } from './clusters'
 import { removeCropLayer, displayCropLayer } from './crops'
 import { displayPolygonGroup } from './polygons'
 
-const selectPolygons = (state) => state.polygons
+const selectPolygons = (state) => state.polygons.data
 const selectToken = (state) => state.auth.token
 
 const MapBoxDraw = ({

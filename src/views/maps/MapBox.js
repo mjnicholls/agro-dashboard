@@ -17,7 +17,7 @@ import { displayClusters } from './clusters'
 import { displayPolygonGroup } from './polygons'
 
 const selectToken = (state) => state.auth.token
-const selectPolygons = (state) => state.polygons
+const selectPolygons = (state) => state.polygons.data
 const selectActivePoly = (state) => state.state.polygon
 const selectIsSatelliteMode = (state) => state.state.isSatelliteMode
 

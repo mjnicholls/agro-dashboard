@@ -32,7 +32,8 @@ const Dashboard = () => {
     error: null,
   })
   const activePolygon = useSelector(selectActivePoly)
-  const polygons = useSelector(selectPolygons)
+  const polygonsState = useSelector(selectPolygons)
+  const { data, isFetching, error } = polygonsState
   const isSatelliteMode = useSelector(selectIsSatelliteMode)
   const isApiKeyValid = useSelector(selectIsApiKeyValid)
 
@@ -58,7 +59,7 @@ const Dashboard = () => {
     }
   }, [isSatelliteMode, activePolygon])
 
-  const activeTopSection = () =>
+  const ActiveTopSection = () =>
     isSatelliteMode ? (
       <ImageStats
         satelliteImage={satelliteImage}
@@ -72,63 +73,88 @@ const Dashboard = () => {
       </>
     )
 
-  const activeChart = () =>
+  const ActiveChart = () =>
     isSatelliteMode ? (
       <NdviChart polyId={activePolygon.id} />
     ) : (
       <CombinedChart polyId={activePolygon.id} onecall={weatherData} />
     )
 
-  return isApiKeyValid ? (
-    <>
-      <Row>
-        <Col lg="6">
-          <MapBox
-            // activePolygon={activePolygon}
-            satelliteImage={satelliteImage}
-            setSatelliteImage={setSatelliteImage}
-            satelliteLayer={satelliteLayer}
-            isSatellitePage={isSatelliteMode}
-            setPolygonInFocus={setPolygonInFocus}
-          />
-        </Col>
-
-        <Col lg="3" sm="6">
-          {activePolygon ? (
-            activeTopSection()
-          ) : (
-            <PolygonInfo polygonInFocus={polygonInFocus} />
-          )}
-        </Col>
-
-        <Col lg="3" sm="6">
-          {activePolygon ? (
-            <PolygonTableSmall />
-          ) : (
-            <PolygonsTotalStats
-              polygons={polygons}
-              activePolygon={polygons[0]}
-            />
-          )}
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-          {activePolygon ? (
-            activeChart()
-          ) : (
-            <PolygonTable
-              data={polygons}
+  const Content = () => {
+    if (isFetching) {
+      return (
+        <Synchronizing>
+          <>Fetching polygons...</>
+        </Synchronizing>
+      )
+    }
+    if (!isApiKeyValid) {
+      return (
+        <Synchronizing>
+          <>Synchronizing API key... It might take a few minutes</>
+        </Synchronizing>
+      )
+    }
+    if (error) {
+      return (
+        <Row>
+          <Col className="text-center my-5 align-self-center">
+            <p>{error}</p>
+          </Col>
+        </Row>
+      )
+    }
+    if (!data.length) {
+      return null
+    }
+    return (
+      <>
+        <Row>
+          <Col lg="6">
+            <MapBox
               // activePolygon={activePolygon}
-              // setActivePolygon={setActivePolygon}
+              satelliteImage={satelliteImage}
+              setSatelliteImage={setSatelliteImage}
+              satelliteLayer={satelliteLayer}
+              isSatellitePage={isSatelliteMode}
+              setPolygonInFocus={setPolygonInFocus}
             />
-          )}
-        </Col>
-      </Row>
-    </>
-  ) : (
-    <Synchronizing />
-  )
+          </Col>
+
+          <Col lg="3" sm="6">
+            {activePolygon ? (
+              <ActiveTopSection />
+            ) : (
+              <PolygonInfo polygonInFocus={polygonInFocus} />
+            )}
+          </Col>
+
+          <Col lg="3" sm="6">
+            {activePolygon ? (
+              <PolygonTableSmall />
+            ) : (
+              <PolygonsTotalStats polygons={data} activePolygon={data[0]} />
+            )}
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            {activePolygon ? (
+              <ActiveChart />
+            ) : (
+              <PolygonTable
+                data={data}
+                // activePolygon={activePolygon}
+                // setActivePolygon={setActivePolygon}
+              />
+            )}
+          </Col>
+        </Row>
+      </>
+    )
+  }
+
+  return <Content />
 }
 
 export default Dashboard

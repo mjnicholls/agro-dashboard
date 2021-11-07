@@ -16,7 +16,7 @@ import { setActivePoly } from '../../../features/state/actions'
 import ToggleModes from '../../components/ToggleModes'
 
 const selectActivePoly = (state) => state.state.polygon
-const selectPolygons = (state) => state.polygons
+const selectPolygons = (state) => state.polygons.data
 
 const PolygonTableSmall = () => {
   const activePolygon = useSelector(selectActivePoly)

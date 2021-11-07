@@ -13,7 +13,7 @@ import './assets/demo/demo.css'
 import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css'
 import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css'
 
-import { cookies } from './config'
+import { gaID, cookies, defaultTimeout } from './config'
 import { receiveLogout } from './features/auth/actions'
 import AdminLayout from './layouts/Admin/Admin'
 import AuthLayout from './layouts/Auth/Auth'
@@ -25,7 +25,8 @@ import Notifications from './views/components/NotificationsTemporary'
 axios.defaults.headers.common.Authorization = `Bearer ${
   store.getState().auth.token
 }`
-axios.defaults.timeout = 15000
+axios.defaults.timeout = defaultTimeout
+
 axios.interceptors.response.use(
   (response) => (response && response.data ? response.data : response),
   (error) => {
@@ -73,20 +74,20 @@ axios.interceptors.response.use(
   },
 )
 
-const ga4react = new GA4React('G-JE5157018X')
-
-ga4react.initialize().then(
-  (ga4) => {
-    ga4.pageview('path')
-  },
-  (err) => {
-    /* eslint-disable-next-line */
-    console.error(err)
-  },
-)
-
 const App = () => {
   useEffect(() => {
+    /* Check advertising campaign in cookies, set Google Analytics */
+    const ga4react = new GA4React()
+
+    ga4react.initialize(gaID).then(
+      (ga4) => {
+        ga4.pageview('path')
+      },
+      (err) => {
+        /* eslint-disable-next-line */
+        console.error(err)
+      },
+    )
     const queryParams = queryString.parse(window.location.search)
     const tokenVal = queryParams.campaign_id
     if (tokenVal) {

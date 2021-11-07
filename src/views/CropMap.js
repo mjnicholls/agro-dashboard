@@ -21,7 +21,6 @@ const CropMap = () => {
   const [alert, setAlert] = useState(null)
 
   useEffect(() => {
-
     initialiseMap(
       mapContainer.current,
       map,

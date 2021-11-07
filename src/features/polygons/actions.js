@@ -6,30 +6,29 @@ import {
   deletePolygonApi,
   editPolygonApi,
 } from '../../api/polygon'
-import { polygonShapeSize } from '../../config'
+import { polygonShapeSize, polygonsTimeout } from '../../config'
 import { notifySuccess, notifyError } from '../notifications/actions'
 
-export const POLYGONS_FETCH = 'polygons/fetch'
+export const POLYGONS_START_FETCHING = 'polygons/fetch'
 export const POLYGONS_FETCH_SUCCESS = 'polygons/fetch_success'
 export const POLYGONS_FETCH_FAILURE = 'polygons/fetch_failure'
 export const POLYGON_ADDED = 'polygons/add'
 export const POLYGON_UPDATED = 'polygons/update'
 export const POLYGON_DELETED = 'polygons/delete'
 
-const polygonsFetched = () => ({
-  type: POLYGONS_FETCH,
+const polygonsStartFetching = () => ({
+  type: POLYGONS_START_FETCHING,
   isFetching: true,
 })
 
-export const receivePolygons = (data) => ({
+export const polygonsFetchSuccess = (data) => ({
   type: POLYGONS_FETCH_SUCCESS,
   polygons: data,
 })
 
-const polygonsError = (message) => ({
+export const polygonsFetchFailure = (payload) => ({
   type: POLYGONS_FETCH_FAILURE,
-  isFetching: false,
-  message,
+  payload,
 })
 
 export const polygonAdded = (payload) => ({
@@ -101,19 +100,19 @@ const enrichPolygon = (polygon) => {
 }
 
 export const fetchPolygons = () => (dispatch) => {
-  dispatch(polygonsFetched())
+  dispatch(polygonsStartFetching())
   axios
-    .get(polygonsEndpoint)
+    .get(polygonsEndpoint, { timeout: polygonsTimeout })
     .then((data) => {
       const polygons = data
       polygons.reverse()
       for (let i = 0; i < polygons.length; i += 1) {
         polygons[i] = enrichPolygon(polygons[i])
       }
-      dispatch(receivePolygons(polygons))
+      dispatch(polygonsFetchSuccess(polygons))
     })
     .catch((err) => {
-      dispatch(polygonsError(err.message))
+      dispatch(polygonsFetchFailure(err.message))
     })
 }
 

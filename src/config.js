@@ -13,8 +13,13 @@ export const RECAPTCHA_SECRET_KEY = '6Lcq1RQUAAAAAOtqNnbrDxi6lIMm3oIHO9arUOWh'
 // export const RECAPTCHA_SITE_KEY = "6LcJWVAUAAAAAK0_VMH-33Okly6js-CtYr2ksvbf"
 // export const RECAPTCHA_SECRET_KEY = "6LcJWVAUAAAAAF59dqViAnTZaL1Ish5EngASGy98"
 
+export const gaID = 'G-JE5157018X'
+
 export const supportEmail = 'info@openweathermap.org'
 export const supportEmailMailTo = `mailto:${supportEmail}`
+
+export const defaultTimeout = 15000
+export const polygonsTimeout = 200000
 
 export const polygonShapeSize = 48
 export const startSatelliteImagesSearchDate = 1262304000

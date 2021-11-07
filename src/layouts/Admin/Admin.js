@@ -15,6 +15,8 @@ import logo from '../../assets/img/agro-logo.png'
 import { fetchPolygons } from '../../features/polygons/actions'
 import routes from '../../routes'
 import EmailConfirmationNotification from '../../views/components/NotificationEmailConfirmation'
+import { setApiKeyStatus } from '../../features/auth/actions'
+import { getAPIKeyStatus } from '../../api/personalAccount'
 
 let ps
 const isConfirmedEmailSelector = (state) => state.auth.user.confirmed_email
@@ -26,6 +28,7 @@ const Admin = (props) => {
   // const [sidebarMini, setSidebarMini] = React.useState(true);
   const [opacity, setOpacity] = React.useState(0)
   const [sidebarOpened, setSidebarOpened] = React.useState(false)
+  const [countCalls, setCountCalls] = React.useState(0)
   const mainPanelRef = React.useRef(null)
   const notificationAlertRef = React.useRef(null)
   const location = useLocation()
@@ -33,6 +36,17 @@ const Admin = (props) => {
 
   const isConfirmed = useSelector(isConfirmedEmailSelector)
   const polygons = useSelector(polygonsSelector)
+
+  const checkAPIKeyStatus = () => {
+    getAPIKeyStatus()
+      .then(() => {
+        dispatch(setApiKeyStatus(true))
+      })
+      .catch(() => {
+        dispatch(setApiKeyStatus(false))
+        setTimeout(checkAPIKeyStatus, 20000)
+      })
+  }
 
   React.useEffect(() => {
     document.documentElement.scrollTop = 0
@@ -43,6 +57,8 @@ const Admin = (props) => {
   }, [location])
 
   React.useEffect(() => {
+    checkAPIKeyStatus()
+
     const innerMainPanelRef = mainPanelRef
     if (navigator.platform.indexOf('Win') > -1) {
       document.documentElement.classList.add('perfect-scrollbar-on')
@@ -59,8 +75,13 @@ const Admin = (props) => {
     window.addEventListener('scroll', showNavbarButton)
 
     // fetch polygons inside dashboard, if we don't have any
-    if (!polygons.length) {
+    if (
+      !polygons.data.length &&
+      !polygons.isFetching &&
+      (!countCalls || (countCalls && polygons.error))
+    ) {
       dispatch(fetchPolygons())
+      setCountCalls(1)
     }
 
     return function cleanup() {
@@ -76,7 +97,6 @@ const Admin = (props) => {
         }
       }
       window.removeEventListener('scroll', showNavbarButton)
-
     }
   }, [])
 
@@ -164,8 +184,7 @@ const Admin = (props) => {
     //   setSidebarMini(true);
     //   notifyMessage += "activated...";
     // }
-    let options = {}
-    options = {
+    const options = {
       place: 'tr',
       message: notifyMessage,
       type: 'primary',

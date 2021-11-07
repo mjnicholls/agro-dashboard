@@ -49,8 +49,7 @@ export const getPreticipationInfo = (data) => {
   return res
 }
 
-
-export const getMapHeight = () =>  "calc(100vh - 220px)"
+export const getMapHeight = () => 'calc(100vh - 220px)'
 
 export const numberWithCommas = (x) => {
   let res = 0

@@ -62,7 +62,9 @@ const PolygonNew = () => {
       </Col>
     </Row>
   ) : (
-    <Synchronizing />
+    <Synchronizing>
+      <>Synchronizing API key... It might take a few minutes</>
+    </Synchronizing>
   )
 }
 

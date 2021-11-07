@@ -34,7 +34,7 @@ const selectMaxPolygonArea = (state) =>
   state.auth.limits.polygon_area.max_polygon_area
 const selectMaxTotalArea = (state) =>
   state.auth.limits.polygon_area.max_total_polygons_area
-const selectPolygons = (state) => state.polygons
+const selectPolygons = (state) => state.polygons.data
 
 const PolygonCreateCard = ({
   area,
