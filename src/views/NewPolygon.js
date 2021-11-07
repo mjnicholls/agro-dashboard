@@ -19,7 +19,11 @@ const PolygonNew = () => {
   const [intersection, setIntersection] = React.useState(false)
   const [mode, setMode] = React.useState('draw')
   const drawRef = React.useRef(null)
-  const mapHeight = getMapHeight()
+
+  const getMapHeightLocal = () =>
+    window.matchMedia('(min-width: 768px)').matches ? getMapHeight() : '400px'
+
+  const mapHeight = getMapHeightLocal()
 
   const resetMap = () => {
     const data = drawRef.current.getAll()

@@ -112,7 +112,7 @@ const PolygonCreateCard = ({
   return (
     <Card
       className="card-stats overflow-auto small-card"
-      style={{ height: mapHeight }}
+      style={{ height: window.matchMedia('(min-width: 768px)').matches ? mapHeight : "600px" }}
     >
       <CardHeader className="mb-0">
         <Row>

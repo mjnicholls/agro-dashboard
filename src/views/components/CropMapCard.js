@@ -171,7 +171,12 @@ const CropMapCard = ({ years, activeYear, setActiveYear, info, setAlert }) => {
 }
 
 CropMapCard.propTypes = {
-  years: PropTypes.arrayOf(),
+  years: PropTypes.arrayOf(
+    PropTypes.shape({
+      year: PropTypes.number,
+      status: PropTypes.number
+    })
+  )
 }
 
 export default CropMapCard

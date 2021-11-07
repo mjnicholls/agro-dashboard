@@ -59,102 +59,80 @@ const Dashboard = () => {
     }
   }, [isSatelliteMode, activePolygon])
 
-  const ActiveTopSection = () =>
-    isSatelliteMode ? (
-      <ImageStats
-        satelliteImage={satelliteImage}
-        satelliteLayer={satelliteLayer}
-        setSatelliteLayer={setSatelliteLayer}
-      />
-    ) : (
-      <>
-        <WeatherCurrent onecall={weatherData} />
-        <SoilCurrent polyId={activePolygon.id} />
-      </>
-    )
+  return isFetching ? (
+    <Synchronizing>
+      <>Fetching polygons...</>
+    </Synchronizing>
+  ) : !isApiKeyValid ? (
+    <Synchronizing>
+      <>Synchronizing API key... It might take a few minutes</>
+    </Synchronizing>
+  ) : error ? (
+    <Row>
+      <Col className="text-center my-5 align-self-center">
+        <p>{error}</p>
+      </Col>
+    </Row>
+  ) : (
+    <>
+      <Row>
+        <Col lg="6">
+          <MapBox
+            // activePolygon={activePolygon}
+            satelliteImage={satelliteImage}
+            setSatelliteImage={setSatelliteImage}
+            satelliteLayer={satelliteLayer}
+            isSatellitePage={isSatelliteMode}
+            setPolygonInFocus={setPolygonInFocus}
+          />
+        </Col>
 
-  const ActiveChart = () =>
-    isSatelliteMode ? (
-      <NdviChart polyId={activePolygon.id} />
-    ) : (
-      <CombinedChart polyId={activePolygon.id} onecall={weatherData} />
-    )
-
-  const Content = () => {
-    if (isFetching) {
-      return (
-        <Synchronizing>
-          <>Fetching polygons...</>
-        </Synchronizing>
-      )
-    }
-    if (!isApiKeyValid) {
-      return (
-        <Synchronizing>
-          <>Synchronizing API key... It might take a few minutes</>
-        </Synchronizing>
-      )
-    }
-    if (error) {
-      return (
-        <Row>
-          <Col className="text-center my-5 align-self-center">
-            <p>{error}</p>
-          </Col>
-        </Row>
-      )
-    }
-    if (!data.length) {
-      return null
-    }
-    return (
-      <>
-        <Row>
-          <Col lg="6">
-            <MapBox
-              // activePolygon={activePolygon}
-              satelliteImage={satelliteImage}
-              setSatelliteImage={setSatelliteImage}
-              satelliteLayer={satelliteLayer}
-              isSatellitePage={isSatelliteMode}
-              setPolygonInFocus={setPolygonInFocus}
-            />
-          </Col>
-
-          <Col lg="3" sm="6">
-            {activePolygon ? (
-              <ActiveTopSection />
-            ) : (
-              <PolygonInfo polygonInFocus={polygonInFocus} />
-            )}
-          </Col>
-
-          <Col lg="3" sm="6">
-            {activePolygon ? (
-              <PolygonTableSmall />
-            ) : (
-              <PolygonsTotalStats polygons={data} activePolygon={data[0]} />
-            )}
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            {activePolygon ? (
-              <ActiveChart />
-            ) : (
-              <PolygonTable
-                data={data}
-                // activePolygon={activePolygon}
-                // setActivePolygon={setActivePolygon}
+        <Col lg="3" sm="6">
+          {activePolygon ? (
+            isSatelliteMode ? (
+              <ImageStats
+                satelliteImage={satelliteImage}
+                satelliteLayer={satelliteLayer}
+                setSatelliteLayer={setSatelliteLayer}
               />
-            )}
-          </Col>
-        </Row>
-      </>
-    )
-  }
+            ) : (
+              <>
+                <WeatherCurrent onecall={weatherData} />
+                <SoilCurrent polyId={activePolygon.id} />
+              </>
+            )
+          ) : (
+            <PolygonInfo polygonInFocus={polygonInFocus} />
+          )}
+        </Col>
 
-  return <Content />
+        <Col lg="3" sm="6">
+          {activePolygon ? (
+            <PolygonTableSmall />
+          ) : (
+            <PolygonsTotalStats polygons={data} activePolygon={data[0]} />
+          )}
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+          {activePolygon ? (
+            isSatelliteMode ? (
+              <NdviChart polyId={activePolygon.id} />
+            ) : (
+              <CombinedChart polyId={activePolygon.id} onecall={weatherData} />
+            )
+          ) : (
+            <PolygonTable
+              data={data}
+              // activePolygon={activePolygon}
+              // setActivePolygon={setActivePolygon}
+            />
+          )}
+        </Col>
+      </Row>
+    </>
+  )
 }
 
 export default Dashboard
