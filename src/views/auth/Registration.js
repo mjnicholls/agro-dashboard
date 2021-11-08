@@ -98,9 +98,9 @@ const RegisterForm = ({ history }) => {
       newError.isTerms = 'Please agree to the privacy policy'
     }
 
-    // if (!recaptchaRef.current.getValue()) {
-    //   newError.recaptcha = 'reCAPTCHA verification failed, please try again.'
-    // }
+    if (!recaptchaRef.current.getValue()) {
+      newError.recaptcha = 'reCAPTCHA verification failed, please try again.'
+    }
 
     if (Object.keys(newError).length) {
       setError(newError)
@@ -177,14 +177,10 @@ const RegisterForm = ({ history }) => {
               </div>
               <div className="description">
                 <h3 className="info-title">
-                  Satellite imagery archive and wide range of vegetation indices{' '}
+                  Satellite imagery archive and wide range of vegetation indices
                 </h3>
                 <p className="description">
-                  NDVI, EVI, DSWI, NDWI, NRI and other vegetation indices let
-                  you identify anomalies in your fields and plan further
-                  actions, and with historical NDVI chart you can analyze the
-                  changes in the level of vegetation in your field through the
-                  seasons
+                  NDVI, EVI, DSWI, NDWI, NRI and other vegetation indices can assist in identifying anomalies in your fields and planning. Historical NDVI chart will help to analyse the changes in the health and state of vegetation in your field throughout the seasons.
                 </p>
               </div>
             </div>
@@ -197,11 +193,7 @@ const RegisterForm = ({ history }) => {
                   Accurate and generous weather data
                 </h3>
                 <p className="description">
-                  Weather data for your fields, including the current state of
-                  weather, soil, weather alerts; weather forecasts with hourly
-                  and daily granulation; recent temperature, precipitation, soil
-                  temperature and moisture; accumulated temperature and
-                  precipitation
+                  Weather data for your fields includes current, forecast and historical weather and soil data with notifications about possible weather alerts. Weather forecasts have hourly and daily granulation. Historical data is represented by the following graphs: historical weather data, soil data, accumulated temperature and precipitations.
                 </p>
               </div>
             </div>
@@ -210,11 +202,9 @@ const RegisterForm = ({ history }) => {
                 <FontAwesomeIcon icon={faMapMarkerAlt} />
               </div>
               <div className="description">
-                <h3 className="info-title">Advanced crop recognition </h3>
+                <h3 className="info-title">Advanced crop recognition</h3>
                 <p className="description">
-                  Based on Machine Learning technology, it will help you get
-                  information on the state of fields, their crops and NDVI
-                  statistics through the years.
+                  Being based on Machine Learning technologies, this feature will help to get information on the state of fields, their crop types and NDVI statistics for the last few years.
                 </p>
               </div>
             </div>
@@ -225,9 +215,7 @@ const RegisterForm = ({ history }) => {
               <div className="description">
                 <h3 className="info-title">Agro API access</h3>
                 <p className="description">
-                  Easy-to-use Agro API will help you build your own agricultural
-                  dashboard or app. Simply sign up and get your API key to start
-                  working on a new project.
+                  Access to easy-to-use Agro API will enable you to build your own agricultural solution, such as dashboard or an app. Simply sign up and get your API key to start working on a new project.
                 </p>
               </div>
             </div>

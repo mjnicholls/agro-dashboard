@@ -7,6 +7,7 @@
     "no-param-reassign": "warn",
     "react/jsx-boolean-value": "warn",
     "react/prop-types": 0,
+    "no-nested-ternary": 0,
     "import/order": [
       "warn",
       {
