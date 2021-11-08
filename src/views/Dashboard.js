@@ -42,20 +42,21 @@ const Dashboard = () => {
       setWeatherData({
         isLoading: true,
       })
-      getOneCallData(activePolygon.center[1], activePolygon.center[0])
-        .then((res) => {
+      getOneCallData(activePolygon.center[1], activePolygon.center[0]).then(
+        (res) => {
           setWeatherData({
             isLoading: false,
             data: res,
           })
-        })
-        .catch((err) => {
-          setWeatherData({
-            isLoading: false,
-            data: null,
-            error: err,
-          })
-        })
+        },
+      )
+      // .catch((err) => {
+      //   setWeatherData({
+      //     isLoading: false,
+      //     data: null,
+      //     error: err,
+      //   })
+      // })
     }
   }, [isSatelliteMode, activePolygon])
 

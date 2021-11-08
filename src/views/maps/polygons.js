@@ -55,6 +55,7 @@ export const displayPolygonGroup = (
 
   if (onHover) {
     map.on('mouseenter', POLYGON_GROUP_ID, (e) => {
+      /* eslint-disable-next-line */
       map.getCanvas().style.cursor = 'pointer'
       const features = map.queryRenderedFeatures(e.point, {
         layers: [POLYGON_GROUP_ID, OUTLINE_LAYER_ID],

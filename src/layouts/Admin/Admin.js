@@ -11,12 +11,13 @@ import { Container } from 'reactstrap'
 import Footer from '../../_template/components/Footer/Footer'
 import AdminNavbar from '../../_template/components/Navbars/AdminNavbar'
 import Sidebar from '../../_template/components/Sidebar/Sidebar2'
+import { getAPIKeyStatus } from '../../api/personalAccount'
 import logo from '../../assets/img/agro-logo.png'
+import ErrorBoundary from '../../ErrorBoundary'
+import { setApiKeyStatus } from '../../features/auth/actions'
 import { fetchPolygons } from '../../features/polygons/actions'
 import routes from '../../routes'
 import EmailConfirmationNotification from '../../views/components/NotificationEmailConfirmation'
-import { setApiKeyStatus } from '../../features/auth/actions'
-import { getAPIKeyStatus } from '../../api/personalAccount'
 
 let ps
 const isConfirmedEmailSelector = (state) => state.auth.user.confirmed_email
@@ -242,14 +243,16 @@ const Admin = (props) => {
 
         <div className="content">
           <Container fluid="xxl">
-            <div className="d-flex justify-content-end text-uppercase">
-              {getRoutesInnerNavigation(routes)}
-            </div>
-            {isConfirmed === false && <EmailConfirmationNotification />}
-            <Switch>
-              {getRoutes(routes)}
-              <Redirect from="*" to="/dashboard/polygons" />
-            </Switch>
+            <ErrorBoundary>
+              <div className="d-flex justify-content-end text-uppercase">
+                {getRoutesInnerNavigation(routes)}
+              </div>
+              {isConfirmed === false && <EmailConfirmationNotification />}
+              <Switch>
+                {getRoutes(routes)}
+                <Redirect from="*" to="/dashboard/polygons" />
+              </Switch>
+            </ErrorBoundary>
           </Container>
         </div>
         {

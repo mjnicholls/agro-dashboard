@@ -5,11 +5,10 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Button, Col, Row } from 'reactstrap'
 
 import { isSubscriptionAvailableAPI, unsubscribe } from '../../../api/billing'
+import { supportEmailMailTo } from '../../../config'
+import { logoutUser } from '../../../features/auth/actions'
 import ContactUsButton from '../../components/ContactUsButton'
 import LoaderDots from '../../components/LoaderDots'
-import { supportEmailMailTo } from '../../../config'
-
-import { logoutUser } from '../../../features/auth/actions'
 
 const userSelector = (state) => state.auth.user
 

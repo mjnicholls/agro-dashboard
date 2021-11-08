@@ -22,13 +22,16 @@ export default function polygonsReducer(state = initialState, action) {
       return { isFetching: false, error: null, data: action.polygons }
     }
     case POLYGONS_FETCH_FAILURE: {
-      return { isFetching: false, error: null, data: action.payload }
+      return { isFetching: false, error: action.payload, data: [] }
     }
     case POLYGON_ADDED: {
-      return [action.payload, ...state]
+      return {
+        ...state,
+        data: [...state.data, action.payload],
+      }
     }
     case POLYGON_UPDATED: {
-      return state.map((item) => {
+      const updatedPolygons = state.data.map((item) => {
         if (item.id !== action.payload.id) {
           return item
         }
@@ -37,9 +40,19 @@ export default function polygonsReducer(state = initialState, action) {
           ...action.payload,
         }
       })
+      return {
+        ...state,
+        data: updatedPolygons,
+      }
     }
     case POLYGON_DELETED: {
-      return state.filter((obj) => obj.id !== action.payload)
+      const updatedPolygons = state.data.filter(
+        (obj) => obj.id !== action.payload,
+      )
+      return {
+        ...state,
+        data: updatedPolygons,
+      }
     }
     default:
       return state

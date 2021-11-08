@@ -14,6 +14,7 @@ import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css'
 import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css'
 
 import { gaID, cookies, defaultTimeout } from './config'
+import ErrorBoundary from './ErrorBoundary'
 import { receiveLogout } from './features/auth/actions'
 import AdminLayout from './layouts/Admin/Admin'
 import AuthLayout from './layouts/Auth/Auth'
@@ -97,23 +98,25 @@ const App = () => {
   }, [])
 
   return (
-    <Provider store={store}>
-      <BrowserRouter>
-        <Switch>
-          <Route path="/auth" render={(props) => <AuthLayout {...props} />} />
-          <AuthRoute
-            path="/dashboard"
-            render={(props) => <AdminLayout {...props} />}
-          />
-          <AuthRoute
-            path="/users"
-            render={(props) => <AdminLayout {...props} />}
-          />
-          <Redirect from="/" to="/dashboard/polygons" />
-        </Switch>
-      </BrowserRouter>
-      <Notifications />
-    </Provider>
+    <ErrorBoundary>
+      <Provider store={store}>
+        <BrowserRouter>
+          <Switch>
+            <Route path="/auth" render={(props) => <AuthLayout {...props} />} />
+            <AuthRoute
+              path="/dashboard"
+              render={(props) => <AdminLayout {...props} />}
+            />
+            <AuthRoute
+              path="/users"
+              render={(props) => <AdminLayout {...props} />}
+            />
+            <Redirect from="/" to="/dashboard/polygons" />
+          </Switch>
+        </BrowserRouter>
+        <Notifications />
+      </Provider>
+    </ErrorBoundary>
   )
 }
 

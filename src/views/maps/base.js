@@ -144,11 +144,11 @@ export const renderSatelliteImage = (map, tileUrl) => {
   })
 }
 
-export const deletePreviousAreas = (drawRef) => {
-  if (drawRef && drawRef.current) {
-    const data = drawRef.current.getAll()
+export const deletePreviousAreas = (drawRefInstance) => {
+  if (drawRefInstance && drawRefInstance.current) {
+    const data = drawRefInstance.current.getAll()
     if (data.features.length) {
-      if (drawRef.current.getMode() === 'draw_polygon') {
+      if (drawRefInstance.current.getMode() === 'draw_polygon') {
         const oldPolygonIds = []
         const newPolygonId = data.features[data.features.length - 1].id
         data.features.forEach((f) => {
@@ -158,10 +158,10 @@ export const deletePreviousAreas = (drawRef) => {
           }
         })
         if (oldPolygonIds.length) {
-          drawRef.current.delete(oldPolygonIds)
+          drawRefInstance.current.delete(oldPolygonIds)
         }
       } else {
-        drawRef.current.deleteAll()
+        drawRefInstance.current.deleteAll()
       }
     }
   }
