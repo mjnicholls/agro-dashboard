@@ -23,8 +23,8 @@ import BillingPlans from './views/personal-account/BillingPlans'
 import InvoiceList from './views/personal-account/Payments'
 import Settings from './views/personal-account/settings/Settings'
 import FailurePage from './views/personal-account/subscription/FailurePage'
-import SuccessPage from './views/personal-account/subscription/SuccessPage'
 import Subscription from './views/personal-account/subscription/SubscriptionPage'
+import SuccessPage from './views/personal-account/subscription/SuccessPage'
 
 const routes = [
   {
