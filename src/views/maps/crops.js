@@ -113,6 +113,114 @@ export const displayCropLayer2 = (map, year, displayInfo) => {
   })
 }
 
+export const displayCropLayer3 = (map, drawRef, updateArea) => {
+  removeLayer(map, cropsIndexId)
+  removeLayer(map, cropsSourceId)
+  removeSource(map, cropsSourceId)
+
+  map.addSource(cropsSourceId, {
+    type: 'vector',
+    tiles: [
+      'https://api.agromonitoring.com/cropmap/zz/{z}/{x}/{y}.pbf',
+    ],
+    minzoom: 2,
+    maxzoom: 15,
+    promoteId: { valid: 'id' },
+  })
+
+  map.addLayer(
+    {
+      id: cropsSourceId,
+      type: 'fill',
+      source: cropsSourceId,
+      'source-layer': 'valid',
+      minzoom: maxPolygonsZoom,
+      maxzoom: 15,
+      layout: {},
+      filter: ['all', ['>', ['*', 2, ['get', 'cdpr']], ['get', 'cdsm']]],
+      paint: {
+        'fill-color': getCropColorCase(),
+        'fill-opacity': [
+          'case',
+          ['boolean', ['feature-state', 'hover'], false],
+          0.3,
+          0.9,
+        ],
+      },
+    },
+    // onTopOfLayer ? onTopOfLayer : "", TODO
+  )
+
+  map.addLayer({
+    id: cropsIndexId,
+    type: 'fill',
+    source: cropsSourceId,
+    'source-layer': 'valid',
+    minzoom: 2,
+    maxzoom: maxPolygonsZoom,
+    layout: {},
+    paint: {
+      'fill-color': '#AA00FF',
+      'fill-opacity': 0.3,
+    },
+  })
+
+  let hoveredStateId = null
+
+  map.on('mousemove', cropsSourceId, function (e) {
+    if (map.getZoom() < maxPolygonsZoom) return
+
+    if (e.features.length) {
+      map.getCanvas().style.cursor = 'auto'
+      if (hoveredStateId) {
+        map.setFeatureState(
+          { source: cropsSourceId, sourceLayer: 'valid', id: hoveredStateId },
+          { hover: false },
+        )
+      }
+      hoveredStateId = e.features[0].id
+      map.setFeatureState(
+        { source: cropsSourceId, sourceLayer: 'valid', id: hoveredStateId },
+        { hover: true },
+      )
+    }
+  })
+
+  map.on('mouseleave', cropsSourceId, function () {
+    map.getCanvas().style.cursor = ''
+    if (hoveredStateId && map.getSource(cropsSourceId)) {
+      map.setFeatureState(
+        { source: cropsSourceId, sourceLayer: 'valid', id: hoveredStateId },
+        { hover: false },
+      )
+    }
+    hoveredStateId = null
+  })
+
+  map.on('click', cropsSourceId, function (e) {
+    const feature = e.features[0]
+    // сравнить с предыдущим слоем
+    const data = drawRef.current.getAll()
+    if (data.features.length) {
+      // 2 варианта, либо тут тот же полигон - edit, либо другой - тогда его нужно удалить
+      data.features.forEach((f) => {
+        if (f.id !== feature.id) {
+          // прошлый полигон - удаляем
+          drawRef.current.delete(f.id)
+        } else {
+          // тот же полигон - редактируем
+          // setMode("draw")
+        }
+      })
+    } else {
+      drawRef.current.add(feature)
+    }
+    updateArea()
+  })
+}
+
+
+
 export const displayCropLayer = (map, drawRef, setMode, updateArea) => {
   removeLayer(map, cropsSourceId)
   removeLayer(map, cropsSourceId)

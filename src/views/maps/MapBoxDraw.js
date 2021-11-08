@@ -10,11 +10,10 @@ import { searchCity } from '../../api/otherApi'
 import { getMapBounds } from '../../features/polygons/selectors'
 import { addBoundsControl, deletePreviousAreas, initialiseMap } from './base'
 import { displayClusters } from './clusters'
-import { removeCropLayer, displayCropLayer } from './crops'
+import { removeCropLayer, displayCropLayer, displayCropLayer3 } from './crops'
 import { displayPolygonGroup } from './polygons'
 
 const selectPolygons = (state) => state.polygons.data
-const selectToken = (state) => state.auth.token
 
 const MapBoxDraw = ({
   setArea,
@@ -31,7 +30,6 @@ const MapBoxDraw = ({
 
   const [initialised, setInitialised] = useState(false)
   const polygons = useSelector(selectPolygons)
-  const token = useSelector(selectToken)
 
   const deletePreviousAreasLocal = () => {
     deletePreviousAreas(drawRef)
@@ -58,7 +56,7 @@ const MapBoxDraw = ({
       initialiseMap(
         mapContainer.current,
         map,
-        { token, bounds: mapBounds },
+        { bounds: mapBounds },
         () => {
           displayPolygonsClusters()
           setInitialised(true)
@@ -75,7 +73,8 @@ const MapBoxDraw = ({
     if (initialised) {
       if (mode === 'select') {
         deletePreviousAreasLocal(drawRef)
-        displayCropLayer(map.current, drawRef, setMode, updateArea)
+        // displayCropLayer(map.current, drawRef, setMode, updateArea)
+        displayCropLayer3(map.current, drawRef, updateArea)
       } else {
         removeCropLayer(map.current)
       }
@@ -113,6 +112,8 @@ const MapBoxDraw = ({
           feature.place_type = feature.type
           features.push(feature)
         }
+        return features
+
       })
       .catch(() => [])
 

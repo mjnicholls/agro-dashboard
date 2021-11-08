@@ -78,12 +78,13 @@ axios.interceptors.response.use(
 const App = () => {
   useEffect(() => {
     /* Check advertising campaign in cookies, set Google Analytics */
-    const ga4react = new GA4React()
+    const ga4react = new GA4React(gaID)
 
-    ga4react.initialize(gaID).then(
-      (ga4) => {
-        ga4.pageview('path')
-      },
+    ga4react.initialize()
+      .then(
+        (ga4) => {
+          ga4.pageview('path')
+        },
       (err) => {
         /* eslint-disable-next-line */
         console.error(err)
