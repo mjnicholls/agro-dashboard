@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Button, UncontrolledAlert } from 'reactstrap'
 
 import { receiveConfirmationEmail } from '../../api/auth'
-import { hideNotification } from '../../features/auth/actions'
+import { destroyState } from '../../features/auth/actions'
 import {
   notifyError,
   notifySuccess,
@@ -17,14 +17,14 @@ const EmailConfirmationNotification = () => {
   const email = useSelector(selectEmail)
 
   const onDismiss = () => {
-    dispatch(hideNotification())
+    dispatch(destroyState())
   }
 
   const sendConfirmation = () => {
     receiveConfirmationEmail(email)
       .then(() => {
         dispatch(notifySuccess('Confirmation email sent'))
-        dispatch(hideNotification())
+        dispatch(destroyState())
       })
       .catch((err) => {
         dispatch(

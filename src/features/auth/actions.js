@@ -15,6 +15,7 @@ export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS'
 export const LOGOUT_FRONTEND = 'LOGOUT_FRONTEND'
 export const TOKEN_COOK = 'AGRO_TOKEN'
 export const HIDE_NOTIFICATION = 'HIDE_NOTIFICATION'
+export const DESTROY_STATE = 'DESTROY_STATE'
 
 const requestLogin = (email) => ({
   type: LOGIN_REQUEST,
@@ -52,6 +53,10 @@ export const receiveLogout = () => ({
 
 export const hideNotification = () => ({
   type: HIDE_NOTIFICATION,
+})
+
+export const destroyState = () => ({
+  type: DESTROY_STATE,
 })
 
 export const loginUser = (email, password) => (dispatch) => {
@@ -114,6 +119,7 @@ export const logoutUser = () => async (dispatch) => {
       deleteCookie(TOKEN_COOK, '/', '')
       delete axios.defaults.headers.common.Authorization
       dispatch(receiveLogout())
+      dispatch(destroyState())
     })
     .catch((err) => {
       // eslint-disable-next-line
