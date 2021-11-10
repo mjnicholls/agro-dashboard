@@ -14,6 +14,11 @@ const Step1 = ({ invoiceSettings, setInvoiceSettings, user, error }) => {
     setInvoiceSettings(newObj)
   }
 
+  const getTitle = () => {
+    const title = titles.find((obj) => obj.value === invoiceSettings.title)
+    return title ? title.value : ''
+  }
+
   return (
     <div>
       <Form className="mt-4">
@@ -62,6 +67,10 @@ const Step1 = ({ invoiceSettings, setInvoiceSettings, user, error }) => {
                   className="react-select info mb-3"
                   classNamePrefix="react-select"
                   options={titles}
+                  onChange={(title) => {
+                    handleChange('title', title.value)
+                  }}
+                  placeholder={getTitle()}
                 />
               </FormGroup>
             </Col>

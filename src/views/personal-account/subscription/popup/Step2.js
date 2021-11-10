@@ -5,10 +5,17 @@ import PropTypes from 'prop-types'
 import Select from 'react-select'
 import { Col, Form, Label, FormGroup, Input, Row } from 'reactstrap'
 
+import { getCountries } from '../../../../api/billing'
 import { countriesDefault } from '../../../../config'
 import LoaderDots from '../../../components/LoaderDots'
 
-const Step2 = ({ invoiceSettings, setInvoiceSettings, error, isFetching }) => {
+const Step2 = ({
+  invoiceSettings,
+  setInvoiceSettings,
+  error,
+  isFetching,
+  user,
+}) => {
   const [countries, setCountries] = useState(countriesDefault)
 
   const handleChange = (key, value) => {
@@ -16,6 +23,14 @@ const Step2 = ({ invoiceSettings, setInvoiceSettings, error, isFetching }) => {
     newObj[key] = value
     setInvoiceSettings(newObj)
   }
+
+  useState(() => {
+    getCountries().then((res) => {
+      if (res.length) {
+        setCountries(res)
+      }
+    })
+  }, [invoiceSettings])
 
   return isFetching ? (
     <LoaderDots />
@@ -45,6 +60,7 @@ const Step2 = ({ invoiceSettings, setInvoiceSettings, error, isFetching }) => {
                       ).name
                     : ''
                 }
+                disabled={user.active_stripe_customer}
               />
               <div
                 className={classnames(
@@ -151,10 +167,15 @@ const Step2 = ({ invoiceSettings, setInvoiceSettings, error, isFetching }) => {
                   <Input
                     type="text"
                     onChange={(e) => {
-                      handleChange('vat_id', e.target.value)
+                      handleChange('new_vat_id', e.target.value)
                     }}
-                    value={invoiceSettings.vat_id}
+                    value={invoiceSettings.new_vat_id}
                     className={error.vat_id ? 'danger-border' : ''}
+                    disabled={
+                      user.active_stripe_customer &&
+                      invoiceSettings.type === 'organisation' &&
+                      invoiceSettings.vat_id
+                    }
                   />
                   <div
                     className={classnames(

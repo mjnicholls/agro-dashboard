@@ -120,7 +120,6 @@ export const addPolygon = (data) =>
   async function addPolygonThunk(dispatch) {
     createPolygonApi(data)
       .then((response) => {
-        console.log('response', response)
         const newPolygon = enrichPolygon(response)
         dispatch(polygonAdded(newPolygon))
         dispatch(
@@ -132,7 +131,6 @@ export const addPolygon = (data) =>
         )
       })
       .catch((error) => {
-        console.log('error', error)
         dispatch(notifyError(error.message))
       })
   }

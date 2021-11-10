@@ -64,6 +64,11 @@ const BillingInfo = ({
     return country ? country.name : ''
   }
 
+  const getTitle = () => {
+    const title = titles.find((obj) => obj.value === invoiceSettings.title)
+    return title ? title.value : ''
+  }
+
   const billingInfoUpdate = () => {
     if (isNew) {
       createBillingDetails(invoiceSettings)
@@ -113,8 +118,13 @@ const BillingInfo = ({
       }
     }
     if (invoiceSettings.type === 'organisation' && invoiceSettings.country) {
-      validateVat(invoiceSettings.vat_id, invoiceSettings.country)
-        .then(() => {})
+      validateVat(invoiceSettings.new_vat_id, invoiceSettings.country)
+        .then(() => {
+          setInvoiceSettings({
+            ...invoiceSettings,
+            vat_id: invoiceSettings.new_vat_id,
+          })
+        })
         .catch(() => {
           newError.vat_id = 'VAT ID is not valid'
         })
@@ -193,6 +203,10 @@ const BillingInfo = ({
                       className="react-select info"
                       classNamePrefix="react-select"
                       options={titles}
+                      onChange={(title) => {
+                        handleChange('title', title.value)
+                      }}
+                      placeholder={getTitle()}
                     />
                   </FormGroup>
                 </Col>
@@ -268,10 +282,15 @@ const BillingInfo = ({
                     <Input
                       type="text"
                       onChange={(e) => {
-                        handleChange('vat_id', e.target.value)
+                        handleChange('new_vat_id', e.target.value)
                       }}
-                      value={invoiceSettings.vat_id}
+                      value={invoiceSettings.new_vat_id}
                       className={error.vat_id ? 'danger-border' : ''}
+                      disabled={
+                        user.active_stripe_customer &&
+                        invoiceSettings.type === 'organisation' &&
+                        invoiceSettings.vat_id
+                      }
                     />
                     <div
                       className={classnames(
@@ -286,7 +305,6 @@ const BillingInfo = ({
               </>
             )}
           </Row>
-
           <Row>
             <Col>
               <Label>Phone *</Label>

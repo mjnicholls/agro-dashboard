@@ -31,6 +31,7 @@ const AccountSettings = () => {
     state: '',
     phone: '',
     vat_id: '',
+    new_vat_id: '',
   })
   const [mailPreferences, setMailPreferences] = useState({
     news: false,
@@ -53,6 +54,7 @@ const AccountSettings = () => {
         setBillingSettings({
           ...billingSettings,
           ...res.invoice_info,
+          new_vat_id: res.invoice_info.vat_id,
         })
         setIsNew(false)
       }

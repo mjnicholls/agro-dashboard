@@ -37,13 +37,18 @@ const SubscriptionPopUp = ({ plan }) => {
     state: '',
     phone: '',
     vat_id: '',
+    new_vat_id: '',
   })
   const [user, setUser] = useState({})
 
   useEffect(() => {
     getAccountInfo().then((res) => {
       if (Object.keys(res.invoice_info).length) {
-        setInvoiceSettings(res.invoice_info)
+        setInvoiceSettings({
+          ...invoiceSettings,
+          ...res.invoice_info,
+          new_vat_id: res.invoice_info.vat_id,
+        })
       }
       setUser(res.user)
     })
@@ -128,18 +133,28 @@ const SubscriptionPopUp = ({ plan }) => {
       invoiceSettings.type === 'organisation' &&
       invoiceSettings.country
     ) {
-      validateVat(invoiceSettings.vat_id, invoiceSettings.country)
-        .then(() => {})
-        .catch(() => {
-          newError.vat_id = 'VAT ID is not valid'
-        })
-        .finally(() => {
-          if (Object.keys(newError).length) {
-            setError(newError)
-            return
-          }
-          confirmSubscription()
-        })
+      if (invoiceSettings.new_vat_id) {
+        validateVat(invoiceSettings.new_vat_id, invoiceSettings.country)
+          .then(() => {
+            invoiceSettings.vat_id = invoiceSettings.new_vat_id
+          })
+          .catch(() => {
+            newError.vat_id = 'VAT ID is not valid'
+          })
+          .finally(() => {
+            if (Object.keys(newError).length) {
+              setError(newError)
+              return
+            }
+            confirmSubscription()
+          })
+      } else {
+        if (Object.keys(newError).length) {
+          setError(newError)
+          return
+        }
+        confirmSubscription()
+      }
     } else {
       if (Object.keys(newError).length) {
         setError(newError)
@@ -167,6 +182,7 @@ const SubscriptionPopUp = ({ plan }) => {
           invoiceSettings={invoiceSettings}
           setInvoiceSettings={setInvoiceSettings}
           isFetching={isFetching}
+          user={user}
           error={error}
         />
       )}

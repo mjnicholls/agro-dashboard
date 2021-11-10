@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux'
 import { getMapHeight } from '../utils/utils'
 import CropMapCard from './components/CropMapCard'
 import { initialiseMap } from './maps/base'
-import { displayCropLayer2 } from './maps/crops'
+import { displayCropLayerCropMap } from './maps/crops'
 
 const selectYears = (state) => state.auth.limits.maps.crop
 
@@ -42,7 +42,7 @@ const CropMap = () => {
 
   useEffect(() => {
     if (initialised && activeYear.status === 3) {
-      displayCropLayer2(map.current, activeYear.year, setInfo)
+      displayCropLayerCropMap(map.current, activeYear.year, setInfo)
     }
   }, [map, initialised, activeYear])
 

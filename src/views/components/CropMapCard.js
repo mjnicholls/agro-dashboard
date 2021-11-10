@@ -174,9 +174,9 @@ CropMapCard.propTypes = {
   years: PropTypes.arrayOf(
     PropTypes.shape({
       year: PropTypes.number,
-      status: PropTypes.number
-    })
-  )
+      status: PropTypes.number,
+    }),
+  ),
 }
 
 export default CropMapCard

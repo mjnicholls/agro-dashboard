@@ -26,7 +26,8 @@ const BillingPlans = () => {
   useEffect(() => {
     isSubscriptionAvailableAPI(user.email).then((res) => {
       if (res && res.message && res.message.user)
-        setIsSubscriptionAvailable(res.message.user.available_subscription)
+        setIsSubscriptionAvailable(true) // TODO
+      // setIsSubscriptionAvailable(res.message.user.available_subscription)
     })
   }, [user])
 

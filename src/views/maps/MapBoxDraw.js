@@ -10,7 +10,7 @@ import { searchCity } from '../../api/otherApi'
 import { getMapBounds } from '../../features/polygons/selectors'
 import { addBoundsControl, deletePreviousAreas, initialiseMap } from './base'
 import { displayClusters } from './clusters'
-import { removeCropLayer, displayCropLayer, displayCropLayer3 } from './crops'
+import { removeCropLayer, displayCropLayerPolygonCreation } from './crops'
 import { displayPolygonGroup } from './polygons'
 
 const selectPolygons = (state) => state.polygons.data
@@ -53,15 +53,10 @@ const MapBoxDraw = ({
   useEffect(() => {
     if (!initialised) {
       // first initialisation of the map
-      initialiseMap(
-        mapContainer.current,
-        map,
-        { bounds: mapBounds },
-        () => {
-          displayPolygonsClusters()
-          setInitialised(true)
-        },
-      )
+      initialiseMap(mapContainer.current, map, { bounds: mapBounds }, () => {
+        displayPolygonsClusters()
+        setInitialised(true)
+      })
       addBoundsControl(map, mapBounds)
     } else {
       // new polygon has been added
@@ -74,7 +69,7 @@ const MapBoxDraw = ({
       if (mode === 'select') {
         deletePreviousAreasLocal(drawRef)
         // displayCropLayer(map.current, drawRef, setMode, updateArea)
-        displayCropLayer3(map.current, drawRef, updateArea)
+        displayCropLayerPolygonCreation(map.current, drawRef, updateArea)
       } else {
         removeCropLayer(map.current)
       }
@@ -113,7 +108,6 @@ const MapBoxDraw = ({
           features.push(feature)
         }
         return features
-
       })
       .catch(() => [])
 

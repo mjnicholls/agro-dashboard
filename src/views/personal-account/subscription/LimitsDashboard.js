@@ -37,8 +37,6 @@ const LimitsDashboard = (props) => {
   const depthInYears = (year) =>
     year >= 0 ? `${year} year${year === 1 ? '' : 's'}` : 'Unlimited'
 
-  const getColSpan = () => (tariff === 'corp' ? 3 : 2)
-
   const onSatelliteClick = () => {
     props.history.push('/dashboard/polygons')
     dispatch(setActivePoly(polygons[0]))
@@ -62,7 +60,7 @@ const LimitsDashboard = (props) => {
         <Table>
           <thead>
             <tr>
-              <th colSpan={getColSpan()}>
+              <th>
                 {polygons.length ? (
                   <Button
                     type="button"
@@ -88,6 +86,8 @@ const LimitsDashboard = (props) => {
                   </div>
                 )}
               </th>
+              <th>Availability</th>
+              {tariff === 'corp' && <th>Start date</th>}
             </tr>
           </thead>
           <tbody>
@@ -108,9 +108,7 @@ const LimitsDashboard = (props) => {
             </tr>
             <tr>
               <td>Historical NDVI Chart</td>
-              <td colSpan={tariff === 'corp' ? 2 : 1}>
-                {depthInYears(auth.limits.history.ndvi_history.depth)}
-              </td>
+              <td>{depthInYears(auth.limits.history.ndvi_history.depth)}</td>
               {tariff === 'corp' && (
                 <td>{toDate(auth.limits.history.ndvi_history.start)}</td>
               )}
@@ -118,7 +116,7 @@ const LimitsDashboard = (props) => {
           </tbody>
           <thead>
             <tr>
-              <th colSpan={getColSpan()}>
+              <th>
                 {polygons.length ? (
                   <Button
                     type="button"
@@ -144,33 +142,36 @@ const LimitsDashboard = (props) => {
                   </div>
                 )}
               </th>
+              <th>Availability</th>
+              {tariff === 'corp' && <th>Start date</th>}
             </tr>
           </thead>
           <tbody>
             <tr>
               <td>Minute forecast</td>
-              <td colSpan={tariff === 'corp' ? 2 : 1}>1 hour</td>
+              <td>1 hour</td>
+              {tariff === 'corp' && <td />}
             </tr>
             <tr>
               <td>Hourly forecast</td>
-              <td colSpan={tariff === 'corp' ? 2 : 1}>2 days</td>
+              <td>2 days</td>
+              {tariff === 'corp' && <td />}
             </tr>
             <tr>
               <td>Daily forecast</td>
-              <td colSpan={tariff === 'corp' ? 2 : 1}>8 days</td>
+              <td>8 days</td>
+              {tariff === 'corp' && <td />}
             </tr>
             <tr>
               <td>Historical Soil Data Chart</td>
-              <td colSpan={tariff === 'corp' ? 2 : 1}>
-                {depthInYears(auth.limits.history.soil_history.depth)}
-              </td>
+              <td>{depthInYears(auth.limits.history.soil_history.depth)}</td>
               {tariff === 'corp' && (
                 <td>{toDate(auth.limits.history.soil_history.start)}</td>
               )}
             </tr>
             <tr>
               <td>Accumulated Parameters</td>
-              <td colSpan={tariff === 'corp' ? 2 : 1}>
+              <td>
                 {depthInYears(
                   auth.limits.history.weather_history_accumulated_temperature
                     .depth,
@@ -187,9 +188,7 @@ const LimitsDashboard = (props) => {
             </tr>
             <tr>
               <td>Historical Weather Data</td>
-              <td colSpan={tariff === 'corp' ? 2 : 1}>
-                {depthInYears(auth.limits.history.weather_history.depth)}
-              </td>
+              <td>{depthInYears(auth.limits.history.weather_history.depth)}</td>
               {tariff === 'corp' && (
                 <td>{toDate(auth.limits.history.weather_history.start)}</td>
               )}
@@ -197,11 +196,12 @@ const LimitsDashboard = (props) => {
           </tbody>
           <thead>
             <tr>
-              <th colSpan={getColSpan()}>
+              <th>
                 <Link to="/dashboard/map">
                   <b>Crop map</b>
                 </Link>
               </th>
+              <th>Years</th>
             </tr>
           </thead>
           <tbody>
@@ -215,23 +215,19 @@ const LimitsDashboard = (props) => {
           <thead>
             <br />
             <tr>
-              <th colSpan={tariff === 'corp' ? 4 : 3}>Polygon creation</th>
+              <th colSpan={tariff === 'corp' ? 3 : 2}>Polygon creation</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td>Minimum polygon area</td>
-              <td colSpan={tariff === 'corp' ? 2 : 1}>
-                {auth.limits.polygon_area.min_polygon_area} ha
-              </td>
-              <td></td>
+              <td colSpan={tariff === 'corp' ? 2 : 1}>Minimum polygon area</td>
+              <td>{auth.limits.polygon_area.min_polygon_area} ha</td>
             </tr>
             <tr>
-              <td>Maximum polygon area</td>
-              <td colSpan={tariff === 'corp' ? 2 : 1}>
+              <td colSpan={tariff === 'corp' ? 2 : 1}>Maximum polygon area</td>
+              <td>
                 {numberWithCommas(auth.limits.polygon_area.max_polygon_area)} ha
               </td>
-              <td></td>
             </tr>
           </tbody>
         </Table>

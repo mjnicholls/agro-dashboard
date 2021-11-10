@@ -1,18 +1,11 @@
-/* eslint-disable */
-
 import { cropColorDict } from '../../config'
-import {
-  basicBlueColor,
-  POLYGON_GROUP_ID,
-  removeLayer,
-  removeSource,
-} from './base'
+import { removeLayer, removeSource } from './base'
 
 export const cropsSourceId = 'crops-agro'
 const cropsIndexId = 'crops-index'
 const maxPolygonsZoom = 10
 
-export const displayCropLayer2 = (map, year, displayInfo) => {
+export const displayCropLayerCropMap = (map, year, displayInfo) => {
   removeLayer(map, cropsIndexId)
   removeLayer(map, cropsSourceId)
   removeSource(map, cropsSourceId)
@@ -66,7 +59,7 @@ export const displayCropLayer2 = (map, year, displayInfo) => {
 
   let hoveredStateId = null
 
-  map.on('mousemove', cropsSourceId, function (e) {
+  map.on('mousemove', cropsSourceId, (e) => {
     if (map.getZoom() < maxPolygonsZoom) return
 
     if (e.features.length) {
@@ -91,7 +84,7 @@ export const displayCropLayer2 = (map, year, displayInfo) => {
     }
   })
 
-  map.on('mouseleave', cropsSourceId, function () {
+  map.on('mouseleave', cropsSourceId, () => {
     map.getCanvas().style.cursor = ''
     if (hoveredStateId && map.getSource(cropsSourceId)) {
       map.setFeatureState(
@@ -102,27 +95,25 @@ export const displayCropLayer2 = (map, year, displayInfo) => {
     hoveredStateId = null
   })
 
-  map.on('mousemove', cropsIndexId, function (e) {
+  map.on('mousemove', cropsIndexId, (e) => {
     if (e.features.length) {
       displayInfo({ message: 'Please zoom in for details' })
     }
   })
 
-  map.on('mouseleave', cropsIndexId, function (e) {
+  map.on('mouseleave', cropsIndexId, () => {
     displayInfo({ message: 'No detected fields in this area' })
   })
 }
 
-export const displayCropLayer3 = (map, drawRef, updateArea) => {
+export const displayCropLayerPolygonCreation = (map, drawRef, updateArea) => {
   removeLayer(map, cropsIndexId)
   removeLayer(map, cropsSourceId)
   removeSource(map, cropsSourceId)
 
   map.addSource(cropsSourceId, {
     type: 'vector',
-    tiles: [
-      'https://api.agromonitoring.com/cropmap/zz/{z}/{x}/{y}.pbf',
-    ],
+    tiles: ['https://api.agromonitoring.com/cropmap/zz/{z}/{x}/{y}.pbf'],
     minzoom: 2,
     maxzoom: 15,
     promoteId: { valid: 'id' },
@@ -167,7 +158,7 @@ export const displayCropLayer3 = (map, drawRef, updateArea) => {
 
   let hoveredStateId = null
 
-  map.on('mousemove', cropsSourceId, function (e) {
+  map.on('mousemove', cropsSourceId, (e) => {
     if (map.getZoom() < maxPolygonsZoom) return
 
     if (e.features.length) {
@@ -186,7 +177,7 @@ export const displayCropLayer3 = (map, drawRef, updateArea) => {
     }
   })
 
-  map.on('mouseleave', cropsSourceId, function () {
+  map.on('mouseleave', cropsSourceId, () => {
     map.getCanvas().style.cursor = ''
     if (hoveredStateId && map.getSource(cropsSourceId)) {
       map.setFeatureState(
@@ -197,7 +188,7 @@ export const displayCropLayer3 = (map, drawRef, updateArea) => {
     hoveredStateId = null
   })
 
-  map.on('click', cropsSourceId, function (e) {
+  map.on('click', cropsSourceId, (e) => {
     const feature = e.features[0]
     // сравнить с предыдущим слоем
     const data = drawRef.current.getAll()
@@ -217,126 +208,6 @@ export const displayCropLayer3 = (map, drawRef, updateArea) => {
     }
     updateArea()
   })
-}
-
-
-
-export const displayCropLayer = (map, drawRef, setMode, updateArea) => {
-  removeLayer(map, cropsSourceId)
-  removeLayer(map, cropsSourceId)
-  map.addSource(cropsSourceId, {
-    type: 'vector',
-    tiles: ['https://api.agromonitoring.com/cropmap/zz/{z}/{x}/{y}.pbf'],
-    minzoom: 9,
-    maxzoom: 15,
-    promoteId: { valid: 'id' },
-  })
-  map.addLayer(
-    {
-      id: cropsSourceId,
-      type: 'fill',
-      source: cropsSourceId,
-      'source-layer': 'valid',
-      layout: {},
-      paint: {
-        'fill-color': [
-          'case',
-          ['boolean', ['feature-state', 'hover'], false],
-          basicBlueColor,
-          getCropColorCase(),
-        ],
-        'fill-opacity': [
-          'case',
-          ['boolean', ['feature-state', 'hover'], false],
-          0.7,
-          0.9,
-        ],
-      },
-      filter: ['all', ['>', ['*', 2, ['get', 'cdpr']], ['get', 'cdsm']]],
-    },
-    POLYGON_GROUP_ID,
-  )
-
-  let hoveredStateId = null
-
-  map.on('mousemove', cropsSourceId, function (e) {
-    if (map.getZoom() < 9) return
-
-    if (e.features.length > 0) {
-      map.getCanvas().style.cursor = 'auto'
-      if (hoveredStateId) {
-        map.setFeatureState(
-          { source: cropsSourceId, sourceLayer: 'valid', id: hoveredStateId },
-          { hover: false },
-        )
-      }
-      hoveredStateId = e.features[0].id
-      map.setFeatureState(
-        { source: cropsSourceId, sourceLayer: 'valid', id: hoveredStateId },
-        { hover: true },
-      )
-    }
-  })
-
-  map.on('mouseleave', cropsSourceId, function () {
-    map.getCanvas().style.cursor = ''
-    if (hoveredStateId && map.getSource(cropsSourceId)) {
-      map.setFeatureState(
-        { source: cropsSourceId, sourceLayer: 'valid', id: hoveredStateId },
-        { hover: false },
-      )
-    }
-    hoveredStateId = null
-  })
-
-  map.on('click', cropsSourceId, function (e) {
-    const feature = e.features[0]
-    // сравнить с предыдущим слоем
-    const data = drawRef.current.getAll()
-    if (data.features.length) {
-      // 2 варианта, либо тут тот же полигон - edit, либо другой - тогда его нужно удалить
-      data.features.forEach((f) => {
-        if (f.id !== feature.id) {
-          // прошлый полигон - удаляем
-          drawRef.current.delete(f.id)
-        } else {
-          // тот же полигон - редактируем
-          // setMode("draw")
-        }
-      })
-    } else {
-      drawRef.current.add(feature)
-    }
-    updateArea()
-  })
-
-  displayCropIndexLayer(map)
-}
-
-const displayCropIndexLayer = (map) => {
-  map.addSource(cropsIndexId, {
-    type: 'vector',
-    tiles: ['https://api.agromonitoring.com/cropmap/index/{z}/{x}/{y}.pbf'],
-    minzoom: 2,
-    maxzoom: 8,
-    promoteId: { valid: 'id' },
-  })
-
-  map.addLayer(
-    {
-      id: cropsIndexId,
-      type: 'fill',
-      source: cropsIndexId,
-      'source-layer': 'valid',
-      maxzoom: 9,
-      layout: {},
-      paint: {
-        'fill-color': '#AA00FF',
-        'fill-opacity': 0.3,
-      },
-    },
-    map.getLayer('clusters') ? 'clusters' : '',
-  )
 }
 
 export const removeCropLayer = (map) => {
@@ -346,6 +217,7 @@ export const removeCropLayer = (map) => {
   removeSource(map, cropsIndexId)
 }
 
+/* eslint-disable */
 const getCropColorCase = () => {
   const c = ['case']
   for (const cid in cropColorDict) {
@@ -361,6 +233,7 @@ const getCropColorCase = () => {
   return c
 }
 
-export const getCropName = (cid) => {
-  return cid && cropColorDict[cid] ? cropColorDict[cid].name : ''
-}
+/* eslint-enable */
+
+export const getCropName = (cid) =>
+  cid && cropColorDict[cid] ? cropColorDict[cid].name : ''

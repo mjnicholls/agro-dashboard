@@ -180,7 +180,11 @@ const RegisterForm = ({ history }) => {
                   Satellite imagery archive and wide range of vegetation indices
                 </h3>
                 <p className="description">
-                  NDVI, EVI, DSWI, NDWI, NRI and other vegetation indices can assist in identifying anomalies in your fields and planning. Historical NDVI chart will help to analyse the changes in the health and state of vegetation in your field throughout the seasons.
+                  NDVI, EVI, DSWI, NDWI, NRI and other vegetation indices can
+                  assist in identifying anomalies in your fields and planning.
+                  Historical NDVI chart will help to analyse the changes in the
+                  health and state of vegetation in your field throughout the
+                  seasons.
                 </p>
               </div>
             </div>
@@ -193,7 +197,12 @@ const RegisterForm = ({ history }) => {
                   Accurate and generous weather data
                 </h3>
                 <p className="description">
-                  Weather data for your fields includes current, forecast and historical weather and soil data with notifications about possible weather alerts. Weather forecasts have hourly and daily granulation. Historical data is represented by the following graphs: historical weather data, soil data, accumulated temperature and precipitations.
+                  Weather data for your fields includes current, forecast and
+                  historical weather and soil data with notifications about
+                  possible weather alerts. Weather forecasts have hourly and
+                  daily granulation. Historical data is represented by the
+                  following graphs: historical weather data, soil data,
+                  accumulated temperature and precipitations.
                 </p>
               </div>
             </div>
@@ -204,7 +213,9 @@ const RegisterForm = ({ history }) => {
               <div className="description">
                 <h3 className="info-title">Advanced crop recognition</h3>
                 <p className="description">
-                  Being based on Machine Learning technologies, this feature will help to get information on the state of fields, their crop types and NDVI statistics for the last few years.
+                  Being based on Machine Learning technologies, this feature
+                  will help to get information on the state of fields, their
+                  crop types and NDVI statistics for the last few years.
                 </p>
               </div>
             </div>
@@ -215,7 +226,10 @@ const RegisterForm = ({ history }) => {
               <div className="description">
                 <h3 className="info-title">Agro API access</h3>
                 <p className="description">
-                  Access to easy-to-use Agro API will enable you to build your own agricultural solution, such as dashboard or an app. Simply sign up and get your API key to start working on a new project.
+                  Access to easy-to-use Agro API will enable you to build your
+                  own agricultural solution, such as dashboard or an app. Simply
+                  sign up and get your API key to start working on a new
+                  project.
                 </p>
               </div>
             </div>
