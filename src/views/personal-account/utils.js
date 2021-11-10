@@ -165,7 +165,7 @@ export const subscriptions = {
         >
           All available data
         </HashLink>
-        &nbsp; + total archive on request
+        <p>+ total archive on request</p>
       </>
     ),
     satellite_imagery_service: 'Near real-time (operative) satellite data',
@@ -221,8 +221,8 @@ export const subscriptions = {
           }
         >
           All available data
-        </HashLink>{' '}
-        + total archive on request
+        </HashLink>
+        <p>+ total archive on request</p>
       </>
     ),
     satellite_imagery_service: 'Near real-time (operative) satellite data',

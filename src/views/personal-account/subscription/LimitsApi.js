@@ -53,7 +53,7 @@ const LimitsApi = () => {
               <tr>
                 <td>Satellite imagery data update</td>
                 <td>
-                  <p>{data.satelitte_imagery_service}</p>
+                  <p>{data.satellite_imagery_service}</p>
                 </td>
               </tr>
               <tr>

@@ -93,18 +93,20 @@ const LimitsDashboard = (props) => {
           <tbody>
             <tr>
               <td>Satellite imagery archive</td>
-              <td colSpan={tariff === 'corp' ? 2 : 1}>
+              <td>
                 <FontAwesomeIcon icon={faCheckCircle} />
               </td>
+              {tariff === 'corp' && <td>n/a</td>}
             </tr>
             <tr>
               <td>
                 Indices statistics by field
                 <br /> ({vegetationIndices}){' '}
               </td>
-              <td colSpan={tariff === 'corp' ? 2 : 1}>
+              <td>
                 <FontAwesomeIcon icon={faCheckCircle} />
               </td>
+              {tariff === 'corp' && <td>n/a</td>}
             </tr>
             <tr>
               <td>Historical NDVI Chart</td>
@@ -150,17 +152,17 @@ const LimitsDashboard = (props) => {
             <tr>
               <td>Minute forecast</td>
               <td>1 hour</td>
-              {tariff === 'corp' && <td />}
+              {tariff === 'corp' && <td>n/a</td>}
             </tr>
             <tr>
               <td>Hourly forecast</td>
               <td>2 days</td>
-              {tariff === 'corp' && <td />}
+              {tariff === 'corp' && <td>n/a</td>}
             </tr>
             <tr>
               <td>Daily forecast</td>
               <td>8 days</td>
-              {tariff === 'corp' && <td />}
+              {tariff === 'corp' && <td>n/a</td>}
             </tr>
             <tr>
               <td>Historical Soil Data Chart</td>
@@ -201,7 +203,7 @@ const LimitsDashboard = (props) => {
                   <b>Crop map</b>
                 </Link>
               </th>
-              <th>Years</th>
+              <th>AVAILABILITY</th>
             </tr>
           </thead>
           <tbody>
@@ -215,7 +217,8 @@ const LimitsDashboard = (props) => {
           <thead>
             <br />
             <tr>
-              <th colSpan={tariff === 'corp' ? 3 : 2}>Polygon creation</th>
+              <th colSpan={tariff === 'corp' ? 2 : 1}>Polygon creation</th>
+              <th>Area</th>
             </tr>
           </thead>
           <tbody>
