@@ -4,7 +4,7 @@ import ReactBSAlert from 'react-bootstrap-sweetalert'
 import { Button, Card, CardBody } from 'reactstrap'
 
 import { supportEmail, supportEmailMailTo } from '../../../config'
-import DeleteAccount from './DeleteAccountPopUp'
+import DeleteAccountPopUp from './DeleteAccountPopUp'
 
 const DeleteAcctCard = () => {
   const [alert, setAlert] = React.useState(null)
@@ -23,7 +23,7 @@ const DeleteAcctCard = () => {
         showConfirm={false}
         showCloseButton
       >
-        <DeleteAccount close={hideAlert} />
+        <DeleteAccountPopUp close={hideAlert} />
       </ReactBSAlert>,
     )
   }

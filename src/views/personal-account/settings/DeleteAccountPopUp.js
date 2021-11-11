@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 
+import classnames from 'classnames'
 import PropTypes from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux'
 import { NavLink } from 'react-router-dom'
@@ -7,7 +8,7 @@ import Select from 'react-select'
 import { Button, Col, FormGroup, Row } from 'reactstrap'
 
 import { deleteAcct } from '../../../api/personalAccount'
-import { deleteAcctOptions } from '../../../config'
+import { deleteAcctOptions, errors } from '../../../config'
 import { logoutUser } from '../../../features/auth/actions'
 import {
   notifyError,
@@ -18,22 +19,25 @@ const userSubscriptionSelector = (state) => state.auth.user.tariff
 
 const DeleteAccount = ({ close }) => {
   const dispatch = useDispatch()
-
   const subscription = useSelector(userSubscriptionSelector)
   const [reason, setReason] = useState('')
+  const [error, setError] = useState(null)
 
   const confirmDeleteAcct = () => {
-    const data = {
-      reason,
+    setError(null)
+    if (!reason) {
+      setError(errors.noBlank)
+      return
     }
-
-    deleteAcct(data)
+    deleteAcct({
+      reason,
+    })
       .then(() => {
         dispatch(notifySuccess('Account deleted'))
         dispatch(logoutUser())
       })
-      .catch((error) => {
-        dispatch(notifyError(`Error deleting account + ${error.message}`))
+      .catch((err) => {
+        dispatch(notifyError(`Error deleting account + ${err.message}`))
       })
     close()
   }
@@ -54,7 +58,10 @@ const DeleteAccount = ({ close }) => {
             <Col md="9">
               <FormGroup>
                 <Select
-                  className="react-select info mb-3"
+                  className={classnames(
+                    'react-select info ',
+                    error ? 'danger-border' : '',
+                  )}
                   classNamePrefix="react-select"
                   onChange={(option) => {
                     setReason(option.label)
@@ -65,6 +72,14 @@ const DeleteAccount = ({ close }) => {
                   menuPortalTarget={document.body}
                   styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
                 />
+                <div
+                  className={classnames(
+                    'invalid-feedback ',
+                    error ? 'd-block' : '',
+                  )}
+                >
+                  {error}
+                </div>
               </FormGroup>
             </Col>
           </Row>

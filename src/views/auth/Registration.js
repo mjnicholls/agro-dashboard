@@ -34,13 +34,13 @@ import {
 import { createNewUser } from '../../api/auth'
 import cardPrimary from '../../assets/img/card-primary.png'
 import { cookies, errors, passwordLength } from '../../config'
+import { loginUser } from '../../features/auth/actions'
 import {
   notifyError,
   notifySuccess,
 } from '../../features/notifications/actions'
-import LoaderCircle from '../components/LoaderCircle'
-import { loginUser } from '../../features/auth/actions'
 import { getCookie } from '../../utils/cookies'
+import LoaderCircle from '../components/LoaderCircle'
 
 const RegisterForm = ({ history }) => {
   const [state, setState] = React.useState({})
@@ -62,8 +62,6 @@ const RegisterForm = ({ history }) => {
   const dispatch = useDispatch()
 
   const recaptchaRef = useRef()
-
-  console.log(process.env)
 
   const signUp = () => {
     let campaignId = null

@@ -1,10 +1,10 @@
 import axios from 'axios'
 
 import { login, logout } from '../../api/auth'
+import { cookies } from '../../config'
 import { deleteCookie, setCookie } from '../../utils/cookies'
 import { fetchPolygons } from '../polygons/actions'
 import { parseJwt } from './utils'
-import { cookies } from '../../config'
 
 export const API_KEY_STATUS = 'API_KEY_STATUS'
 export const LOGIN_REQUEST = 'LOGIN_REQUEST'

@@ -90,7 +90,6 @@ const App = () => {
     )
     const queryParams = queryString.parse(window.location.search)
     const tokenVal = queryParams.campaign_id
-    console.log('tokenVal', tokenVal)
     if (tokenVal) {
       const date = Math.round(new Date().getTime() / 1000)
       setCookie(

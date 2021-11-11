@@ -1,3 +1,4 @@
+import { cookies } from '../../config'
 import { getCookie } from '../../utils/cookies'
 import {
   API_KEY_STATUS,
@@ -11,7 +12,6 @@ import {
   LOGOUT_FRONTEND,
 } from './actions'
 import { parseJwt } from './utils'
-import { cookies } from '../../config'
 
 let tokenData
 const token = getCookie(cookies.token)

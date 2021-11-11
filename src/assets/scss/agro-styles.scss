@@ -312,6 +312,10 @@ $mapHeight: 400px;
 
 .danger-border {
   border-color: $danger-color;
+
+  .react-select__control {
+    border-color: $danger-color;
+  }
 }
 
 .polygon-table {
