@@ -16,10 +16,13 @@ const getCookie = (name) => {
   return res
 }
 
-const setCookie = (name, value) => {
+const setCookie = (name, value, domain) => {
   const date = new Date()
-  date.setTime(date.getTime() + 86400000)
+  date.setTime(date.getTime() + 2592000000)
   const options = { path: '/', expires: date.toUTCString() }
+  if (domain) {
+    options.domain = domain
+  }
   let updatedCookie = `${name}=${encodeURIComponent(value)}`
   const optionsArray = Object.keys(options)
   for (let i = 0; i < optionsArray.length; i += 1) {

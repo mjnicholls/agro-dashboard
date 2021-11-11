@@ -9,12 +9,12 @@ import {
   LOGOUT_REQUEST,
   LOGOUT_SUCCESS,
   LOGOUT_FRONTEND,
-  TOKEN_COOK,
 } from './actions'
 import { parseJwt } from './utils'
+import { cookies } from '../../config'
 
 let tokenData
-const token = getCookie(TOKEN_COOK)
+const token = getCookie(cookies.token)
 
 if (token) {
   try {

@@ -90,9 +90,14 @@ const App = () => {
     )
     const queryParams = queryString.parse(window.location.search)
     const tokenVal = queryParams.campaign_id
+    console.log('tokenVal', tokenVal)
     if (tokenVal) {
       const date = Math.round(new Date().getTime() / 1000)
-      setCookie(cookies.ad, `campaign_id=${tokenVal}&date=${date}`) // TODO domains?
+      setCookie(
+        cookies.ad,
+        `campaign_id=${tokenVal}&date=${date}`,
+        process.env.REACT_APP_COOKIE_DOMAIN,
+      )
     }
   }, [])
 

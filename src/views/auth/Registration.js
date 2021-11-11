@@ -1,4 +1,3 @@
-/* eslint-disable */
 import React, { useRef, useState } from 'react'
 
 import {
@@ -34,12 +33,7 @@ import {
 
 import { createNewUser } from '../../api/auth'
 import cardPrimary from '../../assets/img/card-primary.png'
-import {
-  cookies,
-  errors,
-  passwordLength,
-  RECAPTCHA_SITE_KEY,
-} from '../../config'
+import { cookies, errors, passwordLength } from '../../config'
 import {
   notifyError,
   notifySuccess,
@@ -68,6 +62,8 @@ const RegisterForm = ({ history }) => {
   const dispatch = useDispatch()
 
   const recaptchaRef = useRef()
+
+  console.log(process.env)
 
   const signUp = () => {
     let campaignId = null
@@ -113,9 +109,10 @@ const RegisterForm = ({ history }) => {
       for (let i = 0; i < vars.length; i += 1) {
         const pair = vars[i].split('=')
         if (pair[0] === 'campaign_id') {
+          // eslint-disable-next-line
           campaignId = pair[1]
         } else if (pair[0] === 'date') {
-          entranceDate = parseInt(pair[1])
+          entranceDate = parseInt(pair[1], 10)
         }
       }
     }
@@ -512,7 +509,7 @@ const RegisterForm = ({ history }) => {
                         <Label>
                           <ReCAPTCHA
                             ref={recaptchaRef}
-                            sitekey={RECAPTCHA_SITE_KEY}
+                            sitekey={process.env.REACT_APP_RECAPTCHA_SITE_KEY}
                           />
                           <div
                             className={classnames(

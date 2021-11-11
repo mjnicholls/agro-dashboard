@@ -21,6 +21,7 @@
     "chart.js": "^2.9.4",
     "classnames": "2.2.6",
     "devextreme": "^21.1.6",
+    "env-cmd": "^10.1.0",
     "ga-4-react": "^0.1.281",
     "google-recaptcha": "^1.1.0",
     "mapbox-gl": "^2.3.1",
@@ -77,8 +78,11 @@
     "typescript": "4.1.2"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build && gulp licenses",
+    "start": "env-cmd -f .env.development react-scripts start",
+    "start:dev": "env-cmd -f .env.development npm start",
+    "build": "env-cmd -f .env.development react-scripts build && gulp licenses",
+    "build:development": "env-cmd -f .env.development npm run build",
+    "build:production": "env-cmd -f .env.production npm run build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "install:clean": "rm -rf node_modules/ && rm -rf package-lock.json && npm install && npm start",
