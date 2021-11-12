@@ -33,13 +33,13 @@ import {
 
 import { createNewUser } from '../../api/auth'
 import cardPrimary from '../../assets/img/card-primary.png'
-import { cookies, errors, passwordLength } from '../../config'
+import { errors, passwordLength } from '../../config'
 import { loginUser } from '../../features/auth/actions'
 import {
   notifyError,
   notifySuccess,
 } from '../../features/notifications/actions'
-import { getCookie } from '../../utils/cookies'
+import { getAdvertisingDetails } from '../../utils/utils'
 import LoaderCircle from '../components/LoaderCircle'
 
 const RegisterForm = ({ history }) => {
@@ -64,9 +64,6 @@ const RegisterForm = ({ history }) => {
   const recaptchaRef = useRef()
 
   const signUp = () => {
-    let campaignId = null
-    let entranceDate = null
-
     setError({})
     const newError = {}
     const requiredFields = ['username', 'email', 'password', 'confirmPass']
@@ -101,19 +98,7 @@ const RegisterForm = ({ history }) => {
       return
     }
 
-    const advertisingCampaign = getCookie(cookies.ad)
-    if (advertisingCampaign) {
-      const vars = advertisingCampaign.split('&')
-      for (let i = 0; i < vars.length; i += 1) {
-        const pair = vars[i].split('=')
-        if (pair[0] === 'campaign_id') {
-          // eslint-disable-next-line
-          campaignId = pair[1]
-        } else if (pair[0] === 'date') {
-          entranceDate = parseInt(pair[1], 10)
-        }
-      }
-    }
+    const advertising = getAdvertisingDetails()
 
     const data = {
       user: {
@@ -129,10 +114,7 @@ const RegisterForm = ({ history }) => {
         product: mailSettings.product ? '1' : '0',
         news: mailSettings.news ? '1' : '0',
       },
-      advertising: {
-        campaign_id: campaignId,
-        entrance_date: entranceDate,
-      },
+      advertising,
     }
     setIsFetching(true)
     createNewUser(data)

@@ -79,6 +79,7 @@ const App = () => {
   useEffect(() => {
     /* Check advertising campaign in cookies, set Google Analytics */
     const ga4react = new GA4React(gaID)
+
     ga4react.initialize().then(
       (ga4) => {
         ga4.pageview('path')

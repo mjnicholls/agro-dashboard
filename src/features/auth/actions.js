@@ -3,6 +3,7 @@ import axios from 'axios'
 import { login, logout } from '../../api/auth'
 import { cookies } from '../../config'
 import { deleteCookie, setCookie } from '../../utils/cookies'
+import { getAdvertisingDetails } from '../../utils/utils'
 import { fetchPolygons } from '../polygons/actions'
 import { parseJwt } from './utils'
 
@@ -61,8 +62,9 @@ export const destroyState = () => ({
 
 export const loginUser = (email, password) => (dispatch) => {
   dispatch(requestLogin(email))
+  const advertising = getAdvertisingDetails()
 
-  login(email, password)
+  login(email, password, advertising)
     .then((data) => {
       const { token } = data
 
