@@ -124,6 +124,9 @@ const RegisterForm = ({ history }) => {
         history.push('/dashboard/polygons')
       })
       .catch((err) => {
+        setError({
+          server: err.message,
+        })
         dispatch(
           notifyError(`Error signing up: ${err.message}. Please try again.`),
         )
@@ -358,6 +361,14 @@ const RegisterForm = ({ history }) => {
                         )}
                       >
                         {error.confirmPass}
+                      </div>
+                      <div
+                        className={classnames(
+                          'invalid-feedback ',
+                          error.server ? 'd-block' : '',
+                        )}
+                      >
+                        {error.server}
                       </div>
                       <div className="my-3">
                         <span className="form-check-sign">

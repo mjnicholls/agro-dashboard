@@ -1,5 +1,5 @@
-import { getCookie, setCookie } from '../../utils/cookies'
 import { cookies } from '../../config'
+import { getCookie, setCookie } from '../../utils/cookies'
 import { SET_UNITS } from './actions'
 
 let units = getCookie(cookies.units)

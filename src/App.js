@@ -70,7 +70,6 @@ axios.interceptors.response.use(
         message: 'Something went wrong',
       }
     }
-
     return Promise.reject(newErr)
   },
 )

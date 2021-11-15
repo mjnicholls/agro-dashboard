@@ -1,5 +1,5 @@
-import { setCookie } from '../../utils/cookies'
 import { cookies } from '../../config'
+import { setCookie } from '../../utils/cookies'
 export const SET_UNITS = 'units/set'
 
 export const toggleUnits = (payload) => ({

@@ -11,7 +11,6 @@ import {
   CardFooter,
   CardTitle,
   Form,
-  FormText,
   Input,
   InputGroupAddon,
   InputGroupText,
@@ -36,7 +35,6 @@ const Login = (props) => {
   const isAuthenticated = useSelector(isAuthenticatedSelector)
   const isFetching = useSelector(isFetchingSelector)
   const errorMessage = useSelector(errorMessageSelector)
-
   const dispatch = useDispatch()
 
   React.useEffect(() => {
@@ -134,11 +132,14 @@ const Login = (props) => {
                             }
                           />
                         </InputGroup>
-                        {(errors.message || errorMessage) && (
-                          <FormText color="muted">
-                            {errors.message || errorMessage}
-                          </FormText>
-                        )}
+                        <div
+                          className={classnames(
+                            'invalid-feedback ',
+                            errors.message || errorMessage ? 'd-block' : '',
+                          )}
+                        >
+                          {errors.message || errorMessage}
+                        </div>
                       </>
                     )}
                   </div>

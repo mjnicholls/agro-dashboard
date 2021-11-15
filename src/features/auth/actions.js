@@ -6,6 +6,7 @@ import { deleteCookie, setCookie } from '../../utils/cookies'
 import { getAdvertisingDetails } from '../../utils/utils'
 import { fetchPolygons } from '../polygons/actions'
 import { parseJwt } from './utils'
+import { notifyError } from '../notifications/actions'
 
 export const API_KEY_STATUS = 'API_KEY_STATUS'
 export const LOGIN_REQUEST = 'LOGIN_REQUEST'
@@ -30,9 +31,7 @@ const receiveLogin = (data) => ({
 
 const loginError = (message) => ({
   type: LOGIN_FAILURE,
-  isFetching: false,
-  isAuthenticated: false,
-  message,
+  payload: message,
 })
 
 export const setApiKeyStatus = (status) => ({
@@ -110,6 +109,7 @@ export const loginUser = (email, password) => (dispatch) => {
       dispatch(fetchPolygons())
     })
     .catch((err) => {
+      dispatch(notifyError(err.message))
       dispatch(loginError(err.message))
     })
 }

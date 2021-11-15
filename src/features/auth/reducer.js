@@ -41,6 +41,7 @@ const initialState = {
       },
   limits: tokenData ? tokenData.limits : null,
   isApiKeyValid: null,
+  errorMessage: null,
 }
 
 export default function authReducer(state = initialState, action) {
@@ -73,7 +74,7 @@ export default function authReducer(state = initialState, action) {
         ...state,
         isFetching: false,
         isAuthenticated: false,
-        errorMessage: action.message,
+        errorMessage: action.payload,
       }
     case CLEAR_LOGIN_ERROR: {
       return { ...state, errorMessage: null }
