@@ -1,10 +1,7 @@
 const getCookie = (name) => {
   let res
   if (name) {
-    const kk =
-      'signed_in=test_currency_usd%40owm.io; __gads=ID=bdfa0f576082c199-2284a1a7c0cc00a3:T=1598344835:RT=1636103887:R:S=ALNI_MbCveBZGAGaZqu2f9yJv_NOdmE1-A; __stripe_mid=005a8c68-fe72-4f09-af9d-60e0178640778ad2ab; _gid=GA1.2.601517681.1636623906; agro-ad=fluff; _ga=GA1.1.580945751.1578119594; __stripe_sid=9430a25d-eb23-4fd8-ac35-222d398e464f8fd466; _ga_JE5157018X=GS1.1.1636644532.18.1.1636644816.0; agro-units=metric'
-    // document.cookie
-    const matches = kk.match(
+    const matches = document.cookie.match(
       new RegExp(
         /* eslint-disable no-useless-escape */
         `(?:^|; )${name.replace(

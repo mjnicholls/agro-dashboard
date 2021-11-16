@@ -15,7 +15,6 @@ import { parseJwt } from './utils'
 
 let tokenData
 const token = getCookie(cookies.token)
-
 if (token) {
   try {
     tokenData = parseJwt(token).passport
