@@ -5,10 +5,10 @@ stages:
 variables:
   DOCKER_IMAGE_NAME: repo.owm.io/front/agro-dashboard
 
-build_docker:
+build_docker_stage:
   stage: build
   script:
-    - docker build -t $DOCKER_IMAGE_NAME:latest .
+    - docker build --build-arg environment=dev -t $DOCKER_IMAGE_NAME:latest .
 
 push_docker_stage:
   stage: deploy
@@ -16,11 +16,17 @@ push_docker_stage:
     - docker login repo.owm.io -u $DOCKER_LOGIN -p $DOCKER_PASSWORD
     - docker push $DOCKER_IMAGE_NAME:latest
 
+build_docker_prod:
+  stage: build
+  only:
+    - tags
+  script:
+    - docker build --build-arg environment=prod -t $DOCKER_IMAGE_NAME:$CI_BUILD_TAG .
+
 push_docker_prod:
   stage: deploy
   only:
     - tags
   script:
-    - docker login repo.owm.io -u $DOCKER_LOGIN -p $DOCKER_PASSWORD    
-    - docker tag $DOCKER_IMAGE_NAME:latest $DOCKER_IMAGE_NAME:$CI_BUILD_TAG
+    - docker login repo.owm.io -u $DOCKER_LOGIN -p $DOCKER_PASSWORD
     - docker push $DOCKER_IMAGE_NAME:$CI_BUILD_TAG

@@ -29,7 +29,8 @@ RUN npm install
 COPY . .
 
 # собираем приложение для production с минификацией
-RUN npm run build
+ARG environment
+RUN npm run build:${environment}
 
 # Copy static to nginx static folder
 RUN mkdir -p /var/www/html
