@@ -37,6 +37,16 @@ const Footer = (props) => (
             Old dashboard
           </a>
         </li>
+        <li className="nav-item">
+          <a
+            className="nav-link"
+            href="https://old.agromonitoring.com"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Old Personal Account
+          </a>
+        </li>
       </ul>
 
       <div className="copyright">
