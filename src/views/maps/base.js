@@ -72,7 +72,8 @@ export const initialiseMap = (mapContainer, map, params, onLoadCallBack) => {
   }
   if (token) {
     mapConfig.transformRequest = (url) =>
-      url.indexOf(process.env.REACT_APP_BASE_URL) > -1 || url.indexOf('agromonitoring') > -1
+      url.indexOf(process.env.REACT_APP_BASE_URL) > -1 ||
+      url.indexOf('agromonitoring') > -1
         ? {
             url,
             headers: { Authorization: `Bearer ${token}` },
