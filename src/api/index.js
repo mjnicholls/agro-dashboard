@@ -1,10 +1,5 @@
-export const serverBaseURL = 'https://wp.agromonitoring.com/api/'
-// export const serverBaseURL = 'http://dashboard.phase.owm.io/api/'
-// export const serverBaseURL = 'https://dashboard.owm.io/api/'
-
-export const personalAccountBase = `${serverBaseURL}auth/`
-export const test = `http://k8s-eu4.owm.io:12346/`
-const agriBase = `${serverBaseURL}proxy/`
+const personalAccountBase = `${process.env.REACT_APP_BASE_URL}auth/`
+const agriBase = `${process.env.REACT_APP_BASE_URL}proxy/`
 
 // user
 export const loginURL = `${personalAccountBase}auth/login`

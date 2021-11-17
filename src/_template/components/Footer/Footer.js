@@ -1,11 +1,18 @@
+/* eslint-disable */
 import React from 'react'
 
 import PropTypes from 'prop-types'
-import { Container } from 'reactstrap'
+import { Col, Container, Row } from 'reactstrap'
 
-const Footer = (props) => (
-  <footer className={`footer${props.default ? ' footer-default' : ''}`}>
-    <Container fluid={!!props.fluid}>
+const Footer = (props) => {
+
+  console.log(props)
+  //fluid={!!props.fluid}
+  return (
+    <footer className={`footer${props.default ? ' footer-default' : ''}`}>
+    <Container fluid="xxl" >
+      <Row>
+        <Col>
       <ul className="nav">
         <li className="nav-item">
           <a
@@ -56,9 +63,50 @@ const Footer = (props) => (
         </a>{' '}
         All rights reserved
       </div>
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+          <ul className="nav my-3">
+        <li className="nav-item">
+          <a
+            className="nav-link text-capitalize"
+            href="https://agromonitoring.com/storage/app/media/Terms/ExtremeElectronics_terms_and_conditions_of_sale.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Terms and conditions of sale
+          </a>
+        </li>{' '}
+        <li className="nav-item">
+          <a
+            className="nav-link text-capitalize"
+            href="https://agromonitoring.com/privacy-policy"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Privacy policy
+          </a>
+        </li>{' '}
+        <li className="nav-item">
+          <a
+            className="nav-link text-capitalize"
+            href="https://agromonitoring.com/storage/app/media/Terms/ExtremeElectronics_website_terms_and_conditions_of_use.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Terms and conditions of use
+          </a>
+        </li>
+      </ul>
+        </Col>
+      </Row>
+    </Container>
+    <Container>
+
     </Container>
   </footer>
-)
+)}
 
 Footer.propTypes = {
   default: PropTypes.bool,
