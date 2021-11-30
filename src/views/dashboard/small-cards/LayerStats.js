@@ -4,7 +4,7 @@ import axios from 'axios/index'
 import { useSelector } from 'react-redux'
 import { Card, CardBody, CardHeader, Col, Row, Table } from 'reactstrap'
 
-import { getImageStats } from '../../../api/polygon'
+import { getImageStats } from '../../../api/apiPolygons'
 import { toDate } from '../../../utils/dateTime'
 import ChartContainer from '../../charts/ui/ChartContainer'
 import SatelliteLayerDropdown from './ui/SatelliteLayers'

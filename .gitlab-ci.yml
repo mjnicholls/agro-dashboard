@@ -13,7 +13,7 @@ build_docker_stage:
 push_docker_stage:
   stage: deploy
   script:
-    - docker login repo.owm.io -u $DOCKER_LOGIN -p $DOCKER_PASSWORD
+    - docker signInApi repo.owm.io -u $DOCKER_LOGIN -p $DOCKER_PASSWORD
     - docker push $DOCKER_IMAGE_NAME:latest
 
 build_docker_prod:
@@ -28,5 +28,5 @@ push_docker_prod:
   only:
     - tags
   script:
-    - docker login repo.owm.io -u $DOCKER_LOGIN -p $DOCKER_PASSWORD
+    - docker signInApi repo.owm.io -u $DOCKER_LOGIN -p $DOCKER_PASSWORD
     - docker push $DOCKER_IMAGE_NAME:$CI_BUILD_TAG

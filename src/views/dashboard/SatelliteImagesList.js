@@ -7,7 +7,7 @@ import DatePicker from 'react-datetime'
 import { useSelector } from 'react-redux'
 import { Card, CardBody, Label } from 'reactstrap'
 
-import { getSatelliteImagesList } from '../../api/polygon'
+import { getSatelliteImagesList } from '../../api/apiPolygons'
 import { toDate } from '../../utils/dateTime'
 import SatelliteImagePlaceholder from './SatelliteImagePlaceholder'
 const selectActivePoly = (state) => state.state.polygon

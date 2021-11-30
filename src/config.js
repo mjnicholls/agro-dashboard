@@ -11,7 +11,7 @@ export const supportEmail = 'info@openweathermap.org'
 export const supportEmailMailTo = `mailto:${supportEmail}`
 
 export const defaultTimeout = 15000
-export const polygonsTimeout = 200000
+export const longTimeout = { timeout: 200000 }
 
 export const polygonShapeSize = 48
 export const startSatelliteImagesSearchDate = 1262304000

@@ -15,7 +15,7 @@ import {
   Label,
 } from 'reactstrap'
 
-import { updatePassword } from '../../../api/personalAccount'
+import { updatePassword } from '../../../api/apiAccount'
 import { noBlankErrorMessage } from '../../../config'
 import {
   notifyError,

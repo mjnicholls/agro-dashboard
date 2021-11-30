@@ -20,11 +20,10 @@ import {
 } from 'reactstrap'
 
 import {
-  updateBillingDetails,
-  validateVat,
-  getCountries,
   createBillingDetails,
-} from '../../../api/billing'
+  updateBillingDetails,
+} from '../../../api/apiAccount'
+import { validateVat, getCountries } from '../../../api/apiOther'
 import { countriesDefault, noBlankErrorMessage, titles } from '../../../config'
 import {
   notifyError,

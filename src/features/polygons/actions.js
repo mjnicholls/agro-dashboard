@@ -1,12 +1,10 @@
-import axios from 'axios'
-
-import { polygonsEndpoint } from '../../api'
 import {
+  getPolygonsApi,
   createPolygonApi,
   deletePolygonApi,
-  editPolygonApi,
-} from '../../api/polygon'
-import { polygonShapeSize, polygonsTimeout } from '../../config'
+  editPolygonNameApi,
+} from '../../api/apiPolygons'
+import { polygonShapeSize } from '../../config'
 import { notifySuccess, notifyError } from '../notifications/actions'
 
 export const POLYGONS_START_FETCHING = 'polygons/fetch'
@@ -101,8 +99,7 @@ const enrichPolygon = (polygon) => {
 
 export const fetchPolygons = () => (dispatch) => {
   dispatch(polygonsStartFetching())
-  axios
-    .get(polygonsEndpoint, { timeout: polygonsTimeout })
+  getPolygonsApi()
     .then((data) => {
       const polygons = data
       polygons.reverse()
@@ -137,7 +134,7 @@ export const addPolygon = (data) =>
 
 export const editPolygon = (data) =>
   async function deletePolygonThunk(dispatch) {
-    editPolygonApi(data)
+    editPolygonNameApi(data)
       .then((response) => {
         dispatch(polygonUpdated(response))
         dispatch(notifySuccess('Polygon has been renamed successfully'))

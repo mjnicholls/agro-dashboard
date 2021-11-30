@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Card, CardHeader, CardBody, CardTitle, Col, Row } from 'reactstrap'
 
-import { getCurrentSoil } from '../../../api/weather'
+import { getCurrentSoil } from '../../../api/apiWeather'
 import { convertTemp } from '../../../utils/utils'
 import ChartContainer from '../../charts/ui/ChartContainer'
 

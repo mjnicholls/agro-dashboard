@@ -38,9 +38,9 @@ const Login = (props) => {
   const dispatch = useDispatch()
 
   React.useEffect(() => {
-    document.body.classList.toggle('login-page')
+    document.body.classList.toggle('signInApi-page')
     return function cleanup() {
-      document.body.classList.toggle('login-page')
+      document.body.classList.toggle('signInApi-page')
     }
   })
 

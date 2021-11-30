@@ -31,7 +31,7 @@ import {
   Col,
 } from 'reactstrap'
 
-import { createNewUser } from '../../api/auth'
+import { signUpApi } from '../../api/auth'
 import cardPrimary from '../../assets/img/card-primary.png'
 import { errors, passwordLength } from '../../config'
 import { loginUser } from '../../features/auth/actions'
@@ -117,7 +117,7 @@ const RegisterForm = ({ history }) => {
       advertising,
     }
     setIsFetching(true)
-    createNewUser(data)
+    signUpApi(data)
       .then(() => {
         dispatch(notifySuccess('Registration complete'))
         dispatch(loginUser(user.email, user.password))

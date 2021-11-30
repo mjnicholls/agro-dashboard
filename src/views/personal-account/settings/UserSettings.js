@@ -14,7 +14,7 @@ import {
   Label,
 } from 'reactstrap'
 
-import { updateUserSettings } from '../../../api/personalAccount'
+import { updateUserNames } from '../../../api/apiAccount'
 import { noBlankErrorMessage } from '../../../config'
 import {
   notifyError,
@@ -42,7 +42,7 @@ const UserSettings = ({ user, handleUserState }) => {
       new_full_name: user.full_name,
     }
 
-    updateUserSettings(data)
+    updateUserNames(data)
       .then(() => {
         dispatch(notifySuccess('Details updated'))
       })

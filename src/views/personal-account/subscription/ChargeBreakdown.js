@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 
 import { Table } from 'reactstrap'
 
-import { getPolygons } from '../../../api/personalAccount'
+import { getPolygons } from '../../../api/apiAccount'
 import { numberWithCommas } from '../../../utils/utils'
 import ExportPolygons from './ExportPolygons'
 

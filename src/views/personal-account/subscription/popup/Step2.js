@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import Select from 'react-select'
 import { Col, Form, Label, FormGroup, Input, Row } from 'reactstrap'
 
-import { getCountries } from '../../../../api/billing'
+import { getCountries } from '../../../../api/apiOther'
 import { countriesDefault } from '../../../../config'
 import LoaderDots from '../../../components/LoaderDots'
 

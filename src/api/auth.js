@@ -1,5 +1,4 @@
-import axios from 'axios'
-
+import axiosClient from './axiosClient'
 import {
   confirmEmailURL,
   forgotPasswordURL,
@@ -9,43 +8,39 @@ import {
   signupURL,
 } from './index'
 
-export const login = (email, password) =>
-  axios.post(loginURL, {
+export const signInApi = (email, password) =>
+  axiosClient.post(loginURL, {
     email,
     password,
   })
 
-export const logout = () => axios.delete(logoutURL)
+export const signOutApi = () => axiosClient.delete(logoutURL)
 
-export const createNewUser = (data) =>
-  /** Sign up method */
-  axios.post(signupURL, data)
+export const signUpApi = (data) => axiosClient.post(signupURL, data)
 
 export const forgotPassword = (email) =>
-  /** Get reset password instructions */
-  axios.post(forgotPasswordURL, {
+  axiosClient.post(forgotPasswordURL, {
     user: {
       email,
     },
   })
 
 export const changePassword = (params) =>
-  /** Change password */
-  axios.put(resetPasswordURL, {
+  axiosClient.put(resetPasswordURL, {
     user: {
       ...params,
     },
   })
 
 export const receiveConfirmationEmail = (email) =>
-  axios.post(confirmEmailURL, {
+  axiosClient.post(confirmEmailURL, {
     user: {
       email,
     },
   })
 
 export const confirmEmailApi = (value) =>
-  axios.put(confirmEmailURL, {
+  axiosClient.put(confirmEmailURL, {
     user: {
       confirmation_token: value,
     },

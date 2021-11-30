@@ -19,7 +19,7 @@ import {
   UncontrolledTooltip,
 } from 'reactstrap'
 
-import { createApiKey, getAPIKeys } from '../../api/personalAccount'
+import { createApiKey, getAPIKeys } from '../../api/apiAccount'
 import { noBlankErrorMessage } from '../../config'
 import {
   notifyError,

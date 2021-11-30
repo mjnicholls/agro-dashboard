@@ -4,7 +4,7 @@ import { Line } from 'react-chartjs-2'
 import { useSelector } from 'react-redux'
 import { Card, CardHeader, CardBody, CardTitle, Row, Col } from 'reactstrap'
 
-import { getHistoryNDVIData } from '../../api/chart'
+import { getHistoryNDVIData } from '../../api/apiCharts'
 import { defaultStartHistoryWeatherCharts, tariffError } from '../../config'
 import { toDate, getDateInPast } from '../../utils/dateTime'
 import { chartOptions } from './base'

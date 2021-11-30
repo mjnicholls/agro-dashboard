@@ -14,7 +14,7 @@ import {
   UncontrolledTooltip,
 } from 'reactstrap'
 
-import { getInvoices } from '../../api/personalAccount'
+import { getInvoices } from '../../api/apiAccount'
 import { itemsPerPage } from '../../config'
 import AgroPagination from '../components/AgroPagination'
 

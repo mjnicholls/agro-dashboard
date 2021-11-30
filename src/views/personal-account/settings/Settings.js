@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 
 import { Card, CardBody, Col, Row } from 'reactstrap'
 
-import { getAccountInfo } from '../../../api/personalAccount'
+import { getAccountInfo } from '../../../api/apiAccount'
 import TabsSelector from '../../components/TabsSelector'
 import UnitsRadioButtons from '../../components/UnitsRadioButtons'
 import BillingInfo from './BillingInformation'

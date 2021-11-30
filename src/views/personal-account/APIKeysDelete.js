@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import { useDispatch } from 'react-redux'
 import { Button, Col, Row } from 'reactstrap'
 
-import { deleteAPIKey } from '../../api/personalAccount'
+import { deleteAPIKey } from '../../api/apiAccount'
 import {
   notifyError,
   notifySuccess,

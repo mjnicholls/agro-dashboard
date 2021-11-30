@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 
 import { Button } from 'reactstrap'
 
-import { getPolygons } from '../../../api/personalAccount'
+import { getPolygons } from '../../../api/apiAccount'
 
 const ExportPolygon = () => {
   const [polygons, setPolygons] = useState([])

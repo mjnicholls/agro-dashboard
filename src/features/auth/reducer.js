@@ -1,5 +1,5 @@
 import { cookies } from '../../config'
-import { getCookie } from '../../utils/cookies'
+import { deleteCookie, getCookie } from '../../utils/cookies'
 import {
   API_KEY_STATUS,
   CLEAR_LOGIN_ERROR,
@@ -13,35 +13,44 @@ import {
 } from './actions'
 import { parseJwt } from './utils'
 
+const emptyUserData = {
+  email: null,
+  appid: null,
+  tariff: null,
+  confirmed_email: null,
+}
+
+const defaultEmptyState = {
+  isFetching: false,
+  isAuthenticated: false,
+  token: null,
+  user: { ...emptyUserData },
+  errorSignIn: null,
+  errorSignUp: null,
+  limits: null,
+  isApiKeyValid: null,
+  errorMessage: null,
+}
+
 let tokenData
 const token = getCookie(cookies.token)
 if (token) {
   try {
     tokenData = parseJwt(token).passport
   } catch (err) {
-    // eslint-disable-next-line
-    console.log(err)
+    deleteCookie(cookies.token, '/', '')
   }
 }
 
-const initialState = {
-  isFetching: false,
-  isAuthenticated: !!tokenData,
-  token: tokenData ? token : null,
-  user: tokenData
-    ? {
-        ...tokenData.data,
-      }
-    : {
-        email: null,
-        appid: null,
-        tariff: null,
-        confirmed_email: null,
-      },
-  limits: tokenData ? tokenData.limits : null,
-  isApiKeyValid: null,
-  errorMessage: null,
-}
+const initialState = tokenData
+  ? {
+      ...defaultEmptyState,
+      isAuthenticated: true,
+      token,
+      user: { ...tokenData.data },
+      limits: tokenData.limits,
+    }
+  : { ...defaultEmptyState }
 
 export default function authReducer(state = initialState, action) {
   switch (action.type) {
@@ -50,13 +59,6 @@ export default function authReducer(state = initialState, action) {
         ...state,
         isFetching: true,
         isAuthenticated: false,
-        user: {
-          email: action.payload,
-          appid: null,
-          tariff: null,
-          confirmed_email: null,
-        },
-        isApiKeyValid: null,
       }
     case LOGIN_SUCCESS:
       return {
@@ -82,32 +84,9 @@ export default function authReducer(state = initialState, action) {
       return { ...state, isFetching: true }
     }
     case LOGOUT_SUCCESS:
-      return {
-        isFetching: false,
-        isAuthenticated: false,
-        token: null,
-        user: {
-          email: null,
-          appid: null,
-          tariff: null,
-          confirmed_email: null,
-        },
-        limits: null,
-        isApiKeyValid: null,
-      }
+      return { ...defaultEmptyState }
     case LOGOUT_FRONTEND: {
-      return {
-        ...state,
-        isAuthenticated: false,
-        token: null,
-        user: {
-          email: null,
-          appid: null,
-          tariff: null,
-          confirmed_email: null,
-        },
-        limits: null,
-      }
+      return { ...defaultEmptyState }
     }
     case HIDE_NOTIFICATION: {
       return {

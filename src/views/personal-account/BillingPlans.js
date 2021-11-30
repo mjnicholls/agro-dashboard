@@ -6,7 +6,7 @@ import ReactBSAlert from 'react-bootstrap-sweetalert'
 import { useSelector } from 'react-redux'
 import { Button, Card, CardBody, Col, Row, Table } from 'reactstrap'
 
-import { isSubscriptionAvailableAPI } from '../../api/billing'
+import { isSubscriptionAvailableAPI } from '../../api/apiAccount'
 import { supportEmailMailTo, vegetationIndices } from '../../config'
 import ContactUsButton from '../components/ContactUsButton'
 import ExceedingPriceInfo from '../components/ExceedingPriceInfo'

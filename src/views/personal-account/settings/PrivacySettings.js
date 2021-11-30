@@ -15,7 +15,7 @@ import {
   Row,
 } from 'reactstrap'
 
-import { updateMailingPreferences } from '../../../api/personalAccount'
+import { updateMailingPreferences } from '../../../api/apiAccount'
 import {
   notifyError,
   notifySuccess,

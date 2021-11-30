@@ -6,7 +6,7 @@ import * as turf from '@turf/turf'
 import { useSelector } from 'react-redux'
 
 import mapboxgl from '!mapbox-gl' // eslint-disable-line import/no-unresolved
-import { searchCity } from '../../api/otherApi'
+import { searchCity } from '../../api/apiOther'
 import { getMapBounds } from '../../features/polygons/selectors'
 import { addBoundsControl, deletePreviousAreas, initialiseMap } from './base'
 import { displayClusters } from './clusters'

@@ -4,7 +4,7 @@ import axios from 'axios/index'
 import { Line } from 'react-chartjs-2'
 import { useSelector } from 'react-redux'
 
-import { getHistoryWeatherData } from '../../api/chart'
+import { getHistoryWeatherData } from '../../api/apiCharts'
 import { tariffError } from '../../config'
 import { toDate } from '../../utils/dateTime'
 import { convertTemp } from '../../utils/utils'

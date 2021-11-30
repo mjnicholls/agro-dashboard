@@ -26,7 +26,7 @@
 + node-sass-package-importer@5.3.2
 ### Updated dependencies
 ```
-chart.js                       2.9.3   →    2.9.4
+apiCharts.js                       2.9.3   →    2.9.4
 moment                        2.24.0   →   2.29.1
 node-sass                     4.13.1   →   4.14.1
 nouislider                    14.1.1   →   14.6.3
@@ -97,7 +97,7 @@ npm WARN tsutils@3.17.1 requires a peer of typescript@>=2.8.0 || >= 3.2.0-dev ||
 ```
 ### Updated dependencies
 ```
-chart.js                       2.7.3   →         2.9.3
+apiCharts.js                       2.7.3   →         2.9.3
 history                        4.7.2   →        4.10.1
 moment                        2.23.0   →        2.24.0
 node-sass                     4.11.0   →        4.13.1

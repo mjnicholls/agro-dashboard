@@ -4,8 +4,8 @@ import classnames from 'classnames'
 import { useDispatch } from 'react-redux'
 import { Button, Col, Form, Label, Row } from 'reactstrap'
 
-import { validateVat, subscribe } from '../../../../api/billing'
-import { getAccountInfo } from '../../../../api/personalAccount'
+import { getAccountInfo, subscribe } from '../../../../api/apiAccount'
+import { validateVat } from '../../../../api/apiOther'
 import { noBlankErrorMessage } from '../../../../config'
 import {
   notifyError,

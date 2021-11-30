@@ -7,7 +7,7 @@ import { NavLink } from 'react-router-dom'
 import Select from 'react-select'
 import { Button, Col, FormGroup, Row } from 'reactstrap'
 
-import { deleteAcct } from '../../../api/personalAccount'
+import { deleteAcct } from '../../../api/apiAccount'
 import { deleteAcctOptions, errors } from '../../../config'
 import { logoutUser } from '../../../features/auth/actions'
 import {

@@ -1,6 +1,4 @@
-import axios from 'axios'
-
-import { login, logout } from '../../api/auth'
+import { signInApi, signOutApi } from '../../api/auth'
 import { cookies } from '../../config'
 import { deleteCookie, setCookie } from '../../utils/cookies'
 import { getAdvertisingDetails } from '../../utils/utils'
@@ -63,7 +61,7 @@ export const loginUser = (email, password) => (dispatch) => {
   dispatch(requestLogin(email))
   const advertising = getAdvertisingDetails()
 
-  login(email, password, advertising)
+  signInApi(email, password, advertising)
     .then((data) => {
       const { token } = data
 
@@ -76,26 +74,6 @@ export const loginUser = (email, password) => (dispatch) => {
       if (!tokenInfo) {
         dispatch(loginError('Error parsing token')) // TODO
       }
-      axios.defaults.headers.common.Authorization = `Bearer ${token}`
-      axios.interceptors.response.use(
-        (response) => (response && response.data ? response.data : response),
-        // eslint-disable-next-line
-        (error) => {
-          if (error.response && error.response.status === 401) {
-            dispatch(receiveLogout())
-          } else {
-            let message = 'Something went wrong'
-            if (
-              error.response &&
-              error.response.data &&
-              error.response.data.message
-            ) {
-              message = error.response.data.message
-            }
-            return Promise.reject(message)
-          }
-        },
-      )
 
       setCookie(cookies.token, token)
       dispatch(
@@ -116,10 +94,9 @@ export const loginUser = (email, password) => (dispatch) => {
 
 export const logoutUser = () => async (dispatch) => {
   dispatch(requestLogout())
-  logout()
+  signOutApi()
     .then(() => {
       deleteCookie(cookies.token, '/', '')
-      delete axios.defaults.headers.common.Authorization
       dispatch(receiveLogout())
       dispatch(destroyState())
     })

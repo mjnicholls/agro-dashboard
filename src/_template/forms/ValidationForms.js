@@ -43,7 +43,7 @@ const ValidationForms = () => {
   const [registerPasswordState, setregisterPasswordState] = React.useState('')
   const [registerConfirmPasswordState, setregisterConfirmPasswordState] =
     React.useState('')
-  // login form
+  // signInApi form
   const [loginFullName, setloginFullName] = React.useState('')
   const [loginEmail, setloginEmail] = React.useState('')
   const [loginPassword, setloginPassword] = React.useState('')
@@ -83,7 +83,7 @@ const ValidationForms = () => {
     setregisterPasswordState: (value) => setregisterPasswordState(value),
     setregisterConfirmPasswordState: (value) =>
       setregisterConfirmPasswordState(value),
-    // login form
+    // signInApi form
     setloginFullName: (value) => setloginFullName(value),
     setloginEmail: (value) => setloginEmail(value),
     setloginPassword: (value) => setloginPassword(value),

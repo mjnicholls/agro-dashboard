@@ -5,7 +5,7 @@ import { Line } from 'react-chartjs-2'
 import { useSelector } from 'react-redux'
 
 import { tariffError } from '../../config'
-import { getAccumulatedData } from '../../api/chart'
+import { getAccumulatedData } from '../../api/apiCharts'
 import { toDate } from '../../utils/dateTime'
 import { chartOptions } from './base'
 import ChartContainer from './ui/ChartContainer'

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Col, Row } from 'reactstrap'
 
-import { getOneCallData } from '../api/weather'
+import { getOneCallData } from '../api/apiWeather'
 import CombinedChart from './charts/CombinedChart'
 import NdviChart from './charts/NdviChart'
 import Synchronizing from './components/Synchronizing'

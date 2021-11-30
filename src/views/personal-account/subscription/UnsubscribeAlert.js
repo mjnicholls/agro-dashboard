@@ -4,7 +4,10 @@ import ReactBSAlert from 'react-bootstrap-sweetalert'
 import { useDispatch, useSelector } from 'react-redux'
 import { Button, Col, Row } from 'reactstrap'
 
-import { isSubscriptionAvailableAPI, unsubscribe } from '../../../api/billing'
+import {
+  isSubscriptionAvailableAPI,
+  unsubscribe,
+} from '../../../api/apiAccount'
 import { supportEmailMailTo } from '../../../config'
 import { logoutUser } from '../../../features/auth/actions'
 import ContactUsButton from '../../components/ContactUsButton'
