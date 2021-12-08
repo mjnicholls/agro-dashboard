@@ -64,17 +64,16 @@ export const loginUser = (email, password) => (dispatch) => {
   signInApi(email, password, advertising)
     .then((data) => {
       const { token } = data
-
       let tokenInfo
       try {
         tokenInfo = parseJwt(token).passport
       } catch {
-        dispatch(loginError('Error parsing token')) // TODO
       }
       if (!tokenInfo) {
-        dispatch(loginError('Error parsing token')) // TODO
+        // something wrong with creating token on the server
+        dispatch(loginError('Error signing in. Please try again'))
+        return
       }
-
       setCookie(cookies.token, token)
       dispatch(
         receiveLogin({
@@ -83,12 +82,11 @@ export const loginUser = (email, password) => (dispatch) => {
           limits: tokenInfo.limits,
         }),
       )
-
       dispatch(fetchPolygons())
     })
     .catch((err) => {
-      dispatch(notifyError(err.message))
-      dispatch(loginError(err.message))
+      dispatch(notifyError(err))
+      dispatch(loginError(err))
     })
 }
 

@@ -3,7 +3,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Col, Container, Row } from 'reactstrap'
 
-//fluid={!!props.fluid}
+// fluid={!!props.fluid}
 
 const Footer = (props) => (
   <footer className={`footer${props.default ? ' footer-default' : ''}`}>
