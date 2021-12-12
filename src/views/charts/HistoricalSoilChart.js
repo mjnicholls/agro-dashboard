@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux'
 
 import { getHistorySoilData } from '../../api/apiCharts'
 import { tariffError } from '../../config'
+import { makeGradientGreen } from '../../utils/charts'
 import { toDate } from '../../utils/dateTime'
 import { convertTemp } from '../../utils/utils'
 import { chartOptions } from './base'
@@ -107,12 +108,7 @@ const HistoricalSoilChart = ({
   }
 
   const chartData = (canvas) => {
-    const ctx = canvas.getContext('2d')
-
-    const gradientStrokeGreen = ctx.createLinearGradient(0, 230, 0, 50)
-    gradientStrokeGreen.addColorStop(1, 'rgba(66,134,121,0.15)')
-    gradientStrokeGreen.addColorStop(0.4, 'rgba(66,134,121,0.0)') // green colors
-    gradientStrokeGreen.addColorStop(0, 'rgba(66,134,121,0)') // green colors
+    const gradientStroke = makeGradientGreen(canvas, 0.5, 0.25)
 
     return {
       labels: data.map((el) => toDate(el.dt)),
@@ -155,7 +151,7 @@ const HistoricalSoilChart = ({
           label: 'Moisture',
           yAxisID: 'moisture',
           fill: true,
-          backgroundColor: gradientStrokeGreen,
+          backgroundColor: gradientStroke,
           borderColor: '#00d6b4',
           borderWidth: 2,
           borderDash: [],

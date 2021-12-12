@@ -1,6 +1,3 @@
-import { cookies } from '../config'
-import { getCookie } from './cookies'
-
 const kelvinToCelsius = (temp) => (temp - 273.15).toFixed(1)
 
 const kelvinToFahrenheit = (temp) => ((temp * 9) / 5 - 459.67).toFixed(1)
@@ -60,26 +57,4 @@ export const numberWithCommas = (x) => {
     res = x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
   }
   return res
-}
-
-export const getAdvertisingDetails = () => {
-  let campaignId = null
-  let entranceDate = null
-  const advertisingCampaign = getCookie(cookies.ad)
-  if (advertisingCampaign) {
-    const vars = advertisingCampaign.split('&')
-    for (let i = 0; i < vars.length; i += 1) {
-      const pair = vars[i].split('=')
-      if (pair[0] === 'campaign_id') {
-        // eslint-disable-next-line
-        campaignId = pair[1]
-      } else if (pair[0] === 'date') {
-        entranceDate = parseInt(pair[1], 10)
-      }
-    }
-  }
-  return {
-    campaign_id: campaignId,
-    entrance_date: entranceDate,
-  }
 }

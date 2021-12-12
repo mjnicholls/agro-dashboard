@@ -2,6 +2,7 @@ import React from 'react'
 
 import { Line } from 'react-chartjs-2'
 
+import { makeGradientBlue, makeGradientPurple } from '../../utils/charts'
 import { formatDateShort } from '../../utils/dateTime'
 import { convertTemp } from '../../utils/utils'
 import { chartOptions } from './base'
@@ -174,16 +175,8 @@ const DailyChart = ({ isMetric, onecall }) => {
   }
 
   const chartData = (canvas) => {
-    const ctx = canvas.getContext('2d')
-    const gradientStrokeBlue = ctx.createLinearGradient(0, 230, 0, 50)
-    gradientStrokeBlue.addColorStop(1, 'rgba(29,140,248,0.5)')
-    gradientStrokeBlue.addColorStop(0, 'rgba(29,140,248,0)') // blue colors
-
-    const gradientStrokePurple = ctx.createLinearGradient(0, 230, 0, 50)
-
-    gradientStrokePurple.addColorStop(1, 'rgba(72,72,176,0.4)')
-    gradientStrokePurple.addColorStop(0.8, 'rgba(72,72,176,0.2)')
-    gradientStrokePurple.addColorStop(0, 'rgba(119,52,169,0)') // purple colors
+    const gradientStrokeBlue = makeGradientBlue(canvas)
+    const gradientStrokePurple = makeGradientPurple(canvas)
 
     return {
       labels: onecall.data.daily,

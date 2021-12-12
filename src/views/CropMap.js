@@ -1,24 +1,17 @@
 import React, { useEffect, useRef, useState } from 'react'
 
-import { useSelector } from 'react-redux'
-
 import { getMapHeight } from '../utils/utils'
-import CropMapCard from './components/CropMapCard'
+import CropMapCard from './cropmap/CropMapCard'
 import { initialiseMap } from './maps/base'
 import { displayCropLayerCropMap } from './maps/crops'
-
-const selectYears = (state) => state.auth.limits.maps.crop
 
 const CropMap = () => {
   const mapContainer = useRef(null)
   const map = useRef(null)
-  const years = useSelector(selectYears)
-  const [activeYear, setActiveYear] = useState(
-    years.find((year) => year.status === 3),
-  )
+  const [activeYear, setActiveYear] = useState({ year: null })
+
   const [initialised, setInitialised] = useState(false)
   const [info, setInfo] = useState(null)
-  const [alert, setAlert] = useState(null)
 
   useEffect(() => {
     initialiseMap(
@@ -46,18 +39,19 @@ const CropMap = () => {
     }
   }, [map, initialised, activeYear])
 
+  useEffect(() => {
+    setInfo(null)
+  }, [activeYear])
+
   return (
     <div
       ref={mapContainer}
       className="map-container map-box-container"
       style={{ height: getMapHeight() }}
     >
-      {alert}
       <CropMapCard
-        years={years}
         activeYear={activeYear}
         setActiveYear={setActiveYear}
-        setAlert={setAlert}
         info={info}
       />
     </div>

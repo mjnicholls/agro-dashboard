@@ -2,7 +2,54 @@ import GA4React from 'ga-4-react'
 import queryString from 'query-string'
 
 import { gaID, cookies } from '../config'
-import { setCookie } from './cookies'
+import { getCookie, setCookie } from './cookies'
+
+const adParamInUrl = 'campaign_id'
+const campaignIdKey = 'campaign_id'
+const dateKey = 'date'
+
+// export const checkAdCampaignInURL = () => {
+//   const adCampaign = findAdCampaignInUrl()
+//   if (adCampaign) {
+//     saveAdCampaignInCookies(adCampaign)
+//   }
+// }
+//
+//
+// const findAdCampaignInUrl = () => {
+//   const queryParams = queryString.parse(window.location.search)
+//   return queryParams[adParamInUrl]
+// }
+
+// const saveAdCampaignInCookies = (ad) => {
+//   const entryDate = Math.round(new Date().getTime() / 1000)
+//   setCookie(
+//     cookies.ad,
+//     `${campaignIdKey}=${ad}&${dateKey}=${entryDate}`,
+//     process.env.REACT_APP_COOKIE_DOMAIN,
+//   )
+// }
+
+export const getAdCampaignFromCookies = () => {
+  let campaignId = null
+  let entryDate = null
+  const advertisingCampaign = getCookie(cookies.ad)
+  if (advertisingCampaign) {
+    const vars = advertisingCampaign.split('&')
+    for (let i = 0; i < vars.length; i += 1) {
+      const [key, value] = vars[i].split('=')
+      if (key === campaignIdKey) {
+        campaignId = value
+      } else if (key === dateKey) {
+        entryDate = parseInt(value, 10)
+      }
+    }
+  }
+  return {
+    campaign_id: campaignId,
+    entrance_date: entryDate,
+  }
+}
 
 export const setGoogleAnalytics = () => {
   const ga4react = new GA4React(gaID)
@@ -12,20 +59,7 @@ export const setGoogleAnalytics = () => {
     },
     (err) => {
       /* eslint-disable-next-line */
-      console.error(err)
+      console.log(err)
     },
   )
-}
-
-export const saveAdCampaignInCookies = () => {
-  const queryParams = queryString.parse(window.location.search)
-  const tokenVal = queryParams.campaign_id
-  if (tokenVal) {
-    const date = Math.round(new Date().getTime() / 1000)
-    setCookie(
-      cookies.ad,
-      `campaign_id=${tokenVal}&date=${date}`,
-      process.env.REACT_APP_COOKIE_DOMAIN,
-    )
-  }
 }

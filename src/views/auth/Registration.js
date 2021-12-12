@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import React, { useRef, useState } from 'react'
 
 import {
@@ -39,7 +41,7 @@ import {
   notifyError,
   notifySuccess,
 } from '../../features/notifications/actions'
-import { getAdvertisingDetails } from '../../utils/utils'
+import { getAdCampaignFromCookies } from '../../utils/advertising'
 import LoaderCircle from '../components/LoaderCircle'
 
 const RegisterForm = ({ history }) => {
@@ -98,7 +100,7 @@ const RegisterForm = ({ history }) => {
       return
     }
 
-    const advertising = getAdvertisingDetails()
+    const advertising = getAdCampaignFromCookies()
 
     const data = {
       user: {

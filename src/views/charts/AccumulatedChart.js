@@ -9,6 +9,7 @@ import { getAccumulatedData } from '../../api/apiCharts'
 import { toDate } from '../../utils/dateTime'
 import { chartOptions } from './base'
 import ChartContainer from './ui/ChartContainer'
+import { makeGradientBlue } from '../../utils/charts'
 
 const selectUnits = (state) => state.units.isMetric
 
@@ -123,11 +124,7 @@ const AccumulatedChart = ({
   }
 
   const chartData = (canvas) => {
-    const ctx = canvas.getContext('2d')
-    const gradientStrokeBlue = ctx.createLinearGradient(0, 230, 0, 50)
-    gradientStrokeBlue.addColorStop(1, 'rgba(29,140,248,0.2)')
-    gradientStrokeBlue.addColorStop(0.4, 'rgba(29,140,248,0.0)')
-    gradientStrokeBlue.addColorStop(0, 'rgba(29,140,248,0)')
+    const gradientStroke = makeGradientBlue(canvas)
 
     return {
       labels: tempData.map((el) => toDate(el.dt)),
@@ -153,7 +150,7 @@ const AccumulatedChart = ({
           label: 'Rainfall',
           yAxisID: 'rainfall',
           fill: true,
-          backgroundColor: gradientStrokeBlue,
+          backgroundColor: gradientStroke,
           borderColor: '#1f8ef1',
           borderWidth: 2,
           borderDash: [],

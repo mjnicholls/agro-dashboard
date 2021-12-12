@@ -14,17 +14,13 @@ import ErrorBoundary from './ErrorBoundary'
 import AdminLayout from './layouts/Admin/Admin'
 import AuthLayout from './layouts/Auth/Auth'
 import store from './store'
-import {
-  setGoogleAnalytics,
-  saveAdCampaignInCookies,
-} from './utils/advertising'
+import { setGoogleAnalytics } from './utils/advertising'
 import AuthRoute from './views/AuthRoute'
 import Notifications from './views/components/NotificationsTemporary'
 
 const App = () => {
   useEffect(() => {
     setGoogleAnalytics()
-    saveAdCampaignInCookies()
   }, [])
 
   return (

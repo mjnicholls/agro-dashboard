@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import Chart from 'chart.js'
 
 const chartInstance = Chart
@@ -28,3 +29,30 @@ chartInstance.controllers.LineWithLine = Chart.controllers.line.extend({
     }
   },
 })
+
+export const makeGradientGreen = (canvas, topPoint, middlePoint) => {
+  const ctx = canvas.getContext('2d')
+  const gradientStroke = ctx.createLinearGradient(0, 230, 0, 50)
+  gradientStroke.addColorStop(topPoint || 1, 'rgba(66,134,121,0.2)')
+  gradientStroke.addColorStop(middlePoint || 0.5, 'rgba(66,134,121,0.05)')
+  gradientStroke.addColorStop(0, 'rgba(66,134,121,0)')
+  return gradientStroke
+}
+
+export const makeGradientBlue = (canvas, topPoint, middlePoint) => {
+  const ctx = canvas.getContext('2d')
+  const gradientStroke = ctx.createLinearGradient(0, 230, 0, 50)
+  gradientStroke.addColorStop(topPoint || 1, 'rgba(29,140,248,0.2)')
+  gradientStroke.addColorStop(middlePoint || 0.5, 'rgba(29,140,248,0.05)')
+  gradientStroke.addColorStop(0, 'rgba(29,140,248,0)')
+  return gradientStroke
+}
+
+export const makeGradientPurple = (canvas, topPoint, middlePoint) => {
+  const ctx = canvas.getContext('2d')
+  const gradientStroke = ctx.createLinearGradient(0, 230, 0, 50)
+  gradientStroke.addColorStop(topPoint || 1, 'rgba(72,72,176,0.4)')
+  gradientStroke.addColorStop(middlePoint || 0.5, 'rgba(72,72,176,0.2)')
+  gradientStroke.addColorStop(0, 'rgba(72,72,176,0)')
+  return gradientStroke
+}
