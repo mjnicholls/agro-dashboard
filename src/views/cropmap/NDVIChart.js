@@ -2,24 +2,30 @@ import React from 'react'
 
 import { Scatter } from 'react-chartjs-2'
 
+import { Col, Row } from 'reactstrap'
+
 import { makeGradientGreen } from '../../utils/charts'
 
-const CropMapChart = ({ dates, values }) => {
-  const parseNDVIVal = (val) => {
-    const res = parseFloat(val)
-    return res > 0 ? res.toFixed(2) : 0
-  }
-
+const CropMapChart = ({ info, activeYear }) => {
   const makeData = () => {
-    const datesArr = dates.split(',')
-    const valuesArr = values.split(',')
+    const datesArr = info.ndvi_dt.split(',')
+    const valuesArr = info.ndvi_ts.split(',')
     const newData = []
     for (let i = 0; i < datesArr.length; i += 1) {
-      const tmp = {
-        x: parseInt(datesArr[i] * 1000, 10),
-        y: parseNDVIVal(valuesArr[i]),
+      const timestamp = parseInt(datesArr[i] * 1000, 10)
+      const newDate = new Date(timestamp)
+
+      if (newDate.getFullYear() > activeYear.year) {
+        break
       }
-      newData.push(tmp)
+
+      const newVal = parseFloat(valuesArr[i])
+      if (newVal >= 0) {
+        newData.push({
+          x: timestamp,
+          y: newVal,
+        })
+      }
     }
     return newData
   }
@@ -67,7 +73,22 @@ const CropMapChart = ({ dates, values }) => {
     },
   }
 
-  return <Scatter data={data} options={options} />
+  return (
+    <>
+      <Row>
+        <Col className="my-2">
+          <h4>
+            <b>History NDVI</b>
+          </h4>
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+          <Scatter data={data} options={options} />
+        </Col>
+      </Row>
+    </>
+  )
 }
 
 export default CropMapChart

@@ -3,7 +3,6 @@ import React from 'react'
 import { Col, Row } from 'reactstrap'
 
 import { getCropName } from '../maps/crops'
-import NDVIChart from './NDVIChart'
 
 const CropMapInfo = ({ info }) => {
   const calculateArea = () => {
@@ -43,18 +42,6 @@ const CropMapInfo = ({ info }) => {
         </Col>
         <Col xs="7">
           <p>{info.ndvi_high.toFixed(2)}</p>
-        </Col>
-      </Row>
-      <Row>
-        <Col className="my-2">
-          <h4>
-            <b>History NDVI</b>
-          </h4>
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-          <NDVIChart dates={info.ndvi_dt} values={info.ndvi_ts} />
         </Col>
       </Row>
     </>

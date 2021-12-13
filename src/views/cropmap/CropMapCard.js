@@ -3,6 +3,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Card, CardBody, CardHeader, Col, Row } from 'reactstrap'
 
+import NDVIChart from './NDVIChart'
 import FieldInfo from './FieldInfo'
 import YearSelector from './YearSelector'
 
@@ -27,7 +28,10 @@ const CropMapCard = ({ years, activeYear, setActiveYear, info }) => (
             </Col>
           </Row>
         ) : (
-          <FieldInfo info={info} />
+          <>
+            <FieldInfo info={info} />
+            <NDVIChart info={info} activeYear={activeYear} />
+          </>
         )}
       </CardBody>
     )}
