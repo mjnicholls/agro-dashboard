@@ -29,7 +29,7 @@ client.interceptors.request.use((config) => {
   const token = getCookie(cookies.token)
   if (token) {
     // eslint-disable-next-line
-    config.headers.Authorization =  token ? `Bearer ${token}` : '';
+    config.headers.Authorization = token ? `Bearer ${token}` : ''
   }
   return config
 })

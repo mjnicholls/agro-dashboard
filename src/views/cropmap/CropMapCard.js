@@ -23,7 +23,7 @@ const CropMapCard = ({ years, activeYear, setActiveYear, info }) => (
         {info.message ? (
           <Row>
             <Col>
-              <p className="p-1">{info.message}</p>
+              <p className="my-1">{info.message}</p>
             </Col>
           </Row>
         ) : (

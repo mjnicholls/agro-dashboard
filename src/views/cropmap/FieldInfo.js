@@ -46,9 +46,9 @@ const CropMapInfo = ({ info }) => {
         </Col>
       </Row>
       <Row>
-        <Col className="my-1">
+        <Col className="my-2">
           <h4>
-            <b className="p-1">History NDVI</b>
+            <b>History NDVI</b>
           </h4>
         </Col>
       </Row>
