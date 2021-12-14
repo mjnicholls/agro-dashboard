@@ -3,8 +3,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Card, CardBody, CardHeader, Col, Row } from 'reactstrap'
 
-import NDVIChart from './NDVIChart'
 import FieldInfo from './FieldInfo'
+import NDVIChart from './NDVIChart'
 import YearSelector from './YearSelector'
 
 const CropMapCard = ({ years, activeYear, setActiveYear, info }) => (

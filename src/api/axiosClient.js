@@ -2,6 +2,7 @@ import axios from 'axios'
 
 import { cookies } from '../config'
 import { getCookie } from '../utils/cookies'
+import { signoutUnauthorised } from '../utils/userUtils'
 
 const client = axios.create({
   baseURL: `${process.env.REACT_APP_BASE_URL}`,
@@ -12,6 +13,10 @@ client.interceptors.response.use(
   (error) => {
     let errMessage
     if (error.response) {
+      if (error.response && error.response.status === 401) {
+        signoutUnauthorised()
+        return Promise.reject(error)
+      }
       errMessage = extractResponseErrorMessage(error.response)
     } else if (error.request) {
       errMessage = error.request.data.message

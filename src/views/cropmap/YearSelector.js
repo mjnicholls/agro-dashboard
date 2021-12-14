@@ -3,13 +3,13 @@ import React, { useEffect, useState } from 'react'
 import classNames from 'classnames'
 import PropTypes from 'prop-types'
 import ReactBSAlert from 'react-bootstrap-sweetalert'
+import { useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
 import Select from 'react-select'
 import { Button, ButtonGroup } from 'reactstrap'
-import { Link } from 'react-router-dom'
 
 import { tariffError } from '../../config'
 import ContactUsButton from '../components/ContactUsButton'
-import { useSelector } from 'react-redux'
 
 const selectYears = (state) => state.auth.limits.maps.crop
 

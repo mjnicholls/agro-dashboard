@@ -1,7 +1,6 @@
 import React from 'react'
 
 import { Scatter } from 'react-chartjs-2'
-
 import { Col, Row } from 'reactstrap'
 
 import { makeGradientGreen } from '../../utils/charts'
@@ -12,7 +11,7 @@ const CropMapChart = ({ info, activeYear }) => {
     const valuesArr = info.ndvi_ts.split(',')
     const newData = []
     for (let i = 0; i < datesArr.length; i += 1) {
-      const timestamp = parseInt(datesArr[i] * 1000, 10)
+      const timestamp = parseInt(datesArr[i], 10) * 1000
       const newDate = new Date(timestamp)
 
       if (newDate.getFullYear() > activeYear.year) {

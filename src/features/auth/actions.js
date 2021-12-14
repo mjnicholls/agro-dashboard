@@ -1,12 +1,11 @@
 /* eslint-disable */
-
 import { signInApi, signOutApi } from '../../api/auth'
 import { cookies } from '../../config'
-import { deleteCookie, setCookie } from '../../utils/cookies'
+import { setCookie } from '../../utils/cookies'
 import { getAdCampaignFromCookies } from '../../utils/advertising'
 import { notifyError } from '../notifications/actions'
 import { fetchPolygons } from '../polygons/actions'
-import { parseJwt } from './utils'
+import { parseJwt, signoutUnauthorised } from '../../utils/userUtils'
 
 export const API_KEY_STATUS = 'API_KEY_STATUS'
 export const LOGIN_REQUEST = 'LOGIN_REQUEST'
@@ -69,9 +68,7 @@ export const loginUser = (email, password) => (dispatch) => {
       let tokenInfo
       try {
         tokenInfo = parseJwt(token).passport
-      } catch {}
-      if (!tokenInfo) {
-        // something wrong with creating token on the server
+      } catch {
         dispatch(loginError('Error signing in. Please try again'))
         return
       }
@@ -93,16 +90,9 @@ export const loginUser = (email, password) => (dispatch) => {
 
 export const logoutUser = () => async (dispatch) => {
   dispatch(requestLogout())
-  signOutApi()
-    .then(() => {})
-    .catch((err) => {
-      // eslint-disable-next-line
-      console.log(err)
-    })
-    .finally(() => {
-      deleteCookie(cookies.token, '/', '')
-      dispatch(receiveLogout())
-      dispatch(destroyState())
-      location.reload()
-    })
+  signOutApi().finally(() => {
+    signoutUnauthorised()
+    dispatch(receiveLogout())
+    dispatch(destroyState())
+  })
 }

@@ -43,9 +43,11 @@ const Admin = (props) => {
       .then(() => {
         dispatch(setApiKeyStatus(true))
       })
-      .catch(() => {
+      .catch((err) => {
+        if (!err.response || err.response.status !== 401) {
+          setTimeout(checkAPIKeyStatus, 20000)
+        }
         dispatch(setApiKeyStatus(false))
-        setTimeout(checkAPIKeyStatus, 20000)
       })
   }
 

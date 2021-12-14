@@ -1,34 +1,10 @@
 import GA4React from 'ga-4-react'
-import queryString from 'query-string'
 
 import { gaID, cookies } from '../config'
-import { getCookie, setCookie } from './cookies'
+import { getCookie } from './cookies'
 
-const adParamInUrl = 'campaign_id'
 const campaignIdKey = 'campaign_id'
 const dateKey = 'date'
-
-// export const checkAdCampaignInURL = () => {
-//   const adCampaign = findAdCampaignInUrl()
-//   if (adCampaign) {
-//     saveAdCampaignInCookies(adCampaign)
-//   }
-// }
-//
-//
-// const findAdCampaignInUrl = () => {
-//   const queryParams = queryString.parse(window.location.search)
-//   return queryParams[adParamInUrl]
-// }
-
-// const saveAdCampaignInCookies = (ad) => {
-//   const entryDate = Math.round(new Date().getTime() / 1000)
-//   setCookie(
-//     cookies.ad,
-//     `${campaignIdKey}=${ad}&${dateKey}=${entryDate}`,
-//     process.env.REACT_APP_COOKIE_DOMAIN,
-//   )
-// }
 
 export const getAdCampaignFromCookies = () => {
   let campaignId = null

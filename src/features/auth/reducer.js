@@ -1,5 +1,6 @@
 import { cookies } from '../../config'
 import { deleteCookie, getCookie } from '../../utils/cookies'
+import { parseJwt } from '../../utils/userUtils'
 import {
   API_KEY_STATUS,
   CLEAR_LOGIN_ERROR,
@@ -11,7 +12,6 @@ import {
   LOGOUT_SUCCESS,
   LOGOUT_FRONTEND,
 } from './actions'
-import { parseJwt } from './utils'
 
 const emptyUserData = {
   email: null,
