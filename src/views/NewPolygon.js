@@ -11,8 +11,6 @@ import MapBoxDraw from './maps/MapBoxDraw'
 const selectIsApiKeyValid = (state) => state.auth.isApiKeyValid
 
 const PolygonNew = () => {
-  /** Draw a new polygon, give it a name */
-
   const isApiKeyValid = useSelector(selectIsApiKeyValid)
   const [geoJson, setGeoJson] = React.useState(null)
   const [area, setArea] = React.useState('')
