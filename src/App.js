@@ -1,6 +1,5 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
-import axios from 'axios'
 import { Provider } from 'react-redux'
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom'
 
@@ -11,56 +10,40 @@ import './assets/demo/demo.css'
 import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css'
 import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css'
 
-import AuthRoute from './api/AuthRoute'
-import { receiveLogout } from './features/auth/actions'
-import { fetchPolygons } from './features/polygons/actions'
+import ErrorBoundary from './ErrorBoundary'
 import AdminLayout from './layouts/Admin/Admin'
 import AuthLayout from './layouts/Auth/Auth'
 import store from './store'
-import Notifications from './views/agro-components/Notifications'
+import { setGoogleAnalytics } from './utils/advertising'
+import AuthRoute from './views/AuthRoute'
+import Notifications from './views/components/NotificationsTemporary'
 
-axios.defaults.headers.common.Authorization = `Bearer ${
-  store.getState().auth.token
-}`
-axios.defaults.timeout = 15000
-axios.interceptors.response.use(
-  (response) => (response && response.data ? response.data : response),
-  // eslint-disable-next-line
-  (error) => {
-    if (error.response && error.response.status === 401) {
-      store.dispatch(receiveLogout())
-    } else {
-      let message = 'Something went wrong'
-      if (
-        error.response &&
-        error.response.data &&
-        error.response.data.message
-      ) {
-        message = error.response.data.message
-      }
-      return Promise.reject(message)
-    }
-  },
-)
+const App = () => {
+  useEffect(() => {
+    setGoogleAnalytics()
+  }, [])
 
-if (!store.getState().polygons.length) {
-  store.dispatch(fetchPolygons())
+  return (
+    <ErrorBoundary>
+      <Provider store={store}>
+        <BrowserRouter>
+          <Switch>
+            <Route path="/auth" render={(props) => <AuthLayout {...props} />} />
+            <AuthRoute
+              path="/dashboard"
+              render={(props) => <AdminLayout {...props} />}
+            />
+            <AuthRoute
+              path="/users"
+              render={(props) => <AdminLayout {...props} />}
+            />
+            <Redirect from="/" to="/dashboard/polygons" />
+          </Switch>
+        </BrowserRouter>
+        <Notifications />
+      </Provider>
+    </ErrorBoundary>
+  )
 }
-
-const App = () => (
-  <Provider store={store}>
-    <BrowserRouter>
-      <Switch>
-        <Route path="/auth" render={(props) => <AuthLayout {...props} />} />
-        <AuthRoute
-          path="/dashboard"
-          render={(props) => <AdminLayout {...props} />}
-        />
-        <Redirect from="/" to="/dashboard/polygons" />
-      </Switch>
-    </BrowserRouter>
-    <Notifications />
-  </Provider>
-)
 
 export default App

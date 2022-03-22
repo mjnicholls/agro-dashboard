@@ -1,21 +1,11 @@
+@import './black-dashboard-pro-react/custom/variables';
+
 $danger-color: #ec250d;
-$light-green: #00FC00;
 $fontColorBlack: #595959;
-$fontColorBlue: #525f7f;
 $fontColorGrey: rgba(255, 255, 255, 0.5);
 $activeWhite: rgba(255, 255, 255, 0.1);
 $mapHeight: 400px;
-$font-family-base: 'Poppins', sans-serif;
-$white:    #ffffff;
-$gray-100: #f6f9fc;
-$gray-200: #e9ecef;
-$gray-300: #e3e3e3;
-$gray-400: #ced4da;
-$gray-500: #adb5bd;
-$gray-600: #6c757d;
-$gray-700: #525f7f;
-$gray-800: #32325d;
-$gray-900: #212529;
+
 
 .justify {
   justify-content: space-between;
@@ -28,6 +18,7 @@ $gray-900: #212529;
 }
 
 @mixin no-button-style {
+  display: inline;
   cursor: pointer;
   background: none;
   border: none;
@@ -230,7 +221,7 @@ $gray-900: #212529;
       text-transform: none;
       height: auto ;
       min-width: 110px;
-      background-color: #27293d;
+      background-color: $card-color;
 
       button {
         padding: 0;
@@ -321,6 +312,10 @@ $gray-900: #212529;
 
 .danger-border {
   border-color: $danger-color;
+
+  .react-select__control {
+    border-color: $danger-color;
+  }
 }
 
 .polygon-table {
@@ -341,12 +336,6 @@ $gray-900: #212529;
   white-space: nowrap;
 }
 
-.headcol {
-  position: sticky;
-  background-color: #27293d; // TODO card color
-  left: 0px;
-  padding-right: 5px !important;
-}
 
 $hourly-chart-width: 3000px;
 $daily-chart-width: 1000px;
@@ -590,6 +579,9 @@ $daily-chart-width: 1000px;
       outline: none;
       box-shadow: none;
     }
+    //p {
+    //  opacity: 100;
+    //}
 }
 
 .sidebar .nav li.active > button:before {
@@ -603,6 +595,20 @@ $daily-chart-width: 1000px;
     border-radius: 50%;
 }
 
+.sidebar-mini .sidebar .sidebar-wrapper > .nav > li > button p {
+    opacity: 0;
+}
+
+.sidebar-mini .sidebar:hover .sidebar-wrapper > .nav > li > button p,
+.sidebar-mini .sidebar:focus .sidebar-wrapper > .nav > li > button p {
+    opacity: 100;
+}
+
+@media (min-width: 768px) and (max-width: 1199.98px) {
+  .sidebar-mini .sidebar .sidebar-wrapper .nav li button p {
+    opacity: 100 !important;
+  }
+}
 
 
 .agro-alert-dark {
@@ -628,6 +634,17 @@ $daily-chart-width: 1000px;
     justify-content: flex-end;
     flex-wrap: wrap
   }
+  span.btn {
+    @include no-button-style;
+    margin-top: 10px;
+    margin-right: 10px;
+    border-radius: 0;
+    &:hover {
+      background: none !important;
+      color: $gray-100 !important;
+      box-shadow: none;
+    }
+  }
 }
 
 .agro-alert-dark-crop {
@@ -636,6 +653,7 @@ $daily-chart-width: 1000px;
   background-color: #1e1e2e!important;
   color: $gray-100!important;
   width: 42em !important;
+  font-size: 10px;
   h2 {
     margin-top: 25px!important;
     text-align: left !important;
@@ -659,12 +677,72 @@ $daily-chart-width: 1000px;
     @include no-button-style;
     margin-top: 10px;
     margin-right: 10px;
+    border-radius: 0;
     &:hover {
       background: none !important;
-      //background-image: none !important;
-      //background-color: none !important;
       color: $gray-100 !important;
       box-shadow: none;
     }
+  }
+}
+
+.billing-plans-table {
+  tr {
+    td:first-child {
+      text-align: left;
+    }
+  }
+  tr.sticky-row {
+    th {
+      position: sticky;
+      top: 0;
+      background-color: $card-black-background;
+      z-index: 1;
+      text-transform: none;
+    }
+  }
+}
+
+.innerMenu {
+  padding: 0 10px 15px;
+  text-transform: uppercase;
+  color: $gray-100;
+  &.active {
+    color: $primary;
+  }
+}
+
+.notification-link {
+  color: #ffffff !important;
+  &:hover {
+    text-decoration: underline !important;
+  }
+}
+
+.invalid-feedback {
+  color: $danger-color;
+}
+
+.price-container {
+  vertical-align: top !important;
+  //background-color: #191f31;
+  //height: 100%;
+  //color: rgba(255, 255, 255, 0.5);
+  //&:hover {
+  //  background-color: #111520;
+  //}
+}
+
+.container-xxl {
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+@media screen and (min-width: 1200px) {
+  .container-xxl {
+    max-width: 1320px;
   }
 }

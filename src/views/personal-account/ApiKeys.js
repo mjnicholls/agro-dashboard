@@ -1,6 +1,6 @@
-import { ItemDragging } from 'devextreme-react/list'
 import React, { useEffect, useState } from 'react'
 
+import classnames from 'classnames'
 import ReactBSAlert from 'react-bootstrap-sweetalert'
 import { useDispatch } from 'react-redux'
 import {
@@ -19,7 +19,8 @@ import {
   UncontrolledTooltip,
 } from 'reactstrap'
 
-import { createApiKey, getAPIKeys } from '../../api/personalAccountAPI'
+import { createApiKey, getAPIKeys } from '../../api/apiAccount'
+import { noBlankErrorMessage } from '../../config'
 import {
   notifyError,
   notifySuccess,
@@ -40,21 +41,7 @@ const ApiKeys = () => {
   }, [])
 
   const refreshData = () => {
-    getAPIKeys(
-      [
-        {
-            "appid": "appid_1",
-            "name": "appid_name_1",
-            "status": true
-        }, 
-        {
-            "appid": "appid_2", 
-            "name": "appid_name_2",
-            "status": false
-        }
-      ]
-      
-    )
+    getAPIKeys()
       .then((res) => {
         setData(res)
       })
@@ -72,8 +59,7 @@ const ApiKeys = () => {
     setError(null)
 
     if (!name.length) {
-      setError(true)
-      dispatch(notifyError('Name cannot be empty'))
+      setError(noBlankErrorMessage)
       return
     }
 
@@ -98,7 +84,7 @@ const ApiKeys = () => {
         onConfirm={hideAlert}
         onCancel={hideAlert}
         showConfirm={false}
-        showCloseButton={true}
+        showCloseButton
       >
         {isEdit ? (
           <APIKeyEdit
@@ -119,140 +105,148 @@ const ApiKeys = () => {
 
   return (
     <>
-      <div className="content">
-        {alert}
-        <Row>
-          <Col>
-            <h1>API Keys</h1>
-          </Col>
-        </Row>
-        <Row>
-          <Col className="mb-0" md="8" mt="20">
-            <Card>
-              <CardBody>
-                <Table>
-                  <thead>
-                    <tr>
-                      <th>Key</th>
-                      <th>Name</th>
-                     <th>Status</th> 
-                      <th aria-label="Edit"></th>
-                      <th aria-label="Delete"></th>
-                    </tr>
-                  </thead>
+      {alert}
+      <Row>
+        <Col>
+          <h1>API Keys</h1>
+        </Col>
+      </Row>
+      <Row>
+        <Col lg="8">
+          <Card>
+            <CardBody>
+              <Table>
+                <thead>
+                  <tr>
+                    <th>Key</th>
+                    <th>Name</th>
+                    <th>Status</th>
+                    <th aria-label="Edit"></th>
+                    <th aria-label="Delete"></th>
+                  </tr>
+                </thead>
 
-                  <tbody>
-                    {data.map((item) => (
-                      <tr key={item.appid}>
+                <tbody>
+                  {data.map((item) => (
+                    <tr key={item.appid}>
+                      <td>
+                        <code>{item.appid}</code>
+                      </td>
+                      <td>{item.name}</td>
+                      {item.status === true ? (
+                        <td>Active</td>
+                      ) : (
                         <td>
-                          <code>{item.appid}</code>
+                          <p style={{ color: 'red' }}>Not active</p>
                         </td>
-                        <td>{item.name}</td>
-                        {item.status === true ? (
-                         <td>Active</td> )  : ( 
-                         <td><p style={{color: "red"}}>Blocked</p></td>)}
-                        <td className="text-right">
-                          <Button
-                            className="btn-link btn-icon btn-neutral"
-                            color="success"
-                            id="tooltip618296632"
-                            size="sm"
-                            title="Edit"
-                            type="button"
-                            onClick={(e) => {
-                              htmlAlert(item, true)
-                              e.stopPropagation()
-                            }}
-                          >
-                            <i className="tim-icons icon-pencil" />
-                          </Button>
-                          <UncontrolledTooltip
-                            delay={0}
-                            target="tooltip618296632"
-                          ></UncontrolledTooltip>
-                          <Button
-                            className="btn-link btn-icon btn-neutral"
-                            color="danger"
-                            id="tooltip707467505"
-                            size="sm"
-                            title="Delete"
-                            type="button"
-                            disabled={data.length === 1}
-                            onClick={(e) => {
-                              htmlAlert(item, false)
-                              e.stopPropagation()
-                            }}
-                          >
-                            <i className="tim-icons icon-simple-remove" />
-                          </Button>
-                          <UncontrolledTooltip
-                            delay={0}
-                            target="tooltip707467505"
-                          >
-                            Delete key
-                          </UncontrolledTooltip>
-                          <Button
-                            className="btn-link btn-icon btn-neutral"
-                            color="danger"
-                            id="tooltip707467506"
-                            size="sm"
-                            title="Copy"
-                            type="button"
-                            onClick={(e) => {
-                              navigator.clipboard.writeText(item.appid)
-                              dispatch(notifySuccess('Copied!'))
-                              e.stopPropagation()
-                            }}
-                          >
-                            <i className="tim-icons icon-single-copy-04" />
-                          </Button>
-                          <UncontrolledTooltip
-                            delay={0}
-                            target="tooltip707467506"
-                          >
-                            Click to copy
-                          </UncontrolledTooltip>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </Table>
-              </CardBody>
-            </Card>
-          </Col>
+                      )}
+                      <td className="text-right">
+                        <Button
+                          className="btn-link btn-icon btn-neutral"
+                          color="success"
+                          id={`edit_${item.appid}`}
+                          size="sm"
+                          type="button"
+                          onClick={(e) => {
+                            htmlAlert(item, true)
+                            e.stopPropagation()
+                          }}
+                        >
+                          <i className="tim-icons icon-pencil" />
+                        </Button>
+                        <UncontrolledTooltip
+                          delay={0}
+                          target={`edit_${item.appid}`}
+                        >
+                          Edit key
+                        </UncontrolledTooltip>
+                        <Button
+                          className="btn-link btn-icon btn-neutral"
+                          color="danger"
+                          id={`delete_${item.appid}`}
+                          size="sm"
+                          type="button"
+                          disabled={data.length === 1}
+                          onClick={(e) => {
+                            htmlAlert(item, false)
+                            e.stopPropagation()
+                          }}
+                        >
+                          <i className="tim-icons icon-simple-remove" />
+                        </Button>
+                        <UncontrolledTooltip
+                          delay={0}
+                          target={`delete_${item.appid}`}
+                        >
+                          Delete key
+                        </UncontrolledTooltip>
+                        <Button
+                          className="btn-link btn-icon btn-neutral"
+                          color="danger"
+                          id={`copy_${item.appid}`}
+                          size="sm"
+                          type="button"
+                          onClick={(e) => {
+                            navigator.clipboard.writeText(item.appid)
+                            dispatch(notifySuccess('Copied!'))
+                            e.stopPropagation()
+                          }}
+                        >
+                          <i className="tim-icons icon-single-copy-04" />
+                        </Button>
+                        <UncontrolledTooltip
+                          delay={0}
+                          target={`copy_${item.appid}`}
+                        >
+                          Click to copy
+                        </UncontrolledTooltip>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </Table>
+            </CardBody>
+          </Card>
+        </Col>
 
-          <Col className="mb-2" md="4" mt="6">
-            <Card>
-              <CardHeader>
-                <CardTitle tag="h3">New API Key </CardTitle>
-
-                <Form>
-                  <FormGroup>
-                    <Label>Name</Label>
-                    <Input
-                      className={error ? 'danger-border' : ''}
-                      type="text"
-                      onChange={(e) => setName(e.target.value)}
-                      value={name}
-                    />
-                  </FormGroup>
-
-                  <div className="text-right mb-3">
-                    <Button
-                      color="primary"
-                      title="Create"
-                      type="button"
-                      onClick={() => confirmCreate()}
-                    >
-                      Create
-                    </Button>
+        <Col lg="4">
+          <Card>
+            <CardHeader>
+              <CardTitle tag="h3">New API Key </CardTitle>
+              <Form>
+                <Label>Name</Label>
+                <FormGroup>
+                  <Input
+                    className={error ? 'danger-border' : ''}
+                    type="text"
+                    onChange={(e) => setName(e.target.value)}
+                    value={name}
+                  />
+                  <div
+                    className={classnames(
+                      'invalid-feedback ',
+                      error ? 'd-block' : '',
+                    )}
+                  >
+                    {error}
                   </div>
-                </Form>
-              </CardHeader>
-            </Card>
-          </Col>
-        </Row>
-      </div>
+                </FormGroup>
+
+                <div className="text-right mb-3">
+                  <Button
+                    color="primary"
+                    title="Create"
+                    type="button"
+                    onClick={() => confirmCreate()}
+                  >
+                    Create
+                  </Button>
+                </div>
+              </Form>
+            </CardHeader>
+          </Card>
+        </Col>
+      </Row>
     </>
   )
 }

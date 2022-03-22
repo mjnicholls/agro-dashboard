@@ -1,3 +1,7 @@
+import React from 'react'
+
+import { HashLink } from 'react-router-hash-link'
+
 export const api = {
   one_call: {
     name: 'One Call API',
@@ -53,7 +57,7 @@ export const api = {
     tooltip: 'Soil data collection is two times a day with a 12-hour period.',
     tool_id: 'tool7',
   },
-  crop_recognition:{
+  crop_recognition: {
     name: 'Crop Recognition Map',
     link: 'https://agromonitoring.com/api/history-soil',
     isCurrent: false,
@@ -106,19 +110,38 @@ export const subscriptions = {
     polygons_per_month: '< 10',
     price_exceeded_area: 'Unavailable',
     api_calls_per_day: '< 500',
-    satelitte_imagery_service: 'Near real-time (operative) satellite data',
-    current_soil: '2 times/day',
+    api_calls_historical: '-',
+    historical_data_depths: '-',
+    satellite_imagery_data: (
+      <HashLink
+        to="/users/billing-plans#coverage"
+        scroll={(el) =>
+          el.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start',
+          })
+        }
+      >
+        All available data
+      </HashLink>
+    ),
+    satellite_imagery_service: 'Near real-time (operative) satellite data',
+    soil_update: '2 times/day',
     weather_api_update: '< 2 hours',
     ssl: '',
-    license_maps: 'CC BY-SA 4.0',
-    license_data: 'ODbL',
+    license_maps: (
+      <a href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">
+        CC BY-SA 4.0
+      </a>
+    ),
+    license_data: (
+      <a href="http://opendatacommons.org/licenses/odbl/" target="_blank">
+        ODbL
+      </a>
+    ),
     support: 'Helpdesk',
     crop_recognition: '2017, 2018 - available',
-    api: [
-      'Current weather data',
-      '5_day_forecast',
-      'Current UV index',
-    ],
+    api: ['Current weather data', '5_day_forecast', 'Current UV index'],
   },
   starter: {
     name: 'Starter',
@@ -129,13 +152,42 @@ export const subscriptions = {
     api_calls_per_day: '< 1,000',
     api_calls_historical: '< 500',
     historical_data_depths: '1 Year',
-    satelitte_imagery_service: 'Near real-time (operative) satellite data',
-    current_soil: '2 times/day',
+    satellite_imagery_data: (
+      <>
+        <HashLink
+          to="/users/billing-plans#coverage"
+          scroll={(el) =>
+            el.scrollIntoView({
+              behavior: 'smooth',
+              block: 'start',
+            })
+          }
+        >
+          All available data
+        </HashLink>
+        <p>+ total archive on request</p>
+      </>
+    ),
+    satellite_imagery_service: 'Near real-time (operative) satellite data',
+    soil_update: '2 times/day',
     weather_api_update: '< 1 hour',
     ssl: '',
-    crop_recognition: '2017, 2018, 2019 - available 2020, 2021 - on request',
-    license_maps: 'CC BY-SA 4.0',
-    license_data: 'ODbL',
+    crop_recognition: (
+      <>
+        <p>2017, 2018, 2019 - available</p>
+        <p>2020, 2021 - on request</p>
+      </>
+    ),
+    license_maps: (
+      <a href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">
+        CC BY-SA 4.0
+      </a>
+    ),
+    license_data: (
+      <a href="http://opendatacommons.org/licenses/odbl/" target="_blank">
+        ODbL
+      </a>
+    ),
     support: 'Helpdesk',
     api: [
       'Current weather data',
@@ -157,13 +209,42 @@ export const subscriptions = {
     api_calls_per_day: '< 10,000',
     api_calls_historical: '< 5,000',
     historical_data_depths: '1 Year',
-    satelitte_imagery_service: 'Near real-time (operative) satellite data',
-    current_soil: '2 times/day',
+    satellite_imagery_data: (
+      <>
+        <HashLink
+          to="/users/billing-plans#coverage"
+          scroll={(el) =>
+            el.scrollIntoView({
+              behavior: 'smooth',
+              block: 'start',
+            })
+          }
+        >
+          All available data
+        </HashLink>
+        <p>+ total archive on request</p>
+      </>
+    ),
+    satellite_imagery_service: 'Near real-time (operative) satellite data',
+    soil_update: '2 times/day',
     weather_api_update: '< 1 hour',
     ssl: '',
-    crop_recognition: '2017, 2018, 2019 - available 2020, 2021 - on request',
-    license_maps: 'CC BY-SA 4.0',
-    license_data: 'ODbL',
+    crop_recognition: (
+      <>
+        <p>2017, 2018, 2019 - available</p>
+        <p>2020, 2021 - on request</p>
+      </>
+    ),
+    license_maps: (
+      <a href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">
+        CC BY-SA 4.0
+      </a>
+    ),
+    license_data: (
+      <a href="http://opendatacommons.org/licenses/odbl/" target="_blank">
+        ODbL
+      </a>
+    ),
     support: 'Helpdesk',
     api: [
       'Current weather data',
@@ -185,13 +266,36 @@ export const subscriptions = {
     api_calls_per_day: 'Unlimited',
     api_calls_historical: 'Unlimited',
     historical_data_depths: 'Total archive',
-    satelitte_imagery_service: 'Near real-time (operative) satellite data',
-    current_soil: '2 times/day',
+    satellite_imagery_data: 'Total archive',
+    satellite_imagery_service: 'Near real-time (operative) satellite data',
+    soil_update: '2 times/day',
     weather_api_update: '< 10 min',
     ssl: '',
-    crop_recognition: '2017, 2018, 2019 - available 2020, 2021 - on request',
-    license_maps: 'CC BY-SA 4.0',
-    license_data: 'ODbL',
+    crop_recognition: (
+      <>
+        <p>2017, 2018, 2019 - available</p>
+        <p>2020, 2021 - on request</p>
+      </>
+    ),
+    license_maps: (
+      <p>
+        <a
+          href="http://creativecommons.org/licenses/by-sa/4.0/"
+          target="_blank"
+        >
+          CC BY-SA 4.0
+        </a>
+        &nbsp; (or custom)
+      </p>
+    ),
+    license_data: (
+      <p>
+        <a href="http://opendatacommons.org/licenses/odbl/" target="_blank">
+          ODbL
+        </a>{' '}
+        (or custom)
+      </p>
+    ),
     support: 'Direct 24x7',
     api: [
       'Current weather data',

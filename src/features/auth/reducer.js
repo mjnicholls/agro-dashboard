@@ -1,48 +1,56 @@
-import axios from 'axios'
-
-import { getCookie } from '../../utils/cookies'
+import { cookies } from '../../config'
+import { deleteCookie, getCookie } from '../../utils/cookies'
+import { parseJwt } from '../../utils/userUtils'
 import {
   API_KEY_STATUS,
   CLEAR_LOGIN_ERROR,
+  HIDE_NOTIFICATION,
   LOGIN_REQUEST,
   LOGIN_SUCCESS,
   LOGIN_FAILURE,
   LOGOUT_REQUEST,
   LOGOUT_SUCCESS,
   LOGOUT_FRONTEND,
-  TOKEN_COOK,
 } from './actions'
-import { parseJwt } from './utils'
+
+const emptyUserData = {
+  email: null,
+  appid: null,
+  tariff: null,
+  confirmed_email: null,
+}
+
+const defaultEmptyState = {
+  isFetching: false,
+  isAuthenticated: false,
+  token: null,
+  user: { ...emptyUserData },
+  errorSignIn: null,
+  errorSignUp: null,
+  limits: null,
+  isApiKeyValid: null,
+  errorMessage: null,
+}
 
 let tokenData
-const token = getCookie(TOKEN_COOK)
-
+const token = getCookie(cookies.token)
 if (token) {
   try {
     tokenData = parseJwt(token).passport
-    axios.defaults.headers.common.Authorization = `Bearer ${token}`
   } catch (err) {
-    console.log(err)
+    deleteCookie(cookies.token, '/', '')
   }
 }
 
-const initialState = {
-  isFetching: false,
-  isAuthenticated: !!tokenData,
-  token: tokenData ? token : null,
-  user: tokenData
-    ? {
-        ...tokenData.data,
-      }
-    : {
-        email: null,
-        appid: null,
-        tariff: null,
-        confirmed_email: false,
-      },
-  limits: tokenData ? tokenData.limits : null,
-  isApiKeyValid: null,
-}
+const initialState = tokenData
+  ? {
+      ...defaultEmptyState,
+      isAuthenticated: true,
+      token,
+      user: { ...tokenData.data },
+      limits: tokenData.limits,
+    }
+  : { ...defaultEmptyState }
 
 export default function authReducer(state = initialState, action) {
   switch (action.type) {
@@ -51,12 +59,6 @@ export default function authReducer(state = initialState, action) {
         ...state,
         isFetching: true,
         isAuthenticated: false,
-        user: {
-          email: action.payload,
-          appid: null,
-          tariff: null,
-          confirmed_email: null,
-        },
       }
     case LOGIN_SUCCESS:
       return {
@@ -66,13 +68,14 @@ export default function authReducer(state = initialState, action) {
         token: action.data.token,
         user: action.data.user,
         limits: action.data.limits,
+        isApiKeyValid: null,
       }
     case LOGIN_FAILURE:
       return {
         ...state,
         isFetching: false,
         isAuthenticated: false,
-        errorMessage: action.message,
+        errorMessage: action.payload,
       }
     case CLEAR_LOGIN_ERROR: {
       return { ...state, errorMessage: null }
@@ -81,31 +84,17 @@ export default function authReducer(state = initialState, action) {
       return { ...state, isFetching: true }
     }
     case LOGOUT_SUCCESS:
-      return {
-        isFetching: false,
-        isAuthenticated: false,
-        token: null,
-        user: {
-          email: null,
-          appid: null,
-          tariff: null,
-          confirmed_email: null,
-        },
-        limits: null,
-        isApiKeyValid: null,
-      }
+      return { ...defaultEmptyState }
     case LOGOUT_FRONTEND: {
+      return { ...defaultEmptyState }
+    }
+    case HIDE_NOTIFICATION: {
       return {
         ...state,
-        isAuthenticated: false,
-        token: null,
         user: {
-          email: null,
-          appid: null,
-          tariff: null,
-          confirmed_email: null,
+          ...state.user,
+          confirmed_email: true,
         },
-        limits: null,
       }
     }
     case API_KEY_STATUS: {

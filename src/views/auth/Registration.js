@@ -1,9 +1,18 @@
-import React, { useState } from 'react'
+/* eslint-disable */
 
+import React, { useRef, useState } from 'react'
+
+import {
+  faKey,
+  faMapMarkerAlt,
+  faSatellite,
+  faTemperatureLow,
+} from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import classnames from 'classnames'
 import ReCAPTCHA from 'react-google-recaptcha'
 import { useDispatch } from 'react-redux'
-// reactstrap components
+import { NavLink } from 'react-router-dom'
 import {
   Button,
   Card,
@@ -13,8 +22,8 @@ import {
   CardImg,
   CardTitle,
   Label,
-  FormGroup,
   Form,
+  FormGroup,
   Input,
   InputGroupAddon,
   InputGroupText,
@@ -24,127 +33,119 @@ import {
   Col,
 } from 'reactstrap'
 
+import { signUpApi } from '../../api/auth'
+import cardPrimary from '../../assets/img/card-primary.png'
+import { errors, passwordLength } from '../../config'
+import { loginUser } from '../../features/auth/actions'
 import {
   notifyError,
   notifySuccess,
 } from '../../features/notifications/actions'
-import { updateMailing } from '../../api/personalAccountAPI'
+import { getAdCampaignFromCookies } from '../../utils/advertising'
+import LoaderCircle from '../components/LoaderCircle'
 
-// import { createNewUser } from '../../services/api/personalAccountAPI'
-
-const RegisterForm = () => {
-
+const RegisterForm = ({ history }) => {
   const [state, setState] = React.useState({})
   const [error, setError] = useState({})
-  const [username, setUsername] = useState('')
-  const [email, setEmail] = useState('')
-  const [pass, setPass] = useState('')
-  const [confirmPass, setConfirmPass] = useState('')
-  const [checkAge, setCheckAge] = useState(false)
-  const [checkTerms, setCheckTerms] = useState(false)
-  const dispatch = useDispatch()
-    const [mailSettings, setMailSettings] = useState({
+  const [mailSettings, setMailSettings] = useState({
     news: false,
     product: false,
     system: false,
   })
-  
+  const [user, setUser] = useState({
+    name: '',
+    username: '',
+    password: '',
+    confirmPass: '',
+  })
+  const [isAge, setIsAge] = useState(false)
+  const [isTerms, setIsTerms] = useState(false)
+  const [isFetching, setIsFetching] = useState(false)
+  const dispatch = useDispatch()
 
-  const createUser = () => {
+  const recaptchaRef = useRef()
+
+  const signUp = () => {
     setError({})
-
-    // username & email
-
     const newError = {}
+    const requiredFields = ['username', 'email', 'password', 'confirmPass']
+    for (let i = 0; i < requiredFields.length; i += 1) {
+      if (!user[requiredFields[i]]) {
+        newError[requiredFields[i]] = errors.noBlank
+      }
+    }
+    if (user.password.length < passwordLength) {
+      newError.password = errors.passwordLength
+    }
+    if (user.confirmPass.length < passwordLength) {
+      newError.confirmPass = errors.passwordLength
+    }
+    if (user.password !== user.confirmPass) {
+      newError.password = errors.passwordMissMatch
+      newError.confirmPass = errors.passwordMissMatch
+    }
+    if (!isAge) {
+      newError.isAge = 'Please confirm you are 16 years old or older'
+    }
+    if (!isTerms) {
+      newError.isTerms = 'Please agree to the privacy policy'
+    }
 
-    if (
-      !username.length ||
-      !email.length ||
-      !pass.length ||
-      !confirmPass.length
-    ) {
-      newError.username = !username.length
-      newError.email = !email.length
-      newError.pass = !pass.length
-      newError.confirmPass = !confirmPass.length
-      dispatch(notifyError('Cannot be empty'))
+    if (!recaptchaRef.current.getValue()) {
+      newError.recaptcha = 'reCAPTCHA verification failed, please try again.'
+    }
+
+    if (Object.keys(newError).length) {
       setError(newError)
       return
     }
 
-    // password conditions
+    const advertising = getAdCampaignFromCookies()
 
-    if (pass.length < 8 || confirmPass.length < 8) {
-      newError.pass = pass.length < 8
-      newError.confirmPass = confirmPass.length < 8
-      dispatch(notifyError('Must be eight characters or more'))
-      setError(newError)
-      return
-    }
-
-    if (pass !== confirmPass) {
-      newError.pass = true
-      newError.confirmPass = true
-      dispatch(notifyError('Passwords do not match'))
-      setError(newError)
-      return
-    }
-
-    if (checkAge === false) {
-      newError.checkAge = true
-      dispatch(notifyError('Please confirm you are 16 years or over'))
-      setError(newError)
-      return
-    }
-
-    if (checkTerms === false) {
-      newError.checkTerms = true
-      dispatch(notifyError('Please agree to the privacy policy'))
-      setError(newError)
-      return
-    }
-
-    // create user
     const data = {
       user: {
-        email,
-        pass,
-        username,
+        ...user,
+        password_confirmation: user.confirmPass,
       },
-      mailing: mailSettings
+      agreement: {
+        is_age_confirmed: isAge ? '1' : '0',
+        is_accepted: isTerms ? '1' : '0',
+      },
+      mailing: {
+        system: mailSettings.system ? '1' : '0',
+        product: mailSettings.product ? '1' : '0',
+        news: mailSettings.news ? '1' : '0',
+      },
+      advertising,
     }
-
-    // eslint-disable-next-line
-    // createNewUser(data)
-    //   .then(() => {
-    //     dispatch(notifySuccess('Registration complete'))
-    //   })
-    //   // eslint-disable-next-line
-    //   .catch((error) => {
-    //     dispatch(
-    //       notifyError(`Error registering ... please try again ${error.message}`),
-    //     )
-    //   })
+    setIsFetching(true)
+    signUpApi(data)
+      .then(() => {
+        dispatch(notifySuccess('Registration complete'))
+        dispatch(loginUser(user.email, user.password))
+        history.push('/dashboard/polygons')
+      })
+      .catch((err) => {
+        setError({
+          server: err.message,
+        })
+        dispatch(
+          notifyError(`Error signing up: ${err.message}. Please try again.`),
+        )
+      })
+      .finally(() => setIsFetching(false))
   }
 
   const handleCheckBoxClick = (key, value) => {
-    const newObj = {...mailSettings}
+    const newObj = { ...mailSettings }
     newObj[key] = value
     setMailSettings(newObj)
   }
 
-  updateMailing(mailSettings)
-  .then(() => {
-   // dispatch(notifySuccess("Mail settings saved"))
-  })
-  // eslint-disable-next-line
-  .catch((error) => {
-    dispatch(notifyError(`Error updating settings: ${error.message}`))
-  })
-
-
-  const onChange = (value) => {
-    console.log('Captcha value:', value)
+  const updateUser = (key, value) => {
+    const newObj = { ...user }
+    newObj[key] = value
+    setUser(newObj)
   }
 
   return (
@@ -153,38 +154,64 @@ const RegisterForm = () => {
         <Row>
           <Col className="ml-auto" md="5">
             <div className="info-area info-horizontal mt-5">
-              <div className="icon icon-warning">
-                <i className="tim-icons icon-wifi" />
+              <div className="icon icon-primary">
+                <FontAwesomeIcon icon={faSatellite} />
               </div>
               <div className="description">
-                <h3 className="info-title">Marketing</h3>
+                <h3 className="info-title">
+                  Satellite imagery archive and wide range of vegetation indices
+                </h3>
                 <p className="description">
-                  We&#39;ve created the marketing campaign of the website. It
-                  was a very interesting collaboration.
+                  NDVI, EVI, DSWI, NDWI, NRI and other vegetation indices can
+                  assist in identifying anomalies in your fields and planning.
+                  Historical NDVI chart will help to analyse the changes in the
+                  health and state of vegetation in your field throughout the
+                  seasons.
                 </p>
               </div>
             </div>
             <div className="info-area info-horizontal">
               <div className="icon icon-primary">
-                <i className="tim-icons icon-triangle-right-17" />
+                <FontAwesomeIcon icon={faTemperatureLow} />
               </div>
               <div className="description">
-                <h3 className="info-title">Fully Coded in HTML5</h3>
+                <h3 className="info-title">
+                  Accurate and generous weather data
+                </h3>
                 <p className="description">
-                  We&#39;ve developed the website with HTML5 and CSS3. The
-                  client has access to the code using GitHub.
+                  Weather data for your fields includes current, forecast and
+                  historical weather and soil data with notifications about
+                  possible weather alerts. Weather forecasts have hourly and
+                  daily granulation. Historical data is represented by the
+                  following graphs: historical weather data, soil data,
+                  accumulated temperature and precipitations.
                 </p>
               </div>
             </div>
             <div className="info-area info-horizontal">
-              <div className="icon icon-info">
-                <i className="tim-icons icon-trophy" />
+              <div className="icon icon-primary">
+                <FontAwesomeIcon icon={faMapMarkerAlt} />
               </div>
               <div className="description">
-                <h3 className="info-title">Built Audience</h3>
+                <h3 className="info-title">Advanced crop recognition</h3>
                 <p className="description">
-                  There is also a Fully Customizable CMS Admin Dashboard for
-                  this product.
+                  Being based on Machine Learning technologies, this feature
+                  will help to get information on the state of fields, their
+                  crop types and NDVI statistics for the last few years.
+                </p>
+              </div>
+            </div>
+            <div className="info-area info-horizontal">
+              <div className="icon icon-primary">
+                <FontAwesomeIcon icon={faKey} />
+              </div>
+              <div className="description">
+                <h3 className="info-title">Agro API access</h3>
+                <p className="description">
+                  Access to easy-to-use Agro API will enable you to build your
+                  own agricultural solution, such as dashboard or an app. Simply
+                  sign up and get your API key to start working on a new
+                  project.
                 </p>
               </div>
             </div>
@@ -192,206 +219,320 @@ const RegisterForm = () => {
           <Col className="mr-auto" md="7">
             <Card className="card-register card-white">
               <CardHeader>
-                <CardImg
-                  alt="..."
-                  // eslint-disable-next-line
-                  src={require('assets/img/card-primary.png').default}
-                  style={{ top: '-70px' }}
-                />
+                <CardImg alt="..." src={cardPrimary} style={{ top: '-70px' }} />
                 <CardTitle tag="h4">Register</CardTitle>
               </CardHeader>
-              <CardBody>
-                <Form className="form">
-                  <InputGroup
-                    className={classnames({
-                      'input-group-focus': state.nameFocus,
-                      'has-danger': error.email,
-                    })}
-                  >
-                    <InputGroupAddon addonType="prepend">
-                      <InputGroupText>
-                        <i className="tim-icons icon-email-85" />
-                      </InputGroupText>
-                    </InputGroupAddon>
-                    <Input
-                      placeholder="Email Address"
-                      type="text"
-                      onChange={(e) => setEmail(e.target.value)}
-                      onFocus={(e) => setState({ ...state, nameFocus: true })}
-                      onBlur={(e) => setState({ ...state, nameFocus: false })}
-                    />
-                  </InputGroup>
-                  <InputGroup
-                    className={classnames({
-                      'input-group-focus': state.nameFocus,
-                      'has-danger': error.username,
-                    })}
-                  >
-                    <InputGroupAddon addonType="prepend">
-                      <InputGroupText>
-                        <i className="tim-icons icon-single-02" />
-                      </InputGroupText>
-                    </InputGroupAddon>
-                    <Input
-                      placeholder="Full Name"
-                      type="text"
-                      onChange={(e) => setUsername(e.target.value)}
-                      onFocus={(e) => setState({ ...state, nameFocus: true })}
-                      onBlur={(e) => setState({ ...state, nameFocus: false })}
-                    />
-                  </InputGroup>
-                  <InputGroup
-                    className={classnames({
-                      'input-group-focus': state.nameFocus,
-                      'has-danger': error.pass,
-                    })}
-                  >
-                    <InputGroupAddon addonType="prepend">
-                      <InputGroupText>
-                        <i className="tim-icons icon-lock-circle" />
-                      </InputGroupText>
-                    </InputGroupAddon>
-                    <Input
-                      placeholder="Password"
-                      type="password"
-                      autoComplete="off"
-                      onChange={(e) => setPass(e.target.value)}
-                    />
-                  </InputGroup>
-                  <InputGroup
-                    className={classnames({
-                      'input-group-focus': state.nameFocus,
-                      'has-danger': error.confirmPass,
-                    })}
-                  >
-                    <InputGroupAddon addonType="prepend">
-                      <InputGroupText>
-                        <i className="tim-icons icon-lock-circle" />
-                      </InputGroupText>
-                    </InputGroupAddon>
-                    <Input
-                      placeholder="Confirm Password"
-                      type="password"
-                      autoComplete="off"
-                      onChange={(e) => setConfirmPass(e.target.value)}
-                    />
-                  </InputGroup>
-                  <Label style={{margin: "20px 5px 20px 20px"}}>
-                    <span className="form-check-sign">We will use information you provided for management and administration purposes, and for keeping you informed by mail, telephone, email and SMS of other products and services from us and our partners. You can proactively manage your preferences or opt-out of communications with us at any time using Privacy Centre. You have the right to access your data held by us or to request your data to be deleted. For full details please see <a href="https://agromonitoring.com/privacy-policy" target="_blank">Privacy Policy.</a></span>
-                    </Label>
-                  <FormGroup check className="text-left">
-                    <Label check>
-                      <Input 
-                      type="checkbox" 
-                      onChange={(e) => setCheckAge(!checkAge)}
-                      checked={checkAge}
-                      />
-                      <span className="form-check-sign" />I am 16 years or over
-                    </Label>
-                  </FormGroup>
-                  <FormGroup check className="text-left">
-               
-                    <Label check>
-                      <Input
-                      type="checkbox" 
-                       //className={error.checkTerms ? 'danger-border' : ''}
-                       onChange={(e) => setCheckTerms(!checkTerms)}
-                       checked={checkTerms}
-                       />
-                      <span className="form-check-sign" />I agree with{' '}
-                      <a
-                        href="https://agromonitoring.com/privacy-policy"
-                        target="_blank"
+              {isFetching ? (
+                <LoaderCircle style={{ height: '800px' }} />
+              ) : (
+                <>
+                  <CardBody>
+                    <Form className="form p-3">
+                      <InputGroup
+                        className={classnames('mb-0 mt-2 ', {
+                          'input-group-focus': state.emailFocus,
+                          'has-danger': error.email,
+                        })}
                       >
-                        {' '}
-                        Privacy Policy
-                      </a>
-                      ,{' '}
-                      <a
-                        href="https://agromonitoring.com/storage/app/media/Terms/ExtremeElectronics_terms_and_conditions_of_sale.pdf"
-                        target="_blank"
+                        <InputGroupAddon addonType="prepend">
+                          <InputGroupText>
+                            <i className="tim-icons icon-email-85" />
+                          </InputGroupText>
+                        </InputGroupAddon>
+                        <Input
+                          placeholder="Email Address"
+                          type="text"
+                          value={user.email}
+                          onChange={(e) => updateUser('email', e.target.value)}
+                          onFocus={() =>
+                            setState({ ...state, emailFocus: true })
+                          }
+                          onBlur={() =>
+                            setState({ ...state, emailFocus: false })
+                          }
+                        />
+                      </InputGroup>
+                      <div
+                        className={classnames(
+                          'invalid-feedback ',
+                          error.email ? 'd-block' : '',
+                        )}
                       >
-                        {' '}
-                        Terms and conditions of sale
-                      </a>{' '}
-                      and{' '}
-                      <a
-                        href="https://agromonitoring.com/storage/app/media/Terms/ExtremeElectronics_website_terms_and_conditions_of_use.pdf"
-                        target="_blank"
+                        {error.email}
+                      </div>
+                      <InputGroup
+                        className={classnames('mb-0 mt-2 ', {
+                          'input-group-focus': state.usernameFocus,
+                          'has-danger': error.username,
+                        })}
                       >
-                        {' '}
-                        Website&#39;s terms and conditions of use
-                      </a>
-                    </Label>
-                  </FormGroup>
-                </Form>
-                <hr />
-                <Form className="form">
-                <Label style={{margin: "10px 5px 10px 20px"}}>
-                    <span className="form-check-sign">I consent to receive communications from Extreme Electronics Ltd. and their partners:</span>
-                    </Label>
-                  <FormGroup check className="text-left">
-                    <Label check className="mr-3">
-                      <Input
-                        type="checkbox"
-                        onChange={(e) => {
-                          handleCheckBoxClick('news', e.target.checked)
-                        }}
-                      />
-                      <span className="form-check-sign" />
-                      Corporate news (our life, the launch of a new service,
-                      etc)
-                    </Label>
-                  </FormGroup>
-                  <FormGroup check className="text-left">
-                  <Label check>
-                      <Input
-                        type="checkbox"
-                        onChange={(e) => {
-                          handleCheckBoxClick('product', e.target.checked)
-                        }}
-                      />
-                      <span className="form-check-sign" />
-                      Product news (change to price, new product features, etc)
-                    </Label>
-                  </FormGroup>
-                  <FormGroup check className="text-left">
-                  <Label check>
-                      <Input
-                        type="checkbox"
-                        onChange={(e) => {
-                          handleCheckBoxClick('system', e.target.checked)
-                        }}
-                      />
-                      <span className="form-check-sign" />
-                      System news (API usage alert, system update, temporary
-                      system shutdown, etc)
-                    </Label>
-                
-                  </FormGroup>
+                        <InputGroupAddon addonType="prepend">
+                          <InputGroupText>
+                            <i className="tim-icons icon-single-02" />
+                          </InputGroupText>
+                        </InputGroupAddon>
+                        <Input
+                          placeholder="Full Name"
+                          type="text"
+                          value={user.username}
+                          onChange={(e) =>
+                            updateUser('username', e.target.value)
+                          }
+                          onFocus={() =>
+                            setState({ ...state, usernameFocus: true })
+                          }
+                          onBlur={() =>
+                            setState({ ...state, usernameFocus: false })
+                          }
+                        />
+                      </InputGroup>
+                      <div
+                        className={classnames(
+                          'invalid-feedback ',
+                          error.username ? 'd-block' : '',
+                        )}
+                      >
+                        {error.username}
+                      </div>
+                      <InputGroup
+                        className={classnames('mb-0 mt-2 ', {
+                          'input-group-focus': state.passFocus,
+                          'has-danger': error.password,
+                        })}
+                      >
+                        <InputGroupAddon addonType="prepend">
+                          <InputGroupText>
+                            <i className="tim-icons icon-lock-circle" />
+                          </InputGroupText>
+                        </InputGroupAddon>
+                        <Input
+                          placeholder="Password"
+                          type="password"
+                          value={user.password}
+                          autoComplete="off"
+                          onChange={(e) =>
+                            updateUser('password', e.target.value)
+                          }
+                          onFocus={() =>
+                            setState({ ...state, passFocus: true })
+                          }
+                          onBlur={() =>
+                            setState({ ...state, passFocus: false })
+                          }
+                        />
+                      </InputGroup>
+                      <div
+                        className={classnames(
+                          'invalid-feedback ',
+                          error.password ? 'd-block' : '',
+                        )}
+                      >
+                        {error.password}
+                      </div>
+                      <InputGroup
+                        className={classnames('mb-0 mt-2 ', {
+                          'input-group-focus': state.confirmPassFocus,
+                          'has-danger': error.confirmPass,
+                        })}
+                      >
+                        <InputGroupAddon addonType="prepend">
+                          <InputGroupText>
+                            <i className="tim-icons icon-lock-circle" />
+                          </InputGroupText>
+                        </InputGroupAddon>
+                        <Input
+                          placeholder="Confirm Password"
+                          type="password"
+                          autoComplete="off"
+                          value={user.confirmPass}
+                          onChange={(e) =>
+                            updateUser('confirmPass', e.target.value)
+                          }
+                          onFocus={() =>
+                            setState({ ...state, confirmPassFocus: true })
+                          }
+                          onBlur={() =>
+                            setState({ ...state, confirmPassFocus: false })
+                          }
+                        />
+                      </InputGroup>
+                      <div
+                        className={classnames(
+                          'invalid-feedback ',
+                          error.confirmPass ? 'd-block' : '',
+                        )}
+                      >
+                        {error.confirmPass}
+                      </div>
+                      <div
+                        className={classnames(
+                          'invalid-feedback ',
+                          error.server ? 'd-block' : '',
+                        )}
+                      >
+                        {error.server}
+                      </div>
+                      <div className="my-3">
+                        <span className="form-check-sign">
+                          We will use information you provided for management
+                          and administration purposes, and for keeping you
+                          informed by mail, telephone, email and SMS of other
+                          products and services from us and our partners. You
+                          can proactively manage your preferences or opt-out of
+                          communications with us at any time using Privacy
+                          Centre. You have the right to access your data held by
+                          us or to request your data to be deleted. For full
+                          details please see{' '}
+                          <a
+                            href="https://agromonitoring.com/privacy-policy"
+                            target="_blank"
+                          >
+                            Privacy Policy.
+                          </a>
+                        </span>
+                      </div>
 
-                  <FormGroup className="text-left">
-                    <Label>
-                      <ReCAPTCHA
-                        style={{ marginLeft: '15px', marginTop: '35px' }}
-                        sitekey="6Ler3aocAAAAADwkBRcUEZYnjE7KEJChWn1P_Hu4"
-                        onChange={onChange}
-                      />
-                    </Label>
-                    {/* Secret Key: 6Ler3aocAAAAABa_3uUTRkSIfyiJrxd9MYiXshEU */}
-                  </FormGroup>
-                </Form>
-              </CardBody>
-              <CardFooter className="text-right">
-                <Button
-                  className="btn-round"
-                  color="primary"
-                  onClick={createUser}
-                  size="lg"
-                >
-                  Get Started
-                </Button>
-              </CardFooter>
+                      <FormGroup check className="text-left">
+                        <Label check>
+                          <Input
+                            type="checkbox"
+                            onChange={() => setIsAge(!isAge)}
+                            checked={isAge}
+                          />
+                          <span className="form-check-sign" />I am 16 years old
+                          or older
+                        </Label>
+                        <div
+                          className={classnames(
+                            'invalid-feedback mt-0 ',
+                            error.isAge ? 'd-block' : '',
+                          )}
+                        >
+                          {error.isAge}
+                        </div>
+                      </FormGroup>
+                      <FormGroup check className="text-left">
+                        <Label check>
+                          <Input
+                            type="checkbox"
+                            onChange={() => setIsTerms(!isTerms)}
+                            checked={isTerms}
+                          />
+                          <span className="form-check-sign" />I agree to the{' '}
+                          <a
+                            href="https://agromonitoring.com/privacy-policy"
+                            target="_blank"
+                          >
+                            {' '}
+                            Privacy Policy
+                          </a>
+                          ,{' '}
+                          <a
+                            href="https://agromonitoring.com/storage/app/media/Terms/ExtremeElectronics_terms_and_conditions_of_sale.pdf"
+                            target="_blank"
+                          >
+                            {' '}
+                            Terms and conditions of sale
+                          </a>{' '}
+                          and{' '}
+                          <a
+                            href="https://agromonitoring.com/storage/app/media/Terms/ExtremeElectronics_website_terms_and_conditions_of_use.pdf"
+                            target="_blank"
+                          >
+                            {' '}
+                            Website&#39;s terms and conditions of use
+                          </a>
+                        </Label>
+                        <div
+                          className={classnames(
+                            'invalid-feedback mt-0 ',
+                            error.isTerms ? 'd-block' : '',
+                          )}
+                        >
+                          {error.isTerms}
+                        </div>
+                      </FormGroup>
+                      <hr />
+                      <div className="my-3">
+                        <span className="form-check-sign">
+                          I consent to receive communications from Extreme
+                          Electronics Ltd. and their partners:
+                        </span>
+                      </div>
+                      <FormGroup check>
+                        <Label check>
+                          <Input
+                            type="checkbox"
+                            onChange={(e) => {
+                              handleCheckBoxClick('system', e.target.checked)
+                            }}
+                          />
+                          <span className="form-check-sign" />
+                          System news (API usage alert, system update, temporary
+                          system shutdown, etc)
+                        </Label>
+                      </FormGroup>
+                      <FormGroup check>
+                        <Label check>
+                          <Input
+                            type="checkbox"
+                            onChange={(e) => {
+                              handleCheckBoxClick('product', e.target.checked)
+                            }}
+                          />
+                          <span className="form-check-sign" />
+                          Product news (change to price, new product features,
+                          etc)
+                        </Label>
+                      </FormGroup>
+                      <FormGroup check>
+                        <Label check className="mr-3">
+                          <Input
+                            type="checkbox"
+                            onChange={(e) => {
+                              handleCheckBoxClick('news', e.target.checked)
+                            }}
+                          />
+                          <span className="form-check-sign" />
+                          Corporate news (our life, the launch of a new service,
+                          etc)
+                        </Label>
+                      </FormGroup>
+                      <FormGroup className="my-5">
+                        <Label>
+                          <ReCAPTCHA
+                            ref={recaptchaRef}
+                            sitekey={process.env.REACT_APP_RECAPTCHA_SITE_KEY}
+                          />
+                          <div
+                            className={classnames(
+                              'invalid-feedback ',
+                              error.recaptcha ? 'd-block' : '',
+                            )}
+                          >
+                            {error.recaptcha}
+                          </div>
+                        </Label>
+                      </FormGroup>
+                    </Form>
+                  </CardBody>
+                  <CardFooter className="d-flex justify-content-between align-items-center">
+                    <h6>
+                      <NavLink to="/auth/login" className="link footer-link">
+                        Back to sign in
+                      </NavLink>
+                    </h6>
+                    <Button
+                      className="btn-round"
+                      color="primary"
+                      onClick={signUp}
+                      size="lg"
+                    >
+                      Sign up
+                    </Button>
+                  </CardFooter>
+                </>
+              )}
             </Card>
           </Col>
         </Row>

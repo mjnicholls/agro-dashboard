@@ -1,10 +1,11 @@
+import { cookies } from '../../config'
 import { getCookie, setCookie } from '../../utils/cookies'
-import { TOKEN_COOK, SET_UNITS } from './actions'
+import { SET_UNITS } from './actions'
 
-let units = getCookie(TOKEN_COOK)
+let units = getCookie(cookies.units)
 if (!units) {
   units = 'metric'
-  setCookie(TOKEN_COOK, units)
+  setCookie(cookies.units, units)
 }
 
 const initialState = {

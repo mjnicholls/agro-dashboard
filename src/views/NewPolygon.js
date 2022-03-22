@@ -1,56 +1,27 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 
-import { useDispatch, useSelector } from 'react-redux'
-import { PropagateLoader } from 'react-spinners'
+import { useSelector } from 'react-redux'
 import { Col, Row } from 'reactstrap'
 
-import { getAPIKeyStatus } from '../api/personalAccountAPI'
-import { setApiKeyStatus } from '../features/auth/actions'
-import { getPageHeight } from '../utils/utils'
+import { getMapHeight } from '../utils/utils'
+import Synchronizing from './components/Synchronizing'
+import PolygonCreateCard from './dashboard/small-cards/PolygonCreateCard'
 import MapBoxDraw from './maps/MapBoxDraw'
-import PolygonCreateCard from './small-cards/PolygonCreateCard'
 
 const selectIsApiKeyValid = (state) => state.auth.isApiKeyValid
-const selectPolygons = (state) => state.polygons
-const authSelector = (state) => state.auth
 
 const PolygonNew = () => {
-  /** Draw a new polygon, give it a name */
-
   const isApiKeyValid = useSelector(selectIsApiKeyValid)
-  const dispatch = useDispatch()
   const [geoJson, setGeoJson] = React.useState(null)
   const [area, setArea] = React.useState('')
   const [intersection, setIntersection] = React.useState(false)
   const [mode, setMode] = React.useState('draw')
-  const [mapHeight, setMapHeight] = useState(550)
   const drawRef = React.useRef(null)
-  const auth = useSelector(authSelector)
-  const isConfirmed = auth.user.confirmed_email
 
-  useEffect(() => {
-    const contentHeight = getPageHeight()
-    if (contentHeight > 200) {
-      setMapHeight(contentHeight)
-    }
-  }, [])
+  const getMapHeightLocal = () =>
+    window.matchMedia('(min-width: 768px)').matches ? getMapHeight() : '400px'
 
-  const checkAPIKeyStatus = () => {
-    getAPIKeyStatus()
-      .then(() => {
-        dispatch(setApiKeyStatus(true))
-      })
-      .catch(() => {
-        dispatch(setApiKeyStatus(false))
-        setTimeout(checkAPIKeyStatus, 20000)
-      })
-  }
-
-  useEffect(() => {
-    if (isApiKeyValid === null) {
-      checkAPIKeyStatus()
-    }
-  }, [isApiKeyValid])
+  const mapHeight = getMapHeightLocal()
 
   const resetMap = () => {
     const data = drawRef.current.getAll()
@@ -66,54 +37,36 @@ const PolygonNew = () => {
   const blockResetMap = () =>
     !drawRef.current || !drawRef.current.getAll().features.length
 
-  const PlaceHolder = () => (
+  return isApiKeyValid ? (
     <Row>
-      <Col className="text-center my-5 align-self-center">
-        <div className="my-5">
-          <div>
-            <PropagateLoader color="#f2f2f2" size={15} />
-            <br />
-          </div>
-          {isApiKeyValid === false && (
-            <p className="my-3">
-              Synchronizing API key... It might take a few minutes
-            </p>
-          )}
-        </div>
+      <Col md="8">
+        <MapBoxDraw
+          setArea={setArea}
+          setGeoJson={setGeoJson}
+          setIntersection={setIntersection}
+          drawRef={drawRef}
+          mode={mode}
+          setMode={setMode}
+          mapHeight={mapHeight}
+        />
+      </Col>
+      <Col md="4">
+        <PolygonCreateCard
+          area={area}
+          geoJson={geoJson}
+          intersections={intersection}
+          mode={mode}
+          setMode={setMode}
+          resetMap={resetMap}
+          blockResetMap={blockResetMap}
+          mapHeight={mapHeight}
+        />
       </Col>
     </Row>
-  )
-
-  return isApiKeyValid ? (
-    <>
-      <Row>
-        <Col md="8">
-          <MapBoxDraw
-            setArea={setArea}
-            setGeoJson={setGeoJson}
-            setIntersection={setIntersection}
-            drawRef={drawRef}
-            mode={mode}
-            setMode={setMode}
-            mapHeight={mapHeight}
-          />
-        </Col>
-        <Col md="4">
-          <PolygonCreateCard
-            area={area}
-            geoJson={geoJson}
-            intersections={intersection}
-            mode={mode}
-            setMode={setMode}
-            resetMap={resetMap}
-            blockResetMap={blockResetMap}
-            mapHeight={mapHeight}
-          />
-        </Col>
-      </Row>
-    </>
   ) : (
-    <PlaceHolder />
+    <Synchronizing>
+      <>Synchronizing API key... It might take a few minutes</>
+    </Synchronizing>
   )
 }
 

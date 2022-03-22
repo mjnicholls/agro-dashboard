@@ -1,38 +1,30 @@
 import React, { useEffect, useRef, useState } from 'react'
 
-import { useSelector } from 'react-redux'
-
-import { getPageHeight } from '../utils/utils'
-import CropMapCard from './agro-components/CropMapCard'
+import { getMapHeight } from '../utils/utils'
+import CropMapCard from './cropmap/CropMapCard'
 import { initialiseMap } from './maps/base'
-import { displayCropLayer2 } from './maps/crops'
-
-const selectYears = (state) => state.auth.limits.maps.crop
+import { displayCropLayerCropMap } from './maps/crops'
 
 const CropMap = () => {
   const mapContainer = useRef(null)
   const map = useRef(null)
-  const [mapHeight, setMapHeight] = useState(550)
-  const years = useSelector(selectYears)
-  const [activeYear, setActiveYear] = useState(
-    years.find((year) => year.status === 3),
-  )
+  const [activeYear, setActiveYear] = useState({ year: null })
+
   const [initialised, setInitialised] = useState(false)
   const [info, setInfo] = useState(null)
-  const [alert, setAlert] = useState(null)
 
   useEffect(() => {
-    const contentHeight = getPageHeight()
-    if (contentHeight > 200) {
-      setMapHeight(contentHeight)
-    }
-
-    initialiseMap(mapContainer.current, map)
-    map.current.on('load', () => {
-      map.current.setCenter([-93.3977, 41.978])
-      map.current.setZoom(12)
-      setInitialised(true)
-    })
+    initialiseMap(
+      mapContainer.current,
+      map,
+      {
+        bounds: [
+          [-93.39, 41.5],
+          [-93.35, 41.6],
+        ],
+      },
+      () => setInitialised(true),
+    )
 
     return () => {
       if (map.current) {
@@ -43,22 +35,23 @@ const CropMap = () => {
 
   useEffect(() => {
     if (initialised && activeYear.status === 3) {
-      displayCropLayer2(map.current, activeYear.year, setInfo)
+      displayCropLayerCropMap(map.current, activeYear.year, setInfo)
     }
   }, [map, initialised, activeYear])
+
+  useEffect(() => {
+    setInfo(null)
+  }, [activeYear])
 
   return (
     <div
       ref={mapContainer}
       className="map-container map-box-container"
-      style={{ height: `${mapHeight}px` }}
+      style={{ height: getMapHeight() }}
     >
-      {alert}
       <CropMapCard
-        years={years}
         activeYear={activeYear}
         setActiveYear={setActiveYear}
-        setAlert={setAlert}
         info={info}
       />
     </div>

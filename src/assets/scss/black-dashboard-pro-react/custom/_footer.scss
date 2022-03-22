@@ -33,8 +33,6 @@
       }
     }
 
-
-
     .copyright{
         font-size: $font-size-sm;
         line-height: 1.8;
@@ -55,7 +53,7 @@
     text-align: center;
 
     .copyright {
-        text-align: right;
+        text-align: left;
     }
   }
 
@@ -102,7 +100,7 @@
     text-align: center;
 
     .copyright {
-      float: right;
+      //float: right;
       margin-top: 5px;
     }
   }

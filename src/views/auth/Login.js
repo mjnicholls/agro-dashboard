@@ -1,10 +1,8 @@
 import React from 'react'
 
-import { css } from '@emotion/react'
 import classnames from 'classnames'
 import { useDispatch, useSelector } from 'react-redux'
-import { Redirect } from 'react-router-dom'
-import DotLoader from 'react-spinners/DotLoader'
+import { NavLink, Redirect } from 'react-router-dom'
 import {
   Button,
   Card,
@@ -13,7 +11,6 @@ import {
   CardFooter,
   CardTitle,
   Form,
-  FormText,
   Input,
   InputGroupAddon,
   InputGroupText,
@@ -22,18 +19,14 @@ import {
   Col,
 } from 'reactstrap'
 
+import cardPrimary from '../../assets/img/card-primary.png'
 import { loginUser, clearLoginError } from '../../features/auth/actions'
 import { validateEmail } from '../../utils/validation'
+import LoaderCircle from '../components/LoaderCircle'
 
 const isAuthenticatedSelector = (state) => state.auth.isAuthenticated
 const isFetchingSelector = (state) => state.auth.isFetching
 const errorMessageSelector = (state) => state.auth.errorMessage
-
-const override = css`
-  align-self: center;
-`
-
-const picture = require('../../assets/img/card-primary.png')
 
 const Login = (props) => {
   const [state, setState] = React.useState({})
@@ -42,7 +35,6 @@ const Login = (props) => {
   const isAuthenticated = useSelector(isAuthenticatedSelector)
   const isFetching = useSelector(isFetchingSelector)
   const errorMessage = useSelector(errorMessageSelector)
-
   const dispatch = useDispatch()
 
   React.useEffect(() => {
@@ -80,22 +72,13 @@ const Login = (props) => {
             <Form className="form">
               <Card className="card-login card-white">
                 <CardHeader>
-                  <img alt="..." src={picture.default} />
+                  <img alt="Login background" src={cardPrimary} />
                   <CardTitle tag="h1">Log in</CardTitle>
                 </CardHeader>
                 <CardBody>
                   <div style={{ minHeight: '125px' }}>
                     {isFetching ? (
-                      <div
-                        style={{
-                          display: 'flex',
-                          justifyContent: 'center',
-                          alignItems: 'center',
-                          height: '125px',
-                        }}
-                      >
-                        <DotLoader size="60px" color="#e14eca" css={override} />
-                      </div>
+                      <LoaderCircle style={{ height: '125px' }} />
                     ) : (
                       <>
                         <InputGroup
@@ -149,11 +132,14 @@ const Login = (props) => {
                             }
                           />
                         </InputGroup>
-                        {(errors.message || errorMessage) && (
-                          <FormText color="muted">
-                            {errors.message || errorMessage}
-                          </FormText>
-                        )}
+                        <div
+                          className={classnames(
+                            'invalid-feedback ',
+                            errors.message || errorMessage ? 'd-block' : '',
+                          )}
+                        >
+                          {errors.message || errorMessage}
+                        </div>
                       </>
                     )}
                   </div>
@@ -163,33 +149,26 @@ const Login = (props) => {
                     block
                     className="mb-3"
                     color="primary"
-                    // href="#pablo"
                     onClick={onSubmitLogin}
                     size="lg"
                   >
                     Sign in
                   </Button>
-                  <div className="pull-left">
+                  <div className="d-flex justify-content-between align-items-center">
                     <h6>
-                      <a
+                      <NavLink
+                        to="/auth/forgot-password"
                         className="link footer-link"
-                        href="https://wp.agromonitoring.com/users/sign_up"
                       >
+                        Forgot password?
+                      </NavLink>
+                    </h6>
+                    <h6>
+                      <NavLink to="/auth/sign-up" className="link footer-link">
                         Create Account
-                      </a>
+                      </NavLink>
                     </h6>
                   </div>
-                  {/* <div className="pull-right"> */}
-                  {/* <h6> */}
-                  {/* <a */}
-                  {/* className="link footer-link" */}
-                  {/* href="#pablo" */}
-                  {/* onClick={(e) => e.preventDefault()} */}
-                  {/* > */}
-                  {/* Need Help? */}
-                  {/* </a> */}
-                  {/* </h6> */}
-                  {/* </div> */}
                 </CardFooter>
               </Card>
             </Form>

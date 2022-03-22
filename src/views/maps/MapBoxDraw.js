@@ -6,15 +6,14 @@ import * as turf from '@turf/turf'
 import { useSelector } from 'react-redux'
 
 import mapboxgl from '!mapbox-gl' // eslint-disable-line import/no-unresolved
-import { searchCity } from '../../api/otherApi'
+import { searchCity } from '../../api/apiOther'
 import { getMapBounds } from '../../features/polygons/selectors'
 import { addBoundsControl, deletePreviousAreas, initialiseMap } from './base'
 import { displayClusters } from './clusters'
-import { removeCropLayer, displayCropLayer } from './crops'
+import { removeCropLayer, displayCropLayerPolygonCreation } from './crops'
 import { displayPolygonGroup } from './polygons'
 
-const selectPolygons = (state) => state.polygons
-const selectToken = (state) => state.auth.token
+const selectPolygons = (state) => state.polygons.data
 
 const MapBoxDraw = ({
   setArea,
@@ -31,7 +30,6 @@ const MapBoxDraw = ({
 
   const [initialised, setInitialised] = useState(false)
   const polygons = useSelector(selectPolygons)
-  const token = useSelector(selectToken)
 
   const deletePreviousAreasLocal = () => {
     deletePreviousAreas(drawRef)
@@ -47,24 +45,22 @@ const MapBoxDraw = ({
     [],
   )
 
+  const displayPolygonsClusters = () => {
+    displayPolygonGroup(map.current, mapBounds, polygons)
+    displayClusters(map.current, polygons)
+  }
+
   useEffect(() => {
     if (!initialised) {
       // first initialisation of the map
-      initialiseMap(mapContainer.current, map, token)
-      addBoundsControl(map, mapBounds)
-
-      map.current.on('load', () => {
-        if (polygons.length) {
-          displayPolygonGroup(map.current, mapBounds, polygons)
-          displayClusters(map.current, polygons)
-        }
+      initialiseMap(mapContainer.current, map, { bounds: mapBounds }, () => {
+        displayPolygonsClusters()
         setInitialised(true)
       })
+      addBoundsControl(map, mapBounds)
     } else {
       // new polygon has been added
-      displayPolygonGroup(map.current, mapBounds, polygons)
-      // displayPolygons(map.current, mapBounds, polygons);
-      displayClusters(map.current, polygons)
+      displayPolygonsClusters()
     }
   }, [initialised, polygons, mapBounds])
 
@@ -72,7 +68,8 @@ const MapBoxDraw = ({
     if (initialised) {
       if (mode === 'select') {
         deletePreviousAreasLocal(drawRef)
-        displayCropLayer(map.current, drawRef, setMode, updateArea)
+        // displayCropLayer(map.current, drawRef, setMode, updateArea)
+        displayCropLayerPolygonCreation(map.current, drawRef, updateArea)
       } else {
         removeCropLayer(map.current)
       }
@@ -110,6 +107,7 @@ const MapBoxDraw = ({
           feature.place_type = feature.type
           features.push(feature)
         }
+        return features
       })
       .catch(() => [])
 
@@ -161,7 +159,7 @@ const MapBoxDraw = ({
       <div
         ref={mapContainer}
         className="map-container map-box-container mb-5"
-        style={{ height: `${mapHeight}px` }}
+        style={{ height: mapHeight }}
       />
     </div>
   )

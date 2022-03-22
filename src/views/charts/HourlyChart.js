@@ -2,6 +2,7 @@ import React from 'react'
 
 import { Line } from 'react-chartjs-2'
 
+import { makeGradientBlue } from '../../utils/charts'
 import { timeInHours } from '../../utils/dateTime'
 import { convertTemp } from '../../utils/utils'
 import { chartOptions } from './base'
@@ -196,10 +197,7 @@ const HourlyChart = ({ isMetric, onecall }) => {
   }
 
   const chartData = (canvas) => {
-    const ctx = canvas.getContext('2d')
-    const gradientStrokeBlue = ctx.createLinearGradient(0, 230, 0, 50)
-    gradientStrokeBlue.addColorStop(1, 'rgba(29,140,248,0.5)')
-    gradientStrokeBlue.addColorStop(0, 'rgba(29,140,248,0)') // blue colors
+    const gradientStroke = makeGradientBlue(canvas)
 
     return {
       labels: onecall.data.hourly,
@@ -226,7 +224,7 @@ const HourlyChart = ({ isMetric, onecall }) => {
           label: 'Precipitation',
           yAxisID: 'precipitation',
           fill: true,
-          backgroundColor: gradientStrokeBlue,
+          backgroundColor: gradientStroke,
           borderColor: '#1f8ef1',
           borderWidth: 2,
           borderDash: [],

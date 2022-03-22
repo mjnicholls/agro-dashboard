@@ -25,11 +25,9 @@ const getTotalBbox = (bboxes) => {
 
 export const getMapBounds = createSelector(
   // First, pass one or more "input selector" functions:
-  (state) => state.polygons,
+  (state) => state.polygons.data,
   // Then, an "output selector" that receives all the input results as arguments
   // and returns a final result value
-  (polygons) =>
-    polygons.length
-      ? getTotalBbox(polygons.map((polygon) => polygon.bbox))
-      : null,
+  (data) =>
+    data.length ? getTotalBbox(data.map((polygon) => polygon.bbox)) : null,
 )

@@ -6,7 +6,8 @@
     "spaced-comment": "warn",
     "no-param-reassign": "warn",
     "react/jsx-boolean-value": "warn",
-    "react/prop-types": "warn",
+    "react/prop-types": 0,
+    "no-nested-ternary": 0,
     "import/order": [
       "warn",
       {
@@ -28,5 +29,3 @@
     ]
   }
 }
-
-//  "import/no-cycle": "warn",

@@ -1,35 +1,32 @@
-import axios from 'axios'
-
-import { polygonsEndpoint } from '../../api'
 import {
+  getPolygonsApi,
   createPolygonApi,
   deletePolygonApi,
-  editPolygonApi,
-} from '../../api/polygonApi'
+  editPolygonNameApi,
+} from '../../api/apiPolygons'
 import { polygonShapeSize } from '../../config'
 import { notifySuccess, notifyError } from '../notifications/actions'
 
-export const POLYGONS_FETCH = 'polygons/fetch'
+export const POLYGONS_START_FETCHING = 'polygons/fetch'
 export const POLYGONS_FETCH_SUCCESS = 'polygons/fetch_success'
 export const POLYGONS_FETCH_FAILURE = 'polygons/fetch_failure'
 export const POLYGON_ADDED = 'polygons/add'
 export const POLYGON_UPDATED = 'polygons/update'
 export const POLYGON_DELETED = 'polygons/delete'
 
-const polygonsFetched = () => ({
-  type: POLYGONS_FETCH,
+const polygonsStartFetching = () => ({
+  type: POLYGONS_START_FETCHING,
   isFetching: true,
 })
 
-export const receivePolygons = (data) => ({
+export const polygonsFetchSuccess = (data) => ({
   type: POLYGONS_FETCH_SUCCESS,
   polygons: data,
 })
 
-const polygonsError = (message) => ({
+export const polygonsFetchFailure = (payload) => ({
   type: POLYGONS_FETCH_FAILURE,
-  isFetching: false,
-  message,
+  payload,
 })
 
 export const polygonAdded = (payload) => ({
@@ -101,19 +98,18 @@ const enrichPolygon = (polygon) => {
 }
 
 export const fetchPolygons = () => (dispatch) => {
-  dispatch(polygonsFetched())
-  axios
-    .get(polygonsEndpoint)
+  dispatch(polygonsStartFetching())
+  getPolygonsApi()
     .then((data) => {
       const polygons = data
       polygons.reverse()
       for (let i = 0; i < polygons.length; i += 1) {
         polygons[i] = enrichPolygon(polygons[i])
       }
-      dispatch(receivePolygons(polygons))
+      dispatch(polygonsFetchSuccess(polygons))
     })
     .catch((err) => {
-      dispatch(polygonsError(err.message))
+      dispatch(polygonsFetchFailure(err.message))
     })
 }
 
@@ -121,7 +117,7 @@ export const addPolygon = (data) =>
   async function addPolygonThunk(dispatch) {
     createPolygonApi(data)
       .then((response) => {
-        const newPolygon = enrichPolygon(response.data)
+        const newPolygon = enrichPolygon(response)
         dispatch(polygonAdded(newPolygon))
         dispatch(
           notifySuccess(
@@ -138,9 +134,9 @@ export const addPolygon = (data) =>
 
 export const editPolygon = (data) =>
   async function deletePolygonThunk(dispatch) {
-    editPolygonApi(data)
+    editPolygonNameApi(data)
       .then((response) => {
-        dispatch(polygonUpdated(response.data))
+        dispatch(polygonUpdated(response))
         dispatch(notifySuccess('Polygon has been renamed successfully'))
       })
       .catch((error) => {

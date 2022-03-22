@@ -1,59 +1,53 @@
-export const serverBaseURL = 'https://new.agromonitoring.com/api/'
+const accountBase = 'auth'
+const agriBase = 'proxy'
 
-export const personalAccountBase = `${serverBaseURL}auth/`
-const agriBase = `${serverBaseURL}proxy/`
-
-export const loginURL = `${personalAccountBase}auth/login`
-export const logoutURL = `${personalAccountBase}auth/logout`
-export const apiKeyStatus = `${personalAccountBase}appid/status`
-export const polygonsEndpoint = `${agriBase}polygons`
-export const polygonCreate = `${agriBase}polygon`
-export const polygonDelete = `${agriBase}polygon/`
-export const polygonSatelliteImagesList = `${agriBase}image/search`
-
-// charts
-const current = 'current/'
-export const currentSoil = `${agriBase}${current}soil`
-
-// history
-const history = 'history/'
-export const historyNDVI = `${agriBase}${history}ndvi`
-export const historySoil = `${agriBase}${history}soil`
-export const historyAccumulatedTemperature = `${agriBase}${history}weather_at`
-export const historyAccumulatedPrecipitation = `${agriBase}${history}weather_ap`
-export const historyWeather = `${agriBase}${history}weather`
-
-export const weatherOneCall = `${agriBase}one_call`
+// authorisation
+export const loginURL = `${accountBase}/auth/login`
+export const logoutURL = `${accountBase}/auth/logout`
+export const signupURL = `${accountBase}/auth/signup`
+export const forgotPasswordURL = `${accountBase}/auth/password/forgot`
+export const resetPasswordURL = `${accountBase}/auth/password/reset`
 
 // personal account
+export const confirmEmailURL = `${accountBase}/account/confirmation`
+export const isSubscriptionAvailableURL = `${accountBase}/account/subscription`
 
-// API Keys
-export const apiKeys = `${personalAccountBase}appid/all`
-export const apiKeyUpdate = `${personalAccountBase}appid/update`
-export const apiKeyDelete = `${personalAccountBase}appid/delete`
-export const apiKeyCreate = `${personalAccountBase}appid/create`
+export const subscribeURL = `${accountBase}/account/subscribe`
+export const unsubscribeURL = `${accountBase}/account/unsubscribe`
 
-// payments
-export const invoicesList = `${personalAccountBase}/payments`
+export const apiKeyStatus = `${accountBase}/appid/status`
+export const apiKeys = `${accountBase}/appid/all`
+export const apiKeyUpdate = `${accountBase}/appid/update`
+export const apiKeyDelete = `${accountBase}/appid/delete`
+export const apiKeyCreate = `${accountBase}/appid/create`
 
-// update name
-export const updateName = `${personalAccountBase}account/user/names`
-export const updatePass = `${personalAccountBase}account/user/password`
+export const invoicesList = `${accountBase}/payments`
 
-// mailing preferences
-export const mailing = `${personalAccountBase}account/mailing`
+export const accountInfo = `${accountBase}/account`
+export const updateName = `${accountBase}/account/user/names`
+export const updatePass = `${accountBase}/account/user/password`
+export const updateMailing = `${accountBase}/account/mailing`
+export const updateBillingInfo = `${accountBase}/account/invoice`
 
-// get mailing preferences
-export const accountInfo = `${personalAccountBase}account`
+export const deleteAccount = `${accountBase}/account/delete`
 
-// delete account
-export const deleteAccount = `${personalAccountBase}account/delete`
+export const getPolygonsAccount = `${accountBase}/polygons`
 
-// update invoice info
-export const invoiceUpdate = `${personalAccountBase}account/invoice`
+// dashboard
+export const polygonsURL = `${agriBase}/polygons`
+export const polygonURL = `${agriBase}/polygon`
+export const polygonSatelliteImagesURL = `${agriBase}/image/search`
 
-// get vat info
-export const PolygonGet = `${personalAccountBase}/polygons`
+export const currentSoil = `${agriBase}/current/soil`
+export const historyNDVI = `${agriBase}/history/ndvi`
+export const historySoil = `${agriBase}/history/soil`
+export const historyAccumulatedTemperature = `${agriBase}/history/weather_at`
+export const historyAccumulatedPrecipitation = `${agriBase}/history/weather_ap`
+export const historyWeather = `${agriBase}/history/weather`
+export const weatherOneCall = `${agriBase}/one_call`
 
-export const confirmVat = 'https://home.agromonitoring.com/api/check_vat'
-export const countriesList = 'https://home.agromonitoring.com/api/countries'
+// third-party endpoints
+export const confirmVat = 'https://old.agromonitoring.com/api/check_vat'
+export const countriesList = 'https://old.agromonitoring.com/api/countries'
+export const nominatimSearch =
+  'https://nominatim.openstreetmap.org/search?format=json&limit=7'

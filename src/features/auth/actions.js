@@ -1,8 +1,11 @@
-import axios from 'axios'
-
-import { login, logout } from '../../api/authAPI'
-import { deleteCookie, setCookie } from '../../utils/cookies'
-import { parseJwt } from './utils'
+/* eslint-disable */
+import { signInApi, signOutApi } from '../../api/auth'
+import { cookies } from '../../config'
+import { setCookie } from '../../utils/cookies'
+import { getAdCampaignFromCookies } from '../../utils/advertising'
+import { notifyError } from '../notifications/actions'
+import { fetchPolygons } from '../polygons/actions'
+import { parseJwt, signoutUnauthorised } from '../../utils/userUtils'
 
 export const API_KEY_STATUS = 'API_KEY_STATUS'
 export const LOGIN_REQUEST = 'LOGIN_REQUEST'
@@ -12,7 +15,8 @@ export const CLEAR_LOGIN_ERROR = 'CLEAR_LOGIN_ERROR'
 export const LOGOUT_REQUEST = 'LOGOUT_REQUEST'
 export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS'
 export const LOGOUT_FRONTEND = 'LOGOUT_FRONTEND'
-export const TOKEN_COOK = 'AGRO_TOKEN'
+export const HIDE_NOTIFICATION = 'HIDE_NOTIFICATION'
+export const DESTROY_STATE = 'DESTROY_STATE'
 
 const requestLogin = (email) => ({
   type: LOGIN_REQUEST,
@@ -26,9 +30,7 @@ const receiveLogin = (data) => ({
 
 const loginError = (message) => ({
   type: LOGIN_FAILURE,
-  isFetching: false,
-  isAuthenticated: false,
-  message,
+  payload: message,
 })
 
 export const setApiKeyStatus = (status) => ({
@@ -48,27 +50,29 @@ export const receiveLogout = () => ({
   type: LOGOUT_SUCCESS,
 })
 
-export const destroyReduxState = () => ({
-  type: 'DESTROY_STATE',
+export const hideNotification = () => ({
+  type: HIDE_NOTIFICATION,
+})
+
+export const destroyState = () => ({
+  type: DESTROY_STATE,
 })
 
 export const loginUser = (email, password) => (dispatch) => {
   dispatch(requestLogin(email))
+  const advertising = getAdCampaignFromCookies()
 
-  login(email, password)
+  signInApi(email, password, advertising)
     .then((data) => {
       const { token } = data
-      axios.defaults.headers.common.Authorization = `Bearer ${token}`
       let tokenInfo
       try {
         tokenInfo = parseJwt(token).passport
       } catch {
-        dispatch(loginError('Error parsing token')) // TODO
+        dispatch(loginError('Error signing in. Please try again'))
+        return
       }
-      if (!tokenInfo) {
-        dispatch(loginError('Error parsing token')) // TODO
-      }
-      setCookie(TOKEN_COOK, token)
+      setCookie(cookies.token, token)
       dispatch(
         receiveLogin({
           token,
@@ -76,22 +80,19 @@ export const loginUser = (email, password) => (dispatch) => {
           limits: tokenInfo.limits,
         }),
       )
+      dispatch(fetchPolygons())
     })
     .catch((err) => {
-      dispatch(loginError(err.message))
+      dispatch(notifyError(err))
+      dispatch(loginError(err))
     })
 }
 
 export const logoutUser = () => async (dispatch) => {
   dispatch(requestLogout())
-  logout()
-    .then(() => {
-      deleteCookie(TOKEN_COOK, '/')
-      dispatch(destroyReduxState())
-      dispatch(receiveLogout())
-    })
-    .catch((err) => {
-      console.log(err)
-    })
+  signOutApi().finally(() => {
+    signoutUnauthorised()
+    dispatch(receiveLogout())
+    dispatch(destroyState())
+  })
 }
-

@@ -1,109 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="207c372b-e5da-4c5d-99f6-d96bce456cab" name="Default" comment="Account Settings">
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/views/maps/utils.js" />
-      <change beforePath="$PROJECT_DIR$/.eslintrc" afterPath="$PROJECT_DIR$/.eslintrc" />
+    <list default="true" id="207c372b-e5da-4c5d-99f6-d96bce456cab" name="Default" comment="yml file fix">
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/utils/userUtils.js" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/src/App.js" afterPath="$PROJECT_DIR$/src/App.js" />
-      <change beforePath="$PROJECT_DIR$/src/assets/scss/agro-styles.scss" afterPath="$PROJECT_DIR$/src/assets/scss/agro-styles.scss" />
-      <change beforePath="$PROJECT_DIR$/src/components/CustomUpload/ImageUpload.js" afterPath="$PROJECT_DIR$/src/components/CustomUpload/ImageUpload.js" />
-      <change beforePath="$PROJECT_DIR$/src/components/Footer/Footer.js" afterPath="$PROJECT_DIR$/src/components/Footer/Footer.js" />
-      <change beforePath="$PROJECT_DIR$/src/components/Navbars/AccountNavbar.js" afterPath="$PROJECT_DIR$/src/components/Navbars/AccountNavbar.js" />
-      <change beforePath="$PROJECT_DIR$/src/components/Navbars/AdminNavbar.js" afterPath="$PROJECT_DIR$/src/components/Navbars/AdminNavbar.js" />
-      <change beforePath="$PROJECT_DIR$/src/components/Navbars/AuthNavbar.js" afterPath="$PROJECT_DIR$/src/components/Navbars/AuthNavbar.js" />
-      <change beforePath="$PROJECT_DIR$/src/components/Navbars/RTLNavbar.js" afterPath="$PROJECT_DIR$/src/components/Navbars/RTLNavbar.js" />
-      <change beforePath="$PROJECT_DIR$/src/components/Sidebar/Sidebar2.js" afterPath="$PROJECT_DIR$/src/components/Sidebar/Sidebar2.js" />
-      <change beforePath="$PROJECT_DIR$/src/components/SortingTable/SortingTable.js" afterPath="$PROJECT_DIR$/src/components/SortingTable/SortingTable.js" />
+      <change beforePath="$PROJECT_DIR$/src/api/axiosClient.js" afterPath="$PROJECT_DIR$/src/api/axiosClient.js" />
       <change beforePath="$PROJECT_DIR$/src/features/auth/actions.js" afterPath="$PROJECT_DIR$/src/features/auth/actions.js" />
       <change beforePath="$PROJECT_DIR$/src/features/auth/reducer.js" afterPath="$PROJECT_DIR$/src/features/auth/reducer.js" />
-      <change beforePath="$PROJECT_DIR$/src/features/polygons/actions.js" afterPath="$PROJECT_DIR$/src/features/polygons/actions.js" />
-      <change beforePath="$PROJECT_DIR$/src/index.js" afterPath="$PROJECT_DIR$/src/index.js" />
+      <change beforePath="$PROJECT_DIR$/src/features/auth/utils.js" afterPath="" />
       <change beforePath="$PROJECT_DIR$/src/layouts/Admin/Admin.js" afterPath="$PROJECT_DIR$/src/layouts/Admin/Admin.js" />
-      <change beforePath="$PROJECT_DIR$/src/layouts/Auth/Auth.js" afterPath="$PROJECT_DIR$/src/layouts/Auth/Auth.js" />
-      <change beforePath="$PROJECT_DIR$/src/layouts/RTL/RTL.js" afterPath="$PROJECT_DIR$/src/layouts/RTL/RTL.js" />
-      <change beforePath="$PROJECT_DIR$/src/reducer.js" afterPath="$PROJECT_DIR$/src/reducer.js" />
-      <change beforePath="$PROJECT_DIR$/src/routes.js" afterPath="$PROJECT_DIR$/src/routes.js" />
-      <change beforePath="$PROJECT_DIR$/src/services/AuthRoute.js" afterPath="$PROJECT_DIR$/src/services/AuthRoute.js" />
-      <change beforePath="$PROJECT_DIR$/src/services/api/chartApi.js" afterPath="$PROJECT_DIR$/src/services/api/chartApi.js" />
-      <change beforePath="$PROJECT_DIR$/src/services/api/index.js" afterPath="$PROJECT_DIR$/src/services/api/index.js" />
-      <change beforePath="$PROJECT_DIR$/src/services/api/personalAccountAPI.js" afterPath="$PROJECT_DIR$/src/services/api/personalAccountAPI.js" />
-      <change beforePath="$PROJECT_DIR$/src/services/api/polygonApi.js" afterPath="$PROJECT_DIR$/src/services/api/polygonApi.js" />
-      <change beforePath="$PROJECT_DIR$/src/services/api/weatherApi.js" afterPath="$PROJECT_DIR$/src/services/api/weatherApi.js" />
-      <change beforePath="$PROJECT_DIR$/src/services/base.js" afterPath="$PROJECT_DIR$/src/services/base.js" />
-      <change beforePath="$PROJECT_DIR$/src/store.js" afterPath="$PROJECT_DIR$/src/store.js" />
+      <change beforePath="$PROJECT_DIR$/src/utils/advertising.js" afterPath="$PROJECT_DIR$/src/utils/advertising.js" />
       <change beforePath="$PROJECT_DIR$/src/utils/cookies.js" afterPath="$PROJECT_DIR$/src/utils/cookies.js" />
-      <change beforePath="$PROJECT_DIR$/src/views/Dashboard.js" afterPath="$PROJECT_DIR$/src/views/Dashboard.js" />
-      <change beforePath="$PROJECT_DIR$/src/views/agro-components/AllPolygonsButton.js" afterPath="$PROJECT_DIR$/src/views/agro-components/AllPolygonsButton.js" />
-      <change beforePath="$PROJECT_DIR$/src/views/agro-components/DatepickerSatellite.js" afterPath="$PROJECT_DIR$/src/views/agro-components/DatepickerSatellite.js" />
-      <change beforePath="$PROJECT_DIR$/src/views/agro-components/Notifications.js" afterPath="$PROJECT_DIR$/src/views/agro-components/Notifications.js" />
-      <change beforePath="$PROJECT_DIR$/src/views/agro-components/PolygonDelete.js" afterPath="$PROJECT_DIR$/src/views/agro-components/PolygonDelete.js" />
-      <change beforePath="$PROJECT_DIR$/src/views/agro-components/PolygonEdit.js" afterPath="$PROJECT_DIR$/src/views/agro-components/PolygonEdit.js" />
-      <change beforePath="$PROJECT_DIR$/src/views/agro-components/PolygonTable.js" afterPath="$PROJECT_DIR$/src/views/agro-components/PolygonTable.js" />
-      <change beforePath="$PROJECT_DIR$/src/views/agro-components/SatelliteImagePlaceholder.js" afterPath="$PROJECT_DIR$/src/views/agro-components/SatelliteImagePlaceholder.js" />
-      <change beforePath="$PROJECT_DIR$/src/views/agro-components/SatelliteImagesList.js" afterPath="$PROJECT_DIR$/src/views/agro-components/SatelliteImagesList.js" />
-      <change beforePath="$PROJECT_DIR$/src/views/agro-components/Shape.js" afterPath="$PROJECT_DIR$/src/views/agro-components/Shape.js" />
-      <change beforePath="$PROJECT_DIR$/src/views/agro-components/ToggleModes.js" afterPath="$PROJECT_DIR$/src/views/agro-components/ToggleModes.js" />
-      <change beforePath="$PROJECT_DIR$/src/views/agro-components/UnitsRadioButtons.js" afterPath="$PROJECT_DIR$/src/views/agro-components/UnitsRadioButtons.js" />
-      <change beforePath="$PROJECT_DIR$/src/views/agro-components/UnitsToggle.js" afterPath="$PROJECT_DIR$/src/views/agro-components/UnitsToggle.js" />
-      <change beforePath="$PROJECT_DIR$/src/views/charts/AccumulatedChart.js" afterPath="$PROJECT_DIR$/src/views/charts/AccumulatedChart.js" />
-      <change beforePath="$PROJECT_DIR$/src/views/charts/CombinedChart.js" afterPath="$PROJECT_DIR$/src/views/charts/CombinedChart.js" />
-      <change beforePath="$PROJECT_DIR$/src/views/charts/DailyChart.js" afterPath="$PROJECT_DIR$/src/views/charts/DailyChart.js" />
-      <change beforePath="$PROJECT_DIR$/src/views/charts/HistoricalSoilChart.js" afterPath="$PROJECT_DIR$/src/views/charts/HistoricalSoilChart.js" />
-      <change beforePath="$PROJECT_DIR$/src/views/charts/HistoricalWeatherChart.js" afterPath="$PROJECT_DIR$/src/views/charts/HistoricalWeatherChart.js" />
-      <change beforePath="$PROJECT_DIR$/src/views/charts/HourlyChart.js" afterPath="$PROJECT_DIR$/src/views/charts/HourlyChart.js" />
-      <change beforePath="$PROJECT_DIR$/src/views/charts/NdviChart.js" afterPath="$PROJECT_DIR$/src/views/charts/NdviChart.js" />
-      <change beforePath="$PROJECT_DIR$/src/views/charts/index.js" afterPath="$PROJECT_DIR$/src/views/charts/index.js" />
-      <change beforePath="$PROJECT_DIR$/src/views/charts/ui/ChartContainer.js" afterPath="$PROJECT_DIR$/src/views/charts/ui/ChartContainer.js" />
-      <change beforePath="$PROJECT_DIR$/src/views/charts/ui/DatePickerFromTo.js" afterPath="$PROJECT_DIR$/src/views/charts/ui/DatePickerFromTo.js" />
-      <change beforePath="$PROJECT_DIR$/src/views/charts/ui/TabsSelector.js" afterPath="$PROJECT_DIR$/src/views/charts/ui/TabsSelector.js" />
-      <change beforePath="$PROJECT_DIR$/src/views/components/Notifications.js" afterPath="$PROJECT_DIR$/src/views/components/Notifications.js" />
-      <change beforePath="$PROJECT_DIR$/src/views/components/SweetAlert.js" afterPath="$PROJECT_DIR$/src/views/components/SweetAlert.js" />
-      <change beforePath="$PROJECT_DIR$/src/views/forms/ExtendedForms.js" afterPath="$PROJECT_DIR$/src/views/forms/ExtendedForms.js" />
-      <change beforePath="$PROJECT_DIR$/src/views/forms/Wizard.js" afterPath="$PROJECT_DIR$/src/views/forms/Wizard.js" />
-      <change beforePath="$PROJECT_DIR$/src/views/forms/WizardSteps/Step1.js" afterPath="$PROJECT_DIR$/src/views/forms/WizardSteps/Step1.js" />
-      <change beforePath="$PROJECT_DIR$/src/views/forms/WizardSteps/Step2.js" afterPath="$PROJECT_DIR$/src/views/forms/WizardSteps/Step2.js" />
-      <change beforePath="$PROJECT_DIR$/src/views/forms/WizardSteps/Step3.js" afterPath="$PROJECT_DIR$/src/views/forms/WizardSteps/Step3.js" />
-      <change beforePath="$PROJECT_DIR$/src/views/maps/MapBox.js" afterPath="$PROJECT_DIR$/src/views/maps/MapBox.js" />
-      <change beforePath="$PROJECT_DIR$/src/views/maps/MapBoxDraw.js" afterPath="$PROJECT_DIR$/src/views/maps/MapBoxDraw.js" />
-      <change beforePath="$PROJECT_DIR$/src/views/maps/VectorMap.js" afterPath="$PROJECT_DIR$/src/views/maps/VectorMap.js" />
-      <change beforePath="$PROJECT_DIR$/src/views/maps/base.js" afterPath="$PROJECT_DIR$/src/views/maps/base.js" />
-      <change beforePath="$PROJECT_DIR$/src/views/maps/clusters.js" afterPath="$PROJECT_DIR$/src/views/maps/clusters.js" />
-      <change beforePath="$PROJECT_DIR$/src/views/maps/crops.js" afterPath="$PROJECT_DIR$/src/views/maps/crops.js" />
-      <change beforePath="$PROJECT_DIR$/src/views/maps/polygons.js" afterPath="$PROJECT_DIR$/src/views/maps/polygons.js" />
-      <change beforePath="$PROJECT_DIR$/src/views/old-views/Calendar.js" afterPath="$PROJECT_DIR$/src/views/old-views/Calendar.js" />
-      <change beforePath="$PROJECT_DIR$/src/views/old-views/Charts.js" afterPath="$PROJECT_DIR$/src/views/old-views/Charts.js" />
-      <change beforePath="$PROJECT_DIR$/src/views/old-views/DashboardOld.js" afterPath="$PROJECT_DIR$/src/views/old-views/DashboardOld.js" />
-      <change beforePath="$PROJECT_DIR$/src/views/owm-icons/index.js" afterPath="$PROJECT_DIR$/src/views/owm-icons/index.js" />
-      <change beforePath="$PROJECT_DIR$/src/views/pages/Lock.js" afterPath="$PROJECT_DIR$/src/views/pages/Lock.js" />
-      <change beforePath="$PROJECT_DIR$/src/views/pages/Login.js" afterPath="$PROJECT_DIR$/src/views/pages/Login.js" />
-      <change beforePath="$PROJECT_DIR$/src/views/pages/Register.js" afterPath="$PROJECT_DIR$/src/views/pages/Register.js" />
-      <change beforePath="$PROJECT_DIR$/src/views/personal-account/APIKeyEdit.js" afterPath="$PROJECT_DIR$/src/views/personal-account/APIKeyEdit.js" />
-      <change beforePath="$PROJECT_DIR$/src/views/personal-account/AccountSettings2.js" afterPath="$PROJECT_DIR$/src/views/personal-account/AccountSettings.js" />
-      <change beforePath="$PROJECT_DIR$/src/views/personal-account/ApiKeys.js" afterPath="$PROJECT_DIR$/src/views/personal-account/ApiKeys.js" />
-      <change beforePath="$PROJECT_DIR$/src/views/personal-account/BillingPlans.js" afterPath="$PROJECT_DIR$/src/views/personal-account/BillingPlans.js" />
-      <change beforePath="$PROJECT_DIR$/src/views/personal-account/DeleteAccount.js" afterPath="$PROJECT_DIR$/src/views/personal-account/DeleteAccount.js" />
-      <change beforePath="$PROJECT_DIR$/src/views/personal-account/ExportPolygons.js" afterPath="$PROJECT_DIR$/src/views/personal-account/ExportPolygons.js" />
-      <change beforePath="$PROJECT_DIR$/src/views/personal-account/InvoiceInfo.js" afterPath="$PROJECT_DIR$/src/views/personal-account/InvoiceInfo.js" />
-      <change beforePath="$PROJECT_DIR$/src/views/personal-account/Payments.js" afterPath="$PROJECT_DIR$/src/views/personal-account/Payments.js" />
-      <change beforePath="$PROJECT_DIR$/src/views/personal-account/PrivacySettings.js" afterPath="$PROJECT_DIR$/src/views/personal-account/PrivacySettings.js" />
-      <change beforePath="$PROJECT_DIR$/src/views/personal-account/Subscription.js" afterPath="$PROJECT_DIR$/src/views/personal-account/Subscription.js" />
-      <change beforePath="$PROJECT_DIR$/src/views/personal-account/SubscriptionPop.js" afterPath="$PROJECT_DIR$/src/views/personal-account/SubscriptionPop.js" />
-      <change beforePath="$PROJECT_DIR$/src/views/personal-account/UserPassword.js" afterPath="$PROJECT_DIR$/src/views/personal-account/UserPassword.js" />
-      <change beforePath="$PROJECT_DIR$/src/views/personal-account/UserSettings.js" afterPath="$PROJECT_DIR$/src/views/personal-account/UserSettings.js" />
-      <change beforePath="$PROJECT_DIR$/src/views/personal-account/VectorMapPersonal.js" afterPath="$PROJECT_DIR$/src/views/personal-account/VectorMapPersonal.js" />
-      <change beforePath="$PROJECT_DIR$/src/views/personal-account/subscription-form/Step1.js" afterPath="$PROJECT_DIR$/src/views/personal-account/subscription-form/Step1.js" />
-      <change beforePath="$PROJECT_DIR$/src/views/personal-account/subscription-form/Step2.js" afterPath="$PROJECT_DIR$/src/views/personal-account/subscription-form/Step2.js" />
-      <change beforePath="$PROJECT_DIR$/src/views/small-cards/LayerStats.js" afterPath="$PROJECT_DIR$/src/views/small-cards/LayerStats.js" />
-      <change beforePath="$PROJECT_DIR$/src/views/small-cards/PolygonCreateCard.js" afterPath="$PROJECT_DIR$/src/views/small-cards/PolygonCreateCard.js" />
-      <change beforePath="$PROJECT_DIR$/src/views/small-cards/PolygonInfo.js" afterPath="$PROJECT_DIR$/src/views/small-cards/PolygonInfo.js" />
-      <change beforePath="$PROJECT_DIR$/src/views/small-cards/PolygonList.js" afterPath="$PROJECT_DIR$/src/views/small-cards/PolygonList.js" />
-      <change beforePath="$PROJECT_DIR$/src/views/small-cards/PolygonsTotalStats.js" afterPath="$PROJECT_DIR$/src/views/small-cards/PolygonsTotalStats.js" />
-      <change beforePath="$PROJECT_DIR$/src/views/small-cards/SoilCurrent.js" afterPath="$PROJECT_DIR$/src/views/small-cards/SoilCurrent.js" />
-      <change beforePath="$PROJECT_DIR$/src/views/small-cards/WeatherCurrent.js" afterPath="$PROJECT_DIR$/src/views/small-cards/WeatherCurrent.js" />
-      <change beforePath="$PROJECT_DIR$/src/views/small-cards/ui/SatelliteLayers.js" afterPath="$PROJECT_DIR$/src/views/small-cards/ui/SatelliteLayers.js" />
-      <change beforePath="$PROJECT_DIR$/src/views/tables/ReactTables.js" afterPath="$PROJECT_DIR$/src/views/tables/ReactTables.js" />
-      <change beforePath="$PROJECT_DIR$/src/views/tables/RegularTables.js" afterPath="$PROJECT_DIR$/src/views/tables/RegularTables.js" />
+      <change beforePath="$PROJECT_DIR$/src/utils/user.js" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/views/cropmap/CropMapCard.js" afterPath="$PROJECT_DIR$/src/views/cropmap/CropMapCard.js" />
+      <change beforePath="$PROJECT_DIR$/src/views/cropmap/NDVIChart.js" afterPath="$PROJECT_DIR$/src/views/cropmap/NDVIChart.js" />
+      <change beforePath="$PROJECT_DIR$/src/views/cropmap/YearSelector.js" afterPath="$PROJECT_DIR$/src/views/cropmap/YearSelector.js" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -114,87 +25,35 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="package.json" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/package.json">
+      <file leaf-file-name="App.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/App.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1275">
-              <caret line="85" column="11" lean-forward="false" selection-start-line="85" selection-start-column="3" selection-end-line="85" selection-end-column="11" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="base.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/services/base.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="315">
-              <caret line="25" column="29" lean-forward="false" selection-start-line="25" selection-start-column="29" selection-end-line="25" selection-end-column="29" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Login.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/views/pages/Login.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="825">
-              <caret line="80" column="34" lean-forward="false" selection-start-line="80" selection-start-column="34" selection-end-line="80" selection-end-column="34" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AccountSettings.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/views/personal-account/AccountSettings.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="570">
-              <caret line="55" column="19" lean-forward="false" selection-start-line="55" selection-start-column="19" selection-end-line="55" selection-end-column="19" />
+            <state relative-caret-position="465">
+              <caret line="31" column="20" lean-forward="false" selection-start-line="31" selection-start-column="20" selection-end-line="31" selection-end-column="20" />
               <folding>
-                <element signature="n#!!doc" expanded="true" />
-                <element signature="e#21#71#0" expanded="true" />
-                <element signature="e#322#363#0" expanded="true" />
+                <element signature="e#0#40#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ApiKeys.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/views/personal-account/ApiKeys.js">
+      <file leaf-file-name="userUtils.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/utils/userUtils.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="180">
+              <caret line="12" column="15" lean-forward="false" selection-start-line="12" selection-start-column="15" selection-end-line="12" selection-end-column="15" />
+              <folding>
+                <element signature="e#0#35#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="apiAccount.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/api/apiAccount.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="240">
-              <caret line="41" column="20" lean-forward="false" selection-start-line="41" selection-start-column="20" selection-end-line="41" selection-end-column="20" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ExportPolygons.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/views/personal-account/ExportPolygons.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="195">
-              <caret line="17" column="8" lean-forward="false" selection-start-line="17" selection-start-column="8" selection-end-line="17" selection-end-column="8" />
-              <folding>
-                <element signature="e#0#50#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="routes.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/routes.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="213">
-              <caret line="16" column="26" lean-forward="false" selection-start-line="16" selection-start-column="26" selection-end-line="16" selection-end-column="26" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name=".eslintrc" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/.eslintrc">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-9">
-              <caret line="13" column="19" lean-forward="false" selection-start-line="13" selection-start-column="19" selection-end-line="13" selection-end-column="19" />
+              <caret line="34" column="20" lean-forward="false" selection-start-line="34" selection-start-column="20" selection-end-line="34" selection-end-column="20" />
               <folding />
             </state>
           </provider>
@@ -203,20 +62,30 @@
       <file leaf-file-name="Admin.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/layouts/Admin/Admin.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="16" column="44" lean-forward="true" selection-start-line="16" selection-start-column="44" selection-end-line="16" selection-end-column="44" />
+            <state relative-caret-position="319">
+              <caret line="35" column="32" lean-forward="true" selection-start-line="35" selection-start-column="32" selection-end-line="35" selection-end-column="32" />
               <folding>
-                <element signature="e#486#535#0" expanded="true" />
+                <element signature="e#364#425#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="agro-styles.scss" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/assets/scss/agro-styles.scss">
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/public/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
-              <caret line="16" column="22" lean-forward="false" selection-start-line="16" selection-start-column="22" selection-end-line="16" selection-end-column="22" />
+            <state relative-caret-position="165">
+              <caret line="11" column="28" lean-forward="true" selection-start-line="11" selection-start-column="28" selection-end-line="11" selection-end-column="28" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="advertising.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/utils/advertising.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="45">
+              <caret line="3" column="9" lean-forward="false" selection-start-line="3" selection-start-column="9" selection-end-line="3" selection-end-column="9" />
               <folding />
             </state>
           </provider>
@@ -226,103 +95,112 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>TOKEN_COOK</find>
-      <find>remove</find>
-      <find>removeLa</find>
-      <find>fetchPolygons</find>
-      <find>TOKEN</find>
-      <find>console.log</find>
-      <find>Regular Image</find>
-      <find>import</find>
-      <find>defaultImage</find>
-      <find>AccountSettings</find>
-      <find>checkbox-radios</find>
-      <find>Units of measurement</find>
-      <find>Reach out</find>
-      <find>Row</find>
-      <find>Address Lin</find>
-      <find>organisa</find>
-      <find>Organisa</find>
-      <find>options</find>
-      <find>active_stripe_customer</find>
-      <find>isNew</find>
-      <find>country</find>
-      <find>RU</find>
-      <find>customStyles</find>
-      <find>Select</find>
-      <find>Fon</find>
-      <find>Tooltip</find>
-      <find>UncontrolledTooltip</find>
-      <find>cust</find>
-      <find>eslint</find>
-      <find>Map</find>
+      <find>subscribe</find>
+      <find>unsubscribe</find>
+      <find>isSubscriptionAvailableAPI</find>
+      <find>getCountries</find>
+      <find>/login</find>
+      <find>sign</find>
+      <find>LOGOUT_REQUEST</find>
+      <find>de</find>
+      <find>campaign_id</find>
+      <find>REACT_APP_COOKIE_DOMAIN</find>
+      <find>loader</find>
+      <find>ch</find>
+      <find>isFetching</find>
+      <find>legend</find>
+      <find>chartoptions</find>
+      <find>12,100K</find>
+      <find>setInfo</find>
+      <find>gradientStroke</find>
+      <find>gradien</find>
+      <find>gradient</find>
+      <find>radius</find>
+      <find>tooltip</find>
+      <find>tool</find>
+      <find>signInApi</find>
+      <find>chart</find>
+      <find>gridLines</find>
+      <find>setCookie</find>
+      <find>jwt</find>
+      <find>parseJwt</find>
+      <find>signou</find>
     </findStrings>
+    <replaceStrings>
+      <replace>sm=&quot;7&quot;</replace>
+      <replace>axios</replace>
+      <replace>axiosInstance</replace>
+      <replace>$card-color</replace>
+      <replace>#coverage</replace>
+      <replace>soil_update</replace>
+    </replaceStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$</dir>
+      <dir>$PROJECT_DIR$/src/assets/scss</dir>
     </dirStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="mark_branch_linter" />
+        <entry key="$PROJECT_DIR$" value="master" />
       </map>
     </option>
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/views/agro-components/subscription-form/SubscriptionForm.js" />
-        <option value="$PROJECT_DIR$/src/views/personal-account/subscription-form/SubscriptionForm.js" />
-        <option value="$PROJECT_DIR$/src/views/agro-components/SatelliteImagesList.js" />
-        <option value="$PROJECT_DIR$/src/layouts/Auth/Auth.js" />
-        <option value="$PROJECT_DIR$/src/views/maps/MapBoxDraw.js" />
-        <option value="$PROJECT_DIR$/src/views/personal-account/SubscriptionPop2.js" />
-        <option value="$APPLICATION_CONFIG_DIR$/scratches/scratch_2.js" />
-        <option value="$PROJECT_DIR$/src/views/personal-account/APIKeysDelete.js" />
-        <option value="$PROJECT_DIR$/src/views/personal-account/SubscriptionPop.js" />
-        <option value="$PROJECT_DIR$/src/views/personal-account/subscription-form/Step1.js" />
-        <option value="$PROJECT_DIR$/src/views/personal-account/subscription-form/Step2.js" />
-        <option value="$PROJECT_DIR$/src/components/Navbars/AdminNavbar.js" />
-        <option value="$PROJECT_DIR$/src/components/Navbars/AccountNavbar.js" />
-        <option value="$PROJECT_DIR$/src/layouts/Account/Account.js" />
-        <option value="$PROJECT_DIR$/src/App.js" />
-        <option value="$PROJECT_DIR$/src/views/pages/Login.js" />
-        <option value="$PROJECT_DIR$/src/components/Sidebar/Sidebar2.js" />
-        <option value="$PROJECT_DIR$/src/views/personal-account/Subscription.js" />
-        <option value="$PROJECT_DIR$/src/views/personal-account/BillingPlans.js" />
-        <option value="$PROJECT_DIR$/src/layouts/Admin/Admin.js" />
         <option value="$PROJECT_DIR$/package.json" />
-        <option value="$PROJECT_DIR$/src/views/personal-account/APIKeyEdit.js" />
-        <option value="$PROJECT_DIR$/src/utils/cookies.js" />
-        <option value="$PROJECT_DIR$/src/features/auth/actions.js" />
-        <option value="$PROJECT_DIR$/src/views/charts/index.js" />
-        <option value="$PROJECT_DIR$/src/views/maps/utils.js" />
-        <option value="$PROJECT_DIR$/src/views/maps/clusters.js" />
-        <option value="$PROJECT_DIR$/src/views/maps/base.js" />
-        <option value="$PROJECT_DIR$/src/views/maps/crops.js" />
-        <option value="$PROJECT_DIR$/src/views/maps/polygons.js" />
-        <option value="$PROJECT_DIR$/.eslintrc" />
-        <option value="$PROJECT_DIR$/src/features/auth/reducer.js" />
-        <option value="$PROJECT_DIR$/src/components/CustomUpload/ImageUpload.js" />
-        <option value="$PROJECT_DIR$/src/views/small-cards/PolygonCreateCard.js" />
-        <option value="$PROJECT_DIR$/src/services/api/personalAccountAPI.js" />
-        <option value="$PROJECT_DIR$/src/services/api/index.js" />
-        <option value="$PROJECT_DIR$/src/views/personal-account/AccountSettings2.js" />
-        <option value="$PROJECT_DIR$/src/views/personal-account/DeleteAccount.js" />
-        <option value="$PROJECT_DIR$/src/views/agro-components/UnitsRadioButtons.js" />
-        <option value="$PROJECT_DIR$/src/views/personal-account/PrivacySettings.js" />
-        <option value="$PROJECT_DIR$/src/views/charts/ui/TabsSelector.js" />
-        <option value="$PROJECT_DIR$/src/views/personal-account/UserPassword.js" />
-        <option value="$PROJECT_DIR$/src/views/personal-account/UserSettings.js" />
-        <option value="$PROJECT_DIR$/src/views/personal-account/InvoiceInfo.js" />
-        <option value="$PROJECT_DIR$/src/views/personal-account/Payments.js" />
-        <option value="$PROJECT_DIR$/src/views/personal-account/AccountSettings.js" />
-        <option value="$PROJECT_DIR$/src/views/personal-account/ApiKeys.js" />
-        <option value="$PROJECT_DIR$/src/views/personal-account/ExportPolygons.js" />
-        <option value="$PROJECT_DIR$/src/services/base.js" />
-        <option value="$PROJECT_DIR$/src/assets/scss/agro-styles.scss" />
+        <option value="$PROJECT_DIR$/src/views/auth/Login.js" />
+        <option value="$PROJECT_DIR$/src/ErrorBoundary.js" />
+        <option value="$PROJECT_DIR$/src/api/polygon.js" />
+        <option value="$PROJECT_DIR$/src/features/polygons/actions.js" />
+        <option value="$PROJECT_DIR$/src/config.js" />
+        <option value="$PROJECT_DIR$/src/api/billing.js" />
+        <option value="$PROJECT_DIR$/src/views/personal-account/settings/BillingInformation.js" />
+        <option value="$PROJECT_DIR$/src/views/personal-account/subscription/UnsubscribeAlert.js" />
+        <option value="$PROJECT_DIR$/src/api/otherApi.js" />
+        <option value="$PROJECT_DIR$/src/api/index.js" />
         <option value="$PROJECT_DIR$/src/routes.js" />
+        <option value="$PROJECT_DIR$/src/views/auth/Registration.js" />
+        <option value="$PROJECT_DIR$/src/api/apiWeather.js" />
+        <option value="$PROJECT_DIR$/src/api/apiPolygons.js" />
+        <option value="$PROJECT_DIR$/src/api/apiOther.js" />
+        <option value="$PROJECT_DIR$/src/api/apiCharts.js" />
+        <option value="$PROJECT_DIR$/src/api/apiAccount.js" />
+        <option value="$PROJECT_DIR$/src/api/auth.js" />
+        <option value="$PROJECT_DIR$/.env.development" />
+        <option value="$PROJECT_DIR$/.env.production" />
+        <option value="$PROJECT_DIR$/public/manifest.json" />
+        <option value="$PROJECT_DIR$/src/App.js" />
+        <option value="$PROJECT_DIR$/src/views/charts/base.js" />
+        <option value="$PROJECT_DIR$/src/views/Dashboard.js" />
+        <option value="$PROJECT_DIR$/src/views/charts/HistoricalSoilChart.js" />
+        <option value="$PROJECT_DIR$/src/views/charts/AccumulatedChart.js" />
+        <option value="$PROJECT_DIR$/src/views/charts/HourlyChart.js" />
+        <option value="$PROJECT_DIR$/src/utils/charts.js" />
+        <option value="$PROJECT_DIR$/src/views/charts/DailyChart.js" />
+        <option value="$PROJECT_DIR$/src/views/components/CropMapChart.js" />
+        <option value="$PROJECT_DIR$/src/views/components/CropMapInfo.js" />
+        <option value="$PROJECT_DIR$/src/views/components/CropMapCard.js" />
+        <option value="$PROJECT_DIR$/src/views/cropmap/YearsSelector.js" />
+        <option value="$PROJECT_DIR$/src/views/CropMap.js" />
+        <option value="$PROJECT_DIR$/src/views/cropmap/YearSelector.js" />
+        <option value="$PROJECT_DIR$/src/assets/scss/agro-styles.scss" />
+        <option value="$PROJECT_DIR$/public/index.html" />
+        <option value="$PROJECT_DIR$/src/views/cropmap/FieldInfo.js" />
+        <option value="$PROJECT_DIR$/src/views/cropmap/CropMapCard.js" />
+        <option value="$PROJECT_DIR$/src/views/cropmap/NDVIChart.js" />
+        <option value="$PROJECT_DIR$/src/utils/cookies.js" />
+        <option value="$PROJECT_DIR$/src/features/auth/utils.js" />
+        <option value="$PROJECT_DIR$/src/utils/user.js" />
+        <option value="$PROJECT_DIR$/src/utils/newFile.js" />
+        <option value="$PROJECT_DIR$/src/features/auth/actions.js" />
+        <option value="$PROJECT_DIR$/src/api/axiosClient.js" />
+        <option value="$PROJECT_DIR$/src/features/auth/reducer.js" />
+        <option value="$PROJECT_DIR$/src/utils/userUtils.js" />
+        <option value="$PROJECT_DIR$/src/utils/advertising.js" />
+        <option value="$PROJECT_DIR$/src/layouts/Admin/Admin.js" />
       </list>
     </option>
   </component>
@@ -335,10 +213,10 @@
   <component name="NodeModulesDirectoryManager">
     <handled-path value="$PROJECT_DIR$/node_modules" />
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="y" value="23" />
-    <option name="width" value="1280" />
-    <option name="height" value="694" />
+  <component name="ProjectFrameBounds">
+    <option name="y" value="25" />
+    <option name="width" value="1206" />
+    <option name="height" value="1147" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -386,39 +264,24 @@
             <path>
               <item name="agro-dashboard" type="b2602c69:ProjectViewProjectNode" />
               <item name="agro-dashboard" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="agro-dashboard" type="b2602c69:ProjectViewProjectNode" />
+              <item name="agro-dashboard" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="agro-dashboard" type="b2602c69:ProjectViewProjectNode" />
               <item name="agro-dashboard" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
+              <item name="features" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="agro-dashboard" type="b2602c69:ProjectViewProjectNode" />
               <item name="agro-dashboard" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="layouts" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="agro-dashboard" type="b2602c69:ProjectViewProjectNode" />
-              <item name="agro-dashboard" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="layouts" type="462c0819:PsiDirectoryNode" />
-              <item name="Admin" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="agro-dashboard" type="b2602c69:ProjectViewProjectNode" />
-              <item name="agro-dashboard" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="agro-dashboard" type="b2602c69:ProjectViewProjectNode" />
-              <item name="agro-dashboard" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="maps" type="462c0819:PsiDirectoryNode" />
+              <item name="utils" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -428,24 +291,31 @@
   </component>
   <component name="PropertiesComponent">
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
-    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.selected.package.eslint" value="$PROJECT_DIR$/node_modules/eslint" />
     <property name="com.intellij.ide.scratch.LRUPopupBuilder$2/Languages" value="JavaScript" />
+    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
+    <property name="node.js.path.for.package.standard" value="project" />
+    <property name="node.js.detected.package.standard" value="true" />
+    <property name="node.js.selected.package.standard" value="/usr/local/lib/node_modules/standard" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/components/Navbars" />
+      <recent name="$PROJECT_DIR$/src/api" />
+      <recent name="$PROJECT_DIR$/src/views/personal-account/subscription" />
       <recent name="$PROJECT_DIR$/src/views/personal-account" />
+      <recent name="$PROJECT_DIR$/src/views/maps" />
+      <recent name="$PROJECT_DIR$/src/components/Navbars" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/views/personal-account" />
-      <recent name="$PROJECT_DIR$/src/views/dashboard/ui" />
-      <recent name="$PROJECT_DIR$/src/views/ui" />
-      <recent name="$PROJECT_DIR$/src/views/template-views" />
-      <recent name="$PROJECT_DIR$/src/views/dashboard" />
+      <recent name="$PROJECT_DIR$/src/views/cropmap" />
+      <recent name="$PROJECT_DIR$/src/views/personal-account/subscription/popup" />
+      <recent name="$PROJECT_DIR$/src/views/personal-account/subscription" />
+      <recent name="$PROJECT_DIR$/src/views/personal-account/settings" />
+      <recent name="$PROJECT_DIR$/src/_template" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -474,203 +344,412 @@
       <option name="presentableId" value="Default" />
       <updated>1632147999075</updated>
     </task>
-    <task id="LOCAL-00001" summary="Readme file">
-      <created>1632148154222</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
+    <task id="LOCAL-00039" summary="Bug fixes">
+      <created>1634050173474</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
       <option name="project" value="LOCAL" />
-      <updated>1632148154222</updated>
+      <updated>1634050173474</updated>
     </task>
-    <task id="LOCAL-00002" summary="Cancel token fix">
-      <created>1632208065420</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
+    <task id="LOCAL-00040" summary="Subscription fix">
+      <created>1634050651067</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
       <option name="project" value="LOCAL" />
-      <updated>1632208065420</updated>
+      <updated>1634050651067</updated>
     </task>
-    <task id="LOCAL-00003" summary="API key">
-      <created>1632209801075</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
+    <task id="LOCAL-00041" summary="Subscription">
+      <created>1634050840824</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
       <option name="project" value="LOCAL" />
-      <updated>1632209801076</updated>
+      <updated>1634050840824</updated>
     </task>
-    <task id="LOCAL-00004" summary="API key">
-      <created>1632212848991</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
+    <task id="LOCAL-00042" summary="Bug fixing">
+      <created>1634109018882</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
       <option name="project" value="LOCAL" />
-      <updated>1632212848997</updated>
+      <updated>1634109018882</updated>
     </task>
-    <task id="LOCAL-00005" summary="Fixes">
-      <created>1632293078615</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
+    <task id="LOCAL-00043" summary="AgroDashboard bug fixing">
+      <created>1634136847714</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
       <option name="project" value="LOCAL" />
-      <updated>1632293078616</updated>
+      <updated>1634136847714</updated>
     </task>
-    <task id="LOCAL-00006" summary="fixes">
-      <created>1632316359091</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
+    <task id="LOCAL-00044" summary="format">
+      <created>1634138734845</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
       <option name="project" value="LOCAL" />
-      <updated>1632316359091</updated>
+      <updated>1634138734850</updated>
     </task>
-    <task id="LOCAL-00007" summary="API key section">
-      <created>1632317638966</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
+    <task id="LOCAL-00045" summary="Crop Map back-end">
+      <created>1634161024286</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
       <option name="project" value="LOCAL" />
-      <updated>1632317638966</updated>
+      <updated>1634161024286</updated>
     </task>
-    <task id="LOCAL-00008" summary="AccountSettings, Payments">
-      <created>1632470182257</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
+    <task id="LOCAL-00046" summary="Fixes">
+      <created>1634199207149</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
       <option name="project" value="LOCAL" />
-      <updated>1632470182257</updated>
+      <updated>1634199207149</updated>
     </task>
-    <task id="LOCAL-00009" summary="Account settings page checkboxes">
-      <created>1632484657387</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
+    <task id="LOCAL-00047" summary="Polygons fix">
+      <created>1634201977232</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
       <option name="project" value="LOCAL" />
-      <updated>1632484657388</updated>
+      <updated>1634201977232</updated>
     </task>
-    <task id="LOCAL-00010" summary="Account Settings">
-      <created>1632729554254</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
+    <task id="LOCAL-00048" summary="Release 2.0">
+      <created>1634203935381</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
       <option name="project" value="LOCAL" />
-      <updated>1632729554254</updated>
+      <updated>1634203935384</updated>
     </task>
-    <task id="LOCAL-00011" summary="Account Settings">
-      <created>1632738919074</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
+    <task id="LOCAL-00049" summary="Sign up, Lost password">
+      <created>1634661925683</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
       <option name="project" value="LOCAL" />
-      <updated>1632738919074</updated>
+      <updated>1634661925683</updated>
     </task>
-    <task id="LOCAL-00012" summary="Account Settings">
-      <created>1632749373423</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
+    <task id="LOCAL-00050" summary="Top menu, notification">
+      <created>1634744366952</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
       <option name="project" value="LOCAL" />
-      <updated>1632749373424</updated>
+      <updated>1634744366954</updated>
     </task>
-    <task id="LOCAL-00013" summary="Account Settings">
-      <created>1632816310385</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
+    <task id="LOCAL-00051" summary="Release 2.1 back methods">
+      <created>1635153860215</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
       <option name="project" value="LOCAL" />
-      <updated>1632816310390</updated>
+      <updated>1635153860227</updated>
     </task>
-    <task id="LOCAL-00014" summary="Account Settings">
-      <created>1632842143611</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
+    <task id="LOCAL-00052" summary="Release 2.1 style fixes">
+      <created>1635231064733</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
       <option name="project" value="LOCAL" />
-      <updated>1632842143612</updated>
+      <updated>1635231064733</updated>
     </task>
-    <task id="LOCAL-00015" summary="Account Settings">
-      <created>1632902611711</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
+    <task id="LOCAL-00053" summary="Release 2.1">
+      <created>1635323114974</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
       <option name="project" value="LOCAL" />
-      <updated>1632902611711</updated>
+      <updated>1635323114975</updated>
     </task>
-    <task id="LOCAL-00016" summary="Subscription form">
-      <created>1632989113095</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
+    <task id="LOCAL-00054" summary="Release 2.1">
+      <created>1635324039416</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
       <option name="project" value="LOCAL" />
-      <updated>1632989113096</updated>
+      <updated>1635324039418</updated>
     </task>
-    <task id="LOCAL-00017" summary="Linter">
-      <created>1633010847602</created>
-      <option name="number" value="00017" />
-      <option name="presentableId" value="LOCAL-00017" />
+    <task id="LOCAL-00055" summary="Release 2.1: stripe, subscribe, unsubscribe">
+      <created>1635422476542</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
       <option name="project" value="LOCAL" />
-      <updated>1633010847602</updated>
+      <updated>1635422476554</updated>
     </task>
-    <task id="LOCAL-00018" summary="Export polygon">
-      <created>1633075084138</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL-00018" />
+    <task id="LOCAL-00056" summary="terser version">
+      <created>1635425284628</created>
+      <option name="number" value="00056" />
+      <option name="presentableId" value="LOCAL-00056" />
       <option name="project" value="LOCAL" />
-      <updated>1633075084138</updated>
+      <updated>1635425284628</updated>
     </task>
-    <task id="LOCAL-00019" summary="Account Settings">
-      <created>1633083165713</created>
-      <option name="number" value="00019" />
-      <option name="presentableId" value="LOCAL-00019" />
+    <task id="LOCAL-00057" summary="terser removed">
+      <created>1635433321583</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
       <option name="project" value="LOCAL" />
-      <updated>1633083165713</updated>
+      <updated>1635433321584</updated>
     </task>
-    <task id="LOCAL-00020" summary="Linting">
-      <created>1633086910019</created>
-      <option name="number" value="00020" />
-      <option name="presentableId" value="LOCAL-00020" />
+    <task id="LOCAL-00058" summary="Success / failure pages">
+      <created>1635435086232</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
       <option name="project" value="LOCAL" />
-      <updated>1633086910019</updated>
+      <updated>1635435086233</updated>
     </task>
-    <task id="LOCAL-00021" summary="linting">
-      <created>1633092340445</created>
-      <option name="number" value="00021" />
-      <option name="presentableId" value="LOCAL-00021" />
+    <task id="LOCAL-00059" summary="Success / Failure pages">
+      <created>1635435161638</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
       <option name="project" value="LOCAL" />
-      <updated>1633092340445</updated>
+      <updated>1635435161638</updated>
     </task>
-    <task id="LOCAL-00022" summary="Export polygons">
-      <created>1633094206197</created>
-      <option name="number" value="00022" />
-      <option name="presentableId" value="LOCAL-00022" />
+    <task id="LOCAL-00060" summary="Crop Map link, recaptcha test">
+      <created>1635443269339</created>
+      <option name="number" value="00060" />
+      <option name="presentableId" value="LOCAL-00060" />
       <option name="project" value="LOCAL" />
-      <updated>1633094206201</updated>
+      <updated>1635443269340</updated>
     </task>
-    <task id="LOCAL-00023" summary="Linting">
-      <created>1633096921288</created>
-      <option name="number" value="00023" />
-      <option name="presentableId" value="LOCAL-00023" />
+    <task id="LOCAL-00061" summary="terser version">
+      <created>1635443614281</created>
+      <option name="number" value="00061" />
+      <option name="presentableId" value="LOCAL-00061" />
       <option name="project" value="LOCAL" />
-      <updated>1633096921288</updated>
+      <updated>1635443614287</updated>
     </task>
-    <task id="LOCAL-00024" summary="Eslint + prettifier">
-      <created>1633097782760</created>
-      <option name="number" value="00024" />
-      <option name="presentableId" value="LOCAL-00024" />
+    <task id="LOCAL-00062" summary="Unsubscribe, Subscription">
+      <created>1635453726425</created>
+      <option name="number" value="00062" />
+      <option name="presentableId" value="LOCAL-00062" />
       <option name="project" value="LOCAL" />
-      <updated>1633097782760</updated>
+      <updated>1635453726426</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00063" summary="Sign up, captha validation, package.json fix">
+      <created>1635676462988</created>
+      <option name="number" value="00063" />
+      <option name="presentableId" value="LOCAL-00063" />
+      <option name="project" value="LOCAL" />
+      <updated>1635676462990</updated>
+    </task>
+    <task id="LOCAL-00064" summary="Change, Forgot Passwords, Billing, Subscription fixes">
+      <created>1635721029874</created>
+      <option name="number" value="00064" />
+      <option name="presentableId" value="LOCAL-00064" />
+      <option name="project" value="LOCAL" />
+      <updated>1635721029874</updated>
+    </task>
+    <task id="LOCAL-00065" summary="Sign up redirect and loader">
+      <created>1635758325681</created>
+      <option name="number" value="00065" />
+      <option name="presentableId" value="LOCAL-00065" />
+      <option name="project" value="LOCAL" />
+      <updated>1635758325690</updated>
+    </task>
+    <task id="LOCAL-00066" summary="Subscription, billing, confirmation page mock up, login with sign up, footer fix">
+      <created>1635873268175</created>
+      <option name="number" value="00066" />
+      <option name="presentableId" value="LOCAL-00066" />
+      <option name="project" value="LOCAL" />
+      <updated>1635873268188</updated>
+    </task>
+    <task id="LOCAL-00067" summary="Confirm email fix">
+      <created>1635873344089</created>
+      <option name="number" value="00067" />
+      <option name="presentableId" value="LOCAL-00067" />
+      <option name="project" value="LOCAL" />
+      <updated>1635873344089</updated>
+    </task>
+    <task id="LOCAL-00068" summary="Subscription">
+      <created>1635930954364</created>
+      <option name="number" value="00068" />
+      <option name="presentableId" value="LOCAL-00068" />
+      <option name="project" value="LOCAL" />
+      <updated>1635930954372</updated>
+    </task>
+    <task id="LOCAL-00069" summary="Confirm email window &amp; method">
+      <created>1635958185115</created>
+      <option name="number" value="00069" />
+      <option name="presentableId" value="LOCAL-00069" />
+      <option name="project" value="LOCAL" />
+      <updated>1635958185124</updated>
+    </task>
+    <task id="LOCAL-00070" summary="Advertising: saving a cookie, sending it along with sign up">
+      <created>1635961534559</created>
+      <option name="number" value="00070" />
+      <option name="presentableId" value="LOCAL-00070" />
+      <option name="project" value="LOCAL" />
+      <updated>1635961534559</updated>
+    </task>
+    <task id="LOCAL-00071" summary="Subscribe / unsubscribe pop ups, success / failure pages">
+      <created>1636016232363</created>
+      <option name="number" value="00071" />
+      <option name="presentableId" value="LOCAL-00071" />
+      <option name="project" value="LOCAL" />
+      <updated>1636016232363</updated>
+    </task>
+    <task id="LOCAL-00072" summary="Unsubscribe pop ups logic">
+      <created>1636027479954</created>
+      <option name="number" value="00072" />
+      <option name="presentableId" value="LOCAL-00072" />
+      <option name="project" value="LOCAL" />
+      <updated>1636027479954</updated>
+    </task>
+    <task id="LOCAL-00073" summary="Subscribe loader, success page redirect">
+      <created>1636029607025</created>
+      <option name="number" value="00073" />
+      <option name="presentableId" value="LOCAL-00073" />
+      <option name="project" value="LOCAL" />
+      <updated>1636029607026</updated>
+    </task>
+    <task id="LOCAL-00074" summary="Subscription, billing">
+      <created>1636049837174</created>
+      <option name="number" value="00074" />
+      <option name="presentableId" value="LOCAL-00074" />
+      <option name="project" value="LOCAL" />
+      <updated>1636049837175</updated>
+    </task>
+    <task id="LOCAL-00075" summary="api endpoint">
+      <created>1636051286546</created>
+      <option name="number" value="00075" />
+      <option name="presentableId" value="LOCAL-00075" />
+      <option name="project" value="LOCAL" />
+      <updated>1636051286547</updated>
+    </task>
+    <task id="LOCAL-00076" summary="Title fix, VAT disable, Subscription corp layout fixed">
+      <created>1636560091145</created>
+      <option name="number" value="00076" />
+      <option name="presentableId" value="LOCAL-00076" />
+      <option name="project" value="LOCAL" />
+      <updated>1636560091154</updated>
+    </task>
+    <task id="LOCAL-00077" summary="Billing page flag fixed">
+      <created>1636560171514</created>
+      <option name="number" value="00077" />
+      <option name="presentableId" value="LOCAL-00077" />
+      <option name="project" value="LOCAL" />
+      <updated>1636560171514</updated>
+    </task>
+    <task id="LOCAL-00078" summary="Destroy state on logout">
+      <created>1636560890757</created>
+      <option name="number" value="00078" />
+      <option name="presentableId" value="LOCAL-00078" />
+      <option name="project" value="LOCAL" />
+      <updated>1636560890757</updated>
+    </task>
+    <task id="LOCAL-00079" summary="Subscription layout corp, limits api service update fix">
+      <created>1636564662229</created>
+      <option name="number" value="00079" />
+      <option name="presentableId" value="LOCAL-00079" />
+      <option name="project" value="LOCAL" />
+      <updated>1636564662229</updated>
+    </task>
+    <task id="LOCAL-00080" summary="Campaign cookies for subdomains, environment config test">
+      <created>1636637581997</created>
+      <option name="number" value="00080" />
+      <option name="presentableId" value="LOCAL-00080" />
+      <option name="project" value="LOCAL" />
+      <updated>1636637582000</updated>
+    </task>
+    <task id="LOCAL-00081" summary="Cookies fix, delete confirmation error message fix">
+      <created>1636649337137</created>
+      <option name="number" value="00081" />
+      <option name="presentableId" value="LOCAL-00081" />
+      <option name="project" value="LOCAL" />
+      <updated>1636649337138</updated>
+    </task>
+    <task id="LOCAL-00082" summary="Release 2.1 bug fixing">
+      <created>1637074324240</created>
+      <option name="number" value="00082" />
+      <option name="presentableId" value="LOCAL-00082" />
+      <option name="project" value="LOCAL" />
+      <updated>1637074324241</updated>
+    </task>
+    <task id="LOCAL-00083" summary="Fixed token cookie">
+      <created>1637076452969</created>
+      <option name="number" value="00083" />
+      <option name="presentableId" value="LOCAL-00083" />
+      <option name="project" value="LOCAL" />
+      <updated>1637076452969</updated>
+    </task>
+    <task id="LOCAL-00084" summary="Crop Map NDVI chart&#10;Gradient in a separate function">
+      <created>1639299440881</created>
+      <option name="number" value="00084" />
+      <option name="presentableId" value="LOCAL-00084" />
+      <option name="project" value="LOCAL" />
+      <updated>1639299440881</updated>
+    </task>
+    <task id="LOCAL-00085" summary="yml file fix">
+      <created>1639377852748</created>
+      <option name="number" value="00085" />
+      <option name="presentableId" value="LOCAL-00085" />
+      <option name="project" value="LOCAL" />
+      <updated>1639377852751</updated>
+    </task>
+    <task id="LOCAL-00086" summary="advertising file http">
+      <created>1639378962952</created>
+      <option name="number" value="00086" />
+      <option name="presentableId" value="LOCAL-00086" />
+      <option name="project" value="LOCAL" />
+      <updated>1639378962952</updated>
+    </task>
+    <task id="LOCAL-00087" summary="crop map chart amendments">
+      <created>1639388093966</created>
+      <option name="number" value="00087" />
+      <option name="presentableId" value="LOCAL-00087" />
+      <option name="project" value="LOCAL" />
+      <updated>1639388093966</updated>
+    </task>
+    <option name="localTasksCounter" value="88" />
     <servers />
   </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1280" height="694" extended-state="6" />
+    <frame x="0" y="25" width="1206" height="1147" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3288719" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32888147" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.43881452" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Mongo Explorer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33722872" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18578352" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.36711282" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.29295534" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.28489482" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="SciView" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="TypeScript" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.37228715" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
+    <layout-to-restore>
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3288719" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.43881452" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Mongo Explorer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.36711282" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="TypeScript" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.29295534" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.28489482" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="SciView" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+    </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
@@ -679,398 +758,433 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Readme file" />
-    <MESSAGE value="Cancel token fix" />
-    <MESSAGE value="API key" />
-    <MESSAGE value="Fixes" />
-    <MESSAGE value="fixes" />
-    <MESSAGE value="API key section" />
-    <MESSAGE value="AccountSettings, Payments" />
-    <MESSAGE value="Account settings page checkboxes" />
-    <MESSAGE value="Subscription form" />
-    <MESSAGE value="Linter" />
-    <MESSAGE value="Export polygon" />
-    <MESSAGE value="Account Settings" />
-    <MESSAGE value="linting" />
-    <MESSAGE value="Export polygons" />
-    <MESSAGE value="Linting" />
-    <MESSAGE value="Eslint + prettifier" />
-    <option name="LAST_COMMIT_MESSAGE" value="Eslint + prettifier" />
+    <MESSAGE value="Sign up, captha validation, package.json fix" />
+    <MESSAGE value="Change, Forgot Passwords, Billing, Subscription fixes" />
+    <MESSAGE value="Sign up redirect and loader" />
+    <MESSAGE value="Subscription, billing, confirmation page mock up, login with sign up, footer fix" />
+    <MESSAGE value="Confirm email fix" />
+    <MESSAGE value="Subscription" />
+    <MESSAGE value="Confirm email window &amp; method" />
+    <MESSAGE value="Advertising: saving a cookie, sending it along with sign up" />
+    <MESSAGE value="Subscribe / unsubscribe pop ups, success / failure pages" />
+    <MESSAGE value="Unsubscribe pop ups logic" />
+    <MESSAGE value="Subscribe loader, success page redirect" />
+    <MESSAGE value="Subscription, billing" />
+    <MESSAGE value="api endpoint" />
+    <MESSAGE value="Title fix, VAT disable, Subscription corp layout fixed" />
+    <MESSAGE value="Billing page flag fixed" />
+    <MESSAGE value="Destroy state on logout" />
+    <MESSAGE value="Subscription layout corp, limits api service update fix" />
+    <MESSAGE value="Campaign cookies for subdomains, environment config test" />
+    <MESSAGE value="Cookies fix, delete confirmation error message fix" />
+    <MESSAGE value="Release 2.1 bug fixing" />
+    <MESSAGE value="Fixed token cookie" />
+    <MESSAGE value="Crop Map NDVI chart&#10;Gradient in a separate function" />
+    <MESSAGE value="yml file fix" />
+    <MESSAGE value="advertising file http" />
+    <MESSAGE value="crop map chart amendments" />
+    <option name="LAST_COMMIT_MESSAGE" value="crop map chart amendments" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="12" />
+      <option name="time" value="9" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/layouts/Account/Account.js" />
-    <entry file="file://$PROJECT_DIR$/src/App.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="49" column="0" lean-forward="false" selection-start-line="49" selection-start-column="0" selection-end-line="49" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/utils/utils.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="14" column="28" lean-forward="true" selection-start-line="14" selection-start-column="28" selection-end-line="14" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/Sidebar/Sidebar2.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="232" column="3" lean-forward="false" selection-start-line="232" selection-start-column="3" selection-end-line="232" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/views/personal-account/Subscription.js">
+    <entry file="file://$PROJECT_DIR$/src/api/apiCharts.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
-          <caret line="0" column="4" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/views/personal-account/BillingPlans.js">
+    <entry file="file://$PROJECT_DIR$/public/manifest.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" column="5" lean-forward="true" selection-start-line="4" selection-start-column="5" selection-end-line="4" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.env.production">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/views/charts/NdviChart.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1140">
+          <caret line="87" column="17" lean-forward="false" selection-start-line="87" selection-start-column="16" selection-end-line="87" selection-end-column="17" />
+          <folding>
+            <element signature="e#0#50#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/favicon_old.png" />
+    <entry file="file://$PROJECT_DIR$/public/apple-icon-old.png" />
+    <entry file="file://$PROJECT_DIR$/public/favicon.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/views/dashboard/SatelliteImagePlaceholder.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="10" column="19" lean-forward="false" selection-start-line="10" selection-start-column="19" selection-end-line="10" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/apple-icon.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/views/charts/CombinedChart.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1815">
+          <caret line="150" column="19" lean-forward="false" selection-start-line="150" selection-start-column="19" selection-end-line="150" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/views/components/LoaderDots.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="6" column="39" lean-forward="false" selection-start-line="6" selection-start-column="39" selection-end-line="6" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/views/charts/ui/ChartContainer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="13" lean-forward="false" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/views/charts/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
-          <caret line="0" column="20" lean-forward="false" selection-start-line="0" selection-start-column="20" selection-end-line="0" selection-end-column="20" />
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch_2.js">
+    <entry file="file://$PROJECT_DIR$/src/views/charts/utils.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="264">
-          <caret line="53" column="25" lean-forward="false" selection-start-line="53" selection-start-column="21" selection-end-line="53" selection-end-column="25" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/views/charts/base.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="267">
+          <caret line="44" column="19" lean-forward="true" selection-start-line="44" selection-start-column="19" selection-end-line="44" selection-end-column="19" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/views/Dashboard.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="0" lean-forward="true" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
+        <state relative-caret-position="300">
+          <caret line="20" column="23" lean-forward="false" selection-start-line="20" selection-start-column="23" selection-end-line="20" selection-end-column="23" />
+          <folding>
+            <element signature="e#0#50#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/views/personal-account/AccountSettings.js">
+    <entry file="file://$PROJECT_DIR$/src/_template/views/Charts.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-558">
-          <caret line="24" column="0" lean-forward="false" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+        <state relative-caret-position="340">
+          <caret line="61" column="23" lean-forward="false" selection-start-line="61" selection-start-column="23" selection-end-line="61" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/_template/views/Dashboard.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="416">
+          <caret line="305" column="41" lean-forward="false" selection-start-line="305" selection-start-column="41" selection-end-line="305" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/views/charts/HourlyChart.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="71">
+          <caret line="204" column="9" lean-forward="true" selection-start-line="204" selection-start-column="9" selection-end-line="204" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/utils/charts.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="89">
+          <caret line="21" column="19" lean-forward="true" selection-start-line="21" selection-start-column="19" selection-end-line="21" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/views/charts/DailyChart.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3">
+          <caret line="160" column="13" lean-forward="true" selection-start-line="160" selection-start-column="13" selection-end-line="160" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/views/charts/AccumulatedChart.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="506">
+          <caret line="158" column="21" lean-forward="true" selection-start-line="158" selection-start-column="21" selection-end-line="158" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/_template/variables/charts.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2745">
+          <caret line="198" column="31" lean-forward="false" selection-start-line="198" selection-start-column="10" selection-end-line="198" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/views/charts/HistoricalSoilChart.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1425">
+          <caret line="107" column="3" lean-forward="false" selection-start-line="107" selection-start-column="3" selection-end-line="107" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/config.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="630">
+          <caret line="42" column="13" lean-forward="false" selection-start-line="42" selection-start-column="13" selection-end-line="42" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/views/maps/crops.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3555">
+          <caret line="238" column="17" lean-forward="false" selection-start-line="238" selection-start-column="17" selection-end-line="238" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/views/cropmap/YearSelector.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1575">
+          <caret line="116" column="28" lean-forward="false" selection-start-line="116" selection-start-column="28" selection-end-line="116" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/assets/scss/agro-styles.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="8235">
+          <caret line="549" column="11" lean-forward="false" selection-start-line="549" selection-start-column="11" selection-end-line="549" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="332">
+          <caret line="26" column="12" lean-forward="false" selection-start-line="26" selection-start-column="12" selection-end-line="26" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/views/CropMap.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="52" column="18" lean-forward="false" selection-start-line="52" selection-start-column="8" selection-end-line="52" selection-end-column="18" />
           <folding>
-            <element signature="n#!!doc" expanded="true" />
-            <element signature="e#21#71#0" expanded="true" />
-            <element signature="e#322#363#0" expanded="true" />
+            <element signature="e#0#58#0" expanded="false" />
+            <element signature="e#521#810#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/views/cropmap/FieldInfo.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="18" column="13" lean-forward="false" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
+          <folding>
+            <element signature="e#0#25#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/views/cropmap/CropMapCard.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="30" column="4" lean-forward="false" selection-start-line="30" selection-start-column="4" selection-end-line="30" selection-end-column="4" />
+          <folding>
+            <element signature="e#0#25#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.env.development">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="18" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/routes.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="274">
+          <caret line="159" column="21" lean-forward="false" selection-start-line="159" selection-start-column="16" selection-end-line="159" selection-end-column="21" />
+          <folding>
+            <element signature="e#0#25#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/utils/cookies.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="15" column="5" lean-forward="true" selection-start-line="15" selection-start-column="5" selection-end-line="15" selection-end-column="5" />
+        <state relative-caret-position="360">
+          <caret line="24" column="28" lean-forward="true" selection-start-line="24" selection-start-column="28" selection-end-line="24" selection-end-column="28" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/features/polygons/reducer.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-241">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/store.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="31" lean-forward="false" selection-start-line="4" selection-start-column="31" selection-end-line="4" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/views/maps/clusters.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="15" column="10" lean-forward="false" selection-start-line="15" selection-start-column="4" selection-end-line="15" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/views/maps/crops.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="3" column="17" lean-forward="false" selection-start-line="3" selection-start-column="17" selection-end-line="3" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/features/polygons/actions.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1527">
-          <caret line="102" column="13" lean-forward="false" selection-start-line="102" selection-start-column="13" selection-end-line="102" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/views/maps/base.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-901">
-          <caret line="27" column="24" lean-forward="false" selection-start-line="27" selection-start-column="24" selection-end-line="27" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/views/maps/utils.js">
+    <entry file="file://$PROJECT_DIR$/src/utils/utils.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
-          <caret line="0" column="24" lean-forward="false" selection-start-line="0" selection-start-column="13" selection-end-line="0" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/views/charts/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="0" lean-forward="false" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/reducer.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-119">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#715#1479#0" expanded="false" />
+            <element signature="e#1577#1683#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/features/auth/utils.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="20" column="1" lean-forward="true" selection-start-line="3" selection-start-column="0" selection-end-line="20" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/views/cropmap/NDVIChart.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="16" column="0" lean-forward="true" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#25#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/api/apiOther.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/api/auth.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="16" column="23" lean-forward="false" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="23" />
+          <folding>
+            <element signature="e#0#39#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/views/AuthRoute.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="12" column="13" lean-forward="true" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+          <folding>
+            <element signature="e#0#25#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/App.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="465">
+          <caret line="31" column="20" lean-forward="false" selection-start-line="31" selection-start-column="20" selection-end-line="31" selection-end-column="20" />
+          <folding>
+            <element signature="e#0#40#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/utils/user.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="21" selection-end-column="3" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/features/auth/actions.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="14" column="38" lean-forward="false" selection-start-line="14" selection-start-column="26" selection-end-line="14" selection-end-column="38" />
+        <state relative-caret-position="120">
+          <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+            <element signature="e#21#75#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/api/axiosClient.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="25">
+          <caret line="4" column="55" lean-forward="false" selection-start-line="4" selection-start-column="55" selection-end-line="4" selection-end-column="55" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/features/auth/reducer.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="22" column="15" lean-forward="false" selection-start-line="22" selection-start-column="4" selection-end-line="22" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/views/maps/polygons.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="930">
-          <caret line="62" column="8" lean-forward="false" selection-start-line="62" selection-start-column="8" selection-end-line="62" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/utils/validation.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="0" lean-forward="false" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/views/forms/ExtendedForms.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="19" column="29" lean-forward="false" selection-start-line="19" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/node_modules/react-scripts/lib/react-app.d.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="26" column="15" lean-forward="false" selection-start-line="26" selection-start-column="15" selection-end-line="26" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/CustomUpload/ImageUpload.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="20" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/views/small-cards/PolygonCreateCard.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" column="13" lean-forward="true" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/services/api/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="55" column="59" lean-forward="true" selection-start-line="55" selection-start-column="59" selection-end-line="55" selection-end-column="59" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/services/api/personalAccountAPI.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="121">
-          <caret line="44" column="20" lean-forward="false" selection-start-line="44" selection-start-column="20" selection-end-line="44" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/views/personal-account/DeleteAccount.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="249">
-          <caret line="53" column="31" lean-forward="true" selection-start-line="53" selection-start-column="31" selection-end-line="53" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/assets/scss/black-dashboard-pro-react/custom/_input-group.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="261" column="5" lean-forward="true" selection-start-line="261" selection-start-column="5" selection-end-line="261" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/views/agro-components/UnitsRadioButtons.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="158">
-          <caret line="22" column="17" lean-forward="false" selection-start-line="22" selection-start-column="17" selection-end-line="22" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/views/personal-account/PrivacySettings.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="154">
-          <caret line="103" column="34" lean-forward="false" selection-start-line="103" selection-start-column="34" selection-end-line="103" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/views/charts/ui/TabsSelector.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="16" column="27" lean-forward="true" selection-start-line="16" selection-start-column="27" selection-end-line="16" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/views/personal-account/UserPassword.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="65" column="24" lean-forward="false" selection-start-line="65" selection-start-column="24" selection-end-line="65" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/views/personal-account/UserSettings.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="19" column="6" lean-forward="false" selection-start-line="19" selection-start-column="6" selection-end-line="19" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/config.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="22410">
-          <caret line="1494" column="13" lean-forward="false" selection-start-line="1494" selection-start-column="11" selection-end-line="1494" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/views/personal-account/Payments.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1860">
-          <caret line="124" column="7" lean-forward="false" selection-start-line="124" selection-start-column="7" selection-end-line="124" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/views/personal-account/APIKeyEdit.js">
-      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
-          <caret line="9" column="32" lean-forward="false" selection-start-line="9" selection-start-column="32" selection-end-line="9" selection-end-column="32" />
+          <caret line="9" column="16" lean-forward="true" selection-start-line="9" selection-start-column="16" selection-end-line="9" selection-end-column="16" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/views/personal-account/InvoiceInfo.js">
+    <entry file="file://$PROJECT_DIR$/src/utils/userUtils.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4890">
-          <caret line="356" column="18" lean-forward="false" selection-start-line="356" selection-start-column="18" selection-end-line="356" selection-end-column="18" />
+        <state relative-caret-position="180">
+          <caret line="12" column="15" lean-forward="false" selection-start-line="12" selection-start-column="15" selection-end-line="12" selection-end-column="15" />
           <folding>
-            <element signature="e#0#39#0" expanded="true" />
+            <element signature="e#0#35#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/views/personal-account/AccountSettings.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="570">
-          <caret line="55" column="19" lean-forward="false" selection-start-line="55" selection-start-column="19" selection-end-line="55" selection-end-column="19" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-            <element signature="e#21#71#0" expanded="true" />
-            <element signature="e#322#363#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/views/personal-account/ApiKeys.js">
+    <entry file="file://$PROJECT_DIR$/src/api/apiAccount.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="240">
-          <caret line="41" column="20" lean-forward="false" selection-start-line="41" selection-start-column="20" selection-end-line="41" selection-end-column="20" />
+          <caret line="34" column="20" lean-forward="false" selection-start-line="34" selection-start-column="20" selection-end-line="34" selection-end-column="20" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/views/personal-account/ExportPolygons.js">
+    <entry file="file://$PROJECT_DIR$/src/utils/advertising.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="17" column="8" lean-forward="false" selection-start-line="17" selection-start-column="8" selection-end-line="17" selection-end-column="8" />
-          <folding>
-            <element signature="e#0#50#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1275">
-          <caret line="85" column="11" lean-forward="false" selection-start-line="85" selection-start-column="3" selection-end-line="85" selection-end-column="11" />
+        <state relative-caret-position="45">
+          <caret line="3" column="9" lean-forward="false" selection-start-line="3" selection-start-column="9" selection-end-line="3" selection-end-column="9" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/services/base.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="25" column="29" lean-forward="false" selection-start-line="25" selection-start-column="29" selection-end-line="25" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/views/pages/Login.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="825">
-          <caret line="80" column="34" lean-forward="false" selection-start-line="80" selection-start-column="34" selection-end-line="80" selection-end-column="34" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/assets/scss/agro-styles.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="16" column="22" lean-forward="false" selection-start-line="16" selection-start-column="22" selection-end-line="16" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/views/maps/CropMap.js" />
     <entry file="file://$PROJECT_DIR$/src/layouts/Admin/Admin.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="16" column="44" lean-forward="true" selection-start-line="16" selection-start-column="44" selection-end-line="16" selection-end-column="44" />
+        <state relative-caret-position="319">
+          <caret line="35" column="32" lean-forward="true" selection-start-line="35" selection-start-column="32" selection-end-line="35" selection-end-column="32" />
           <folding>
-            <element signature="e#486#535#0" expanded="true" />
+            <element signature="e#364#425#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/routes.js">
+    <entry file="file://$PROJECT_DIR$/public/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="213">
-          <caret line="16" column="26" lean-forward="false" selection-start-line="16" selection-start-column="26" selection-end-line="16" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.eslintrc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-9">
-          <caret line="13" column="19" lean-forward="false" selection-start-line="13" selection-start-column="19" selection-end-line="13" selection-end-column="19" />
+        <state relative-caret-position="165">
+          <caret line="11" column="28" lean-forward="true" selection-start-line="11" selection-start-column="28" selection-end-line="11" selection-end-column="28" />
           <folding />
         </state>
       </provider>

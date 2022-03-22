@@ -1,36 +1,55 @@
-/* eslint-disable */
-import React, { useState } from 'react'
+import React from 'react'
 
+import classNames from 'classnames'
 import PerfectScrollbar from 'perfect-scrollbar'
 import NotificationAlert from 'react-notification-alert'
-import { Redirect, Route, Switch, useLocation } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import { UncontrolledAlert } from 'reactstrap'
+import { NavLink, Redirect, Route, Switch, useLocation } from 'react-router-dom'
+import { Container } from 'reactstrap'
+
 // core components
+import Footer from '../../_template/components/Footer/Footer'
+import AdminNavbar from '../../_template/components/Navbars/AdminNavbar'
+import Sidebar from '../../_template/components/Sidebar/Sidebar2'
+import { getAPIKeyStatus } from '../../api/apiAccount'
 import logo from '../../assets/img/agro-logo.png'
-import Footer from '../../components/Footer/Footer'
-import AdminNavbar from '../../components/Navbars/AdminNavbar'
-import Sidebar from '../../components/Sidebar/Sidebar2'
-// import FixedPlugin from "components/FixedPlugin/FixedPlugin";
+import ErrorBoundary from '../../ErrorBoundary'
+import { setApiKeyStatus } from '../../features/auth/actions'
+import { fetchPolygons } from '../../features/polygons/actions'
 import routes from '../../routes'
-import { bool } from 'prop-types'
+import EmailConfirmationNotification from '../../views/components/NotificationEmailConfirmation'
 
 let ps
+const isConfirmedEmailSelector = (state) => state.auth.user.confirmed_email
+const polygonsSelector = (state) => state.polygons
 
 const Admin = (props) => {
   const activeColor = 'blue'
   // const [activeColor, setActiveColor] = React.useState("blue");
   // const [sidebarMini, setSidebarMini] = React.useState(true);
   const [opacity, setOpacity] = React.useState(0)
-  const [error, setError] = useState(null)
   const [sidebarOpened, setSidebarOpened] = React.useState(false)
+  const [countCalls, setCountCalls] = React.useState(0)
   const mainPanelRef = React.useRef(null)
   const notificationAlertRef = React.useRef(null)
   const location = useLocation()
   const dispatch = useDispatch()
-  const authSelector = (state) => state.auth
-  const auth = useSelector(authSelector)
-  const isConfirmed = auth.user.confirmed_email
+
+  const isConfirmed = useSelector(isConfirmedEmailSelector)
+  const polygons = useSelector(polygonsSelector)
+
+  const checkAPIKeyStatus = () => {
+    getAPIKeyStatus()
+      .then(() => {
+        dispatch(setApiKeyStatus(true))
+      })
+      .catch((err) => {
+        if (!err.response || err.response.status !== 401) {
+          setTimeout(checkAPIKeyStatus, 20000)
+        }
+        dispatch(setApiKeyStatus(false))
+      })
+  }
 
   React.useEffect(() => {
     document.documentElement.scrollTop = 0
@@ -41,6 +60,8 @@ const Admin = (props) => {
   }, [location])
 
   React.useEffect(() => {
+    checkAPIKeyStatus()
+
     const innerMainPanelRef = mainPanelRef
     if (navigator.platform.indexOf('Win') > -1) {
       document.documentElement.classList.add('perfect-scrollbar-on')
@@ -55,6 +76,17 @@ const Admin = (props) => {
       }
     }
     window.addEventListener('scroll', showNavbarButton)
+
+    // fetch polygons inside dashboard, if we don't have any
+    if (
+      !polygons.data.length &&
+      !polygons.isFetching &&
+      (!countCalls || (countCalls && polygons.error))
+    ) {
+      dispatch(fetchPolygons())
+      setCountCalls(1)
+    }
+
     return function cleanup() {
       if (navigator.platform.indexOf('Win') > -1) {
         ps.destroy()
@@ -92,7 +124,7 @@ const Admin = (props) => {
       if (prop.collapse) {
         return getRoutes(prop.views)
       }
-      if (prop.layout === '/dashboard') {
+      if (prop.layout === '/dashboard' || prop.layout === '/users') {
         return (
           <Route
             path={prop.layout + prop.path}
@@ -123,6 +155,29 @@ const Admin = (props) => {
     return activeRoute
   }
 
+  const getRoutesInnerNavigation = (routesInstance) =>
+    routesInstance.map((prop) => {
+      if (prop.collapse) {
+        return getRoutesInnerNavigation(prop.views)
+      }
+      if (prop.layout === '/users' && !prop.hidden) {
+        return (
+          <NavLink
+            className={classNames('innerMenu', {
+              active:
+                window.location.pathname.indexOf(prop.layout + prop.path) !==
+                -1,
+            })}
+            to={prop.layout + prop.path}
+            key={prop.layout + prop.name}
+          >
+            {prop.name}
+          </NavLink>
+        )
+      }
+      return null
+    })
+
   const handleMiniClick = () => {
     const notifyMessage = 'Sidebar mini '
     // if (document.body.classList.contains("sidebar-mini")) {
@@ -132,8 +187,7 @@ const Admin = (props) => {
     //   setSidebarMini(true);
     //   notifyMessage += "activated...";
     // }
-    let options = {}
-    options = {
+    const options = {
       place: 'tr',
       message: notifyMessage,
       type: 'primary',
@@ -190,29 +244,18 @@ const Admin = (props) => {
         />
 
         <div className="content">
-        {isConfirmed === false ? (
-        <UncontrolledAlert
-          className="alert-with-icon"
-          color="danger"
-          fade={false}
-        >
-          <span data-notify="icon" className="tim-icons icon-bell-55" />
-          <span data-notify="message">
-            You have to verify your email to use Agro services. Please{' '}
-            {/* eslint-disable-next-line */}
-            <a href="#" target="_blank">
-              click here
-            </a>{' '}
-            to get an email with the confirmation link.
-          </span>
-        </UncontrolledAlert>
-      ) : (
-        <p></p>
-      )}
-          <Switch>
-            {getRoutes(routes)}
-            <Redirect from="*" to="/dashboard/polygons" />
-          </Switch>
+          <Container fluid="xxl">
+            <ErrorBoundary>
+              <div className="d-flex justify-content-end text-uppercase">
+                {getRoutesInnerNavigation(routes)}
+              </div>
+              {isConfirmed === false && <EmailConfirmationNotification />}
+              <Switch>
+                {getRoutes(routes)}
+                <Redirect from="*" to="/dashboard/polygons" />
+              </Switch>
+            </ErrorBoundary>
+          </Container>
         </div>
         {
           // we don't want the Footer to be rendered on full screen maps page

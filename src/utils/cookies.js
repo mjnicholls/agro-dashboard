@@ -16,16 +16,29 @@ const getCookie = (name) => {
   return res
 }
 
-const setCookie = (name, value) => {
-  const date = new Date()
-  date.setTime(date.getTime() + 86400000)
-  const options = { path: '/', expires: date.toUTCString() }
-  let updatedCookie = `${name}=${encodeURIComponent(value)}`
+const setCookie = (name, value, domain) => {
+  const cookieValue = `${name}=${encodeURIComponent(value)}`
+  document.cookie = setOptions(cookieValue, domain)
+}
+
+function setOptions(cookieContent, domain) {
+  const expiryDate = expiryDateOneMonthFromNow()
+  const options = { path: '/', expires: expiryDate }
+  if (domain) {
+    options.domain = domain
+  }
   const optionsArray = Object.keys(options)
   for (let i = 0; i < optionsArray.length; i += 1) {
-    updatedCookie += `;${optionsArray[i]}=${options[optionsArray[i]]}`
+    cookieContent += `;${optionsArray[i]}=${options[optionsArray[i]]}`
   }
-  document.cookie = updatedCookie
+  return cookieContent
+}
+
+function expiryDateOneMonthFromNow() {
+  const oneMonthInMs = 30 * 60 * 60 * 1000
+  const date = new Date()
+  date.setTime(date.getTime() + oneMonthInMs)
+  return date.toUTCString()
 }
 
 const deleteCookie = (name, path, domain) => {

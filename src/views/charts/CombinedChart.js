@@ -26,7 +26,7 @@ import {
   thresholdSettings,
 } from '../../config'
 import { getDateInPast } from '../../utils/dateTime'
-import TabsSelector from '../agro-components/TabsSelector'
+import TabsSelector from '../components/TabsSelector'
 import DatePickerFromTo from './ui/DatePickerFromTo'
 
 const selectUnits = (state) => state.units.isMetric
@@ -95,7 +95,7 @@ const CombinedChart = ({ polyId, onecall }) => {
      * - accumulated precipitation
      * - history soil
      * - history weather data
-     * Limits come from backend as:
+     * LimitsApi come from backend as:
      * -1: unlimited
      * 0: not available for this tariff
      * int - number in years
@@ -140,7 +140,7 @@ const CombinedChart = ({ polyId, onecall }) => {
       setEarliestAvailableDate(newEarliestAvailableDate)
       if (newStartDate) {
         setStartDate(newStartDate.getTime())
-        setEndDate(new Date().getTime())
+        setEndDate(new Date().getTime() - 5000) // 5 seconds lead time for the back-end
       }
     }
   }, [limitAccPrec, limitAccTemp, limitSoil, limitHistoryWeather, polyId])

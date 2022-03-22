@@ -1,15 +1,44 @@
 /** Start looking satellite images from the 1st of January, 2010
  * Realistically the first satellite image is available in the year 2013
  * */
-export const startSatelliteImagesSearchDate = 1262304000
 
-// center map to London
 export const mapBoxAccessToken =
   'pk.eyJ1IjoiYXZvbG92aWsiLCJhIjoiY2txdzNpdWs1MGkwZjJ3cGNrYnZua3I4aCJ9.Le6NapjFYy5FfdDXfBmvrg'
+
+export const gaID = 'G-JE5157018X'
+
+export const supportEmail = 'info@openweathermap.org'
+export const supportEmailMailTo = `mailto:${supportEmail}`
+
+export const defaultTimeout = 15000
+export const longTimeout = { timeout: 200000 }
+
 export const polygonShapeSize = 48
+export const startSatelliteImagesSearchDate = 1262304000
+export const passwordLength = 8
+
+export const errors = {
+  tariff: 'This feature is not available with your subscription plan',
+  noBlank: 'Cannot be blank',
+  passwordLength: `Password must be ${passwordLength} characters or more`,
+  passwordMissMatch: "Passwords don't match",
+}
+
+export const cookies = {
+  ad: 'agro-ad',
+  token: 'AGRO_TOKEN',
+  units: 'agro-units',
+}
+
+export const itemsPerPage = 10
 
 export const tariffError =
   'This feature is not available with your subscription plan'
+export const noBlankErrorMessage = 'Cannot be blank'
+
+export const vegetationIndices =
+  'NDVI, EVI, EVI2, NRI, DSWI, NDWI, True color, False color'
+
 export const defaultStartHistoryWeatherCharts = 1 // months
 export const cropColorDict = {
   0: {

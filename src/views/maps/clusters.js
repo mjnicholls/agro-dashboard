@@ -131,6 +131,7 @@ export const displayClusters = (map, polygons, onHover) => {
 
   if (onHover) {
     map.on('mouseenter', 'unclustered-point', (e) => {
+      /* eslint-disable-next-line */
       map.getCanvas().style.cursor = 'pointer'
       const features = map.queryRenderedFeatures(e.point, {
         layers: ['unclustered-point'],
@@ -139,6 +140,7 @@ export const displayClusters = (map, polygons, onHover) => {
     })
 
     map.on('mouseenter', 'clusters', (e) => {
+      /* eslint-disable-next-line */
       map.getCanvas().style.cursor = 'pointer'
       const features = map.queryRenderedFeatures(e.point, {
         layers: ['clusters'],

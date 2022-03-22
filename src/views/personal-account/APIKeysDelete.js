@@ -1,12 +1,14 @@
 import React from 'react'
+
+import PropTypes from 'prop-types'
 import { useDispatch } from 'react-redux'
 import { Button, Col, Row } from 'reactstrap'
-import { deleteAPIKey } from '../../api/personalAccountAPI'
+
+import { deleteAPIKey } from '../../api/apiAccount'
 import {
   notifyError,
   notifySuccess,
 } from '../../features/notifications/actions'
-import PropTypes from 'prop-types'
 
 const ApiKeyDelete = ({ apiKey, close, refreshData }) => {
   const dispatch = useDispatch()
@@ -37,15 +39,6 @@ const ApiKeyDelete = ({ apiKey, close, refreshData }) => {
       </Row>
 
       <div className="agro-pop-up-footer">
-        {/* <Button
-          className="btn-neutral"
-          color="default"
-          type="button"
-          onClick={close}
-        >
-          Cancel
-        </Button>
-       */}
         <Button
           className="btn-neutral"
           color="default"
