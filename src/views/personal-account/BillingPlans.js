@@ -296,7 +296,7 @@ const BillingPlans = () => {
                         </a>
                       </td>
                       <td>
-                        <FontAwesomeIcon icon={faCheckCircle} />
+                        Unavailable
                       </td>
                       <td>
                         <FontAwesomeIcon icon={faCheckCircle} />
