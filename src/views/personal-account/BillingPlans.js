@@ -338,7 +338,7 @@ const BillingPlans = () => {
                     </tr>
                     <tr>
                       <td>
-                        API calls <b></b> to historical weather data
+                        API calls <b>per day</b> to historical weather data
                       </td>
                       <td>{subscriptions.free.api_calls_historical}</td>
                       <td>{subscriptions.starter.api_calls_historical}</td>
