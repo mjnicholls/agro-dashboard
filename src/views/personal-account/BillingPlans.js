@@ -295,9 +295,7 @@ const BillingPlans = () => {
                           Historical soil temperature and moisture
                         </a>
                       </td>
-                      <td>
-                        Unavailable
-                      </td>
+                      <td>-</td>
                       <td>
                         <FontAwesomeIcon icon={faCheckCircle} />
                       </td>
@@ -340,7 +338,7 @@ const BillingPlans = () => {
                     </tr>
                     <tr>
                       <td>
-                        API calls <b>per day</b> to historical weather data
+                        API calls <b></b> to historical weather data
                       </td>
                       <td>{subscriptions.free.api_calls_historical}</td>
                       <td>{subscriptions.starter.api_calls_historical}</td>
@@ -408,7 +406,7 @@ const BillingPlans = () => {
                           Historical weather data
                         </a>
                       </td>
-                      <td>—</td>
+                      <td>-</td>
                       <td>
                         <FontAwesomeIcon icon={faCheckCircle} />
                       </td>
@@ -426,7 +424,7 @@ const BillingPlans = () => {
                           Accumulated precipitation
                         </a>
                       </td>
-                      <td>—</td>
+                      <td>-</td>
                       <td>
                         <FontAwesomeIcon icon={faCheckCircle} />
                       </td>
@@ -444,7 +442,7 @@ const BillingPlans = () => {
                           Accumulated temperature
                         </a>
                       </td>
-                      <td>—</td>
+                      <td>-</td>
                       <td>
                         <FontAwesomeIcon icon={faCheckCircle} />
                       </td>
@@ -482,7 +480,7 @@ const BillingPlans = () => {
                           Forecast UV index
                         </a>
                       </td>
-                      <td>—</td>
+                      <td>-</td>
                       <td>
                         <FontAwesomeIcon icon={faCheckCircle} />
                       </td>
@@ -500,7 +498,7 @@ const BillingPlans = () => {
                           Historical UV index
                         </a>
                       </td>
-                      <td>—</td>
+                      <td>-</td>
                       <td>
                         <FontAwesomeIcon icon={faCheckCircle} />
                       </td>
