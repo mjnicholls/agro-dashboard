@@ -265,7 +265,7 @@ export const subscriptions = {
     price_exceeded_area: 'Flexible discount system',
     api_calls_per_day: 'Unlimited',
     api_calls_historical: 'Unlimited',
-    historical_data_depths: 'Total archive',
+    historical_data_depths: 'Total archive on request',
     satellite_imagery_data: 'Total archive',
     satellite_imagery_service: 'Near real-time (operative) satellite data',
     soil_update: '2 times/day',
