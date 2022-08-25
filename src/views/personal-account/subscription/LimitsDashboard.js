@@ -112,7 +112,8 @@ const LimitsDashboard = (props) => {
               <td>Historical NDVI Chart</td>
               <td>{depthInYears(auth.limits.history.ndvi_history.depth)}</td>
               {tariff === 'corp' && (
-                <td>{toDate(auth.limits.history.ndvi_history.start)}</td>
+                /* <td>{toDate(auth.limits.history.ndvi_history.start)}</td> */
+                <td>Jan 1, 2018</td> 
               )}
             </tr>
           </tbody>
@@ -192,7 +193,8 @@ const LimitsDashboard = (props) => {
               <td>Historical Weather Data</td>
               <td>{depthInYears(auth.limits.history.weather_history.depth)}</td>
               {tariff === 'corp' && (
-                <td>{toDate(auth.limits.history.weather_history.start)}</td>
+                <td>Total archive on request</td>
+                /*<td>{toDate(auth.limits.history.weather_history.start)}</td>*/
               )}
             </tr>
           </tbody>

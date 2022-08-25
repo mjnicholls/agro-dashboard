@@ -31,7 +31,7 @@ const Footer = (props) => (
                 Documentation
               </a>
             </li>{' '}
-            <li className="nav-item">
+            {/* <li className="nav-item">
               <a
                 className="nav-link"
                 href="https://old.agromonitoring.com/dashboard/satellite"
@@ -51,6 +51,7 @@ const Footer = (props) => (
                 Old Personal Account
               </a>
             </li>
+            */}
           </ul>
         </Col>
         <Col lg="4">
