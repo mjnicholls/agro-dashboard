@@ -1,5 +1,7 @@
 @import './black-dashboard-pro-react/custom/variables';
 
+// The @use rule loads mixins, functions, and variables from other Sass stylesheets, and combines CSS from multiple stylesheets together. Stylesheets loaded by @use are called "modules".
+
 $danger-color: #ec250d;
 $fontColorBlack: #595959;
 $fontColorGrey: rgba(255, 255, 255, 0.5);
@@ -10,6 +12,11 @@ $mapHeight: 400px;
 .justify {
   justify-content: space-between;
 }
+
+
+
+
+// Mixins allow you to define styles that can be re-used throughout your stylesheet.
 
 @mixin horizontal-container {
   display: flex;
